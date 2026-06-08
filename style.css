@@ -1376,14 +1376,14 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   display: flex;
   background: #F3EFE8;
   overflow: hidden;
-  min-height: 600px;
+  min-height: 620px;
 }
 .wwu-content {
   flex: 0 0 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(4rem, 7vw, 7rem) clamp(2rem, 5vw, 5rem) clamp(4rem, 7vw, 7rem) clamp(2.5rem, 6vw, 6rem);
+  padding: clamp(2rem, 3vw, 3rem) clamp(2rem, 5vw, 5rem) clamp(2rem, 3vw, 3rem) clamp(2.5rem, 6vw, 6rem);
   color: #1C3063;
 }
 .wwu-content .section-eyebrow {
@@ -1395,17 +1395,20 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   font-family: 'Marcellus', serif;
   font-size: clamp(2rem, 4vw, 3rem);
   letter-spacing: 0.12em;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   color: #1C3063;
 }
 .wwu-content p {
   font-size: 0.92rem;
-  line-height: 1.9;
+  line-height: 1.75;
   color: #4a4643;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
 }
 .wwu-content p:last-of-type {
-  margin-bottom: 2rem;
+  margin-bottom: 1.25rem;
+}
+.wwu-content .btn {
+  align-self: flex-start;
 }
 
 /* Right: photo panel */
@@ -1413,12 +1416,15 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   flex: 0 0 50%;
   position: relative;
   overflow: hidden;
+  align-self: stretch;
 }
 .wwu-photo img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 65% 30%;
+  object-position: 65% 10%;
   display: block;
 }
 /* Fade left edge of photo into cream */
@@ -1570,6 +1576,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   height: 50px;
   width: auto;
   opacity: 0.5;
+  filter: brightness(0) invert(1);
 }
 
 /* ── Bottom bar ── */
