@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Testimonials | The Jaiswal Group Real Estate</title>
+  <meta name="description" content="Read what clients say about working with Lynnette Jaiswal and The Jaiswal Group Real Estate — San Diego's top-rated luxury real estate team." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Raleway:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+
+    /* ── Page hero banner ── */
+    .reviews-hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+    }
+
+    /* Full-bleed background photo */
+    .reviews-hero-photo {
+      position: absolute;
+      inset: 0;
+    }
+    .reviews-hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+    }
+    .reviews-hero-photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(24,37,75,0.15) 0%,
+        rgba(24,37,75,0.1) 40%,
+        rgba(24,37,75,0.65) 68%,
+        rgba(24,37,75,0.92) 100%
+      );
+    }
+
+    /* Overlay text anchored to bottom */
+    .reviews-hero-inner {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      padding: clamp(2.5rem, 5vw, 4rem) clamp(2rem, 6vw, 6rem) clamp(3rem, 5vw, 4.5rem);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .reviews-hero .section-eyebrow {
+      color: #B38987;
+      margin-bottom: 0.75rem;
+    }
+    .reviews-hero h1 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      color: #fff;
+      letter-spacing: 0.06em;
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+    .reviews-hero-divider {
+      width: 50px;
+      height: 1px;
+      background: #B38987;
+      margin: 0 auto 1.75rem;
+    }
+    .reviews-hero .reviews-hero-about {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.95;
+      max-width: 640px;
+      margin-bottom: 0.4rem;
+    }
+    .reviews-hero .reviews-hero-about:last-of-type {
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Stars rating badge ── */
+    .reviews-rating-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(179,137,135,0.35);
+      padding: 0.6rem 1.4rem;
+      margin-bottom: 2rem;
+    }
+    .reviews-rating-badge .stars-row {
+      color: #B38987;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+    }
+    .reviews-rating-badge span {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ── External review links bar (below grid) ── */
+    .reviews-links-bar {
+      background: #F6F6F4;
+      padding: 0 clamp(1.5rem, 5vw, 4rem) clamp(2rem, 3vw, 2.5rem);
+    }
+    .reviews-links-bar-inner {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+    .reviews-links-bar a {
+      text-decoration: none;
+    }
+
+    /* ── Testimonials grid section ── */
+    .reviews-grid-section {
+      background: #F6F6F4;
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+    }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+    .review-card {
+      background: #fff;
+      border-left: 4px solid #B38987;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.06);
+      padding: 2rem 2rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .review-open-quote {
+      font-family: 'Georgia', serif;
+      font-size: 7rem;
+      color: #B38987;
+      line-height: 0.8;
+      margin-bottom: 0.75rem;
+      opacity: 0.45;
+      font-weight: 700;
+      text-align: center;
+    }
+    .review-card blockquote {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.92rem;
+      font-style: italic;
+      color: #322E2D;
+      line-height: 1.85;
+      flex: 1;
+      margin-bottom: 1.5rem;
+    }
+    .review-card-footer {
+      border-top: 1px solid rgba(179,137,135,0.25);
+      padding-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .review-cite {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #1C3063;
+      font-style: normal;
+    }
+    .review-source {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #B38987;
+      white-space: nowrap;
+    }
+
+    /* ── CTA strip at bottom ── */
+    .reviews-cta {
+      background: #18254B;
+      padding: clamp(3rem, 5vw, 4.5rem) 2rem;
+      text-align: center;
+    }
+    .reviews-cta p.section-eyebrow { color: #B38987; margin-bottom: 0.75rem; }
+    .reviews-cta h2 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      color: #fff;
+      margin-bottom: 1rem;
+      letter-spacing: 0.04em;
+    }
+    .reviews-cta p.cta-sub {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.8;
+      max-width: 520px;
+      margin: 0 auto 2rem;
+    }
+    .reviews-cta-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 1024px) {
+      .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .reviews-grid { grid-template-columns: 1fr; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================
+       HEADER / NAV
+  ========================================================= -->
+  <header class="site-header" id="site-header">
+    <div class="header-top">
+      <div class="social-icons">
+        <a href="https://www.facebook.com/LynnetteJaiswalRealtor" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://www.instagram.com/lynnettejaiswalrealtor/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="https://www.youtube.com/@LynnetteJaiswalRealtor" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-logo">
+        <img src="LOGOS/JaiswalGroupRE_white.png" class="logo-white" alt="The Jaiswal Group Real Estate" />
+        <img src="logo.png" class="logo-color" alt="The Jaiswal Group Real Estate" />
+      </a>
+      <ul class="nav-links">
+        <li class="has-dropdown">
+          <a href="#">BUY A HOME <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="#">Featured Listings</a></li>
+            <li><a href="#">Search for Homes</a></li>
+            <li><a href="#">New Construction</a></li>
+            <li><a href="#">Buyer's Guide</a></li>
+            <li><a href="#">Buyer FAQ</a></li>
+            <li><a href="#">Mortgage Calculator</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">SELL YOUR HOME <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="#">Seller Consultation</a></li>
+            <li><a href="#">Instant Home Valuation</a></li>
+            <li><a href="#">Our Marketing</a></li>
+            <li><a href="#">Seller's Guide</a></li>
+            <li><a href="#">Selling Checklist</a></li>
+          </ul>
+        </li>
+        <li><a href="#">COMMUNITIES</a></li>
+        <li><a href="#">BLOG</a></li>
+        <li class="has-dropdown">
+          <a href="#">RESOURCES <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="#">Market Updates</a></li>
+            <li><a href="#">The Plugged In Method</a></li>
+            <li><a href="#">Recommended Lenders</a></li>
+            <li><a href="#">Relocation Guide</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">ABOUT US <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="#">Lynnette Jaiswal</a></li>
+            <li><a href="testimonials.html">Client Reviews</a></li>
+            <li><a href="#">Join Our Team</a></li>
+          </ul>
+        </li>
+        <li><a href="contact.html">CONTACT</a></li>
+        <li class="nav-phone"><a href="tel:8586634896">(858) 663-4896</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Menu" id="hamburger">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <ul>
+        <li><a href="#">Buy a Home</a></li>
+        <li><a href="#">Sell Your Home</a></li>
+        <li><a href="#">Communities</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Resources</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="tel:8586634896">(858) 663-4896</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       HERO BANNER
+  ========================================================= -->
+  <section class="reviews-hero">
+    <div class="reviews-hero-photo">
+      <img src="Lynnette-Casual.jpg" alt="Lynnette Jaiswal, The Jaiswal Group Real Estate" />
+    </div>
+    <div class="reviews-hero-inner">
+      <h1>CLIENT REVIEWS</h1>
+      <div class="reviews-hero-divider"></div>
+      <p class="reviews-hero-about">At The Jaiswal Group Real Estate, we believe exceptional representation begins with trust, thoughtful guidance, and a deep understanding of the San Diego market.</p>
+      <p class="reviews-hero-about">Known for our responsive communication, strategic approach, and highly personalized service, we're committed to helping clients feel confident and well-supported throughout every step of the buying or selling process.</p>
+      <div class="reviews-rating-badge">
+        <span class="stars-row">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        <span>100% 5-Star Reviews</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       TESTIMONIALS GRID
+  ========================================================= -->
+  <section class="reviews-grid-section">
+    <div class="reviews-grid">
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>I originally found Lynnette while I was researching realtors within my Facebook groups. Each time someone inquired about a real estate agent, the thread would be filled with recommendations for Lynnette. She remained adamant that we were aware of the processes and next steps. She constantly provided in-depth responses to our questions and made sure we felt good throughout the process. Within a few very quick months, Lynnette helped us purchase a home — in a crazy Seller's market where there are numerous bidders. She knew how to make our offers look desirable and how to get the attention of the sellers. She did a great job at sealing the deal for us while protecting our money and having our best interest in mind during every situation.</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Robin D.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>Lynnette handled the sale of our home with professionalism and made our experience as hassle-free as possible. I really appreciated how she worked with our tenants to ensure the process was the least invasive possible while they still occupied the home. They too are now huge fans of Lynnette! She was always available via text, phone or Zoom and worked tirelessly to champion us as sellers. I would recommend her to anyone looking to sell or buy!</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Bill P.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>EXCELLENT! Lynnette Jaiswal expertly managed the sale of our existing home &amp; purchase of our new home. Her ability to anticipate &amp; navigate potential road blocks was INVALUABLE. She helped us quickly sell our home in Del Mar &amp; I would absolutely recommend her to family &amp; friends.</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Marsha O.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>Lynnette has been absolutely incredible in supporting our move to the area. Her knowledge of the local market is exceptional, and she has been a pleasure to deal with from start to finish. She helped our family get a fantastic deal on a property in Torrey Hills and made the process smooth from start to finish. She really went the extra mile for us, and I couldn't recommend working with her more.</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Gavin A.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>After talking with Lynnette for the first time, I knew she was different from other realtors. She was so warm, authentic and helpful — it was clear that her only goal was helping us to achieve what we wanted through the sale of our home. She guided us every step of the way with her expertise and knowledge about selling in the La Jolla market. She was extremely communicative, encouraging, and patient with everyone involved in the sale. She is truly a gem!</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Nicole P.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>Lynnette's knowledge of the Del Mar and surrounding market gave us great confidence as we went through the listing process. Lynnette guided us every step of the way, was always available to answer questions and was critical in our obtaining maximum value for our home.</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Nick P.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>We have recently moved to San Diego from the UK with my husband's work. Lynnette helped us relocate and find the perfect rental for our time in SD and I honestly couldn't recommend her more! We knew very little about the area and we found her expertise and knowledge about the Carmel Valley area to be amazing. She went above and beyond to welcome us to the area and was able to use her magic to handle any of the little bumps along the way.</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Samantha R.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>I had the best experience working with Lynnette! She could understand our house requirements just after our first conversation. She had so much knowledge about the area, schools, and overall community — it made our decision making so much smoother and the process of closing seamless! She is a delight to work with!</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Kimi V.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>Lynnette represented us in our recent purchase and performed outstandingly from beginning to end. She is extremely knowledgeable, resourceful, and patient. We were doing our research about the San Diego area and came across Lynnette's YouTube channel. Her knowledge about the San Diego area shines in her videos and that got us sold on contacting her to help us find our home. She exceeded our expectations in all areas, and we highly recommend her to others.</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Mark T.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>We had a great experience selling our home with Lynnette! She helped us every step of the way. She gave us all of our options and she explained it really well. Lynnette was really fun to work with. She is very knowledgeable! She will do whatever she can to help her clients! We look forward to working with her in the future.</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Jason B.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>Lynnette helped my brother and I purchase a home and provided a level of service that surpassed my expectations! At one point we thought that we were going to fall out of escrow but she was able to hold it all together working with the sellers and us, which led to us finally being able to close escrow on our first home. There's nothing she can't do! She is honest and trustworthy — she will definitely remain our real estate agent for LIFE!</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Leslie R.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>Lynnette was so professional, knowledgeable and so supportive through the whole process of selling our house. She went above and beyond what we expected in a real estate agent. I would highly recommend working with her!</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Rachel R.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>Lynnette identified the ideal home for my family in the precise location we wanted in one fell swoop. In just one showing, we were sold and made the offer on the house in a beautiful part of Carlsbad with a top-ranked school for my kids. Home buying is a burdensome process — but this one was super easy, super smooth. I highly recommend working with Lynnette!</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Vishal B.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>We had to embark on a home search from Chicago moving to San Diego and knew nothing about the area. Lynnette found the house we ultimately bought after I told her no — going and looking at it herself and FaceTiming me to show me the photos didn't do it justice. We ended up winning the offer despite not being the highest. She is incredibly responsive, is on top of every step of the buying process, and did all of this for us being nearly 3,000 miles away. HIRE HER! She is literally magic and is beyond an agent.</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">The Rathsam Family</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>As first-time homebuyers, the process felt overwhelming at times, but Lynnette made everything feel manageable and clear. What stood out the most was how much she genuinely cared about finding the right home for our family — not just closing a deal. She was patient, honest, and always advocated for us. We always felt like we were her top priority. We are so grateful for her support and would highly recommend Lynnette to anyone looking to buy or sell a home!</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Lindsey O.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>As first-time homebuyers, the process felt overwhelming at times, but Lynnette made everything feel manageable and clear. She was incredibly knowledgeable, responsive, and always took the time to explain each step so we felt confident in every decision. Her guidance helped us navigate challenges and ultimately secure a home we absolutely love. We are so grateful for her support and would highly recommend Lynnette to anyone looking to buy or sell a home!</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Michael S.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>We recently purchased our single-family home in Valley Center using a VA loan, and we couldn't be happier with our experience working with Lynnette. Throughout the entire process, she was a strong advocate for us with the seller — negotiating not only terms that fit our needs, but also securing some of our closing costs, which was such a huge help. Her expertise, dedication, and personal touch made all the difference. She truly goes above and beyond for her clients.</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Happiness O.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>Lynnette helped me as a first-time homebuyer purchase a manufactured home in Fallbrook, and I couldn't be more grateful! She was so patient throughout the process, explaining every step in a way that made me feel confident and informed. Lynnette guided me through the offer, inspections, and closing with such care, and I always felt like she had my best interests at heart.</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Marlene L.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>Lynnette was incredible, from her negotiation skills to her follow-through, we were so grateful to have such a hands-on realtor! She truly gives A+ service and becomes a wonderful friend through the process. She helped us back out of the first home after uncovering major issues — keeping us completely financially protected — and seamlessly got us into another contract for an even better home. We can't recommend Lynnette enough!</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Domonique G.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-open-quote">&#8220;</div>
+        <blockquote>I recently had the pleasure of working with Lynnette to sell my mother's home of over 60 years. From start to finish, she went above and beyond to make the process as smooth as possible, knowing it was an emotional process for me and my family. She was always 10 steps ahead of what was needed, and their expertise and attention to detail were evident throughout the entire process. Overall, I cannot recommend Lynnette highly enough.</blockquote>
+        <div class="review-card-footer">
+          <cite class="review-cite">Jojie O.</cite>
+          <span class="review-source">Google Review</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       EXTERNAL REVIEW LINKS
+  ========================================================= -->
+  <div class="reviews-links-bar">
+    <div class="reviews-links-bar-inner">
+      <a href="https://g.page/r/CadNwKvRi2DDEBM/review" class="btn btn-primary" target="_blank" rel="noopener">Leave a Google Review</a>
+      <a href="https://www.google.com/search?q=Lynnette+Jaiswal%2C+San+Diego+REALTOR%C2%AE+The+Jaiswal+Group+Real+Estate+at+Pacific+Highlands+Ranch%2C+Indigo+Sage+Drive%2C+San+Diego%2C+CA&sca_esv=47b14df0f15d899c&source=hp&ei=adclas3UDeXOkPIPyKrWyAw&iflsig=AFdpzrgAAAAAaiXleZZ8RYGBJwsFsbxrOCYL8MF18A-4&oq=thejaiswa&gs_lp=Egdnd3Mtd2l6Igl0aGVqYWlzd2EqAggAMgIQJjIIEAAYgAQYogQyBRAAGO8FMgUQABjvBUibGFAAWPEIcAB4AJABAJgBRKAB4wOqAQE5uAEByAEA-AEBmAIJoAL5A8ICERAuGIAEGLEDGIMBGMcBGNEDwgILEAAYgAQYsQMYgwHCAgUQABiABMICDhAuGIAEGIoFGLEDGIMBwgIOEC4YgAQYsQMYxwEY0QPCAgsQLhiABBixAxiDAcICCxAuGIAEGMcBGNEDwgIIEC4YgAQYsQPCAgUQLhiABMICDhAAGIAEGIoFGLEDGIMBwgIHEAAYgAQYCsICDRAuGIAEGMcBGK8BGArCAgcQABiABBgNwgIHEC4YgAQYDZgDAJIHATmgB9dWsgcBObgH-QPCBwMzLjbIBw-ACAE&sclient=gws-wiz&sei=bdclauibFc-ekPIPwe2ioAI#lrd=0x80dc0d7ac5af1a9b:0xc3608bd1abc04da7,1,,,," class="btn btn-primary" target="_blank" rel="noopener">View on Google</a>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       CTA STRIP
+  ========================================================= -->
+  <section class="reviews-cta">
+    <p class="section-eyebrow light">Ready to Get Started?</p>
+    <h2>LET'S MAKE YOUR NEXT MOVE EXCEPTIONAL</h2>
+    <p class="cta-sub">Join the hundreds of San Diego families who have trusted The Jaiswal Group Real Estate to guide them home.</p>
+    <div class="reviews-cta-btns">
+      <a href="index.html#consultation" class="btn btn-outline-light">REQUEST A CONSULTATION</a>
+      <a href="contact.html" class="btn btn-outline-light">CONTACT US</a>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================= -->
+  <footer class="site-footer">
+    <div class="footer-info">
+      <div class="footer-info-col footer-info-col--logo">
+        <img src="LOGOS/JaiswalGroupRE_white.png" alt="The Jaiswal Group Real Estate" class="footer-logo" />
+      </div>
+      <div class="footer-info-col">
+        <div class="footer-info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="footer-info-text">
+          <p class="footer-info-label">OFFICE ADDRESS</p>
+          <p>5450 INDIGO SAGE DRIVE<br>SAN DIEGO, CA 92130</p>
+          <p class="footer-info-label" style="margin-top:1.25rem;">MAILING ADDRESS</p>
+          <p>PO BOX 3102<br>RANCHO SANTA FE, CA 92067</p>
+          <p style="margin-top:1rem; white-space:nowrap;">LYNNETTE JAISWAL &nbsp;|&nbsp; CA DRE #02100367</p>
+          <p style="margin-top:0.4rem; white-space:nowrap;">THE JAISWAL GROUP, INC &nbsp;|&nbsp; CA DRE #02251231</p>
+        </div>
+      </div>
+      <div class="footer-info-col">
+        <div class="footer-info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        </div>
+        <div class="footer-info-text">
+          <p class="footer-info-label">EMAIL</p>
+          <p><a href="mailto:Lynnette@thejaiswalgroup.com">LYNNETTE@THEJAISWALGROUP.COM</a></p>
+        </div>
+      </div>
+      <div class="footer-info-col">
+        <div class="footer-info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
+        </div>
+        <div class="footer-info-text">
+          <p class="footer-info-label">PHONE</p>
+          <p><a href="tel:8586634896">(858) 663-4896</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-disclaimer-block">
+      <p>The Jaiswal Group Real Estate is a real estate broker licensed by the State of California and abides by Equal Housing Opportunity laws. License Number #02251231. All material presented herein is intended for informational purposes only and is compiled from sources deemed reliable but has not been verified. Changes in price, condition, sale or withdrawal may be made without notice. No statement is made as to accuracy of any description. All measurements and square footage are approximate.</p>
+      <div class="footer-compliance-logos">
+        <img src="logorealtor.png" alt="Realtor" class="footer-compliance-logo" />
+        <img src="logoEHO.png" alt="Equal Housing Opportunity" class="footer-compliance-logo" />
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <span>&copy; 2026 The Jaiswal Group Real Estate</span>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="#">Site Map</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/LynnetteJaiswalRealtor" aria-label="Facebook" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/lynnettejaiswalrealtor/" aria-label="Instagram" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@LynnetteJaiswalRealtor" aria-label="YouTube" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@lynnettejaiswalrealtor" aria-label="TikTok" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/lynnettejaiswalrealtor/" aria-label="LinkedIn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="https://g.page/r/CadNwKvRi2DDEBM/review" aria-label="Google Reviews" class="footer-social-text" target="_blank" rel="noopener">G</a>
+        <a href="https://www.zillow.com/profile/Lynnette%20Jaiswal" aria-label="Zillow" class="footer-social-text" target="_blank" rel="noopener">Z</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

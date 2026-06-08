@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact | The Jaiswal Group Real Estate</title>
+  <meta name="description" content="Contact Lynnette Jaiswal — San Diego's premier luxury real estate agent. Reach out to schedule a consultation or ask about buying or selling." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Raleway:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+
+    /* ── Full-bleed background page ── */
+    html, body { height: 100%; }
+
+    /* ── Close button ── */
+    .contact-close {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.8rem;
+      z-index: 100;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #fff;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      font-size: 1rem;
+      line-height: 1;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .contact-close:hover,
+    .contact-close:focus-visible {
+      background: rgba(179,137,135,0.5);
+      border-color: #B38987;
+      outline: none;
+    }
+
+    .contact-page {
+      position: relative;
+      min-height: 100vh;
+      background: url('background-lets-connect.png') center 40% / cover no-repeat fixed;
+      display: flex;
+      align-items: center;
+      padding: clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 5rem) clamp(3rem, 6vw, 5rem);
+    }
+    .contact-page-overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(20,32,64,0.78) 0%,
+        rgba(20,32,64,0.45) 40%,
+        rgba(20,32,64,0.18) 65%,
+        rgba(20,32,64,0.05) 100%
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .contact-grid {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1160px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: start;
+    }
+
+    /* ── Left Info Column — white text on image ── */
+    .contact-info {
+      padding-top: 0.5rem;
+    }
+    .contact-logo {
+      display: block;
+      height: 60px;
+      width: auto;
+      margin-bottom: 2rem;
+    }
+    .contact-info .section-eyebrow {
+      color: #B38987;
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: 0;
+      text-transform: none;
+      font-family: 'Marcellus', serif;
+      display: block;
+      margin-bottom: 0.7rem;
+    }
+    .contact-info h2 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      color: #fff;
+      margin-bottom: 1.2rem;
+      line-height: 1.15;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    }
+    .contact-info .contact-intro {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.85;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 2.2rem;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.15);
+    }
+    .contact-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      margin-bottom: 1.4rem;
+    }
+    .contact-detail-icon {
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .contact-detail-icon svg {
+      width: 15px;
+      height: 15px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .contact-detail-text {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.6;
+    }
+    .contact-detail-text strong {
+      display: block;
+      font-weight: 700;
+      font-size: 0.68rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #B38987;
+      margin-bottom: 0.2rem;
+    }
+    .contact-detail-text a {
+      color: rgba(255,255,255,0.9);
+      transition: color 0.2s;
+    }
+    .contact-detail-text a:hover { color: #B38987; }
+
+    .contact-social-row {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+    .contact-social-row a {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+      backdrop-filter: blur(4px);
+    }
+    .contact-social-row a:hover {
+      background: rgba(179,137,135,0.5);
+      border-color: #B38987;
+    }
+    .contact-social-row svg {
+      width: 14px;
+      height: 14px;
+      stroke: rgba(255,255,255,0.85);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .cs-text {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      line-height: 1;
+    }
+
+    /* ── Right Form Column ── */
+    .contact-form-wrap {
+      background: rgba(24,37,75,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: clamp(2rem, 4vw, 3.5rem) clamp(1.8rem, 4vw, 3rem);
+      border-radius: 2px;
+    }
+
+    .contact-form-wrap h3 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      color: #fff;
+      margin-bottom: 1.8rem;
+      letter-spacing: 0.03em;
+    }
+    .cf-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .cf-row.full { grid-template-columns: 1fr; }
+
+    .cf-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .cf-group label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+    }
+    .cf-group input,
+    .cf-group select,
+    .cf-group textarea {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,0.35);
+      padding: 0.6rem 0;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.88rem;
+      color: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .cf-group input::placeholder,
+    .cf-group textarea::placeholder {
+      color: rgba(255,255,255,0.3);
+    }
+    .cf-group input:focus,
+    .cf-group select:focus,
+    .cf-group textarea:focus {
+      border-bottom-color: #B38987;
+    }
+    .cf-group select {
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      color: rgba(255,255,255,0.8);
+    }
+    .cf-group select option {
+      background: #18254B;
+      color: #fff;
+    }
+    .cf-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .cf-submit { margin-top: 1.8rem; }
+    .cf-submit .btn {
+      width: 100%;
+      text-align: center;
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.5);
+      letter-spacing: 0.2em;
+      padding: 1rem 2rem;
+      transition: background 0.25s, border-color 0.25s, color 0.25s;
+    }
+    .cf-submit .btn:hover {
+      background: #B38987;
+      border-color: #B38987;
+      color: #fff;
+    }
+
+    .cf-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+    .cf-consent input[type="checkbox"] {
+      flex-shrink: 0;
+      margin-top: 0.2rem;
+      width: 14px;
+      height: 14px;
+      accent-color: #B38987;
+      cursor: pointer;
+    }
+    .cf-consent span {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.65;
+    }
+    .cf-consent a { color: rgba(255,255,255,0.6); text-decoration: underline; }
+    .cf-consent a:hover { color: #B38987; }
+    .cf-consent.cf-consent--error span { color: rgba(224,112,112,0.85); }
+
+    /* ── Success Message ── */
+    .cf-success {
+      display: none;
+      text-align: left;
+      padding: 2rem 0;
+    }
+    .cf-success-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 2px solid #B38987;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 0 1.5rem;
+    }
+    .cf-success-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: #B38987;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .cf-success h4 {
+      font-family: 'Marcellus', serif;
+      font-size: 1.3rem;
+      color: #fff;
+      margin-bottom: 1.2rem;
+    }
+    .cf-success p {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+    .cf-success p:last-child { margin-bottom: 0; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .contact-page { background-attachment: scroll; }
+      .contact-page-overlay {
+        background: rgba(20,32,64,0.65);
+      }
+    }
+    /* ── Mobile header (logo + headline above form) ── */
+    .contact-mobile-header {
+      display: none;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 768px) {
+      .contact-grid { grid-template-columns: 1fr; }
+      .cf-row { grid-template-columns: 1fr; }
+      .contact-info { display: none; }
+      .contact-mobile-header {
+        display: block;
+        text-align: center;
+        padding-bottom: 1.5rem;
+      }
+      .contact-mobile-header img {
+        height: 48px;
+        width: auto;
+        margin-bottom: 1rem;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .contact-mobile-header p {
+        font-family: 'Marcellus', serif;
+        font-size: 1.4rem;
+        color: #fff;
+        line-height: 1.25;
+        text-shadow: 0 2px 12px rgba(0,0,0,0.2);
+        margin: 0;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================
+       CONTACT — FULL BLEED
+  ========================================================= -->
+  <main class="contact-page">
+    <button class="contact-close" onclick="document.referrer ? history.back() : window.location='index.html'" aria-label="Close">&#10005;</button>
+    <div class="contact-page-overlay"></div>
+    <!-- Mobile-only header -->
+    <div class="contact-mobile-header">
+      <img src="LOGOS/JaiswalGroupRE_white.png" alt="The Jaiswal Group Real Estate" />
+      <p>We'd Love to Hear From You</p>
+    </div>
+
+    <div class="contact-grid">
+
+      <!-- LEFT: Info -->
+      <div class="contact-info">
+        <img src="LOGOS/JaiswalGroupRE_white.png" alt="The Jaiswal Group Real Estate" class="contact-logo" />
+        <span class="section-eyebrow">Get In Touch</span>
+        <h2>We'd Love to Hear From You</h2>
+        <p class="contact-intro">Whether you're ready to buy, sell, or simply explore your options, Lynnette and her team are here to guide you every step of the way. Reach out and let's start the conversation.</p>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.61 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.69a16 16 0 0 0 6 6l.86-.86a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <strong>Phone</strong>
+            <a href="tel:8586634896">(858) 663-4896</a>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <strong>Email</strong>
+            <a href="mailto:Lynnette@thejaiswalgroup.com">Lynnette@thejaiswalgroup.com</a>
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <strong>Mailing Address</strong>
+            PO Box 3102<br>Rancho Santa Fe, CA 92067
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="contact-detail-text">
+            <strong>Office Hours</strong>
+            Monday – Friday: 9am – 6pm<br>
+            Saturday: 10am – 4pm<br>
+            Sunday: By Appointment
+          </div>
+        </div>
+
+        <div class="contact-social-row">
+          <a href="https://www.facebook.com/LynnetteJaiswalRealtor" aria-label="Facebook" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/lynnettejaiswalrealtor/" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.youtube.com/@LynnetteJaiswalRealtor" aria-label="YouTube" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@lynnettejaiswalrealtor" aria-label="TikTok" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/lynnettejaiswalrealtor/" aria-label="LinkedIn" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://g.page/r/CadNwKvRi2DDEBM/review" aria-label="Google Reviews" target="_blank" rel="noopener">
+            <span class="cs-text">G</span>
+          </a>
+          <a href="https://www.zillow.com/profile/Lynnette%20Jaiswal" aria-label="Zillow" target="_blank" rel="noopener">
+            <span class="cs-text">Z</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- RIGHT: Form -->
+      <div class="contact-form-wrap">
+        <h3>Let's Connect</h3>
+
+        <form id="contact-form" novalidate>
+
+          <!-- Formspree hidden fields -->
+          <input type="hidden" name="_subject" value="New Contact Inquiry — The Jaiswal Group" />
+          <input type="hidden" name="_replyto" id="hidden-replyto" value="" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <div class="cf-row">
+            <div class="cf-group">
+              <label for="cf-first">First Name *</label>
+              <input type="text" id="cf-first" name="first_name" placeholder="Jane" required autocomplete="given-name" />
+            </div>
+            <div class="cf-group">
+              <label for="cf-last">Last Name *</label>
+              <input type="text" id="cf-last" name="last_name" placeholder="Smith" required autocomplete="family-name" />
+            </div>
+          </div>
+
+          <div class="cf-row">
+            <div class="cf-group">
+              <label for="cf-email">Email Address *</label>
+              <input type="email" id="cf-email" name="email" placeholder="jane@email.com" required autocomplete="email" />
+            </div>
+            <div class="cf-group">
+              <label for="cf-phone">Phone Number</label>
+              <input type="tel" id="cf-phone" name="phone" placeholder="(000) 000-0000" autocomplete="tel" />
+            </div>
+          </div>
+
+          <div class="cf-row full">
+            <div class="cf-group">
+              <label for="cf-interest">I'm Interested In</label>
+              <select id="cf-interest" name="interest">
+                <option value="" disabled selected>Select one…</option>
+                <option value="buying">Buying a Home</option>
+                <option value="selling">Selling My Home</option>
+                <option value="both">Buying &amp; Selling</option>
+                <option value="valuation">Home Valuation</option>
+                <option value="relocation">Relocation</option>
+                <option value="investment">Investment Property</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="cf-row full">
+            <div class="cf-group">
+              <label for="cf-timeline">Timeline</label>
+              <select id="cf-timeline" name="timeline">
+                <option value="" disabled selected>When are you looking to move?</option>
+                <option value="asap">As Soon As Possible</option>
+                <option value="3months">Within 3 Months</option>
+                <option value="6months">3–6 Months</option>
+                <option value="year">6–12 Months</option>
+                <option value="exploring">Just Exploring</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="cf-row full">
+            <div class="cf-group">
+              <label for="cf-message">Message</label>
+              <textarea id="cf-message" name="message" placeholder="Tell us about your goals, ideal neighborhood, budget range, or any questions you have…"></textarea>
+            </div>
+          </div>
+
+          <div class="cf-row full">
+            <label class="cf-consent">
+              <input type="checkbox" name="consent" required />
+              <span>I agree to be contacted by The Jaiswal Group Real Estate via call, email, and text for real estate services. To opt out, you can reply 'stop' at any time or reply 'help' for assistance. You can also click the unsubscribe link in the emails. Message and data rates may apply. Message frequency may vary. <a href="privacy-policy.html">Privacy Policy</a>.</span>
+            </label>
+          </div>
+
+          <div class="cf-submit">
+            <button type="submit" class="btn">LET'S CONNECT</button>
+          </div>
+        </form>
+
+        <!-- Success state -->
+        <div class="cf-success" id="cf-success">
+          <div class="cf-success-icon">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h4>Message Received</h4>
+          <p>Your message has been received and we truly appreciate you taking the time to connect.</p>
+          <p>Whether you're considering buying, selling, relocating, or simply exploring your options in San Diego, we look forward to learning more about your goals and how we can best support you.</p>
+          <p>We will be in touch with you shortly.</p>
+          <p>In the meantime, feel free to explore the latest market updates, communities, and lifestyle content throughout the site.</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="main.js"></script>
+  <script>
+    const form = document.getElementById('contact-form');
+    const successEl = document.getElementById('cf-success');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    // Keep hidden _replyto in sync with the email field
+    document.getElementById('cf-email').addEventListener('input', function() {
+      document.getElementById('hidden-replyto').value = this.value;
+    });
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      // Validation
+      const first = document.getElementById('cf-first').value.trim();
+      const last  = document.getElementById('cf-last').value.trim();
+      const email = document.getElementById('cf-email').value.trim();
+      let valid = true;
+      [['cf-first', first], ['cf-last', last], ['cf-email', email]].forEach(([id, val]) => {
+        const el = document.getElementById(id);
+        if (!val) {
+          el.style.borderBottomColor = '#e07070';
+          valid = false;
+        } else {
+          el.style.borderBottomColor = '';
+        }
+      });
+      const consent = form.querySelector('input[name="consent"]');
+      const consentLabel = consent.closest('label');
+      if (!consent.checked) {
+        consentLabel.classList.add('cf-consent--error');
+        valid = false;
+      } else {
+        consentLabel.classList.remove('cf-consent--error');
+      }
+      if (!valid) return;
+
+      // Submit
+      submitBtn.textContent = 'SENDING…';
+      submitBtn.disabled = true;
+
+      try {
+        const response = await fetch('https://formspree.io/f/xreveowp', {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          form.style.display = 'none';
+          successEl.style.display = 'block';
+        } else {
+          submitBtn.textContent = 'LET\'S CONNECT';
+          submitBtn.disabled = false;
+          alert('Something went wrong. Please try again or email us directly at Lynnette@thejaiswalgroup.com');
+        }
+      } catch (err) {
+        submitBtn.textContent = 'LET\'S CONNECT';
+        submitBtn.disabled = false;
+        alert('Unable to send. Please check your connection or email us at Lynnette@thejaiswalgroup.com');
+      }
+    });
+  </script>
+</body>
+</html>
