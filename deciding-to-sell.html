@@ -46,6 +46,127 @@
     }
 
 
+    /* ── Stats Strip ── */
+    .seller-stats-strip {
+      background: #fff;
+      padding: 2.25rem clamp(1.5rem, 5vw, 4rem);
+      border-bottom: 1px solid rgba(28,48,99,0.07);
+    }
+    .seller-stats-track {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(2rem, 6vw, 6rem);
+      max-width: 760px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .seller-stat { flex: 1; }
+    .seller-stat-num {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+      color: #18254B;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .seller-stat-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #B38987;
+    }
+    .seller-stats-divider {
+      width: 1px;
+      height: 40px;
+      background: rgba(28,48,99,0.12);
+      flex-shrink: 0;
+    }
+    @media (max-width: 560px) {
+      .seller-stats-divider { display: none; }
+      .seller-stats-track { gap: 1.5rem; }
+    }
+
+    /* ── Testimonials ── */
+    .seller-testimonials {
+      background: #18254B;
+      padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 6vw, 6rem);
+    }
+    .seller-testimonials-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .seller-testimonials-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .seller-testimonials-header h2 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.3rem, 2vw, 1.7rem);
+      color: #fff;
+      letter-spacing: 0.1em;
+      margin-bottom: 0;
+    }
+    .seller-testimonials-header .section-eyebrow {
+      color: #B38987;
+      margin-bottom: 0.75rem;
+    }
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .testimonial-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(179,137,135,0.25);
+      padding: 2rem 1.75rem;
+    }
+    .testimonial-stars {
+      color: #B38987;
+      font-size: 0.9rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+    .testimonial-quote {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.9;
+      font-style: italic;
+      margin-bottom: 1.25rem;
+    }
+    .testimonial-author {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #B38987;
+      margin: 0;
+    }
+    .testimonials-cta {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .testimonials-cta a {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #B38987;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(179,137,135,0.4);
+      padding-bottom: 0.15rem;
+      transition: color 0.2s;
+    }
+    .testimonials-cta a:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+    @media (max-width: 700px) {
+      .testimonial-grid { grid-template-columns: 1fr; }
+    }
+
     /* ── Seller Timeline ── */
     .buyer-timeline {
       background: #F3EFE8;
@@ -444,8 +565,29 @@
     </div>
     <div class="page-hero-inner">
       <h1>Selling Your Home in San Diego, CA</h1>
+      <p>The right strategy and the right representation can mean tens of thousands of dollars difference in your outcome.</p>
     </div>
   </section>
+
+  <!-- STATS STRIP -->
+  <div class="seller-stats-strip">
+    <div class="seller-stats-track">
+      <div class="seller-stat">
+        <div class="seller-stat-num">$75M+</div>
+        <div class="seller-stat-label">Career Sales Volume</div>
+      </div>
+      <div class="seller-stats-divider"></div>
+      <div class="seller-stat">
+        <div class="seller-stat-num">Top 3%</div>
+        <div class="seller-stat-label">REALTORS&reg; in San Diego County</div>
+      </div>
+      <div class="seller-stats-divider"></div>
+      <div class="seller-stat">
+        <div class="seller-stat-num">100%</div>
+        <div class="seller-stat-label">5-Star Client Reviews</div>
+      </div>
+    </div>
+  </div>
 
   <!-- TIMELINE -->
   <div class="buyer-timeline">
@@ -680,6 +822,32 @@
           <h3>Fast, Smooth Closings</h3>
           <p>Our vendor network — from stagers and photographers to contractors and title companies — means your home gets to market faster and closes on time, every time.</p>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <!-- REPLACE the two placeholder quotes below with real client testimonials -->
+  <div class="seller-testimonials">
+    <div class="seller-testimonials-inner">
+      <div class="seller-testimonials-header">
+        <p class="section-eyebrow">Client Reviews</p>
+        <h2>WHAT OUR SELLERS SAY</h2>
+      </div>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-quote">"Replace this with a real client quote. Aim for 2–3 sentences that speak to the result, the experience, or both — something specific and genuine that a prospective seller would find reassuring."</p>
+          <p class="testimonial-author">— Client Name, Neighborhood</p>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="testimonial-quote">"Replace this with a second real client quote. A seller testimonial that references pricing strategy, smooth process, or achieving a great outcome tends to resonate most with prospective sellers."</p>
+          <p class="testimonial-author">— Client Name, Neighborhood</p>
+        </div>
+      </div>
+      <div class="testimonials-cta">
+        <a href="testimonials.html">READ ALL CLIENT REVIEWS &rarr;</a>
       </div>
     </div>
   </div>
