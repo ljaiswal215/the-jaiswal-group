@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Deciding to Sell Your San Diego Home | The Jaiswal Group Real Estate</title>
-  <meta name="description" content="Thinking about selling your home in San Diego? Lynnette Jaiswal shares what to consider, how to prepare, and how to get the best price in today's market." />
+  <title>Selling Your Home in San Diego, CA | The Jaiswal Group Real Estate</title>
+  <meta name="description" content="Thinking about selling your home in San Diego? Lynnette Jaiswal walks you through every step — from pricing strategy to close of escrow — with confidence." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Raleway:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -13,11 +13,16 @@
 
     /* ── Hero ── */
     .page-hero {
-      position: relative; width: 100%; height: 70vh; min-height: 500px; overflow: hidden;
+      position: relative;
+      width: 100%;
+      height: 70vh;
+      min-height: 500px;
+      overflow: hidden;
     }
     .page-hero-photo { position: absolute; inset: 0; }
     .page-hero-photo img {
-      width: 100%; height: 100%; object-fit: cover; object-position: center 40%; display: block;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 40%; display: block;
     }
     .page-hero-photo::after {
       content: ''; position: absolute; inset: 0;
@@ -26,11 +31,13 @@
     .page-hero-inner {
       position: absolute; inset: 0; z-index: 1;
       display: flex; flex-direction: column; align-items: center;
-      justify-content: center; text-align: center; padding: clamp(2rem, 6vw, 6rem);
+      justify-content: center; text-align: center;
+      padding: clamp(2rem, 6vw, 6rem);
     }
     .page-hero-inner .section-eyebrow { color: #B38987; margin-bottom: 1rem; }
     .page-hero-inner h1 {
-      font-family: 'Marcellus', serif; font-size: clamp(2rem, 4vw, 3.2rem);
+      font-family: 'Marcellus', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
       color: #fff; letter-spacing: 0.06em; line-height: 1.15; margin-bottom: 1rem;
     }
     .page-hero-inner p {
@@ -38,148 +45,263 @@
       color: rgba(255,255,255,0.8); max-width: 560px; line-height: 1.8;
     }
 
-    /* ── Shared Layout Styles ── */
-    .page-intro {
-      padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 6vw, 6rem);
-      display: flex; gap: 4rem; align-items: center;
-      max-width: 1200px; margin: 0 auto;
-    }
-    .page-intro-text { flex: 1; }
-    .page-intro-text h2 {
-      font-family: 'Marcellus', serif; font-size: clamp(1.5rem, 2.5vw, 2rem);
-      color: #18254B; letter-spacing: 0.05em; margin-bottom: 1rem;
-    }
-    .page-intro-text p {
-      font-family: 'Raleway', sans-serif; font-size: 0.9rem;
-      color: #4a4643; line-height: 1.9; margin-bottom: 1rem;
-    }
-    .page-intro-stats {
-      flex: 0 0 280px; display: flex; flex-direction: column; gap: 1.25rem;
-    }
-    .page-stat {
-      background: #fff; padding: 1.25rem 1.5rem; border-left: 3px solid #B38987;
-    }
-    .page-stat-num {
-      font-family: 'Marcellus', serif; font-size: 1.8rem; color: #18254B; line-height: 1;
-    }
-    .page-stat-label {
-      font-family: 'Raleway', sans-serif; font-size: 0.75rem; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase; color: #6b6460; margin-top: 0.25rem;
-    }
-    .page-section { padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 6vw, 6rem); max-width: 1200px; margin: 0 auto; }
-    .page-section-header { text-align: center; margin-bottom: 3rem; }
-    .page-section-header h2 {
-      font-family: 'Marcellus', serif; font-size: clamp(1.5rem, 2.5vw, 2rem);
-      color: #18254B; letter-spacing: 0.05em; margin-bottom: 0.5rem;
-    }
-    .page-section-header p {
-      font-family: 'Raleway', sans-serif; font-size: 0.88rem;
-      color: #6b6460; max-width: 580px; margin: 0 auto;
-    }
-    .questions-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-    .question-card {
-      background: #F6F6F4; padding: 1.75rem; border-top: 3px solid #1C3063;
-    }
-    .question-card h3 {
-      font-family: 'Raleway', sans-serif; font-size: 0.85rem; font-weight: 700;
-      letter-spacing: 0.08em; text-transform: uppercase; color: #1C3063; margin-bottom: 0.75rem;
-    }
-    .question-card p {
-      font-family: 'Raleway', sans-serif; font-size: 0.85rem;
-      color: #4a4643; line-height: 1.8; margin: 0;
-    }
 
-    /* ── Seller Advantage Strip ── */
-    .advantage-strip {
+    /* ── Seller Timeline ── */
+    .buyer-timeline {
       background: #F3EFE8;
-      padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 6vw, 6rem);
+      padding: clamp(2.5rem, 4vw, 3.5rem) clamp(1.5rem, 5vw, 4rem);
     }
-    .advantage-strip .page-section-header { margin-bottom: 2.5rem; }
-    .advantage-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
-      max-width: 1100px; margin: 0 auto;
+    .buyer-timeline h2 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1rem, 1.5vw, 1.2rem);
+      color: rgba(28,48,99,0.45);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 2.5rem;
     }
-    .advantage-card {
-      background: #fff; padding: 2rem 1.5rem; text-align: center;
+    .timeline-track {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
     }
-    .advantage-card-icon {
-      width: 48px; height: 48px; background: rgba(179,137,135,0.12);
-      border-radius: 50%; display: flex; align-items: center;
-      justify-content: center; margin: 0 auto 1rem;
+    .timeline-track::before {
+      content: '';
+      position: absolute;
+      top: 22px;
+      left: 22px;
+      right: 22px;
+      height: 2px;
+      background: rgba(28,48,99,0.12);
+      z-index: 0;
     }
-    .advantage-card-icon svg {
-      width: 20px; height: 20px; stroke: #B38987; fill: none;
-      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    .timeline-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      flex: 1;
+      position: relative;
+      z-index: 1;
+      padding: 0 0.25rem;
     }
-    .advantage-card h3 {
-      font-family: 'Raleway', sans-serif; font-size: 0.8rem; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase; color: #1C3063; margin-bottom: 0.6rem;
+    .timeline-num {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #1C3063;
+      border: 2px solid #B38987;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Marcellus', serif;
+      font-size: 1rem;
+      color: #B38987;
+      margin-bottom: 0.75rem;
+      flex-shrink: 0;
     }
-    .advantage-card p {
-      font-family: 'Raleway', sans-serif; font-size: 0.83rem;
-      color: #6b6460; line-height: 1.8; margin: 0;
+    .timeline-step.active .timeline-num {
+      background: #B38987;
+      border-color: #B38987;
+      color: #fff;
+    }
+    .timeline-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(28,48,99,0.45);
+      line-height: 1.4;
+      max-width: 80px;
+    }
+    .timeline-step.active .timeline-label {
+      color: #1C3063;
     }
 
-    /* ── Steps ── */
-    .steps-section {
-      background: #18254B;
-      padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 6vw, 6rem);
-    }
-    .steps-inner { max-width: 1100px; margin: 0 auto; }
-    .steps-section .page-section-header h2 { color: #fff; }
-    .steps-section .page-section-header p { color: rgba(255,255,255,0.65); }
-    .steps-list { display: flex; flex-direction: column; gap: 0; }
-    .step-item {
-      display: flex; gap: 2rem; align-items: flex-start;
-      padding: 1.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .step-item:last-child { border-bottom: none; }
-    .step-num {
-      flex: 0 0 48px; height: 48px;
-      background: rgba(179,137,135,0.2); border: 1px solid #B38987;
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-family: 'Marcellus', serif; font-size: 1.1rem; color: #B38987;
-    }
-    .step-content h3 {
-      font-family: 'Raleway', sans-serif; font-size: 0.85rem; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase; color: #fff; margin-bottom: 0.4rem;
-    }
-    .step-content p {
-      font-family: 'Raleway', sans-serif; font-size: 0.85rem;
-      color: rgba(255,255,255,0.65); line-height: 1.8; margin: 0;
+    @media (max-width: 860px) {
+      .timeline-track {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+      }
+      .timeline-track::before {
+        top: 22px;
+        bottom: 22px;
+        left: 22px;
+        right: auto;
+        width: 2px;
+        height: auto;
+      }
+      .timeline-step {
+        flex-direction: row;
+        text-align: left;
+        gap: 1rem;
+        padding: 0.6rem 0;
+        flex: none;
+        width: 100%;
+      }
+      .timeline-num { margin-bottom: 0; flex-shrink: 0; }
+      .timeline-label { max-width: none; }
     }
 
-    /* ── CTA ── */
-    .page-cta {
+    /* ── Milestone Content ── */
+    .milestone-section {
+      background: #F6F6F4;
+      padding: clamp(3rem, 5vw, 5rem) clamp(1rem, 2.5vw, 2.5rem);
+    }
+    .milestone-row {
+      display: flex;
+      align-items: center;
+      gap: clamp(0.75rem, 2vw, 2.5rem);
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+    .milestone-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .milestone-panel {
+      display: none;
+    }
+    .milestone-panel.active {
+      display: block;
+    }
+    .milestone-panel h2 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      color: #18254B;
+      letter-spacing: 0.05em;
+      margin-bottom: 1.25rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(179,137,135,0.3);
+    }
+    .milestone-panel p {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.92rem;
+      color: #4a4643;
+      line-height: 1.95;
+      margin-bottom: 1rem;
+    }
+    .milestone-panel h3 {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #B38987;
+      margin: 1.75rem 0 0.6rem;
+    }
+    .milestone-panel ul {
+      margin: 0.25rem 0 1.25rem 1.25rem;
+      padding: 0;
+    }
+    .milestone-panel ul li {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.92rem;
+      color: #4a4643;
+      line-height: 1.85;
+      margin-bottom: 0.35rem;
+      list-style: none;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+    .milestone-panel ul li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.65em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #B38987;
+    }
+    .milestone-side-arrow {
+      flex-shrink: 0;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: 1.5px solid rgba(28,48,99,0.25);
+      border-radius: 50%;
+      cursor: pointer;
+      color: #1C3063;
+      transition: color 0.2s, border-color 0.2s;
+      align-self: center;
+    }
+    .milestone-side-arrow:hover:not(:disabled) {
+      color: #B38987;
+      border-color: #B38987;
+    }
+    .milestone-side-arrow:disabled {
+      color: rgba(28,48,99,0.18);
+      border-color: rgba(28,48,99,0.1);
+      cursor: default;
+    }
+    .milestone-side-arrow svg {
+      width: 20px;
+      height: 20px;
+    }
+    @media (max-width: 480px) {
+      .milestone-side-arrow { width: 38px; height: 38px; }
+      .milestone-side-arrow svg { width: 16px; height: 16px; }
+    }
+
+    /* ── Timeline clickable ── */
+    .timeline-step { cursor: pointer; }
+    .timeline-step:hover .timeline-num {
+      background: rgba(179,137,135,0.3);
+      border-color: #B38987;
+    }
+
+    @media (max-width: 860px) {
+      .milestone-row { gap: 0.5rem; }
+    }
+
+    /* ── Seller CTA Form ── */
+    .seller-cta-wrap {
       padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 6vw, 6rem);
-      display: flex; gap: 3rem; align-items: center;
-      max-width: 1200px; margin: 0 auto;
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
     }
-    .page-cta-text { flex: 1; }
-    .page-cta-text h2 {
-      font-family: 'Marcellus', serif; font-size: clamp(1.5rem, 2.5vw, 2rem);
-      color: #18254B; margin-bottom: 1rem;
+    .seller-cta-text { flex: 1; }
+    .seller-cta-text h2 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      color: #18254B;
+      margin-bottom: 1rem;
     }
-    .page-cta-text p {
-      font-family: 'Raleway', sans-serif; font-size: 0.9rem;
-      color: #4a4643; line-height: 1.9; margin-bottom: 1rem;
+    .seller-cta-text p {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.9rem;
+      color: #4a4643;
+      line-height: 1.9;
+      margin-bottom: 1rem;
     }
-    .page-cta-form { flex: 0 0 380px; }
-    .page-cta-form input {
+    .seller-cta-form-wrap { flex: 0 0 380px; }
+    .seller-cta-form-wrap input {
       width: 100%; padding: 0.85rem 1rem;
       font-family: 'Raleway', sans-serif; font-size: 0.88rem; color: #18254B;
       background: #fff; border: 1px solid rgba(28,48,99,0.2); outline: none;
       margin-bottom: 0.75rem; box-sizing: border-box; transition: border-color 0.2s;
     }
-    .page-cta-form input:focus { border-color: #B38987; }
-    .page-cta-form input::placeholder { color: rgba(28,48,99,0.4); }
-    .page-cta-form button {
+    .seller-cta-form-wrap input:focus { border-color: #B38987; }
+    .seller-cta-form-wrap input::placeholder { color: rgba(28,48,99,0.4); }
+    .seller-cta-form-wrap button {
       width: 100%; padding: 0.9rem; background: #1C3063; color: #F6F6F4;
       font-family: 'Raleway', sans-serif; font-size: 0.75rem; font-weight: 700;
       letter-spacing: 0.18em; text-transform: uppercase; border: 2px solid #1C3063;
       cursor: pointer; transition: background 0.2s, color 0.2s;
     }
-    .page-cta-form button:hover { background: #18254B; color: #B38987; border-color: #18254B; }
+    .seller-cta-form-wrap button:hover { background: #18254B; color: #B38987; border-color: #18254B; }
     .consent-text {
       font-family: 'Raleway', sans-serif; font-size: 0.7rem;
       color: rgba(28,48,99,0.45); line-height: 1.7; margin-top: 0.5rem;
@@ -192,13 +314,8 @@
     .cta-success p { font-family: 'Raleway', sans-serif; font-size: 0.85rem; color: #4a4643; line-height: 1.8; margin: 0; }
 
     @media (max-width: 860px) {
-      .page-intro { flex-direction: column; gap: 2rem; padding: 3rem 1.5rem; }
-      .page-intro-stats { flex: none; width: 100%; flex-direction: row; flex-wrap: wrap; }
-      .page-stat { flex: 1; min-width: 140px; }
-      .questions-grid { grid-template-columns: 1fr; }
-      .advantage-grid { grid-template-columns: 1fr; }
-      .page-cta { flex-direction: column; gap: 2rem; }
-      .page-cta-form { flex: none; width: 100%; }
+      .seller-cta-wrap { flex-direction: column; gap: 2rem; padding: 3rem 1.5rem; }
+      .seller-cta-form-wrap { flex: none; width: 100%; }
     }
   </style>
 </head>
@@ -278,196 +395,203 @@
   <!-- HERO -->
   <section class="page-hero">
     <div class="page-hero-photo">
-      <img src="deciding-to-sell.jpg" alt="Deciding to sell your home in San Diego" />
+      <img src="deciding-to-sell.jpg" alt="Selling a home in San Diego" />
     </div>
     <div class="page-hero-inner">
-      <p class="section-eyebrow">Seller Resources</p>
-      <h1>DECIDING TO SELL</h1>
-      <p>Selling your home is a major financial decision. The right strategy — and the right agent — can mean tens of thousands of dollars difference in your final outcome.</p>
+      <h1>Selling Your Home in San Diego, CA</h1>
     </div>
   </section>
 
-  <!-- INTRO -->
+  <!-- TIMELINE -->
+  <div class="buyer-timeline">
+    <h2>The Home Selling Journey</h2>
+    <div class="timeline-track">
+      <div class="timeline-step active">
+        <div class="timeline-num">1</div>
+        <div class="timeline-label">Deciding to Sell</div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-num">2</div>
+        <div class="timeline-label">Choose an Agent</div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-num">3</div>
+        <div class="timeline-label">Price Strategically</div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-num">4</div>
+        <div class="timeline-label">Prepare to Sell</div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-num">5</div>
+        <div class="timeline-label">Accepting an Offer</div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-num">6</div>
+        <div class="timeline-label">Under Contract</div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-num">7</div>
+        <div class="timeline-label">Close of Escrow</div>
+      </div>
+      <div class="timeline-step">
+        <div class="timeline-num">8</div>
+        <div class="timeline-label">Stay in Touch</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MILESTONE CONTENT -->
+  <div class="milestone-section">
+    <div class="milestone-row">
+
+    <button class="milestone-side-arrow" id="prev-step" onclick="changeStep(-1)" aria-label="Previous step">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+
+    <div class="milestone-content" id="milestone-content">
+
+      <!-- Step 1 -->
+      <div class="milestone-panel active" data-step="1">
+        <h2>Deciding to Sell</h2>
+        <p>San Diego continues to be one of the most in-demand real estate markets in the country. Whether you're upsizing, downsizing, relocating, or simply ready for a change, selling a home is one of the most significant financial decisions you'll make — and the right time to sell is ultimately when it aligns with your goals, your timeline, and your life.</p>
+        <p>Before listing your home, it's worth taking the time to reflect honestly on a few key questions.</p>
+        <p><strong>Is this the right time financially?</strong> San Diego homeowners have seen significant appreciation in recent years. Understanding your current equity position, any potential tax implications, and your estimated net proceeds is an important first step before deciding to move forward.</p>
+        <p><strong>Where are you going next?</strong> Selling without a clear plan for your next move can create stress and rushed decisions. Whether you're buying another home locally, relocating out of the area, or transitioning to a rental, having a picture of what comes next helps ensure a smooth and confident transition.</p>
+        <p><strong>What's driving your decision?</strong> Life circumstances — a growing family, a job change, a lifestyle shift, an estate situation — all influence how you should approach your sale and what your ideal timeline looks like. There is no one-size-fits-all strategy, and the approach we develop together should reflect your specific goals and circumstances.</p>
+        <p>At The Jaiswal Group Real Estate, every client conversation starts with listening. Our goal is to fully understand your situation before offering any advice — so the strategy we build together is built around you.</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="milestone-panel" data-step="2">
+        <h2>Choose an Agent</h2>
+        <p>In today's market, choosing the right listing agent is one of the most important decisions you'll make as a seller. The agent you hire directly influences how your home is priced, how it's presented, how it's marketed, and ultimately how much you walk away with at closing.</p>
+        <p>Not all agents approach a listing the same way — and in a competitive and nuanced market like San Diego, the difference between average representation and exceptional representation can mean tens of thousands of dollars in your final outcome.</p>
+        <p>At The Jaiswal Group Real Estate, we believe sellers deserve more than a yard sign and an MLS listing. We bring a strategic, concierge-level approach to every sale — combining deep local market knowledge, professional marketing, and skilled negotiation to achieve the best possible result for our clients.</p>
+        <p>As you evaluate who to partner with, here are a few things that matter most:</p>
+        <ul>
+          <li>Local market expertise and genuine neighborhood knowledge</li>
+          <li>A proven track record of results in your price range and area</li>
+          <li>A comprehensive marketing strategy — well beyond MLS exposure</li>
+          <li>Strategic pricing expertise backed by real data</li>
+          <li>Skilled negotiation, especially in multiple-offer situations</li>
+          <li>Honest, transparent communication throughout the entire process</li>
+          <li>A personalized approach centered around your goals and timeline</li>
+        </ul>
+        <p>Lynnette Jaiswal has been recognized among the Top 3% of REALTORS® in San Diego County each year since 2019, has completed over $75M in career sales volume, and holds 14+ professional designations — including the Master Certified Negotiation Expert (MCNE) designation, one of the most advanced negotiation credentials in real estate.</p>
+        <p>Real estate is never just a transaction — it's one of the most significant financial decisions of your life. Choosing the right representation from the start makes all the difference in both your experience and your outcome.</p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="milestone-panel" data-step="3">
+        <h2>Price Strategically</h2>
+        <p>Pricing your home correctly from the very beginning is the single most important factor in achieving a strong sale. Price too high and you risk sitting on the market, accumulating days on market, and ultimately selling for less than if you'd priced it right from the start. Price too low and you leave equity on the table.</p>
+        <p>Lynnette prepares a comprehensive Comparative Market Analysis (CMA) for every seller — a detailed, data-driven evaluation of your home's current market value based on recent comparable sales, active competition, current market trends, and your home's specific condition, features, and location.</p>
+        <p>A well-positioned home priced at market value consistently outperforms overpriced homes in both final sale price and time on market. In San Diego's most desirable communities, strategically priced homes frequently attract multiple offers — sometimes selling above the asking price within the first week.</p>
+        <h3>What Goes Into a Pricing Strategy</h3>
+        <p>Strategic pricing means considering multiple factors together — not just the most recent sale down the street:</p>
+        <ul>
+          <li>Recent comparable sales in your specific neighborhood</li>
+          <li>Current active listings (what buyers are comparing your home to right now)</li>
+          <li>Market absorption rate (how quickly homes are selling in your price range)</li>
+          <li>Your home's unique condition, upgrades, and features</li>
+          <li>The psychology of pricing and how buyers perceive value</li>
+          <li>Your timeline, flexibility, and overall goals</li>
+        </ul>
+        <p>Beyond the data, Lynnette brings strategic insight to every pricing conversation. She'll walk you through exactly what the market is telling her, explain the reasoning behind her recommendation, and help you understand how buyers are likely to respond — so you can enter the market with a clear strategy and genuine confidence.</p>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="milestone-panel" data-step="4">
+        <h2>Prepare to Sell</h2>
+        <p>First impressions drive offers. How your home presents — both online and in person — directly impacts the quality of offers you receive and how quickly they arrive. The goal of pre-listing preparation is straightforward: help buyers fall in love with your home before they ever walk through the door.</p>
+        <p>Lynnette walks every home before it goes on the market and provides a customized pre-listing action plan designed to maximize your home's appeal — focusing your time and investment on the improvements that deliver the strongest return, not simply the ones that feel necessary.</p>
+        <h3>What Preparation Typically Involves</h3>
+        <ul>
+          <li><strong>Decluttering &amp; depersonalization</strong> — Creating a neutral, inviting space that allows buyers to envision their own lives in the home</li>
+          <li><strong>Staging</strong> — Whether full staging or simple furniture repositioning, professionally staged homes consistently sell faster and for more money</li>
+          <li><strong>Repairs and touch-ups</strong> — Addressing deferred maintenance, fresh paint, and cosmetic updates that genuinely matter to buyers</li>
+          <li><strong>Curb appeal</strong> — First impressions begin before buyers step inside; a well-maintained exterior signals a well-cared-for home</li>
+          <li><strong>Professional photography</strong> — In today's market, where the vast majority of buyers begin their search online, high-quality photography is non-negotiable</li>
+        </ul>
+        <p>At The Jaiswal Group Real Estate, we have trusted vendor relationships — from stagers and professional cleaners to painters and contractors — to help get your home market-ready efficiently and affordably. The result is a home that stands out in the market and creates the kind of emotional response that generates competitive offers.</p>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="milestone-panel" data-step="5">
+        <h2>Accepting an Offer</h2>
+        <p>When offers start coming in, strategy becomes just as important as price. Evaluating offers is about far more than the number at the top of the page — terms, contingencies, financing strength, timeline, and the overall structure of each offer all play a role in determining which choice is truly the best one for your goals.</p>
+        <p>Lynnette reviews every offer with you in detail — explaining what each term means, how it affects your risk exposure, and what it means for your net proceeds and timeline. In situations with multiple offers, she helps you navigate a competitive scenario calmly and strategically to achieve the best possible overall outcome.</p>
+        <h3>What We Evaluate in Every Offer</h3>
+        <ul>
+          <li><strong>Purchase price</strong> — and how it relates to your list price, comparable sales, and appraisal risk</li>
+          <li><strong>Financing vs. cash</strong> — a strong cash offer with no appraisal contingency can offer significantly greater certainty of closing</li>
+          <li><strong>Contingencies</strong> — inspection, appraisal, and loan contingencies determine how protected the buyer is and how much flexibility you retain</li>
+          <li><strong>Closing timeline</strong> — does the buyer's proposed timeline align with your plans and next move?</li>
+          <li><strong>Earnest money deposit</strong> — a meaningful deposit signals a serious, committed buyer</li>
+          <li><strong>Additional terms and escalation clauses</strong> — in competitive markets, every detail matters</li>
+        </ul>
+        <p>The goal is never simply to accept the highest number on paper — it's to accept the offer most likely to close smoothly and on time, at the best overall terms for you. Lynnette's Master Certified Negotiation Expert (MCNE) designation means she approaches every offer scenario with the skill and strategy to help you make the smartest decision for your specific situation.</p>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="milestone-panel" data-step="6">
+        <h2>Under Contract</h2>
+        <p>Once you accept an offer, escrow officially opens and the transaction begins moving toward closing. This is where the details matter most — and where having an experienced, attentive agent in your corner makes a meaningful difference in how smoothly everything proceeds.</p>
+        <h3>Disclosures</h3>
+        <p>California requires sellers to disclose any known material facts about the property. Lynnette guides you through the disclosure process carefully, helping ensure you understand your obligations and are fully protected throughout the transaction.</p>
+        <h3>Buyer's Inspections &amp; Repair Negotiations</h3>
+        <p>After going under contract, the buyer will typically conduct a general home inspection — and potentially additional inspections for the roof, sewer, chimney, pool, or other systems depending on the property. Inspection reports can occasionally surface questions or repair requests from the buyer.</p>
+        <p>How you respond to those requests matters strategically. Lynnette helps you evaluate each repair request carefully — determining what to address, what to offer as a credit, and where to hold firm — always with your bottom line and the transaction's overall health in mind.</p>
+        <h3>Appraisal</h3>
+        <p>If the buyer is financing their purchase, their lender will order an independent appraisal to confirm the home's market value. A strong, well-supported pricing strategy from the beginning minimizes the risk of appraisal challenges. If any issues do arise, Lynnette helps navigate them collaboratively and strategically with all parties involved.</p>
+        <h3>Timelines &amp; Communication</h3>
+        <p>Throughout escrow, we coordinate closely with escrow officers, the buyer's agent, lenders, and all parties involved — proactively managing communication, contract deadlines, and milestones to keep your transaction on track from acceptance to closing.</p>
+      </div>
+
+      <!-- Step 7 -->
+      <div class="milestone-panel" data-step="7">
+        <h2>Close of Escrow</h2>
+        <p>Close of escrow is the finish line — and one of the most satisfying moments in the entire selling experience. All contractual obligations have been satisfied, documents have been signed, the buyer's lender has funded, and ownership officially transfers to the new owners.</p>
+        <h3>Final Walkthrough</h3>
+        <p>The buyer will conduct a final walkthrough — typically 24 to 48 hours before closing — to confirm the property's condition and verify that any agreed-upon repairs have been completed. Lynnette helps coordinate this step smoothly and ensures there are no last-minute surprises heading into closing day.</p>
+        <h3>Signing &amp; Settlement</h3>
+        <p>As closing approaches, you'll sign your final closing documents and review your settlement statement — which outlines all closing costs and your confirmed net proceeds. We walk through every number together so you feel fully informed and there are no surprises at the signing table.</p>
+        <h3>Preparing to Move</h3>
+        <p>Prior to closing, begin making arrangements to transfer utilities, cancel home services, forward your mail, and prepare the property for the buyer's possession. Lynnette provides a comprehensive closing checklist to help ensure nothing is overlooked as you transition out.</p>
+        <h3>Recording &amp; Possession</h3>
+        <p>Once the transaction is funded and recorded with the county, ownership officially transfers and the sale is complete. Keys are delivered, proceeds are wired, and the chapter closes.</p>
+        <p><strong>Congratulations — you've successfully sold your home.</strong></p>
+      </div>
+
+      <!-- Step 8 -->
+      <div class="milestone-panel" data-step="8">
+        <h2>Stay in Touch</h2>
+        <p>Selling your home is a major milestone — but our relationship doesn't end at closing.</p>
+        <p>Long after the sale, we remain a trusted resource for our clients. Whether you need recommendations for trusted vendors in your new community, guidance on your next purchase, market updates for a future investment, or simply have a real estate question down the road, we're always just a phone call away.</p>
+        <p>At The Jaiswal Group Real Estate, we believe in building lasting relationships — not just completing transactions. Many of our clients become long-term friends and trusted advocates, and every referral is a reflection of the trust and care we put into every client experience.</p>
+        <p>We're genuinely grateful to have been part of such an important chapter in your life, and we look forward to staying connected for years to come.</p>
+      </div>
+
+    </div><!-- end milestone-content -->
+
+    <button class="milestone-side-arrow" id="next-step" onclick="changeStep(1)" aria-label="Next step">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+
+    </div><!-- end milestone-row -->
+  </div><!-- end milestone-section -->
+
+  <!-- SELLER CONSULTATION CTA -->
   <div style="background:#F3EFE8;">
-    <div class="page-intro">
-      <div class="page-intro-text">
-        <h2>Is Now the Right Time for You to Sell?</h2>
-        <p>San Diego remains one of the most sought-after real estate markets in the country. Limited inventory, strong demand, and consistently appreciating values mean that well-prepared sellers continue to achieve exceptional results.</p>
-        <p>But timing, preparation, and pricing strategy matter enormously. Lynnette's approach ensures your home is positioned to attract the right buyers, generate competitive offers, and close at the highest possible price.</p>
-        <a href="home-valuation.html" class="btn btn-primary" style="margin-top:0.5rem;">GET A FREE HOME VALUATION</a>
-      </div>
-      <div class="page-intro-stats">
-        <div class="page-stat">
-          <div class="page-stat-num">$75M+</div>
-          <div class="page-stat-label">Career Sales Volume</div>
-        </div>
-        <div class="page-stat">
-          <div class="page-stat-num">Top 3%</div>
-          <div class="page-stat-label">REALTORS® in San Diego County</div>
-        </div>
-        <div class="page-stat">
-          <div class="page-stat-num">100%</div>
-          <div class="page-stat-label">5-Star Client Reviews</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- KEY QUESTIONS -->
-  <div class="page-section">
-    <div class="page-section-header">
-      <p class="section-eyebrow" style="color:#B38987;">Before You List</p>
-      <h2>KEY QUESTIONS TO CONSIDER</h2>
-      <p>Before putting your home on the market, Lynnette walks every seller through these critical questions to make sure you're set up for success.</p>
-    </div>
-    <div class="questions-grid">
-      <div class="question-card">
-        <h3>Do I know what my home is actually worth?</h3>
-        <p>Online estimates like Zestimates are notoriously inaccurate — sometimes off by 10–20%. A personalized Comparative Market Analysis from Lynnette gives you a real number based on actual recent sales in your neighborhood.</p>
-      </div>
-      <div class="question-card">
-        <h3>Is my home ready to show?</h3>
-        <p>First impressions drive offers. Lynnette will walk through your home and provide a customized pre-listing plan — from decluttering and staging to repairs that deliver the highest return on investment.</p>
-      </div>
-      <div class="question-card">
-        <h3>Am I clear on my net proceeds?</h3>
-        <p>Understanding your closing costs, agent commissions, and any outstanding mortgage balance helps you plan what comes next — whether that's buying another home or relocating entirely.</p>
-      </div>
-      <div class="question-card">
-        <h3>Where am I going after I sell?</h3>
-        <p>Selling without a plan for your next move can create stress and rushed decisions. Lynnette helps coordinate your timeline so selling and buying align seamlessly.</p>
-      </div>
-      <div class="question-card">
-        <h3>Do I understand today's market conditions?</h3>
-        <p>Is it a buyer's or seller's market right now? How many days are homes sitting? What's the list-to-sale ratio in your neighborhood? Lynnette briefs every seller on market conditions before making any decisions.</p>
-      </div>
-      <div class="question-card">
-        <h3>Do I have a marketing strategy?</h3>
-        <p>Price it right. Photograph it beautifully. Promote it everywhere. The Jaiswal Group's marketing plan combines professional photography, social media, targeted digital advertising, and the MLS to maximize exposure.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- SELLER ADVANTAGES -->
-  <div style="background:#F3EFE8;">
-    <div class="advantage-strip">
-      <div class="page-section-header">
-        <p class="section-eyebrow" style="color:#B38987;">Why Sellers Choose Lynnette</p>
-        <h2>THE JAISWAL GROUP DIFFERENCE</h2>
-        <p>What sets a good sale apart from a great one? Experience, strategy, and a relentless commitment to your result.</p>
-      </div>
-      <div class="advantage-grid">
-        <div class="advantage-card">
-          <div class="advantage-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 17"/><path d="M17 6h6v6"/></svg>
-          </div>
-          <h3>Strategic Pricing</h3>
-          <p>Pricing too high sits. Pricing too low leaves money on the table. Lynnette's data-driven pricing strategy attracts serious buyers and generates competitive offers from day one.</p>
-        </div>
-        <div class="advantage-card">
-          <div class="advantage-card-icon">
-            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          </div>
-          <h3>Premium Marketing</h3>
-          <p>Professional photography, video tours, targeted social media campaigns, and maximum MLS exposure — your home will look its best and reach the right buyers.</p>
-        </div>
-        <div class="advantage-card">
-          <div class="advantage-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
-          <h3>Powerful Negotiation</h3>
-          <p>With 14 professional designations including MCNE (Master Certified Negotiation Expert), Lynnette is trained to protect your equity and negotiate the strongest possible terms.</p>
-        </div>
-        <div class="advantage-card">
-          <div class="advantage-card-icon">
-            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          </div>
-          <h3>Concierge Experience</h3>
-          <p>From pre-listing prep to closing day, you'll have direct access to Lynnette — not an assistant. Every detail is managed so your experience is seamless and stress-free.</p>
-        </div>
-        <div class="advantage-card">
-          <div class="advantage-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <h3>Local Market Knowledge</h3>
-          <p>Lynnette lives and works in San Diego's most desirable communities. She knows the neighborhoods, the buyer pools, and exactly what drives value in your specific area.</p>
-        </div>
-        <div class="advantage-card">
-          <div class="advantage-card-icon">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <h3>Fast, Smooth Closings</h3>
-          <p>Lynnette's vendor network — from stagers and photographers to contractors and title companies — means your home gets to market faster and closes on time, every time.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- STEPS -->
-  <section class="steps-section">
-    <div class="steps-inner">
-      <div class="page-section-header">
-        <p class="section-eyebrow" style="color:#B38987;">The Selling Process</p>
-        <h2>HOW WE SELL YOUR HOME</h2>
-        <p style="color:rgba(255,255,255,0.65);">A proven, step-by-step approach designed to maximize your home's value and minimize stress.</p>
-      </div>
-      <div class="steps-list">
-        <div class="step-item">
-          <div class="step-num">1</div>
-          <div class="step-content">
-            <h3>Seller Consultation</h3>
-            <p>We start with a private conversation about your goals, timeline, and financial expectations. No pressure — just clarity.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">2</div>
-          <div class="step-content">
-            <h3>Home Valuation & Pricing Strategy</h3>
-            <p>Lynnette prepares a comprehensive Comparative Market Analysis and recommends a pricing strategy designed to generate strong offers quickly.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">3</div>
-          <div class="step-content">
-            <h3>Pre-Listing Preparation</h3>
-            <p>We walk your home together and create a customized action plan — staging, repairs, curb appeal — to present your home at its absolute best.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">4</div>
-          <div class="step-content">
-            <h3>Professional Photography & Marketing Launch</h3>
-            <p>High-end photography, video, 3D tours, and a full marketing campaign go live — creating buzz before the home even hits the market.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">5</div>
-          <div class="step-content">
-            <h3>Offers & Negotiation</h3>
-            <p>Lynnette reviews all offers with you in detail, negotiates strongly on your behalf, and helps you choose the best offer — not just the highest number.</p>
-          </div>
-        </div>
-        <div class="step-item">
-          <div class="step-num">6</div>
-          <div class="step-content">
-            <h3>Escrow & Closing</h3>
-            <p>We manage every step of escrow — inspections, repairs, appraisals, and paperwork — so closing day is smooth and on schedule.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BOTTOM CTA -->
-  <div>
-    <div class="page-cta">
-      <div class="page-cta-text">
+    <div class="seller-cta-wrap">
+      <div class="seller-cta-text">
         <h2>Ready to Talk About Selling?</h2>
-        <p>There's no obligation — just an honest conversation about what your home is worth and what a sale could look like for you. Lynnette will come to you, answer every question, and give you a clear picture of your options.</p>
+        <p>There's no obligation — just an honest conversation about what your home is worth and what a sale could look like for you. We'll come to you, answer every question, and give you a clear picture of your options.</p>
         <p><strong>Call or text:</strong> <a href="tel:8586634896" style="color:#B38987;">(858) 663-4896</a></p>
-        <a href="home-valuation.html" class="btn btn-primary">GET YOUR FREE HOME VALUATION</a>
+        <a href="home-valuation.html" class="btn btn-primary" style="margin-top:0.5rem;">GET YOUR FREE HOME VALUATION</a>
       </div>
-      <div class="page-cta-form">
+      <div class="seller-cta-form-wrap">
         <form id="seller-cta-form">
           <input type="hidden" name="_subject" value="Seller Consultation Request — The Jaiswal Group" />
           <input type="hidden" name="source" value="Deciding to Sell Page" />
@@ -492,7 +616,7 @@
     <div class="wwu-content">
       <h2>WORK WITH US</h2>
       <p>Choosing the right representation matters.</p>
-      <p>At The Jaiswal Group Real Estate, every client receives a tailored, concierge-level approach — from exclusive opportunities and strategic negotiation to responsive communication and thoughtful guidance throughout every step of the process.</p>
+      <p>At The Jaiswal Group Real Estate, every client receives a tailored, concierge-level approach — from strategic pricing and premium marketing to skilled negotiation and thoughtful guidance throughout every step of the process.</p>
       <p>Our goal is simple: to help you feel confident, informed, and well-supported from beginning to end.</p>
       <p>Every client relationship is personal, intentional, and backed by a team that genuinely cares about your goals and outcome.</p>
       <p>Let's explore what's possible.</p>
@@ -594,6 +718,44 @@
   </footer>
 
   <script>
+    let currentStep = 1;
+    const totalSteps = 8;
+
+    function changeStep(direction) {
+      goToStep(currentStep + direction);
+    }
+
+    function goToStep(step) {
+      if (step < 1 || step > totalSteps) return;
+
+      // Update panels
+      document.querySelectorAll('.milestone-panel').forEach(p => p.classList.remove('active'));
+      document.querySelector(`.milestone-panel[data-step="${step}"]`).classList.add('active');
+
+      // Update timeline
+      document.querySelectorAll('.timeline-step').forEach((el, i) => {
+        el.classList.toggle('active', i + 1 === step);
+      });
+
+      // Update arrow states
+      document.getElementById('prev-step').disabled = step === 1;
+      document.getElementById('next-step').disabled = step === totalSteps;
+
+      currentStep = step;
+
+      // Scroll to milestone section smoothly
+      document.querySelector('.milestone-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Make timeline steps clickable
+    document.querySelectorAll('.timeline-step').forEach((el, i) => {
+      el.addEventListener('click', () => goToStep(i + 1));
+    });
+
+    // Init disabled state
+    document.getElementById('prev-step').disabled = true;
+
+    // Seller consultation form
     document.getElementById('seller-cta-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       const form = this;
