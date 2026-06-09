@@ -263,6 +263,50 @@
       .milestone-row { gap: 0.5rem; }
     }
 
+    /* ── Section Header ── */
+    .page-section-header { text-align: center; margin-bottom: 3rem; }
+    .page-section-header h2 {
+      font-family: 'Marcellus', serif; font-size: clamp(1.5rem, 2.5vw, 2rem);
+      color: #18254B; letter-spacing: 0.05em; margin-bottom: 0.5rem;
+    }
+    .page-section-header p {
+      font-family: 'Raleway', sans-serif; font-size: 0.88rem;
+      color: #6b6460; max-width: 580px; margin: 0 auto;
+    }
+
+    /* ── Seller Advantage Strip ── */
+    .advantage-strip {
+      padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 6vw, 6rem);
+    }
+    .advantage-strip .page-section-header { margin-bottom: 2.5rem; }
+    .advantage-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .advantage-card {
+      background: #fff; padding: 2rem 1.5rem; text-align: center;
+    }
+    .advantage-card-icon {
+      width: 48px; height: 48px; background: rgba(179,137,135,0.12);
+      border-radius: 50%; display: flex; align-items: center;
+      justify-content: center; margin: 0 auto 1rem;
+    }
+    .advantage-card-icon svg {
+      width: 20px; height: 20px; stroke: #B38987; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .advantage-card h3 {
+      font-family: 'Raleway', sans-serif; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: #1C3063; margin-bottom: 0.6rem;
+    }
+    .advantage-card p {
+      font-family: 'Raleway', sans-serif; font-size: 0.83rem;
+      color: #6b6460; line-height: 1.8; margin: 0;
+    }
+    @media (max-width: 860px) {
+      .advantage-grid { grid-template-columns: 1fr; }
+    }
+
     /* ── Seller CTA Form ── */
     .seller-cta-wrap {
       padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 6vw, 6rem);
@@ -581,6 +625,61 @@
 
     </div><!-- end milestone-row -->
   </div><!-- end milestone-section -->
+
+  <!-- WHY SELLERS CHOOSE LYNNETTE -->
+  <div style="background:#F3EFE8;">
+    <div class="advantage-strip">
+      <div class="page-section-header">
+        <p class="section-eyebrow" style="color:#B38987;">Why Sellers Choose Lynnette</p>
+        <h2>THE JAISWAL GROUP DIFFERENCE</h2>
+        <p>What sets a good sale apart from a great one? Experience, strategy, and a relentless commitment to your result.</p>
+      </div>
+      <div class="advantage-grid">
+        <div class="advantage-card">
+          <div class="advantage-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 17"/><path d="M17 6h6v6"/></svg>
+          </div>
+          <h3>Strategic Pricing</h3>
+          <p>Pricing too high sits. Pricing too low leaves money on the table. Lynnette's data-driven pricing strategy attracts serious buyers and generates competitive offers from day one.</p>
+        </div>
+        <div class="advantage-card">
+          <div class="advantage-card-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+          <h3>Premium Marketing</h3>
+          <p>Professional photography, video tours, targeted social media campaigns, and maximum MLS exposure — your home will look its best and reach the right buyers.</p>
+        </div>
+        <div class="advantage-card">
+          <div class="advantage-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Powerful Negotiation</h3>
+          <p>With 14 professional designations including MCNE (Master Certified Negotiation Expert), Lynnette is trained to protect your equity and negotiate the strongest possible terms.</p>
+        </div>
+        <div class="advantage-card">
+          <div class="advantage-card-icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3>Concierge Experience</h3>
+          <p>From pre-listing prep to closing day, you'll have direct access to Lynnette — not an assistant. Every detail is managed so your experience is seamless and stress-free.</p>
+        </div>
+        <div class="advantage-card">
+          <div class="advantage-card-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Local Market Knowledge</h3>
+          <p>Lynnette lives and works in San Diego's most desirable communities. She knows the neighborhoods, the buyer pools, and exactly what drives value in your specific area.</p>
+        </div>
+        <div class="advantage-card">
+          <div class="advantage-card-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Fast, Smooth Closings</h3>
+          <p>Lynnette's vendor network — from stagers and photographers to contractors and title companies — means your home gets to market faster and closes on time, every time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- SELLER CONSULTATION CTA -->
   <div style="background:#F3EFE8;">
