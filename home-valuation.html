@@ -467,7 +467,8 @@
     .valuation-lead-section {
       display: none;
       background: #fff;
-      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 5rem);
+      padding: clamp(4rem, 7vw, 6rem) clamp(1.5rem, 5vw, 5rem) clamp(3rem, 6vw, 5rem);
+      scroll-margin-top: 80px;
       border-bottom: 1px solid rgba(28,48,99,0.08);
     }
     .vlc-back {
@@ -606,6 +607,28 @@
       color: #4a4643;
       line-height: 1.8;
     }
+    .vlc-success-cta-label {
+      margin-top: 1.5rem !important;
+      font-weight: 600;
+      color: #18254B !important;
+    }
+    .vlc-calendly-btn {
+      margin-top: 0.75rem;
+      width: 100%;
+      padding: 1.1rem;
+      background: #B38987;
+      color: #fff;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: block;
+    }
+    .vlc-calendly-btn:hover { background: #9e7170; }
     .vlc-map-col { flex: 1; padding-top: 0.5rem; }
     .vlc-map-label {
       font-family: 'Raleway', sans-serif;
@@ -791,6 +814,10 @@
         <div class="vlc-success" id="vlc-success">
           <h3>Request Received!</h3>
           <p>Thank you! Lynnette will personally research your property and be in touch within 24 hours with your customized home valuation report.</p>
+          <p class="vlc-success-cta-label">Want to connect sooner?</p>
+          <button class="vlc-calendly-btn" onclick="Calendly.showPopupWidget('https://calendly.com/thejaiswalgroupre/free-home-valuation');return false;">
+            SCHEDULE A CONSULTATION
+          </button>
         </div>
       </div>
 
@@ -805,101 +832,6 @@
     </div>
   </section>
 
-  <!-- =========================================================
-       MAIN CONTENT
-  ========================================================= -->
-  <div class="valuation-main">
-
-    <!-- Form Column -->
-    <div class="valuation-form-col">
-      <h2>Request Your Free Home Valuation</h2>
-      <p>Fill out the form below and Lynnette will personally research your home and deliver a detailed Comparative Market Analysis — typically within 24 hours.</p>
-
-      <form class="valuation-form" id="valuation-form">
-        <!-- Address -->
-        <div class="form-address">
-          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <input type="text" name="address" placeholder="Property Address" required />
-        </div>
-        <div class="form-row">
-          <input type="text" name="city" placeholder="City" required />
-          <input type="text" name="zip" placeholder="ZIP Code" required />
-        </div>
-
-        <div class="form-divider"><span>Your Contact Info</span></div>
-
-        <div class="form-row">
-          <input type="text" name="first_name" placeholder="First Name" required />
-          <input type="text" name="last_name" placeholder="Last Name" required />
-        </div>
-        <input type="email" name="email" placeholder="Email Address" required />
-        <input type="tel" name="phone" placeholder="Phone Number" required />
-
-        <button type="submit">GET MY FREE VALUATION</button>
-
-        <p class="valuation-consent">By submitting this form, you agree to be contacted by The Jaiswal Group Real Estate via call, email, and text regarding your home valuation request. To opt out, reply "stop" at any time. <a href="privacy-policy.html">Privacy Policy</a>.</p>
-      </form>
-
-      <div class="valuation-success" id="valuation-success">
-        <h3>Request Received!</h3>
-        <p>Thank you! Lynnette will review your property details and be in touch within 24 hours with your personalized home valuation report.</p>
-      </div>
-    </div>
-
-    <!-- Info Column -->
-    <div class="valuation-info-col">
-      <h3>Why a Personalized Valuation Matters</h3>
-
-      <div class="valuation-point">
-        <div class="valuation-point-icon">
-          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        </div>
-        <div class="valuation-point-text">
-          <h4>Real Local Expertise</h4>
-          <p>Online estimates miss upgrades, condition, and neighborhood nuance. Lynnette's analysis is built on real San Diego sales data and boots-on-the-ground knowledge.</p>
-        </div>
-      </div>
-
-      <div class="valuation-point">
-        <div class="valuation-point-icon">
-          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        </div>
-        <div class="valuation-point-text">
-          <h4>Current Market Conditions</h4>
-          <p>San Diego's luxury market moves fast. Your valuation reflects today's active listings, recent sales, and demand trends — not data from six months ago.</p>
-        </div>
-      </div>
-
-      <div class="valuation-point">
-        <div class="valuation-point-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-        </div>
-        <div class="valuation-point-text">
-          <h4>No Obligation</h4>
-          <p>Your valuation is completely free with zero obligation to list. It's simply the best way to understand where your home stands in today's market.</p>
-        </div>
-      </div>
-
-      <div class="valuation-point">
-        <div class="valuation-point-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <div class="valuation-point-text">
-          <h4>Confidential & Secure</h4>
-          <p>Your information is never shared or sold. This is a private conversation between you and Lynnette.</p>
-        </div>
-      </div>
-
-      <div class="valuation-lynnette-card">
-        <img src="lynnette.png" alt="Lynnette Jaiswal" />
-        <div class="valuation-lynnette-card-text">
-          <strong>Lynnette Jaiswal</strong>
-          <p>Top 3% of REALTORS® in San Diego County · $75M+ in career sales · 14 professional designations</p>
-        </div>
-      </div>
-    </div>
-
-  </div>
 
   <!-- =========================================================
        HOW IT WORKS
@@ -1182,15 +1114,6 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // ── Legacy main form submit (fallback) ──────────────────────
-    const legacyForm = document.getElementById('valuation-form');
-    if (legacyForm) {
-      legacyForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        this.style.display = 'none';
-        document.getElementById('valuation-success').style.display = 'block';
-      });
-    }
   </script>
 
   <!-- ── Google Maps Places API ─────────────────────────────────
@@ -1199,5 +1122,9 @@
   ──────────────────────────────────────────────────────────── -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_HDxS74_OAaIzCjeJkhRHOYPlGzAPf2A&libraries=places&callback=initAutocomplete" async defer></script>
   <script src="main.js"></script>
+
+  <!-- Calendly popup widget -->
+  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </body>
 </html>
