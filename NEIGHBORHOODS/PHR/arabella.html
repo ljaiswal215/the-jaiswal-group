@@ -474,10 +474,21 @@
       // TODO: swap "false &&" for real IDX results selector when IDX is live
       const hasListings = false && document.querySelector('.idx-active-results') !== null;
 
+      const parent = faq.parentNode;
+      if (!parent) return;
+
+      // Only move elements if they are not already in the correct order
+      // This prevents the MutationObserver from triggering an infinite loop
+      const nodes = Array.from(parent.children);
+      const faqIndex      = nodes.indexOf(faq);
+      const listingsIndex = nodes.indexOf(listings);
+
       if (hasListings) {
-        listings.parentNode.insertBefore(listings, faq);   // Listings → FAQ
+        // Want: Listings → FAQ
+        if (listingsIndex > faqIndex) parent.insertBefore(listings, faq);
       } else {
-        listings.parentNode.insertBefore(faq, listings);   // FAQ → Listings (default)
+        // Want: FAQ → Listings (default)
+        if (faqIndex > listingsIndex) parent.insertBefore(faq, listings);
       }
     }
     document.addEventListener('DOMContentLoaded', reorderSections);
