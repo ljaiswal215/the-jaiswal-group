@@ -95,6 +95,28 @@
     .spec-value a:hover,.subdiv-about-inner p a:hover,.faq-item p a:hover{color:#B38987;border-color:#B38987;}
     .school-zone-note{font-family:'Raleway',sans-serif;font-size:0.72rem;color:#8a9ab8;line-height:1.7;margin-top:1rem;padding-top:0.85rem;border-top:1px solid rgba(28,48,99,0.08);}
 
+    /* ── Explore More ───────────────────────────────────────────────── */
+    .subdiv-explore{background:#F3EFE8;padding:clamp(3rem,5vw,4.5rem) clamp(1.5rem,6vw,6rem);}
+    .subdiv-explore-inner{max-width:1100px;margin:0 auto;}
+    .subdiv-explore-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .subdiv-explore-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.75rem;text-align:center;}
+    .subdiv-explore-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;}
+    .subdiv-explore-card{position:relative;height:190px;display:flex;flex-direction:column;justify-content:flex-end;padding:1rem 1.1rem;text-decoration:none;background-color:#18254B;background-size:cover;background-position:center;overflow:hidden;transition:transform 0.25s;}
+    .subdiv-explore-card::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(24,37,75,0.05) 0%,rgba(24,37,75,0.78) 100%);transition:background 0.25s;z-index:0;}
+    .subdiv-explore-card:hover{transform:scale(1.01);z-index:1;}
+    .subdiv-explore-card:hover::before{background:linear-gradient(to bottom,rgba(24,37,75,0.15) 0%,rgba(24,37,75,0.88) 100%);}
+    .subdiv-explore-card-name{position:relative;z-index:1;font-family:'Marcellus',serif;font-size:0.88rem;color:#fff;letter-spacing:0.05em;line-height:1.25;}
+    .subdiv-explore-card-cta{position:relative;z-index:1;font-family:'Raleway',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-top:0.25rem;transition:color 0.2s;}
+    .subdiv-explore-card:hover .subdiv-explore-card-cta{color:#B38987;}
+    .subdiv-explore-card:not([href]){cursor:default;}
+    .subdiv-explore-card:not([href]):hover{transform:none;}
+    .subdiv-explore-card:not([href]):hover::before{background:linear-gradient(to bottom,rgba(24,37,75,0.05) 0%,rgba(24,37,75,0.78) 100%);}
+    .subdiv-explore-card:not([href]) .subdiv-explore-card-cta{display:none;}
+    .subdiv-explore-all{text-align:center;margin-top:2rem;}
+    .subdiv-explore-all a{font-family:'Raleway',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#18254B;text-decoration:none;border-bottom:1px solid rgba(28,48,99,0.25);padding-bottom:2px;transition:color 0.2s,border-color 0.2s;}
+    .subdiv-explore-all a:hover{color:#B38987;border-color:#B38987;}
+    @media(max-width:700px){.subdiv-explore-grid{grid-template-columns:repeat(2,1fr);}}
+
     /* ── CTA ────────────────────────────────────────────────────────── */
     .subdiv-cta{background:#18254B;padding:clamp(2.5rem,4vw,3.5rem) clamp(1.5rem,6vw,6rem);text-align:center;}
     .subdiv-cta-rule{width:36px;height:1.5px;background:#B38987;margin:0 auto 1.75rem;}
@@ -316,6 +338,8 @@
         <div class="spec-row"><span class="spec-label">Lot Size</span><span class="spec-value">Up to 0.15 acres</span></div>
         <div class="spec-row"><span class="spec-label">HOA</span><span class="spec-value"><a href="https://www.mywhp.com/" target="_blank" rel="noopener">West Highlands Pacific HOA</a></span></div>
         <div class="spec-row"><span class="spec-label">Distance to Coast</span><span class="spec-value">Less than 4.5 miles</span></div>
+        <div class="spec-row"><span class="spec-label">Walk Score</span><span class="spec-value"><a href="https://www.walkscore.com/score/13604-shasta-daisy-trail-san-diego-ca-92130" target="_blank" rel="noopener">61 &mdash; Somewhat Walkable</a></span></div>
+        <div class="spec-row"><span class="spec-label">Bike Score</span><span class="spec-value">27 &mdash; Somewhat Bikeable</span></div>
       </div>
 
       <div class="subdiv-specs-col">
@@ -379,9 +403,9 @@
   ═══════════════════════════════════════════════════════════════ -->
   <section class="subdiv-listings" id="section-listings">
     <div class="subdiv-listings-inner">
-      <p class="section-eyebrow">ACTIVE LISTINGS</p>
+      <p class="section-eyebrow">BROWSE LISTINGS</p>
       <h2>ARABELLA HOMES FOR SALE</h2>
-      <p>Browse current listings in Arabella, updated daily from the MLS.</p>
+      <p>Listings below are sourced directly from the MLS and updated in real time.</p>
       <!-- ═══════════════════════════════════════════════════════════
            IDX BROKER WIDGET
            Replace the placeholder below with your IDX Broker
@@ -415,11 +439,42 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════
+       EXPLORE MORE PHR COMMUNITIES
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="subdiv-explore">
+    <div class="subdiv-explore-inner">
+      <p class="section-eyebrow">PACIFIC HIGHLANDS RANCH</p>
+      <h2>EXPLORE MORE COMMUNITIES</h2>
+      <div class="subdiv-explore-grid">
+        <a class="subdiv-explore-card" style="background-image:url('Airoso.jpg')">
+          <span class="subdiv-explore-card-name">Airoso</span>
+          <span class="subdiv-explore-card-cta">View Community &rarr;</span>
+        </a>
+        <a class="subdiv-explore-card" style="background-image:url('Almeria.jpg')">
+          <span class="subdiv-explore-card-name">Almeria</span>
+          <span class="subdiv-explore-card-cta">View Community &rarr;</span>
+        </a>
+        <a class="subdiv-explore-card" style="background-image:url('Artesana.jpg')">
+          <span class="subdiv-explore-card-name">Artesana</span>
+          <span class="subdiv-explore-card-cta">View Community &rarr;</span>
+        </a>
+        <a class="subdiv-explore-card" style="background-image:url('Bordeaux.jpg')">
+          <span class="subdiv-explore-card-name">Bordeaux</span>
+          <span class="subdiv-explore-card-cta">View Community &rarr;</span>
+        </a>
+      </div>
+      <div class="subdiv-explore-all">
+        <a href="../pacific-highlands-ranch.html">VIEW ALL PACIFIC HIGHLANDS RANCH COMMUNITIES &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
        CTA
   ═══════════════════════════════════════════════════════════════ -->
   <section class="subdiv-cta">
     <div class="subdiv-cta-rule"></div>
-    <p class="section-eyebrow">INTERESTED IN ARABELLA?</p>
+    <p class="section-eyebrow">LET&rsquo;S CONNECT</p>
     <h2>READY TO MAKE ARABELLA HOME?</h2>
     <p>We know Pacific Highlands Ranch inside and out &mdash; every floor plan, every street, every builder. Whether Arabella is the right fit or you&rsquo;d like to explore nearby communities, we&rsquo;re here to help you find exactly what you&rsquo;re looking for.</p>
     <div class="subdiv-cta-btns">
