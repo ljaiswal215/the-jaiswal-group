@@ -148,6 +148,11 @@
     .phr-map-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.75rem;text-align:center;}
     .phr-map-embed{width:100%;height:450px;border:0;display:block;}
     @media(max-width:600px){.phr-map-embed{height:300px;}}
+    .phr-map-container{position:relative;width:100%;}
+    .phr-map-pin-overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-100%);pointer-events:none;display:flex;flex-direction:column;align-items:center;z-index:10;}
+    .phr-map-pin-overlay svg{filter:drop-shadow(0 3px 8px rgba(0,0,0,0.30));animation:pin-drop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;}
+    .phr-map-pin-label{font-family:'Raleway',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#1C3063;background:rgba(255,255,255,0.92);padding:0.22rem 0.65rem;margin-bottom:0.4rem;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,0.15);}
+    @keyframes pin-drop{from{transform:translateY(-18px);opacity:0;}to{transform:translateY(0);opacity:1;}}
     /* ── IDX Listings ─────────────────────────────────────────────────── */
     .phr-listings{background:#F6F6F4;padding:clamp(3rem,5vw,4.5rem) clamp(1.5rem,6vw,6rem);}
     .phr-listings-inner{max-width:1100px;margin:0 auto;}
@@ -531,14 +536,23 @@
            3. Click Share → Embed a map → Copy HTML
            4. Paste the iframe here (keep class="phr-map-embed")
       ═══════════════════════════════════════════════════════ -->
-      <iframe
-        class="phr-map-embed"
-        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13390.835613068248!2d-117.20612018432887!3d32.958694081838104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1781104211095!5m2!1sen!2sus"
-        title="Pacific Highlands Ranch, San Diego, CA 92130"
-        allowfullscreen
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
+      <div class="phr-map-container">
+        <iframe
+          class="phr-map-embed"
+          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13390.835613068248!2d-117.20612018432887!3d32.958694081838104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1781104211095!5m2!1sen!2sus"
+          title="Pacific Highlands Ranch, San Diego, CA 92130"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        <div class="phr-map-pin-overlay">
+          <span class="phr-map-pin-label">Pacific Highlands Ranch</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="44" height="58" viewBox="0 0 44 58">
+            <path d="M22 0C9.85 0 0 9.85 0 22C0 38.5 22 58 22 58C22 58 44 38.5 44 22C44 9.85 34.15 0 22 0Z" fill="#1C3063"/>
+            <circle cx="22" cy="22" r="8" fill="#F3EFE8"/>
+          </svg>
+        </div>
+      </div>
     </div>
   </section>
 
