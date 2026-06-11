@@ -181,14 +181,30 @@
     }
     .bg-form button:hover { background: #18254B; color: #B38987; }
     .bg-form button:disabled { opacity: 0.6; cursor: not-allowed; }
-    .bg-disclaimer {
+    .bg-consent {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      cursor: pointer;
+      margin-top: 0.25rem;
+    }
+    .bg-consent input[type="checkbox"] {
+      flex-shrink: 0;
+      margin-top: 0.2rem;
+      width: 14px;
+      height: 14px;
+      accent-color: #B38987;
+      cursor: pointer;
+    }
+    .bg-consent span {
       font-family: 'Raleway', sans-serif;
       font-size: 0.7rem;
-      color: rgba(28,48,99,0.40);
-      line-height: 1.7;
-      text-align: center;
-      margin-top: 1rem;
+      color: rgba(28,48,99,0.50);
+      line-height: 1.65;
     }
+    .bg-consent a { color: rgba(28,48,99,0.60); text-decoration: underline; }
+    .bg-consent a:hover { color: #B38987; }
+    .bg-consent.bg-consent--error span { color: rgba(180,50,50,0.85); }
 
     /* ── Success State ────────────────────────────────────────────── */
     .bg-success {
@@ -421,6 +437,10 @@
             <input type="text" name="name" placeholder="Full Name" required />
             <input type="email" name="email" placeholder="Email Address" required />
             <input type="tel" name="phone" placeholder="Phone Number (optional)" />
+            <label class="bg-consent" id="bg-consent-label">
+              <input type="checkbox" name="consent" id="bg-consent" />
+              <span>I agree to be contacted by The Jaiswal Group Real Estate via call, email, and text for real estate services. To opt out, you can reply 'stop' at any time or reply 'help' for assistance. You can also click the unsubscribe link in the emails. Message and data rates may apply. Message frequency may vary. <a href="privacy-policy.html">Privacy Policy</a>.</span>
+            </label>
             <button type="submit" id="bg-submit">DOWNLOAD MY FREE GUIDE NOW</button>
           </form>
 
@@ -432,8 +452,6 @@
             <p>Click below to open your San Diego Home Buyer's Guide. We'll also be in touch should you have any questions along the way.</p>
             <a href="BuyersGuide.pdf" target="_blank" rel="noopener">OPEN YOUR GUIDE &rarr;</a>
           </div>
-
-          <p class="bg-disclaimer">By submitting this form you agree to be contacted by The Jaiswal Group. Your information is never sold or shared. <a href="privacy-policy.html" style="color:rgba(28,48,99,0.5);text-decoration:underline;">Privacy Policy</a></p>
         </div>
       </div>
 
@@ -521,10 +539,19 @@
     const bgForm = document.getElementById('bg-form');
     const bgSuccess = document.getElementById('bg-success');
     const bgSubmit = document.getElementById('bg-submit');
+    const bgConsent = document.getElementById('bg-consent');
+    const bgConsentLabel = document.getElementById('bg-consent-label');
 
     if (bgForm) {
       bgForm.addEventListener('submit', async function(e) {
         e.preventDefault();
+        // Validate consent checkbox
+        if (!bgConsent.checked) {
+          bgConsentLabel.classList.add('bg-consent--error');
+          bgConsentLabel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+        bgConsentLabel.classList.remove('bg-consent--error');
         bgSubmit.disabled = true;
         bgSubmit.textContent = 'SENDING...';
         try {
