@@ -128,11 +128,12 @@
     }
 
     /* ── Right Column — Form Card ─────────────────────────────────── */
+    .bg-right { padding-top: clamp(2.5rem,5vw,4rem); }
     .bg-form-card {
       background: #fff;
       padding: 2.5rem 2.25rem;
       position: sticky;
-      top: 6rem;
+      top: 7rem;
     }
     .bg-form-card h2 {
       font-family: 'Marcellus', serif;
@@ -178,7 +179,7 @@
       transition: background 0.22s, color 0.22s;
       margin-top: 0.25rem;
     }
-    .bg-form button:hover { background: #1C3063; color: #B38987; }
+    .bg-form button:hover { background: #18254B; color: #B38987; }
     .bg-form button:disabled { opacity: 0.6; cursor: not-allowed; }
     .bg-disclaimer {
       font-family: 'Raleway', sans-serif;
@@ -420,7 +421,7 @@
             <input type="text" name="name" placeholder="Full Name" required />
             <input type="email" name="email" placeholder="Email Address" required />
             <input type="tel" name="phone" placeholder="Phone Number (optional)" />
-            <button type="submit" id="bg-submit">DOWNLOAD FREE GUIDE</button>
+            <button type="submit" id="bg-submit">DOWNLOAD MY FREE GUIDE NOW</button>
           </form>
 
           <div class="bg-success" id="bg-success">
@@ -544,12 +545,12 @@
             document.body.removeChild(link);
           } else {
             bgSubmit.disabled = false;
-            bgSubmit.textContent = 'DOWNLOAD FREE GUIDE';
+            bgSubmit.textContent = 'DOWNLOAD MY FREE GUIDE NOW';
             alert('Something went wrong. Please try again or call us at (858) 663-4896.');
           }
         } catch(err) {
           bgSubmit.disabled = false;
-          bgSubmit.textContent = 'DOWNLOAD FREE GUIDE';
+          bgSubmit.textContent = 'DOWNLOAD MY FREE GUIDE NOW';
           alert('Something went wrong. Please try again or call us at (858) 663-4896.');
         }
       });
