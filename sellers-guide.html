@@ -397,6 +397,50 @@
     }
     .bg-about-text a:hover { background: #18254B; color: #B38987; }
 
+    /* ── Flipbook Section ─────────────────────────────────────────── */
+    .bg-flipbook-section {
+      display: none;
+      background: #18254B;
+      padding: clamp(3rem,5vw,4.5rem) clamp(1.5rem,5vw,5rem);
+    }
+    .bg-flipbook-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .bg-flipbook-eyebrow {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      color: #B38987;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 0.6rem;
+    }
+    .bg-flipbook-heading {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.2rem,2.5vw,1.75rem);
+      color: #fff;
+      text-align: center;
+      letter-spacing: 0.06em;
+      margin-bottom: 2rem;
+    }
+    .bg-flipbook-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 66%;
+      height: 0;
+      background: #0e1a3a;
+    }
+    .bg-flipbook-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
     /* ── Responsive ───────────────────────────────────────────────── */
     @media (max-width: 900px) {
       .bg-inner { grid-template-columns: 1fr; }
@@ -404,6 +448,7 @@
       .bg-contents { grid-template-columns: 1fr; }
       .bg-about { grid-template-columns: 1fr; }
       .bg-about-photo { min-height: 360px; }
+      .bg-flipbook-wrap { padding-bottom: 85%; }
     }
 
   </style>
@@ -520,6 +565,24 @@
 
 
   <!-- ═══════════════════════════════════════════════════════════════
+       FLIPBOOK — revealed after form submit
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="bg-flipbook-section" id="bg-flipbook-section">
+    <div class="bg-flipbook-inner">
+      <p class="bg-flipbook-eyebrow">Your Free Guide</p>
+      <h2 class="bg-flipbook-heading">THE SAN DIEGO HOME SELLER'S GUIDE</h2>
+      <div class="bg-flipbook-wrap">
+        <iframe src="https://designrr.page/?id=397949&token=610701288&type=FP&h=3524"
+                frameborder="0"
+                allowfullscreen
+                title="San Diego Home Seller's Guide — The Jaiswal Group Real Estate">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
        TESTIMONIAL STRIP
   ═══════════════════════════════════════════════════════════════ -->
   <section class="bg-testimonial">
@@ -626,6 +689,10 @@
             bgForm.style.display = 'none';
             bgSuccess.style.display = 'block';
             document.getElementById('bg-form-heading').textContent = 'YOUR INSTANT ACCESS IS HERE';
+            // Reveal flipbook section and scroll to it
+            const flipbook = document.getElementById('bg-flipbook-section');
+            flipbook.style.display = 'block';
+            setTimeout(() => flipbook.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
             // Also trigger automatic download
             const link = document.createElement('a');
             link.href = 'SellersGuide.pdf';
