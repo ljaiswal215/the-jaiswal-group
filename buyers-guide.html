@@ -287,25 +287,28 @@
       font-style: normal;
     }
 
-    /* ── About Strip ──────────────────────────────────────────────── */
+    /* ── About Strip — full-bleed split ──────────────────────────── */
     .bg-about {
-      background: #fff;
-      padding: clamp(3rem,5vw,4.5rem) clamp(1.5rem,5vw,5rem);
-    }
-    .bg-about-inner {
-      max-width: 1160px;
-      margin: 0 auto;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: clamp(2.5rem,5vw,5rem);
-      align-items: center;
+      min-height: 620px;
     }
-    .bg-about img {
+    .bg-about-photo {
+      overflow: hidden;
+    }
+    .bg-about-photo img {
       width: 100%;
-      aspect-ratio: 4/5;
+      height: 100%;
       object-fit: cover;
       object-position: center top;
       display: block;
+    }
+    .bg-about-text {
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(3rem,6vw,6rem) clamp(2.5rem,6vw,6rem);
     }
     .bg-about-text .section-eyebrow { color: #B38987; margin-bottom: 0.75rem; }
     .bg-about-text h2 {
@@ -337,6 +340,7 @@
       border: 1.5px solid #18254B;
       text-decoration: none;
       transition: background 0.22s, color 0.22s;
+      align-self: flex-start;
     }
     .bg-about-text a:hover { background: #18254B; color: #B38987; }
 
@@ -345,8 +349,8 @@
       .bg-inner { grid-template-columns: 1fr; }
       .bg-form-card { position: static; }
       .bg-contents { grid-template-columns: 1fr; }
-      .bg-about-inner { grid-template-columns: 1fr; }
-      .bg-about img { aspect-ratio: 3/2; }
+      .bg-about { grid-template-columns: 1fr; }
+      .bg-about-photo { min-height: 360px; }
     }
 
   </style>
@@ -474,15 +478,15 @@
        ABOUT LYNNETTE
   ═══════════════════════════════════════════════════════════════ -->
   <section class="bg-about">
-    <div class="bg-about-inner">
-      <img src="Lynnette-torreypinesbackground.jpg" alt="Lynnette Jaiswal, The Jaiswal Group Real Estate" />
-      <div class="bg-about-text">
+    <div class="bg-about-photo">
+      <img src="Lynnette-hotpinkblazerandpants.jpg" alt="Lynnette Jaiswal, The Jaiswal Group Real Estate" />
+    </div>
+    <div class="bg-about-text">
         <p class="section-eyebrow">YOUR GUIDE AUTHOR</p>
         <h2>LYNNETTE JAISWAL<br>THE JAISWAL GROUP</h2>
         <p>Lynnette Jaiswal is a San Diego-based luxury real estate agent known for her deep market knowledge, personalized approach, and unwavering commitment to her clients. She has helped hundreds of buyers successfully navigate San Diego's competitive market — from first-time purchases to multi-million dollar estates.</p>
         <p>This guide reflects the same honest, detailed guidance she provides every client from day one. No fluff, no pressure — just everything you need to buy with confidence.</p>
         <a href="contact.html">SCHEDULE A FREE CONSULTATION</a>
-      </div>
     </div>
   </section>
 
