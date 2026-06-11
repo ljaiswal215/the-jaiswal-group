@@ -426,11 +426,15 @@
       margin-bottom: 2rem;
     }
     .bg-flipbook-wrap {
+      max-width: 620px;
+      margin: 0 auto;
       position: relative;
       width: 100%;
-      padding-bottom: 66%;
       height: 0;
-      background: #0e1a3a;
+      padding-top: 129.4118%;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.35);
     }
     .bg-flipbook-wrap iframe {
       position: absolute;
@@ -439,6 +443,8 @@
       width: 100%;
       height: 100%;
       border: none;
+      padding: 0;
+      margin: 0;
     }
 
     /* ── Responsive ───────────────────────────────────────────────── */
@@ -448,7 +454,7 @@
       .bg-contents { grid-template-columns: 1fr; }
       .bg-about { grid-template-columns: 1fr; }
       .bg-about-photo { min-height: 360px; }
-      .bg-flipbook-wrap { padding-bottom: 85%; }
+      .bg-flipbook-wrap { padding-top: 140%; }
     }
 
   </style>
@@ -572,9 +578,10 @@
       <p class="bg-flipbook-eyebrow">Your Free Guide</p>
       <h2 class="bg-flipbook-heading">THE SAN DIEGO HOME BUYER'S GUIDE</h2>
       <div class="bg-flipbook-wrap">
-        <iframe src="https://designrr.page/?id=397947&token=3037555002&type=FP&h=3648"
-                frameborder="0"
-                allowfullscreen
+        <iframe loading="lazy"
+                src="https://www.canva.com/design/DAHMSMp6eBE/9vsLXUs5XVi6dmyITGgt0w/view?embed"
+                allowfullscreen="allowfullscreen"
+                allow="fullscreen"
                 title="San Diego Home Buyer's Guide — The Jaiswal Group Real Estate">
         </iframe>
       </div>
