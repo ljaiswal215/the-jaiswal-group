@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free San Diego Home Buyer's Guide | The Jaiswal Group Real Estate</title>
+  <meta name="description" content="Download your free San Diego Home Buyer's Guide from The Jaiswal Group — everything you need to know about buying a home in San Diego, from financing to closing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Raleway:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+
+    /* ── Hero ─────────────────────────────────────────────────────── */
+    .bg-hero {
+      background: #18254B;
+      padding: clamp(5rem,9vw,7rem) clamp(1.5rem,5vw,5rem) clamp(4rem,7vw,6rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .bg-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(179,137,135,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .bg-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1160px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: clamp(3rem,6vw,6rem);
+      align-items: start;
+    }
+
+    /* ── Left Column ──────────────────────────────────────────────── */
+    .bg-left .section-eyebrow { color: #B38987; margin-bottom: 1rem; }
+    .bg-left h1 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(2rem,4.5vw,3.4rem);
+      color: #fff;
+      letter-spacing: 0.06em;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .bg-left h1 span { color: #B38987; }
+    .bg-subtitle {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.9;
+      max-width: 520px;
+      margin-bottom: 2.25rem;
+    }
+    .bg-divider {
+      width: 48px;
+      height: 1px;
+      background: #B38987;
+      margin-bottom: 2rem;
+    }
+    .bg-inside-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #B38987;
+      margin-bottom: 1.1rem;
+    }
+    .bg-contents {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.65rem 2rem;
+    }
+    .bg-contents li {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.84rem;
+      color: rgba(255,255,255,0.80);
+      line-height: 1.5;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+    }
+    .bg-contents li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #B38987;
+      margin-top: 0.42rem;
+    }
+    .bg-trust {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .bg-trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.04em;
+    }
+    .bg-trust-item svg {
+      width: 16px;
+      height: 16px;
+      stroke: #B38987;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* ── Right Column — Form Card ─────────────────────────────────── */
+    .bg-form-card {
+      background: #fff;
+      padding: 2.5rem 2.25rem;
+      position: sticky;
+      top: 6rem;
+    }
+    .bg-form-card h2 {
+      font-family: 'Marcellus', serif;
+      font-size: 1.35rem;
+      color: #18254B;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+    }
+    .bg-form-card > p {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.82rem;
+      color: #3a4a6b;
+      line-height: 1.75;
+      margin-bottom: 1.75rem;
+    }
+    .bg-form { display: flex; flex-direction: column; gap: 0.85rem; }
+    .bg-form input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.83rem;
+      color: #18254B;
+      background: #F6F6F4;
+      border: 1px solid rgba(28,48,99,0.15);
+      outline: none;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .bg-form input:focus { border-color: #1C3063; background: #fff; }
+    .bg-form input::placeholder { color: rgba(28,48,99,0.40); }
+    .bg-form button {
+      width: 100%;
+      padding: 1rem 2rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      background: #18254B;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background 0.22s, color 0.22s;
+      margin-top: 0.25rem;
+    }
+    .bg-form button:hover { background: #1C3063; color: #B38987; }
+    .bg-form button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .bg-disclaimer {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.7rem;
+      color: rgba(28,48,99,0.40);
+      line-height: 1.7;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    /* ── Success State ────────────────────────────────────────────── */
+    .bg-success {
+      display: none;
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .bg-success-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 2px solid #B38987;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+    }
+    .bg-success-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: #B38987;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .bg-success h3 {
+      font-family: 'Marcellus', serif;
+      font-size: 1.1rem;
+      color: #18254B;
+      margin-bottom: 0.75rem;
+    }
+    .bg-success p {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.83rem;
+      color: #3a4a6b;
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+    .bg-success a {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      background: #18254B;
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.22s, color 0.22s;
+    }
+    .bg-success a:hover { background: #1C3063; color: #B38987; }
+
+    /* ── Testimonial Strip ────────────────────────────────────────── */
+    .bg-testimonial {
+      background: #F3EFE8;
+      padding: clamp(3rem,5vw,4rem) clamp(1.5rem,5vw,5rem);
+    }
+    .bg-testimonial-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .bg-testimonial blockquote {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1rem,1.8vw,1.3rem);
+      color: #18254B;
+      line-height: 1.75;
+      margin: 0 0 1.25rem;
+      font-style: italic;
+    }
+    .bg-testimonial cite {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: #B38987;
+      text-transform: uppercase;
+      font-style: normal;
+    }
+
+    /* ── About Strip ──────────────────────────────────────────────── */
+    .bg-about {
+      background: #fff;
+      padding: clamp(3rem,5vw,4.5rem) clamp(1.5rem,5vw,5rem);
+    }
+    .bg-about-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2.5rem,5vw,5rem);
+      align-items: center;
+    }
+    .bg-about img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    .bg-about-text .section-eyebrow { color: #B38987; margin-bottom: 0.75rem; }
+    .bg-about-text h2 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.4rem,2.5vw,2rem);
+      color: #18254B;
+      letter-spacing: 0.06em;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    .bg-about-text p {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.88rem;
+      color: #3a4a6b;
+      line-height: 1.9;
+      margin-bottom: 1rem;
+    }
+    .bg-about-text a {
+      display: inline-block;
+      margin-top: 0.5rem;
+      padding: 0.85rem 2.25rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      background: transparent;
+      color: #18254B;
+      border: 1.5px solid #18254B;
+      text-decoration: none;
+      transition: background 0.22s, color 0.22s;
+    }
+    .bg-about-text a:hover { background: #18254B; color: #B38987; }
+
+    /* ── Responsive ───────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .bg-inner { grid-template-columns: 1fr; }
+      .bg-form-card { position: static; }
+      .bg-contents { grid-template-columns: 1fr; }
+      .bg-about-inner { grid-template-columns: 1fr; }
+      .bg-about img { aspect-ratio: 3/2; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       HEADER / NAV
+  ═══════════════════════════════════════════════════════════════ -->
+  <header class="site-header" id="site-header">
+    <div class="header-top"><div class="social-icons">
+      <a href="https://www.facebook.com/LynnetteJaiswalRealtor" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      <a href="https://www.instagram.com/lynnettejaiswalrealtor/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      <a href="https://www.youtube.com/@LynnetteJaiswalRealtor" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+    </div></div>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-logo">
+        <img src="LOGOS/JaiswalGroupRE_white.png" class="logo-white" alt="The Jaiswal Group Real Estate" />
+        <img src="logo.png" class="logo-color" alt="The Jaiswal Group Real Estate" />
+      </a>
+      <ul class="nav-links">
+        <li class="has-dropdown"><a href="#">BUY A HOME <span class="caret">&#9662;</span></a><ul class="dropdown"><li><a href="#">Featured Listings</a></li><li><a href="#">Search for Homes</a></li><li><a href="#">New Construction</a></li><li><a href="buyers-guide.html">Buyer's Guide</a></li><li><a href="#">Buyer FAQ</a></li><li><a href="#">Mortgage Calculator</a></li></ul></li>
+        <li class="has-dropdown"><a href="#">SELL YOUR HOME <span class="caret">&#9662;</span></a><ul class="dropdown"><li><a href="#">Seller Consultation</a></li><li><a href="home-valuation.html">Instant Home Valuation</a></li><li><a href="#">Our Marketing</a></li><li><a href="deciding-to-sell.html">Seller's Guide</a></li><li><a href="#">Selling Checklist</a></li></ul></li>
+        <li><a href="neighborhoods.html">COMMUNITIES</a></li>
+        <li><a href="BLOG/blog.html">BLOG</a></li>
+        <li class="has-dropdown"><a href="#">RESOURCES <span class="caret">&#9662;</span></a><ul class="dropdown"><li><a href="#">Market Updates</a></li><li><a href="#">The Plugged In Method</a></li><li><a href="#">Recommended Lenders</a></li><li><a href="#">Relocation Guide</a></li></ul></li>
+        <li class="has-dropdown"><a href="#">ABOUT US <span class="caret">&#9662;</span></a><ul class="dropdown"><li><a href="#">Lynnette Jaiswal</a></li><li><a href="testimonials.html">Client Reviews</a></li><li><a href="#">Join Our Team</a></li></ul></li>
+        <li><a href="contact.html">CONTACT</a></li>
+        <li class="nav-phone"><a href="tel:8586634896">(858) 663-4896</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Menu" id="hamburger"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu"><ul>
+      <li><a href="#">Buy a Home</a></li><li><a href="#">Sell Your Home</a></li>
+      <li><a href="neighborhoods.html">Communities</a></li><li><a href="BLOG/blog.html">Blog</a></li>
+      <li><a href="#">Resources</a></li><li><a href="#">About Us</a></li>
+      <li><a href="contact.html">Contact</a></li><li><a href="tel:8586634896">(858) 663-4896</a></li>
+    </ul></div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       HERO — GUIDE + FORM
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="bg-hero">
+    <div class="bg-inner">
+
+      <!-- LEFT: Guide Description -->
+      <div class="bg-left">
+        <p class="section-eyebrow">FREE DOWNLOAD</p>
+        <h1>THE SAN DIEGO<br><span>HOME BUYER'S</span><br>GUIDE</h1>
+        <p class="bg-subtitle">San Diego is one of the most competitive real estate markets in the country. Whether you're buying for the first time or relocating, this guide walks you through every step — from financing to the moment you get your keys.</p>
+        <div class="bg-divider"></div>
+        <p class="bg-inside-label">What's inside</p>
+        <ul class="bg-contents">
+          <li>The complete step-by-step buying process</li>
+          <li>What NOT to do during your loan</li>
+          <li>Costs of buying — simply explained</li>
+          <li>How to win in a competitive market</li>
+          <li>Who pays for what — buyers vs. sellers</li>
+          <li>Understanding title &amp; escrow</li>
+          <li>How to choose the right lender</li>
+          <li>Real client testimonials</li>
+        </ul>
+        <div class="bg-trust">
+          <div class="bg-trust-item">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Instant download
+          </div>
+          <div class="bg-trust-item">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Completely free
+          </div>
+          <div class="bg-trust-item">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            No spam, ever
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Form Card -->
+      <div class="bg-right">
+        <div class="bg-form-card">
+          <h2>GET INSTANT ACCESS</h2>
+          <p>Enter your details below and your guide downloads immediately — no waiting, no follow-up required.</p>
+
+          <form class="bg-form" id="bg-form" action="https://formspree.io/f/xwvjnvyy" method="POST">
+            <input type="hidden" name="_subject" value="Buyer's Guide Download — The Jaiswal Group" />
+            <input type="text" name="name" placeholder="Full Name" required />
+            <input type="email" name="email" placeholder="Email Address" required />
+            <input type="tel" name="phone" placeholder="Phone Number (optional)" />
+            <button type="submit" id="bg-submit">DOWNLOAD FREE GUIDE</button>
+          </form>
+
+          <div class="bg-success" id="bg-success">
+            <div class="bg-success-icon">
+              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3>Your Guide is Ready!</h3>
+            <p>Click below to open your San Diego Home Buyer's Guide. We'll also be in touch should you have any questions along the way.</p>
+            <a href="BuyersGuide.pdf" target="_blank" rel="noopener">OPEN YOUR GUIDE &rarr;</a>
+          </div>
+
+          <p class="bg-disclaimer">By submitting this form you agree to be contacted by The Jaiswal Group. Your information is never sold or shared. <a href="privacy-policy.html" style="color:rgba(28,48,99,0.5);text-decoration:underline;">Privacy Policy</a></p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       TESTIMONIAL STRIP
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="bg-testimonial">
+    <div class="bg-testimonial-inner">
+      <blockquote>&ldquo;I originally found Lynnette while researching realtors. Each time someone inquired about a real estate agent, the thread would be filled with recommendations for The Jaiswal Group. She constantly provided in-depth responses to our questions and made sure we felt good throughout the entire process.&rdquo;</blockquote>
+      <cite>— First-Time Buyer, Carmel Valley</cite>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       ABOUT LYNNETTE
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="bg-about">
+    <div class="bg-about-inner">
+      <img src="Lynnette-torreypinesbackground.jpg" alt="Lynnette Jaiswal, The Jaiswal Group Real Estate" />
+      <div class="bg-about-text">
+        <p class="section-eyebrow">YOUR GUIDE AUTHOR</p>
+        <h2>LYNNETTE JAISWAL<br>THE JAISWAL GROUP</h2>
+        <p>Lynnette Jaiswal is a San Diego-based luxury real estate agent known for her deep market knowledge, personalized approach, and unwavering commitment to her clients. She has helped hundreds of buyers successfully navigate San Diego's competitive market — from first-time purchases to multi-million dollar estates.</p>
+        <p>This guide reflects the same honest, detailed guidance she provides every client from day one. No fluff, no pressure — just everything you need to buy with confidence.</p>
+        <a href="contact.html">SCHEDULE A FREE CONSULTATION</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="footer-info">
+      <div class="footer-info-col footer-info-col--logo"><img src="LOGOS/JaiswalGroupRE_white.png" alt="The Jaiswal Group Real Estate" class="footer-logo" /></div>
+      <div class="footer-info-col">
+        <div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="footer-info-text">
+          <p class="footer-info-label">OFFICE ADDRESS</p><p>5450 INDIGO SAGE DRIVE<br>SAN DIEGO, CA 92130</p>
+          <p class="footer-info-label" style="margin-top:1.25rem;">MAILING ADDRESS</p><p>PO BOX 3102<br>RANCHO SANTA FE, CA 92067</p>
+          <p style="margin-top:1rem;white-space:nowrap;">LYNNETTE JAISWAL &nbsp;|&nbsp; CA DRE #02100367</p>
+          <p style="margin-top:0.4rem;white-space:nowrap;">THE JAISWAL GROUP, INC &nbsp;|&nbsp; CA DRE #02251231</p>
+        </div>
+      </div>
+      <div class="footer-info-col">
+        <div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg></div>
+        <div class="footer-info-text"><p class="footer-info-label">EMAIL</p><p><a href="mailto:Lynnette@thejaiswalgroup.com">LYNNETTE@THEJAISWALGROUP.COM</a></p></div>
+      </div>
+      <div class="footer-info-col">
+        <div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg></div>
+        <div class="footer-info-text"><p class="footer-info-label">PHONE</p><p><a href="tel:8586634896">(858) 663-4896</a></p></div>
+      </div>
+    </div>
+    <div class="footer-disclaimer-block">
+      <p>The Jaiswal Group Real Estate is a real estate broker licensed by the State of California and abides by Equal Housing Opportunity laws. License Number #02251231. All material presented herein is intended for informational purposes only and is compiled from sources deemed reliable but has not been verified. Changes in price, condition, sale or withdrawal may be made without notice. No statement is made as to accuracy of any description. All measurements and square footage are approximate.</p>
+      <div class="footer-compliance-logos">
+        <img src="logorealtor.png" alt="Realtor" class="footer-compliance-logo" />
+        <img src="logoEHO.png" alt="Equal Housing Opportunity" class="footer-compliance-logo" />
+        <img src="logo-NSDCAR.png" alt="North San Diego County Realtors" class="footer-compliance-logo" />
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-left"><span>&copy; 2026 The Jaiswal Group Real Estate</span><a href="privacy-policy.html">Privacy Policy</a><a href="#">Site Map</a></div>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/LynnetteJaiswalRealtor" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://www.instagram.com/lynnettejaiswalrealtor/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="https://www.youtube.com/@LynnetteJaiswalRealtor" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+        <a href="https://www.tiktok.com/@lynnettejaiswalrealtor" aria-label="TikTok" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg></a>
+        <a href="https://www.linkedin.com/in/lynnettejaiswalrealtor/" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="https://g.page/r/CadNwKvRi2DDEBM/review" aria-label="Google Reviews" class="footer-social-text" target="_blank" rel="noopener">G</a>
+        <a href="https://www.zillow.com/profile/Lynnette%20Jaiswal" aria-label="Zillow" class="footer-social-text" target="_blank" rel="noopener">Z</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+    // ── Buyer's Guide Form — AJAX + reveal download button ──────────
+    const bgForm = document.getElementById('bg-form');
+    const bgSuccess = document.getElementById('bg-success');
+    const bgSubmit = document.getElementById('bg-submit');
+
+    if (bgForm) {
+      bgForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        bgSubmit.disabled = true;
+        bgSubmit.textContent = 'SENDING...';
+        try {
+          const response = await fetch(bgForm.action, {
+            method: 'POST',
+            body: new FormData(bgForm),
+            headers: { 'Accept': 'application/json' }
+          });
+          if (response.ok) {
+            bgForm.style.display = 'none';
+            bgSuccess.style.display = 'block';
+            // Also trigger automatic download
+            const link = document.createElement('a');
+            link.href = 'BuyersGuide.pdf';
+            link.download = 'SanDiego-Buyers-Guide-TheJaiswalGroup.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          } else {
+            bgSubmit.disabled = false;
+            bgSubmit.textContent = 'DOWNLOAD FREE GUIDE';
+            alert('Something went wrong. Please try again or call us at (858) 663-4896.');
+          }
+        } catch(err) {
+          bgSubmit.disabled = false;
+          bgSubmit.textContent = 'DOWNLOAD FREE GUIDE';
+          alert('Something went wrong. Please try again or call us at (858) 663-4896.');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
