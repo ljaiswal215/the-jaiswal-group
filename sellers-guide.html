@@ -626,7 +626,8 @@
           if (response.ok) {
             bgForm.style.display = 'none';
             bgSuccess.style.display = 'block';
-            document.getElementById('bg-form-heading').textContent = 'YOUR GUIDE IS READY';
+            document.getElementById('bg-form-heading').textContent = 'YOUR INSTANT ACCESS IS HERE';
+            document.getElementById('bg-form-heading').style.textAlign = 'center';
             document.getElementById('bg-form-subtext').style.display = 'none';
             // Also trigger automatic download
             const link = document.createElement('a');
