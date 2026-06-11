@@ -531,7 +531,7 @@
       <div class="bg-right">
         <div class="bg-form-card">
           <h2 id="bg-form-heading">GET YOUR INSTANT ACCESS</h2>
-          <p>Fill in your details and click the Download My Free Guide button. Your guide will download immediately — no waiting.</p>
+          <p id="bg-form-subtext">Fill in your details and click the Download My Free Guide button. Your guide will download immediately — no waiting.</p>
 
           <form class="bg-form" id="bg-form" action="https://formspree.io/f/xkoavqjy" method="POST">
             <input type="hidden" name="_subject" value="Seller's Guide Download — The Jaiswal Group" />
@@ -689,6 +689,7 @@
             bgForm.style.display = 'none';
             bgSuccess.style.display = 'block';
             document.getElementById('bg-form-heading').textContent = 'YOUR INSTANT ACCESS IS HERE';
+            document.getElementById('bg-form-subtext').textContent = 'Your guide is ready — flip through it below or download the PDF to keep.';
             // Reveal flipbook section and scroll to it
             const flipbook = document.getElementById('bg-flipbook-section');
             flipbook.style.display = 'block';
