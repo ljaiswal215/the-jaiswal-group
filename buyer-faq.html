@@ -13,11 +13,21 @@
 
     /* ── Hero ─────────────────────────────────────────────────────── */
     .faq-hero {
-      background: #18254B;
+      background: #18254B url('background-buyerfaq.jpg') center center / cover no-repeat;
       padding: clamp(10rem,14vw,13rem) clamp(1.5rem,5vw,5rem) clamp(5rem,7vw,7rem);
       text-align: center;
       position: relative;
     }
+    .faq-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(24,37,75,0.72);
+      pointer-events: none;
+    }
+    .faq-hero .section-eyebrow,
+    .faq-hero h1,
+    .faq-hero-sub { position: relative; z-index: 1; }
     .faq-hero .section-eyebrow { color: #B38987; margin-bottom: 1rem; }
     .faq-hero h1 {
       font-family: 'Marcellus', serif;
@@ -27,7 +37,7 @@
       line-height: 1.15;
       margin-bottom: 1.25rem;
     }
-    .faq-hero h1 span { color: #B38987; }
+    .faq-hero h1 span { color: #fff; }
     .faq-hero-sub {
       font-family: 'Raleway', sans-serif;
       font-size: 0.95rem;
