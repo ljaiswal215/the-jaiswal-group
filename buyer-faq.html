@@ -14,10 +14,16 @@
     /* ── Hero ─────────────────────────────────────────────────────── */
     .faq-hero {
       background: #18254B url('background-buyerfaq.jpg') center center / cover no-repeat;
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       padding: clamp(10rem,14vw,13rem) clamp(1.5rem,5vw,5rem) clamp(5rem,7vw,7rem);
       text-align: center;
       position: relative;
     }
+    @media(max-width:600px){ .faq-hero{ min-height: 0; } }
     .faq-hero::before {
       content: '';
       position: absolute;
