@@ -342,14 +342,35 @@
       justify-content: center;
       padding: clamp(3rem,6vw,6rem) clamp(2.5rem,6vw,6rem);
     }
-    .bg-about-text .section-eyebrow { color: #B38987; margin-bottom: 0.75rem; }
-    .bg-about-text h2 {
+    .bg-about-name {
       font-family: 'Marcellus', serif;
-      font-size: clamp(1.4rem,2.5vw,2rem);
+      font-size: clamp(1.8rem,3.2vw,2.6rem);
       color: #18254B;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.07em;
+      line-height: 1.05;
+      margin-bottom: 0.55rem;
+    }
+    .bg-about-company {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      color: #B38987;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .bg-about-rule {
+      width: 42px;
+      height: 1.5px;
+      background: #B38987;
       margin-bottom: 1rem;
-      line-height: 1.2;
+    }
+    .bg-about-credential {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.7rem;
+      color: rgba(58,74,107,0.5);
+      letter-spacing: 0.08em;
+      margin-bottom: 1.85rem;
     }
     .bg-about-text p {
       font-family: 'Raleway', sans-serif;
@@ -464,8 +485,8 @@
       <!-- RIGHT: Form Card -->
       <div class="bg-right">
         <div class="bg-form-card">
-          <h2>GET INSTANT ACCESS</h2>
-          <p>Enter your details below and your guide downloads immediately — no waiting, no follow-up required.</p>
+          <h2>YOUR INSTANT ACCESS IS HERE</h2>
+          <p>Fill in your details and click the Download My Free Guide button. Your guide will download immediately — no waiting.</p>
 
           <form class="bg-form" id="bg-form" action="https://formspree.io/f/mbdeakkz" method="POST">
             <input type="hidden" name="_subject" value="Buyer's Guide Download — The Jaiswal Group" />
@@ -484,9 +505,9 @@
               <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
             <h3>Your Guide is Ready!</h3>
-            <p>Your San Diego Home Buyer's Guide is downloading now. Want to go even deeper? Watch the full step-by-step video series — free, no sign-up required.</p>
+            <p>Your San Diego Home Buyer's Guide is downloaded. Want to go even deeper? Watch the full step-by-step video series — free, no sign-up required.</p>
             <div class="bg-success-actions">
-              <a href="BuyersGuide.pdf" class="btn-primary" target="_blank" rel="noopener">OPEN YOUR GUIDE &rarr;</a>
+              <a href="BuyersGuide.pdf" class="btn-primary" target="_blank" rel="noopener">OPEN YOUR BUYER'S GUIDE &rarr;</a>
               <span class="bg-success-divider">then</span>
               <a href="buyers-guide-videos.html" class="btn-secondary">WATCH THE VIDEO SERIES &rarr;</a>
             </div>
@@ -517,11 +538,13 @@
       <img src="Lynnette-hotpinkblazerandpants.jpg" alt="Lynnette Jaiswal, The Jaiswal Group Real Estate" />
     </div>
     <div class="bg-about-text">
-        <p class="section-eyebrow">YOUR GUIDE AUTHOR</p>
-        <h2>LYNNETTE JAISWAL<br>THE JAISWAL GROUP</h2>
-        <p>Lynnette Jaiswal is a San Diego-based luxury real estate agent known for her deep market knowledge, personalized approach, and unwavering commitment to her clients. She has helped hundreds of buyers successfully navigate San Diego's competitive market — from first-time purchases to multi-million dollar estates.</p>
-        <p>This guide reflects the same honest, detailed guidance she provides every client from day one. No fluff, no pressure — just everything you need to buy with confidence.</p>
-        <a href="contact.html">SCHEDULE A FREE CONSULTATION</a>
+      <p class="bg-about-name">LYNNETTE JAISWAL</p>
+      <p class="bg-about-company">THE JAISWAL GROUP REAL ESTATE</p>
+      <div class="bg-about-rule"></div>
+      <p class="bg-about-credential">San Diego, CA &nbsp;&middot;&nbsp; CA DRE #02100367</p>
+      <p>Lynnette is a San Diego-based luxury real estate agent known for her deep market knowledge, personalized approach, and unwavering commitment to her clients. She has helped hundreds of buyers confidently navigate one of the country's most competitive markets — from first-time purchases to multi-million dollar estates.</p>
+      <p>This guide reflects the same honest, detailed guidance she brings to every client relationship from day one. No fluff, no pressure — just everything you need to buy with confidence.</p>
+      <a href="contact.html">SCHEDULE A FREE CONSULTATION</a>
     </div>
   </section>
 
