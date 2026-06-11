@@ -485,7 +485,7 @@
       <!-- RIGHT: Form Card -->
       <div class="bg-right">
         <div class="bg-form-card">
-          <h2>YOUR INSTANT ACCESS IS HERE</h2>
+          <h2 id="bg-form-heading">GET YOUR INSTANT ACCESS</h2>
           <p>Fill in your details and click the Download My Free Guide button. Your guide will download immediately — no waiting.</p>
 
           <form class="bg-form" id="bg-form" action="https://formspree.io/f/mbdeakkz" method="POST">
@@ -625,6 +625,7 @@
           if (response.ok) {
             bgForm.style.display = 'none';
             bgSuccess.style.display = 'block';
+            document.getElementById('bg-form-heading').textContent = 'YOUR INSTANT ACCESS IS HERE';
             // Also trigger automatic download
             const link = document.createElement('a');
             link.href = 'BuyersGuide.pdf';
