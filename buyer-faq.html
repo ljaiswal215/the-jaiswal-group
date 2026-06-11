@@ -95,33 +95,62 @@
     }
     .faq-hero-btn:hover { background: #18254B; color: #B38987; border-color: #18254B; }
 
-    /* ── Intro Strip ──────────────────────────────────────────────── */
-    .faq-intro {
-      background: #F3EFE8;
-      padding: clamp(2.5rem,4vw,3.5rem) clamp(1.5rem,5vw,5rem);
+    /* ── Video Section ────────────────────────────────────────────── */
+    .faq-video-section {
+      background: #fff;
+      padding: clamp(3.5rem,6vw,6rem) clamp(1.5rem,5vw,5rem);
       text-align: center;
     }
-    .faq-intro p {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.9rem;
-      color: #3a4a6b;
-      line-height: 1.95;
-      max-width: 700px;
-      margin: 0 auto 1.25rem;
+    .faq-video-inner {
+      max-width: 780px;
+      margin: 0 auto;
     }
-    .faq-intro a {
+    .faq-video-inner .section-eyebrow { color: #B38987; margin-bottom: 0.75rem; }
+    .faq-video-inner h2 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.4rem,2.5vw,2rem);
+      color: #18254B;
+      letter-spacing: 0.06em;
+      margin-bottom: 2rem;
+    }
+    .faq-video-placeholder {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%; /* 16:9 */
+      background: #18254B;
+      cursor: pointer;
+    }
+    .faq-video-placeholder-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .faq-video-play {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .faq-video-play svg {
+      width: 24px; height: 24px;
+      fill: #fff; stroke: none;
+      margin-left: 4px;
+    }
+    .faq-video-coming {
       font-family: 'Raleway', sans-serif;
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 700;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
       color: #B38987;
-      text-decoration: none;
-      border-bottom: 1px solid #B38987;
-      padding-bottom: 2px;
-      transition: color 0.2s, border-color 0.2s;
     }
-    .faq-intro a:hover { color: #18254B; border-color: #18254B; }
 
     /* ── FAQ Accordion ────────────────────────────────────────────── */
     .faq-section {
@@ -310,18 +339,29 @@
     <div class="faq-hero-body">
       <p>At The Jaiswal Group Real Estate, buying a home should feel empowering — not overwhelming. These tips reflect the same honest, strategic guidance we bring to every client: clarity over confusion, confidence over guesswork, and a proven path to the keys.</p>
       <p>San Diego's market is competitive. We make sure you're ready for it.</p>
+      <p>Whether you're buying your first home or your fifth, the process always comes with questions. We've answered the most common ones below so you can move forward with confidence. And if you don't see your question here, we're always just a call or text away.</p>
     </div>
     <a href="buyers-guide.html" class="faq-hero-btn">ACCESS BUYER'S GUIDE &rarr;</a>
   </section>
 
 
   <!-- ═══════════════════════════════════════════════════════════════
-       INTRO STRIP
+       VIDEO — HOW TO CHOOSE A REALTOR
   ═══════════════════════════════════════════════════════════════ -->
-  <div class="faq-intro">
-    <p>Whether you're buying your first home or your fifth, the process always comes with questions. We've answered the most common ones below so you can move forward with confidence. And if you don't see your question here, we're always just a call or text away.</p>
-    <a href="buyers-guide.html">Download Our Free San Diego Home Buyer's Guide &rarr;</a>
-  </div>
+  <section class="faq-video-section">
+    <div class="faq-video-inner">
+      <p class="section-eyebrow">FEATURED VIDEO</p>
+      <h2>HOW TO CHOOSE THE RIGHT REALTOR</h2>
+      <div class="faq-video-placeholder">
+        <div class="faq-video-placeholder-inner">
+          <div class="faq-video-play">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <span class="faq-video-coming">Video Coming Soon</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
   <!-- ═══════════════════════════════════════════════════════════════
