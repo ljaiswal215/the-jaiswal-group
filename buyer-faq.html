@@ -33,7 +33,8 @@
     }
     .faq-hero .section-eyebrow,
     .faq-hero h1,
-    .faq-hero-sub { position: relative; z-index: 1; }
+    .faq-breadcrumb,
+    .faq-hero-body { position: relative; z-index: 1; }
     .faq-hero .section-eyebrow { color: #B38987; margin-bottom: 1rem; }
     .faq-hero h1 {
       font-family: 'Marcellus', serif;
@@ -41,17 +42,37 @@
       color: #fff;
       letter-spacing: 0.08em;
       line-height: 1.15;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
     }
     .faq-hero h1 span { color: #fff; }
-    .faq-hero-sub {
+    .faq-breadcrumb {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 2.5rem;
+    }
+    .faq-breadcrumb a {
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .faq-breadcrumb a:hover { color: #B38987; }
+    .faq-breadcrumb span { margin: 0 0.5rem; }
+    .faq-hero-body {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .faq-hero-body p {
       font-family: 'Raleway', sans-serif;
       font-size: 0.95rem;
-      color: rgba(255,255,255,0.68);
-      max-width: 560px;
-      margin: 0 auto;
-      line-height: 1.9;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.95;
+      margin-bottom: 1rem;
     }
+    .faq-hero-body p:last-child { margin-bottom: 0; }
 
     /* ── Intro Strip ──────────────────────────────────────────────── */
     .faq-intro {
@@ -258,7 +279,13 @@
   <section class="faq-hero">
     <p class="section-eyebrow">BUYER RESOURCES</p>
     <h1>BUYER <span>FAQ</span></h1>
-    <p class="faq-hero-sub">San Diego home buying questions — answered with honesty, clarity, and care.</p>
+    <nav class="faq-breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a><span>/</span><a href="#">Buy a Home</a><span>/</span><span>Buyer FAQ</span>
+    </nav>
+    <div class="faq-hero-body">
+      <p>At The Jaiswal Group Real Estate, we know that buying a home is one of the most important financial and lifestyle decisions you'll ever make. We created this resource to give you clarity, confidence, and a proven path forward — free of overwhelm and guesswork.</p>
+      <p>Our approach is intentional and strategic. With years of experience navigating San Diego's competitive market, we've helped professionals and families make smart, seamless moves. Whether you're buying your first home or your forever home, you'll find the practical advice, insider knowledge, and personalized strategy to make the process feel clear, manageable, and even enjoyable.</p>
+    </div>
   </section>
 
 
