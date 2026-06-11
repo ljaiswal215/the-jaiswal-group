@@ -141,13 +141,21 @@
     .phr-faq-item:first-child{border-top:1px solid rgba(28,48,99,0.08);}
     .phr-faq-item h3{font-family:'Marcellus',serif;font-size:0.95rem;color:#18254B;letter-spacing:0.03em;margin-bottom:0.5rem;}
     .phr-faq-item p{font-family:'Raleway',sans-serif;font-size:0.875rem;color:#3a4a6b;line-height:1.9;margin:0;}
+    /* ── Seller CTA ───────────────────────────────────────────────────── */
+    .phr-seller-cta{background:#18254B;padding:clamp(3rem,5vw,4.5rem) 0;text-align:center;}
+    .phr-seller-cta-inner{max-width:1400px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}
+    .phr-seller-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .phr-seller-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.3rem,2.2vw,1.8rem);color:#fff;letter-spacing:0.08em;margin-bottom:0.85rem;line-height:1.2;}
+    .phr-seller-cta p{font-family:'Raleway',sans-serif;font-size:0.88rem;color:rgba(255,255,255,0.75);max-width:580px;margin:0 auto 1.75rem;line-height:1.85;}
+    .phr-seller-cta a{display:inline-block;padding:0.85rem 2.25rem;font-family:'Raleway',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;background:transparent;color:#fff;border:1.5px solid #fff;text-decoration:none;transition:background 0.22s,color 0.22s,border-color 0.22s;}
+    .phr-seller-cta a:hover{background:#B38987;color:#fff;border-color:#B38987;}
     /* ── Map ──────────────────────────────────────────────────────────── */
-    .phr-map{background:#fff;padding:clamp(3rem,5vw,4.5rem) clamp(1.5rem,6vw,6rem);}
-    .phr-map-inner{max-width:1100px;margin:0 auto;}
+    .phr-map{background:#fff;padding:clamp(3rem,5vw,4.5rem) 0 0;}
+    .phr-map-inner{max-width:1100px;margin:0 auto;padding:0 clamp(1.5rem,6vw,6rem);}
     .phr-map-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
     .phr-map-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.75rem;text-align:center;}
-    .phr-map-embed{width:100%;height:450px;border:0;display:block;}
-    @media(max-width:600px){.phr-map-embed{height:300px;}}
+    .phr-map-embed{width:100%;height:520px;border:0;display:block;}
+    @media(max-width:600px){.phr-map-embed{height:320px;}}
     /* ── IDX Listings ─────────────────────────────────────────────────── */
     .phr-listings{background:#F6F6F4;padding:clamp(3rem,5vw,4.5rem) clamp(1.5rem,6vw,6rem);}
     .phr-listings-inner{max-width:1100px;margin:0 auto;}
@@ -325,6 +333,27 @@
     </div>
   </section>
 
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       REAL ESTATE & IDX LISTINGS
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="phr-listings" id="listings">
+    <div class="phr-listings-inner">
+      <p class="section-eyebrow">REAL ESTATE</p>
+      <h2>PROPERTIES FOR SALE IN PACIFIC HIGHLANDS RANCH</h2>
+      <p class="phr-listings-intro">Browse current homes for sale in Pacific Highlands Ranch, updated daily from the MLS &mdash; from attached townhomes to expansive single-family estates.</p>
+      <!-- ═══════════════════════════════════════════════════════
+           IDX BROKER WIDGET
+           Replace the placeholder below with your IDX Broker
+           widget code filtered to:
+           Subdivision = Pacific Highlands Ranch
+           City = San Diego  ·  Zip = 92130
+      ═══════════════════════════════════════════════════════ -->
+      <div class="phr-idx-placeholder">
+        <p>IDX Broker Widget &mdash; Pacific Highlands Ranch &middot; San Diego &middot; 92130</p>
+      </div>
+    </div>
+  </section>
 
   <!-- ═══════════════════════════════════════════════════════════════
        RESTAURANTS
@@ -518,28 +547,40 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════
+       SELLER CTA
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="phr-seller-cta">
+    <div class="phr-seller-cta-inner">
+      <p class="section-eyebrow">THINKING OF SELLING</p>
+      <h2>FIND OUT WHAT YOUR PACIFIC HIGHLANDS RANCH HOME IS WORTH</h2>
+      <p>Pacific Highlands Ranch continues to be one of San Diego&rsquo;s most sought-after communities &mdash; and that demand drives real value for sellers. If you&rsquo;re considering a move, we&rsquo;d love to give you an honest, data-driven look at what your home could bring in today&rsquo;s market.</p>
+      <a href="../home-valuation.html">GET YOUR FREE VALUATION</a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
        MAP
   ═══════════════════════════════════════════════════════════════ -->
   <section class="phr-map">
     <div class="phr-map-inner">
       <p class="section-eyebrow">LOCATION</p>
       <h2>MAP OF PACIFIC HIGHLANDS RANCH</h2>
-      <!-- ═══════════════════════════════════════════════════════
-           To update with a sharper embed:
-           1. Go to maps.google.com
-           2. Search "Pacific Highlands Ranch San Diego CA 92130"
-           3. Click Share → Embed a map → Copy HTML
-           4. Paste the iframe here (keep class="phr-map-embed")
-      ═══════════════════════════════════════════════════════ -->
-      <iframe
-        class="phr-map-embed"
-        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13390.835613068248!2d-117.20612018432887!3d32.958694081838104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1781104211095!5m2!1sen!2sus"
-        title="Pacific Highlands Ranch, San Diego, CA 92130"
-        allowfullscreen
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
     </div>
+    <!-- ═══════════════════════════════════════════════════════
+         To update with a sharper embed:
+         1. Go to maps.google.com
+         2. Search "Pacific Highlands Ranch San Diego CA 92130"
+         3. Click Share → Embed a map → Copy HTML
+         4. Paste the iframe here (keep class="phr-map-embed")
+    ═══════════════════════════════════════════════════════ -->
+    <iframe
+      class="phr-map-embed"
+      src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13390.835613068248!2d-117.20612018432887!3d32.958694081838104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1781104211095!5m2!1sen!2sus"
+      title="Pacific Highlands Ranch, San Diego, CA 92130"
+      allowfullscreen
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
   </section>
 
 
@@ -595,26 +636,6 @@
   </section>
 
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       REAL ESTATE & IDX LISTINGS
-  ═══════════════════════════════════════════════════════════════ -->
-  <section class="phr-listings" id="listings">
-    <div class="phr-listings-inner">
-      <p class="section-eyebrow">REAL ESTATE</p>
-      <h2>PROPERTIES FOR SALE IN PACIFIC HIGHLANDS RANCH</h2>
-      <p class="phr-listings-intro">Browse current homes for sale in Pacific Highlands Ranch, updated daily from the MLS &mdash; from attached townhomes to expansive single-family estates.</p>
-      <!-- ═══════════════════════════════════════════════════════
-           IDX BROKER WIDGET
-           Replace the placeholder below with your IDX Broker
-           widget code filtered to:
-           Subdivision = Pacific Highlands Ranch
-           City = San Diego  ·  Zip = 92130
-      ═══════════════════════════════════════════════════════ -->
-      <div class="phr-idx-placeholder">
-        <p>IDX Broker Widget &mdash; Pacific Highlands Ranch &middot; San Diego &middot; 92130</p>
-      </div>
-    </div>
-  </section>
 
 
   <section class="nbhd-cta">
@@ -623,7 +644,6 @@
     <p>Whether you&rsquo;re relocating to San Diego or moving within the area, we&rsquo;d love to show you everything Pacific Highlands Ranch has to offer. Reach out for a complimentary consultation &mdash; no pressure, just honest guidance.</p>
     <div class="nbhd-cta-btns">
       <a href="../contact.html" class="btn btn-primary">SCHEDULE A CONSULTATION</a>
-      <a href="../home-valuation.html" class="btn btn-primary">GET A HOME VALUATION</a>
     </div>
   </section>
 
