@@ -23,8 +23,9 @@
     .page-hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(24,37,75,0.2) 0%,rgba(24,37,75,0.8) 100%);}
     .page-hero-inner{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(2rem,6vw,6rem);}
     .page-hero-inner h1{font-family:'Marcellus',serif;font-size:clamp(2.2rem,4.5vw,3.5rem);color:#fff;letter-spacing:0.06em;line-height:1.1;margin-bottom:1rem;}
+    .page-hero-rule{width:240px;height:2px;background:rgba(255,255,255,0.45);margin:0.75rem auto 1.5rem;}
     .page-hero-inner p{font-family:'Raleway',sans-serif;font-size:0.92rem;color:rgba(255,255,255,0.82);max-width:860px;line-height:1.85;}
-    .page-hero-anchor{display:inline-block;margin-top:1.75rem;padding:0.7rem 1.85rem;font-family:'Raleway',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.80);border:1px solid rgba(255,255,255,0.30);text-decoration:none;transition:border-color 0.25s,color 0.25s;}
+    .page-hero-anchor{position:absolute;left:50%;bottom:14%;transform:translateX(-50%);display:inline-block;padding:0.7rem 1.85rem;font-family:'Raleway',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.80);border:1px solid rgba(255,255,255,0.30);text-decoration:none;transition:border-color 0.25s,color 0.25s;}
     .page-hero-anchor:hover{border-color:#B38987;color:#B38987;}
     .nbhd-about{background:#F3EFE8;padding:clamp(3rem,5vw,4.5rem) clamp(1.5rem,6vw,6rem);}
     .nbhd-about-inner{max-width:1100px;margin:0 auto;}
@@ -38,7 +39,7 @@
     .nbhd-highlights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
     .nbhd-highlight-item{background:rgba(255,255,255,0.05);border:1px solid rgba(179,137,135,0.2);padding:1.5rem 1.25rem;}
     .nbhd-highlight-item h3{font-family:'Marcellus',serif;font-size:1rem;color:#B38987;margin-bottom:0.6rem;}
-    .nbhd-highlight-item p{font-family:'Raleway',sans-serif;font-size:0.83rem;color:rgba(255,255,255,0.75);line-height:1.8;margin:0;}
+    .nbhd-highlight-item p{font-family:'Raleway',sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.75);line-height:1.8;margin:0;}
     @media(max-width:700px){.nbhd-highlights-grid{grid-template-columns:1fr 1fr;}}
     @media(max-width:480px){.nbhd-highlights-grid{grid-template-columns:1fr;}}
     .nbhd-cta{background:#fff;padding:clamp(3rem,5vw,4.5rem) clamp(1.5rem,6vw,6rem);text-align:center;}
@@ -58,11 +59,11 @@
     .subdiv-breadcrumb nav span.current{color:#B38987;}
 
     /* ── Communities Grid ───────────────────────────────────────────── */
-    .phr-communities{background:#F3EFE8;padding:clamp(3rem,5vw,4.5rem) clamp(1.5rem,4vw,3rem);}
-    .phr-communities-inner{max-width:1400px;margin:0 auto;}
+    .phr-communities{background:#F3EFE8;padding:clamp(3rem,5vw,4.5rem) clamp(1.5rem,4vw,3rem);overflow-x:hidden;}
+    .phr-communities-inner{max-width:none;margin:0 auto;}
     .phr-communities-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
     .phr-communities-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.75rem;text-align:center;}
-    .phr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;}
+    .phr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);}
     .phr-card{position:relative;height:260px;display:flex;flex-direction:column;justify-content:flex-end;padding:1rem 1.1rem;text-decoration:none;background-color:#18254B;background-size:cover;background-position:center;overflow:hidden;transition:transform 0.25s;}
     .phr-card::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(24,37,75,0.05) 0%,rgba(24,37,75,0.78) 100%);transition:background 0.25s;z-index:0;}
     .phr-card:hover{transform:scale(1.01);z-index:1;}
@@ -86,12 +87,10 @@
     .phr-restaurants-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:2.5rem;text-align:center;}
     .phr-restaurant-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
     .phr-restaurant-card{background:#F3EFE8;padding:1.75rem 1.5rem;text-align:center;display:flex;flex-direction:column;align-items:center;}
-    .phr-restaurant-card:nth-child(5){grid-column:2;}
-    .phr-restaurant-card:nth-child(6){grid-column:3;}
     .phr-restaurant-card h3{font-family:'Marcellus',serif;font-size:1rem;color:#18254B;letter-spacing:0.06em;margin-bottom:0.35rem;}
     .phr-restaurant-card .phr-rest-type{font-family:'Raleway',sans-serif;font-size:0.64rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#B38987;display:block;margin-bottom:0.85rem;}
-    .phr-restaurant-card p{font-family:'Raleway',sans-serif;font-size:0.83rem;color:#3a4a6b;line-height:1.8;margin:0;}
-    @media(max-width:800px){.phr-restaurant-grid{grid-template-columns:repeat(2,1fr);}.phr-restaurant-card:nth-child(5),.phr-restaurant-card:nth-child(6){grid-column:auto;}}
+    .phr-restaurant-card p{font-family:'Raleway',sans-serif;font-size:0.9rem;color:#3a4a6b;line-height:1.8;margin:0;}
+    @media(max-width:800px){.phr-restaurant-grid{grid-template-columns:repeat(2,1fr);}}
     @media(max-width:480px){.phr-restaurant-grid{grid-template-columns:1fr;}}
     /* ── Video ────────────────────────────────────────────────────────── */
     .phr-video{background:#18254B;padding:clamp(3rem,5vw,4.5rem) clamp(1.5rem,6vw,6rem);}
@@ -107,7 +106,7 @@
     .phr-schools-inner{max-width:1100px;margin:0 auto;}
     .phr-schools-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
     .phr-schools-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
-    .phr-schools-intro{font-family:'Raleway',sans-serif;font-size:0.88rem;color:#3a4a6b;line-height:1.9;margin-bottom:2rem;}
+    .phr-schools-intro{font-family:'Raleway',sans-serif;font-size:0.92rem;color:#3a4a6b;line-height:1.9;margin-bottom:2rem;}
     .phr-schools-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;}
     .phr-school-col h3{font-family:'Marcellus',serif;font-size:0.82rem;color:#18254B;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(28,48,99,0.12);}
     .phr-school-item{font-family:'Raleway',sans-serif;font-size:0.87rem;color:#3a4a6b;padding:0.55rem 0;border-bottom:1px solid rgba(28,48,99,0.05);display:flex;justify-content:space-between;align-items:baseline;}
@@ -123,12 +122,12 @@
     .phr-commute-inner{max-width:1100px;margin:0 auto;}
     .phr-commute-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
     .phr-commute-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
-    .phr-commute-intro{font-family:'Raleway',sans-serif;font-size:0.88rem;color:#3a4a6b;line-height:1.9;margin-bottom:2rem;max-width:780px;}
+    .phr-commute-intro{font-family:'Raleway',sans-serif;font-size:0.92rem;color:#3a4a6b;line-height:1.9;margin-bottom:2rem;max-width:780px;}
     .phr-commute-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
     .phr-commute-card{padding:1.5rem 1.25rem;background:#F3EFE8;}
     .phr-commute-card h3{font-family:'Marcellus',serif;font-size:0.92rem;color:#18254B;letter-spacing:0.05em;margin-bottom:0.35rem;}
     .phr-commute-card .phr-commute-time{font-family:'Raleway',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#B38987;display:block;margin-bottom:0.65rem;}
-    .phr-commute-card p{font-family:'Raleway',sans-serif;font-size:0.82rem;color:#3a4a6b;line-height:1.75;margin:0;}
+    .phr-commute-card p{font-family:'Raleway',sans-serif;font-size:0.9rem;color:#3a4a6b;line-height:1.75;margin:0;}
     @media(max-width:700px){.phr-commute-grid{grid-template-columns:1fr 1fr;}}
     @media(max-width:480px){.phr-commute-grid{grid-template-columns:1fr;}}
     /* ── FAQs ─────────────────────────────────────────────────────────── */
@@ -140,13 +139,20 @@
     .phr-faq-item{padding:1.35rem 0;border-bottom:1px solid rgba(28,48,99,0.08);}
     .phr-faq-item:first-child{border-top:1px solid rgba(28,48,99,0.08);}
     .phr-faq-item h3{font-family:'Marcellus',serif;font-size:0.95rem;color:#18254B;letter-spacing:0.03em;margin-bottom:0.5rem;}
-    .phr-faq-item p{font-family:'Raleway',sans-serif;font-size:0.875rem;color:#3a4a6b;line-height:1.9;margin:0;}
+    .phr-faq-item p{font-family:'Raleway',sans-serif;font-size:0.92rem;color:#3a4a6b;line-height:1.9;margin:0;}
+    .phr-faq-item p + p{margin-top:0.85rem;}
+    .phr-faq-item .phr-faq-school-group{margin-top:0.85rem;}
+    .phr-faq-item .phr-faq-school-group + p{margin-top:0.85rem;}
+    .phr-faq-item .phr-faq-school-name{font-family:'Marcellus',serif;font-size:0.78rem;color:#18254B;letter-spacing:0.06em;text-transform:uppercase;display:block;margin-bottom:0.3rem;}
+    .phr-schools-intro a,.phr-faq-item a{color:#1C3063;text-decoration:underline;text-decoration-color:rgba(28,48,99,0.3);text-underline-offset:2px;transition:color 0.2s,text-decoration-color 0.2s;}
+    .phr-schools-intro a:hover,.phr-faq-item a:hover{color:#B38987;text-decoration-color:#B38987;}
     /* ── Seller CTA ───────────────────────────────────────────────────── */
     .phr-seller-cta{background:#18254B;padding:clamp(3rem,5vw,4.5rem) 0;text-align:center;}
     .phr-seller-cta-inner{max-width:1400px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}
     .phr-seller-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
     .phr-seller-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.3rem,2.2vw,1.8rem);color:#fff;letter-spacing:0.08em;margin-bottom:0.85rem;line-height:1.2;}
     .phr-seller-cta p{font-family:'Raleway',sans-serif;font-size:0.88rem;color:rgba(255,255,255,0.75);max-width:580px;margin:0 auto 1.75rem;line-height:1.85;}
+    .phr-seller-cta p.phr-seller-cta-text{max-width:none;}
     .phr-seller-cta a{display:inline-block;padding:0.85rem 2.25rem;font-family:'Raleway',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;background:transparent;color:#fff;border:1.5px solid #fff;text-decoration:none;transition:background 0.22s,color 0.22s,border-color 0.22s;}
     .phr-seller-cta a:hover{background:#B38987;color:#fff;border-color:#B38987;}
     /* ── Map ──────────────────────────────────────────────────────────── */
@@ -161,7 +167,7 @@
     .phr-listings-inner{max-width:1100px;margin:0 auto;}
     .phr-listings-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
     .phr-listings-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.75rem;text-align:center;}
-    .phr-listings-intro{font-family:'Raleway',sans-serif;font-size:0.85rem;color:#3a4a6b;text-align:center;margin:0 auto 2.5rem;max-width:860px;line-height:1.8;}
+    .phr-listings-intro{font-family:'Raleway',sans-serif;font-size:0.9rem;color:#3a4a6b;text-align:center;margin:0 auto 2.5rem;max-width:860px;line-height:1.8;}
     .phr-idx-placeholder{background:#fff;border:2px dashed rgba(28,48,99,0.15);padding:3.5rem 2rem;text-align:center;border-radius:2px;}
     .phr-idx-placeholder p{font-family:'Raleway',sans-serif;font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(28,48,99,0.35);margin:0;}
   </style>
@@ -178,7 +184,7 @@
         "breadcrumb": {
           "@type": "BreadcrumbList",
           "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Communities", "item": "https://thejaiswalgroupre.com/neighborhoods.html" },
+            { "@type": "ListItem", "position": 1, "name": "Communities", "item": "https://thejaiswalgroupre.com/communities.html" },
             { "@type": "ListItem", "position": 2, "name": "Pacific Highlands Ranch" }
           ]
         }
@@ -187,7 +193,7 @@
         "@type": "RealEstateAgent",
         "name": "The Jaiswal Group Real Estate",
         "url": "https://thejaiswalgroupre.com",
-        "telephone": "+18586634896",
+        "telephone": "+18582907531",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "5450 Indigo Sage Drive",
@@ -203,34 +209,18 @@
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "What zip code is Pacific Highlands Ranch?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Pacific Highlands Ranch carries the 92130 zip code, shared with neighboring Carmel Valley. Nestled along the SR-56 corridor in northern San Diego, it offers easy access to the coast and strong freeway connectivity for commuting throughout the county."
-            }
-          },
-          {
-            "@type": "Question",
             "name": "When was Pacific Highlands Ranch built?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Development began in the early 2000s and continued through the 2010s and beyond. Built in thoughtful phases, homes range from early 2000s construction to some of the newest neighborhoods in San Diego — with many of the most sought-after communities completed between 2005 and 2015."
+              "text": "Development of Pacific Highlands Ranch began in the early 2000s and unfolded over more than two decades through a series of thoughtfully planned neighborhoods. Homes range from early 2000s construction to some of San Diego's newest residences, with community buildout concluding in 2025 following the completion of The Highlands Collection."
             }
           },
           {
             "@type": "Question",
-            "name": "How many homes are in Pacific Highlands Ranch?",
+            "name": "How many HOAs are there in Pacific Highlands Ranch?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Pacific Highlands Ranch is a large master-planned community comprising several thousand homes across a wide range of product types — from attached townhomes to expansive detached single-family residences. That breadth of options is part of what makes it one of the most accessible and sought-after communities in all of San Diego."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What is the HOA fee in Pacific Highlands Ranch?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "HOA fees vary by neighborhood — each community maintains its own HOA structure, and some also participate in a master community association. Fees typically range from under $100 to several hundred dollars per month depending on the community and its amenities."
+              "text": "Pacific Highlands Ranch is made up of numerous individual neighborhood HOAs, each with its own dues structure, rules, and amenities. The two most common associations are West Highlands Pacific HOA and Pacific Highlands Ranch North, though several smaller neighborhood associations also exist throughout the community.\n\nIn addition to the neighborhood HOAs, Pacific Highlands Ranch has a master association that oversees and maintains community-wide amenities and common areas. Some neighborhoods operate as sub-associations within the master HOA, meaning homeowners contribute to both their neighborhood HOA and the master association. While these are technically separate assessments, they are often combined into a single monthly payment, and many homeowners don't realize they are paying two separate HOA fees.\n\nHOA dues vary by neighborhood and can range from under $100 to several hundred dollars per month depending on the community and its amenities. We're happy to provide current HOA information, fee structures, and governing documents for any Pacific Highlands Ranch neighborhood you're considering."
             }
           },
           {
@@ -238,7 +228,7 @@
             "name": "Is Pacific Highlands Ranch a good place to raise a family?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Consistently, yes — it's one of the first communities we recommend for relocating families. The combination of top-performing schools, walkable neighborhood design, abundant parks and trails, and a genuine sense of community makes PHR exceptionally well-suited for families at every stage."
+              "text": "Many families are drawn to Pacific Highlands Ranch for its highly regarded schools, extensive parks and trails, thoughtfully planned neighborhoods, and strong sense of community. These qualities have helped make it one of San Diego's most popular communities for family living."
             }
           },
           {
@@ -246,7 +236,15 @@
             "name": "How far is Pacific Highlands Ranch from the beach?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "About 10 to 12 minutes from the beaches of Del Mar — close enough to enjoy the coast on a regular basis, yet far enough inland to offer newer construction, more generous lot sizes, and price points that are simply more attainable than the immediate coastal communities."
+              "text": "Pacific Highlands Ranch is approximately 10 to 15 minutes from Del Mar's beaches, depending on traffic and your specific destination. Its location offers convenient access to the coast while providing the benefits of newer construction, thoughtfully planned neighborhoods, and a broader range of housing options than many nearby beach communities."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I know which school my neighborhood is assigned to?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "School attendance boundaries can change over time, so it's always best to verify current school assignments directly with the applicable school district before making any home purchase decision. While neighborhood assignments are generally stable, boundary adjustments can occur as enrollment patterns and district needs evolve.\n\nAs a general guideline, the following Pacific Highlands Ranch neighborhoods are commonly associated with these elementary schools:\n\nSolana Ranch Elementary: Almeria, Arabella, Brightwater, Hampton Lane, Manzanita Trail, Olvera, Portico, Santa Barbara, Santa Rosa, Sendero, and Watermark.\n\nCarmel Creek Elementary / Solana Pacific Elementary: Carmel, Terraza, and Vista Del Mar.\n\nSolana Santa Fe Elementary: Artesana, Casabella, Palomar, Sendero Collection, The Highlands, The Highlands Collection, and Vista Santa Fe.\n\nBecause attendance boundaries, enrollment programs, and transfer policies can change, we strongly recommend confirming school assignments directly with the school district before relying on this information. If you're considering a specific home or neighborhood, we're happy to help point you in the right direction and provide the resources you need to verify current attendance boundaries."
             }
           }
         ]
@@ -271,20 +269,20 @@
       <ul class="nav-links">
         <li class="has-dropdown"><a href="#">BUY A HOME <span class="caret">&#9662;</span></a><ul class="dropdown"><li><a href="#">Featured Listings</a></li><li><a href="#">Search for Homes</a></li><li><a href="#">New Construction</a></li><li><a href="../buyers-guide.html">Buyer's Guide</a></li><li><a href="../buyer-faq.html">Buyer FAQ</a></li><li><a href="#">Mortgage Calculator</a></li></ul></li>
         <li class="has-dropdown"><a href="#">SELL YOUR HOME <span class="caret">&#9662;</span></a><ul class="dropdown"><li><a href="#">Seller Consultation</a></li><li><a href="../home-valuation.html">Instant Home Valuation</a></li><li><a href="#">Our Marketing</a></li><li><a href="../sellers-guide.html">Seller's Guide</a></li><li><a href="#">Selling Checklist</a></li></ul></li>
-        <li><a href="../neighborhoods.html">COMMUNITIES</a></li>
+        <li><a href="../communities.html">COMMUNITIES</a></li>
         <li><a href="../BLOG/blog.html">BLOG</a></li>
         <li class="has-dropdown"><a href="#">RESOURCES <span class="caret">&#9662;</span></a><ul class="dropdown"><li><a href="#">Market Updates</a></li><li><a href="#">The Plugged In Method</a></li><li><a href="#">Recommended Lenders</a></li><li><a href="#">Relocation Guide</a></li><li class="has-subdropdown"><a href="#">Videos</a><ul class="subdropdown"><li><a href="https://www.youtube.com/@LynnetteJaiswalRealtor" target="_blank" rel="noopener">YouTube Channel</a></li><li><a href="../buyers-guide-videos.html">Buyer Video Series</a></li><li><a href="../sellers-guide-videos.html">Seller Video Series</a></li></ul></li></ul></li>
         <li class="has-dropdown"><a href="#">ABOUT US <span class="caret">&#9662;</span></a><ul class="dropdown"><li><a href="#">Lynnette Jaiswal</a></li><li><a href="../clientreviews.html">Client Reviews</a></li><li><a href="#">Join Our Team</a></li></ul></li>
         <li><a href="../contact.html">CONTACT</a></li>
-        <li class="nav-phone"><a href="tel:8586634896">(858) 663-4896</a></li>
+        <li class="nav-phone"><a href="tel:8582907531">(858) 290-7531</a></li>
       </ul>
       <button class="hamburger" aria-label="Menu" id="hamburger"><span></span><span></span><span></span></button>
     </nav>
     <div class="mobile-menu" id="mobile-menu"><ul>
       <li><a href="#">Buy a Home</a></li><li><a href="#">Sell Your Home</a></li>
-      <li><a href="../neighborhoods.html">Communities</a></li><li><a href="../BLOG/blog.html">Blog</a></li>
+      <li><a href="../communities.html">Communities</a></li><li><a href="../BLOG/blog.html">Blog</a></li>
       <li><a href="#">Resources</a></li><li><a href="#">About Us</a></li>
-      <li><a href="../contact.html">Contact</a></li><li><a href="tel:8586634896">(858) 663-4896</a></li>
+      <li><a href="../contact.html">Contact</a></li><li><a href="tel:8582907531">(858) 290-7531</a></li>
     </ul></div>
   </header>
 
@@ -294,6 +292,7 @@
     </div>
     <div class="page-hero-inner">
       <h1>PACIFIC HIGHLANDS RANCH</h1>
+      <div class="page-hero-rule"></div>
       <p>A master-planned community in northern San Diego that combines neighborhood living with a vibrant village center, scenic open space, and everyday convenience. Known for its walkability, family-friendly atmosphere, and access to parks, shops, and restaurants, it offers a balanced lifestyle in one of the area&rsquo;s most desirable residential settings.</p>
       <a href="#listings" class="page-hero-anchor">Browse Current Listings &#8595;</a>
     </div>
@@ -301,7 +300,7 @@
 
   <div class="subdiv-breadcrumb">
     <nav aria-label="Breadcrumb">
-      <a href="../neighborhoods.html">Communities</a>
+      <a href="../communities.html">Communities</a>
       <span class="sep">&rsaquo;</span>
       <span class="current">Pacific Highlands Ranch</span>
     </nav>
@@ -309,12 +308,18 @@
 
   <section class="nbhd-about">
     <div class="nbhd-about-inner">
-      <p class="section-eyebrow">ABOUT THE NEIGHBORHOOD</p>
+      <p class="section-eyebrow">ABOUT PACIFIC HIGHLANDS RANCH</p>
       <h2>THOUGHTFULLY PLANNED. BEAUTIFULLY LIVED.</h2>
-      <p>Pacific Highlands Ranch is one of San Diego's most thoughtfully designed master-planned communities — built with a clear vision for modern family living at its finest. Located along the SR-56 corridor in the 92130 zip code, it sits adjacent to Carmel Valley and shares many of the same sought-after attributes: award-winning schools, proximity to the coast, and access to world-class retail and dining.</p>
-      <p>The community was carefully developed in phases, with The Village at Pacific Highlands Ranch serving as its vibrant town center — offering an upscale retail and dining destination anchored by familiar favorites and unique local gems alike. The community's layout prioritizes walkability, green space, and connectivity, with parks, trails, and open space woven throughout the neighborhoods.</p>
-      <p>Homes in Pacific Highlands Ranch tend toward newer construction — generally built between the 2010s and present — offering modern floor plans, energy-efficient features, and the architectural variety that comes with a thoughtfully master-planned development. From attached townhomes to expansive detached single-family residences, there is a home type and price point for a wide range of buyers.</p>
-      <p>For families relocating to San Diego — particularly those seeking excellent public schools and a true neighborhood feel — Pacific Highlands Ranch is consistently one of the first communities we recommend. Demand here is strong and inventory is typically limited, which speaks to how much buyers love it once they arrive.</p>
+      <p>Pacific Highlands Ranch is one of San Diego's most thoughtfully envisioned master-planned communities — a place where modern living, natural beauty, and everyday convenience come together in remarkable balance. Located within the northern coastal reaches of Carmel Valley, this vibrant community has become one of North County's most sought-after addresses for families, professionals, and anyone seeking a connected lifestyle just minutes from the coast.</p>
+      <p>Encompassing approximately 2,650 acres, Pacific Highlands Ranch was designed with a long-term vision that continues to define the community today. Nearly half of the land has been permanently preserved as open space, creating a rare sense of connection to the natural environment. Miles of interconnected hiking, biking, and walking trails wind through protected canyons, native habitat, and scenic open space, providing residents with opportunities to enjoy the outdoors right from their own neighborhoods. Here, the landscape itself becomes part of daily life.</p>
+      <p>Bounded by Fairbanks Ranch to the north, Torrey Highlands to the east, Del Mar Mesa to the south, and Carmel Valley to the west, Pacific Highlands Ranch occupies a uniquely convenient location within San Diego County. Residents enjoy easy access to Interstate 5 and State Route 56, creating convenient connections to major employment centers including Sorrento Valley, UTC, Downtown San Diego, and North County's thriving technology, biotech, healthcare, and professional services sectors.</p>
+      <p>Largely developed by Pardee Homes, now Tri Pointe Homes, with additional luxury communities by builders including Toll Brothers, Pacific Highlands Ranch offers an impressive collection of neighborhoods ranging from townhomes and detached residences to gated luxury estates. Communities such as Sendero, Terraza, Carmel, Palomar, Vista Santa Fe, Vista Del Mar, The Highlands, and The Highlands Collection showcase contemporary architecture and modern floor plans, while established neighborhoods including Arabella, Airoso, Bordeaux, Brightwater, Hampton Lane, Manzanita Trail, Olvera, Portico, Santa Rosa, and Soleil contribute to the community's enduring character and appeal.</p>
+      <p>What continues to distinguish Pacific Highlands Ranch is not simply the homes, but the lifestyle they support.</p>
+      <p>At the center of community life sits The Village at Pacific Highlands Ranch, a destination that functions as far more than a shopping center. On any given day, neighbors gather over coffee, families stroll between activities, children play in nearby parks, and residents connect at community events throughout the year. Anchored by restaurants, boutiques, wellness services, specialty grocery stores, and everyday conveniences, The Village serves as the social heart of the community. The surrounding area includes a public library, dog park, community garden, bocce courts, open green spaces, and gathering areas that encourage residents to linger rather than simply pass through.</p>
+      <p>The community's commitment to active living extends beyond its trail system. Pacific Highlands Ranch is home to beautiful parks, recreation centers, sports facilities, and private resort-style amenities that support a healthy and connected lifestyle. Residents of select neighborhoods enjoy access to exclusive recreational facilities including The Club at Pacific Highlands Ranch and The Club at Lopelia Meadows, featuring pools, fitness centers, gathering spaces, and family-friendly amenities that have become a cherished part of everyday life.</p>
+      <p>Families are particularly drawn to Pacific Highlands Ranch for its highly regarded schools and strong sense of community. The neighborhood is served by the Solana Beach School District, Del Mar Union School District, and San Dieguito Union High School District, with access to some of the region's most respected public schools. Nearby private school options further contribute to the area's appeal for those prioritizing educational opportunities.</p>
+      <p>Equally compelling is the atmosphere residents often describe when talking about life in Pacific Highlands Ranch. It is a community where children ride bikes to parks, neighbors gather for local events, trails connect neighborhoods to open space, and daily conveniences are often just a short walk away. Despite its continued growth, Pacific Highlands Ranch has maintained a cohesive identity rooted in thoughtful planning, environmental stewardship, and a genuine sense of connection.</p>
+      <p>Just minutes from the beaches of Del Mar, surrounded by preserved natural beauty, and anchored by exceptional schools, amenities, and recreation, Pacific Highlands Ranch offers a lifestyle that is increasingly difficult to replicate. For many residents, it represents the ideal balance of coastal proximity, modern convenience, outdoor living, and community — all within one of San Diego County's most desirable neighborhoods.</p>
     </div>
   </section>
 
@@ -339,8 +344,8 @@
   ═══════════════════════════════════════════════════════════════ -->
   <section class="phr-listings" id="listings">
     <div class="phr-listings-inner">
-      <p class="section-eyebrow">REAL ESTATE</p>
-      <h2>PROPERTIES FOR SALE IN PACIFIC HIGHLANDS RANCH</h2>
+      <p class="section-eyebrow">BROWSE LISTINGS</p>
+      <h2>PACIFIC HIGHLANDS RANCH HOMES FOR SALE</h2>
       <p class="phr-listings-intro">Browse current homes for sale in Pacific Highlands Ranch, updated daily from the MLS &mdash; from attached townhomes to expansive single-family estates.</p>
       <!-- ═══════════════════════════════════════════════════════
            IDX BROKER WIDGET
@@ -366,32 +371,42 @@
         <div class="phr-restaurant-card">
           <h3><a href="https://www.amalficucinaitaliana.com/pizza-bar-carmel-valley" target="_blank" rel="noopener">Amalfi Pizza &amp; Bar</a></h3>
           <span class="phr-rest-type">Pizza &middot; Italian Bar</span>
-          <p>A Village staple for date nights and family dinners &mdash; fresh flavors, warm ambiance, and the kind of meal that makes you linger just a little longer.</p>
+          <p>A neighborhood favorite for everything from family dinners to date nights, serving wood-fired pizzas, Italian classics, and a welcoming atmosphere that invites you to stay awhile.</p>
         </div>
         <div class="phr-restaurant-card">
-          <h3><a href="https://ayusushiandnoodles.com/" target="_blank" rel="noopener">Ayu</a></h3>
+          <h3><a href="https://ayusushiandnoodles.com/" target="_blank" rel="noopener">Ayu Sushi &amp; Noodles</a></h3>
           <span class="phr-rest-type">Sushi &middot; Japanese Noodles</span>
-          <p>From hand-rolled sushi to warming noodle bowls, Ayu brings thoughtful Japanese cooking to The Village &mdash; a reliable neighborhood staple for a casual weeknight or a leisurely lunch.</p>
+          <p>Fresh sushi, comforting noodle bowls, and a welcoming atmosphere make Ayu a neighborhood favorite for everything from a casual lunch to an easy weeknight dinner.</p>
         </div>
         <div class="phr-restaurant-card">
           <h3><a href="https://elpueblomex.com/locations/carmel-valley/" target="_blank" rel="noopener">El Pueblo</a></h3>
           <span class="phr-rest-type">Mexican &middot; Casual Dining</span>
-          <p>Authentic Mexican comfort food done right. Whether it&rsquo;s a quick weeknight dinner or a relaxed weekend lunch, El Pueblo delivers every time.</p>
+          <p>A longtime local favorite serving authentic Mexican comfort food in a relaxed setting. Perfect for a quick bite, family dinner, or lingering over chips and salsa with friends.</p>
         </div>
         <div class="phr-restaurant-card">
           <h3><a href="https://www.freshbrothers.com/" target="_blank" rel="noopener">Fresh Brothers</a></h3>
           <span class="phr-rest-type">Pizza &middot; Family Friendly</span>
-          <p>Creative, build-your-own pizzas with crowd-pleasing toppings, gluten-free options, and generous portions &mdash; an easy yes for families and groups of all sizes.</p>
+          <p>Known for its customizable pizzas, gluten-free options, and family-friendly atmosphere, Fresh Brothers is an easy go-to for busy weeknights, team celebrations, and casual gatherings.</p>
         </div>
         <div class="phr-restaurant-card">
           <h3><a href="https://www.nothingbundtcakes.com/" target="_blank" rel="noopener">Nothing Bundt Cakes</a></h3>
           <span class="phr-rest-type">Bakery &middot; Sweet Treats</span>
-          <p>You simply can&rsquo;t go wrong here. Whether you&rsquo;re celebrating, gifting, or just treating yourself &mdash; the cream cheese frosting alone is worth the stop.</p>
+          <p>Whether you&rsquo;re celebrating a milestone, bringing dessert to a gathering, or simply satisfying a sweet tooth, these signature bundt cakes have become a Village favorite for every occasion.</p>
         </div>
         <div class="phr-restaurant-card">
           <h3><a href="https://www.pacsocialsd.com/" target="_blank" rel="noopener">Pacific Social</a></h3>
-          <span class="phr-rest-type">Comfort Food</span>
-          <p>The Village&rsquo;s liveliest spot &mdash; comfort food, craft cocktails, a covered patio, and an upstairs arcade loft. Easy to stay for just one drink; hard to leave after just one.</p>
+          <span class="phr-rest-type">Comfort Food &middot; Cocktails &amp; Games</span>
+          <p>A lively gathering spot where elevated comfort food, craft cocktails, and a popular arcade loft create an atmosphere that&rsquo;s equally suited for date nights, family outings, and meeting friends.</p>
+        </div>
+        <div class="phr-restaurant-card">
+          <h3><a href="https://www.theburgerlounge.com/" target="_blank" rel="noopener">Burger Lounge</a></h3>
+          <span class="phr-rest-type">Burgers &middot; California Style</span>
+          <p>Grass-fed burgers, hand-cut fries, and classic shakes make Burger Lounge a reliable favorite for a quick lunch, casual dinner, or post-practice family meal.</p>
+        </div>
+        <div class="phr-restaurant-card">
+          <h3><a href="https://www.bonchon.com/" target="_blank" rel="noopener">Bonchon</a></h3>
+          <span class="phr-rest-type">Korean Fried Chicken</span>
+          <p>Famous for its crispy double-fried chicken and signature sauces, Bonchon offers bold flavors that make it a popular choice for takeout, game nights, and sharing with family and friends.</p>
         </div>
       </div>
     </div>
@@ -432,7 +447,7 @@
     <div class="phr-schools-inner">
       <p class="section-eyebrow">EDUCATION</p>
       <h2>SCHOOLS SERVING PACIFIC HIGHLANDS RANCH</h2>
-      <p class="phr-schools-intro">Pacific Highlands Ranch is served by some of San Diego County&rsquo;s most respected school districts &mdash; the <a href="https://www.dmusd.org" target="_blank" rel="noopener">Del Mar Union School District</a> and the <a href="https://www.sbsd.k12.ca.us" target="_blank" rel="noopener">Solana Beach School District</a> for elementary grades, and the <a href="https://www.sduhsd.net" target="_blank" rel="noopener">San Dieguito Union High School District</a> for middle and high school. This strong educational foundation is a defining part of what makes the community so appealing to families, and consistently ranks among the top reasons residents choose to call PHR home.</p>
+      <p class="phr-schools-intro">Pacific Highlands Ranch is served by the <a href="https://www.dmusd.org" target="_blank" rel="noopener">Del Mar Union School District</a> and <a href="https://www.sbsd.k12.ca.us" target="_blank" rel="noopener">Solana Beach School District</a> at the elementary level, with students attending schools within the <a href="https://www.sduhsd.net" target="_blank" rel="noopener">San Dieguito Union High School District</a> for middle and high school. Access to these districts is one of the community&rsquo;s defining features and consistently ranks among the top reasons families choose to call Pacific Highlands Ranch home.</p>
       <div class="phr-schools-grid">
         <div class="phr-school-col">
           <h3>Elementary &amp; Middle School</h3>
@@ -467,37 +482,37 @@
     <div class="phr-commute-inner">
       <p class="section-eyebrow">GETTING AROUND</p>
       <h2>EMPLOYMENT &amp; COMMUTE</h2>
-      <p class="phr-commute-intro">Pacific Highlands Ranch sits at the SR-56 and Del Mar Heights Road corridor, placing residents within easy reach of San Diego&rsquo;s major employment hubs &mdash; without the congestion of city living.</p>
+      <p class="phr-commute-intro">Pacific Highlands Ranch is ideally situated along the SR-56 and Del Mar Heights Road corridor, offering convenient access to many of San Diego&rsquo;s major employment centers while maintaining the feel of a residential community.</p>
       <div class="phr-commute-grid">
         <div class="phr-commute-card">
           <h3>Sorrento Valley</h3>
           <span class="phr-commute-time">~15 Minutes</span>
-          <p>Home to Qualcomm, Illumina, and dozens of biotech and tech employers &mdash; one of San Diego&rsquo;s most active employment corridors, reachable west on SR-56.</p>
+          <p>Home to Qualcomm, Illumina, and a growing concentration of technology and life sciences companies, Sorrento Valley is one of San Diego&rsquo;s leading employment hubs and is easily accessible via SR-56.</p>
         </div>
         <div class="phr-commute-card">
           <h3>UTC &amp; La Jolla</h3>
           <span class="phr-commute-time">~15 Minutes</span>
-          <p>UC San Diego, Scripps Health, and the major employers around University Town Center &mdash; a natural fit for healthcare, research, and academic professionals.</p>
+          <p>UC San Diego, Scripps Health, and the University Town Center business district place many of the region&rsquo;s top healthcare, research, education, and professional employers within a short drive.</p>
         </div>
         <div class="phr-commute-card">
           <h3>Rancho Bernardo Tech Corridor</h3>
           <span class="phr-commute-time">~20 Minutes</span>
-          <p>SR-56 east connects to I-15 and the Rancho Bernardo corridor &mdash; home to Intuit, Sony, Northrop Grumman, and a growing cluster of tech and defense employers.</p>
+          <p>SR-56 provides convenient access to Rancho Bernardo&rsquo;s business corridor, home to employers including Intuit, Sony, Northrop Grumman, and a diverse mix of technology, engineering, and defense companies.</p>
         </div>
         <div class="phr-commute-card">
           <h3>Downtown San Diego</h3>
           <span class="phr-commute-time">~25&ndash;30 Minutes</span>
-          <p>A manageable drive via I-5 south &mdash; and with flexible scheduling, many PHR residents time their commute to avoid peak traffic entirely.</p>
+          <p>Downtown San Diego&rsquo;s business district, waterfront, entertainment venues, and cultural attractions are easily reached via I-5, making it a practical destination for both work and leisure.</p>
         </div>
         <div class="phr-commute-card">
           <h3>San Diego International Airport</h3>
           <span class="phr-commute-time">~25 Minutes</span>
-          <p>A straightforward I-5 drive makes frequent travel practical &mdash; one reason PHR is popular with executives, consultants, and frequent flyers.</p>
+          <p>Convenient access to I-5 places San Diego International Airport within easy reach, making business travel and weekend getaways remarkably convenient.</p>
         </div>
         <div class="phr-commute-card">
           <h3>Del Mar &amp; the Coast</h3>
           <span class="phr-commute-time">~10&ndash;12 Minutes</span>
-          <p>The Pacific Ocean is closer than it feels. A quick drive west puts you at Del Mar&rsquo;s beaches &mdash; perfect for after-work surf sessions and weekend mornings by the water.</p>
+          <p>Del Mar&rsquo;s beaches, coastal trails, restaurants, and oceanfront scenery are just minutes away, offering easy access to one of San Diego&rsquo;s most beloved coastal destinations.</p>
         </div>
       </div>
     </div>
@@ -513,33 +528,44 @@
       <div class="phr-faq-list">
 
         <div class="phr-faq-item">
-          <h3>What zip code is Pacific Highlands Ranch?</h3>
-          <p>Pacific Highlands Ranch carries the 92130 zip code, shared with neighboring Carmel Valley. Nestled along the SR-56 corridor in northern San Diego, it offers easy access to the coast and strong freeway connectivity for commuting throughout the county.</p>
-        </div>
-
-        <div class="phr-faq-item">
           <h3>When was Pacific Highlands Ranch built?</h3>
-          <p>Development began in the early 2000s and continued through the 2010s and beyond. Built in thoughtful phases, homes range from early 2000s construction to some of the newest neighborhoods in San Diego &mdash; with many of the most sought-after communities completed between 2005 and 2015.</p>
+          <p>Development of Pacific Highlands Ranch began in the early 2000s and unfolded over more than two decades through a series of thoughtfully planned neighborhoods. Homes range from early 2000s construction to some of San Diego&rsquo;s newest residences, with community buildout concluding in 2025 following the completion of The Highlands Collection.</p>
         </div>
 
         <div class="phr-faq-item">
-          <h3>How many homes are in Pacific Highlands Ranch?</h3>
-          <p>Pacific Highlands Ranch is a large master-planned community comprising several thousand homes across a wide range of product types &mdash; from attached townhomes to expansive detached single-family residences. That breadth of options is part of what makes it one of the most accessible and sought-after communities in all of San Diego.</p>
-        </div>
-
-        <div class="phr-faq-item">
-          <h3>What is the HOA fee in Pacific Highlands Ranch?</h3>
-          <p>HOA fees vary by neighborhood &mdash; each community maintains its own HOA structure, and some also participate in a master community association. Fees typically range from under $100 to several hundred dollars per month depending on the community and its amenities. We&rsquo;re happy to pull the specific HOA details for any neighborhood you&rsquo;re considering.</p>
+          <h3>How many HOAs are there in Pacific Highlands Ranch?</h3>
+          <p>Pacific Highlands Ranch is made up of numerous individual neighborhood HOAs, each with its own dues structure, rules, and amenities. The two most common associations are West Highlands Pacific HOA and <a href="https://www.phrnorth.com/boundaries" target="_blank" rel="noopener">Pacific Highlands Ranch North</a>, though several smaller neighborhood associations also exist throughout the community.</p>
+          <p>In addition to the neighborhood HOAs, Pacific Highlands Ranch has a master association that oversees and maintains community-wide amenities and common areas. Some neighborhoods operate as sub-associations within the master HOA, meaning homeowners contribute to both their neighborhood HOA and the master association. While these are technically separate assessments, they are often combined into a single monthly payment, and many homeowners don&rsquo;t realize they are paying two separate HOA fees.</p>
+          <p>HOA dues vary by neighborhood and can range from under $100 to several hundred dollars per month depending on the community and its amenities. We&rsquo;re happy to provide current HOA information, fee structures, and governing documents for any Pacific Highlands Ranch neighborhood you&rsquo;re considering.</p>
         </div>
 
         <div class="phr-faq-item">
           <h3>Is Pacific Highlands Ranch a good place to raise a family?</h3>
-          <p>Consistently, yes &mdash; it&rsquo;s one of the first communities we recommend for relocating families. The combination of top-performing schools, walkable neighborhood design, abundant parks and trails, and a genuine sense of community makes PHR exceptionally well-suited for families at every stage.</p>
+          <p>Many families are drawn to Pacific Highlands Ranch for its highly regarded schools, extensive parks and trails, thoughtfully planned neighborhoods, and strong sense of community. These qualities have helped make it one of San Diego&rsquo;s most popular communities for family living.</p>
         </div>
 
         <div class="phr-faq-item">
           <h3>How far is Pacific Highlands Ranch from the beach?</h3>
-          <p>About 10 to 12 minutes from the beaches of Del Mar &mdash; close enough to enjoy the coast on a regular basis, yet far enough inland to offer newer construction, more generous lot sizes, and price points that are simply more attainable than the immediate coastal communities.</p>
+          <p>Pacific Highlands Ranch is approximately 10 to 15 minutes from Del Mar&rsquo;s beaches, depending on traffic and your specific destination. Its location offers convenient access to the coast while providing the benefits of newer construction, thoughtfully planned neighborhoods, and a broader range of housing options than many nearby beach communities.</p>
+        </div>
+
+        <div class="phr-faq-item">
+          <h3>How do I know which school my neighborhood is assigned to?</h3>
+          <p>School attendance boundaries can change over time, so it&rsquo;s always best to verify current school assignments directly with the applicable school district before making any home purchase decision. While neighborhood assignments are generally stable, boundary adjustments can occur as enrollment patterns and district needs evolve.</p>
+          <p>As a general guideline, the following Pacific Highlands Ranch neighborhoods are commonly associated with these elementary schools:</p>
+          <div class="phr-faq-school-group">
+            <span class="phr-faq-school-name">Solana Ranch Elementary</span>
+            <p>Almeria, Arabella, Brightwater, Hampton Lane, Manzanita Trail, Olvera, Portico, Santa Barbara, Santa Rosa, Sendero, and Watermark.</p>
+          </div>
+          <div class="phr-faq-school-group">
+            <span class="phr-faq-school-name">Carmel Creek Elementary / Solana Pacific Elementary</span>
+            <p>Carmel, Terraza, and Vista Del Mar.</p>
+          </div>
+          <div class="phr-faq-school-group">
+            <span class="phr-faq-school-name">Solana Santa Fe Elementary</span>
+            <p>Artesana, Casabella, Palomar, Sendero Collection, The Highlands, The Highlands Collection, and Vista Santa Fe.</p>
+          </div>
+          <p>Because attendance boundaries, enrollment programs, and transfer policies can change, we strongly recommend confirming school assignments directly with the school district before relying on this information. If you&rsquo;re considering a specific home or neighborhood, we&rsquo;re happy to help point you in the right direction and provide the resources you need to verify current attendance boundaries.</p>
         </div>
 
       </div>
@@ -553,7 +579,7 @@
     <div class="phr-seller-cta-inner">
       <p class="section-eyebrow">THINKING OF SELLING</p>
       <h2>FIND OUT WHAT YOUR PACIFIC HIGHLANDS RANCH HOME IS WORTH</h2>
-      <p>Pacific Highlands Ranch continues to be one of San Diego&rsquo;s most sought-after communities &mdash; and that demand drives real value for sellers. If you&rsquo;re considering a move, we&rsquo;d love to give you an honest, data-driven look at what your home could bring in today&rsquo;s market.</p>
+      <p class="phr-seller-cta-text">Thinking of selling in Pacific Highlands Ranch? Whether you&rsquo;re simply curious about your home&rsquo;s value or considering a move in the near future, we&rsquo;d be happy to provide a personalized, data-driven analysis of today&rsquo;s market and what your home could be worth.</p>
       <a href="../home-valuation.html">GET YOUR FREE VALUATION</a>
     </div>
   </section>
@@ -591,7 +617,7 @@
     <div class="phr-communities-inner">
       <h2>EXPLORE PACIFIC HIGHLANDS RANCH NEIGHBORHOODS</h2>
       <div class="phr-grid">
-        <a class="phr-card" style="background-image:url('PHR/Airoso.jpg')"><span class="phr-card-name">Airoso</span><span class="phr-card-cta">View Community →</span></a>
+        <a href="PHR/airoso.html" class="phr-card" style="background-image:url('PHR/Airoso.jpg')"><span class="phr-card-name">Airoso</span><span class="phr-card-cta">View Community →</span></a>
         <a class="phr-card" style="background-image:url('PHR/Almeria.jpg')"><span class="phr-card-name">Almeria</span><span class="phr-card-cta">View Community →</span></a>
         <a href="PHR/arabella.html" class="phr-card" style="background-image:url('PHR/Arabella.jpg')"><span class="phr-card-name">Arabella</span><span class="phr-card-cta">View Community →</span></a>
         <a class="phr-card" style="background-image:url('PHR/Artesana.jpg')"><span class="phr-card-name">Artesana</span><span class="phr-card-cta">View Community →</span></a>
@@ -602,9 +628,10 @@
         <a class="phr-card" style="background-image:url('PHR/Casabella.jpg')"><span class="phr-card-name">Casabella</span><span class="phr-card-cta">View Community →</span></a>
         <a class="phr-card" style="background-image:url('PHR/Casavia.jpg')"><span class="phr-card-name">Casavia</span><span class="phr-card-cta">View Community →</span></a>
         <a class="phr-card" style="background-image:url('PHR/CostaDelSol.jpg')"><span class="phr-card-name">Costa Del Sol</span><span class="phr-card-cta">View Community →</span></a>
-        <a class="phr-card" style="background-image:url('PHR/ElmsIvy.jpg')"><span class="phr-card-name">Elms &amp; Ivy</span><span class="phr-card-cta">View Community →</span></a>
+        <a class="phr-card" style="background-image:url('PHR/ElmsIvy.jpg')"><span class="phr-card-name">Elms</span><span class="phr-card-cta">View Community →</span></a>
         <a class="phr-card" style="background-image:url('PHR/HamptonLane.jpg')"><span class="phr-card-name">Hampton Lane</span><span class="phr-card-cta">View Community →</span></a>
         <a class="phr-card" style="background-image:url('PHR/Hudson.jpg')"><span class="phr-card-name">Hudson</span><span class="phr-card-cta">View Community →</span></a>
+        <a class="phr-card" style="background-image:url('PHR/Ivy.jpg')"><span class="phr-card-name">Ivy</span><span class="phr-card-cta">View Community →</span></a>
         <a class="phr-card" style="background-image:url('PHR/Laterra.jpg')"><span class="phr-card-name">Laterra</span><span class="phr-card-cta">View Community →</span></a>
         <a class="phr-card" style="background-image:url('PHR/Lumen.jpg')"><span class="phr-card-name">Lumen</span><span class="phr-card-cta">View Community →</span></a>
         <a class="phr-card" style="background-image:url('PHR/ManzanitaTrail.jpg')"><span class="phr-card-name">Manzanita Trail</span><span class="phr-card-cta">View Community →</span></a>
@@ -627,10 +654,8 @@
         <a class="phr-card" style="background-image:url('PHR/TheHighlandsCollection.jpg')"><span class="phr-card-name">The Highlands Collection</span><span class="phr-card-cta">View Community →</span></a>
         <a class="phr-card" style="background-image:url('PHR/Verana.jpg')"><span class="phr-card-name">Verana</span><span class="phr-card-cta">View Community →</span></a>
         <a class="phr-card" style="background-image:url('PHR/VistaDelMar.jpg')"><span class="phr-card-name">Vista Del Mar</span><span class="phr-card-cta">View Community →</span></a>
-        <div class="phr-card phr-card--empty" aria-hidden="true"></div>
         <a class="phr-card" style="background-image:url('PHR/VistaSantaFe.jpg')"><span class="phr-card-name">Vista Santa Fe</span><span class="phr-card-cta">View Community →</span></a>
         <a class="phr-card" style="background-image:url('PHR/Watermark.jpg')"><span class="phr-card-name">Watermark</span><span class="phr-card-cta">View Community →</span></a>
-        <div class="phr-card phr-card--empty" aria-hidden="true"></div>
       </div>
     </div>
   </section>
@@ -641,7 +666,7 @@
   <section class="nbhd-cta">
     <p class="section-eyebrow">READY TO EXPLORE?</p>
     <h2>LET&rsquo;S FIND YOUR DREAM HOME IN PACIFIC HIGHLANDS RANCH</h2>
-    <p>Whether you&rsquo;re relocating to San Diego or moving within the area, we&rsquo;d love to show you everything Pacific Highlands Ranch has to offer. Reach out for a complimentary consultation &mdash; no pressure, just honest guidance.</p>
+    <p>Whether you&rsquo;re relocating to San Diego or simply exploring your next move, we&rsquo;d love to help you discover everything Pacific Highlands Ranch has to offer. Reach out for a complimentary consultation and personalized guidance tailored to your goals.</p>
     <div class="nbhd-cta-btns">
       <a href="../contact.html" class="btn btn-primary">SCHEDULE A CONSULTATION</a>
     </div>
@@ -678,7 +703,7 @@
       </div>
       <div class="footer-info-col">
         <div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg></div>
-        <div class="footer-info-text"><p class="footer-info-label">PHONE</p><p><a href="tel:8586634896">(858) 663-4896</a></p></div>
+        <div class="footer-info-text"><p class="footer-info-label">PHONE</p><p><a href="tel:8582907531">(858) 290-7531</a></p></div>
       </div>
     </div>
     <div class="footer-disclaimer-block">

@@ -16,135 +16,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Raleway:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../../style.css" />
+  <link rel="stylesheet" href="../../subdivision.css" />
   <style>
-    /* ── Subdivision page nav inherits from style.css ──────────────── */
-
-    /* ── Compact Hero ───────────────────────────────────────────────── */
-    .subdiv-hero{position:relative;width:100%;height:90vh;min-height:480px;overflow:hidden;}
-    .subdiv-hero-bg{position:absolute;inset:0;background:linear-gradient(rgba(24,37,75,0.52) 0%,rgba(24,37,75,0.62) 100%),url('Arabella.jpg') center 20%/cover no-repeat;background-color:#18254B;}
-    .subdiv-hero-inner{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(2rem,6vw,6rem);}
-    .subdiv-hero-inner h1{font-family:'Marcellus',serif;font-size:clamp(2rem,4vw,3rem);color:#fff;letter-spacing:0.06em;line-height:1.1;margin-bottom:0.75rem;}
-    .subdiv-hero-sub{font-family:'Raleway',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.65);}
-    @media(max-width:600px){.subdiv-hero{height:44vh;}}
-
-    /* ── Breadcrumb ─────────────────────────────────────────────────── */
-    .subdiv-breadcrumb{background:#F3EFE8;padding:0.85rem clamp(1.5rem,6vw,6rem);border-bottom:1px solid rgba(28,48,99,0.08);}
-    .subdiv-breadcrumb nav{font-family:'Raleway',sans-serif;font-size:0.70rem;font-weight:600;letter-spacing:0.07em;text-transform:uppercase;}
-    .subdiv-breadcrumb nav a{color:#1C3063;text-decoration:none;transition:color 0.2s;}
-    .subdiv-breadcrumb nav a:hover{color:#B38987;}
-    .subdiv-breadcrumb nav span.sep{margin:0 0.5rem;color:rgba(28,48,99,0.30);}
-    .subdiv-breadcrumb nav span.current{color:#B38987;}
-
-    /* ── Stats Strip ────────────────────────────────────────────────── */
-    .nbhd-stats-strip{background:#fff;padding:2rem clamp(1.5rem,5vw,4rem);border-bottom:1px solid rgba(28,48,99,0.07);}
-    .nbhd-stats-track{display:flex;justify-content:center;align-items:center;gap:clamp(1.5rem,3vw,3rem);max-width:1100px;margin:0 auto;text-align:center;flex-wrap:wrap;}
-    .nbhd-stat{text-align:center;}
-    .nbhd-stat-num{font-family:'Marcellus',serif;font-size:clamp(1.1rem,2vw,1.55rem);color:#18254B;display:block;}
-    .nbhd-stat-label{font-family:'Raleway',sans-serif;font-size:0.64rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#B38987;display:block;margin-top:0.2rem;}
-    .nbhd-stats-divider{width:1px;height:36px;background:rgba(28,48,99,0.12);flex-shrink:0;}
-
-    /* ── About ──────────────────────────────────────────────────────── */
-    .subdiv-about{background:#F3EFE8;padding:clamp(3rem,5vw,4.5rem) clamp(1.5rem,6vw,6rem);}
-    .subdiv-about-inner{max-width:1100px;margin:0 auto;}
-    .subdiv-about-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
-    .subdiv-about-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.5rem;}
-    .subdiv-about-inner p{font-family:'Raleway',sans-serif;font-size:0.92rem;color:#3a4a6b;line-height:1.95;margin-bottom:1.1rem;}
-
-    /* ── IDX Listings ───────────────────────────────────────────────── */
-    .subdiv-listings{background:#fff;padding:clamp(3rem,5vw,4.5rem) clamp(1.5rem,4vw,3rem);}
-    .subdiv-listings-inner{max-width:1400px;margin:0 auto;}
-    .subdiv-listings-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
-    .subdiv-listings-inner > h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.75rem;text-align:center;}
-    .subdiv-listings-inner > p{font-family:'Raleway',sans-serif;font-size:0.85rem;color:#3a4a6b;text-align:center;margin:0 auto 2.5rem;max-width:580px;line-height:1.8;}
-    .idx-placeholder{background:#F6F6F4;border:2px dashed rgba(28,48,99,0.15);padding:3.5rem 2rem;text-align:center;border-radius:2px;}
-    .idx-placeholder p{font-family:'Raleway',sans-serif;font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(28,48,99,0.35);margin:0;}
-
-    /* ── No Listings Fallback ───────────────────────────────────────── */
-    .subdiv-no-listings{margin-top:2rem;background:#F3EFE8;padding:2.75rem 2rem;text-align:center;border-top:2px solid rgba(179,137,135,0.20);}
-    .subdiv-no-listings-icon{display:block;width:40px;height:40px;margin:0 auto 1.25rem;color:#B38987;}
-    .subdiv-no-listings h3{font-family:'Marcellus',serif;font-size:1rem;color:#18254B;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.75rem;}
-    .subdiv-no-listings p{font-family:'Raleway',sans-serif;font-size:0.86rem;color:#3a4a6b;line-height:1.9;max-width:500px;margin:0 auto 1.75rem;}
-    .notify-form{width:100%;max-width:460px;margin:0 auto;}
-    .notify-form-row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;}
-    .notify-form input[type="text"],
-    .notify-form input[type="email"],
-    .notify-form input[type="tel"]{width:100%;padding:0.75rem 1rem;font-family:'Raleway',sans-serif;font-size:0.82rem;color:#18254B;background:#fff;border:1px solid rgba(28,48,99,0.20);outline:none;transition:border-color 0.2s;box-sizing:border-box;}
-    .notify-form input[type="tel"]{margin-bottom:1rem;}
-    .notify-form input:focus{border-color:#1C3063;}
-    .notify-form input::placeholder{color:rgba(28,48,99,0.40);}
-    .notify-form button.btn-notify{display:inline-block;width:100%;padding:0.85rem 2rem;font-family:'Raleway',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;background:#18254B;color:#fff;border:none;cursor:pointer;transition:background 0.22s,color 0.22s;}
-    .notify-form button.btn-notify:hover{background:#1C3063;color:#B38987;}
-    .notify-success{font-family:'Raleway',sans-serif;font-size:0.88rem;color:#18254B;line-height:1.85;padding:1.25rem 1.5rem;background:rgba(179,137,135,0.12);border:1px solid rgba(179,137,135,0.30);max-width:460px;margin:0 auto;}
-
-    /* ── Specs & Schools ────────────────────────────────────────────── */
-    .subdiv-specs{background:#fff;padding:clamp(2.5rem,4vw,3.5rem) clamp(1.5rem,6vw,6rem);border-top:1px solid rgba(28,48,99,0.07);}
-    .subdiv-specs-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;}
-    .subdiv-specs-col h3{font-family:'Marcellus',serif;font-size:0.85rem;color:#18254B;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1.25rem;padding-bottom:0.6rem;border-bottom:1px solid rgba(28,48,99,0.12);}
-    .spec-row{display:flex;justify-content:space-between;align-items:baseline;padding:0.5rem 0;border-bottom:1px solid rgba(28,48,99,0.05);}
-    .spec-label{font-family:'Raleway',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#B38987;}
-    .spec-value{font-family:'Raleway',sans-serif;font-size:0.85rem;font-weight:500;color:#18254B;text-align:right;}
-    .school-item{font-family:'Raleway',sans-serif;font-size:0.88rem;color:#3a4a6b;padding:0.55rem 0;border-bottom:1px solid rgba(28,48,99,0.05);display:flex;align-items:center;gap:0.7rem;}
-    .school-item::before{display:none;}
-    .school-item a{color:#3a4a6b;text-decoration:none;transition:color 0.2s;}
-    .school-item a:hover{color:#B38987;}
-    @media(max-width:620px){.subdiv-specs-inner{grid-template-columns:1fr;gap:2rem;}}
-    .subdiv-specs-streets{max-width:1100px;margin:2rem auto 0;padding-top:1.5rem;border-top:1px solid rgba(28,48,99,0.08);}
-    .subdiv-specs-streets .spec-label{font-family:'Raleway',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#B38987;display:block;margin-bottom:0.6rem;}
-    .subdiv-specs-streets p{font-family:'Raleway',sans-serif;font-size:0.85rem;color:#3a4a6b;line-height:1.8;}
-    .spec-value a,.subdiv-about-inner p a,.faq-item p a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(28,48,99,0.25);transition:color 0.2s,border-color 0.2s;}
-    .spec-value a:hover,.subdiv-about-inner p a:hover,.faq-item p a:hover{color:#B38987;border-color:#B38987;}
-    .school-zone-note{font-family:'Raleway',sans-serif;font-size:0.72rem;color:#8a9ab8;line-height:1.7;margin-top:1rem;padding-top:0.85rem;border-top:1px solid rgba(28,48,99,0.08);}
-
-    /* ── Explore More ───────────────────────────────────────────────── */
-    .subdiv-explore{background:#F3EFE8;padding:clamp(3rem,5vw,4.5rem) 0 0;}
-    .subdiv-explore-inner{max-width:1100px;margin:0 auto;padding:0 clamp(1.5rem,6vw,6rem);}
-    .subdiv-explore>h2{font-family:'Marcellus',serif;font-size:clamp(1.5rem,2.8vw,2.4rem);color:#18254B;letter-spacing:0.08em;line-height:1.25;text-align:center;margin:0 0 0.6rem;padding:0 clamp(1.5rem,6vw,6rem);}
-    .subdiv-explore-intro{font-family:'Raleway',sans-serif;font-size:0.85rem;color:#3a4a6b;text-align:center;margin:0 auto 1.25rem;max-width:700px;line-height:1.7;}
-    .subdiv-explore-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
-    .subdiv-explore-card{position:relative;height:360px;display:flex;flex-direction:column;justify-content:flex-end;padding:1.25rem 1.5rem;text-decoration:none;background-color:#18254B;background-size:cover;background-position:center;overflow:hidden;transition:transform 0.25s;}
-    .subdiv-explore-card::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(24,37,75,0.05) 0%,rgba(24,37,75,0.78) 100%);transition:background 0.25s;z-index:0;}
-    .subdiv-explore-card:hover{transform:scale(1.01);z-index:1;}
-    .subdiv-explore-card:hover::before{background:linear-gradient(to bottom,rgba(24,37,75,0.15) 0%,rgba(24,37,75,0.88) 100%);}
-    .subdiv-explore-card-name{position:relative;z-index:1;font-family:'Marcellus',serif;font-size:1rem;color:#fff;letter-spacing:0.05em;line-height:1.25;}
-    .subdiv-explore-card-cta{position:relative;z-index:1;font-family:'Raleway',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-top:0.3rem;transition:color 0.2s;}
-    .subdiv-explore-card:hover .subdiv-explore-card-cta{color:#B38987;}
-    .subdiv-explore-card:not([href]){cursor:default;}
-    .subdiv-explore-card:not([href]):hover{transform:none;}
-    .subdiv-explore-card:not([href]):hover::before{background:linear-gradient(to bottom,rgba(24,37,75,0.05) 0%,rgba(24,37,75,0.78) 100%);}
-    .subdiv-explore-card:not([href]) .subdiv-explore-card-cta{display:none;}
-    .subdiv-explore-all{text-align:center;padding:2rem clamp(1.5rem,6vw,6rem);}
-    .subdiv-explore-all a{display:inline-block;padding:0.85rem 2.25rem;font-family:'Raleway',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#18254B;text-decoration:none;border:1.5px solid #18254B;transition:background 0.25s,color 0.25s,border-color 0.25s;}
-    .subdiv-explore-all a:hover{background:#18254B;color:#B38987;border-color:#18254B;}
-    @media(max-width:700px){.subdiv-explore-grid{grid-template-columns:repeat(2,1fr);}.subdiv-explore-card{height:200px;}}
-
-    /* ── Seller CTA ─────────────────────────────────────────────────── */
-    .subdiv-seller-cta{background:#fff;padding:clamp(2.5rem,4vw,3.5rem) clamp(1.5rem,6vw,6rem);text-align:center;border-top:1px solid rgba(28,48,99,0.07);}
-    .subdiv-seller-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
-    .subdiv-seller-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.3rem,2.2vw,1.8rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.85rem;line-height:1.2;}
-    .subdiv-seller-cta p{font-family:'Raleway',sans-serif;font-size:0.88rem;color:#3a4a6b;max-width:580px;margin:0 auto 1.75rem;line-height:1.85;}
-    .subdiv-seller-cta a{display:inline-block;padding:0.85rem 2.25rem;font-family:'Raleway',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#18254B;text-decoration:none;border:1.5px solid #18254B;transition:background 0.25s,color 0.25s,border-color 0.25s;}
-    .subdiv-seller-cta a:hover{background:#18254B;color:#B38987;border-color:#18254B;}
-
-    /* ── CTA ────────────────────────────────────────────────────────── */
-    .subdiv-cta{background:#18254B;padding:clamp(2.5rem,4vw,3.5rem) clamp(1.5rem,6vw,6rem);text-align:center;}
-    .subdiv-cta-rule{width:36px;height:1.5px;background:#B38987;margin:0 auto 1.75rem;}
-    .subdiv-cta .section-eyebrow{color:#B38987;margin-bottom:0.85rem;letter-spacing:0.14em;}
-    .subdiv-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.6rem,2.8vw,2.2rem);color:#fff;letter-spacing:0.08em;margin-bottom:1.25rem;line-height:1.15;}
-    .subdiv-cta p{font-family:'Raleway',sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.75);max-width:700px;margin:0 auto 2.25rem;line-height:1.95;}
-    .subdiv-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
-    .subdiv-cta-btns a{display:inline-block;min-width:220px;padding:0.85rem 2rem;font-family:'Raleway',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;text-align:center;background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.55);transition:background 0.25s,border-color 0.25s,color 0.25s;}
-    .subdiv-cta-btns a:hover{border-color:#B38987;color:#B38987;background:transparent;}
-
-    /* ── FAQ ────────────────────────────────────────────────────────── */
-    .subdiv-faq{background:#F6F6F4;padding:clamp(3rem,5vw,4.5rem) clamp(1.5rem,6vw,6rem);}
-    .subdiv-faq-inner{max-width:1100px;margin:0 auto;}
-    .subdiv-faq-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
-    .subdiv-faq-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:2rem;}
-    .faq-list{display:flex;flex-direction:column;}
-    .faq-item{padding:1.35rem 0;border-bottom:1px solid rgba(28,48,99,0.08);}
-    .faq-item:first-child{border-top:1px solid rgba(28,48,99,0.08);}
-    .faq-item h3{font-family:'Marcellus',serif;font-size:0.95rem;color:#18254B;letter-spacing:0.03em;margin-bottom:0.5rem;}
-    .faq-item p{font-family:'Raleway',sans-serif;font-size:0.875rem;color:#3a4a6b;line-height:1.9;margin:0;}
+    /* ── Page-specific values ──────────────────────────────────────── */
+    .subdiv-hero-bg{background-image:linear-gradient(rgba(24,37,75,0.52) 0%,rgba(24,37,75,0.62) 100%),url('Arabella.jpg');background-color:#18254B;background-position:center 30%;}
   </style>
   <script type="application/ld+json">
   {
@@ -159,7 +34,7 @@
         "breadcrumb": {
           "@type": "BreadcrumbList",
           "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Communities", "item": "https://thejaiswalgroupre.com/neighborhoods.html" },
+            { "@type": "ListItem", "position": 1, "name": "Communities", "item": "https://thejaiswalgroupre.com/communities.html" },
             { "@type": "ListItem", "position": 2, "name": "Pacific Highlands Ranch", "item": "https://thejaiswalgroupre.com/NEIGHBORHOODS/pacific-highlands-ranch.html" },
             { "@type": "ListItem", "position": 3, "name": "Arabella" }
           ]
@@ -170,26 +45,10 @@
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "What is Arabella at Pacific Highlands Ranch?",
+            "name": "What schools serve Arabella?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Arabella is a community of 132 single-family homes in Pacific Highlands Ranch, San Diego (ZIP 92130), developed by Pardee Homes in 2005. Homes range from 2,007 to 2,453 square feet with 3 to 4 bedrooms. Residents enjoy access to the West Highland Pacific Recreation Center with a Junior Olympic pool, spa, and fitness facilities, plus direct connectivity to PHR's trail network."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What schools are zoned for Arabella in Pacific Highlands Ranch?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Students in Arabella are served by Solana Ranch Elementary, Pacific Trails Middle School, Canyon Crest Academy, and Torrey Pines High School."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How far is Arabella from the beach?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Arabella is less than 4.5 miles from the Pacific Ocean, offering easy access to Del Mar beaches and the mild, marine-influenced climate of coastal San Diego."
+              "text": "Students residing in Arabella are generally assigned to Solana Ranch Elementary School, Pacific Trails Middle School, and either Canyon Crest Academy or Torrey Pines High School. The community is served by the Solana Beach School District and San Dieguito Union High School District. As attendance boundaries and enrollment policies may change, we recommend confirming school assignments directly with the applicable school district."
             }
           },
           {
@@ -197,15 +56,7 @@
             "name": "Is Arabella part of an HOA?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Arabella is governed by the West Highlands Pacific HOA, which oversees shared amenities including the private recreation center with a Junior Olympic pool, spa, fitness room, and water play area."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How do I schedule a showing in Arabella?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Simply call or text The Jaiswal Group at (858) 663-4896, or submit an inquiry through our contact page and we'll be in touch promptly. We'll arrange a private tour at a time that works for you and make sure you feel fully informed before you walk through the door."
+              "text": "Yes. Arabella is governed by the West Highlands Pacific HOA, which maintains community amenities including a private recreation center featuring a Junior Olympic pool, spa, fitness room, and water play area. HOA dues and governing documents are subject to change, and we're happy to provide current information upon request."
             }
           }
         ]
@@ -214,7 +65,7 @@
         "@type": "RealEstateAgent",
         "name": "The Jaiswal Group Real Estate",
         "url": "https://thejaiswalgroupre.com",
-        "telephone": "+18586634896",
+        "telephone": "+18582907531",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "5450 Indigo Sage Drive",
@@ -248,20 +99,20 @@
       <ul class="nav-links">
         <li class="has-dropdown"><a href="#">BUY A HOME <span class="caret">&#9662;</span></a><ul class="dropdown"><li><a href="#">Featured Listings</a></li><li><a href="#">Search for Homes</a></li><li><a href="#">New Construction</a></li><li><a href="../../buyers-guide.html">Buyer's Guide</a></li><li><a href="../../buyer-faq.html">Buyer FAQ</a></li><li><a href="#">Mortgage Calculator</a></li></ul></li>
         <li class="has-dropdown"><a href="#">SELL YOUR HOME <span class="caret">&#9662;</span></a><ul class="dropdown"><li><a href="#">Seller Consultation</a></li><li><a href="../../home-valuation.html">Instant Home Valuation</a></li><li><a href="#">Our Marketing</a></li><li><a href="../../sellers-guide.html">Seller's Guide</a></li><li><a href="#">Selling Checklist</a></li></ul></li>
-        <li><a href="../../neighborhoods.html">COMMUNITIES</a></li>
+        <li><a href="../../communities.html">COMMUNITIES</a></li>
         <li><a href="../../BLOG/blog.html">BLOG</a></li>
         <li class="has-dropdown"><a href="#">RESOURCES <span class="caret">&#9662;</span></a><ul class="dropdown"><li><a href="#">Market Updates</a></li><li><a href="#">The Plugged In Method</a></li><li><a href="#">Recommended Lenders</a></li><li><a href="#">Relocation Guide</a></li><li class="has-subdropdown"><a href="#">Videos</a><ul class="subdropdown"><li><a href="https://www.youtube.com/@LynnetteJaiswalRealtor" target="_blank" rel="noopener">YouTube Channel</a></li><li><a href="../../buyers-guide-videos.html">Buyer Video Series</a></li><li><a href="../../sellers-guide-videos.html">Seller Video Series</a></li></ul></li></ul></li>
         <li class="has-dropdown"><a href="#">ABOUT US <span class="caret">&#9662;</span></a><ul class="dropdown"><li><a href="#">Lynnette Jaiswal</a></li><li><a href="../../clientreviews.html">Client Reviews</a></li><li><a href="#">Join Our Team</a></li></ul></li>
         <li><a href="../../contact.html">CONTACT</a></li>
-        <li class="nav-phone"><a href="tel:8586634896">(858) 663-4896</a></li>
+        <li class="nav-phone"><a href="tel:8582907531">(858) 290-7531</a></li>
       </ul>
       <button class="hamburger" aria-label="Menu" id="hamburger"><span></span><span></span><span></span></button>
     </nav>
     <div class="mobile-menu" id="mobile-menu"><ul>
       <li><a href="#">Buy a Home</a></li><li><a href="#">Sell Your Home</a></li>
-      <li><a href="../../neighborhoods.html">Communities</a></li><li><a href="../../BLOG/blog.html">Blog</a></li>
+      <li><a href="../../communities.html">Communities</a></li><li><a href="../../BLOG/blog.html">Blog</a></li>
       <li><a href="#">Resources</a></li><li><a href="#">About Us</a></li>
-      <li><a href="../../contact.html">Contact</a></li><li><a href="tel:8586634896">(858) 663-4896</a></li>
+      <li><a href="../../contact.html">Contact</a></li><li><a href="tel:8582907531">(858) 290-7531</a></li>
     </ul></div>
   </header>
 
@@ -281,7 +132,7 @@
   ═══════════════════════════════════════════════════════════════ -->
   <div class="subdiv-breadcrumb">
     <nav aria-label="Breadcrumb">
-      <a href="../../neighborhoods.html">Communities</a>
+      <a href="../../communities.html">Communities</a>
       <span class="sep">&rsaquo;</span>
       <a href="../pacific-highlands-ranch.html">Pacific Highlands Ranch</a>
       <span class="sep">&rsaquo;</span>
@@ -321,11 +172,16 @@
   ═══════════════════════════════════════════════════════════════ -->
   <section class="subdiv-about">
     <div class="subdiv-about-inner">
-      <p class="section-eyebrow">ABOUT THIS COMMUNITY</p>
-      <h2>ARABELLA AT PACIFIC HIGHLANDS RANCH</h2>
-      <p>Arabella is a collection of 132 two-story, single-family residences developed by Pardee Homes in 2005 — one of Pacific Highlands Ranch's original and most beloved communities. Set less than 4.5 miles from the Pacific Ocean, the neighborhood's seven streets — Shasta Daisy Trail, Ginger Glen Trail, Cornflower Trail, Moonflower Meadows Trail, Cape Jewels Trail, Painted Nettles Glen, and Cullen Crest Trail — connect residents seamlessly to the broader Pacific Highlands Ranch trail network and the community life around them.</p>
-      <p>Daily life in Arabella is defined by genuine walkability. Schools, the community park, and The Village at Pacific Highlands Ranch — with its dining, boutiques, and specialty grocery — are all within easy reach on foot. Arabella homeowners also enjoy exclusive access to the West Highland Pacific Recreation Center, featuring a Junior Olympic pool, spa, fitness room, and water play area that serve as a true neighborhood gathering point.</p>
-      <p>Homes range from 2,007 to 2,453 square feet with 3 to 4 bedrooms and lot sizes up to 0.15 acres. Arabella is governed by the <a href="https://www.mywhp.com/" target="_blank" rel="noopener">West Highlands Pacific HOA</a>, which oversees the community&rsquo;s shared amenities and common areas &mdash; including the private recreation center that residents enjoy year-round.</p>
+      <p class="section-eyebrow">ABOUT ARABELLA</p>
+      <h2>NEIGHBORHOOD CHARM. EVERYDAY CONNECTION.</h2>
+      <p>As one of the original neighborhoods within Pacific Highlands Ranch, Arabella has earned a reputation for its welcoming atmosphere, family-friendly design, and exceptional walkability. Developed by Pardee Homes between 2005 and 2007, this established community of 132 single-family homes continues to be one of the most sought-after neighborhoods in Carmel Valley.</p>
+      <p>Located less than five miles from the Pacific Ocean, Arabella offers a lifestyle centered around connection and convenience. Residents enjoy easy access to schools, parks, trails, and everyday amenities, with The Village at Pacific Highlands Ranch just a short walk away. Whether grabbing coffee, meeting friends for dinner, or running daily errands, many of life&rsquo;s conveniences are right outside the neighborhood.</p>
+      <p>Arabella&rsquo;s seven charming streets &mdash; Shasta Daisy Trail, Ginger Glen Trail, Cornflower Trail, Moonflower Meadows Trail, Cape Jewels Trail, Painted Nettles Glen, and Cullen Crest Trail &mdash; are woven into the broader Pacific Highlands Ranch trail system, creating opportunities for walking, biking, and enjoying the area&rsquo;s year-round outdoor lifestyle.</p>
+      <p>Homes within Arabella offer thoughtfully designed floor plans ranging from approximately 2,007 to 2,453 square feet with three to five bedrooms. Spacious interiors, functional layouts, and manageable lot sizes have made the neighborhood appealing to a wide range of buyers seeking the comfort of a detached home within a connected community setting.</p>
+      <p>A hallmark of life in Arabella is access to the private West Highlands Pacific Recreation Center. Reserved exclusively for residents of select Pacific Highlands Ranch neighborhoods, the facility serves as a true community gathering place. Amenities include a Junior Olympic-sized pool, spa, fitness center, clubhouse, covered outdoor gathering areas with fireplaces, and a water play area for children.</p>
+      <p>Families are often drawn to Arabella for its proximity to highly regarded schools, neighborhood parks, and recreational amenities. The combination of walkability, community-focused design, and access to outdoor spaces creates a lifestyle that continues to resonate with residents years after the neighborhood&rsquo;s development.</p>
+      <p>Arabella is governed by the <a href="https://www.mywhp.com/" target="_blank" rel="noopener">West Highlands Pacific Homeowners Association</a>, which maintains the community&rsquo;s common areas and private recreational amenities.</p>
+      <p>For those seeking an established neighborhood with a strong sense of community, convenient access to everyday amenities, and the coastal lifestyle that has made Pacific Highlands Ranch so desirable, Arabella remains one of Carmel Valley&rsquo;s most enduring favorites.</p>
     </div>
   </section>
 
@@ -348,12 +204,12 @@
       </div>
 
       <div class="subdiv-specs-col">
-        <h3>Schools Zoned for this Neighborhood</h3>
-        <div class="school-item"><a href="https://www.sbsd.k12.ca.us/Domain/858" target="_blank" rel="noopener">Solana Ranch Elementary</a></div>
-        <div class="school-item"><a href="https://pt.sduhsd.net/" target="_blank" rel="noopener">Pacific Trails Middle School</a></div>
-        <div class="school-item"><a href="https://cc.sduhsd.net/" target="_blank" rel="noopener">Canyon Crest Academy</a></div>
-        <div class="school-item"><a href="https://tp.sduhsd.net/" target="_blank" rel="noopener">Torrey Pines High School</a></div>
-        <p class="school-zone-note"><em>*These are the schools this neighborhood is currently zoned for. We always recommend confirming enrollment availability directly with the school district &mdash; a seat is not guaranteed even within an attendance zone.</em></p>
+        <h3>Schools Assigned to this Neighborhood</h3>
+        <div class="school-item"><a href="https://www.sbsd.k12.ca.us/Domain/858" target="_blank" rel="noopener">Solana Ranch Elementary</a><span class="school-item-grade">K &ndash; 6</span></div>
+        <div class="school-item"><a href="https://pt.sduhsd.net/" target="_blank" rel="noopener">Pacific Trails Middle School</a><span class="school-item-grade">7 &ndash; 8</span></div>
+        <div class="school-item"><a href="https://cc.sduhsd.net/" target="_blank" rel="noopener">Canyon Crest Academy</a><span class="school-item-grade">9 &ndash; 12</span></div>
+        <div class="school-item"><a href="https://tp.sduhsd.net/" target="_blank" rel="noopener">Torrey Pines High School</a><span class="school-item-grade">9 &ndash; 12</span></div>
+        <p class="school-zone-note"><em>*These are the schools this neighborhood is currently assigned to. We always recommend confirming enrollment availability directly with the school district &mdash; a seat is not guaranteed even within an attendance zone.</em></p>
       </div>
 
     </div>
@@ -370,33 +226,18 @@
   ═══════════════════════════════════════════════════════════════ -->
   <section class="subdiv-faq" id="section-faq">
     <div class="subdiv-faq-inner">
-      <p class="section-eyebrow">FREQUENTLY ASKED</p>
+      <p class="section-eyebrow">FREQUENTLY ASKED QUESTIONS</p>
       <h2>ABOUT ARABELLA</h2>
       <div class="faq-list">
 
         <div class="faq-item">
-          <h3>What is Arabella at Pacific Highlands Ranch?</h3>
-          <p>Arabella is a community of 132 single-family homes in Pacific Highlands Ranch, San Diego (ZIP 92130), developed by Pardee Homes in 2005. Homes range from 2,007 to 2,453 square feet with 3 to 4 bedrooms. Residents enjoy exclusive access to the West Highland Pacific Recreation Center, direct connectivity to PHR&rsquo;s trail network, and walkable proximity to The Village at Pacific Highlands Ranch.</p>
-        </div>
-
-        <div class="faq-item">
-          <h3>What schools are zoned for Arabella?</h3>
-          <p>Students in Arabella attend Solana Ranch Elementary, Pacific Trails Middle School, and either Canyon Crest Academy or Torrey Pines High School &mdash; within the <a href="https://www.sbsd.k12.ca.us" target="_blank" rel="noopener">Solana Beach School District</a> and <a href="https://www.sduhsd.net" target="_blank" rel="noopener">San Dieguito Union High School District</a>.</p>
-        </div>
-
-        <div class="faq-item">
-          <h3>How far is Arabella from the beach?</h3>
-          <p>Arabella sits less than 4.5 miles from the Pacific Ocean, giving residents easy access to Del Mar&rsquo;s beaches and the mild, marine-influenced climate that defines life in coastal San Diego. It&rsquo;s inland enough for generous lot sizes, yet close enough to feel the ocean breeze every day.</p>
+          <h3>What schools serve Arabella?</h3>
+          <p>Students residing in Arabella are generally assigned to Solana Ranch Elementary School, Pacific Trails Middle School, and either Canyon Crest Academy or Torrey Pines High School. The community is served by the <a href="https://www.sbsd.k12.ca.us" target="_blank" rel="noopener">Solana Beach School District</a> and <a href="https://www.sduhsd.net" target="_blank" rel="noopener">San Dieguito Union High School District</a>. As attendance boundaries and enrollment policies may change, we recommend confirming school assignments directly with the applicable school district.</p>
         </div>
 
         <div class="faq-item">
           <h3>Is Arabella part of an HOA?</h3>
-          <p>Yes. Arabella is governed by the <a href="https://www.mywhp.com/" target="_blank" rel="noopener">West Highlands Pacific HOA</a>, which oversees shared amenities including the private recreation center with a Junior Olympic pool, spa, fitness room, and water play area. Reach out to us for current HOA fee information and governing documents.</p>
-        </div>
-
-        <div class="faq-item">
-          <h3>How do I schedule a showing in Arabella?</h3>
-          <p>Simply call or text us at <a href="tel:8586634896">(858) 663-4896</a>, or submit an inquiry through our <a href="../../contact.html">contact page</a> and we&rsquo;ll be in touch promptly. We&rsquo;ll arrange a private tour at a time that works for you, answer any questions beforehand, and make sure you feel fully informed and comfortable before you ever walk through the door.</p>
+          <p>Yes. Arabella is governed by the <a href="https://www.mywhp.com/" target="_blank" rel="noopener">West Highlands Pacific HOA</a>, which maintains community amenities including a private recreation center featuring a Junior Olympic pool, spa, fitness room, and water play area. HOA dues and governing documents are subject to change, and we&rsquo;re happy to provide current information upon request.</p>
         </div>
 
       </div>
@@ -423,19 +264,24 @@
 
       <!-- No-listings fallback — always visible until IDX is live; becomes a secondary CTA once listings appear -->
       <div class="subdiv-no-listings">
-        <svg class="subdiv-no-listings-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-          <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-        </svg>
-        <h3>No Active Listings Right Now</h3>
-        <p>Arabella is one of Pacific Highlands Ranch&rsquo;s most sought-after communities &mdash; and homes here don&rsquo;t stay on the market long. Reach out and we&rsquo;ll make sure you&rsquo;re the first to know the moment something becomes available.</p>
+        <div class="subdiv-no-listings-text">
+          <svg class="subdiv-no-listings-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+            <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+          </svg>
+          <h3>No Active Listings Right Now</h3>
+          <p>Arabella is one of Pacific Highlands Ranch&rsquo;s most established and desirable neighborhoods, and available homes are often limited. Join our interest list and we&rsquo;ll let you know as soon as a home becomes available.</p>
+        </div>
         <form class="notify-form" id="notify-form" action="https://formspree.io/f/xwvjnvyy" method="POST">
           <input type="hidden" name="_subject" value="Listing Alert Request — Arabella, Pacific Highlands Ranch" />
           <div class="notify-form-row">
-            <input type="text" name="name" placeholder="Your Name" required />
-            <input type="email" name="email" placeholder="Email Address" required />
+            <label class="visually-hidden" for="notify-name-arabella">Your Name</label>
+            <input type="text" id="notify-name-arabella" name="name" placeholder="Your Name" required />
+            <label class="visually-hidden" for="notify-email-arabella">Email Address</label>
+            <input type="email" id="notify-email-arabella" name="email" placeholder="Email Address" required />
           </div>
-          <input type="tel" name="phone" placeholder="Phone Number (optional)" />
+          <label class="visually-hidden" for="notify-phone-arabella">Phone Number (optional)</label>
+          <input type="tel" id="notify-phone-arabella" name="phone" placeholder="Phone Number (optional)" />
           <button type="submit" class="btn-notify">Be the First to Know</button>
         </form>
       </div>
@@ -449,7 +295,7 @@
   <section class="subdiv-explore">
     <h2>EXPLORE OTHER<br>PACIFIC HIGHLANDS RANCH NEIGHBORHOODS</h2>
     <div class="subdiv-explore-inner">
-      <p class="subdiv-explore-intro">The communities below share Arabella&rsquo;s school attendance boundaries &mdash; a helpful reference for families exploring homes within Pacific Highlands Ranch. School enrollment and placement availability should always be verified directly with the school district.</p>
+      <p class="subdiv-explore-intro">The neighborhoods below generally share Arabella&rsquo;s school attendance boundaries, making them a helpful reference for families exploring Pacific Highlands Ranch. School assignments and enrollment availability should always be confirmed directly with the applicable school district.</p>
     </div>
     <div class="subdiv-explore-grid">
       <a class="subdiv-explore-card" style="background-image:url('SantaRosa.jpg')">
@@ -487,10 +333,10 @@
     <div class="subdiv-cta-rule"></div>
     <p class="section-eyebrow">LET&rsquo;S CONNECT</p>
     <h2>READY TO MAKE ARABELLA HOME?</h2>
-    <p>We know Pacific Highlands Ranch inside and out &mdash; every floor plan, every street, every builder. Whether Arabella is the right fit or you&rsquo;d like to explore nearby communities, we&rsquo;re here to help you find exactly what you&rsquo;re looking for.</p>
+    <p>From floor plans and schools to amenities, lifestyle, and neighborhood nuances, we know Pacific Highlands Ranch inside and out. Whether you&rsquo;re focused on Arabella or exploring other communities within Pacific Highlands Ranch, we&rsquo;re here to help you find the neighborhood that best fits your lifestyle and goals.</p>
     <div class="subdiv-cta-btns">
       <a href="../../contact.html">SCHEDULE A CONSULTATION</a>
-      <a href="../../neighborhoods.html">EXPLORE ALL COMMUNITIES</a>
+      <a href="../../communities.html">EXPLORE ALL COMMUNITIES</a>
     </div>
   </section>
 
@@ -518,7 +364,7 @@
       <div class="footer-info-col footer-info-col--logo"><img src="../../LOGOS/JaiswalGroupRE_white.png" alt="The Jaiswal Group Real Estate" class="footer-logo" /></div>
       <div class="footer-info-col"><div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="footer-info-text"><p class="footer-info-label">OFFICE ADDRESS</p><p>5450 INDIGO SAGE DRIVE<br>SAN DIEGO, CA 92130</p><p class="footer-info-label" style="margin-top:1.25rem;">MAILING ADDRESS</p><p>PO BOX 3102<br>RANCHO SANTA FE, CA 92067</p><p style="margin-top:1rem;white-space:nowrap;">LYNNETTE JAISWAL &nbsp;|&nbsp; CA DRE #02100367</p><p style="margin-top:0.4rem;white-space:nowrap;">THE JAISWAL GROUP, INC &nbsp;|&nbsp; CA DRE #02251231</p></div></div>
       <div class="footer-info-col"><div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg></div><div class="footer-info-text"><p class="footer-info-label">EMAIL</p><p><a href="mailto:Lynnette@thejaiswalgroup.com">LYNNETTE@THEJAISWALGROUP.COM</a></p></div></div>
-      <div class="footer-info-col"><div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg></div><div class="footer-info-text"><p class="footer-info-label">PHONE</p><p><a href="tel:8586634896">(858) 663-4896</a></p></div></div>
+      <div class="footer-info-col"><div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg></div><div class="footer-info-text"><p class="footer-info-label">PHONE</p><p><a href="tel:8582907531">(858) 290-7531</a></p></div></div>
     </div>
     <div class="footer-disclaimer-block"><p>The Jaiswal Group Real Estate is a real estate broker licensed by the State of California and abides by Equal Housing Opportunity laws. License Number #02251231. All material presented herein is intended for informational purposes only and is compiled from sources deemed reliable but has not been verified. Changes in price, condition, sale or withdrawal may be made without notice. No statement is made as to accuracy of any description. All measurements and square footage are approximate.</p><div class="footer-compliance-logos"><img src="../../logorealtor.png" alt="Realtor" class="footer-compliance-logo" /><img src="../../logoEHO.png" alt="Equal Housing Opportunity" class="footer-compliance-logo" /><img src="../../logo-NSDCAR.png" alt="North San Diego County Realtors" class="footer-compliance-logo" /></div></div>
     <div class="footer-bottom"><div class="footer-bottom-left"><span>&copy; 2026 The Jaiswal Group Real Estate</span><a href="../../privacy-policy.html">Privacy Policy</a><a href="#">Site Map</a></div><div class="footer-social"><a href="https://www.facebook.com/LynnetteJaiswalRealtor" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a><a href="https://www.instagram.com/lynnettejaiswalrealtor/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a href="https://www.youtube.com/@LynnetteJaiswalRealtor" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a><a href="https://www.tiktok.com/@lynnettejaiswalrealtor" aria-label="TikTok" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg></a><a href="https://www.linkedin.com/in/lynnettejaiswalrealtor/" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a><a href="https://g.page/r/CadNwKvRi2DDEBM/review" aria-label="Google Reviews" class="footer-social-text" target="_blank" rel="noopener">G</a><a href="https://www.zillow.com/profile/Lynnette%20Jaiswal" aria-label="Zillow" class="footer-social-text" target="_blank" rel="noopener">Z</a></div></div>

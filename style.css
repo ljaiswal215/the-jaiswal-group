@@ -54,7 +54,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   display: inline-block;
   padding: 0.85rem 2rem;
   font-family: 'Raleway', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -108,30 +108,11 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   transition: background 0.35s, box-shadow 0.35s;
 }
 .site-header.scrolled {
-  background: #fff;
+  background: #1C3063;
   box-shadow: 0 2px 24px rgba(28,48,99,0.13);
-  border-bottom: 1px solid rgba(28,48,99,0.08);
 }
 .site-header.scrolled .header-top { padding: 0.2rem 2.5rem; }
 .site-header.scrolled .main-nav { padding: 0.35rem 2.5rem; }
-.site-header.scrolled .nav-logo img { height: 72px; }
-/* When scrolled: social icon circles */
-.site-header.scrolled .social-icons a {
-  border-color: rgba(28,48,99,0.35);
-}
-.site-header.scrolled .social-icons svg {
-  stroke: #1C3063;
-}
-/* When scrolled: nav links */
-.site-header.scrolled .nav-links > li > a {
-  color: #1C3063;
-  font-weight: 500;
-}
-.site-header.scrolled .nav-links > li > a:hover { color: #B38987; }
-/* When scrolled: phone */
-.site-header.scrolled .nav-phone a { color: #1C3063; font-weight: 700; }
-/* When scrolled: hamburger spans */
-.site-header.scrolled .hamburger span { background: #1C3063; }
 
 /* Pages with a light/white top (no dark hero): always show colored logo + navy text */
 .light-hero .site-header:not(.scrolled) {
@@ -171,13 +152,12 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   align-items: center;
   padding: 0.75rem 2.5rem;
   gap: 1rem;
+  position: relative;
 }
-.nav-logo img { height: 100px; width: auto; transition: opacity 0.35s; }
-/* Logo swap: white logo on transparent/dark nav, colored logo when scrolled */
+.nav-logo img { height: 100px; width: auto; transition: opacity 0.35s; transform: translateY(-8px); }
+/* Logo swap: white logo on transparent/dark nav; colored logo only on light-hero pages before scroll */
 .nav-logo .logo-white { display: block; }
 .nav-logo .logo-color { display: none; }
-.site-header.scrolled .nav-logo .logo-white { display: none; }
-.site-header.scrolled .nav-logo .logo-color { display: block; }
 .logo-text-fallback {
   display: none;
   font-family: 'Marcellus', serif;
@@ -199,8 +179,8 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 .nav-links > li > a {
   display: block;
   padding: 0.5rem 0.75rem;
-  font-size: 0.75rem;
-  font-weight: 200;
+  font-size: 0.8rem;
+  font-weight: 400;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: white;
@@ -213,7 +193,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 
 
 /* Phone */
-.nav-phone a { color: white; font-weight: 600; font-size: 0.75rem; letter-spacing: 0.05em; }
+.nav-phone a { color: white; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.05em; }
 
 /* Dropdown */
 .has-dropdown { position: relative; }
@@ -240,7 +220,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 .dropdown li a {
   display: block;
   padding: 0.6rem 1.2rem;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   color: rgba(255,255,255,0.85);
@@ -278,7 +258,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 .subdropdown li a {
   display: block;
   padding: 0.6rem 1.2rem;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 500;
   letter-spacing: 0.08em;
   color: rgba(255,255,255,0.85);
@@ -438,6 +418,34 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   50% { opacity: 1; transform: scaleY(1.2); }
 }
 
+/* Mobile: top-align hero content and clear the fixed header so the
+   eyebrow/title never sit under the logo + social icons */
+@media (max-width: 600px) {
+  .hero {
+    align-items: flex-start;
+  }
+  .hero-content {
+    padding: 11rem 1.5rem 3rem;
+  }
+  .hero-eyebrow {
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    margin-bottom: 1.2rem;
+  }
+  .hero-title {
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title-sub {
+    font-size: 2.2rem;
+    line-height: 1.2;
+  }
+  .hero-title-main {
+    font-size: 1.05rem;
+    line-height: 1.4;
+  }
+}
+
 
 /* ============================================================
    STATS BAR
@@ -514,7 +522,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   color: #5a5250;
   line-height: 1.8;
   margin-bottom: 1rem;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 .about-text em { color: #1C3063; font-style: italic; }
 .about-actions { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
@@ -544,7 +552,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   background-size: cover;
   background-position: center top;
   background-attachment: fixed;
-  padding: clamp(4rem, 7vw, 6rem) 2rem;
+  padding: clamp(3rem, 5vw, 4.5rem) 2rem;
   text-align: center;
   overflow: hidden;
 }
@@ -661,7 +669,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 .credentials-strip {
   background: #18254B;
   overflow: hidden;
-  padding: 1.5rem 0;
+  padding: 2rem 0;
 }
 .credentials-track {
   display: flex;
@@ -674,7 +682,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   height: 60px;
   width: auto;
   filter: brightness(0) invert(1);
-  opacity: 0.7;
+  opacity: 0.75;
   transition: opacity 0.2s;
 }
 .credentials-track img:hover { opacity: 1; }
@@ -743,7 +751,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
    NEIGHBORHOODS
 ============================================================ */
 .neighborhoods {
-  padding: clamp(2rem, 3vw, 3rem) 0 0;
+  padding: clamp(1.5rem, 2.5vw, 2.5rem) 0 0;
   background: #F6F6F4;
 }
 .neighborhoods-header {
@@ -811,6 +819,10 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   gap: 1.2rem;
 }
 .nbhd-name {
+  position: absolute;
+  top: 50%;
+  left: 0; right: 0;
+  margin: 0;
   color: white;
   font-family: 'Marcellus', serif;
   font-size: 30px;
@@ -818,23 +830,45 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   text-shadow: 0 2px 12px rgba(0,0,0,0.5);
   letter-spacing: 0;
   padding: 0 1rem;
-  transform: translateY(0);
-  transition: transform 0.4s ease;
+  transform: translateY(-50%);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
 }
 .nbhd-card:hover .nbhd-name {
-  transform: translateY(-18px);
+  transform: translateY(calc(-50% - 85px));
+}
+
+/* Reveal panel: tagline + MORE button — fades in on hover */
+.nbhd-card-reveal {
+  position: absolute;
+  top: 50%;
+  left: 1.5rem; right: 1.5rem;
+  transform: translateY(calc(-50% + 16px));
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease 0.08s, transform 0.35s ease 0.08s;
+}
+.nbhd-card:hover .nbhd-card-reveal {
+  opacity: 1;
+  transform: translateY(-50%);
+  pointer-events: auto;
 }
 .nbhd-tagline {
-  color: rgba(255,255,255,0.80);
   font-family: 'Raleway', sans-serif;
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.03em;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
   text-align: center;
-  padding: 0 1.25rem;
+  color: rgba(255,255,255,0.92);
   text-shadow: 0 1px 8px rgba(0,0,0,0.6);
-  line-height: 1.4;
+  line-height: 1.8;
   margin: 0;
+  padding: 0;
 }
 .nbhd-btn {
   display: inline-block;
@@ -846,20 +880,57 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   text-transform: uppercase;
   color: white;
   border: 1.5px solid rgba(255,255,255,0.75);
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.35s ease 0.05s, transform 0.35s ease 0.05s, background 0.2s;
   white-space: nowrap;
-}
-.nbhd-card:hover .nbhd-btn {
-  opacity: 1;
-  transform: translateY(0);
+  transition: background 0.2s;
 }
 .nbhd-btn:hover {
   background: rgba(255,255,255,0.12);
 }
 .neighborhoods .center {
   padding: 2.5rem 2rem;
+}
+/* Homepage cards are shorter (300px) — scale tagline down so longer text fits */
+.neighborhoods .nbhd-tagline {
+  font-size: 0.78rem;
+  line-height: 1.7;
+}
+.neighborhoods .nbhd-card-reveal {
+  gap: 0.75rem;
+}
+
+/* Communities hub card — static, no animation */
+.nbhd-card--hub .nbhd-img {
+  background-color: #18254B;
+}
+/* Name sits slightly above center, never moves — same style as other cards, just larger */
+.nbhd-card--hub .nbhd-name {
+  top: 38%;
+  font-size: 2.4rem;
+}
+.nbhd-card--hub:hover .nbhd-name {
+  transform: translateY(-50%); /* no slide */
+}
+/* Button always visible, sits slightly below center */
+.nbhd-card--hub .nbhd-card-reveal {
+  top: 64%;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%);
+  transition: none;
+  justify-content: center;
+}
+.nbhd-card--hub:hover .nbhd-card-reveal {
+  transform: translateY(-50%); /* no movement */
+}
+/* No image scale, subtle overlay on hover */
+.nbhd-card--hub:hover .nbhd-img {
+  transform: none;
+}
+.nbhd-card--hub .nbhd-overlay {
+  background: rgba(0,0,0,0.18);
+}
+.nbhd-card--hub:hover .nbhd-overlay {
+  background: rgba(0,0,0,0.28);
 }
 
 @media (max-width: 900px) { .neighborhoods-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -871,7 +942,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 ============================================================ */
 .eir-section {
   background: #F8F4F2;
-  padding: clamp(2rem, 3vw, 2.5rem) 2rem clamp(3rem, 5vw, 4rem);
+  padding: clamp(1.5rem, 2.5vw, 2rem) 2rem clamp(2rem, 4vw, 3rem);
   text-align: center;
 }
 .eir-headline {
@@ -893,36 +964,67 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   overflow: hidden;
   display: block;
   text-decoration: none;
-  transition: transform 0.35s;
+  transition: transform 0.4s ease;
+  cursor: pointer;
 }
-.eir-card:hover { transform: translateY(-3px); }
+.eir-card:hover { transform: translateY(-4px); }
 .eir-card-img {
   width: 100%;
   height: 400px;
   object-fit: cover;
   display: block;
-  transition: transform 0.6s ease;
+  transition: transform 0.7s ease;
 }
-.eir-card:hover .eir-card-img { transform: scale(1.05); }
+.eir-card:hover .eir-card-img { transform: scale(1.07); }
+
+/* Overlay — deepens on hover */
 .eir-card-body {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 4rem 1.5rem 1.75rem;
-  background: linear-gradient(to top, rgba(18,37,75,0.9) 0%, rgba(18,37,75,0.15) 65%, transparent 100%);
+  padding: 5rem 2rem 2rem;
+  background: linear-gradient(to top, rgba(18,37,75,0.92) 0%, rgba(18,37,75,0.2) 60%, transparent 100%);
   text-align: center;
+  transition: background 0.4s ease, padding 0.4s ease;
 }
+.eir-card:hover .eir-card-body {
+  background: linear-gradient(to top, rgba(18,37,75,0.97) 0%, rgba(18,37,75,0.55) 65%, rgba(18,37,75,0.1) 100%);
+  padding-bottom: 2.5rem;
+}
+
+/* Title */
 .eir-card h3 {
   font-family: 'Marcellus', serif;
   color: #FFFFFF;
-  font-size: clamp(1.5rem, 2.2vw, 2.1rem);
+  font-size: clamp(1.2rem, 1.6vw, 1.65rem);
   letter-spacing: 0.12em;
   margin-bottom: 0;
-  line-height: 1.25;
-  transition: color 0.25s;
+  line-height: 1.2;
+  white-space: nowrap;
+  transition: color 0.3s ease, transform 0.4s ease;
 }
-.eir-card:hover h3 { color: #B38987; }
+.eir-card:hover h3 {
+  color: #B38987;
+  transform: translateY(-6px);
+}
+
+/* Accent rule under title */
+.eir-card-rule {
+  display: block;
+  width: 40px;
+  height: 1.5px;
+  background: #B38987;
+  margin: 0.65rem auto 0;
+  transition: transform 0.4s ease, width 0.4s ease;
+}
+.eir-card:hover .eir-card-rule {
+  transform: translateY(-6px);
+  width: 55px;
+}
+
+
+
 
 @media (max-width: 768px) { .eir-grid { grid-template-columns: 1fr; } }
 
@@ -979,7 +1081,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
    TESTIMONIALS
 ============================================================ */
 .testimonials {
-  padding: clamp(3rem, 5vw, 5rem) 2rem;
+  padding: clamp(2.5rem, 4vw, 3.5rem) 2rem;
   background: #F6F6F4;
   overflow: hidden;
 }
@@ -1028,7 +1130,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 }
 .testimonial-card blockquote {
   font-family: 'Raleway', sans-serif;
-  font-size: 0.92rem;
+  font-size: 1rem;
   font-weight: 400;
   font-style: italic;
   color: #322E2D;
@@ -1056,7 +1158,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 ============================================================ */
 .consult-section {
   background: #18254B;
-  padding: clamp(4rem, 7vw, 7rem) clamp(1.5rem, 5vw, 5rem);
+  padding: clamp(3rem, 5vw, 5rem) clamp(1.5rem, 5vw, 5rem);
 }
 .consult-inner {
   max-width: 1200px;
@@ -1134,7 +1236,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 }
 .consult-body {
   font-family: 'Raleway', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   line-height: 1.9;
   color: rgba(255,255,255,0.7);
   margin-bottom: 1rem;
@@ -1204,7 +1306,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   border-bottom: 1px solid rgba(255,255,255,0.25);
   padding: 0.55rem 0;
   font-family: 'Raleway', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   color: #fff;
   outline: none;
   width: 100%;
@@ -1299,7 +1401,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
    BLOG
 ============================================================ */
 .blog-section {
-  padding: clamp(3rem, 5vw, 5rem) 2rem;
+  padding: clamp(2.5rem, 4vw, 3.5rem) 2rem;
   background: white;
 }
 .blog-section .section-eyebrow {
@@ -1345,7 +1447,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   margin-bottom: 0.75rem;
   line-height: 1.4;
 }
-.blog-body p { font-size: 0.85rem; color: #5a5250; line-height: 1.7; margin-bottom: 1rem; }
+.blog-body p { font-size: 0.95rem; color: #5a5250; line-height: 1.7; margin-bottom: 1rem; }
 .blog-read-more {
   font-size: 0.7rem;
   font-weight: 700;
@@ -1365,7 +1467,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 ============================================================ */
 .mailing-list {
   background: #18254B;
-  padding: clamp(4rem, 6vw, 5rem) 2rem;
+  padding: clamp(3rem, 5vw, 4rem) 2rem;
   text-align: center;
 }
 .mailing-inner { max-width: 680px; margin: 0 auto; }
@@ -1382,7 +1484,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   margin-bottom: 1rem;
   letter-spacing: 0.05em;
 }
-.mailing-sub { color: rgba(255,255,255,0.7); font-size: 0.9rem; line-height: 1.8; margin-bottom: 2rem; }
+.mailing-sub { color: rgba(255,255,255,0.7); font-size: 0.95rem; line-height: 1.8; margin-bottom: 2rem; }
 .mailing-form {
   display: flex;
   gap: 0.75rem;
@@ -1398,7 +1500,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   background: rgba(255,255,255,0.08);
   color: white;
   font-family: 'Raleway', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   outline: none;
   transition: border-color 0.2s;
 }
@@ -1463,7 +1565,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   color: #1C3063;
 }
 .wwu-content p {
-  font-size: 0.92rem;
+  font-size: 1rem;
   line-height: 1.75;
   color: #4a4643;
   margin-bottom: 0.35rem;
@@ -1540,7 +1642,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 /* ── 4-column info row: logo | address | email | phone ── */
 .footer-info {
   display: grid;
-  grid-template-columns: 1.8fr 2fr 2fr 2fr;
+  grid-template-columns: 300px 2fr 2fr 2fr;
   gap: 2.5rem;
   align-items: start;
   padding: clamp(3rem, 5vw, 5rem) clamp(2rem, 5vw, 5rem) clamp(1rem, 2vw, 1.5rem);
@@ -1576,7 +1678,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   line-height: 1.5;
 }
 .footer-info-text p {
-  font-size: 0.82rem;
+  font-size: 0.92rem;
   line-height: 1.7;
   color: rgba(255,255,255,0.6);
 }
@@ -1618,7 +1720,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   align-items: flex-start;
   justify-content: flex-start;
 }
-.footer-logo { height: 160px; width: auto; flex-shrink: 0; }
+.footer-logo { height: 160px; width: auto; max-width: 100%; flex-shrink: 0; }
 
 /* ── Disclaimer block ── */
 .footer-disclaimer-block {
@@ -1682,17 +1784,31 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 @media (max-width: 600px) {
   .footer-info { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .footer-info-text p { white-space: normal !important; }
 }
 
 
 /* ============================================================
    RESPONSIVE — HEADER
 ============================================================ */
+@media (min-width: 1400px) {
+  .nav-links { margin: 0 auto; }
+  .nav-phone {
+    position: absolute;
+    right: 2.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+@media (max-width: 1250px) {
+  .nav-logo img { height: 80px; }
+}
 @media (max-width: 1100px) {
   .nav-links { gap: 0; }
-  .nav-links > li > a { padding: 0.5rem 0.5rem; font-size: 0.65rem; }
+  .nav-links > li > a { padding: 0.5rem 0.5rem; font-size: 0.72rem; }
 }
 @media (max-width: 900px) {
+  .nav-logo img { height: 100px; }
   .nav-links { display: none; }
   .hamburger { display: flex; }
   .main-nav { padding: 0.75rem 1.5rem; }
@@ -1703,7 +1819,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
    FEATURED PROPERTIES
 ============================================================ */
 .featured-properties {
-  padding: clamp(3rem, 5vw, 5rem) 2rem;
+  padding: clamp(2.5rem, 4vw, 3.5rem) 2rem;
   background: #fff;
 }
 .fp-header {
@@ -1777,14 +1893,14 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 }
 .fp-address {
   font-family: 'Raleway', sans-serif;
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: #322E2D;
   margin-bottom: 0.15rem;
 }
 .fp-city {
   font-family: 'Raleway', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: #888;
   margin-bottom: 1.1rem;
 }
@@ -1803,7 +1919,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   align-items: center;
   gap: 0.35rem;
   font-family: 'Raleway', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.05em;
   color: #555;
