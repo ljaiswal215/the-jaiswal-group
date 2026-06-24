@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Schedule a Seller Consultation in San Diego | The Jaiswal Group Real Estate</title>
-  <meta name="description" content="Schedule a free, no-obligation seller consultation with Lynnette Jaiswal. Get an honest read on your home's value and the right strategy to sell in San Diego." />
+  <meta name="description" content="Book your free seller consultation with Lynnette Jaiswal. We'll walk through your home's value, your goals, and a customized plan to sell — no pressure, just clarity." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Raleway:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -12,212 +12,266 @@
   <style>
 
     /* ── Hero ── */
-    .page-hero {
-      position: relative;
-      width: 100%;
-      height: 70vh;
-      min-height: 420px;
-      overflow: hidden;
+    .sc-hero {
+      position: relative; width: 100%; height: 70vh; min-height: 420px; overflow: hidden;
     }
-    .page-hero-photo { position: absolute; inset: 0; }
-    .page-hero-photo img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center 25%; display: block;
+    .sc-hero-photo { position: absolute; inset: 0; }
+    .sc-hero-photo img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block;
     }
-    .page-hero-photo::after {
+    .sc-hero-photo::after {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(24,37,75,0.35) 0%, rgba(24,37,75,0.8) 100%);
+      background: linear-gradient(to bottom, rgba(24,37,75,0.3) 0%, rgba(24,37,75,0.78) 100%);
     }
-    .page-hero-inner {
+    .sc-hero-inner {
       position: absolute; inset: 0; z-index: 1;
       display: flex; flex-direction: column; align-items: center;
       justify-content: center; text-align: center;
       padding: clamp(2rem, 6vw, 6rem);
     }
-    .page-hero-inner .section-eyebrow { color: #B38987; margin-bottom: 1rem; }
-    .page-hero-inner h1 {
-      font-family: 'Marcellus', serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
+    .sc-hero-inner .section-eyebrow { color: #B38987; margin-bottom: 1rem; letter-spacing: 0.22em; }
+    .sc-hero-inner h1 {
+      font-family: 'Marcellus', serif; font-size: clamp(2rem, 4vw, 3.2rem);
       color: #fff; letter-spacing: 0.06em; line-height: 1.15; margin-bottom: 1rem;
     }
-    .page-hero-inner p {
+    .sc-hero-inner > p {
       font-family: 'Raleway', sans-serif; font-size: 0.95rem;
-      color: rgba(255,255,255,0.8); max-width: 560px; line-height: 1.8;
+      color: rgba(255,255,255,0.8); max-width: 520px; line-height: 1.8;
     }
 
-    /* ── Section Header ── */
-    .page-section-header { text-align: center; margin-bottom: 3rem; }
-    .page-section-header .section-eyebrow { margin-bottom: 1rem; }
-    .page-section-header h2 {
+    /* ── Booking Section ── */
+    .sc-booking {
+      background: #fff;
+      padding: clamp(4rem, 6vw, 6rem) clamp(1.5rem, 6vw, 6rem);
+    }
+    .sc-booking-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1.15fr; gap: 4.5rem; align-items: start;
+    }
+    .sc-booking-left h2 {
       font-family: 'Marcellus', serif; font-size: clamp(1.5rem, 2.5vw, 2rem);
-      color: #18254B; letter-spacing: 0.05em; margin-bottom: 0.5rem;
+      color: #18254B; margin-bottom: 1.25rem; letter-spacing: 0.04em; line-height: 1.2;
     }
-    .page-section-header p {
-      font-family: 'Raleway', sans-serif; font-size: 0.88rem;
-      color: #6b6460; max-width: 580px; margin: 0 auto;
+    .sc-booking-left > p {
+      font-family: 'Raleway', sans-serif; font-size: 0.9rem;
+      color: #4a4643; line-height: 1.9; margin-bottom: 1.75rem;
     }
+    .sc-expect-heading {
+      font-family: 'Raleway', sans-serif; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.17em; text-transform: uppercase; color: #1C3063;
+      margin-bottom: 0.6rem; display: block;
+    }
+    .sc-expect-list {
+      list-style: none; padding: 0; margin: 0 0 2rem;
+    }
+    .sc-expect-list li {
+      font-family: 'Raleway', sans-serif; font-size: 0.87rem;
+      color: #4a4643; line-height: 1.75;
+      padding: 0.6rem 0 0.6rem 1.5rem; position: relative;
+      border-bottom: 1px solid rgba(179,137,135,0.15);
+    }
+    .sc-expect-list li:first-child { border-top: 1px solid rgba(179,137,135,0.15); }
+    .sc-expect-list li::before {
+      content: ''; position: absolute; left: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 6px; height: 6px; border-radius: 50%; background: #B38987;
+    }
+    .sc-direct-contact {
+      display: flex; align-items: center; gap: 0.85rem;
+      padding: 1.1rem 1.25rem; background: #F3EFE8; border-left: 3px solid #B38987;
+    }
+    .sc-direct-contact svg {
+      width: 20px; height: 20px; flex-shrink: 0;
+      stroke: #B38987; fill: none; stroke-width: 2;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .sc-direct-contact p {
+      font-family: 'Raleway', sans-serif; font-size: 0.85rem;
+      color: #4a4643; line-height: 1.6; margin: 0;
+    }
+    .sc-direct-contact a { color: #1C3063; font-weight: 700; text-decoration: none; }
+    .sc-direct-contact a:hover { color: #B38987; }
 
-    /* ── Seller CTA Form ── */
-    .seller-cta-wrap {
-      padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 6vw, 6rem);
-      display: flex;
-      gap: 3rem;
-      align-items: center;
-      max-width: 1200px;
-      margin: 0 auto;
+    /* ── Consultation Form ── */
+    .sc-form-label {
+      font-family: 'Raleway', sans-serif; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.17em; text-transform: uppercase; color: #1C3063;
+      margin-bottom: 1.1rem; display: block;
     }
-    .seller-cta-text { flex: 1; }
-    .seller-cta-text h2 {
-      font-family: 'Marcellus', serif;
-      font-size: clamp(1.5rem, 2.5vw, 2rem);
-      color: #18254B;
-      margin-bottom: 1rem;
-    }
-    .seller-cta-text p {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.9rem;
-      color: #4a4643;
-      line-height: 1.9;
-      margin-bottom: 1rem;
-    }
-    .seller-cta-form-wrap { flex: 0 0 380px; }
-    .seller-cta-form-wrap input {
+    .sc-form input,
+    .sc-form select,
+    .sc-form textarea {
       width: 100%; padding: 0.85rem 1rem;
-      font-family: 'Raleway', sans-serif; font-size: 0.88rem; color: #18254B;
-      background: #fff; border: 1px solid rgba(28,48,99,0.2); outline: none;
-      margin-bottom: 0.75rem; box-sizing: border-box; transition: border-color 0.2s;
+      font-family: 'Raleway', sans-serif; font-size: 0.87rem; color: #18254B;
+      background: #F3EFE8; border: 1px solid rgba(28,48,99,0.15); outline: none;
+      box-sizing: border-box; transition: border-color 0.2s, background 0.2s;
+      border-radius: 0; appearance: none; -webkit-appearance: none;
     }
-    .seller-cta-form-wrap input:focus { border-color: #B38987; }
-    .seller-cta-form-wrap input::placeholder { color: rgba(28,48,99,0.4); }
-    .seller-cta-form-wrap button {
-      width: 100%; padding: 0.9rem; background: #1C3063; color: #F6F6F4;
+    .sc-form input:focus,
+    .sc-form select:focus,
+    .sc-form textarea:focus { border-color: #B38987; background: #fff; }
+    .sc-form input::placeholder,
+    .sc-form textarea::placeholder { color: rgba(28,48,99,0.38); }
+    .sc-form select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231C3063' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 1rem center;
+      padding-right: 2.5rem; cursor: pointer; color: rgba(28,48,99,0.38);
+    }
+    .sc-form select.has-value { color: #18254B; }
+    .sc-form textarea { min-height: 88px; resize: vertical; }
+    .sc-form-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 0.6rem;
+    }
+    .sc-form-row-3 {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.6rem; margin-bottom: 0.6rem;
+    }
+    .sc-form-field { margin-bottom: 0.6rem; }
+    .sc-form-submit {
+      margin-top: 1rem; width: 100%; padding: 0.9rem; background: #1C3063; color: #F6F6F4;
       font-family: 'Raleway', sans-serif; font-size: 0.75rem; font-weight: 700;
       letter-spacing: 0.18em; text-transform: uppercase; border: 2px solid #1C3063;
       cursor: pointer; transition: background 0.2s, color 0.2s;
     }
-    .seller-cta-form-wrap button:hover { background: #18254B; color: #B38987; border-color: #18254B; }
-    .consent-text {
+    .sc-form-submit:hover { background: #18254B; color: #B38987; border-color: #18254B; }
+    .sc-consent {
       font-family: 'Raleway', sans-serif; font-size: 0.7rem;
-      color: rgba(28,48,99,0.45); line-height: 1.7; margin-top: 0.5rem;
+      color: rgba(28,48,99,0.42); line-height: 1.7; margin-top: 0.6rem;
     }
-    .consent-text a { color: #B38987; }
-    .cta-success {
+    .sc-consent a { color: #B38987; }
+    .sc-success {
       display: none; background: #F3EFE8; border-left: 4px solid #B38987; padding: 1.5rem;
     }
-    .cta-success h4 { font-family: 'Marcellus', serif; color: #18254B; margin-bottom: 0.5rem; }
-    .cta-success p { font-family: 'Raleway', sans-serif; font-size: 0.85rem; color: #4a4643; line-height: 1.8; margin: 0; }
+    .sc-success h4 {
+      font-family: 'Marcellus', serif; color: #18254B; margin-bottom: 0.5rem; font-size: 1.1rem;
+    }
+    .sc-success p {
+      font-family: 'Raleway', sans-serif; font-size: 0.85rem; color: #4a4643; line-height: 1.8; margin: 0;
+    }
 
     @media (max-width: 860px) {
-      .seller-cta-wrap { flex-direction: column; gap: 2rem; padding: 3rem 1.5rem; }
-      .seller-cta-form-wrap { flex: none; width: 100%; }
+      .sc-booking-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    }
+    @media (max-width: 540px) {
+      .sc-form-row { grid-template-columns: 1fr; }
+      .sc-form-row-3 { grid-template-columns: 1fr; }
     }
 
-    /* ── Seller Advantage Strip ── */
-    .advantage-strip {
-      padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 6vw, 6rem);
+    /* ── Marketing Philosophy ── */
+    .sc-marketing {
+      background: #F3EFE8;
+      padding: clamp(4rem, 6vw, 6rem) clamp(1.5rem, 6vw, 6rem);
     }
-    .advantage-strip .page-section-header { margin-bottom: 2.5rem; }
-    .advantage-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+    .sc-marketing-inner {
       max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
     }
-    .advantage-card {
-      background: #fff; padding: 2rem 1.5rem; text-align: center;
+    .sc-marketing-text .section-eyebrow { margin-bottom: 1rem; }
+    .sc-marketing-text h2 {
+      font-family: 'Marcellus', serif; font-size: clamp(1.5rem, 2.5vw, 2rem);
+      color: #18254B; letter-spacing: 0.04em; margin-bottom: 1.5rem; line-height: 1.2;
     }
-    .advantage-card-icon {
-      width: 48px; height: 48px; background: rgba(179,137,135,0.12);
-      border-radius: 50%; display: flex; align-items: center;
-      justify-content: center; margin: 0 auto 1rem;
+    .sc-marketing-text p {
+      font-family: 'Raleway', sans-serif; font-size: 0.9rem;
+      color: #4a4643; line-height: 1.9; margin-bottom: 1rem;
     }
-    .advantage-card-icon svg {
-      width: 20px; height: 20px; stroke: #B38987; fill: none;
-      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    .sc-marketing-text p:last-child { margin-bottom: 0; }
+
+    /* Video placeholder */
+    .sc-video-box {
+      position: relative; aspect-ratio: 16 / 9; background: #18254B;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      overflow: hidden; cursor: pointer;
     }
-    .advantage-card h3 {
-      font-family: 'Raleway', sans-serif; font-size: 0.8rem; font-weight: 700;
-      letter-spacing: 0.1em; text-transform: uppercase; color: #1C3063; margin-bottom: 0.6rem;
+    .sc-video-box::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(179,137,135,0.1) 0%, transparent 70%);
     }
-    .advantage-card p {
-      font-family: 'Raleway', sans-serif; font-size: 0.83rem;
-      color: #6b6460; line-height: 1.8; margin: 0;
+    .sc-play-btn {
+      width: 68px; height: 68px; border: 2px solid rgba(255,255,255,0.45); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;
+      position: relative; z-index: 1; transition: border-color 0.2s;
     }
-    @media (max-width: 860px) {
-      .advantage-grid { grid-template-columns: 1fr; }
+    .sc-video-box:hover .sc-play-btn { border-color: #B38987; }
+    .sc-play-btn svg { width: 26px; height: 26px; fill: rgba(255,255,255,0.8); margin-left: 5px; }
+    .sc-video-label {
+      font-family: 'Raleway', sans-serif; font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.45);
+      position: relative; z-index: 1; text-align: center; padding: 0 1.5rem;
+    }
+    .sc-video-caption {
+      font-family: 'Raleway', sans-serif; font-size: 0.78rem; font-style: italic;
+      color: #6b6460; margin-top: 0.85rem; text-align: center; line-height: 1.6;
     }
 
-    /* ── Testimonials ── */
-    .seller-testimonials {
-      background: #18254B;
-      padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 6vw, 6rem);
-    }
-    .seller-testimonials-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .seller-testimonials-header {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
-    .seller-testimonials-header h2 {
-      font-family: 'Marcellus', serif;
-      font-size: clamp(1.3rem, 2vw, 1.7rem);
-      color: #fff;
-      letter-spacing: 0.1em;
-      margin-bottom: 0;
-    }
-    .seller-testimonials-header .section-eyebrow {
-      color: #B38987;
-      margin-bottom: 0.75rem;
-    }
-    .testimonial-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-    .testimonial-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(179,137,135,0.25);
-      padding: 2rem 1.75rem;
-    }
-    .seller-testimonials .stars { opacity: 0.85; }
-    .testimonial-quote {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.85);
-      line-height: 1.9;
-      font-style: italic;
-      margin-bottom: 1.25rem;
-    }
-    .testimonial-author {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #B38987;
-      margin: 0;
-    }
-    .testimonials-cta {
-      text-align: center;
-      margin-top: 2rem;
-    }
-    .testimonials-cta a {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: #B38987;
-      text-decoration: none;
-      border-bottom: 1px solid rgba(179,137,135,0.4);
-      padding-bottom: 0.15rem;
-      transition: color 0.2s;
-    }
-    .testimonials-cta a:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
     @media (max-width: 860px) {
-      .testimonial-grid { grid-template-columns: 1fr; }
+      .sc-marketing-inner { grid-template-columns: 1fr; gap: 2.5rem; }
     }
+
+    /* ── Past Sales ── */
+    .sc-sales {
+      background: #fff;
+      padding: clamp(4rem, 6vw, 6rem) clamp(1.5rem, 6vw, 6rem);
+    }
+    .sc-sales-header { text-align: center; margin-bottom: 3rem; }
+    .sc-sales-header .section-eyebrow { margin-bottom: 1rem; }
+    .sc-sales-header h2 {
+      font-family: 'Marcellus', serif; font-size: clamp(1.5rem, 2.5vw, 2rem);
+      color: #18254B; letter-spacing: 0.05em; margin-bottom: 0.75rem;
+    }
+    .sc-sales-header p {
+      font-family: 'Raleway', sans-serif; font-size: 0.88rem;
+      color: #6b6460; max-width: 540px; margin: 0 auto; line-height: 1.8;
+    }
+    .sc-sold-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+      max-width: 1100px; margin: 0 auto 3rem;
+    }
+    .sc-sold-card { position: relative; background: #F3EFE8; }
+    .sc-sold-thumb {
+      aspect-ratio: 4 / 3; background: #1C3063;
+      display: flex; align-items: center; justify-content: center; position: relative;
+    }
+    .sc-sold-thumb svg {
+      width: 52px; height: 52px; stroke: rgba(255,255,255,0.15);
+      fill: none; stroke-width: 1; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .sc-sold-badge {
+      position: absolute; top: 1rem; left: 1rem;
+      background: #B38987; color: #fff;
+      font-family: 'Raleway', sans-serif; font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase; padding: 0.3rem 0.75rem;
+    }
+    .sc-sold-body { padding: 1.25rem 1.5rem 1.5rem; }
+    .sc-sold-community {
+      font-family: 'Raleway', sans-serif; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: #B38987; margin-bottom: 0.35rem;
+    }
+    .sc-sold-tagline {
+      font-family: 'Marcellus', serif; font-size: 1.05rem;
+      color: #18254B; margin-bottom: 0.5rem; line-height: 1.3;
+    }
+    .sc-sold-note {
+      font-family: 'Raleway', sans-serif; font-size: 0.78rem;
+      color: #6b6460; line-height: 1.7;
+    }
+    .sc-sales-cta { text-align: center; }
+    .sc-sales-cta p {
+      font-family: 'Raleway', sans-serif; font-size: 0.87rem;
+      color: #6b6460; margin-bottom: 1.25rem; line-height: 1.8;
+    }
+    .sc-sales-cta a.btn-outline {
+      display: inline-block;
+      font-family: 'Raleway', sans-serif; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; color: #1C3063;
+      border: 2px solid #1C3063; padding: 0.75rem 2rem; text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .sc-sales-cta a.btn-outline:hover { background: #1C3063; color: #F3EFE8; }
+
+    @media (max-width: 860px) {
+      .sc-sold-grid { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
+    }
+
   </style>
 </head>
 <body>
@@ -308,130 +362,199 @@
   </header>
 
   <!-- HERO -->
-  <section class="page-hero">
-    <div class="page-hero-photo">
+  <section class="sc-hero">
+    <div class="sc-hero-photo">
       <img src="Lynnette-casual.jpg" alt="Lynnette Jaiswal, The Jaiswal Group Real Estate" />
     </div>
-    <div class="page-hero-inner">
-      <p class="section-eyebrow">Free, No-Obligation Consultation</p>
-      <h1>Let's Talk About Selling Your Home</h1>
-      <p>Get an honest read on your home's value and the right strategy to sell it — no pressure, just a clear picture of your options.</p>
+    <div class="sc-hero-inner">
+      <p class="section-eyebrow">Free &middot; No-Obligation &middot; Confidential</p>
+      <h1>Sell With The Jaiswal Group</h1>
+      <p>Who you work with truly matters. Start with a complimentary consultation — in person or virtually — and leave with a clear picture of your home's value and a marketing strategy built around your goals.</p>
     </div>
   </section>
 
-  <!-- CONSULTATION FORM -->
-  <div style="background:#fff;">
-    <div class="seller-cta-wrap">
-      <div class="seller-cta-text">
-        <h2>Ready to Talk About Selling?</h2>
-        <p>There's no obligation — just an honest conversation about what your home is worth and what a sale could look like for you. We'll come to you, answer every question, and give you a clear picture of your options.</p>
-        <p><strong>Call or text:</strong> <a href="tel:8582907531" style="color:#B38987;">(858) 290-7531</a></p>
-        <a href="home-valuation.html" class="btn btn-primary" style="margin-top:0.5rem;">GET YOUR FREE HOME VALUATION</a>
+  <!-- BOOKING SECTION -->
+  <section class="sc-booking">
+    <div class="sc-booking-inner">
+
+      <!-- Left: What to expect -->
+      <div class="sc-booking-left">
+        <h2>Book Your Free Seller Consultation</h2>
+        <p>Thinking about selling? This is the conversation that changes everything. We'll sit down with you — no pressure, no obligation — and walk through exactly what your home is worth, what the right strategy looks like, and what your next step should be.</p>
+        <span class="sc-expect-heading">What We'll Cover</span>
+        <ul class="sc-expect-list">
+          <li>A personalized comparative market analysis based on current San Diego data</li>
+          <li>An honest assessment of your home's positioning and pricing strategy</li>
+          <li>A walkthrough of our marketing approach and what sets it apart</li>
+          <li>Your questions answered — timeline, prep costs, net proceeds, and next steps</li>
+        </ul>
+        <div class="sc-direct-contact">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
+          <p>Prefer to call? Reach Lynnette directly at <a href="tel:8582907531">(858) 290-7531</a> — or text anytime.</p>
+        </div>
       </div>
-      <div class="seller-cta-form-wrap">
-        <form id="seller-cta-form">
+
+      <!-- Right: Form -->
+      <div>
+        <span class="sc-form-label">Tell Us About Your Home</span>
+        <form id="sc-form" class="sc-form">
           <input type="hidden" name="_subject" value="Seller Consultation Request — The Jaiswal Group" />
           <input type="hidden" name="source" value="Seller Consultation Page" />
           <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-          <input type="text" name="name" placeholder="Your Name" required />
-          <input type="email" name="email" placeholder="Email Address" required />
-          <input type="tel" name="phone" placeholder="Phone Number" required />
-          <input type="text" name="address" placeholder="Property Address (optional)" />
-          <button type="submit">REQUEST A SELLER CONSULTATION</button>
-          <p class="consent-text">By submitting, you agree to be contacted by The Jaiswal Group Real Estate. <a href="privacy-policy.html">Privacy Policy</a>.</p>
+
+          <div class="sc-form-field">
+            <input type="text" name="name" placeholder="Full Name" required />
+          </div>
+          <div class="sc-form-row">
+            <input type="email" name="email" placeholder="Email Address" required />
+            <input type="tel" name="phone" placeholder="Phone Number" required />
+          </div>
+          <div class="sc-form-field">
+            <input type="text" name="address" placeholder="Property Address (optional)" />
+          </div>
+          <div class="sc-form-row-3">
+            <select name="bedrooms" id="sc-bedrooms">
+              <option value="">Beds</option>
+              <option value="1">1 BD</option>
+              <option value="2">2 BD</option>
+              <option value="3">3 BD</option>
+              <option value="4">4 BD</option>
+              <option value="5">5 BD</option>
+              <option value="6+">6+ BD</option>
+            </select>
+            <select name="bathrooms" id="sc-bathrooms">
+              <option value="">Baths</option>
+              <option value="1">1 BA</option>
+              <option value="1.5">1.5 BA</option>
+              <option value="2">2 BA</option>
+              <option value="2.5">2.5 BA</option>
+              <option value="3">3 BA</option>
+              <option value="3.5">3.5 BA</option>
+              <option value="4+">4+ BA</option>
+            </select>
+            <input type="text" name="sqft" placeholder="Approx. Sq. Ft." />
+          </div>
+          <div class="sc-form-row">
+            <select name="reason" id="sc-reason">
+              <option value="">Reason for Selling</option>
+              <option value="Upsizing">Upsizing</option>
+              <option value="Downsizing">Downsizing</option>
+              <option value="Relocating">Relocating</option>
+              <option value="Investment">Investment / Portfolio</option>
+              <option value="Other">Other</option>
+            </select>
+            <select name="timeline" id="sc-timeline">
+              <option value="">Desired Timeline</option>
+              <option value="1-3 months">1–3 months</option>
+              <option value="3-6 months">3–6 months</option>
+              <option value="6-12 months">6–12 months</option>
+              <option value="Just exploring">Just exploring</option>
+            </select>
+          </div>
+          <div class="sc-form-field">
+            <select name="referral" id="sc-referral">
+              <option value="">How did you hear about us?</option>
+              <option value="Google">Google</option>
+              <option value="Zillow">Zillow</option>
+              <option value="Social Media">Social Media</option>
+              <option value="Referral">Friend / Referral</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="sc-form-field">
+            <textarea name="notes" placeholder="Anything else you'd like us to know? (optional)"></textarea>
+          </div>
+
+          <button type="submit" class="sc-form-submit">REQUEST A SELLER CONSULTATION</button>
+          <p class="sc-consent">By submitting, you agree to be contacted by The Jaiswal Group Real Estate regarding your home sale. <a href="privacy-policy.html">Privacy Policy</a>.</p>
         </form>
-        <div class="cta-success" id="seller-cta-success">
+        <div class="sc-success" id="sc-success">
           <h4>We'll Be in Touch Shortly!</h4>
-          <p>Thank you for reaching out. We'll be in touch soon to schedule your free seller consultation.</p>
+          <p>Thank you for reaching out. We'll contact you within one business day to schedule your free seller consultation at a time that works for you.</p>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- WHY SELLERS CHOOSE LYNNETTE -->
-  <div style="background:#F3EFE8;">
-    <div class="advantage-strip">
-      <div class="page-section-header">
-        <p class="section-eyebrow" style="color:#B38987;">Why Sellers Choose The Jaiswal Group Real Estate</p>
-        <h2>THE EXPERIENCE YOUR HOME DESERVES</h2>
-        <p>What sets a good sale apart from a great one? Experience, strategy, and a relentless commitment to your result.</p>
-      </div>
-      <div class="advantage-grid">
-        <div class="advantage-card">
-          <div class="advantage-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M23 6l-9.5 9.5-5-5L1 17"/><path d="M17 6h6v6"/></svg>
-          </div>
-          <h3>Strategic Pricing</h3>
-          <p>Pricing too high sits. Pricing too low leaves money on the table. Our data-driven pricing strategy attracts serious buyers and generates competitive offers from day one.</p>
-        </div>
-        <div class="advantage-card">
-          <div class="advantage-card-icon">
-            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          </div>
-          <h3>Premium Marketing</h3>
-          <p>Professional photography, video tours, targeted social media campaigns, and maximum MLS exposure — your home will look its best and reach the right buyers.</p>
-        </div>
-        <div class="advantage-card">
-          <div class="advantage-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
-          <h3>Powerful Negotiation</h3>
-          <p>With 14 professional designations including MCNE (Master Certified Negotiation Expert), we're trained to protect your equity and negotiate the strongest possible terms.</p>
-        </div>
-        <div class="advantage-card">
-          <div class="advantage-card-icon">
-            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-          </div>
-          <h3>Concierge Experience</h3>
-          <p>From pre-listing prep to closing day, you'll have direct access to your agent — not an assistant. Every detail is managed so your experience is seamless and stress-free.</p>
-        </div>
-        <div class="advantage-card">
-          <div class="advantage-card-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <h3>Local Market Knowledge</h3>
-          <p>We live and work in San Diego's most desirable communities. We know the neighborhoods, the buyer pools, and exactly what drives value in your specific area.</p>
-        </div>
-        <div class="advantage-card">
-          <div class="advantage-card-icon">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <h3>Fast, Smooth Closings</h3>
-          <p>Our vendor network — from stagers and photographers to contractors and title companies — means your home gets to market faster and closes on time, every time.</p>
-        </div>
-      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- TESTIMONIALS -->
-  <div class="seller-testimonials">
-    <div class="seller-testimonials-inner">
-      <div class="seller-testimonials-header">
-        <p class="section-eyebrow">Client Reviews</p>
-        <h2>WHAT OUR SELLERS SAY</h2>
+  <!-- MARKETING PHILOSOPHY -->
+  <section class="sc-marketing">
+    <div class="sc-marketing-inner">
+
+      <div class="sc-marketing-text">
+        <p class="section-eyebrow">Our Approach</p>
+        <h2>Why Your Choice of Agent Changes Everything</h2>
+        <p>Selling a home is one of the most significant financial decisions you'll make. The agent you choose — their approach to pricing, how they market your property, and how they negotiate on your behalf — can mean the difference of tens of thousands of dollars in your final result.</p>
+        <p>At The Jaiswal Group, we bring a data-driven pricing strategy, premium marketing that puts your home in front of the right buyers, and 14 professional designations including the Master Certified Negotiation Expert (MCNE) credential — so you have the most qualified representation at the negotiating table.</p>
+        <p>We believe every seller deserves more than a yard sign and a prayer. You deserve a partner who knows your market, showcases your home beautifully, and fights for every dollar of your equity. That is exactly what we do, every time.</p>
       </div>
-      <div class="testimonial-grid">
-        <div class="testimonial-card">
-          <div class="stars">&#8220;</div>
-          <p class="testimonial-quote">Lynnette expertly managed the sale of our existing home and the purchase of our new home. Her ability to anticipate and navigate potential road blocks was INVALUABLE. She helped us quickly sell in Del Mar and I would absolutely recommend her to family and friends.</p>
-          <p class="testimonial-author">— Marsha O., Del Mar</p>
+
+      <div>
+        <div class="sc-video-box" aria-label="Watch our marketing approach video">
+          <div class="sc-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <p class="sc-video-label">Watch: How We Sell Your Home</p>
         </div>
-        <div class="testimonial-card">
-          <div class="stars">&#8220;</div>
-          <p class="testimonial-quote">After talking with Lynnette for the first time, I knew she was different. She was warm, authentic, and helpful — it was clear her only goal was helping us achieve what we wanted. She guided us every step of the way with her expertise in the La Jolla market and was communicative and patient throughout the entire process. She is truly a gem!</p>
-          <p class="testimonial-author">— Nicole P., La Jolla</p>
-        </div>
-        <div class="testimonial-card">
-          <div class="stars">&#8220;</div>
-          <p class="testimonial-quote">We had a great experience selling our home with Lynnette! She gave us all of our options and explained everything really well. She is knowledgeable, fun to work with, and will do whatever she can to help her clients. We look forward to working with her again!</p>
-          <p class="testimonial-author">— Jason B., Vista</p>
-        </div>
+        <p class="sc-video-caption">Lynnette Jaiswal on what today's San Diego sellers need to know — and what great marketing actually looks like.</p>
       </div>
-      <div class="testimonials-cta">
-        <a href="clientreviews.html">READ ALL CLIENT REVIEWS &rarr;</a>
-      </div>
+
     </div>
-  </div>
+  </section>
+
+  <!-- PAST SALES -->
+  <section class="sc-sales">
+    <div class="sc-sales-header">
+      <p class="section-eyebrow">Track Record</p>
+      <h2>RECENT SALES</h2>
+      <p>We deliver results for San Diego homeowners across some of the region's most sought-after communities. Here is a sample of what we've sold.</p>
+    </div>
+
+    <div class="sc-sold-grid">
+
+      <div class="sc-sold-card">
+        <div class="sc-sold-thumb">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="sc-sold-badge">Sold</span>
+        </div>
+        <div class="sc-sold-body">
+          <p class="sc-sold-community">Pacific Highlands Ranch &middot; San Diego, CA</p>
+          <p class="sc-sold-tagline">Single-Family Residence</p>
+          <p class="sc-sold-note">Details available upon request.</p>
+        </div>
+      </div>
+
+      <div class="sc-sold-card">
+        <div class="sc-sold-thumb">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="sc-sold-badge">Sold</span>
+        </div>
+        <div class="sc-sold-body">
+          <p class="sc-sold-community">Carmel Valley &middot; San Diego, CA</p>
+          <p class="sc-sold-tagline">Single-Family Residence</p>
+          <p class="sc-sold-note">Details available upon request.</p>
+        </div>
+      </div>
+
+      <div class="sc-sold-card">
+        <div class="sc-sold-thumb">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <span class="sc-sold-badge">Sold</span>
+        </div>
+        <div class="sc-sold-body">
+          <p class="sc-sold-community">Del Mar &middot; San Diego, CA</p>
+          <p class="sc-sold-tagline">Single-Family Residence</p>
+          <p class="sc-sold-note">Details available upon request.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sc-sales-cta">
+      <p>View our full transaction history and client feedback on Zillow.</p>
+      <a href="https://www.zillow.com/profile/Lynnette%20Jaiswal" class="btn-outline" target="_blank" rel="noopener">VIEW OUR ZILLOW PROFILE</a>
+    </div>
+  </section>
 
   <!-- WORK WITH US -->
   <section class="work-with-us">
@@ -452,15 +575,12 @@
   <!-- FOOTER -->
   <footer class="site-footer">
 
-    <!-- Footer contact info row -->
     <div class="footer-info">
 
-      <!-- Logo column -->
       <div class="footer-info-col footer-info-col--logo">
         <img src="LOGOS/JaiswalGroupRE_white.png" alt="The Jaiswal Group Real Estate" class="footer-logo" />
       </div>
 
-      <!-- Office Address -->
       <div class="footer-info-col">
         <div class="footer-info-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -475,7 +595,6 @@
         </div>
       </div>
 
-      <!-- Email -->
       <div class="footer-info-col">
         <div class="footer-info-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
@@ -486,7 +605,6 @@
         </div>
       </div>
 
-      <!-- Phone -->
       <div class="footer-info-col">
         <div class="footer-info-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
@@ -499,7 +617,6 @@
 
     </div>
 
-    <!-- Disclaimer -->
     <div class="footer-disclaimer-block">
       <p>The Jaiswal Group Real Estate is a real estate broker licensed by the State of California and abides by Equal Housing Opportunity laws. License Number #02251231. All material presented herein is intended for informational purposes only and is compiled from sources deemed reliable but has not been verified. Changes in price, condition, sale or withdrawal may be made without notice. No statement is made as to accuracy of any description. All measurements and square footage are approximate.</p>
       <div class="footer-compliance-logos">
@@ -509,7 +626,6 @@
       </div>
     </div>
 
-    <!-- Bottom bar -->
     <div class="footer-bottom">
       <div class="footer-bottom-left">
         <span>&copy; 2026 The Jaiswal Group Real Estate</span>
@@ -540,21 +656,28 @@
   </footer>
 
   <script>
-    document.getElementById('seller-cta-form').addEventListener('submit', async function(e) {
+    // Highlight selects once a value is chosen
+    document.querySelectorAll('.sc-form select').forEach(function(sel) {
+      sel.addEventListener('change', function() {
+        this.classList.toggle('has-value', this.value !== '');
+      });
+    });
+
+    document.getElementById('sc-form').addEventListener('submit', async function(e) {
       e.preventDefault();
-      const form = this;
-      const btn = form.querySelector('button[type="submit"]');
+      var form = this;
+      var btn = form.querySelector('.sc-form-submit');
       btn.textContent = 'SENDING…';
       btn.disabled = true;
       try {
-        const response = await fetch('https://formspree.io/f/xreveowp', {
+        var response = await fetch('https://formspree.io/f/xreveowp', {
           method: 'POST',
           body: new FormData(form),
           headers: { 'Accept': 'application/json' }
         });
         if (response.ok) {
           form.style.display = 'none';
-          document.getElementById('seller-cta-success').style.display = 'block';
+          document.getElementById('sc-success').style.display = 'block';
         } else {
           btn.textContent = 'REQUEST A SELLER CONSULTATION';
           btn.disabled = false;
