@@ -132,8 +132,8 @@
     }
     .valuation-hero-search button {
       padding: 2rem 2.5rem;
-      background: #B38987;
-      color: #fff;
+      background: #18254B;
+      color: #F6F6F4;
       font-family: 'Raleway', sans-serif;
       font-size: 0.92rem;
       font-weight: 700;
@@ -143,323 +143,9 @@
       cursor: pointer;
       white-space: nowrap;
       flex-shrink: 0;
-      transition: background 0.2s;
-    }
-    .valuation-hero-search button:hover { background: #1C3063; }
-
-    /* ── Main Layout ── */
-    .valuation-main {
-      display: flex;
-      align-items: flex-start;
-      gap: 4rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
-    }
-
-    /* ── Form Column ── */
-    .valuation-form-col {
-      flex: 0 0 55%;
-    }
-    .valuation-form-col h2 {
-      font-family: 'Marcellus', serif;
-      font-size: clamp(1.5rem, 2.5vw, 2rem);
-      color: #18254B;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.5rem;
-    }
-    .valuation-form-col > p {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.88rem;
-      color: #6b6460;
-      line-height: 1.8;
-      margin-bottom: 2rem;
-    }
-    .valuation-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .valuation-form .form-row {
-      display: flex;
-      gap: 1rem;
-    }
-    .valuation-form .form-row input {
-      flex: 1;
-    }
-    .valuation-form input,
-    .valuation-form select {
-      width: 100%;
-      padding: 0.85rem 1rem;
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.88rem;
-      color: #18254B;
-      background: #fff;
-      border: 1px solid rgba(28,48,99,0.2);
-      outline: none;
-      transition: border-color 0.2s;
-      box-sizing: border-box;
-    }
-    .valuation-form input:focus,
-    .valuation-form select:focus {
-      border-color: #B38987;
-    }
-    .valuation-form input::placeholder {
-      color: rgba(28,48,99,0.4);
-    }
-    .valuation-form .form-address {
-      position: relative;
-    }
-    .valuation-form .form-address input {
-      padding-left: 2.5rem;
-    }
-    .valuation-form .form-address svg {
-      position: absolute;
-      left: 0.85rem;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 16px;
-      height: 16px;
-      stroke: #B38987;
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .valuation-form .form-divider {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin: 0.25rem 0;
-    }
-    .valuation-form .form-divider span {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(28,48,99,0.35);
-      white-space: nowrap;
-    }
-    .valuation-form .form-divider::before,
-    .valuation-form .form-divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: rgba(28,48,99,0.12);
-    }
-    .valuation-form button[type="submit"] {
-      width: 100%;
-      padding: 1rem;
-      background: #1C3063;
-      color: #F6F6F4;
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      border: 2px solid #1C3063;
-      cursor: pointer;
       transition: background 0.2s, color 0.2s;
-      margin-top: 0.5rem;
     }
-    .valuation-form button[type="submit"]:hover {
-      background: #18254B;
-      border-color: #18254B;
-      color: #B38987;
-    }
-    .valuation-consent {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.7rem;
-      color: rgba(28,48,99,0.45);
-      line-height: 1.7;
-      margin-top: 0.5rem;
-    }
-    .valuation-consent a { color: #B38987; }
-
-    /* ── Success State ── */
-    .valuation-success {
-      display: none;
-      background: #F3EFE8;
-      border-left: 4px solid #B38987;
-      padding: 2rem;
-      text-align: left;
-    }
-    .valuation-success h3 {
-      font-family: 'Marcellus', serif;
-      font-size: 1.3rem;
-      color: #18254B;
-      margin-bottom: 0.5rem;
-    }
-    .valuation-success p {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.88rem;
-      color: #4a4643;
-      line-height: 1.8;
-    }
-
-    /* ── Info Column ── */
-    .valuation-info-col {
-      flex: 1;
-      padding-top: 0.5rem;
-    }
-    .valuation-info-col h3 {
-      font-family: 'Marcellus', serif;
-      font-size: 1.2rem;
-      color: #18254B;
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid rgba(179,137,135,0.3);
-    }
-    .valuation-point {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      align-items: flex-start;
-    }
-    .valuation-point-icon {
-      flex: 0 0 36px;
-      height: 36px;
-      background: rgba(179,137,135,0.12);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .valuation-point-icon svg {
-      width: 16px;
-      height: 16px;
-      stroke: #B38987;
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .valuation-point-text h4 {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #1C3063;
-      margin-bottom: 0.25rem;
-    }
-    .valuation-point-text p {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.83rem;
-      color: #6b6460;
-      line-height: 1.75;
-      margin: 0;
-    }
-    .valuation-lynnette-card {
-      background: #18254B;
-      padding: 1.5rem;
-      margin-top: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    .valuation-lynnette-card img {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: center 15%;
-      flex-shrink: 0;
-    }
-    .valuation-lynnette-card-text p {
-      font-family: 'Raleway', sans-serif;
-      color: rgba(255,255,255,0.85);
-      font-size: 0.8rem;
-      line-height: 1.7;
-      margin: 0;
-    }
-    .valuation-lynnette-card-text strong {
-      display: block;
-      color: #fff;
-      font-size: 0.85rem;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.25rem;
-    }
-
-    /* ── How It Works Strip ── */
-    /* ── Why Personal Beats Online ── */
-    .valuation-why-personal {
-      background: #fff;
-      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 5rem);
-      text-align: center;
-      border-top: 1px solid rgba(28,48,99,0.07);
-    }
-    .vwp-inner {
-      max-width: 860px;
-      margin: 0 auto;
-    }
-    .vwp-inner h2 {
-      font-family: 'Marcellus', serif;
-      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
-      color: #18254B;
-      letter-spacing: 0.05em;
-      margin-bottom: 1.25rem;
-    }
-    .vwp-body {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.95rem;
-      color: #4a4643;
-      line-height: 1.85;
-      margin-bottom: 2.5rem;
-    }
-    .vwp-compare {
-      display: flex;
-      align-items: stretch;
-      gap: 0;
-      max-width: 680px;
-      margin: 0 auto;
-      border: 1px solid rgba(28,48,99,0.1);
-    }
-    .vwp-col {
-      flex: 1;
-      padding: 2rem 2.25rem;
-      text-align: left;
-    }
-    .vwp-col--online { background: #fafafa; }
-    .vwp-col--personal { background: #F3EFE8; }
-    .vwp-col h4 {
-      font-family: 'Marcellus', serif;
-      font-size: 1rem;
-      color: #18254B;
-      margin-bottom: 1rem;
-      letter-spacing: 0.04em;
-    }
-    .vwp-col--online h4 { color: rgba(28,48,99,0.45); }
-    .vwp-col ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-    }
-    .vwp-col li {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.82rem;
-      line-height: 1.5;
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-    .vwp-col--online li { color: rgba(28,48,99,0.5); }
-    .vwp-col--online li::before { content: '✕'; color: rgba(28,48,99,0.25); font-size: 0.75rem; margin-top: 1px; }
-    .vwp-col--personal li { color: #18254B; }
-    .vwp-col--personal li::before { content: '✓'; color: #B38987; font-size: 0.75rem; margin-top: 1px; font-weight: 700; }
-    .vwp-divider {
-      width: 1px;
-      background: rgba(28,48,99,0.1);
-      flex-shrink: 0;
-    }
-    @media (max-width: 560px) {
-      .vwp-compare { flex-direction: column; }
-      .vwp-divider { width: 100%; height: 1px; }
-    }
+    .valuation-hero-search button:hover { background: #1C3063; color: #B38987; }
 
     .valuation-steps {
       background: #F3EFE8;
@@ -523,9 +209,6 @@
     }
 
     @media (max-width: 860px) {
-      .valuation-main { flex-direction: column; gap: 2.5rem; }
-      .valuation-form-col { flex: none; width: 100%; }
-      .valuation-form .form-row { flex-direction: column; }
       .valuation-step { flex: 0 0 calc(50% - 2rem); }
     }
 
@@ -648,7 +331,7 @@
       transition: background 0.2s;
       margin-top: 0.5rem;
     }
-    #lead-capture-form button[type="submit"]:hover { background: #18254B; }
+    #lead-capture-form button[type="submit"]:hover { background: #18254B; color: #B38987; }
     #lead-capture-form button:disabled { opacity: 0.6; cursor: default; }
     .vlc-bottom-features {
       list-style: none;
@@ -667,46 +350,63 @@
       gap: 0.35rem;
     }
     .vlc-bottom-features li::before { content: '✓'; color: #B38987; }
-    .vlc-success {
-      background: #F3EFE8;
-      border-left: 4px solid #B38987;
-      padding: 2rem;
+    .vlc-step3 {
       display: none;
+      text-align: center;
+      padding: clamp(4rem, 7vw, 6rem) clamp(1.5rem, 5vw, 5rem);
     }
-    .vlc-success h3 {
+    .vlc-step3-inner {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .vlc-step3-inner .section-eyebrow { color: #B38987; margin-bottom: 0.75rem; }
+    .vlc-step3-inner h2 {
       font-family: 'Marcellus', serif;
-      font-size: 1.25rem;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
       color: #18254B;
-      margin-bottom: 0.5rem;
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
     }
-    .vlc-success p {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.88rem;
-      color: #4a4643;
-      line-height: 1.8;
-    }
-    .vlc-success-cta-label {
-      margin-top: 1.5rem !important;
-      font-weight: 600;
-      color: #18254B !important;
-    }
-    .vlc-calendly-btn {
-      margin-top: 0.75rem;
-      width: 100%;
-      padding: 1.1rem;
+    .vlc-step3-rule {
+      width: 120px;
+      height: 1px;
       background: #B38987;
-      color: #fff;
+      margin: 0 auto 1.75rem;
+    }
+    .vlc-step3-inner > p {
       font-family: 'Raleway', sans-serif;
-      font-size: 0.82rem;
+      font-size: 0.9rem;
+      color: #4a4643;
+      line-height: 1.85;
+      margin-bottom: 2.25rem;
+    }
+    .vlc-step3-btn {
+      display: inline-block;
+      padding: 1rem 3rem;
+      background: #18254B;
+      color: #F6F6F4;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.78rem;
       font-weight: 700;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       border: none;
       cursor: pointer;
-      transition: background 0.2s;
-      display: block;
+      transition: background 0.2s, color 0.2s;
+      margin-bottom: 1.5rem;
     }
-    .vlc-calendly-btn:hover { background: #9e7170; }
+    .vlc-step3-btn:hover { background: #1C3063; color: #B38987; }
+    .vlc-step3-skip {
+      display: block;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      color: rgba(28,48,99,0.4);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .vlc-step3-skip:hover { color: #B38987; }
     .vlc-map-col { flex: 1; padding-top: 0.5rem; }
     .vlc-map-label {
       font-family: 'Raleway', sans-serif;
@@ -782,7 +482,7 @@
           <a href="#">SELL YOUR HOME <span class="caret">&#9662;</span></a>
           <ul class="dropdown">
             <li><a href="seller-consultation.html">Seller Consultation</a></li>
-            <li><a href="home-valuation.html">Instant Home Valuation</a></li>
+            <li><a href="home-valuation.html">Home Valuation</a></li>
             <li><a href="#">Our Marketing</a></li>
             <li><a href="sellers-guide.html">Seller's Guide</a></li>
             <li><a href="#">Selling Checklist</a></li>
@@ -851,13 +551,13 @@
         <li>Real San Diego market data</li>
         <li>Maximize your sale price</li>
       </ul>
-      <form class="valuation-hero-search" id="hero-address-form" novalidate>
+      <div class="valuation-hero-search" id="hero-address-form">
         <div class="hero-search-input-wrap">
           <svg class="hero-pin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <input type="text" id="hero-address" placeholder="Enter your home address..." autocomplete="street-address" />
+          <input type="text" id="hero-address" placeholder="Enter your home address..." autocomplete="off" />
         </div>
-        <button type="submit">GET A FREE HOME VALUATION</button>
-      </form>
+        <button type="button" id="hero-address-btn" onclick="_heroSubmit()">GET A FREE HOME VALUATION</button>
+      </div>
     </div>
   </section>
 
@@ -891,7 +591,7 @@
           </div>
           <label class="vlc-consent-label">
             <input type="checkbox" name="consent" required />
-            <span>I agree to be contacted by The Jaiswal Group Real Estate via call, email, and text regarding my home valuation. To opt out, reply "stop" at any time. <a href="privacy-policy.html">Privacy Policy</a>.</span>
+            <span>I agree to be contacted by The Jaiswal Group Real Estate via call, email, and text for real estate services. To opt out, you can reply &lsquo;stop&rsquo; at any time or reply &lsquo;help&rsquo; for assistance. You can also click the unsubscribe link in the emails. Message and data rates may apply. Message frequency may vary. <a href="privacy-policy.html">Privacy Policy</a>.</span>
           </label>
           <button type="submit">UNLOCK YOUR FREE VALUATION</button>
           <ul class="vlc-bottom-features">
@@ -901,14 +601,6 @@
           </ul>
         </form>
 
-        <div class="vlc-success" id="vlc-success">
-          <h3>Request Received!</h3>
-          <p>Thank you! Lynnette will personally research your property and be in touch within 24 hours with your customized home valuation report.</p>
-          <p class="vlc-success-cta-label">Want to connect sooner?</p>
-          <button class="vlc-calendly-btn" onclick="Calendly.showPopupWidget('https://calendly.com/thejaiswalgroupre/free-home-valuation');return false;">
-            SCHEDULE A CONSULTATION
-          </button>
-        </div>
       </div>
 
       <!-- Map column -->
@@ -920,13 +612,28 @@
       </div>
 
     </div>
+
+    <!-- Step 3: Schedule (shown after form submit) -->
+    <div class="vlc-step3" id="vlc-step3">
+      <div class="vlc-step3-inner">
+        <p class="section-eyebrow">Step 3 of 3</p>
+        <h2>YOUR REQUEST IS IN.</h2>
+        <div class="vlc-step3-rule"></div>
+        <p>Lynnette will personally research your property and reach out within 24 hours with your customized valuation. Want to connect sooner and skip the wait?</p>
+        <button class="vlc-step3-btn" onclick="Calendly.showPopupWidget('https://calendly.com/thejaiswalgroupre');return false;">
+          SCHEDULE A CONSULTATION
+        </button>
+        <a href="#" class="vlc-step3-skip" id="vlc-step3-skip">No thanks, I'll wait for Lynnette's email &rarr;</a>
+      </div>
+    </div>
+
   </section>
 
 
   <!-- =========================================================
        HOW IT WORKS
   ========================================================= -->
-  <section class="valuation-steps">
+  <section class="valuation-steps" id="how-it-works">
     <p class="section-eyebrow">The Process</p>
     <h2>HOW IT WORKS</h2>
     <p>Simple, fast, and completely free.</p>
@@ -950,38 +657,6 @@
         <div class="valuation-step-num">4</div>
         <h4>Let's Talk Strategy</h4>
         <p>We'll connect to discuss your results and explore the best path forward for your goals.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================================================
-       WHY PERSONAL BEATS ONLINE
-  ========================================================= -->
-  <section class="valuation-why-personal">
-    <div class="vwp-inner">
-      <p class="section-eyebrow">The Difference</p>
-      <h2>WHY A PERSONAL VALUATION BEATS AN ONLINE ESTIMATE</h2>
-      <p class="vwp-body">Zillow, Redfin, and other automated tools work from public data and broad algorithms — they can't see your upgraded kitchen, your custom built-ins, or the quiet cul-de-sac that buyers are willing to pay a premium for. Studies show these estimates can miss the mark by <strong>5–15%</strong> or more, which on a San Diego home can mean six figures of difference. A personal valuation from The Jaiswal Group accounts for your home's specific features, real current buyer demand, and local market nuance — giving you an accurate number you can actually make decisions with.</p>
-      <div class="vwp-compare">
-        <div class="vwp-col vwp-col--online">
-          <h4>Online Estimates</h4>
-          <ul>
-            <li>Based on public records &amp; algorithms</li>
-            <li>Cannot account for upgrades or condition</li>
-            <li>Often 5–15% off from actual value</li>
-            <li>No local market context</li>
-          </ul>
-        </div>
-        <div class="vwp-divider"></div>
-        <div class="vwp-col vwp-col--personal">
-          <h4>Personal CMA</h4>
-          <ul>
-            <li>Built on real, recent comparable sales</li>
-            <li>Accounts for your home's unique features</li>
-            <li>Reflects current buyer demand</li>
-            <li>Local expertise you can trust</li>
-          </ul>
-        </div>
       </div>
     </div>
   </section>
@@ -1140,15 +815,20 @@
       if (zip  && zipEl)  zipEl.value  = zip;
     }
 
-    // ── Hero form submit → show lead capture section ────────────
-    document.getElementById('hero-address-form').addEventListener('submit', function (e) {
-      e.preventDefault();
-      const heroInput = document.getElementById('hero-address');
-      const addr = (_heroSelectedPlace && _heroSelectedPlace.formatted_address)
-                    ? _heroSelectedPlace.formatted_address
-                    : heroInput.value.trim();
+    // ── Hero address → show lead capture section ─────────────────
+    function _getHeroAddr() {
+      return (_heroSelectedPlace && _heroSelectedPlace.formatted_address)
+        ? _heroSelectedPlace.formatted_address
+        : document.getElementById('hero-address').value.trim();
+    }
+    function _heroSubmit() {
+      var addr = _getHeroAddr();
       if (!addr) return;
       showLeadCapture(addr);
+    }
+    document.getElementById('hero-address-btn').addEventListener('mousedown', _heroSubmit);
+    document.getElementById('hero-address').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') { e.preventDefault(); _heroSubmit(); }
     });
 
     function showLeadCapture(address) {
@@ -1156,7 +836,8 @@
       section.style.display = 'block';
 
       // Populate address displays
-      document.getElementById('vlc-entered-address').textContent = address;
+      const _enteredEl = document.getElementById('vlc-entered-address');
+      if (_enteredEl) _enteredEl.textContent = address;
       document.getElementById('vlc-map-address').textContent     = address;
       document.getElementById('lc-hidden-address').value         = address;
 
@@ -1215,8 +896,10 @@
           headers: { 'Accept': 'application/json' }
         });
         if (res.ok) {
-          form.style.display = 'none';
-          document.getElementById('vlc-success').style.display = 'block';
+          document.querySelector('.vlc-inner').style.display = 'none';
+          const step3 = document.getElementById('vlc-step3');
+          step3.style.display = 'block';
+          document.getElementById('lead-capture-section').scrollIntoView({ behavior: 'smooth' });
         } else {
           btn.textContent = 'UNLOCK YOUR FREE VALUATION';
           btn.disabled = false;
@@ -1226,6 +909,13 @@
         btn.textContent = 'UNLOCK YOUR FREE VALUATION';
         btn.disabled = false;
       }
+    });
+
+    // ── Step 3 skip link ─────────────────────────────────────────
+    document.getElementById('vlc-step3-skip').addEventListener('click', function (e) {
+      e.preventDefault();
+      document.getElementById('lead-capture-section').style.display = 'none';
+      document.getElementById('how-it-works').scrollIntoView({ behavior: 'smooth' });
     });
 
     // ── Back to search button ────────────────────────────────────
