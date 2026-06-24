@@ -137,56 +137,45 @@
       .sc-form-row { grid-template-columns: 1fr; }
     }
 
-    /* ── Marketing Philosophy ── */
+    /* ── Marketing / Video Section ── */
     .sc-marketing {
-      background: #F3EFE8;
-      padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 6vw, 6rem);
+      position: relative; min-height: 62vh;
+      background: #18254B;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .sc-marketing::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(179,137,135,0.08) 0%, transparent 65%);
+      pointer-events: none;
     }
     .sc-marketing-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+      position: relative; z-index: 1;
+      max-width: 780px; margin: 0 auto; text-align: center;
+      padding: clamp(4rem, 6vw, 6rem) clamp(1.5rem, 6vw, 6rem);
     }
-    .sc-marketing-text .section-eyebrow { margin-bottom: 1rem; }
-    .sc-marketing-text h2 {
-      font-family: 'Marcellus', serif; font-size: clamp(1.5rem, 2.5vw, 2rem);
-      color: #18254B; letter-spacing: 0.04em; margin-bottom: 1.5rem; line-height: 1.2;
+    .sc-marketing-inner .section-eyebrow { color: #B38987; margin-bottom: 1rem; }
+    .sc-marketing-inner h2 {
+      color: #fff; font-size: clamp(1.6rem, 3vw, 2.5rem);
+      letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.3;
+      margin-bottom: 1.75rem;
     }
-    .sc-marketing-text p {
+    .sc-marketing-inner p {
       font-family: 'Raleway', sans-serif; font-size: 0.9rem;
-      color: #4a4643; line-height: 1.9; margin-bottom: 1rem;
+      color: rgba(255,255,255,0.78); line-height: 1.95;
+      max-width: 620px; margin: 0 auto 2.25rem;
     }
-    .sc-marketing-text p:last-child { margin-bottom: 0; }
-
-    /* Video placeholder */
-    .sc-video-box {
-      position: relative; aspect-ratio: 16 / 9; background: #18254B;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      overflow: hidden; cursor: pointer;
+    .sc-video-play-btn {
+      display: inline-flex; align-items: center; gap: 0.65rem;
+      padding: 0.8rem 2rem;
+      background: transparent; border: 1.5px solid rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.9);
+      font-family: 'Raleway', sans-serif; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
     }
-    .sc-video-box::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at center, rgba(179,137,135,0.1) 0%, transparent 70%);
-    }
-    .sc-play-btn {
-      width: 68px; height: 68px; border: 2px solid rgba(255,255,255,0.45); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem;
-      position: relative; z-index: 1; transition: border-color 0.2s;
-    }
-    .sc-video-box:hover .sc-play-btn { border-color: #B38987; }
-    .sc-play-btn svg { width: 26px; height: 26px; fill: rgba(255,255,255,0.8); margin-left: 5px; }
-    .sc-video-label {
-      font-family: 'Raleway', sans-serif; font-size: 0.72rem; font-weight: 600;
-      letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.45);
-      position: relative; z-index: 1; text-align: center; padding: 0 1.5rem;
-    }
-    .sc-video-caption {
-      font-family: 'Raleway', sans-serif; font-size: 0.78rem; font-style: italic;
-      color: #6b6460; margin-top: 0.85rem; text-align: center; line-height: 1.6;
-    }
-
-    @media (max-width: 860px) {
-      .sc-marketing-inner { grid-template-columns: 1fr; gap: 2.5rem; }
-    }
+    .sc-video-play-btn:hover { border-color: #B38987; color: #B38987; }
+    .sc-video-play-btn svg { width: 12px; height: 12px; fill: currentColor; flex-shrink: 0; }
 
     /* ── Past Sales ── */
     .sc-sales {
@@ -478,28 +467,16 @@
 
   </section>
 
-  <!-- MARKETING PHILOSOPHY -->
+  <!-- VIDEO / APPROACH SECTION -->
   <section class="sc-marketing">
     <div class="sc-marketing-inner">
-
-      <div class="sc-marketing-text">
-        <p class="section-eyebrow">Our Approach</p>
-        <h2>Why Your Choice of Agent Changes Everything</h2>
-        <p>Selling a home is one of the most significant financial decisions you'll make. The agent you choose — their approach to pricing, how they market your property, and how they negotiate on your behalf — can mean the difference of tens of thousands of dollars in your final result.</p>
-        <p>At The Jaiswal Group, we bring a data-driven pricing strategy, premium marketing that puts your home in front of the right buyers, and 14 professional designations including the Master Certified Negotiation Expert (MCNE) credential — so you have the most qualified representation at the negotiating table.</p>
-        <p>We believe every seller deserves more than a yard sign and a prayer. You deserve a partner who knows your market, showcases your home beautifully, and fights for every dollar of your equity. That is exactly what we do, every time.</p>
-      </div>
-
-      <div>
-        <div class="sc-video-box" aria-label="Watch our marketing approach video">
-          <div class="sc-play-btn">
-            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          </div>
-          <p class="sc-video-label">Watch: How We Sell Your Home</p>
-        </div>
-        <p class="sc-video-caption">Lynnette Jaiswal on what today's San Diego sellers need to know — and what great marketing actually looks like.</p>
-      </div>
-
+      <p class="section-eyebrow">Sell Your Home</p>
+      <h2>Every Home Deserves<br>Strategic Marketing<br>&amp; Expert Guidance</h2>
+      <p>Selling your home is one of the biggest financial decisions you&rsquo;ll make&mdash;and who you work with matters. At The Jaiswal Group Real Estate, we combine strategic pricing, high-impact marketing, and skilled negotiation to position your home for maximum exposure and the strongest possible outcome. Our goal is simple: to help you sell with clarity, confidence, and exceptional results.</p>
+      <button class="sc-video-play-btn">
+        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Play Video
+      </button>
     </div>
   </section>
 
