@@ -76,7 +76,7 @@
     .sc-form-wrap { max-width: 900px; margin: 0 auto; }
 
     /* ── Consultation Form ── */
-    .sc-form input,
+    .sc-form input:not([type="checkbox"]),
     .sc-form select,
     .sc-form textarea {
       width: 100%; padding: 0.85rem 1rem;
@@ -85,10 +85,10 @@
       box-sizing: border-box; transition: border-color 0.2s, background 0.2s;
       border-radius: 0; appearance: none; -webkit-appearance: none;
     }
-    .sc-form input:focus,
+    .sc-form input:not([type="checkbox"]):focus,
     .sc-form select:focus,
     .sc-form textarea:focus { border-color: #B38987; background: #fff; }
-    .sc-form input::placeholder,
+    .sc-form input:not([type="checkbox"])::placeholder,
     .sc-form textarea::placeholder { color: rgba(28,48,99,0.38); }
     .sc-form select {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231C3063' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
