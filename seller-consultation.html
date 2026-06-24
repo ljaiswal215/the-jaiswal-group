@@ -13,7 +13,7 @@
 
     /* ── Hero ── */
     .sc-hero {
-      position: relative; width: 100%; height: 90vh; min-height: 460px; overflow: hidden;
+      position: relative; width: 100%; min-height: 90vh; overflow: hidden;
     }
     .sc-hero-photo { position: absolute; inset: 0; }
     .sc-hero-photo img {
@@ -21,38 +21,24 @@
     }
     .sc-hero-photo::after {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(24,37,75,0.3) 0%, rgba(24,37,75,0.78) 100%);
+      background: linear-gradient(to bottom, rgba(24,37,75,0.55) 0%, rgba(24,37,75,0.9) 100%);
     }
     .sc-hero-inner {
-      position: absolute; inset: 0; z-index: 1;
+      position: relative; z-index: 1; width: 100%; box-sizing: border-box;
       display: flex; flex-direction: column; align-items: center;
-      justify-content: flex-end; text-align: center;
-      padding: clamp(2rem, 6vw, 4rem) clamp(1.5rem, 6vw, 6rem) clamp(3rem, 7vw, 5rem);
+      text-align: center; min-height: 90vh;
+      padding: clamp(7rem, 14vw, 10rem) clamp(1.5rem, 6vw, 5rem) clamp(3rem, 5vw, 4rem);
     }
-    .sc-hero-inner .section-eyebrow { color: #B38987; margin-bottom: 1rem; letter-spacing: 0.22em; }
     .sc-hero-inner h1 {
       font-family: 'Marcellus', serif; font-size: clamp(2rem, 4vw, 3.2rem);
-      color: #fff; letter-spacing: 0.06em; line-height: 1.15; margin-bottom: 1rem;
+      color: #fff; letter-spacing: 0.06em; line-height: 1.15; margin-bottom: 1.5rem;
     }
-    .sc-hero-inner > p {
-      font-family: 'Raleway', sans-serif; font-size: 0.95rem;
-      color: rgba(255,255,255,0.8); max-width: 520px; line-height: 1.8;
+    .sc-hero-text { max-width: 680px; }
+    .sc-hero-text p {
+      font-family: 'Raleway', sans-serif; font-size: 0.87rem;
+      color: rgba(255,255,255,0.82); line-height: 1.9; margin-bottom: 0.9rem;
     }
-
-    /* ── Intro Section ── */
-    .sc-intro {
-      background: #fff;
-      padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 6vw, 6rem);
-      border-bottom: 1px solid rgba(179,137,135,0.2);
-    }
-    .sc-intro-inner {
-      max-width: 860px; margin: 0 auto;
-    }
-    .sc-intro-inner p {
-      font-family: 'Raleway', sans-serif; font-size: 0.93rem;
-      color: #4a4643; line-height: 1.95; margin-bottom: 1.25rem;
-    }
-    .sc-intro-inner p:last-child { margin-bottom: 0; }
+    .sc-hero-text p:last-child { margin-bottom: 0; }
 
     /* ── Booking Section ── */
     .sc-booking {
@@ -383,17 +369,13 @@
     </div>
     <div class="sc-hero-inner">
       <h1>Sell With The Jaiswal Group Real Estate</h1>
-      <p>Selling your home is one of the biggest financial decisions you'll make — and who you choose to guide you through it matters.</p>
-    </div>
-  </section>
-
-  <!-- INTRO SECTION -->
-  <section class="sc-intro">
-    <div class="sc-intro-inner">
-      <p>At The Jaiswal Group Real Estate, we believe every home deserves exceptional representation, strategic marketing, and thoughtful execution — regardless of price point. Our approach goes far beyond simply putting your home on the market. Through professional presentation, strategic pricing, targeted digital exposure, and local market expertise, we position your home to stand out and attract the right buyers.</p>
-      <p>Our reputation is built on trust, results, and relationships. With consistent five-star client reviews and a proven track record across San Diego County, we're known for delivering a high level of service, strong negotiation, and attention to detail from start to finish.</p>
-      <p>Every selling journey begins with a complimentary consultation, offered in person or virtually. During this personalized meeting, we'll discuss your goals, timeline, and priorities, provide a detailed market analysis, offer guidance on preparing your home for the market, and create a customized strategy designed to maximize your home's value.</p>
-      <p>Selling your home should feel clear, strategic, and well-supported — not overwhelming. Our goal is to help you move forward with confidence, knowing every step is handled with care and expertise.</p>
+      <div class="sc-hero-text">
+        <p>Selling your home is one of the biggest financial decisions you'll make — and who you choose to guide you through it matters.</p>
+        <p>At The Jaiswal Group Real Estate, we believe every home deserves exceptional representation, strategic marketing, and thoughtful execution — regardless of price point. Our approach goes far beyond simply putting your home on the market. Through professional presentation, strategic pricing, targeted digital exposure, and local market expertise, we position your home to stand out and attract the right buyers.</p>
+        <p>Our reputation is built on trust, results, and relationships. With consistent five-star client reviews and a proven track record across San Diego County, we're known for delivering a high level of service, strong negotiation, and attention to detail from start to finish.</p>
+        <p>Every selling journey begins with a complimentary consultation, offered in person or virtually. During this personalized meeting, we'll discuss your goals, timeline, and priorities, provide a detailed market analysis, offer guidance on preparing your home for the market, and create a customized strategy designed to maximize your home's value.</p>
+        <p>Selling your home should feel clear, strategic, and well-supported — not overwhelming. Our goal is to help you move forward with confidence, knowing every step is handled with care and expertise.</p>
+      </div>
     </div>
   </section>
 
