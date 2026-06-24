@@ -108,18 +108,20 @@
     .sc-form-submit:hover { background: #18254B; color: #B38987; border-color: #18254B; }
     .sc-consent {
       display: flex; align-items: flex-start; gap: 0.6rem;
-      margin-top: 1rem; text-align: left;
+      cursor: pointer; margin-top: 0.25rem;
     }
     .sc-consent input[type="checkbox"] {
-      width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px;
-      accent-color: #1C3063; cursor: pointer;
+      flex-shrink: 0; margin-top: 0.2rem;
+      width: 14px; height: 14px;
+      accent-color: #B38987; cursor: pointer;
     }
-    .sc-consent label {
+    .sc-consent span {
       font-family: 'Raleway', sans-serif; font-size: 0.7rem;
-      color: rgba(28,48,99,0.55); line-height: 1.7; cursor: pointer;
+      color: rgba(28,48,99,0.50); line-height: 1.65;
     }
-    .sc-consent label a { color: #B38987; text-decoration: none; }
-    .sc-consent label a:hover { text-decoration: underline; }
+    .sc-consent a { color: rgba(28,48,99,0.60); text-decoration: underline; }
+    .sc-consent a:hover { color: #B38987; }
+    .sc-consent.sc-consent--error span { color: rgba(180,50,50,0.85); }
     .sc-success {
       display: none; background: #F3EFE8; border-left: 4px solid #B38987; padding: 1.5rem;
     }
@@ -461,10 +463,10 @@
           <textarea name="notes" placeholder="Anything else you'd like us to know? (optional)"></textarea>
         </div>
 
-        <div class="sc-consent">
-          <input type="checkbox" id="sc-consent-check" name="consent" required />
-          <label for="sc-consent-check">I agree to be contacted by The Jaiswal Group Real Estate via call, email, and text for real estate services. To opt out, you can reply &lsquo;stop&rsquo; at any time or reply &lsquo;help&rsquo; for assistance. You can also click the unsubscribe link in the emails. Message and data rates may apply. Message frequency may vary. <a href="privacy-policy.html">Privacy Policy</a>.</label>
-        </div>
+        <label class="sc-consent" id="sc-consent-label">
+          <input type="checkbox" name="consent" id="sc-consent-check" />
+          <span>I agree to be contacted by The Jaiswal Group Real Estate via call, email, and text for real estate services. To opt out, you can reply &lsquo;stop&rsquo; at any time or reply &lsquo;help&rsquo; for assistance. You can also click the unsubscribe link in the emails. Message and data rates may apply. Message frequency may vary. <a href="privacy-policy.html">Privacy Policy</a>.</span>
+        </label>
         <button type="submit" class="sc-form-submit">REQUEST A SELLER CONSULTATION</button>
       </form>
       <div class="sc-success" id="sc-success">
@@ -664,6 +666,15 @@
     document.getElementById('sc-form').addEventListener('submit', async function(e) {
       e.preventDefault();
       var form = this;
+      var consentCheck = document.getElementById('sc-consent-check');
+      var consentLabel = document.getElementById('sc-consent-label');
+      if (!consentCheck.checked) {
+        consentLabel.classList.add('sc-consent--error');
+        consentCheck.addEventListener('change', function() {
+          consentLabel.classList.remove('sc-consent--error');
+        }, { once: true });
+        return;
+      }
       var btn = form.querySelector('.sc-form-submit');
       btn.textContent = 'SENDING…';
       btn.disabled = true;
