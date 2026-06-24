@@ -113,8 +113,19 @@
     }
     .sc-consent input[type="checkbox"] {
       flex-shrink: 0; margin-top: 0.15rem;
-      width: 11px; height: 11px;
-      accent-color: #B38987; cursor: pointer;
+      width: 11px; height: 11px; min-width: 11px;
+      appearance: none; -webkit-appearance: none;
+      border: 1px solid rgba(28,48,99,0.35); background: #fff;
+      cursor: pointer; position: relative;
+    }
+    .sc-consent input[type="checkbox"]:checked {
+      background: #B38987; border-color: #B38987;
+    }
+    .sc-consent input[type="checkbox"]:checked::after {
+      content: ''; position: absolute;
+      left: 2px; top: -1px; width: 4px; height: 7px;
+      border: 1.5px solid #fff; border-top: none; border-left: none;
+      transform: rotate(45deg);
     }
     .sc-consent span {
       font-family: 'Raleway', sans-serif; font-size: 0.62rem;
@@ -551,8 +562,7 @@
     </div>
 
     <div class="sc-sales-cta">
-      <p>View our full transaction history and client feedback on Zillow.</p>
-      <a href="https://www.zillow.com/profile/Lynnette%20Jaiswal" class="btn-outline" target="_blank" rel="noopener">VIEW OUR ZILLOW PROFILE</a>
+      <a href="https://www.zillow.com/profile/Lynnette%20Jaiswal" class="btn-outline" target="_blank" rel="noopener">VIEW ALL PROPERTIES</a>
     </div>
   </section>
 
