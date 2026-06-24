@@ -107,10 +107,19 @@
     }
     .sc-form-submit:hover { background: #18254B; color: #B38987; border-color: #18254B; }
     .sc-consent {
-      font-family: 'Raleway', sans-serif; font-size: 0.7rem;
-      color: rgba(28,48,99,0.42); line-height: 1.7; margin-top: 0.6rem; text-align: center;
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      margin-top: 1rem; text-align: left;
     }
-    .sc-consent a { color: #B38987; }
+    .sc-consent input[type="checkbox"] {
+      width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px;
+      accent-color: #1C3063; cursor: pointer;
+    }
+    .sc-consent label {
+      font-family: 'Raleway', sans-serif; font-size: 0.7rem;
+      color: rgba(28,48,99,0.55); line-height: 1.7; cursor: pointer;
+    }
+    .sc-consent label a { color: #B38987; text-decoration: none; }
+    .sc-consent label a:hover { text-decoration: underline; }
     .sc-success {
       display: none; background: #F3EFE8; border-left: 4px solid #B38987; padding: 1.5rem;
     }
@@ -452,8 +461,11 @@
           <textarea name="notes" placeholder="Anything else you'd like us to know? (optional)"></textarea>
         </div>
 
+        <div class="sc-consent">
+          <input type="checkbox" id="sc-consent-check" name="consent" required />
+          <label for="sc-consent-check">I agree to be contacted by The Jaiswal Group Real Estate via call, email, and text for real estate services. To opt out, you can reply &lsquo;stop&rsquo; at any time or reply &lsquo;help&rsquo; for assistance. You can also click the unsubscribe link in the emails. Message and data rates may apply. Message frequency may vary. <a href="privacy-policy.html">Privacy Policy</a>.</label>
+        </div>
         <button type="submit" class="sc-form-submit">REQUEST A SELLER CONSULTATION</button>
-        <p class="sc-consent">By submitting, you agree to be contacted by The Jaiswal Group Real Estate regarding your home sale. <a href="privacy-policy.html">Privacy Policy</a>.</p>
       </form>
       <div class="sc-success" id="sc-success">
         <h4>We'll Be in Touch Shortly!</h4>
