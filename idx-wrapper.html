@@ -177,6 +177,15 @@
   </footer>
 
   <script src="https://ljaiswal215.github.io/the-jaiswal-group/main.js"></script>
+  <script>
+    var _idxPlaceholderObserver = new MutationObserver(function() {
+      var input = document.querySelector('.ti-new-tag-input');
+      if (input && input.placeholder === 'City, County, Zip') {
+        input.placeholder = 'City, Neighborhood, ZIP Code';
+      }
+    });
+    _idxPlaceholderObserver.observe(document.body, { childList: true, subtree: true });
+  </script>
 
 </body>
 </html>
