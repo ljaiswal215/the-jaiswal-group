@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lynnette Jaiswal | San Diego Luxury Real Estate Broker | The Jaiswal Group</title>
+  <meta name="description" content="Meet Lynnette Jaiswal — native San Diegan, licensed broker, and founder of The Jaiswal Group Real Estate. Specializing in luxury homes and relocation in Carmel Valley and Pacific Highlands Ranch." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+
+    /* ══════════════════════════════════════════════════════
+       HERO
+    ══════════════════════════════════════════════════════ */
+    .lj-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      background: #18254B;
+      overflow: hidden;
+    }
+    .lj-hero-photo {
+      position: absolute;
+      inset: 0;
+      background: #18254B center top / cover no-repeat;
+      /* ▸ PHOTO: Replace with Lynnette professional hero photo
+         background-image: url('Lynnette-hotpinkblazerandpants.jpg'); */
+    }
+    .lj-hero-photo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.2);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      gap: 0.75rem;
+    }
+    .lj-hero-photo-placeholder svg {
+      width: 48px; height: 48px;
+      stroke: rgba(255,255,255,0.15);
+      fill: none;
+      stroke-width: 1;
+    }
+    .lj-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(24,37,75,0.92) 0%,
+        rgba(24,37,75,0.55) 45%,
+        rgba(24,37,75,0.15) 100%
+      );
+    }
+    .lj-hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(4rem,8vw,8rem) clamp(2rem,6vw,6rem) clamp(5rem,8vw,7rem);
+    }
+    .lj-hero-eyebrow {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #B38987;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+    .lj-hero h1 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      color: #fff;
+      letter-spacing: 0.06em;
+      line-height: 1.05;
+      margin-bottom: 0.75rem;
+    }
+    .lj-hero-title {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 2rem;
+    }
+    .lj-hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      font-style: italic;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.6;
+      max-width: 580px;
+      margin-bottom: 2.5rem;
+    }
+    .lj-hero-ctas {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       STATS BAR
+    ══════════════════════════════════════════════════════ */
+    .lj-stats {
+      background: #B38987;
+      padding: 0;
+    }
+    .lj-stats-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .lj-stat {
+      padding: clamp(1.5rem,3vw,2.5rem) 2rem;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.25);
+    }
+    .lj-stat:last-child { border-right: none; }
+    .lj-stat-number {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .lj-stat-label {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+    }
+    @media(max-width:700px){
+      .lj-stats-inner { grid-template-columns: repeat(2,1fr); }
+      .lj-stat { border-bottom: 1px solid rgba(255,255,255,0.25); }
+      .lj-stat:nth-child(2) { border-right: none; }
+      .lj-stat:nth-child(3) { border-bottom: none; }
+      .lj-stat:nth-child(4) { border-right: none; border-bottom: none; }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       STORY SECTION
+    ══════════════════════════════════════════════════════ */
+    .lj-story {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 680px;
+    }
+    .lj-story-text {
+      padding: clamp(4rem,7vw,7rem) clamp(2.5rem,6vw,6rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #fff;
+    }
+    .lj-story-text .section-eyebrow { margin-bottom: 1.25rem; }
+    .lj-story-text h2 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: #18254B;
+      letter-spacing: 0.06em;
+      line-height: 1.25;
+      margin-bottom: 1.75rem;
+    }
+    .lj-story-text p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: #4a4643;
+      line-height: 1.9;
+      margin-bottom: 1.1rem;
+    }
+    .lj-story-text p:last-of-type { margin-bottom: 0; }
+    .lj-story-photo {
+      position: relative;
+      overflow: hidden;
+      background: #D6C9C0;
+      /* ▸ PHOTO: Lynnette-casual.jpg or Lynnette-pink-dress.jpg */
+    }
+    .lj-story-photo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(24,37,75,0.35);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      gap: 0.75rem;
+    }
+    .lj-story-photo-placeholder svg {
+      width: 48px; height: 48px;
+      stroke: rgba(24,37,75,0.25);
+      fill: none; stroke-width: 1;
+    }
+    .lj-story-photo img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    @media(max-width:860px){
+      .lj-story { grid-template-columns: 1fr; }
+      .lj-story-photo { min-height: 420px; order: -1; }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       BOUTIQUE SECTION
+    ══════════════════════════════════════════════════════ */
+    .lj-boutique {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 620px;
+      background: #F3EFE8;
+    }
+    .lj-boutique-photo {
+      position: relative;
+      overflow: hidden;
+      background: #C5B9B0;
+      /* ▸ PHOTO: Office / brand photo placeholder */
+    }
+    .lj-boutique-photo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(24,37,75,0.3);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      gap: 0.75rem;
+    }
+    .lj-boutique-photo-placeholder svg {
+      width: 48px; height: 48px;
+      stroke: rgba(24,37,75,0.2);
+      fill: none; stroke-width: 1;
+    }
+    .lj-boutique-photo img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .lj-boutique-text {
+      padding: clamp(4rem,7vw,7rem) clamp(2.5rem,6vw,6rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .lj-boutique-text .section-eyebrow { margin-bottom: 1.25rem; }
+    .lj-boutique-text h2 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: #18254B;
+      letter-spacing: 0.06em;
+      line-height: 1.25;
+      margin-bottom: 1.75rem;
+    }
+    .lj-boutique-text p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: #4a4643;
+      line-height: 1.9;
+      margin-bottom: 1.1rem;
+    }
+    .lj-boutique-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #18254B;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.65rem 1.25rem;
+      margin-top: 0.5rem;
+      width: fit-content;
+    }
+    .lj-boutique-badge svg {
+      width: 14px; height: 14px;
+      stroke: #B38987; fill: none; stroke-width: 2;
+    }
+    @media(max-width:860px){
+      .lj-boutique { grid-template-columns: 1fr; }
+      .lj-boutique-photo { min-height: 380px; }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       EXPERTISE CARDS
+    ══════════════════════════════════════════════════════ */
+    .lj-expertise {
+      padding: clamp(4rem,7vw,6rem) clamp(2rem,5vw,5rem);
+      background: #fff;
+      text-align: center;
+    }
+    .lj-expertise .section-eyebrow { margin-bottom: 0.75rem; }
+    .lj-expertise h2 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: #18254B;
+      letter-spacing: 0.07em;
+      margin-bottom: 3rem;
+    }
+    .lj-expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .lj-expertise-card {
+      background: #F3EFE8;
+      padding: 2.5rem 1.75rem;
+      text-align: left;
+      position: relative;
+    }
+    .lj-expertise-icon {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 1.25rem;
+    }
+    .lj-expertise-icon svg {
+      width: 100%; height: 100%;
+      stroke: #B38987; fill: none; stroke-width: 1.5;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+    .lj-expertise-card h3 {
+      font-family: 'Marcellus', serif;
+      font-size: 1rem;
+      color: #18254B;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+    .lj-expertise-card p {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.85rem;
+      color: #5a5250;
+      line-height: 1.7;
+    }
+    @media(max-width:900px){ .lj-expertise-grid { grid-template-columns: repeat(2,1fr); } }
+    @media(max-width:520px){ .lj-expertise-grid { grid-template-columns: 1fr; } }
+
+    /* ══════════════════════════════════════════════════════
+       COMMUNITY SECTION
+    ══════════════════════════════════════════════════════ */
+    .lj-community {
+      background: #18254B;
+      padding: clamp(4rem,7vw,6rem) clamp(2rem,5vw,5rem);
+      text-align: center;
+    }
+    .lj-community-inner {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+    .lj-community .section-eyebrow { color: #B38987; margin-bottom: 1rem; }
+    .lj-community h2 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      color: #fff;
+      letter-spacing: 0.07em;
+      line-height: 1.2;
+      margin-bottom: 1.75rem;
+    }
+    .lj-community p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.9;
+      margin-bottom: 1rem;
+    }
+    .lj-community p:last-of-type { margin-bottom: 2.5rem; }
+    .lj-community-areas {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+    .lj-area-pill {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #fff;
+      border: 1px solid rgba(179,137,135,0.6);
+      padding: 0.55rem 1.25rem;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       PERSONAL SECTION
+    ══════════════════════════════════════════════════════ */
+    .lj-personal {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 640px;
+      background: #F3EFE8;
+    }
+    .lj-personal-text {
+      padding: clamp(4rem,7vw,7rem) clamp(2.5rem,6vw,6rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .lj-personal-text .section-eyebrow { margin-bottom: 1.25rem; }
+    .lj-personal-text h2 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      color: #18254B;
+      letter-spacing: 0.06em;
+      line-height: 1.25;
+      margin-bottom: 1.75rem;
+    }
+    .lj-personal-text p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: #4a4643;
+      line-height: 1.9;
+      margin-bottom: 1.1rem;
+    }
+    .lj-personal-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 1.5rem;
+    }
+    .lj-personal-detail-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+    }
+    .lj-personal-detail-item svg {
+      width: 16px; height: 16px;
+      stroke: #B38987; fill: none; stroke-width: 1.75;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+    .lj-personal-detail-item span {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.85rem;
+      color: #4a4643;
+      line-height: 1.6;
+    }
+    .lj-personal-photo {
+      position: relative;
+      overflow: hidden;
+      background: #C5B9B0;
+      /* ▸ PHOTO: Lynnette beach / casual photo */
+    }
+    .lj-personal-photo-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(24,37,75,0.3);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      gap: 0.75rem;
+    }
+    .lj-personal-photo-placeholder svg {
+      width: 48px; height: 48px;
+      stroke: rgba(24,37,75,0.2);
+      fill: none; stroke-width: 1;
+    }
+    .lj-personal-photo img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    @media(max-width:860px){
+      .lj-personal { grid-template-columns: 1fr; }
+      .lj-personal-photo { min-height: 420px; order: -1; }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       CTA
+    ══════════════════════════════════════════════════════ */
+    .lj-cta {
+      background: #18254B;
+      padding: clamp(4rem,7vw,6rem) clamp(2rem,5vw,5rem);
+      text-align: center;
+    }
+    .lj-cta-inner { max-width: 680px; margin: 0 auto; }
+    .lj-cta .section-eyebrow { color: #B38987; margin-bottom: 1rem; }
+    .lj-cta h2 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      color: #fff;
+      letter-spacing: 0.07em;
+      margin-bottom: 1rem;
+    }
+    .lj-cta p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.85;
+      margin-bottom: 2.5rem;
+    }
+    .lj-cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       NAV
+  ═══════════════════════════════════════════════════════════════ -->
+  <header class="site-header" id="site-header">
+    <div class="header-top"><div class="social-icons">
+      <a href="https://www.facebook.com/LynnetteJaiswalRealtor" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      <a href="https://www.instagram.com/lynnettejaiswalrealtor/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      <a href="https://www.youtube.com/@LynnetteJaiswalRealtor" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+    </div></div>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-logo">
+        <img src="LOGOS/JaiswalGroupRE_white.png" class="logo-white" alt="The Jaiswal Group Real Estate" />
+        <img src="logo.png" class="logo-color" alt="The Jaiswal Group Real Estate" />
+      </a>
+      <ul class="nav-links">
+        <li class="has-dropdown">
+          <a href="#">BUY A HOME <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="#">Featured Listings</a></li>
+            <li><a href="#">Search for Homes</a></li>
+            <li><a href="#">New Construction</a></li>
+            <li><a href="buyers-guide.html">Buyer's Guide</a></li>
+            <li><a href="buyer-faq.html">Buyer FAQ</a></li>
+            <li><a href="#">Mortgage Calculator</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">SELL YOUR HOME <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="seller-consultation.html">Seller Consultation</a></li>
+            <li><a href="home-valuation.html">Home Valuation</a></li>
+            <li><a href="#">Our Marketing</a></li>
+            <li><a href="sellers-guide.html">Seller's Guide</a></li>
+            <li><a href="#">Selling Checklist</a></li>
+          </ul>
+        </li>
+        <li><a href="communities.html">COMMUNITIES</a></li>
+        <li><a href="BLOG/blog.html">BLOG</a></li>
+        <li class="has-dropdown">
+          <a href="#">RESOURCES <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="#">Market Updates</a></li>
+            <li><a href="#">Lender Partners</a></li>
+            <li><a href="#">Mortgage Calculator</a></li>
+            <li><a href="relocation-guide.html">Relocation Guide</a></li>
+            <li><a href="#">The Plugged In Method</a></li>
+            <li class="has-subdropdown">
+              <a href="#">Videos</a>
+              <ul class="subdropdown">
+                <li><a href="https://www.youtube.com/@LynnetteJaiswalRealtor" target="_blank" rel="noopener">YouTube Channel</a></li>
+                <li><a href="buyers-guide-videos.html">Buyer Video Series</a></li>
+                <li><a href="sellers-guide-videos.html">Seller Video Series</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">ABOUT US <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="lynnette-jaiswal.html">Lynnette Jaiswal</a></li>
+            <li><a href="clientreviews.html">Client Reviews</a></li>
+            <li><a href="#">Join Our Team</a></li>
+          </ul>
+        </li>
+        <li><a href="contact.html">CONTACT</a></li>
+        <li class="nav-phone"><a href="tel:8582907531">(858) 290-7531</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Menu" id="hamburger"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <ul>
+        <li><a href="#">Buy a Home</a></li>
+        <li><a href="#">Sell Your Home</a></li>
+        <li><a href="communities.html">Communities</a></li>
+        <li><a href="BLOG/blog.html">Blog</a></li>
+        <li><a href="#">Resources</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="tel:8582907531">(858) 290-7531</a></li>
+      </ul>
+    </div>
+  </header>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="lj-hero">
+    <div class="lj-hero-photo">
+      <div class="lj-hero-photo-placeholder">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        HERO PHOTO PLACEHOLDER
+      </div>
+    </div>
+    <div class="lj-hero-overlay"></div>
+    <div class="lj-hero-content">
+      <span class="lj-hero-eyebrow">Meet Your Agent</span>
+      <h1>LYNNETTE<br>JAISWAL</h1>
+      <p class="lj-hero-title">Founder &amp; Broker &nbsp;&middot;&nbsp; The Jaiswal Group Real Estate &nbsp;&middot;&nbsp; CA DRE #02100367</p>
+      <p class="lj-hero-tagline">"I got into real estate to be the agent I wish I had — someone you can genuinely trust."</p>
+      <div class="lj-hero-ctas">
+        <a href="contact.html" class="btn btn-outline-light">WORK WITH LYNNETTE</a>
+        <a href="https://calendly.com/thejaiswalgroupre" target="_blank" rel="noopener" class="btn btn-outline-light">SCHEDULE A CALL</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       STATS BAR
+  ═══════════════════════════════════════════════════════════════ -->
+  <div class="lj-stats">
+    <div class="lj-stats-inner">
+      <div class="lj-stat">
+        <div class="lj-stat-number">7+</div>
+        <div class="lj-stat-label">Years of Experience</div>
+      </div>
+      <div class="lj-stat">
+        <div class="lj-stat-number">40+</div>
+        <div class="lj-stat-label">Homes Sold</div>
+      </div>
+      <div class="lj-stat">
+        <div class="lj-stat-number">$75M+</div>
+        <div class="lj-stat-label">Total Sales Volume</div>
+      </div>
+      <div class="lj-stat">
+        <div class="lj-stat-number">Top 3%</div>
+        <div class="lj-stat-label">San Diego Agents</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       STORY SECTION
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="lj-story">
+    <div class="lj-story-text">
+      <span class="section-eyebrow">Her Story</span>
+      <h2>DRIVEN BY A PERSONAL MISSION</h2>
+      <p>Lynnette Jaiswal is a native San Diegan who has spent her entire life in the community she now serves. Before real estate, she spent more than five years in hospital administration and medical education — a career that taught her to operate with precision, care, and the highest standards of service under pressure.</p>
+      <p>Her path into real estate came from a deeply personal place. After a frustrating experience with poor agent representation during her own home purchase, Lynnette decided to be the change she wished had existed. She entered the industry with a single purpose: to be the kind of agent her clients could truly trust — one who puts their interests first, communicates with complete honesty, and never leaves them guessing.</p>
+      <p>That commitment has defined her career. Whether she is guiding a first-time buyer, helping a family relocate from across the country, or marketing a luxury property, Lynnette brings the same unwavering standard of care to every transaction.</p>
+    </div>
+    <div class="lj-story-photo">
+      <div class="lj-story-photo-placeholder">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        PHOTO PLACEHOLDER
+      </div>
+      <!-- Uncomment when photo is ready: -->
+      <!-- <img src="Lynnette-pink-dress.jpg" alt="Lynnette Jaiswal, Founder of The Jaiswal Group Real Estate" /> -->
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       BOUTIQUE BROKERAGE
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="lj-boutique">
+    <div class="lj-boutique-photo">
+      <div class="lj-boutique-photo-placeholder">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        PHOTO PLACEHOLDER
+      </div>
+      <!-- Uncomment when photo is ready: -->
+      <!-- <img src="Lynnette-hotpinkblazerandpants.jpg" alt="Lynnette Jaiswal" /> -->
+    </div>
+    <div class="lj-boutique-text">
+      <span class="section-eyebrow">The Jaiswal Group</span>
+      <h2>A BOUTIQUE BROKERAGE BUILT WITHOUT RED TAPE</h2>
+      <p>In 2024, Lynnette became a licensed California Real Estate Broker and founded The Jaiswal Group, Inc. — her own independent boutique brokerage. The decision was deliberate: she wanted the freedom to serve clients the way they deserved to be served, without the bureaucratic constraints that larger firms impose.</p>
+      <p>As an independent broker, Lynnette can move faster, negotiate harder, and craft truly customized strategies for every client. There is no corporate playbook — just a direct relationship, expert guidance, and a team small enough to care deeply about every transaction.</p>
+      <div class="lj-boutique-badge">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        Licensed Broker · CA DRE #02100367 · Est. 2024
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       EXPERTISE
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="lj-expertise">
+    <span class="section-eyebrow">Areas of Expertise</span>
+    <h2>WHAT LYNNETTE DOES BEST</h2>
+    <div class="lj-expertise-grid">
+
+      <div class="lj-expertise-card">
+        <div class="lj-expertise-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h3>LUXURY REAL ESTATE</h3>
+        <p>Expert representation for San Diego's most discerning buyers and sellers. From $1M condos to multi-million dollar estates, Lynnette brings white-glove service to every transaction.</p>
+      </div>
+
+      <div class="lj-expertise-card">
+        <div class="lj-expertise-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <h3>RELOCATION SERVICES</h3>
+        <p>A specialist in helping buyers move to San Diego from out of state. Lynnette has guided dozens of relocating families through every step — neighborhood selection, remote tours, and seamless closings.</p>
+      </div>
+
+      <div class="lj-expertise-card">
+        <div class="lj-expertise-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h3>CARMEL VALLEY</h3>
+        <p>Deep roots and active community involvement in one of North San Diego's most sought-after neighborhoods. Lynnette knows Carmel Valley's micro-markets, builders, and community culture intimately.</p>
+      </div>
+
+      <div class="lj-expertise-card">
+        <div class="lj-expertise-icon">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h3>PACIFIC HIGHLANDS RANCH</h3>
+        <p>As a community member and deeply involved local, Lynnette has unmatched expertise in Pacific Highlands Ranch — its sub-communities, new construction options, and lifestyle advantages.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       COMMUNITY
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="lj-community">
+    <div class="lj-community-inner">
+      <span class="section-eyebrow">Community First</span>
+      <h2>MORE THAN AN AGENT —<br>A NEIGHBOR</h2>
+      <p>Lynnette's connection to Carmel Valley and Pacific Highlands Ranch goes far beyond business. She is an active, invested member of these communities — someone who attends local events, knows the neighbors, and genuinely cares about the quality of life these neighborhoods offer.</p>
+      <p>Her goal is not just to help clients buy or sell homes, but to strengthen the communities she calls home. That local presence translates directly into sharper market insight, stronger community connections, and a level of advocacy that only a true neighbor can provide.</p>
+      <div class="lj-community-areas">
+        <span class="lj-area-pill">Carmel Valley</span>
+        <span class="lj-area-pill">Pacific Highlands Ranch</span>
+        <span class="lj-area-pill">Del Sur</span>
+        <span class="lj-area-pill">4S Ranch</span>
+        <span class="lj-area-pill">Rancho Santa Fe</span>
+        <span class="lj-area-pill">La Jolla</span>
+      </div>
+      <a href="communities.html" class="btn btn-outline-light">EXPLORE ALL COMMUNITIES</a>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       PERSONAL
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="lj-personal">
+    <div class="lj-personal-text">
+      <span class="section-eyebrow">Beyond the Business</span>
+      <h2>THE PERSON BEHIND THE AGENT</h2>
+      <p>Outside of real estate, Lynnette is first and foremost a mom. Her three kids — Kailey, Aiden, and Emma — are her greatest inspiration and keep her grounded in what matters most. She also shares her home with two dogs and a bunny, making for a full and lively household.</p>
+      <p>Even as a lifelong San Diegan, Lynnette still loves discovering new corners of the city alongside her kids. She is passionate about personal growth, reads constantly, and finds her deepest sense of calm at the beach — her place to breathe, reflect, and reset.</p>
+      <div class="lj-personal-detail">
+        <div class="lj-personal-detail-item">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Mom of three — Kailey (27), Aiden (9), Emma (7)</span>
+        </div>
+        <div class="lj-personal-detail-item">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span>2 dogs &amp; a bunny</span>
+        </div>
+        <div class="lj-personal-detail-item">
+          <svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span>Avid reader &amp; personal development enthusiast</span>
+        </div>
+        <div class="lj-personal-detail-item">
+          <svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/></svg>
+          <span>Native San Diegan — the beach is her calm space</span>
+        </div>
+      </div>
+    </div>
+    <div class="lj-personal-photo">
+      <div class="lj-personal-photo-placeholder">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        PHOTO PLACEHOLDER
+      </div>
+      <!-- Uncomment when photo is ready: -->
+      <!-- <img src="Lynnette-casual.jpg" alt="Lynnette Jaiswal" /> -->
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       CTA
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="lj-cta">
+    <div class="lj-cta-inner">
+      <span class="section-eyebrow">Let's Connect</span>
+      <h2>READY TO WORK TOGETHER?</h2>
+      <p>Whether you're buying, selling, or relocating to San Diego, Lynnette would love to be your advocate. Reach out directly or schedule a no-pressure call to start the conversation.</p>
+      <div class="lj-cta-buttons">
+        <a href="https://calendly.com/thejaiswalgroupre" target="_blank" rel="noopener" class="btn btn-outline-light">SCHEDULE A FREE CALL</a>
+        <a href="contact.html" class="btn btn-outline-light">SEND A MESSAGE</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="footer-info">
+      <div class="footer-info-col footer-info-col--logo"><img src="LOGOS/JaiswalGroupRE_white.png" alt="The Jaiswal Group Real Estate" class="footer-logo" /></div>
+      <div class="footer-info-col">
+        <div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="footer-info-text">
+          <p class="footer-info-label">OFFICE ADDRESS</p><p>5450 INDIGO SAGE DRIVE<br>SAN DIEGO, CA 92130</p>
+          <p class="footer-info-label" style="margin-top:1.25rem;">MAILING ADDRESS</p><p>PO BOX 3102<br>RANCHO SANTA FE, CA 92067</p>
+          <p style="margin-top:1rem;white-space:nowrap;">LYNNETTE JAISWAL &nbsp;|&nbsp; CA DRE #02100367</p>
+          <p style="margin-top:0.4rem;white-space:nowrap;">THE JAISWAL GROUP, INC &nbsp;|&nbsp; CA DRE #02251231</p>
+        </div>
+      </div>
+      <div class="footer-info-col">
+        <div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg></div>
+        <div class="footer-info-text"><p class="footer-info-label">EMAIL</p><p><a href="mailto:Lynnette@thejaiswalgroup.com">LYNNETTE@THEJAISWALGROUP.COM</a></p></div>
+      </div>
+      <div class="footer-info-col">
+        <div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg></div>
+        <div class="footer-info-text"><p class="footer-info-label">PHONE</p><p><a href="tel:8582907531">(858) 290-7531</a></p></div>
+      </div>
+    </div>
+    <div class="footer-disclaimer-block">
+      <p>The Jaiswal Group Real Estate is a real estate broker licensed by the State of California and abides by Equal Housing Opportunity laws. License Number #02251231. All material presented herein is intended for informational purposes only and is compiled from sources deemed reliable but has not been verified. Changes in price, condition, sale or withdrawal may be made without notice. No statement is made as to accuracy of any description. All measurements and square footage are approximate.</p>
+      <div class="footer-compliance-logos">
+        <img src="logorealtor.png" alt="Realtor" class="footer-compliance-logo" />
+        <img src="logoEHO.png" alt="Equal Housing Opportunity" class="footer-compliance-logo" />
+        <img src="logo-NSDCAR.png" alt="North San Diego County Realtors" class="footer-compliance-logo" />
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-left"><span>&copy; 2026 The Jaiswal Group Real Estate</span><a href="privacy-policy.html">Privacy Policy</a><a href="#">Site Map</a></div>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/LynnetteJaiswalRealtor" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://www.instagram.com/lynnettejaiswalrealtor/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="https://www.youtube.com/@LynnetteJaiswalRealtor" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+        <a href="https://www.tiktok.com/@lynnettejaiswalrealtor" aria-label="TikTok" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg></a>
+        <a href="https://www.linkedin.com/in/lynnettejaiswalrealtor/" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="https://g.page/r/CadNwKvRi2DDEBM/review" aria-label="Google Reviews" class="footer-social-text" target="_blank" rel="noopener">G</a>
+        <a href="https://www.zillow.com/profile/Lynnette%20Jaiswal" aria-label="Zillow" class="footer-social-text" target="_blank" rel="noopener">Z</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+
+</body>
+</html>
