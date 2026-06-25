@@ -6,7 +6,7 @@
      Off-White:    #F6F6F4
      Charcoal:     #322E2D
      Steel Blue:   #183A56
-   Fonts: Marcellus (headings), Raleway (body)
+   Fonts: Marcellus (headings), Lato (body/UI)
 ============================================================ */
 
 /* ── Reset & Base ── */
@@ -15,7 +15,7 @@
 html { scroll-behavior: smooth; font-size: 16px; }
 
 body {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 400;
   color: #322E2D;
   background: #F6F6F4;
@@ -30,7 +30,7 @@ ul { list-style: none; }
 h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.15; }
 
 .section-eyebrow {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.25em;
@@ -53,7 +53,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 .btn {
   display: inline-block;
   padding: 0.85rem 2rem;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -647,7 +647,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   margin-top: 0.5rem;
 }
 .btn-desc {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 1.05rem;
   color: #322E2D;
   line-height: 1.7;
@@ -866,7 +866,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   pointer-events: auto;
 }
 .nbhd-tagline {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.85rem;
   font-weight: 400;
   letter-spacing: 0.02em;
@@ -880,7 +880,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 .nbhd-btn {
   display: inline-block;
   padding: 0.75rem 2.5rem;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -1136,7 +1136,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   font-weight: 700;
 }
 .testimonial-card blockquote {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 1rem;
   font-weight: 400;
   font-style: italic;
@@ -1146,7 +1146,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   flex: 1;
 }
 .testimonial-card cite {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.15em;
@@ -1214,7 +1214,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 }
 .consult-badge-attr {
   display: block;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.18em;
@@ -1225,7 +1225,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 }
 
 .consult-eyebrow {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.22em;
@@ -1242,7 +1242,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   letter-spacing: 0.02em;
 }
 .consult-body {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   font-size: 0.95rem;
   line-height: 1.9;
   color: rgba(255,255,255,0.7);
@@ -1258,7 +1258,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   gap: 0.7rem;
 }
 .consult-trust li {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.82rem;
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -1299,7 +1299,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   gap: 0.3rem;
 }
 .consult-group label {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -1312,7 +1312,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   border: none;
   border-bottom: 1px solid rgba(255,255,255,0.25);
   padding: 0.55rem 0;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.95rem;
   color: #fff;
   outline: none;
@@ -1340,7 +1340,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   cursor: pointer;
 }
 .consult-consent span {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.68rem;
   color: rgba(255,255,255,0.38);
   line-height: 1.6;
@@ -1389,7 +1389,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   margin-bottom: 0.8rem;
 }
 .consult-success p {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.85rem;
   color: rgba(255,255,255,0.6);
   line-height: 1.85;
@@ -1454,7 +1454,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   margin-bottom: 0.75rem;
   line-height: 1.4;
 }
-.blog-body p { font-size: 0.95rem; color: #5a5250; line-height: 1.7; margin-bottom: 1rem; }
+.blog-body p { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: #5a5250; line-height: 1.85; margin-bottom: 1rem; }
 .blog-read-more {
   font-size: 0.7rem;
   font-weight: 700;
@@ -1506,7 +1506,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   border: 1px solid rgba(255,255,255,0.2);
   background: rgba(255,255,255,0.08);
   color: white;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.95rem;
   outline: none;
   transition: border-color 0.2s;
@@ -1572,7 +1572,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   color: #1C3063;
 }
 .wwu-content p {
-  font-size: 1rem;
+  font-family: 'Cormorant Garamond', serif; font-size: 1.05rem;
   line-height: 1.75;
   color: #4a4643;
   margin-bottom: 0.35rem;
@@ -1708,7 +1708,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   border: none;
   border-bottom: 1px solid rgba(255,255,255,0.35);
   color: white;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.85rem;
   padding: 0.5rem 0;
   outline: none;
@@ -1784,7 +1784,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 }
 .footer-social a:hover { border-color: #B38987; background: rgba(179,137,135,0.15); }
 .footer-social svg { width: 15px; height: 15px; fill: none; stroke: white; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.footer-social-text { font-family: 'Raleway', sans-serif; font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.75); letter-spacing: 0.02em; }
+.footer-social-text { font-family: 'Lato', sans-serif; font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.75); letter-spacing: 0.02em; }
 
 @media (max-width: 900px) {
   .footer-info { grid-template-columns: 1fr 1fr; }
@@ -1877,7 +1877,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   position: absolute;
   top: 1rem;
   left: 1rem;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.15em;
@@ -1901,14 +1901,14 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   letter-spacing: 0.02em;
 }
 .fp-address {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.95rem;
   font-weight: 600;
   color: #322E2D;
   margin-bottom: 0.15rem;
 }
 .fp-city {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.85rem;
   color: #888;
   margin-bottom: 1.1rem;
@@ -1927,7 +1927,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.05em;
@@ -1941,7 +1941,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   stroke: #B38987;
 }
 .fp-link {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.18em;
