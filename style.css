@@ -108,8 +108,8 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   transition: background 0.35s, box-shadow 0.35s;
 }
 .site-header.scrolled {
-  background: #1C3063;
-  box-shadow: 0 2px 24px rgba(28,48,99,0.13);
+  background: #18254B;
+  box-shadow: 0 2px 24px rgba(24,37,75,0.18);
 }
 .site-header.scrolled .header-top { padding: 0.2rem 2.5rem; }
 .site-header.scrolled .main-nav { padding: 0.35rem 2.5rem; }
