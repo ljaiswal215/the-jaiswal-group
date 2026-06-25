@@ -1,19 +1,47 @@
 <!DOCTYPE html>
+<!-- ============================================================
+     LIVE VERSION — buyers-guide-videos-LIVE.html
+     Use this file to replace buyers-guide-videos.html
+     once all videos are recorded and uploaded to YouTube.
+
+     TO ACTIVATE:
+     1. Find and replace each VIDEO_ID placeholder below with
+        the real YouTube video ID (the part after ?v= in the URL)
+     2. Rename this file to buyers-guide-videos.html
+        (back up the old file first as buyers-guide-videos-COMINGSOON.html)
+     3. Deactivate Formspree form mlgkpgnp in your dashboard
+
+     VIDEO ID PLACEHOLDERS:
+       VIDEO_ID_EPISODE_01  — How to Choose the Right Realtor
+       VIDEO_ID_EPISODE_02  — Why Every Homebuyer Needs a Buyer Consultation
+       VIDEO_ID_EPISODE_03  — Getting Pre-Approved
+       VIDEO_ID_EPISODE_04  — New Construction
+       VIDEO_ID_EPISODE_05  — Buy Before Selling
+       VIDEO_ID_EPISODE_06  — Found Your Dream Home
+       VIDEO_ID_EPISODE_07  — Multiple Offer Situation
+       VIDEO_ID_EPISODE_08  — Offer Accepted
+       VIDEO_ID_EPISODE_09  — Home Inspections
+       VIDEO_ID_EPISODE_10  — Negotiate Repairs
+       VIDEO_ID_EPISODE_11  — Buyer Closing Costs
+       VIDEO_ID_EPISODE_12  — Final Walkthrough
+       VIDEO_ID_BONUS_01    — Meet Lynnette Jaiswal
+       VIDEO_ID_BONUS_02    — Living in San Diego
+============================================================ -->
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Video Guide to Selling Your Home in San Diego | The Jaiswal Group</title>
-  <meta name="description" content="Watch our free step-by-step video guide to selling your home in San Diego — from pricing and preparation to negotiations, closing costs, and closing day." />
+  <title>Video Guide to Buying a Home in San Diego | The Jaiswal Group</title>
+  <meta name="description" content="Watch our free step-by-step video guide to buying a home in San Diego — from financing and home searches to inspections, negotiations, and closing day." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Raleway:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
 
     /* ── Hero ─────────────────────────────────────────────────────── */
     .bgv-hero {
-      background: #18254B url('background-sellers-guide.jpg') center center / cover no-repeat;
+      background: #18254B url('background-buyer-guide-lead-magnet.jpg') center center / cover no-repeat;
       min-height: 90vh;
       display: flex;
       align-items: center;
@@ -51,7 +79,7 @@
       margin: 1.5rem auto 1.5rem;
     }
     .bgv-hero-inner p {
-      font-family: 'Lato', sans-serif;
+      font-family: 'Raleway', sans-serif;
       font-size: 0.9rem;
       color: rgba(255,255,255,0.70);
       line-height: 2;
@@ -59,7 +87,7 @@
       width: 100%;
     }
 
-    /* ── Coming Soon Section ──────────────────────────────────────── */
+    /* ── Video Series Section ─────────────────────────────────────── */
     .bgv-coming {
       background: #F3EFE8;
       padding: clamp(2.5rem,4vw,3.5rem) clamp(1.5rem,5vw,5rem);
@@ -75,7 +103,7 @@
       margin-bottom: 1.25rem;
     }
     .bgv-coming > .bgv-coming-inner > p:not(.section-eyebrow) {
-      font-family: 'Lato', sans-serif;
+      font-family: 'Raleway', sans-serif;
       font-size: 0.9rem;
       color: #3a4a6b;
       line-height: 1.65;
@@ -84,7 +112,7 @@
       margin: 0 auto 2rem;
     }
 
-    /* ── Video Placeholder Grid ───────────────────────────────────── */
+    /* ── Video Card Grid ──────────────────────────────────────────── */
     .bgv-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -99,32 +127,41 @@
     .bgv-card-thumb {
       width: 100%;
       aspect-ratio: 16/9;
-      background: #18254B;
+      background: #18254B center/cover no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
+      text-decoration: none;
+      cursor: pointer;
     }
     .bgv-card-thumb-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(24,37,75,0.35);
+      background: rgba(24,37,75,0.45);
+      transition: background 0.22s;
     }
+    .bgv-card-thumb:hover .bgv-card-thumb-overlay { background: rgba(24,37,75,0.25); }
     .bgv-play-icon {
       position: relative;
       z-index: 1;
-      width: 48px;
-      height: 48px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.5);
+      border: 2px solid rgba(255,255,255,0.8);
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .bgv-card-thumb:hover .bgv-play-icon {
+      transform: scale(1.1);
+      border-color: #B38987;
     }
     .bgv-play-icon svg {
       width: 18px;
       height: 18px;
-      fill: rgba(255,255,255,0.7);
+      fill: rgba(255,255,255,0.9);
       margin-left: 3px;
     }
     .bgv-card-num {
@@ -132,7 +169,7 @@
       top: 0.75rem;
       left: 0.75rem;
       z-index: 1;
-      font-family: 'Lato', sans-serif;
+      font-family: 'Raleway', sans-serif;
       font-size: 0.65rem;
       font-weight: 700;
       letter-spacing: 0.15em;
@@ -149,22 +186,10 @@
       margin-bottom: 0.5rem;
     }
     .bgv-card-body p {
-      font-family: 'Lato', sans-serif;
+      font-family: 'Raleway', sans-serif;
       font-size: 0.78rem;
       color: #3a4a6b;
       line-height: 1.7;
-    }
-    .bgv-coming-soon-badge {
-      display: inline-block;
-      margin-top: 0.65rem;
-      font-family: 'Lato', sans-serif;
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: #B38987;
-      border: 1px solid rgba(179,137,135,0.4);
-      padding: 0.25rem 0.65rem;
     }
 
     /* ── Bonus Featured ──────────────────────────────────────────── */
@@ -180,73 +205,9 @@
       overflow: hidden;
       border-top: 2px solid #B38987;
     }
-    .bgv-bonus-card .bgv-card-thumb { background: #1C3063; }
+    .bgv-bonus-card .bgv-card-thumb { background-color: #1C3063; }
     .bgv-bonus-card .bgv-card-num { color: #B38987; }
     @media (max-width: 560px) { .bgv-bonus-grid { grid-template-columns: 1fr; } }
-
-    /* ── Notify CTA ───────────────────────────────────────────────── */
-    .bgv-notify {
-      background: #18254B;
-      padding: clamp(3.5rem,6vw,5rem) clamp(1.5rem,5vw,5rem);
-      text-align: center;
-    }
-    .bgv-notify-inner { max-width: 780px; margin: 0 auto; }
-    .bgv-notify .section-eyebrow { color: #B38987; margin-bottom: 0.75rem; }
-    .bgv-notify h2 {
-      font-family: 'Marcellus', serif;
-      font-size: clamp(1.3rem,2.2vw,1.75rem);
-      color: #fff;
-      letter-spacing: 0.07em;
-      margin-bottom: 0.85rem;
-      line-height: 1.2;
-    }
-    .bgv-notify p {
-      font-family: 'Lato', sans-serif;
-      font-size: 0.86rem;
-      color: rgba(255,255,255,0.65);
-      line-height: 1.85;
-      margin-bottom: 2rem;
-    }
-    .bgv-notify-form { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-    .bgv-notify-form input {
-      flex: 1;
-      min-width: 200px;
-      padding: 0.9rem 1rem;
-      font-family: 'Lato', sans-serif;
-      font-size: 0.83rem;
-      color: #18254B;
-      background: #fff;
-      border: none;
-      outline: none;
-    }
-    .bgv-notify-form input::placeholder { color: rgba(28,48,99,0.40); }
-    .bgv-notify-form button {
-      padding: 0.9rem 1.75rem;
-      font-family: 'Lato', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      background: transparent;
-      color: #F6F6F4;
-      border: 2px solid #F6F6F4;
-      cursor: pointer;
-      transition: background 0.25s, color 0.25s, border-color 0.25s;
-      white-space: nowrap;
-    }
-    .bgv-notify-form button:hover {
-      background: #B38987;
-      border-color: #B38987;
-      color: #fff;
-    }
-    .bgv-notify-sent {
-      display: none;
-      font-family: 'Lato', sans-serif;
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.8);
-      padding: 1rem;
-      border: 1px solid rgba(179,137,135,0.4);
-    }
 
     /* ── Resource Bridge CTA ──────────────────────────────────────── */
     .bgv-resources {
@@ -265,7 +226,7 @@
       line-height: 1.2;
     }
     .bgv-resources p {
-      font-family: 'Lato', sans-serif;
+      font-family: 'Raleway', sans-serif;
       font-size: 0.86rem;
       color: #3a4a6b;
       line-height: 1.8;
@@ -319,7 +280,7 @@
           <a href="#">SELL YOUR HOME <span class="caret">&#9662;</span></a>
           <ul class="dropdown">
             <li><a href="seller-consultation.html">Seller Consultation</a></li>
-            <li><a href="home-valuation.html">Home Valuation</a></li>
+            <li><a href="home-valuation.html">Instant Home Valuation</a></li>
             <li><a href="#">Our Marketing</a></li>
             <li><a href="sellers-guide.html">Seller's Guide</a></li>
             <li><a href="#">Selling Checklist</a></li>
@@ -333,7 +294,7 @@
             <li><a href="#">Market Updates</a></li>
             <li><a href="#">Lender Partners</a></li>
             <li><a href="#">Mortgage Calculator</a></li>
-            <li><a href="relocation-guide.html">Relocation Guide</a></li>
+            <li><a href="#">Relocation Guide</a></li>
             <li><a href="#">The Plugged In Method</a></li>
             <li class="has-subdropdown">
               <a href="#">Videos</a>
@@ -348,7 +309,7 @@
         <li class="has-dropdown">
           <a href="#">ABOUT US <span class="caret">&#9662;</span></a>
           <ul class="dropdown">
-            <li><a href="lynnette-jaiswal.html">Lynnette Jaiswal</a></li>
+            <li><a href="#">Lynnette Jaiswal</a></li>
             <li><a href="clientreviews.html">Client Reviews</a></li>
             <li><a href="#">Join Our Team</a></li>
           </ul>
@@ -375,211 +336,195 @@
   <!-- ═══ HERO ═══════════════════════════════════════════════════════ -->
   <section class="bgv-hero">
     <div class="bgv-hero-inner">
-      <h1>YOUR STEP-BY-STEP<br><span>SAN DIEGO SELLER'S GUIDE</span><br>VIDEO SERIES</h1>
+      <h1>YOUR STEP-BY-STEP<br><span>SAN DIEGO BUYER'S GUIDE</span><br>VIDEO SERIES</h1>
       <div class="bgv-hero-rule"></div>
-      <p>Welcome to our Seller's Guide Video Series. These videos are designed to simplify the selling process, answer your key questions, and give you the confidence to make informed decisions throughout your home selling journey.</p>
+      <p>Welcome to our Buyer's Guide Video Series. These videos are designed to simplify the process, answer your key questions, and give you the confidence to make informed decisions on your home buying journey.</p>
     </div>
   </section>
 
-  <!-- ═══ COMING SOON ════════════════════════════════════════════════ -->
+  <!-- ═══ VIDEO SERIES ══════════════════════════════════════════════ -->
   <section class="bgv-coming">
     <div class="bgv-coming-inner">
-      <p class="section-eyebrow">COMING SOON</p>
-      <h2>Your Video Guide to Selling Your Home in San Diego</h2>
-      <p>The complete Seller's Guide Video Series is coming soon. We're producing a collection of short, easy-to-follow videos designed to walk you through every step of the San Diego home selling journey — from pricing and preparation to showings, negotiations, and closing day. Whether you're selling for the first time or the fifth, you'll gain the knowledge and confidence needed to make informed decisions every step of the way.<br><br>Enter your email below to be among the first to receive access when the series launches.</p>
+      <p class="section-eyebrow">THE SERIES</p>
+      <h2>Your Video Guide to Buying a Home in San Diego</h2>
+      <p>Watch our complete collection of short, easy-to-follow videos covering every step of the San Diego home buying journey — from financing and home searches to inspections, negotiations, and closing day. Whether you're a first-time buyer or a seasoned homeowner, each episode is designed to give you the clarity and confidence to make informed decisions.</p>
 
       <div class="bgv-grid">
 
         <div class="bgv-card">
-          <div class="bgv-card-thumb">
+          <a class="bgv-card-thumb" href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_01" target="_blank" rel="noopener" style="background-image: url('https://img.youtube.com/vi/VIDEO_ID_EPISODE_01/maxresdefault.jpg');">
             <div class="bgv-card-thumb-overlay"></div>
             <div class="bgv-play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
+          </a>
           <div class="bgv-card-body">
-            <h3>How to Choose the Right Realtor to Sell Your Home</h3>
-            <p>Not all agents are the same. Learn what to look for, what questions to ask, and how to find a listing agent who will truly go to bat for you.</p>
-            <span class="bgv-coming-soon-badge">Coming Soon</span>
+            <h3>How to Choose the Right Realtor in San Diego</h3>
+            <p>Not all agents are the same. Learn what to look for, what questions to ask, and how to find a realtor who truly has your best interests at heart.</p>
+            <a href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_01" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top: 0.65rem; font-size: 0.62rem; padding: 0.4rem 0.9rem;">WATCH NOW &rarr;</a>
           </div>
         </div>
 
         <div class="bgv-card">
-          <div class="bgv-card-thumb">
+          <a class="bgv-card-thumb" href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_02" target="_blank" rel="noopener" style="background-image: url('https://img.youtube.com/vi/VIDEO_ID_EPISODE_02/maxresdefault.jpg');">
             <div class="bgv-card-thumb-overlay"></div>
             <div class="bgv-play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
+          </a>
           <div class="bgv-card-body">
-            <h3>Our Proven Home Selling Process</h3>
-            <p>How your home is presented to the market determines who sees it and what they're willing to pay. See exactly what a strategic, full-service marketing plan looks like.</p>
-            <span class="bgv-coming-soon-badge">Coming Soon</span>
+            <h3>Why Every Homebuyer Needs a Buyer Consultation</h3>
+            <p>Before you start searching, this first step sets the foundation for a smooth, strategic home buying experience — and most buyers skip it.</p>
+            <a href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_02" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top: 0.65rem; font-size: 0.62rem; padding: 0.4rem 0.9rem;">WATCH NOW &rarr;</a>
           </div>
         </div>
 
         <div class="bgv-card">
-          <div class="bgv-card-thumb">
+          <a class="bgv-card-thumb" href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_03" target="_blank" rel="noopener" style="background-image: url('https://img.youtube.com/vi/VIDEO_ID_EPISODE_03/maxresdefault.jpg');">
             <div class="bgv-card-thumb-overlay"></div>
             <div class="bgv-play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
+          </a>
           <div class="bgv-card-body">
-            <h3>What's My Home Worth? Understanding Home Valuation</h3>
-            <p>Pricing your home correctly from the start is one of the most important decisions you'll make. Here's how valuation actually works — and what the data really means.</p>
-            <span class="bgv-coming-soon-badge">Coming Soon</span>
+            <h3>Getting Pre-Approved — What Buyers Get Wrong</h3>
+            <p>Pre-approval is more than a formality. Discover the common mistakes that cost buyers their dream home before they ever make an offer.</p>
+            <a href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_03" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top: 0.65rem; font-size: 0.62rem; padding: 0.4rem 0.9rem;">WATCH NOW &rarr;</a>
           </div>
         </div>
 
         <div class="bgv-card">
-          <div class="bgv-card-thumb">
+          <a class="bgv-card-thumb" href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_04" target="_blank" rel="noopener" style="background-image: url('https://img.youtube.com/vi/VIDEO_ID_EPISODE_04/maxresdefault.jpg');">
             <div class="bgv-card-thumb-overlay"></div>
             <div class="bgv-play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
+          </a>
           <div class="bgv-card-body">
-            <h3>How to Sell Your Home for Top Dollar</h3>
-            <p>From timing and pricing to preparation and negotiation, discover the strategies that consistently help San Diego sellers walk away with more.</p>
-            <span class="bgv-coming-soon-badge">Coming Soon</span>
+            <h3>Thinking About New Construction? Watch This First</h3>
+            <p>New builds come with unique opportunities — and pitfalls. Here's what to know before you visit a model home or sign a builder contract.</p>
+            <a href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_04" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top: 0.65rem; font-size: 0.62rem; padding: 0.4rem 0.9rem;">WATCH NOW &rarr;</a>
           </div>
         </div>
 
         <div class="bgv-card">
-          <div class="bgv-card-thumb">
+          <a class="bgv-card-thumb" href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_05" target="_blank" rel="noopener" style="background-image: url('https://img.youtube.com/vi/VIDEO_ID_EPISODE_05/maxresdefault.jpg');">
             <div class="bgv-card-thumb-overlay"></div>
             <div class="bgv-play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
+          </a>
           <div class="bgv-card-body">
-            <h3>Preparing Your Home to Sell: A Room-by-Room Guide</h3>
-            <p>Small, strategic improvements can significantly impact your final sale price. Walk through every room and learn exactly what to prioritize — and what not to spend money on.</p>
-            <span class="bgv-coming-soon-badge">Coming Soon</span>
+            <h3>How to Buy a New Home Before Selling Your Current One</h3>
+            <p>Timing two transactions doesn't have to be stressful. Explore the strategies that let you move up without losing your footing.</p>
+            <a href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_05" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top: 0.65rem; font-size: 0.62rem; padding: 0.4rem 0.9rem;">WATCH NOW &rarr;</a>
           </div>
         </div>
 
         <div class="bgv-card">
-          <div class="bgv-card-thumb">
+          <a class="bgv-card-thumb" href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_06" target="_blank" rel="noopener" style="background-image: url('https://img.youtube.com/vi/VIDEO_ID_EPISODE_06/maxresdefault.jpg');">
             <div class="bgv-card-thumb-overlay"></div>
             <div class="bgv-play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
+          </a>
           <div class="bgv-card-body">
-            <h3>How to Prepare for Home Showings</h3>
-            <p>Once your home is live, activity starts fast. Know how to prepare for each showing, what buyers notice first, and how to make the right impression every time.</p>
-            <span class="bgv-coming-soon-badge">Coming Soon</span>
+            <h3>Found Your Dream Home? Here's What to Do Next</h3>
+            <p>When you find the one, speed and strategy matter. Walk through the exact steps to take from your first showing to submitting an offer.</p>
+            <a href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_06" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top: 0.65rem; font-size: 0.62rem; padding: 0.4rem 0.9rem;">WATCH NOW &rarr;</a>
           </div>
         </div>
 
         <div class="bgv-card">
-          <div class="bgv-card-thumb">
+          <a class="bgv-card-thumb" href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_07" target="_blank" rel="noopener" style="background-image: url('https://img.youtube.com/vi/VIDEO_ID_EPISODE_07/maxresdefault.jpg');">
             <div class="bgv-card-thumb-overlay"></div>
             <div class="bgv-play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
+          </a>
           <div class="bgv-card-body">
-            <h3>Reviewing Offers — What to Look For Beyond Price</h3>
-            <p>The highest offer isn't always the best offer. Walk through the terms, contingencies, and conditions that truly matter when evaluating what's on the table.</p>
-            <span class="bgv-coming-soon-badge">Coming Soon</span>
+            <h3>How to Win in a Multiple Offer Situation</h3>
+            <p>In a competitive San Diego market, the highest price isn't always the winning offer. Learn the strategies that make your offer stand out.</p>
+            <a href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_07" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top: 0.65rem; font-size: 0.62rem; padding: 0.4rem 0.9rem;">WATCH NOW &rarr;</a>
           </div>
         </div>
 
         <div class="bgv-card">
-          <div class="bgv-card-thumb">
+          <a class="bgv-card-thumb" href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_08" target="_blank" rel="noopener" style="background-image: url('https://img.youtube.com/vi/VIDEO_ID_EPISODE_08/maxresdefault.jpg');">
             <div class="bgv-card-thumb-overlay"></div>
             <div class="bgv-play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
+          </a>
           <div class="bgv-card-body">
-            <h3>How to Negotiate as a Seller Without Losing the Deal</h3>
-            <p>Negotiation is where transactions are won or lost. Learn the seller strategies that protect your bottom line while keeping buyers engaged and committed.</p>
-            <span class="bgv-coming-soon-badge">Coming Soon</span>
+            <h3>Offer Accepted! Here's What Happens Next</h3>
+            <p>Congratulations — now what? Walk through every step of the escrow process so nothing catches you off guard between contract and closing.</p>
+            <a href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_08" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top: 0.65rem; font-size: 0.62rem; padding: 0.4rem 0.9rem;">WATCH NOW &rarr;</a>
           </div>
         </div>
 
         <div class="bgv-card">
-          <div class="bgv-card-thumb">
+          <a class="bgv-card-thumb" href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_09" target="_blank" rel="noopener" style="background-image: url('https://img.youtube.com/vi/VIDEO_ID_EPISODE_09/maxresdefault.jpg');">
             <div class="bgv-card-thumb-overlay"></div>
             <div class="bgv-play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
+          </a>
           <div class="bgv-card-body">
-            <h3>Under Contract? What Happens Next</h3>
-            <p>Going under contract is just the beginning. Walk through every step of escrow — inspections, appraisals, contingency removals — so nothing catches you off guard.</p>
-            <span class="bgv-coming-soon-badge">Coming Soon</span>
+            <h3>Everything You Need to Know About Home Inspections</h3>
+            <p>A home inspection is one of your most powerful tools as a buyer. Know what inspectors look for and how to use the results to your advantage.</p>
+            <a href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_09" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top: 0.65rem; font-size: 0.62rem; padding: 0.4rem 0.9rem;">WATCH NOW &rarr;</a>
           </div>
         </div>
 
         <div class="bgv-card">
-          <div class="bgv-card-thumb">
+          <a class="bgv-card-thumb" href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_10" target="_blank" rel="noopener" style="background-image: url('https://img.youtube.com/vi/VIDEO_ID_EPISODE_10/maxresdefault.jpg');">
             <div class="bgv-card-thumb-overlay"></div>
             <div class="bgv-play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
+          </a>
           <div class="bgv-card-body">
-            <h3>Navigating Inspections, Repairs &amp; Credits</h3>
-            <p>The inspection report doesn't have to derail your deal. Learn how to anticipate issues, respond to repair requests strategically, and keep your transaction on track.</p>
-            <span class="bgv-coming-soon-badge">Coming Soon</span>
+            <h3>How to Negotiate Repairs After a Home Inspection</h3>
+            <p>Getting inspection results back is just the beginning. Learn how to approach repair requests strategically without putting your deal at risk.</p>
+            <a href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_10" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top: 0.65rem; font-size: 0.62rem; padding: 0.4rem 0.9rem;">WATCH NOW &rarr;</a>
           </div>
         </div>
 
         <div class="bgv-card">
-          <div class="bgv-card-thumb">
+          <a class="bgv-card-thumb" href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_11" target="_blank" rel="noopener" style="background-image: url('https://img.youtube.com/vi/VIDEO_ID_EPISODE_11/maxresdefault.jpg');">
             <div class="bgv-card-thumb-overlay"></div>
             <div class="bgv-play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
+          </a>
           <div class="bgv-card-body">
-            <h3>Understanding Seller Closing Costs in California</h3>
-            <p>Closing costs can take sellers by surprise. Break down exactly what you'll owe in California, when, and how to factor it into your net proceeds from the sale.</p>
-            <span class="bgv-coming-soon-badge">Coming Soon</span>
+            <h3>What Are Buyer Closing Costs?</h3>
+            <p>Closing costs can catch buyers off guard. Break down exactly what you'll owe, when you'll owe it, and how to plan ahead with confidence.</p>
+            <a href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_11" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top: 0.65rem; font-size: 0.62rem; padding: 0.4rem 0.9rem;">WATCH NOW &rarr;</a>
           </div>
         </div>
 
         <div class="bgv-card">
-          <div class="bgv-card-thumb">
+          <a class="bgv-card-thumb" href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_12" target="_blank" rel="noopener" style="background-image: url('https://img.youtube.com/vi/VIDEO_ID_EPISODE_12/maxresdefault.jpg');">
             <div class="bgv-card-thumb-overlay"></div>
             <div class="bgv-play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
+          </a>
           <div class="bgv-card-body">
-            <h3>Buying a New Home While Selling Your Current One</h3>
-            <p>Timing two transactions at once is one of the most common seller challenges. Explore the strategies that let you move forward confidently without losing your footing.</p>
-            <span class="bgv-coming-soon-badge">Coming Soon</span>
+            <h3>The Final Walkthrough: What Every Buyer Should Know</h3>
+            <p>Your last chance to verify the home is in the agreed-upon condition before you sign. Here's exactly what to check — and what to do if something's off.</p>
+            <a href="https://www.youtube.com/watch?v=VIDEO_ID_EPISODE_12" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top: 0.65rem; font-size: 0.62rem; padding: 0.4rem 0.9rem;">WATCH NOW &rarr;</a>
           </div>
         </div>
 
       </div>
 
-      <p class="section-eyebrow" style="margin-top: 1rem; margin-bottom: 1.25rem;">BEYOND THE SELLER'S GUIDE</p>
+      <p class="section-eyebrow" style="margin-top: 1rem; margin-bottom: 1.25rem;">BEYOND THE BUYER'S GUIDE</p>
       <div class="bgv-bonus-grid">
 
         <div class="bgv-bonus-card bgv-card">
-          <div class="bgv-card-thumb">
+          <a class="bgv-card-thumb" href="https://www.youtube.com/watch?v=VIDEO_ID_BONUS_01" target="_blank" rel="noopener" style="background-image: url('https://img.youtube.com/vi/VIDEO_ID_BONUS_01/maxresdefault.jpg'); background-color: #1C3063;">
             <div class="bgv-card-thumb-overlay"></div>
             <div class="bgv-play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
+          </a>
           <div class="bgv-card-body">
-            <h3>Meet The Jaiswal Group Real Estate</h3>
-            <p>Get to know the team in your corner. We share our background, our approach to real estate, and why we're passionate about helping San Diego sellers achieve the best possible outcome.</p>
-            <span class="bgv-coming-soon-badge">Coming Soon</span>
+            <h3>Meet Lynnette Jaiswal</h3>
+            <p>Get to know the agent in your corner. Lynnette shares her background, her approach to real estate, and why she's passionate about helping San Diego buyers find the right home — not just any home.</p>
+            <a href="https://www.youtube.com/watch?v=VIDEO_ID_BONUS_01" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top: 0.65rem; font-size: 0.62rem; padding: 0.4rem 0.9rem;">WATCH NOW &rarr;</a>
           </div>
         </div>
 
         <div class="bgv-bonus-card bgv-card">
-          <div class="bgv-card-thumb">
+          <a class="bgv-card-thumb" href="https://www.youtube.com/watch?v=VIDEO_ID_BONUS_02" target="_blank" rel="noopener" style="background-image: url('https://img.youtube.com/vi/VIDEO_ID_BONUS_02/maxresdefault.jpg'); background-color: #1C3063;">
             <div class="bgv-card-thumb-overlay"></div>
             <div class="bgv-play-icon"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          </div>
+          </a>
           <div class="bgv-card-body">
             <h3>Living in San Diego: The Pros, The Cons &amp; What Nobody Tells You</h3>
-            <p>Thinking about your next chapter after the sale? An honest, insider look at life in San Diego — the lifestyle, the trade-offs, and everything most people only learn after the move.</p>
-            <span class="bgv-coming-soon-badge">Coming Soon</span>
+            <p>Thinking about making San Diego home? An honest, insider look at what life here is really like — the lifestyle, the trade-offs, and the things most people only find out after they've already moved.</p>
+            <a href="https://www.youtube.com/watch?v=VIDEO_ID_BONUS_02" target="_blank" rel="noopener" class="btn btn-ghost" style="margin-top: 0.65rem; font-size: 0.62rem; padding: 0.4rem 0.9rem;">WATCH NOW &rarr;</a>
           </div>
         </div>
 
       </div>
-    </div>
-  </section>
-
-  <!-- ═══ NOTIFY FORM ════════════════════════════════════════════════ -->
-  <!-- NOTE: Replace SELLER_VIDEO_NOTIFY_ID below with your Formspree form ID -->
-  <section class="bgv-notify">
-    <div class="bgv-notify-inner">
-      <p class="section-eyebrow">EARLY ACCESS</p>
-      <h2>BE THE FIRST TO WATCH</h2>
-      <p>Enter your email address and you'll receive a personal note the moment the Seller's Guide Video Series goes live — no inbox clutter, just your first look at the complete series.</p>
-      <form class="bgv-notify-form" id="bgv-notify-form" action="https://formspree.io/f/mbdezoqy" method="POST">
-        <input type="hidden" name="_subject" value="Seller Video Series Notification Request" />
-        <input type="email" name="email" placeholder="Your email address" required />
-        <button type="submit">JOIN THE EARLY ACCESS LIST</button>
-      </form>
-      <p class="bgv-notify-sent" id="bgv-notify-sent">You're on the list. We'll reach out the moment the series launches — we look forward to sharing it with you.</p>
     </div>
   </section>
 
@@ -587,11 +532,11 @@
   <section class="bgv-resources">
     <div class="bgv-resources-inner">
       <p class="section-eyebrow">CONTINUE YOUR JOURNEY</p>
-      <h2>THE COMPLETE SAN DIEGO SELLER'S TOOLKIT</h2>
-      <p>The video series is just one part of how we help you make informed, confident decisions throughout your home selling journey. Be sure to explore our free Seller's Guide and get your instant home valuation for additional insights and expert guidance.</p>
+      <h2>THE COMPLETE SAN DIEGO BUYER'S TOOLKIT</h2>
+      <p>The video series is just one part of how we help you make informed, confident decisions throughout your home buying journey. Be sure to explore our free Buyer's Guide and Buyer FAQ for additional insights, expert guidance, and answers to the questions buyers ask most often.</p>
       <div class="bgv-resources-btns">
-        <a href="sellers-guide.html" class="btn btn-ghost">FREE SELLER'S GUIDE</a>
-        <a href="home-valuation.html" class="btn btn-ghost">INSTANT HOME VALUATION</a>
+        <a href="buyers-guide.html" class="btn btn-ghost">FREE BUYER'S GUIDE</a>
+        <a href="buyer-faq.html" class="btn btn-ghost">BUYER FAQ</a>
       </div>
     </div>
   </section>
@@ -653,27 +598,6 @@
   </footer>
 
   <script src="main.js"></script>
-  <script>
-    // Notify form AJAX
-    const bgvForm = document.getElementById('bgv-notify-form');
-    const bgvSent = document.getElementById('bgv-notify-sent');
-    if (bgvForm) {
-      bgvForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        try {
-          const res = await fetch(bgvForm.action, {
-            method: 'POST',
-            body: new FormData(bgvForm),
-            headers: { 'Accept': 'application/json' }
-          });
-          if (res.ok) {
-            bgvForm.style.display = 'none';
-            bgvSent.style.display = 'block';
-          }
-        } catch(err) {}
-      });
-    }
-  </script>
 
 </body>
 </html>
