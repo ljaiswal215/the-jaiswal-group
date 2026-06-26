@@ -196,23 +196,39 @@
     _idxTourLabelObserver.observe(document.body, { childList: true, subtree: true });
 
     var _idxSearchResetObserver = new MutationObserver(function() {
-      var field = document.querySelector('.pm-ccz-fly-to-field, .pm-ccz-fly-to-field-disabled');
-      if (field && !field._resetSetup) {
-        field._resetSetup = true;
-        field.addEventListener('click', function(e) {
-          var isDisabled = field.classList.contains('pm-ccz-fly-to-field-disabled');
-          if (isDisabled && !e.target.closest('.rm-btn')) {
-            var rmBtn = field.querySelector('.rm-btn');
-            if (rmBtn) {
-              rmBtn.click();
-              setTimeout(function() {
-                var input = field.querySelector('.ti-new-tag-input');
-                if (input) input.focus();
-              }, 100);
-            }
-          }
-        });
-      }
+      var wrapper = document.querySelector('.pm-ccz-fly-to-field, .pm-ccz-fly-to-field-disabled');
+      if (!wrapper || wrapper._resetSetup) return;
+      wrapper._resetSetup = true;
+      wrapper.style.position = 'relative';
+
+      var clearBtn = document.createElement('button');
+      clearBtn.id = 'idx-custom-clear';
+      clearBtn.textContent = '×';
+      clearBtn.style.cssText = 'position:absolute;right:10px;top:50%;transform:translateY(-50%);background:transparent;border:none;font-size:20px;color:#18254B;cursor:pointer;z-index:999;display:none;padding:2px 6px;line-height:1;';
+      wrapper.appendChild(clearBtn);
+
+      new MutationObserver(function() {
+        var hasTag = wrapper.querySelector('.ti-tags .ti-valid');
+        clearBtn.style.display = hasTag ? 'block' : 'none';
+      }).observe(wrapper, { childList: true, subtree: true, attributes: true });
+
+      clearBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var rmBtn = wrapper.querySelector('.rm-btn');
+        if (rmBtn) rmBtn.click();
+        var tagBtn = wrapper.querySelector('.ti-tags .ti-valid button');
+        if (tagBtn) tagBtn.click();
+        var vue = wrapper.querySelector('.vue-tags-input');
+        if (vue && vue.__vue__) { vue.__vue__.tags = []; }
+        if (vue && vue.__vueParentComponent) {
+          try { vue.__vueParentComponent.data.tags = []; } catch(e) {}
+        }
+        setTimeout(function() {
+          var input = wrapper.querySelector('input');
+          if (input) { input.removeAttribute('disabled'); input.focus(); }
+        }, 150);
+      });
     });
     _idxSearchResetObserver.observe(document.body, { childList: true, subtree: true });
 
