@@ -209,5 +209,42 @@
     _idxBackLinkObserver.observe(document.body, { childList: true, subtree: true });
   </script>
 
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_HDxS74_OAalzCjeJkhRHOYPIGzAPf2A&libraries=places" async defer></script>
+  <script>
+    function _initIdxPlacesAutocomplete() {
+      var _placesObserver = new MutationObserver(function() {
+        var input = document.querySelector('.ti-new-tag-input');
+        if (input && !input._placesAttached && window.google && google.maps && google.maps.places) {
+          input._placesAttached = true;
+          var autocomplete = new google.maps.places.Autocomplete(input, {
+            types: ['(regions)'],
+            componentRestrictions: { country: 'us' }
+          });
+          autocomplete.addListener('place_changed', function() {
+            var place = autocomplete.getPlace();
+            if (place && place.name) {
+              input.value = place.name;
+              input.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+          });
+        }
+      });
+      _placesObserver.observe(document.body, { childList: true, subtree: true });
+    }
+    if (window.google && google.maps) {
+      _initIdxPlacesAutocomplete();
+    } else {
+      window._initIdxPlacesAutocomplete = _initIdxPlacesAutocomplete;
+      document.addEventListener('DOMContentLoaded', function() {
+        var checkGoogle = setInterval(function() {
+          if (window.google && google.maps && google.maps.places) {
+            clearInterval(checkGoogle);
+            _initIdxPlacesAutocomplete();
+          }
+        }, 300);
+      });
+    }
+  </script>
+
 </body>
 </html>
