@@ -199,9 +199,18 @@
       var field = document.querySelector('.pm-ccz-fly-to-field, .pm-ccz-fly-to-field-disabled');
       if (field && !field._resetSetup) {
         field._resetSetup = true;
-        field.addEventListener('click', function() {
-          var deleteBtn = field.querySelector('.ti-tag button, .ti-icon-close, .rm-btn');
-          if (deleteBtn) deleteBtn.click();
+        field.addEventListener('click', function(e) {
+          var isDisabled = field.classList.contains('pm-ccz-fly-to-field-disabled');
+          if (isDisabled && !e.target.closest('.rm-btn')) {
+            var rmBtn = field.querySelector('.rm-btn');
+            if (rmBtn) {
+              rmBtn.click();
+              setTimeout(function() {
+                var input = field.querySelector('.ti-new-tag-input');
+                if (input) input.focus();
+              }, 100);
+            }
+          }
         });
       }
     });
