@@ -180,8 +180,8 @@
   <script>
     var _idxPlaceholderObserver = new MutationObserver(function() {
       var input = document.querySelector('.ti-new-tag-input');
-      if (input && input.placeholder === 'City, County, Zip') {
-        input.placeholder = 'City, Neighborhood, ZIP Code';
+      if (input && (input.placeholder === 'City, County, Zip' || input.placeholder === 'City, Neighborhood, ZIP Code')) {
+        input.placeholder = 'City or ZIP';
       }
     });
     _idxPlaceholderObserver.observe(document.body, { childList: true, subtree: true });
