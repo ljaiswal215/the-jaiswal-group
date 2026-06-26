@@ -195,6 +195,18 @@
     });
     _idxTourLabelObserver.observe(document.body, { childList: true, subtree: true });
 
+    var _idxSearchResetObserver = new MutationObserver(function() {
+      var field = document.querySelector('.pm-ccz-fly-to-field, .pm-ccz-fly-to-field-disabled');
+      if (field && !field._resetSetup) {
+        field._resetSetup = true;
+        field.addEventListener('click', function() {
+          var deleteBtn = field.querySelector('.ti-tag button, .ti-icon-close, .rm-btn');
+          if (deleteBtn) deleteBtn.click();
+        });
+      }
+    });
+    _idxSearchResetObserver.observe(document.body, { childList: true, subtree: true });
+
     var _idxBackLinkObserver = new MutationObserver(function() {
       var topNav = document.querySelector('#IDX-detailsTopNav');
       if (!topNav) return;
