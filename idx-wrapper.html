@@ -185,6 +185,15 @@
       }
     });
     _idxPlaceholderObserver.observe(document.body, { childList: true, subtree: true });
+
+    var _idxTourLabelObserver = new MutationObserver(function() {
+      document.querySelectorAll('.IDX-detailsVirtualTourAction').forEach(function(btn) {
+        if (btn.textContent.trim() === 'TOUR') {
+          btn.textContent = 'VIRTUAL TOUR';
+        }
+      });
+    });
+    _idxTourLabelObserver.observe(document.body, { childList: true, subtree: true });
   </script>
 
 </body>
