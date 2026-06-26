@@ -194,6 +194,19 @@
       });
     });
     _idxTourLabelObserver.observe(document.body, { childList: true, subtree: true });
+
+    var _idxBackLinkObserver = new MutationObserver(function() {
+      var topNav = document.querySelector('#IDX-detailsTopNav');
+      if (!topNav) return;
+      if (!document.querySelector('#IDX-backToResults')) {
+        var link = document.createElement('a');
+        link.id = 'IDX-backToResults';
+        link.href = 'https://thejaiswalgroup.idxbroker.com/idx/map/mapsearch';
+        link.innerHTML = '&larr; Back to Results';
+        topNav.insertBefore(link, topNav.firstChild);
+      }
+    });
+    _idxBackLinkObserver.observe(document.body, { childList: true, subtree: true });
   </script>
 
 </body>
