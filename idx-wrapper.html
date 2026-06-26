@@ -195,6 +195,22 @@
     });
     _idxTourLabelObserver.observe(document.body, { childList: true, subtree: true });
 
+    // Click anywhere in search field (when a zip/city tag is set) to clear it
+    document.addEventListener('click', function(e) {
+      var field = document.querySelector('.pm-ccz-fly-to-field-disabled');
+      if (!field || !field.contains(e.target)) return;
+      var rmBtn = field.querySelector('.rm-btn');
+      if (rmBtn) {
+        rmBtn.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+      } else {
+        field.querySelectorAll('.ti-tag button').forEach(function(b) { b.click(); });
+      }
+      setTimeout(function() {
+        var input = document.querySelector('.ti-new-tag-input');
+        if (input) { input.removeAttribute('disabled'); input.focus(); }
+      }, 150);
+    }, true);
+
     var _idxBackLinkObserver = new MutationObserver(function() {
       var topNav = document.querySelector('#IDX-detailsTopNav');
       if (!topNav) return;
