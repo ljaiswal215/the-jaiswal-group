@@ -217,8 +217,12 @@
       if (!document.querySelector('#IDX-backToResults')) {
         var link = document.createElement('a');
         link.id = 'IDX-backToResults';
-        link.href = 'https://thejaiswalgroup.idxbroker.com/idx/map/mapsearch';
+        link.href = '#';
         link.innerHTML = '&larr; Back to Results';
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          history.back();
+        });
         topNav.insertBefore(link, topNav.firstChild);
       }
     });
