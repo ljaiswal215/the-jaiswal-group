@@ -251,19 +251,49 @@
   </section>
   <script>
   (function(){
-    function hidePending(){
+    function initWidget(){
       var w=document.querySelector('idx-listings-showcase');
-      var ctx=(w&&w.shadowRoot)?w.shadowRoot:document.querySelector('.featured-properties');
-      if(!ctx) return;
-      ctx.querySelectorAll('.idx-listing-card__prop-status').forEach(function(badge){
+      if(!w||!w.shadowRoot){ setTimeout(initWidget,400); return; }
+
+      // Inject CRMLS logo styles
+      if(!w.shadowRoot.getElementById('tjg-hp-styles')){
+        var style=document.createElement('style');
+        style.id='tjg-hp-styles';
+        style.textContent=`
+          .idx-listing-card__courtesy { display: none !important; }
+          .idx-listing-card__wrap { position: relative !important; }
+          .idx-listing-card__details { padding-bottom: 2rem !important; }
+          .idx-listing-card__additional-info {
+            position: absolute !important;
+            bottom: 2rem !important;
+            right: 1rem !important;
+            background: transparent !important;
+            padding: 0 !important;
+            margin: 0 !important;
+          }
+          .idx-listing-card__mls {
+            background: transparent !important;
+            mix-blend-mode: multiply !important;
+          }
+          .idx-listing-card__mls img {
+            height: 38px !important;
+            width: auto !important;
+            mix-blend-mode: multiply !important;
+            background: transparent !important;
+          }
+        `;
+        w.shadowRoot.appendChild(style);
+      }
+
+      // Hide pending cards
+      w.shadowRoot.querySelectorAll('.idx-listing-card__prop-status').forEach(function(badge){
         if(badge.textContent.trim().toLowerCase()==='pending'){
           var card=badge.closest('.idx-listings-showcase__property');
           if(card) card.style.setProperty('display','none','important');
         }
       });
     }
-    setTimeout(hidePending,1000);
-    setTimeout(hidePending,3000);
+    setTimeout(initWidget,800);
   })();
   </script>
 
