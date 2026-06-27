@@ -226,11 +226,8 @@
       link.id = 'idx-advsearch-link';
       link.href = 'https://thejaiswalgroup.idxbroker.com/idx/search/advanced';
       link.textContent = 'Advanced Search';
-      link.style.cssText = 'font-family:Lato,sans-serif;font-size:11px;color:#18254B;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;text-decoration:none;border-bottom:1px solid #18254B;flex-shrink:0;';
-      header.style.display = 'flex';
-      header.style.alignItems = 'center';
-      header.style.justifyContent = 'space-between';
-      header.style.boxSizing = 'border-box';
+      link.style.cssText = 'position:absolute;right:8px;top:50%;transform:translateY(-50%);font-family:Lato,sans-serif;font-size:11px;color:#18254B;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;text-decoration:none;border-bottom:1px solid #18254B;';
+      header.style.position = 'relative';
       header.appendChild(link);
     }
     _idxAddAdvancedSearchLink();
