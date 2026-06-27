@@ -247,11 +247,12 @@
       });
       wrap.appendChild(label);
       wrap.appendChild(select);
-      var chipParent = chip.parentElement;
-      chipParent.style.display = 'flex';
-      chipParent.style.alignItems = 'center';
-      chipParent.style.flexWrap = 'nowrap';
-      chipParent.appendChild(wrap);
+      var header = chip.closest('#prime-map-search--results--header') || chip.parentElement.parentElement;
+      header.style.display = 'flex';
+      header.style.alignItems = 'center';
+      header.style.justifyContent = 'space-between';
+      header.style.boxSizing = 'border-box';
+      header.appendChild(wrap);
     }
     _idxAddSortDropdown();
     var _sortInterval = setInterval(function() {
