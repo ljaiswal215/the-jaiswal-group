@@ -250,69 +250,69 @@
   </section>
   <script>
   (function(){
-    var css = [
-      /* Grid layout */
-      '.featured-properties .idx-listings-showcase__columns{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:0.6rem!important;max-width:1400px!important;margin:0 auto!important;}',
-      '.featured-properties .idx-listings-showcase__property{display:block!important;width:100%!important;}',
-      /* Hide View All bar — no parent scope since widget may render outside .featured-properties */
+    /* All styling must go inside the widget's Shadow DOM — page CSS cannot reach it */
+    var shadowCSS=[
+      /* Hide View All header */
       '.idx-listings-showcase__header{display:none!important;}',
-      '.featured-properties .idx-listings-showcase__columns--actions,.featured-properties .idx-listings-showcase__actions{display:none!important;}',
+      /* Hide actions bar */
+      '.idx-listings-showcase__columns--actions,.idx-listings-showcase__actions{display:none!important;}',
+      /* 3-column grid, 0.6rem gap — matching EIR section */
+      '.idx-listings-showcase__properties{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:0.6rem!important;grid-gap:0.6rem!important;padding:0!important;width:100%!important;}',
       /* Card shell */
-      '.featured-properties [class*="listing-card__wrap"]{background:#fff!important;border:none!important;box-shadow:0 2px 16px rgba(24,37,75,0.07)!important;border-radius:0!important;overflow:hidden!important;}',
+      '.idx-listing-card__wrap{background:#fff!important;border:none!important;box-shadow:0 2px 16px rgba(24,37,75,0.07)!important;border-radius:0!important;overflow:hidden!important;}',
       /* Details panel */
-      '.featured-properties [class*="listing-card__details"]{padding:0.75rem 1rem 1rem!important;background:#F3EFE8!important;}',
+      '.idx-listing-card__details{padding:0.75rem 1rem 1rem!important;background:#F3EFE8!important;}',
       /* Price */
-      '.featured-properties [class*="listing-card__price"]{font-family:Marcellus,serif!important;font-size:1.15rem!important;color:#1C3063!important;font-weight:400!important;margin-bottom:4px!important;display:block!important;}',
-      /* Bed/bath/sqft fields */
-      '.featured-properties [class*="core-fields"]{font-family:Lato,sans-serif!important;font-size:0.75rem!important;color:#5a5250!important;margin-top:0.5rem!important;padding-top:0.5rem!important;border-top:1px solid rgba(179,137,135,0.3)!important;}',
-      '.featured-properties [class*="single-item"]{color:#5a5250!important;font-family:Lato,sans-serif!important;font-size:0.75rem!important;}',
+      '.listing-card__price,[class*="listing-card__price"]{font-family:Marcellus,serif!important;font-size:1.1rem!important;color:#1C3063!important;font-weight:400!important;margin-bottom:4px!important;display:block!important;}',
+      /* Bed/bath/sqft */
+      '.listing-card__core-fields,[class*="core-fields"]{font-family:Lato,sans-serif!important;font-size:0.75rem!important;color:#5a5250!important;margin-top:0.5rem!important;padding-top:0.5rem!important;border-top:1px solid rgba(179,137,135,0.3)!important;}',
+      '.listing-card__single-item,[class*="single-item"]{color:#5a5250!important;font-family:Lato,sans-serif!important;font-size:0.75rem!important;}',
       /* Address */
-      '.featured-properties [class*="listing-card__address"]{font-family:Lato,sans-serif!important;font-size:0.8rem!important;color:#5a5250!important;}',
+      '[class*="listing-card__address"]{font-family:Lato,sans-serif!important;font-size:0.8rem!important;color:#5a5250!important;}',
       /* Responsive */
-      '@media(max-width:900px){.featured-properties .idx-listings-showcase__columns{grid-template-columns:repeat(2,1fr)!important;}}',
-      '@media(max-width:540px){.featured-properties .idx-listings-showcase__columns{grid-template-columns:1fr!important;}}'
+      '@media(max-width:900px){.idx-listings-showcase__properties{grid-template-columns:repeat(2,1fr)!important;}}',
+      '@media(max-width:540px){.idx-listings-showcase__properties{grid-template-columns:1fr!important;}}'
     ].join('');
 
-    function applyOverrides(){
-      /* Inject CSS into head so it loads AFTER widget's own injected stylesheet */
-      if(!document.getElementById('fp-idx-override')){
+    function applyToShadow(sr){
+      /* Inject CSS once into shadow root */
+      if(!sr.querySelector('#fp-shadow-style')){
         var s=document.createElement('style');
-        s.id='fp-idx-override';
-        s.textContent=css;
-        document.head.appendChild(s);
+        s.id='fp-shadow-style';
+        s.textContent=shadowCSS;
+        sr.appendChild(s);
       }
-      var fp=document.querySelector('.featured-properties');
-      if(!fp) return;
       /* Hide View All bar */
-      fp.querySelectorAll('.idx-listings-showcase__header').forEach(function(el){
+      sr.querySelectorAll('.idx-listings-showcase__header').forEach(function(el){
         el.style.setProperty('display','none','important');
       });
       /* Limit to 3 cards */
-      var allCards=fp.querySelectorAll('.idx-listings-showcase__property');
+      var allCards=sr.querySelectorAll('.idx-listings-showcase__property');
       allCards.forEach(function(card,i){
         if(i>=3) card.style.setProperty('display','none','important');
       });
-      /* Hide Pending cards by status badge text */
-      fp.querySelectorAll('[class*="prop-status"]').forEach(function(el){
+      /* Hide Pending cards */
+      sr.querySelectorAll('[class*="prop-status"]').forEach(function(el){
         if(el.textContent.trim().toLowerCase()==='pending'){
-          var card=el.closest('[class*="showcase__property"]')||el.closest('[class*="idx-listing-card"]');
+          var card=el.closest('.idx-listings-showcase__property');
           if(card) card.style.setProperty('display','none','important');
         }
       });
-      /* Hide "Listed by:" attribution rows via text content match */
-      fp.querySelectorAll('*').forEach(function(el){
-        if(el.children.length===0 && el.textContent.trim().indexOf('Listed by:')===0){
-          var row=el.closest('[class*="additional"],[class*="attribution"],[class*="broker"],[class*="agent"]')||el.parentElement;
-          if(row) row.style.cssText='display:none!important';
+      /* Hide "Listed by:" attribution */
+      sr.querySelectorAll('*').forEach(function(el){
+        if(el.children.length===0&&el.textContent.trim().indexOf('Listed by:')===0){
+          if(el.parentElement) el.parentElement.style.setProperty('display','none','important');
         }
       });
-      /* Hide MLS/CRMLS logos */
-      fp.querySelectorAll('img').forEach(function(img){
-        var src=(img.src||'').toLowerCase(), alt=(img.alt||'').toLowerCase();
-        if(src.indexOf('crmls')>-1||src.indexOf('mls-')>-1||alt.indexOf('mls')>-1||alt.indexOf('crmls')>-1) img.style.cssText='display:none!important';
+      /* Hide CRMLS logos */
+      sr.querySelectorAll('img').forEach(function(img){
+        var src=(img.src||'').toLowerCase(),alt=(img.alt||'').toLowerCase();
+        if(src.indexOf('crmls')>-1||src.indexOf('mls-')>-1||alt.indexOf('mls')>-1||alt.indexOf('crmls')>-1){
+          img.style.setProperty('display','none','important');
+        }
       });
-      /* Square images — must use setProperty('important') to beat widget !important CSS */
-      fp.querySelectorAll('[class*="listing-card__image--wrap"]').forEach(function(wrap){
+      /* Square images */
+      sr.querySelectorAll('[class*="listing-card__image--wrap"]').forEach(function(wrap){
         wrap.style.setProperty('position','relative','important');
         wrap.style.setProperty('aspect-ratio','1/1','important');
         wrap.style.setProperty('overflow','hidden','important');
@@ -331,14 +331,10 @@
           img.style.setProperty('display','block','important');
         }
       });
-      /* Match EIR boundary — strip widget-added padding from grid container */
-      fp.querySelectorAll('[class*="showcase__columns"],[class*="showcase__properties"]').forEach(function(el){
-        el.style.setProperty('padding','0','important');
-      });
-      /* Re-sort visible cards by price descending (most expensive of newest first) */
-      var grid=fp.querySelector('[class*="showcase__properties"],[class*="showcase__columns"]:not([class*="actions"])');
+      /* Re-sort by price descending */
+      var grid=sr.querySelector('.idx-listings-showcase__properties');
       if(grid){
-        var cards=Array.from(grid.querySelectorAll('.idx-listings-showcase__property'));
+        var cards=Array.from(sr.querySelectorAll('.idx-listings-showcase__property'));
         if(cards.length>1){
           cards.forEach(function(c){
             var priceEl=c.querySelector('[class*="listing-card__price"]');
@@ -350,15 +346,29 @@
       }
     }
 
-    /* Run at DOMContentLoaded, plus delayed passes for async widget render */
-    document.addEventListener('DOMContentLoaded',function(){
-      applyOverrides();
-      setTimeout(applyOverrides,800);
-      setTimeout(applyOverrides,2500);
-      var fp=document.querySelector('.featured-properties');
-      if(fp) new MutationObserver(applyOverrides).observe(fp,{childList:true,subtree:true});
+    function init(){
+      var widget=document.querySelector('idx-listings-showcase');
+      if(widget&&widget.shadowRoot){
+        applyToShadow(widget.shadowRoot);
+        new MutationObserver(function(){applyToShadow(widget.shadowRoot);})
+          .observe(widget.shadowRoot,{childList:true,subtree:true});
+        return true;
+      }
+      return false;
+    }
+
+    var domObserver=new MutationObserver(function(){
+      if(init()) domObserver.disconnect();
     });
-    if(document.readyState!=='loading') applyOverrides();
+
+    document.addEventListener('DOMContentLoaded',function(){
+      if(!init()){
+        domObserver.observe(document.body,{childList:true,subtree:true});
+        setTimeout(init,800);
+        setTimeout(init,2500);
+      }
+    });
+    if(document.readyState!=='loading'){if(!init()) domObserver.observe(document.body,{childList:true,subtree:true});}
   })();
   </script>
 
