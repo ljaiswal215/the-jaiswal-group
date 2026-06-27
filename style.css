@@ -1430,7 +1430,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.6rem;
-  max-width: 1100px;
+  max-width: 1400px;
   margin: 2.5rem auto 0;
 }
 .blog-card {
@@ -1441,7 +1441,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 }
 .blog-card:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.1); transform: translateY(-4px); }
 .blog-img {
-  aspect-ratio: 1/1;
+  aspect-ratio: 5/4;
   height: auto;
   background-size: cover;
   background-position: center;
