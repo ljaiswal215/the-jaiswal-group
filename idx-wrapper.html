@@ -209,6 +209,56 @@
     new MutationObserver(_abbreviateAllLabels).observe(document.body, { childList: true, subtree: true });
 
 
+    // Sort dropdown — injected into the results header bar
+    function _idxAddSortDropdown() {
+      if (document.querySelector('#idx-sort-wrap')) return;
+      var header = document.querySelector('#prime-map-search--results--header');
+      if (!header) return;
+      var currentSort = new URLSearchParams(window.location.search).get('srt') || '';
+      var wrap = document.createElement('div');
+      wrap.id = 'idx-sort-wrap';
+      wrap.style.cssText = 'display:flex;align-items:center;margin-left:auto;';
+      var label = document.createElement('label');
+      label.textContent = 'Sort:';
+      label.htmlFor = 'idx-sort-select';
+      label.style.cssText = 'font-family:Lato,sans-serif;font-size:11px;color:#18254B;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;margin-right:6px;';
+      var select = document.createElement('select');
+      select.id = 'idx-sort-select';
+      select.style.cssText = 'font-family:Lato,sans-serif;font-size:12px;color:#18254B;border:1px solid #18254B;border-radius:3px;padding:3px 6px;cursor:pointer;background:#ffffff;';
+      [
+        ['', 'Default'],
+        ['newest', 'Newest'],
+        ['oldest', 'Oldest'],
+        ['prd', 'Price (High to Low)'],
+        ['pra', 'Price (Low to High)'],
+        ['sqftd', 'Sq Ft (High to Low)'],
+        ['sqfta', 'Sq Ft (Low to High)']
+      ].forEach(function(opt) {
+        var o = document.createElement('option');
+        o.value = opt[0]; o.textContent = opt[1];
+        if (opt[0] === currentSort) o.selected = true;
+        select.appendChild(o);
+      });
+      select.addEventListener('change', function() {
+        var url = new URL(window.location.href);
+        if (select.value) url.searchParams.set('srt', select.value);
+        else url.searchParams.delete('srt');
+        window.location.href = url.toString();
+      });
+      wrap.appendChild(label);
+      wrap.appendChild(select);
+      header.style.display = 'flex';
+      header.style.alignItems = 'center';
+      header.appendChild(wrap);
+    }
+    _idxAddSortDropdown();
+    var _sortInterval = setInterval(function() {
+      _idxAddSortDropdown();
+      if (document.querySelector('#idx-sort-wrap')) clearInterval(_sortInterval);
+    }, 500);
+    setTimeout(function() { clearInterval(_sortInterval); }, 30000);
+    new MutationObserver(_idxAddSortDropdown).observe(document.body, { childList: true, subtree: true });
+
     var _idxPlaceholderObserver = new MutationObserver(function() {
       var input = document.querySelector('.ti-new-tag-input');
       if (input && (input.placeholder === 'City, County, Zip' || input.placeholder === 'City, Neighborhood, ZIP Code')) {
