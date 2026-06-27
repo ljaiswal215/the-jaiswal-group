@@ -1977,6 +1977,102 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 }
 
 /* ============================================================
+   FEATURED PROPERTIES — IDX WIDGET OVERRIDES
+============================================================ */
+
+/* Hide VIEW MORE button, View All link, agent attribution, CRMLS logo */
+.featured-properties .idx-listings-showcase__columns--actions,
+.featured-properties .idx-listings-showcase__actions,
+.featured-properties .idx-listing-card__additional-info,
+.featured-properties .idx-listing-card__image--wrap .idx-listing-card__single-item.idx-listing-card__prop-status { display: none !important; }
+
+/* 3-column grid */
+.featured-properties .idx-listings-showcase__columns {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 0.6rem !important;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.featured-properties .idx-listings-showcase__property {
+  display: block !important;
+  width: 100% !important;
+}
+
+/* Card */
+.featured-properties .idx-listing-card__wrap {
+  background: #fff;
+  border: none !important;
+  box-shadow: 0 2px 16px rgba(24,37,75,0.07);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  border-radius: 0;
+}
+.featured-properties .idx-listing-card__wrap:hover {
+  box-shadow: 0 8px 40px rgba(24,37,75,0.14);
+  transform: translateY(-3px);
+}
+
+/* Image */
+.featured-properties .idx-listing-card__image--wrap img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Details area */
+.featured-properties .idx-listing-card__details {
+  padding: 1rem 1.25rem 1.25rem;
+  background: #fff;
+}
+
+/* Price */
+.featured-properties .listing-card__price {
+  font-family: 'Marcellus', serif !important;
+  font-size: 1.35rem !important;
+  color: #1C3063 !important;
+  font-weight: 400 !important;
+  margin-bottom: 6px !important;
+}
+
+/* Beds / baths / sqft */
+.featured-properties .listing-card__core-fields {
+  font-family: 'Lato', sans-serif !important;
+  font-size: 0.78rem !important;
+  color: #5a5250 !important;
+  letter-spacing: 0.04em;
+  margin-top: 0.6rem !important;
+  padding-top: 0.6rem !important;
+  border-top: 1px solid rgba(179,137,135,0.3) !important;
+}
+.featured-properties .listing-card__single-item {
+  color: #5a5250 !important;
+  font-family: 'Lato', sans-serif !important;
+  font-size: 0.78rem !important;
+}
+
+/* Status badge (Active etc.) */
+.featured-properties .idx-listing-card__single-item.idx-listing-card__prop-status {
+  font-family: 'Lato', sans-serif !important;
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  background: #1C3063 !important;
+  color: #fff !important;
+  padding: 3px 10px !important;
+  border-radius: 0 !important;
+}
+
+@media (max-width: 900px) {
+  .featured-properties .idx-listings-showcase__columns { grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 540px) {
+  .featured-properties .idx-listings-showcase__columns { grid-template-columns: 1fr !important; }
+}
+
+/* ============================================================
    UTILITY
 ============================================================ */
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
