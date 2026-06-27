@@ -1441,7 +1441,8 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 }
 .blog-card:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.1); transform: translateY(-4px); }
 .blog-img {
-  height: 200px;
+  aspect-ratio: 1/1;
+  height: auto;
   background-size: cover;
   background-position: center;
   transition: transform 0.5s;
