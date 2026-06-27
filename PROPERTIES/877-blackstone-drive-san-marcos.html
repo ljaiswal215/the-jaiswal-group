@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>877 Blackstone Drive, San Marcos CA 92078 | $650,000 | The Jaiswal Group</title>
+  <meta name="description" content="2 bed, 2 bath, 1,251 sq ft modern home in gated Rancho Tesoro. Built 2021 with paid solar, EV charging, quartz kitchen, and bonus flex space. Listed at $650,000." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* ── GALLERY ── */
+    .prop-gallery { background: #111; }
+    .prop-gallery__main {
+      position: relative;
+      width: 100%;
+      max-height: 70vh;
+      overflow: hidden;
+      cursor: zoom-in;
+    }
+    .prop-gallery__main img {
+      width: 100%;
+      height: 70vh;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.25s ease;
+    }
+    .prop-gallery__main img.loading { opacity: 0.6; }
+    .prop-gallery__thumbs {
+      display: flex;
+      gap: 4px;
+      padding: 4px;
+      background: #111;
+      overflow-x: auto;
+    }
+    .prop-gallery__thumbs::-webkit-scrollbar { height: 4px; }
+    .prop-gallery__thumbs::-webkit-scrollbar-thumb { background: #444; }
+    .gallery-thumb {
+      flex-shrink: 0;
+      width: 110px;
+      height: 72px;
+      object-fit: cover;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: opacity 0.15s;
+      display: block;
+    }
+    .gallery-thumb:hover, .gallery-thumb.active { opacity: 1; }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox__img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      display: block;
+    }
+    .lightbox__close, .lightbox__prev, .lightbox__next {
+      position: absolute;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.5rem;
+      line-height: 1;
+      border-radius: 2px;
+      transition: background 0.15s;
+    }
+    .lightbox__close:hover, .lightbox__prev:hover, .lightbox__next:hover { background: rgba(255,255,255,0.25); }
+    .lightbox__close { top: 1rem; right: 1rem; padding: 0.5rem 0.8rem; font-size: 1.4rem; }
+    .lightbox__prev { left: 1rem; top: 50%; transform: translateY(-50%); padding: 1rem 1.1rem; }
+    .lightbox__next { right: 1rem; top: 50%; transform: translateY(-50%); padding: 1rem 1.1rem; }
+    .lightbox__counter { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.6); font-family: 'Lato', sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; }
+
+    /* ── PROPERTY HEADER ── */
+    .prop-header {
+      background: #F3EFE8;
+      padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 5vw, 4rem);
+      border-bottom: 1px solid rgba(28,48,99,0.08);
+    }
+    .prop-header__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .prop-header__left {}
+    .prop-status-badge {
+      display: inline-block;
+      background: #1C3063;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      margin-bottom: 0.75rem;
+    }
+    .prop-header__price {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: #1C3063;
+      font-weight: 400;
+      margin: 0 0 0.25rem;
+      line-height: 1;
+    }
+    .prop-header__address {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.95rem;
+      color: #5a5250;
+      margin: 0 0 1rem;
+      letter-spacing: 0.02em;
+    }
+    .prop-header__specs {
+      display: flex;
+      gap: 0.5rem 2rem;
+      flex-wrap: wrap;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .prop-header__specs li {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.82rem;
+      color: #3a4a6b;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .prop-header__specs li strong {
+      font-weight: 700;
+      color: #1C3063;
+    }
+    .prop-header__right { flex-shrink: 0; }
+    .prop-header__cta-btn {
+      display: inline-block;
+      background: #B38987;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.9rem 2rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .prop-header__cta-btn:hover { background: #9e7472; }
+
+    /* ── BODY ── */
+    .prop-body {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 5vw, 4rem);
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: clamp(2rem, 4vw, 4rem);
+      align-items: start;
+    }
+
+    /* ── DESCRIPTION ── */
+    .prop-description {}
+    .prop-section-label {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #B38987;
+      margin-bottom: 0.5rem;
+    }
+    .prop-section-title {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.2rem, 2vw, 1.6rem);
+      color: #18254B;
+      letter-spacing: 0.06em;
+      margin: 0 0 1.25rem;
+    }
+    .prop-desc-text p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      color: #3a4a6b;
+      line-height: 1.95;
+      margin-bottom: 0.9rem;
+    }
+    .prop-desc-text p:last-child { margin-bottom: 0; }
+
+    /* ── FEATURES ── */
+    .prop-features { margin-top: 2.5rem; }
+    .prop-features-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem 2rem;
+      list-style: none;
+      padding: 0;
+      margin: 1rem 0 0;
+    }
+    .prop-features-grid li {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.82rem;
+      color: #3a4a6b;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(179,137,135,0.2);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .prop-features-grid li::before {
+      content: '';
+      display: block;
+      width: 5px;
+      height: 5px;
+      background: #B38987;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── CONTACT SIDEBAR ── */
+    .prop-contact-wrap {
+      position: sticky;
+      top: 100px;
+    }
+    .prop-contact-card {
+      background: #18254B;
+      color: #fff;
+      padding: 2rem 1.75rem;
+    }
+    .prop-contact-agent {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .prop-contact-agent img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      object-position: top;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .prop-contact-agent-info {}
+    .prop-contact-agent-name {
+      font-family: 'Marcellus', serif;
+      font-size: 0.95rem;
+      color: #fff;
+      margin: 0 0 0.2rem;
+    }
+    .prop-contact-agent-title {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #B38987;
+      margin: 0 0 0.2rem;
+    }
+    .prop-contact-agent-phone {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+    }
+    .prop-contact-heading {
+      font-family: 'Marcellus', serif;
+      font-size: 1rem;
+      color: #fff;
+      letter-spacing: 0.06em;
+      margin: 0 0 1.25rem;
+    }
+    .prop-contact-form { display: flex; flex-direction: column; gap: 0.75rem; }
+    .prop-contact-form input,
+    .prop-contact-form textarea,
+    .prop-contact-form select {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.82rem;
+      padding: 0.75rem 0.9rem;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.15s;
+    }
+    .prop-contact-form input::placeholder,
+    .prop-contact-form textarea::placeholder { color: rgba(255,255,255,0.4); }
+    .prop-contact-form input:focus,
+    .prop-contact-form textarea:focus { border-color: #B38987; }
+    .prop-contact-form textarea { min-height: 100px; resize: vertical; }
+    .prop-contact-form select { color: rgba(255,255,255,0.7); }
+    .prop-contact-form select option { background: #18254B; }
+    .prop-contact-submit {
+      background: #B38987;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border: none;
+      padding: 0.9rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      width: 100%;
+    }
+    .prop-contact-submit:hover { background: #9e7472; }
+    .prop-contact-success {
+      display: none;
+      text-align: center;
+      padding: 1.5rem 0;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+    }
+    .prop-contact-success strong { color: #B38987; display: block; margin-bottom: 0.5rem; font-size: 0.9rem; }
+    .prop-contact-legal {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.62rem;
+      color: rgba(255,255,255,0.35);
+      margin-top: 0.75rem;
+      line-height: 1.6;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .prop-body { grid-template-columns: 1fr; }
+      .prop-contact-wrap { position: static; }
+      .prop-features-grid { grid-template-columns: 1fr; }
+      .prop-gallery__main img { height: 50vw; min-height: 240px; }
+    }
+    @media (max-width: 540px) {
+      .prop-header__inner { flex-direction: column; }
+      .prop-header__right { width: 100%; }
+      .prop-header__cta-btn { width: 100%; text-align: center; display: block; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================
+       HEADER / NAV
+  ========================================================= -->
+  <header class="site-header" id="site-header">
+    <div class="header-top"><div class="social-icons">
+      <a href="https://www.facebook.com/LynnetteJaiswalRealtor" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      <a href="https://www.instagram.com/lynnettejaiswalrealtor/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      <a href="https://www.youtube.com/@LynnetteJaiswalRealtor" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+    </div></div>
+    <nav class="main-nav">
+      <a href="../index.html" class="nav-logo">
+        <img src="../LOGOS/JaiswalGroupRE_white.png" class="logo-white" alt="The Jaiswal Group Real Estate" />
+        <img src="../logo.png" class="logo-color" alt="The Jaiswal Group Real Estate" />
+      </a>
+      <ul class="nav-links">
+        <li class="has-dropdown">
+          <a href="#">BUY A HOME <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="http://thejaiswalgroup.idxbroker.com/idx/featured">Featured Listings</a></li>
+            <li><a href="http://thejaiswalgroup.idxbroker.com/idx/map/mapsearch">Search for Homes</a></li>
+            <li><a href="#">New Construction</a></li>
+            <li><a href="../buyers-guide.html">Buyer's Guide</a></li>
+            <li><a href="../buyer-faq.html">Buyer FAQ</a></li>
+            <li><a href="#">Mortgage Calculator</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">SELL YOUR HOME <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="../seller-consultation.html">Seller Consultation</a></li>
+            <li><a href="../home-valuation.html">Home Valuation</a></li>
+            <li><a href="#">Our Marketing</a></li>
+            <li><a href="../sellers-guide.html">Seller's Guide</a></li>
+            <li><a href="#">Selling Checklist</a></li>
+          </ul>
+        </li>
+        <li><a href="../communities.html">COMMUNITIES</a></li>
+        <li><a href="../BLOG/blog.html">BLOG</a></li>
+        <li class="has-dropdown">
+          <a href="#">RESOURCES <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="#">Market Updates</a></li>
+            <li><a href="#">Lender Partners</a></li>
+            <li><a href="#">Mortgage Calculator</a></li>
+            <li><a href="#">Relocation Guide</a></li>
+            <li><a href="#">The Plugged In Method</a></li>
+            <li class="has-subdropdown">
+              <a href="#">Videos</a>
+              <ul class="subdropdown">
+                <li><a href="https://www.youtube.com/@LynnetteJaiswalRealtor" target="_blank" rel="noopener">YouTube Channel</a></li>
+                <li><a href="../buyers-guide-videos.html">Buyer Video Series</a></li>
+                <li><a href="../sellers-guide-videos.html">Seller Video Series</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">ABOUT US <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="#">Lynnette Jaiswal</a></li>
+            <li><a href="../clientreviews.html">Client Reviews</a></li>
+            <li><a href="#">Join Our Team</a></li>
+          </ul>
+        </li>
+        <li><a href="../contact.html">CONTACT</a></li>
+        <li class="nav-phone"><a href="tel:8582907531">(858) 290-7531</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Menu" id="hamburger"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <ul>
+        <li><a href="#">Buy a Home</a></li>
+        <li><a href="#">Sell Your Home</a></li>
+        <li><a href="../communities.html">Communities</a></li>
+        <li><a href="../BLOG/blog.html">Blog</a></li>
+        <li><a href="#">Resources</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="tel:8582907531">(858) 290-7531</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       PHOTO GALLERY
+       To add more photos: add more entries to the photos array
+       in the <script> block at the bottom, and add a matching
+       <img class="gallery-thumb"> element in this section.
+  ========================================================= -->
+  <div class="prop-gallery">
+    <div class="prop-gallery__main" id="gallery-main" onclick="openLightbox()">
+      <img id="gallery-main-img" src="../hotw-photo.jpg" alt="877 Blackstone Drive, San Marcos — Living Room" />
+    </div>
+    <div class="prop-gallery__thumbs" id="gallery-thumbs">
+      <img src="../hotw-photo.jpg" alt="Living Room" class="gallery-thumb active" onclick="switchPhoto(0)" />
+      <!-- Add more thumb images here as you receive additional photos -->
+    </div>
+  </div>
+
+  <!-- =========================================================
+       PROPERTY HEADER
+  ========================================================= -->
+  <div class="prop-header">
+    <div class="prop-header__inner">
+      <div class="prop-header__left">
+        <span class="prop-status-badge">Active</span>
+        <h1 class="prop-header__price">$650,000</h1>
+        <p class="prop-header__address">877 Blackstone Drive, San Marcos, CA 92078</p>
+        <ul class="prop-header__specs">
+          <li><strong>2</strong>&nbsp;Bedrooms</li>
+          <li><strong>2</strong>&nbsp;Bathrooms</li>
+          <li><strong>1,251</strong>&nbsp;Sq. Ft.</li>
+          <li><strong>2021</strong>&nbsp;Year Built</li>
+          <li>Rancho Tesoro &mdash; Gated Community</li>
+        </ul>
+      </div>
+      <div class="prop-header__right">
+        <a href="#contact-form" class="prop-header__cta-btn">SCHEDULE A TOUR</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       BODY: DESCRIPTION + FEATURES | CONTACT FORM
+  ========================================================= -->
+  <div class="prop-body">
+
+    <!-- Left column -->
+    <div class="prop-main-col">
+
+      <div class="prop-description">
+        <p class="prop-section-label">About This Home</p>
+        <h2 class="prop-section-title">LIVE. WORK. RELAX.</h2>
+        <div class="prop-desc-text">
+          <p>Welcome home to this modern sanctuary nestled within the gated community of Rancho Tesoro in North City San Marcos. Thoughtfully designed and built in 2021, this residence embodies the essence of contemporary California living — where comfort, efficiency, and flexibility come together seamlessly.</p>
+          <p>This 2-bedroom, 2-bath, 1,251 sq. ft. home offers a highly functional layout enhanced by a versatile bonus space on the entry level — ideal for a home office, gym, media room, or additional living area. The main living level features an open-concept design connecting the kitchen, dining, and living areas.</p>
+          <p>The chef-inspired kitchen includes quartz countertops, upgraded cabinetry, stainless steel appliances, and a peninsula with bar seating. The primary suite provides a comfortable retreat, complete with a walk-in closet and a well-appointed ensuite bath featuring dual vanities and a spacious walk-in shower. A secondary bedroom and full bathroom offer additional flexibility for guests or extended use.</p>
+          <p>Elevated features throughout the home include luxury vinyl plank flooring, upgraded carpeting, recessed lighting, a whole house fan, tankless water heater, fully paid solar, and an attached 2-car garage equipped with EV charging capability — delivering both comfort and long-term energy efficiency.</p>
+        </div>
+      </div>
+
+      <div class="prop-features">
+        <p class="prop-section-label">Property Highlights</p>
+        <h2 class="prop-section-title">FEATURES &amp; UPGRADES</h2>
+        <ul class="prop-features-grid">
+          <li>Built 2021 — like new condition</li>
+          <li>Gated community — Rancho Tesoro</li>
+          <li>Versatile bonus / flex space</li>
+          <li>Open-concept main living level</li>
+          <li>Quartz countertops</li>
+          <li>Upgraded cabinetry</li>
+          <li>Stainless steel appliances</li>
+          <li>Peninsula with bar seating</li>
+          <li>Primary suite with walk-in closet</li>
+          <li>Dual vanity ensuite bath</li>
+          <li>Walk-in shower</li>
+          <li>Secondary bedroom + full bath</li>
+          <li>Luxury vinyl plank flooring</li>
+          <li>Upgraded carpeting</li>
+          <li>Recessed lighting throughout</li>
+          <li>Whole house fan</li>
+          <li>Tankless water heater</li>
+          <li>Fully paid solar</li>
+          <li>Attached 2-car garage</li>
+          <li>EV charging capability</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Right column: sticky contact card -->
+    <div class="prop-contact-wrap" id="contact-form">
+      <div class="prop-contact-card">
+        <div class="prop-contact-agent">
+          <img src="../Lynnette-torreypinesbackground.jpg" alt="Lynnette Jaiswal" />
+          <div class="prop-contact-agent-info">
+            <p class="prop-contact-agent-name">Lynnette Jaiswal</p>
+            <p class="prop-contact-agent-title">The Jaiswal Group Real Estate</p>
+            <a href="tel:8582907531" class="prop-contact-agent-phone">(858) 290-7531</a>
+          </div>
+        </div>
+        <p class="prop-contact-heading">INQUIRE ABOUT THIS HOME</p>
+        <form class="prop-contact-form" id="prop-inquiry-form" action="https://formspree.io/f/xreveowp" method="POST">
+          <input type="hidden" name="property" value="877 Blackstone Drive, San Marcos CA 92078 — $650,000" />
+          <input type="text" name="name" placeholder="Full Name" required autocomplete="name" />
+          <input type="email" name="email" placeholder="Email Address" required autocomplete="email" />
+          <input type="tel" name="phone" placeholder="Phone Number" autocomplete="tel" />
+          <select name="inquiry_type">
+            <option value="" disabled selected>I'm interested in...</option>
+            <option value="Schedule a Tour">Schedule a Tour</option>
+            <option value="Get More Information">Get More Information</option>
+            <option value="Make an Offer">Make an Offer</option>
+            <option value="Financing Questions">Financing Questions</option>
+          </select>
+          <textarea name="message" placeholder="Message (optional)"></textarea>
+          <button type="submit" class="prop-contact-submit">SEND INQUIRY</button>
+        </form>
+        <div class="prop-contact-success" id="inquiry-success">
+          <strong>Message Received</strong>
+          Thank you — Lynnette will be in touch shortly to assist you with this property.
+        </div>
+        <p class="prop-contact-legal">By submitting this form you agree to be contacted by The Jaiswal Group Real Estate regarding this property. Your information will not be shared with third parties.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================= -->
+  <footer class="site-footer">
+    <div class="footer-info">
+      <div class="footer-info-col footer-info-col--logo"><img src="../LOGOS/JaiswalGroupRE_white.png" alt="The Jaiswal Group Real Estate" class="footer-logo" /></div>
+      <div class="footer-info-col"><div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="footer-info-text"><p class="footer-info-label">OFFICE ADDRESS</p><p>5450 INDIGO SAGE DRIVE<br>SAN DIEGO, CA 92130</p><p class="footer-info-label" style="margin-top:1.25rem;">MAILING ADDRESS</p><p>PO BOX 3102<br>RANCHO SANTA FE, CA 92067</p><p style="margin-top:1rem;white-space:nowrap;">LYNNETTE JAISWAL &nbsp;|&nbsp; CA DRE #02100367</p><p style="margin-top:0.4rem;white-space:nowrap;">THE JAISWAL GROUP, INC &nbsp;|&nbsp; CA DRE #02251231</p></div></div>
+      <div class="footer-info-col"><div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg></div><div class="footer-info-text"><p class="footer-info-label">EMAIL</p><p><a href="mailto:Lynnette@thejaiswalgroup.com">LYNNETTE@THEJAISWALGROUP.COM</a></p></div></div>
+      <div class="footer-info-col"><div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg></div><div class="footer-info-text"><p class="footer-info-label">PHONE</p><p><a href="tel:8582907531">(858) 290-7531</a></p></div></div>
+    </div>
+    <div class="footer-disclaimer-block"><p>The Jaiswal Group Real Estate is a real estate broker licensed by the State of California and abides by Equal Housing Opportunity laws. License Number #02251231. All material presented herein is intended for informational purposes only and is compiled from sources deemed reliable but has not been verified. Changes in price, condition, sale or withdrawal may be made without notice. No statement is made as to accuracy of any description. All measurements and square footage are approximate.</p><div class="footer-compliance-logos"><img src="../logorealtor.png" alt="Realtor" class="footer-compliance-logo" /><img src="../logoEHO.png" alt="Equal Housing Opportunity" class="footer-compliance-logo" /><img src="../logo-NSDCAR.png" alt="North San Diego County Realtors" class="footer-compliance-logo" /></div></div>
+    <div class="footer-bottom"><div class="footer-bottom-left"><span>&copy; 2026 The Jaiswal Group Real Estate</span><a href="../privacy-policy.html">Privacy Policy</a><a href="#">Site Map</a></div><div class="footer-social"><a href="https://www.facebook.com/LynnetteJaiswalRealtor" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a><a href="https://www.instagram.com/lynnettejaiswalrealtor/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a href="https://www.youtube.com/@LynnetteJaiswalRealtor" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a></div></div>
+  </footer>
+
+  <!-- =========================================================
+       LIGHTBOX
+  ========================================================= -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__close" onclick="closeLightbox()">&#10005;</button>
+    <button class="lightbox__prev" onclick="lightboxNav(-1)">&#8249;</button>
+    <img class="lightbox__img" id="lightbox-img" src="" alt="" />
+    <button class="lightbox__next" onclick="lightboxNav(1)">&#8250;</button>
+    <span class="lightbox__counter" id="lightbox-counter"></span>
+  </div>
+
+  <script src="../main.js"></script>
+  <script>
+    // ── GALLERY ──────────────────────────────────────────────
+    // Add more photos here: { src: 'path/to/photo.jpg', alt: 'description' }
+    var photos = [
+      { src: '../hotw-photo.jpg', alt: '877 Blackstone Drive — Living Room' }
+    ];
+
+    var currentIndex = 0;
+
+    function switchPhoto(index) {
+      currentIndex = index;
+      var mainImg = document.getElementById('gallery-main-img');
+      mainImg.classList.add('loading');
+      mainImg.src = photos[index].src;
+      mainImg.alt = photos[index].alt;
+      mainImg.onload = function() { mainImg.classList.remove('loading'); };
+      document.querySelectorAll('.gallery-thumb').forEach(function(t, i) {
+        t.classList.toggle('active', i === index);
+      });
+    }
+
+    // ── LIGHTBOX ─────────────────────────────────────────────
+    function openLightbox() {
+      var lb = document.getElementById('lightbox');
+      document.getElementById('lightbox-img').src = photos[currentIndex].src;
+      document.getElementById('lightbox-img').alt = photos[currentIndex].alt;
+      updateCounter();
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function lightboxNav(dir) {
+      currentIndex = (currentIndex + dir + photos.length) % photos.length;
+      document.getElementById('lightbox-img').src = photos[currentIndex].src;
+      document.getElementById('lightbox-img').alt = photos[currentIndex].alt;
+      updateCounter();
+      switchPhoto(currentIndex);
+    }
+
+    function updateCounter() {
+      document.getElementById('lightbox-counter').textContent = (currentIndex + 1) + ' / ' + photos.length;
+    }
+
+    document.getElementById('lightbox').addEventListener('click', function(e) {
+      if (e.target === this) closeLightbox();
+    });
+
+    document.addEventListener('keydown', function(e) {
+      var lb = document.getElementById('lightbox');
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') lightboxNav(-1);
+      if (e.key === 'ArrowRight') lightboxNav(1);
+    });
+
+    // ── CONTACT FORM ─────────────────────────────────────────
+    document.getElementById('prop-inquiry-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var form = this;
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(function(res) {
+        if (res.ok) {
+          form.style.display = 'none';
+          document.getElementById('inquiry-success').style.display = 'block';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
