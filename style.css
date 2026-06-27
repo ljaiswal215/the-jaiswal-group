@@ -763,7 +763,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
    NEIGHBORHOODS
 ============================================================ */
 .neighborhoods {
-  padding: clamp(1.5rem, 2.5vw, 2.5rem) 0 0;
+  padding: clamp(0.75rem, 1.5vw, 1.25rem) 0 0;
   background: #F6F6F4;
 }
 .neighborhoods-header {
