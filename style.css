@@ -1839,64 +1839,124 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 ============================================================ */
 /* ── HOME OF THE WEEK ── */
 .hotw-section {
-  background: #F3EFE8;
-  padding: clamp(2rem, 4vw, 3.5rem) 10px;
-}
-.hotw-wrap {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 3fr 2fr;
-  gap: clamp(2rem, 4vw, 4rem);
-  align-items: center;
-}
-.hotw-image img {
+  position: relative;
   width: 100%;
-  aspect-ratio: 4/3;
+  height: 78vh;
+  min-height: 500px;
+  overflow: hidden;
+}
+.hotw-bg {
+  position: absolute;
+  inset: 0;
+}
+.hotw-bg img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
-.hotw-details {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.hotw-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(24,37,75,0.04) 25%,
+    rgba(24,37,75,0.82) 100%
+  );
+}
+.hotw-badge {
+  position: absolute;
+  top: 2rem;
+  right: 0;
+  background: #B38987;
+  color: #fff;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.55rem 1.5rem;
+}
+.hotw-content {
+  position: absolute;
+  bottom: clamp(2.5rem, 6vh, 5rem);
+  right: clamp(2rem, 6vw, 5rem);
+  text-align: right;
+  max-width: 480px;
+}
+.hotw-eyebrow {
+  display: block;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #B38987;
+  margin-bottom: 0.75rem;
 }
 .hotw-price {
   font-family: 'Marcellus', serif;
-  font-size: clamp(1.6rem, 3vw, 2.4rem);
-  color: #1C3063;
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  color: #fff;
   font-weight: 400;
-  margin: 0;
-  line-height: 1.1;
+  margin: 0 0 0.4rem;
+  line-height: 1;
 }
-.hotw-address {
-  font-family: 'Lato', sans-serif;
-  font-size: 0.95rem;
-  color: #5a5250;
+.hotw-street {
+  font-family: 'Marcellus', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+  color: #fff;
   margin: 0;
-  letter-spacing: 0.02em;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+}
+.hotw-city {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.07em;
+  margin: 0.5rem 0 1.1rem;
 }
 .hotw-specs {
-  list-style: none;
-  padding: 0.75rem 0;
-  margin: 0;
-  display: flex;
-  gap: 1.5rem;
   font-family: 'Lato', sans-serif;
-  font-size: 0.85rem;
-  color: #5a5250;
-  border-top: 1px solid rgba(179,137,135,0.4);
-  border-bottom: 1px solid rgba(179,137,135,0.4);
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 0.06em;
+  margin: 0 0 1.75rem;
 }
-.hotw-desc {
+.hotw-link {
+  display: inline-block;
+  color: #fff;
   font-family: 'Lato', sans-serif;
-  font-size: 0.9rem;
-  color: #5a5250;
-  line-height: 1.75;
-  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,255,255,0.55);
+  padding-bottom: 3px;
+  transition: color 0.2s, border-color 0.2s;
 }
-@media (max-width: 768px) {
-  .hotw-wrap { grid-template-columns: 1fr; }
+.hotw-link:hover {
+  color: #B38987;
+  border-color: #B38987;
+}
+@media (max-width: 640px) {
+  .hotw-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(24,37,75,0.92) 0%,
+      rgba(24,37,75,0.15) 55%
+    );
+  }
+  .hotw-content {
+    bottom: 2rem;
+    right: 1.25rem;
+    left: 1.25rem;
+    text-align: left;
+    max-width: 100%;
+  }
+  .hotw-badge { top: 1.25rem; }
 }
 
 .featured-properties {
