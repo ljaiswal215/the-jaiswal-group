@@ -1839,11 +1839,11 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
    FEATURED PROPERTIES
 ============================================================ */
 .featured-properties {
-  padding: clamp(1.5rem, 2.5vw, 2.5rem) 10px;
+  padding: 0.5rem 10px;
   background: #fff;
 }
 .fp-header {
-  margin-bottom: 1.75rem;
+  margin-bottom: 0.75rem;
 }
 .fp-widget-wrap {
   max-width: 1400px;
