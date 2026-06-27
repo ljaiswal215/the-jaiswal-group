@@ -950,7 +950,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 ============================================================ */
 .eir-section {
   background: #F8F4F2;
-  padding: clamp(1.5rem, 2.5vw, 2rem) 18px clamp(2rem, 4vw, 3rem);
+  padding: clamp(1.5rem, 2.5vw, 2rem) 10px clamp(2rem, 4vw, 3rem);
   text-align: center;
 }
 .eir-headline {
@@ -1090,7 +1090,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
    TESTIMONIALS
 ============================================================ */
 .testimonials {
-  padding: clamp(1.5rem, 2.5vw, 2.5rem) 18px;
+  padding: clamp(1.5rem, 2.5vw, 2.5rem) 10px;
   background: #F6F6F4;
   overflow: hidden;
 }
@@ -1410,7 +1410,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
    BLOG
 ============================================================ */
 .blog-section {
-  padding: clamp(1.5rem, 2.5vw, 2.5rem) 18px;
+  padding: clamp(1.5rem, 2.5vw, 2.5rem) 10px;
   background: white;
 }
 .blog-section .section-eyebrow {
@@ -1830,7 +1830,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
    FEATURED PROPERTIES
 ============================================================ */
 .featured-properties {
-  padding: clamp(1.5rem, 2.5vw, 2.5rem) 18px;
+  padding: clamp(1.5rem, 2.5vw, 2.5rem) 10px;
   background: #fff;
 }
 .fp-header {
