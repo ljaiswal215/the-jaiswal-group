@@ -209,17 +209,28 @@
     new MutationObserver(_abbreviateAllLabels).observe(document.body, { childList: true, subtree: true });
 
 
-    // Advanced Search link — right-aligned in results header bar
+    // Hide ADDRESS / ADVANCED SEARCH search-type toggle buttons
+    function _hideSearchTypeToggles() {
+      document.querySelectorAll('button').forEach(function(btn) {
+        var t = btn.textContent.trim();
+        if (t === 'ADDRESS' || t === 'ADVANCED SEARCH') {
+          btn.style.display = 'none';
+        }
+      });
+    }
+    _hideSearchTypeToggles();
+    new MutationObserver(_hideSearchTypeToggles).observe(document.body, { childList: true, subtree: true });
+
+    // Advanced Search link — directly above listing cards, right-aligned
     function _idxAddAdvancedSearchLink() {
       if (document.querySelector('#idx-advsearch-link')) return;
-      var chip = document.querySelector('#listing-results-count__chip');
-      if (!chip) return;
+      var header = document.querySelector('#prime-map-search--results--header');
+      if (!header) return;
       var link = document.createElement('a');
       link.id = 'idx-advsearch-link';
       link.href = 'https://thejaiswalgroup.idxbroker.com/idx/search/advanced';
       link.textContent = 'Advanced Search';
       link.style.cssText = 'font-family:Lato,sans-serif;font-size:11px;color:#18254B;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;text-decoration:none;border-bottom:1px solid #18254B;flex-shrink:0;';
-      var header = chip.closest('#prime-map-search--results--header') || chip.parentElement.parentElement;
       header.style.display = 'flex';
       header.style.alignItems = 'center';
       header.style.justifyContent = 'space-between';
