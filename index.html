@@ -248,6 +248,23 @@
       <a href="//thejaiswalgroup.idxbroker.com/idx/results/listings?lp=1500000&srt=prd&a=1&zipcodes[]=92130%2C92014%2C92067%2C92091%2C92075%2C92024" class="btn btn-primary" target="_blank">VIEW MORE</a>
     </div>
   </section>
+  <script>
+  (function(){
+    function hidePending(){
+      var w=document.querySelector('idx-listings-showcase');
+      var ctx=(w&&w.shadowRoot)?w.shadowRoot:document.querySelector('.featured-properties');
+      if(!ctx) return;
+      ctx.querySelectorAll('.idx-listing-card__prop-status').forEach(function(badge){
+        if(badge.textContent.trim().toLowerCase()==='pending'){
+          var card=badge.closest('.idx-listings-showcase__property');
+          if(card) card.style.setProperty('display','none','important');
+        }
+      });
+    }
+    setTimeout(hidePending,1000);
+    setTimeout(hidePending,3000);
+  })();
+  </script>
 
   <!-- =========================================================
        EXPERTISE INTEGRITY RESULTS
