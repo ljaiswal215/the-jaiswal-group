@@ -284,18 +284,18 @@
       if(!fp) return;
       /* Hide View All bar */
       fp.querySelectorAll('.idx-listings-showcase__header').forEach(function(el){
-        el.style.cssText='display:none!important';
+        el.style.setProperty('display','none','important');
       });
       /* Limit to 3 cards */
       var allCards=fp.querySelectorAll('.idx-listings-showcase__property');
       allCards.forEach(function(card,i){
-        if(i>=3) card.style.cssText='display:none!important';
+        if(i>=3) card.style.setProperty('display','none','important');
       });
       /* Hide Pending cards by status badge text */
       fp.querySelectorAll('[class*="prop-status"]').forEach(function(el){
         if(el.textContent.trim().toLowerCase()==='pending'){
           var card=el.closest('[class*="showcase__property"]')||el.closest('[class*="idx-listing-card"]');
-          if(card) card.style.cssText='display:none!important';
+          if(card) card.style.setProperty('display','none','important');
         }
       });
       /* Hide "Listed by:" attribution rows via text content match */
