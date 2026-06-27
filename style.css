@@ -793,7 +793,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   max-width: 1280px;
   width: 100%;
   margin: 0.8rem auto 0;
-  padding: 0 2.5rem;
+  padding: 0 1rem;
 }
 .nbhd-card {
   position: relative;
