@@ -180,7 +180,7 @@
   <script>
     // Abbreviate map price labels: $1,250,000 → $1.25M, $850,000 → $850K
     function _abbreviatePrice(text) {
-      var match = text.match(/^\$?([\d,]+)$/);
+      var match = text.match(/\$?([\d,]+)/);
       if (!match) return text;
       var num = parseInt(match[1].replace(/,/g, ''));
       if (num >= 1000000) {
@@ -191,19 +191,22 @@
       }
       return text;
     }
-    new MutationObserver(function(mutations) {
-      mutations.forEach(function(mutation) {
-        mutation.addedNodes.forEach(function(node) {
-          if (!node || node.nodeType !== 1) return;
-          var labels = node.classList && node.classList.contains('leaflet-label') ? [node] : [];
-          node.querySelectorAll && node.querySelectorAll('.leaflet-label').forEach(function(el) { labels.push(el); });
-          labels.forEach(function(label) {
-            var t = label.textContent.trim();
-            if (/^\$[\d,]+$/.test(t)) label.textContent = _abbreviatePrice(t);
-          });
-        });
+    function _abbreviateAllLabels() {
+      document.querySelectorAll('.leaflet-label').forEach(function(label) {
+        if (label._abbreviated) return;
+        var t = label.textContent.trim();
+        if (/^\$[\d,]+$/.test(t)) {
+          label._abbreviated = true;
+          label.textContent = _abbreviatePrice(t);
+        }
       });
-    }).observe(document.body, { childList: true, subtree: true });
+    }
+    // Run immediately, then every 500ms for 60s to catch dynamically loaded pins
+    _abbreviateAllLabels();
+    var _priceInterval = setInterval(_abbreviateAllLabels, 500);
+    setTimeout(function() { clearInterval(_priceInterval); }, 60000);
+    // Also watch DOM for new pins
+    new MutationObserver(_abbreviateAllLabels).observe(document.body, { childList: true, subtree: true });
 
     var _idxPlaceholderObserver = new MutationObserver(function() {
       var input = document.querySelector('.ti-new-tag-input');
