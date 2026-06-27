@@ -350,25 +350,18 @@
       var widget=document.querySelector('idx-listings-showcase');
       if(widget&&widget.shadowRoot){
         applyToShadow(widget.shadowRoot);
-        new MutationObserver(function(){applyToShadow(widget.shadowRoot);})
-          .observe(widget.shadowRoot,{childList:true,subtree:true});
         return true;
       }
       return false;
     }
 
-    var domObserver=new MutationObserver(function(){
-      if(init()) domObserver.disconnect();
-    });
-
     document.addEventListener('DOMContentLoaded',function(){
-      if(!init()){
-        domObserver.observe(document.body,{childList:true,subtree:true});
-        setTimeout(init,800);
-        setTimeout(init,2500);
-      }
+      init();
+      setTimeout(init,800);
+      setTimeout(init,2500);
+      setTimeout(init,5000);
     });
-    if(document.readyState!=='loading'){if(!init()) domObserver.observe(document.body,{childList:true,subtree:true});}
+    if(document.readyState!=='loading'){ init(); }
   })();
   </script>
 
