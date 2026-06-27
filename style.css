@@ -762,7 +762,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
    NEIGHBORHOODS
 ============================================================ */
 .neighborhoods {
-  padding: 0.5rem 0 0;
+  padding: clamp(1.5rem, 2.5vw, 2rem) 0 0;
   background: #F6F6F4;
 }
 .neighborhoods-header {
@@ -1838,7 +1838,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
    FEATURED PROPERTIES
 ============================================================ */
 .featured-properties {
-  padding: 0.5rem 10px;
+  padding: clamp(1.5rem, 2.5vw, 2rem) 10px;
   background: #fff;
 }
 .fp-header {
