@@ -1837,6 +1837,68 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 /* ============================================================
    FEATURED PROPERTIES
 ============================================================ */
+/* ── HOME OF THE WEEK ── */
+.hotw-section {
+  background: #F3EFE8;
+  padding: clamp(2rem, 4vw, 3.5rem) 10px;
+}
+.hotw-wrap {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: center;
+}
+.hotw-image img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+}
+.hotw-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.hotw-price {
+  font-family: 'Marcellus', serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  color: #1C3063;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.1;
+}
+.hotw-address {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+  color: #5a5250;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+.hotw-specs {
+  list-style: none;
+  padding: 0.75rem 0;
+  margin: 0;
+  display: flex;
+  gap: 1.5rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  color: #5a5250;
+  border-top: 1px solid rgba(179,137,135,0.4);
+  border-bottom: 1px solid rgba(179,137,135,0.4);
+}
+.hotw-desc {
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  color: #5a5250;
+  line-height: 1.75;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .hotw-wrap { grid-template-columns: 1fr; }
+}
+
 .featured-properties {
   padding: clamp(1.5rem, 2.5vw, 2rem) 10px;
   background: #fff;
