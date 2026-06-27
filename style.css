@@ -1849,6 +1849,12 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   margin: 0 auto;
   width: 100%;
 }
+/* Force the IDX custom element and its inner wrapper to fill the container */
+.fp-widget-wrap idx-listings-showcase {
+  display: block;
+  width: 100%;
+  max-width: none;
+}
 .fp-header .section-eyebrow {
   font-family: 'Marcellus', serif;
   font-weight: 400;
