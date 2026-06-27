@@ -271,16 +271,20 @@
       }, 150);
     }, true);
 
-    // Replace agent name with brand name on moreinfo page
-    function _fixAgentName() {
+    // Replace agent name and phone on moreinfo page
+    function _fixAgentInfo() {
       document.querySelectorAll('.IDX-contact__name').forEach(function(el) {
         if (el.textContent.trim() === 'Lynnette Jaiswal') {
           el.textContent = 'The Jaiswal Group Real Estate';
         }
       });
+      var info = document.querySelector('#IDX-contactInfo');
+      if (info) {
+        info.innerHTML = info.innerHTML.replace('858-663-4896', '858-290-7531');
+      }
     }
-    _fixAgentName();
-    new MutationObserver(_fixAgentName).observe(document.body, { childList: true, subtree: true });
+    _fixAgentInfo();
+    new MutationObserver(_fixAgentInfo).observe(document.body, { childList: true, subtree: true });
 
     var _idxBackLinkObserver = new MutationObserver(function() {
       var topNav = document.querySelector('#IDX-detailsTopNav');
