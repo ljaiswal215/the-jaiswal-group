@@ -216,7 +216,7 @@
       var currentSort = new URLSearchParams(window.location.search).get('srt') || '';
       var wrap = document.createElement('div');
       wrap.id = 'idx-sort-wrap';
-      wrap.style.cssText = 'display:flex;align-items:center;padding:8px;border-bottom:1px solid #E0D9CF;background:#ffffff;box-sizing:border-box;width:100%;';
+      wrap.style.cssText = 'display:flex;align-items:center;padding:8px;border-bottom:1px solid #E0D9CF;background:#ffffff;box-sizing:border-box;width:100%;position:relative;z-index:20;';
       var label = document.createElement('label');
       label.textContent = 'Sort:';
       label.htmlFor = 'idx-sort-select';
@@ -246,8 +246,14 @@
       });
       wrap.appendChild(label);
       wrap.appendChild(select);
-      resultsPanel.parentNode.insertBefore(wrap, resultsPanel);
+      resultsPanel.insertBefore(wrap, resultsPanel.firstChild);
     }
+    _idxAddSortDropdown();
+    var _sortInterval = setInterval(function() {
+      _idxAddSortDropdown();
+      if (document.querySelector('#idx-sort-wrap')) clearInterval(_sortInterval);
+    }, 500);
+    setTimeout(function() { clearInterval(_sortInterval); }, 30000);
     new MutationObserver(_idxAddSortDropdown).observe(document.body, { childList: true, subtree: true });
 
     var _idxPlaceholderObserver = new MutationObserver(function() {
