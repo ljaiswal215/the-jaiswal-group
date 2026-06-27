@@ -209,15 +209,15 @@
     new MutationObserver(_abbreviateAllLabels).observe(document.body, { childList: true, subtree: true });
 
 
-    // Sort dropdown — injected into the results header bar
+    // Sort dropdown — anchored next to results count chip
     function _idxAddSortDropdown() {
       if (document.querySelector('#idx-sort-wrap')) return;
-      var header = document.querySelector('#prime-map-search--results--header');
-      if (!header) return;
+      var chip = document.querySelector('#listing-results-count__chip');
+      if (!chip) return;
       var currentSort = new URLSearchParams(window.location.search).get('srt') || '';
       var wrap = document.createElement('div');
       wrap.id = 'idx-sort-wrap';
-      wrap.style.cssText = 'display:flex;align-items:center;margin-left:auto;';
+      wrap.style.cssText = 'display:flex;align-items:center;margin-left:auto;flex-shrink:0;padding-right:4px;';
       var label = document.createElement('label');
       label.textContent = 'Sort:';
       label.htmlFor = 'idx-sort-select';
@@ -247,16 +247,18 @@
       });
       wrap.appendChild(label);
       wrap.appendChild(select);
-      header.style.display = 'flex';
-      header.style.alignItems = 'center';
-      header.appendChild(wrap);
+      var chipParent = chip.parentElement;
+      chipParent.style.display = 'flex';
+      chipParent.style.alignItems = 'center';
+      chipParent.style.flexWrap = 'nowrap';
+      chipParent.appendChild(wrap);
     }
     _idxAddSortDropdown();
     var _sortInterval = setInterval(function() {
       _idxAddSortDropdown();
       if (document.querySelector('#idx-sort-wrap')) clearInterval(_sortInterval);
     }, 500);
-    setTimeout(function() { clearInterval(_sortInterval); }, 30000);
+    setTimeout(function() { clearInterval(_sortInterval); }, 60000);
     new MutationObserver(_idxAddSortDropdown).observe(document.body, { childList: true, subtree: true });
 
     var _idxPlaceholderObserver = new MutationObserver(function() {
