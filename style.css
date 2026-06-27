@@ -43,6 +43,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   color: #B38987;
   font-family: 'Marcellus', serif;
   font-weight: 400;
+  margin-bottom: 0.2rem;
 }
 
 .section-eyebrow.light { color: #B38987; }
