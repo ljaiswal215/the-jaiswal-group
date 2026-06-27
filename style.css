@@ -977,15 +977,17 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   position: relative;
   overflow: hidden;
   display: block;
+  aspect-ratio: 1/1;
   text-decoration: none;
   transition: transform 0.4s ease;
   cursor: pointer;
 }
 .eir-card:hover { transform: translateY(-4px); }
 .eir-card-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: auto;
-  aspect-ratio: 1/1;
+  height: 100%;
   object-fit: cover;
   display: block;
   transition: transform 0.7s ease;
