@@ -209,14 +209,10 @@
     new MutationObserver(_abbreviateAllLabels).observe(document.body, { childList: true, subtree: true });
 
 
-    // Hide ADDRESS / ADVANCED SEARCH search-type toggle buttons
+    // Hide ADDRESS / ADVANCED SEARCH nav buttons (a.idx-nav-button)
     function _hideSearchTypeToggles() {
-      document.querySelectorAll('button').forEach(function(btn) {
-        var t = btn.textContent.trim();
-        if (t === 'ADDRESS' || t === 'ADVANCED SEARCH') {
-          btn.style.display = 'none';
-        }
-      });
+      var container = document.querySelector('#navigation-container');
+      if (container) container.style.display = 'none';
     }
     _hideSearchTypeToggles();
     new MutationObserver(_hideSearchTypeToggles).observe(document.body, { childList: true, subtree: true });
