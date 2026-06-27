@@ -284,6 +284,17 @@
       }
       var fp=document.querySelector('.featured-properties');
       if(!fp) return;
+      /* Hide View All bar */
+      fp.querySelectorAll('.idx-listings-showcase__header').forEach(function(el){
+        el.style.cssText='display:none!important';
+      });
+      /* Hide Pending cards by status badge text */
+      fp.querySelectorAll('[class*="prop-status"]').forEach(function(el){
+        if(el.textContent.trim().toLowerCase()==='pending'){
+          var card=el.closest('[class*="showcase__property"]')||el.closest('[class*="idx-listing-card"]');
+          if(card) card.style.cssText='display:none!important';
+        }
+      });
       /* Hide "Listed by:" attribution rows via text content match */
       fp.querySelectorAll('*').forEach(function(el){
         if(el.children.length===0 && el.textContent.trim().indexOf('Listed by:')===0){
