@@ -258,8 +258,9 @@
       '.featured-properties .idx-listings-showcase__columns--actions,.featured-properties .idx-listings-showcase__actions{display:none!important;}',
       /* Card shell */
       '.featured-properties [class*="listing-card__wrap"]{background:#fff!important;border:none!important;box-shadow:0 2px 16px rgba(24,37,75,0.07)!important;border-radius:0!important;overflow:hidden!important;}',
-      /* Image */
-      '.featured-properties [class*="listing-card__image"] img{width:100%!important;height:200px!important;object-fit:cover!important;display:block!important;}',
+      /* Square image container */
+      '.featured-properties [class*="listing-card__image--wrap"]{position:relative!important;aspect-ratio:1/1!important;overflow:hidden!important;width:100%!important;}',
+      '.featured-properties [class*="listing-card__image--wrap"] img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;display:block!important;}',
       /* Details panel */
       '.featured-properties [class*="listing-card__details"]{padding:0.75rem 1rem 1rem!important;background:#F3EFE8!important;}',
       /* Price */
