@@ -776,5 +776,29 @@
     </div>
   </footer>
   <script src="../main.js"></script>
+  <script>
+  (function() {
+    function injectWidgetStyles() {
+      const widget = document.querySelector('idx-listings-showcase');
+      if (!widget || !widget.shadowRoot) { setTimeout(injectWidgetStyles, 400); return; }
+      if (widget.shadowRoot.getElementById('tjg-widget-styles')) return;
+      const style = document.createElement('style');
+      style.id = 'tjg-widget-styles';
+      style.textContent = `
+        .idx-listing-card__courtesy { display: none !important; }
+        .idx-listing-card__wrap { position: relative !important; }
+        .idx-listing-card__details { padding-bottom: 2rem !important; }
+        .idx-listing-card__additional-info {
+          position: absolute !important; bottom: 2rem !important; right: 1rem !important;
+          background: transparent !important; padding: 0 !important; margin: 0 !important;
+        }
+        .idx-listing-card__mls { background: transparent !important; mix-blend-mode: multiply !important; }
+        .idx-listing-card__mls img { height: 38px !important; width: auto !important; mix-blend-mode: multiply !important; background: transparent !important; }
+      `;
+      widget.shadowRoot.appendChild(style);
+    }
+    setTimeout(injectWidgetStyles, 800);
+  })();
+  </script>
 </body>
 </html>
