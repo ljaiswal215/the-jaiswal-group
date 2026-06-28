@@ -471,10 +471,10 @@
   </script>
   <script>
   (function() {
-    function injectWidgetStyles() {
-      const widget = document.querySelector('idx-listings-showcase');
-      if (!widget || !widget.shadowRoot) { setTimeout(injectWidgetStyles, 400); return; }
-      if (widget.shadowRoot.getElementById('tjg-widget-styles')) return;
+    const noListings = document.querySelector('.subdiv-no-listings');
+
+    function applyWidgetStyles(shadowRoot) {
+      if (shadowRoot.getElementById('tjg-widget-styles')) return;
       const style = document.createElement('style');
       style.id = 'tjg-widget-styles';
       style.textContent = `
@@ -488,9 +488,26 @@
         .idx-listing-card__mls { background: transparent !important; mix-blend-mode: multiply !important; }
         .idx-listing-card__mls img { height: 38px !important; width: auto !important; mix-blend-mode: multiply !important; background: transparent !important; }
       `;
-      widget.shadowRoot.appendChild(style);
+      shadowRoot.appendChild(style);
     }
-    setTimeout(injectWidgetStyles, 800);
+
+    function checkListings(shadowRoot) {
+      if (!noListings) return;
+      const cards = shadowRoot.querySelectorAll('.idx-listing-card');
+      noListings.style.display = cards.length > 0 ? 'none' : '';
+    }
+
+    function initWidget() {
+      const widget = document.querySelector('idx-listings-showcase');
+      if (!widget || !widget.shadowRoot) { setTimeout(initWidget, 400); return; }
+      applyWidgetStyles(widget.shadowRoot);
+      checkListings(widget.shadowRoot);
+      // Auto-update as listings load/change (pagination, filters, market updates)
+      const observer = new MutationObserver(() => checkListings(widget.shadowRoot));
+      observer.observe(widget.shadowRoot, { childList: true, subtree: true });
+    }
+
+    setTimeout(initWidget, 800);
   })();
   </script>
 </body>
