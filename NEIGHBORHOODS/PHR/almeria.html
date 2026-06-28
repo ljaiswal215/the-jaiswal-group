@@ -281,9 +281,7 @@
       <p class="section-eyebrow">BROWSE LISTINGS</p>
       <h2>ALMERIA HOMES FOR SALE</h2>
       <p>Listings below are sourced directly from the MLS and updated in real time.</p>
-      <div class="idx-placeholder">
-        <p>IDX Broker Widget — Almeria · Pacific Highlands Ranch · 92130</p>
-      </div>
+      <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-161729" src="//thejaiswalgroup.idxbroker.com/idx/widgets/161729"></script>
       <div class="subdiv-no-listings">
         <div class="subdiv-no-listings-text">
           <svg class="subdiv-no-listings-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -377,24 +375,40 @@
 
   <script src="../../main.js"></script>
   <script>
-    function reorderSections() {
-      const faq      = document.getElementById('section-faq');
-      const listings = document.getElementById('section-listings');
-      if (!faq || !listings) return;
-      const hasListings = false && document.querySelector('.idx-active-results') !== null;
-      const parent = faq.parentNode;
-      if (!parent) return;
-      const nodes = Array.from(parent.children);
-      const faqIndex      = nodes.indexOf(faq);
-      const listingsIndex = nodes.indexOf(listings);
-      if (hasListings) {
-        if (listingsIndex > faqIndex) parent.insertBefore(listings, faq);
-      } else {
-        if (faqIndex > listingsIndex) parent.insertBefore(faq, listings);
-      }
+  (function() {
+    const noListings = document.querySelector('.subdiv-no-listings');
+    function applyWidgetStyles(shadowRoot) {
+      if (shadowRoot.getElementById('tjg-widget-styles')) return;
+      const style = document.createElement('style');
+      style.id = 'tjg-widget-styles';
+      style.textContent = `
+        .idx-listing-card__courtesy { display: none !important; }
+        .idx-listing-card__wrap { position: relative !important; }
+        .idx-listing-card__details { padding-bottom: 2rem !important; }
+        .idx-listing-card__additional-info {
+          position: absolute !important; bottom: 2rem !important; right: 1rem !important;
+          background: transparent !important; padding: 0 !important; margin: 0 !important;
+        }
+        .idx-listing-card__mls { background: transparent !important; mix-blend-mode: multiply !important; }
+        .idx-listing-card__mls img { height: 38px !important; width: auto !important; mix-blend-mode: multiply !important; background: transparent !important; }
+      `;
+      shadowRoot.appendChild(style);
     }
-    document.addEventListener('DOMContentLoaded', reorderSections);
-    new MutationObserver(reorderSections).observe(document.body, {childList:true, subtree:true});
+    function checkListings(shadowRoot) {
+      if (!noListings) return;
+      const cards = shadowRoot.querySelectorAll('.idx-listing-card');
+      noListings.style.display = cards.length > 0 ? 'none' : '';
+    }
+    function initWidget() {
+      const widget = document.querySelector('idx-listings-showcase');
+      if (!widget || !widget.shadowRoot) { setTimeout(initWidget, 400); return; }
+      applyWidgetStyles(widget.shadowRoot);
+      checkListings(widget.shadowRoot);
+      const observer = new MutationObserver(() => checkListings(widget.shadowRoot));
+      observer.observe(widget.shadowRoot, { childList: true, subtree: true });
+    }
+    setTimeout(initWidget, 800);
+  })();
 
     const notifyForm = document.getElementById('notify-form');
     if(notifyForm){
