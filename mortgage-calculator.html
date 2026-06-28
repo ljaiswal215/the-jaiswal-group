@@ -220,6 +220,31 @@
     .calc-legend-val { margin-left: auto; color: #18254B; font-weight: 600; white-space: nowrap; }
     .calc-legend-pct { color: #9a8e88; font-weight: 400; margin-left: 0.3rem; }
 
+    /* ── Period Toggle ── */
+    .calc-period-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      flex-shrink: 0;
+    }
+    .calc-period-btn {
+      background: transparent;
+      border: none;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      padding: 0 0.35rem;
+      color: rgba(255,255,255,0.28);
+      transition: color 0.15s;
+      line-height: 1;
+    }
+    .calc-period-btn.active { color: rgba(255,255,255,0.85); }
+    .calc-period-btn + .calc-period-btn {
+      border-left: 1px solid rgba(255,255,255,0.18);
+    }
+
     @media (max-width: 780px) {
       .calc-grid { grid-template-columns: 1fr; }
       .calc-card { position: static; margin-top: 1rem; }
@@ -427,7 +452,10 @@
               <div class="calc-input-wrap">
                 <span class="calc-prefix">$</span>
                 <input type="number" id="calc-insurance" value="150" min="0" step="1" placeholder="0" />
-                <span class="calc-suffix">/mo</span>
+                <span class="calc-period-toggle" id="insur-toggle">
+                  <button type="button" class="calc-period-btn active" data-period="mo">/mo</button>
+                  <button type="button" class="calc-period-btn" data-period="yr">/yr</button>
+                </span>
               </div>
             </div>
             <div class="calc-field">
@@ -443,7 +471,10 @@
               <div class="calc-input-wrap">
                 <span class="calc-prefix">$</span>
                 <input type="number" id="calc-mello" value="" min="0" step="1" placeholder="0" />
-                <span class="calc-suffix">/mo</span>
+                <span class="calc-period-toggle" id="mello-toggle">
+                  <button type="button" class="calc-period-btn active" data-period="mo">/mo</button>
+                  <button type="button" class="calc-period-btn" data-period="yr">/yr</button>
+                </span>
               </div>
             </div>
           </div>
@@ -555,6 +586,23 @@
     var insurEl      = document.getElementById('calc-insurance');
     var hoaEl        = document.getElementById('calc-hoa');
     var melloEl      = document.getElementById('calc-mello');
+    var insurMode    = 'mo';
+    var melloMode    = 'mo';
+
+    document.getElementById('insur-toggle').addEventListener('click', function(e) {
+      var btn = e.target.closest('.calc-period-btn');
+      if (!btn) return;
+      insurMode = btn.dataset.period;
+      this.querySelectorAll('.calc-period-btn').forEach(function(b) { b.classList.toggle('active', b.dataset.period === insurMode); });
+      calcPayment();
+    });
+    document.getElementById('mello-toggle').addEventListener('click', function(e) {
+      var btn = e.target.closest('.calc-period-btn');
+      if (!btn) return;
+      melloMode = btn.dataset.period;
+      this.querySelectorAll('.calc-period-btn').forEach(function(b) { b.classList.toggle('active', b.dataset.period === melloMode); });
+      calcPayment();
+    });
     var resultEl     = document.getElementById('calc-result');
     var loanEl       = document.getElementById('calc-loan-amt');
     var pmiNoteEl      = document.getElementById('calc-pmi-note');
@@ -629,9 +677,9 @@
       var rate      = parseFloat(rateEl.value) || 0;
       var term      = parseInt(termEl.value) || 30;
       var taxRate   = parseFloat(taxRateEl.value) || 0;
-      var insurance = parseFloat(insurEl.value) || 0;
+      var insurance = (parseFloat(insurEl.value) || 0) / (insurMode === 'yr' ? 12 : 1);
       var hoa       = parseFloat(hoaEl.value) || 0;
-      var mello     = parseFloat(melloEl.value) || 0;
+      var mello     = (parseFloat(melloEl.value) || 0) / (melloMode === 'yr' ? 12 : 1);
       var loan      = Math.max(0, price - down);
 
       var pi = 0;
@@ -719,6 +767,13 @@
       insurEl.value      = '150';
       hoaEl.value        = '';
       melloEl.value      = '';
+      insurMode = 'mo';
+      melloMode = 'mo';
+      ['insur-toggle', 'mello-toggle'].forEach(function(id) {
+        document.getElementById(id).querySelectorAll('.calc-period-btn').forEach(function(b) {
+          b.classList.toggle('active', b.dataset.period === 'mo');
+        });
+      });
       calcPayment();
     });
 
