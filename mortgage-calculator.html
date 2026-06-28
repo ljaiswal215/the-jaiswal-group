@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mortgage Calculator | The Jaiswal Group Real Estate | San Diego</title>
+  <meta name="description" content="Estimate your monthly mortgage payment including principal & interest, property taxes, HOA, Mello-Roos, and homeowners insurance. Free calculator from The Jaiswal Group Real Estate." />
+  <link rel="canonical" href="https://thejaiswalgroupre.com/mortgage-calculator.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Hero ── */
+    .calc-hero {
+      background: linear-gradient(135deg, #18254B 0%, #1C3063 60%, #2A4F8C 100%);
+      padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4rem) clamp(2rem, 4vw, 3rem);
+      text-align: center;
+    }
+    .calc-hero .section-eyebrow { color: #B38987; margin-bottom: 0.75rem; }
+    .calc-hero h1 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      color: #fff;
+      letter-spacing: 0.08em;
+      margin: 0 0 1rem;
+    }
+    .calc-hero p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.78);
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.85;
+    }
+
+    /* ── Calculator Section ── */
+    .calc-section {
+      background: #18254B;
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+    }
+    .calc-wrap { max-width: 1060px; margin: 0 auto; }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* LEFT COLUMN */
+    .calc-group-label {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #B38987;
+      margin: 0 0 0.75rem;
+    }
+    .calc-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .calc-field { margin-bottom: 1rem; }
+    .calc-field label {
+      display: block;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 0.4rem;
+    }
+    .calc-input-wrap {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+      padding-bottom: 0.2rem;
+    }
+    .calc-input-wrap input,
+    .calc-field select {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      padding: 0.3rem 0.2rem;
+      width: 100%;
+      outline: none;
+    }
+    .calc-field select {
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+    }
+    .calc-input-row {
+      display: grid;
+      grid-template-columns: 1fr 72px;
+      gap: 0.75rem;
+    }
+    .calc-prefix, .calc-suffix {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      flex-shrink: 0;
+    }
+    .calc-optional-note {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.62rem;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.06em;
+      margin-left: 0.3rem;
+    }
+    .calc-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      margin: 0.25rem 0 1.25rem;
+    }
+    .calc-result-loan {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin: 1rem 0 1.25rem;
+      text-align: center;
+      padding: 1rem 0;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+    .calc-result-loan span {
+      font-family: 'Marcellus', serif;
+      font-size: 2.2rem;
+      color: #fff;
+      display: block;
+      margin-top: 0.3rem;
+      letter-spacing: 0.03em;
+    }
+    .calc-reset {
+      display: inline-block;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.4);
+      color: rgba(255,255,255,0.8);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      padding: 0.5rem 1.1rem;
+      cursor: pointer;
+      margin-bottom: 1.5rem;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+    .calc-reset:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.7); color: #fff; }
+    .calc-disclaimer {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.75;
+    }
+
+    /* RIGHT: white card */
+    .calc-card {
+      background: #fff;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.28);
+      padding: 2rem 1.75rem 1.75rem;
+      position: sticky;
+      top: 2rem;
+    }
+    .calc-donut-wrap {
+      position: relative;
+      width: 210px;
+      margin: 0 auto 1.5rem;
+    }
+    #calc-chart-svg { width: 100%; height: auto; display: block; }
+    .calc-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      pointer-events: none;
+      width: 120px;
+    }
+    .calc-center-amount {
+      font-family: 'Marcellus', serif;
+      font-size: 1.35rem;
+      color: #18254B;
+      line-height: 1.1;
+    }
+    .calc-center-label {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.6rem;
+      color: #9a8e88;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+    .calc-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid rgba(24,37,75,0.08);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.76rem;
+      color: #3a3530;
+    }
+    .calc-legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .calc-legend-val { margin-left: auto; color: #18254B; font-weight: 600; white-space: nowrap; }
+    .calc-legend-pct { color: #9a8e88; font-weight: 400; margin-left: 0.3rem; }
+
+    @media (max-width: 780px) {
+      .calc-grid { grid-template-columns: 1fr; }
+      .calc-card { position: static; margin-top: 1rem; }
+    }
+    @media (max-width: 480px) {
+      .calc-fields { grid-template-columns: 1fr; }
+    }
+
+    /* ── FAQ / Info Section ── */
+    .calc-info {
+      background: #F3EFE8;
+      padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 5vw, 4rem);
+    }
+    .calc-info-inner { max-width: 900px; margin: 0 auto; }
+    .calc-info-inner .section-eyebrow { color: #B38987; margin-bottom: 0.75rem; }
+    .calc-info-inner h2 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      color: #18254B;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.75rem;
+    }
+    .calc-faq-item { padding: 1.25rem 0; border-bottom: 1px solid rgba(24,37,75,0.1); }
+    .calc-faq-item:first-of-type { border-top: 1px solid rgba(24,37,75,0.1); }
+    .calc-faq-item h3 {
+      font-family: 'Marcellus', serif;
+      font-size: 0.95rem;
+      color: #18254B;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.5rem;
+    }
+    .calc-faq-item p {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      color: #3a4a6b;
+      line-height: 1.9;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="site-header" id="site-header">
+    <div class="header-top"><div class="social-icons">
+      <a href="https://www.facebook.com/LynnetteJaiswalRealtor" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      <a href="https://www.instagram.com/lynnettejaiswalrealtor/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      <a href="https://www.youtube.com/@LynnetteJaiswalRealtor" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+    </div></div>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-logo">
+        <img src="LOGOS/JaiswalGroupRE_white.png" class="logo-white" alt="The Jaiswal Group Real Estate" />
+        <img src="logo.png" class="logo-color" alt="The Jaiswal Group Real Estate" />
+      </a>
+      <ul class="nav-links">
+        <li class="has-dropdown">
+          <a href="#">BUY A HOME <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="featured-properties.html">Featured Properties</a></li>
+            <li><a href="http://thejaiswalgroup.idxbroker.com/idx/map/mapsearch">Browse All Homes</a></li>
+            <li><a href="open-houses-carmel-valley.html">Open Houses</a></li>
+            <li><a href="#">New Construction</a></li>
+            <li><a href="buyers-guide.html">Buyer's Guide</a></li>
+            <li><a href="buyer-faq.html">Buyer FAQ</a></li>
+            <li><a href="mortgage-calculator.html">Mortgage Calculator</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">SELL YOUR HOME <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="seller-consultation.html">Seller Consultation</a></li>
+            <li><a href="home-valuation.html">Home Valuation</a></li>
+            <li><a href="#">Our Marketing</a></li>
+            <li><a href="sellers-guide.html">Seller's Guide</a></li>
+            <li><a href="#">Selling Checklist</a></li>
+          </ul>
+        </li>
+        <li><a href="communities.html">COMMUNITIES</a></li>
+        <li><a href="BLOG/blog.html">BLOG</a></li>
+        <li class="has-dropdown">
+          <a href="#">RESOURCES <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="#">Market Updates</a></li>
+            <li><a href="#">Lender Partners</a></li>
+            <li><a href="mortgage-calculator.html">Mortgage Calculator</a></li>
+            <li><a href="relocation-guide.html">Relocation Guide</a></li>
+            <li><a href="#">The Plugged In Method</a></li>
+            <li class="has-subdropdown">
+              <a href="#">Videos</a>
+              <ul class="subdropdown">
+                <li><a href="https://www.youtube.com/@LynnetteJaiswalRealtor" target="_blank" rel="noopener">YouTube Channel</a></li>
+                <li><a href="buyers-guide-videos.html">Buyer Video Series</a></li>
+                <li><a href="sellers-guide-videos.html">Seller Video Series</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">ABOUT US <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="lynnette-jaiswal.html">Lynnette Jaiswal</a></li>
+            <li><a href="clientreviews.html">Client Reviews</a></li>
+            <li><a href="#">Join Our Team</a></li>
+          </ul>
+        </li>
+        <li><a href="contact.html">CONTACT</a></li>
+        <li class="nav-phone"><a href="tel:8582907531">(858) 290-7531</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Menu" id="hamburger"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <ul>
+        <li><a href="#">Buy a Home</a></li>
+        <li><a href="#">Sell Your Home</a></li>
+        <li><a href="communities.html">Communities</a></li>
+        <li><a href="BLOG/blog.html">Blog</a></li>
+        <li><a href="#">Resources</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="tel:8582907531">(858) 290-7531</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="calc-hero">
+    <p class="section-eyebrow">TOOLS & RESOURCES</p>
+    <h1>MORTGAGE CALCULATOR</h1>
+    <p>Estimate your monthly payment including principal &amp; interest, property taxes, HOA, Mello-Roos, and homeowners insurance. Adjust every field for a personalized estimate.</p>
+  </div>
+
+  <!-- CALCULATOR -->
+  <section class="calc-section">
+    <div class="calc-wrap">
+      <div class="calc-grid">
+
+        <!-- LEFT: inputs -->
+        <div class="calc-left">
+
+          <p class="calc-group-label">Loan Details</p>
+          <div class="calc-fields">
+            <div class="calc-field">
+              <label for="calc-price">Home Price</label>
+              <div class="calc-input-wrap">
+                <span class="calc-prefix">$</span>
+                <input type="text" inputmode="numeric" id="calc-price" value="800,000" />
+              </div>
+            </div>
+            <div class="calc-field">
+              <label for="calc-term">Loan Term</label>
+              <select id="calc-term">
+                <option value="30" selected>30 years</option>
+                <option value="20">20 years</option>
+                <option value="15">15 years</option>
+                <option value="10">10 years</option>
+              </select>
+            </div>
+            <div class="calc-field">
+              <label>Down Payment</label>
+              <div class="calc-input-row">
+                <div class="calc-input-wrap">
+                  <span class="calc-prefix">$</span>
+                  <input type="text" inputmode="numeric" id="calc-down-amt" value="160,000" />
+                </div>
+                <div class="calc-input-wrap">
+                  <input type="number" id="calc-down-pct" value="20" min="0" max="100" step="0.5" />
+                  <span class="calc-suffix">%</span>
+                </div>
+              </div>
+            </div>
+            <div class="calc-field">
+              <label for="calc-rate">Interest Rate</label>
+              <div class="calc-input-wrap">
+                <input type="number" id="calc-rate" value="6.75" min="0" max="30" step="0.125" />
+                <span class="calc-suffix">%</span>
+              </div>
+            </div>
+          </div>
+
+          <hr class="calc-divider" />
+          <p class="calc-group-label">Monthly Costs <span class="calc-optional-note">— leave blank if unknown</span></p>
+          <div class="calc-fields">
+            <div class="calc-field">
+              <label for="calc-tax-rate">Property Tax Rate</label>
+              <div class="calc-input-wrap">
+                <input type="number" id="calc-tax-rate" value="1.14" min="0" max="5" step="0.01" />
+                <span class="calc-suffix">%</span>
+              </div>
+            </div>
+            <div class="calc-field">
+              <label for="calc-insurance">Homeowners Insurance</label>
+              <div class="calc-input-wrap">
+                <span class="calc-prefix">$</span>
+                <input type="number" id="calc-insurance" value="150" min="0" step="1" placeholder="0" />
+                <span class="calc-suffix">/mo</span>
+              </div>
+            </div>
+            <div class="calc-field">
+              <label for="calc-hoa">HOA Dues</label>
+              <div class="calc-input-wrap">
+                <span class="calc-prefix">$</span>
+                <input type="number" id="calc-hoa" value="" min="0" step="1" placeholder="0" />
+                <span class="calc-suffix">/mo</span>
+              </div>
+            </div>
+            <div class="calc-field">
+              <label for="calc-mello">Mello-Roos</label>
+              <div class="calc-input-wrap">
+                <span class="calc-prefix">$</span>
+                <input type="number" id="calc-mello" value="" min="0" step="1" placeholder="0" />
+                <span class="calc-suffix">/mo</span>
+              </div>
+            </div>
+          </div>
+
+          <p class="calc-result-loan">Loan Amount<span id="calc-loan-amt">—</span></p>
+          <button class="calc-reset" id="calc-reset-btn">RESET ↺</button>
+          <p class="calc-disclaimer">This calculator is for informational purposes only and does not constitute a loan commitment or guarantee of financing. Actual payments will vary based on credit profile, lender requirements, and market conditions. Contact us for a referral to a trusted lending partner.</p>
+        </div>
+
+        <!-- RIGHT: donut card -->
+        <div class="calc-card">
+          <div class="calc-donut-wrap">
+            <svg id="calc-chart-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"></svg>
+            <div class="calc-center">
+              <div class="calc-center-amount" id="calc-result">—</div>
+              <div class="calc-center-label">Est. Monthly</div>
+            </div>
+          </div>
+          <div class="calc-legend" id="calc-legend"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="calc-info">
+    <div class="calc-info-inner">
+      <p class="section-eyebrow">UNDERSTANDING YOUR PAYMENT</p>
+      <h2>WHAT GOES INTO YOUR MONTHLY PAYMENT?</h2>
+      <div class="calc-faq-item">
+        <h3>Principal &amp; Interest (P&amp;I)</h3>
+        <p>This is the core of your mortgage payment. Principal is the portion that reduces your loan balance; interest is the cost of borrowing. Your rate, loan amount, and term determine this figure — it remains fixed for the life of a fixed-rate loan.</p>
+      </div>
+      <div class="calc-faq-item">
+        <h3>Property Tax</h3>
+        <p>California property taxes are assessed by the county at approximately 1% of the purchase price, plus any voter-approved local assessments. In San Diego County, the effective rate typically falls between 1.1% and 1.3% depending on the city and any special districts. The calculator defaults to 1.14% — adjust it to match your target area.</p>
+      </div>
+      <div class="calc-faq-item">
+        <h3>Homeowners Insurance</h3>
+        <p>Most lenders require homeowners insurance, and your lender will typically include it in your monthly payment via an escrow account. Costs vary based on coverage, home size, and location — $100 to $250/month is a common range for San Diego County homes.</p>
+      </div>
+      <div class="calc-faq-item">
+        <h3>HOA Dues</h3>
+        <p>Many communities in San Diego — particularly in master-planned developments like Pacific Highlands Ranch, Rancho Tesoro, and Carmel Valley — have Homeowners Associations (HOAs) that charge monthly dues. These cover shared amenities, common area maintenance, and community services. HOA dues vary widely by community; contact us for current rates in a specific neighborhood.</p>
+      </div>
+      <div class="calc-faq-item">
+        <h3>What is Mello-Roos?</h3>
+        <p>Mello-Roos is a special tax assessed in certain California communities to fund infrastructure improvements — roads, schools, parks, and utilities — in newer developments. It is charged in addition to standard property tax and can range from a few hundred to several thousand dollars per year depending on the district. Many newer communities in North San Diego County carry Mello-Roos assessments. We can help you understand the full tax picture for any home you're considering.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK WITH US -->
+  <section class="work-with-us">
+    <div class="wwu-content">
+      <h2>WORK WITH US</h2>
+      <p>Choosing the right representation matters.</p>
+      <p>At The Jaiswal Group Real Estate, every client receives a tailored, concierge-level approach — from exclusive opportunities and strategic negotiation to responsive communication and thoughtful guidance throughout every step of the process.</p>
+      <p>Our goal is simple: to help you feel confident, informed, and well-supported from beginning to end.</p>
+      <p>Every client relationship is personal, intentional, and backed by a team that genuinely cares about your goals and outcome.</p>
+      <p>Let's explore what's possible.</p>
+      <a href="contact.html" class="btn btn-primary">CONTACT US</a>
+    </div>
+    <div class="wwu-photo"><img src="Lynnette-torreypinesbackground.jpg" alt="Lynnette Jaiswal, The Jaiswal Group Real Estate" /></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-info">
+      <div class="footer-info-col footer-info-col--logo"><img src="LOGOS/JaiswalGroupRE_white.png" alt="The Jaiswal Group Real Estate" class="footer-logo" /></div>
+      <div class="footer-info-col"><div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="footer-info-text"><p class="footer-info-label">OFFICE ADDRESS</p><p>5450 INDIGO SAGE DRIVE<br>SAN DIEGO, CA 92130</p><p class="footer-info-label" style="margin-top:1.25rem;">MAILING ADDRESS</p><p>PO BOX 3102<br>RANCHO SANTA FE, CA 92067</p><p style="margin-top:1rem;white-space:nowrap;">LYNNETTE JAISWAL &nbsp;|&nbsp; CA DRE #02100367</p><p style="margin-top:0.4rem;white-space:nowrap;">THE JAISWAL GROUP, INC &nbsp;|&nbsp; CA DRE #02251231</p></div></div>
+      <div class="footer-info-col"><div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg></div><div class="footer-info-text"><p class="footer-info-label">EMAIL</p><p><a href="mailto:Lynnette@thejaiswalgroup.com">LYNNETTE@THEJAISWALGROUP.COM</a></p></div></div>
+      <div class="footer-info-col"><div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg></div><div class="footer-info-text"><p class="footer-info-label">PHONE</p><p><a href="tel:8582907531">(858) 290-7531</a></p></div></div>
+    </div>
+    <div class="footer-disclaimer-block"><p>The Jaiswal Group Real Estate is a real estate broker licensed by the State of California and abides by Equal Housing Opportunity laws. License Number #02251231. All material presented herein is intended for informational purposes only and is compiled from sources deemed reliable but has not been verified. Changes in price, condition, sale or withdrawal may be made without notice. No statement is made as to accuracy of any description. All measurements and square footage are approximate.</p><div class="footer-compliance-logos"><img src="logorealtor.png" alt="Realtor" class="footer-compliance-logo" /><img src="logoEHO.png" alt="Equal Housing Opportunity" class="footer-compliance-logo" /><img src="logo-NSDCAR.png" alt="North San Diego County Realtors" class="footer-compliance-logo" /></div></div>
+    <div class="footer-bottom"><div class="footer-bottom-left"><span>&copy; 2026 The Jaiswal Group Real Estate</span><a href="privacy-policy.html">Privacy Policy</a><a href="#">Site Map</a></div><div class="footer-social"><a href="https://www.facebook.com/LynnetteJaiswalRealtor" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a><a href="https://www.instagram.com/lynnettejaiswalrealtor/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a href="https://www.youtube.com/@LynnetteJaiswalRealtor" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a></div></div>
+  </footer>
+
+  <script src="main.js"></script>
+  <script>
+  (function() {
+    var CHART_COLORS  = ['#2A4F8C', '#B38987', '#C9A89C', '#D4C5B0', '#7A5A58'];
+    var CHART_LABELS  = ['Principal & Interest', 'Property Tax', 'Insurance', 'HOA', 'Mello-Roos'];
+
+    var priceEl    = document.getElementById('calc-price');
+    var downAmtEl  = document.getElementById('calc-down-amt');
+    var downPctEl  = document.getElementById('calc-down-pct');
+    var rateEl     = document.getElementById('calc-rate');
+    var termEl     = document.getElementById('calc-term');
+    var taxRateEl  = document.getElementById('calc-tax-rate');
+    var insurEl    = document.getElementById('calc-insurance');
+    var hoaEl      = document.getElementById('calc-hoa');
+    var melloEl    = document.getElementById('calc-mello');
+    var resultEl   = document.getElementById('calc-result');
+    var loanEl     = document.getElementById('calc-loan-amt');
+
+    var NS = 'http://www.w3.org/2000/svg';
+    var cx = 100, cy = 100, R = 76;
+    var circ = 2 * Math.PI * R;
+
+    function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+    function parseAmt(el) { return parseFloat((el.value || '').replace(/,/g, '')) || 0; }
+    function fmtInput(el) {
+      var n = parseInt(el.value.replace(/,/g, ''), 10);
+      el.value = isNaN(n) ? '' : n.toLocaleString('en-US');
+    }
+
+    [priceEl, downAmtEl].forEach(function(el) {
+      el.addEventListener('focus', function() { this.value = this.value.replace(/,/g, ''); });
+      el.addEventListener('blur',  function() { fmtInput(this); });
+    });
+
+    function drawChart(vals, total) {
+      var svg = document.getElementById('calc-chart-svg');
+      svg.innerHTML = '';
+      var bg = document.createElementNS(NS, 'circle');
+      bg.setAttribute('cx', cx); bg.setAttribute('cy', cy); bg.setAttribute('r', R);
+      bg.setAttribute('fill', 'none');
+      bg.setAttribute('stroke', 'rgba(24,37,75,0.07)');
+      bg.setAttribute('stroke-width', '28');
+      svg.appendChild(bg);
+      var cumLen = 0;
+      vals.forEach(function(val, i) {
+        if (val <= 0) return;
+        var len = (val / total) * circ;
+        var c = document.createElementNS(NS, 'circle');
+        c.setAttribute('cx', cx); c.setAttribute('cy', cy); c.setAttribute('r', R);
+        c.setAttribute('fill', 'none');
+        c.setAttribute('stroke', CHART_COLORS[i]);
+        c.setAttribute('stroke-width', '28');
+        c.setAttribute('stroke-dasharray', len + ' ' + circ);
+        c.setAttribute('stroke-dashoffset', -cumLen);
+        c.setAttribute('transform', 'rotate(-90 100 100)');
+        svg.appendChild(c);
+        cumLen += len;
+      });
+    }
+
+    function drawLegend(vals, total) {
+      var legend = document.getElementById('calc-legend');
+      if (!legend) return;
+      legend.innerHTML = CHART_LABELS.map(function(label, i) {
+        if (vals[i] <= 0) return '';
+        var pct = total > 0 ? Math.round(vals[i] / total * 100) : 0;
+        return '<div class="calc-legend-item">' +
+          '<span class="calc-legend-dot" style="background:' + CHART_COLORS[i] + '"></span>' +
+          '<span>' + label + '</span>' +
+          '<span class="calc-legend-val">' + fmt(vals[i]) + '/mo' +
+          '<span class="calc-legend-pct">(' + pct + '%)</span></span>' +
+          '</div>';
+      }).join('');
+    }
+
+    function calcPayment() {
+      var price     = parseAmt(priceEl);
+      var down      = parseAmt(downAmtEl);
+      var rate      = parseFloat(rateEl.value) || 0;
+      var term      = parseInt(termEl.value) || 30;
+      var taxRate   = parseFloat(taxRateEl.value) || 0;
+      var insurance = parseFloat(insurEl.value) || 0;
+      var hoa       = parseFloat(hoaEl.value) || 0;
+      var mello     = parseFloat(melloEl.value) || 0;
+      var loan      = Math.max(0, price - down);
+
+      var pi = 0;
+      if (rate > 0 && loan > 0) {
+        var r = (rate / 100) / 12;
+        var n = term * 12;
+        pi = loan * (r * Math.pow(1+r, n)) / (Math.pow(1+r, n) - 1);
+      } else if (loan > 0) {
+        pi = loan / (term * 12);
+      }
+
+      var tax   = (price * taxRate / 100) / 12;
+      var total = pi + tax + insurance + hoa + mello;
+
+      resultEl.textContent = total > 0 ? fmt(total) : '—';
+      loanEl.textContent   = loan > 0 ? fmt(loan) : '—';
+
+      var vals = [pi, tax, insurance, hoa, mello];
+      drawChart(vals, total);
+      drawLegend(vals, total);
+
+      if (price > 0) downPctEl.value = Math.round((down / price) * 1000) / 10;
+    }
+
+    downPctEl.addEventListener('input', function() {
+      var price = parseAmt(priceEl);
+      var amt = Math.round(price * (parseFloat(this.value) || 0) / 100);
+      downAmtEl.value = amt.toLocaleString('en-US');
+      calcPayment();
+    });
+
+    priceEl.addEventListener('input', function() {
+      var price = parseFloat(this.value.replace(/,/g, '')) || 0;
+      var pct   = parseFloat(downPctEl.value) || 0;
+      downAmtEl.value = Math.round(price * pct / 100).toLocaleString('en-US');
+      calcPayment();
+    });
+
+    [downAmtEl, rateEl, taxRateEl, insurEl, hoaEl, melloEl].forEach(function(el) {
+      el.addEventListener('input', calcPayment);
+    });
+    termEl.addEventListener('change', calcPayment);
+
+    document.getElementById('calc-reset-btn').addEventListener('click', function() {
+      priceEl.value    = '800,000';
+      downAmtEl.value  = '160,000';
+      downPctEl.value  = '20';
+      rateEl.value     = '6.75';
+      termEl.value     = '30';
+      taxRateEl.value  = '1.14';
+      insurEl.value    = '150';
+      hoaEl.value      = '';
+      melloEl.value    = '';
+      calcPayment();
+    });
+
+    calcPayment();
+  })();
+  </script>
+</body>
+</html>
