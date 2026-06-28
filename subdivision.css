@@ -80,6 +80,7 @@
 .spec-row{display:flex;justify-content:space-between;align-items:baseline;padding:0.5rem 0;border-bottom:1px solid rgba(28,48,99,0.05);}
 .spec-label{font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#B38987;}
 .spec-value{font-family:'Lato',sans-serif;font-size:0.85rem;font-weight:500;color:#18254B;text-align:right;}
+.school-dist-label{display:block;font-family:'Lato',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.11em;text-transform:uppercase;color:#B38987;margin-top:0.9rem;margin-bottom:0.1rem;}
 .school-item{font-family:'Lato',sans-serif;font-size:0.88rem;color:#3a4a6b;padding:0.55rem 0;border-bottom:1px solid rgba(28,48,99,0.05);display:flex;justify-content:space-between;align-items:baseline;gap:0.7rem;}
 .school-item::before{display:none;}
 .school-item a{color:#3a4a6b;text-decoration:none;transition:color 0.2s;}
