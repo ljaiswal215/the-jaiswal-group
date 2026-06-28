@@ -769,15 +769,15 @@
             </div>
             <div class="prop-calc-row">
               <span>Homeowners Insurance</span>
-              <span id="calc-ins">$150</span>
+              <span id="calc-ins">—</span>
             </div>
             <div class="prop-calc-row">
               <span>HOA</span>
-              <span id="calc-hoa">$272</span>
+              <span id="calc-hoa">—</span>
             </div>
             <div class="prop-calc-row">
               <span>Mello-Roos</span>
-              <span id="calc-mello">$253</span>
+              <span id="calc-mello">—</span>
             </div>
           </div>
           <p class="prop-calc-result-loan">Loan amount: <span id="calc-loan-amt">—</span></p>
@@ -938,6 +938,9 @@
       var loanEl    = document.getElementById('calc-loan-amt');
       var piEl      = document.getElementById('calc-pi');
       var taxEl     = document.getElementById('calc-tax');
+      var insEl     = document.getElementById('calc-ins');
+      var hoaEl     = document.getElementById('calc-hoa');
+      var melloEl   = document.getElementById('calc-mello');
 
       var HOA       = 272;
       var MELLO     = 3040 / 12;
@@ -965,10 +968,13 @@
         var tax   = (price * TAX_RATE) / 12;
         var total = pi + tax + INSURANCE + HOA + MELLO;
 
-        piEl.textContent  = fmt(pi) + '/mo';
-        taxEl.textContent = fmt(tax) + '/mo';
-        resultEl.textContent = fmt(total) + '/mo';
-        loanEl.textContent = fmt(loan);
+        piEl.textContent    = fmt(pi)        + '/mo';
+        taxEl.textContent   = fmt(tax)       + '/mo';
+        insEl.textContent   = fmt(INSURANCE) + '/mo';
+        hoaEl.textContent   = fmt(HOA)       + '/mo';
+        melloEl.textContent = fmt(MELLO)     + '/mo';
+        resultEl.textContent = fmt(total)    + '/mo';
+        loanEl.textContent   = fmt(loan);
 
         if (price > 0) downPctEl.value = Math.round((down / price) * 1000) / 10;
       }
