@@ -223,14 +223,12 @@
     <div class="subdiv-about-inner">
       <p class="section-eyebrow">ABOUT THE HIGHLANDS COLLECTION</p>
       <h2>BOUTIQUE LUXURY. ELEVATED LIVING.</h2>
-      <p>Developed by Tri Pointe Homes, The Highlands Collection represents a boutique interpretation of luxury living within Pacific Highlands Ranch. With only 42 residences, this exclusive enclave offers a level of intimacy and rarity that distinguishes it from larger communities throughout the Carmel Valley area.</p>
-      <p>The Highlands Collection&rsquo;s contemporary architecture and refined interiors set a high standard for design. Spacious open-concept floor plans feature expansive great rooms, designer kitchens, and seamless indoor-outdoor living that maximizes Southern California&rsquo;s exceptional climate. Clean contemporary lines are warmed by California-inspired details, creating residences that feel both sophisticated and livable.</p>
-      <p>Flexible floor plans offer generous living areas and multiple bedroom configurations, making it possible for buyers to find a home that truly fits their lifestyle. Homes are designed with thoughtful attention to how people actually live &mdash; entertaining, working from home, and gathering with family alike.</p>
-      <p>Situated in the northern portion of Pacific Highlands Ranch, residents of The Highlands Collection enjoy access to both The Club at Pacific Highlands Ranch and The Club at Lopelia Meadows. These resort-style private facilities offer pools, spas, fitness centers, and gathering areas &mdash; an exceptional amenity package that adds significant value to everyday life.</p>
-      <p>More than 1,300 acres of preserved open space and scenic trails surround the community, while the Village at Pacific Highlands Ranch is just minutes away, offering convenient access to dining, shopping, wellness services, a public library, and a dog park.</p>
-      <p>Families are often drawn to The Highlands Collection for its access to highly regarded public schools. Depending on current attendance boundaries, students are generally served by Solana Santa Fe Elementary School (Solana Beach School District), Pacific Trails Middle School, and Canyon Crest Academy or Torrey Pines High School (San Dieguito Union High School District). School assignments should always be confirmed directly with the applicable district.</p>
-      <p>Del Mar&rsquo;s beaches, One Paseo, Del Mar Highlands Town Center, Interstate 5, and State Route 56 are all within easy reach, providing connectivity throughout San Diego County and beyond.</p>
-      <p>With only 42 residences, opportunities to purchase within The Highlands Collection are rare. For buyers seeking boutique luxury in one of Pacific Highlands Ranch&rsquo;s most exclusive settings, this community is a truly distinctive choice.</p>
+      <p>The Highlands Collection is an intimate enclave of just 42 luxury residences within Pacific Highlands Ranch, offering a more boutique interpretation of one of Carmel Valley&rsquo;s most sought-after addresses. Developed by Tri Pointe Homes as an extension of the original Highlands neighborhood, this exclusive collection combines contemporary architecture, refined interiors, and access to the exceptional lifestyle that has made Pacific Highlands Ranch one of North County San Diego&rsquo;s most desirable communities.</p>
+      <p>Designed for modern living, homes within The Highlands Collection feature spacious open-concept floor plans, expansive great rooms, designer kitchens, and seamless indoor-outdoor living spaces. Architectural styling blends clean contemporary lines with warm California influences, creating homes that feel sophisticated yet welcoming. Flexible floor plans offer generous living areas, multiple bedroom configurations, and thoughtfully designed spaces that adapt to the needs of today&rsquo;s families.</p>
+      <p>Located within the northern portion of Pacific Highlands Ranch, The Highlands Collection enjoys close proximity to many of the community&rsquo;s most desirable amenities. Residents have access to both The Club at Pacific Highlands Ranch and The Club at Lopelia Meadows, two private recreation centers offering resort-inspired pools, spas, fitness facilities, gathering spaces, and recreation areas designed to support an active and connected lifestyle.</p>
+      <p>Beyond the neighborhood itself, more than 1,300 acres of preserved open space, scenic trails, and natural habitat create a setting that feels both peaceful and connected. The Village at Pacific Highlands Ranch serves as the community&rsquo;s vibrant gathering place, offering dining, shopping, wellness services, specialty retailers, a public library, dog park, and everyday conveniences just minutes from home.</p>
+      <p>Families are drawn to The Highlands Collection for its access to highly regarded schools. Students typically attend Solana Santa Fe Elementary School, Pacific Trails Middle School, and Canyon Crest Academy or Torrey Pines High School. School enrollment and attendance boundaries should always be verified directly with the applicable school district.</p>
+      <p>What distinguishes The Highlands Collection is its combination of newer construction, limited availability, and access to the broader Pacific Highlands Ranch lifestyle. With only 42 residences, opportunities to purchase within the community are rare. For buyers seeking a modern home, exceptional amenities, outstanding schools, and one of Carmel Valley&rsquo;s most desirable locations, The Highlands Collection offers a compelling opportunity within the 92130 market.</p>
     </div>
   </section>
 
@@ -304,9 +302,7 @@
            widget code filtered to: Community = The Highlands Collection,
            City = San Diego, Zip = 92130
       ═══════════════════════════════════════════════════════════ -->
-      <div class="idx-placeholder">
-        <p>IDX Broker Widget — The Highlands Collection · Pacific Highlands Ranch · 92130</p>
-      </div>
+      <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-161727" src="//thejaiswalgroup.idxbroker.com/idx/widgets/161727"></script>
 
       <!-- No-listings fallback — always visible until IDX is live; becomes a secondary CTA once listings appear -->
       <div class="subdiv-no-listings">
@@ -367,8 +363,8 @@
   ═══════════════════════════════════════════════════════════════ -->
   <section class="subdiv-seller-cta">
     <p class="section-eyebrow">THINKING OF SELLING</p>
-    <h2>FIND OUT WHAT YOUR THE HIGHLANDS COLLECTION HOME IS WORTH</h2>
-    <p>If you&rsquo;re considering a move, we&rsquo;d love to help you understand what your The Highlands Collection home could bring in today&rsquo;s market. Get a free, no-obligation valuation from The Jaiswal Group.</p>
+    <h2>FIND OUT WHAT YOUR HIGHLANDS COLLECTION HOME IS WORTH</h2>
+    <p>If you&rsquo;re considering a move, we&rsquo;d love to help you understand what your Highlands Collection home could bring in today&rsquo;s market. Get a free, no-obligation valuation from The Jaiswal Group.</p>
     <a href="../../home-valuation.html">GET YOUR FREE VALUATION</a>
   </section>
 
@@ -418,53 +414,54 @@
 
   <script src="../../main.js"></script>
   <script>
-    /* ── Auto-swap FAQ / Listings order based on IDX results ──────────────
-       When IDX is live: replace the hasListings condition below with the
-       selector that wraps actual listing results — e.g.:
-         document.querySelector('.ihf-results-count') !== null
-       Remove "false &&" once IDX is connected and the selector is confirmed.
-    ─────────────────────────────────────────────────────────────────────── */
-    function reorderSections() {
-      const faq      = document.getElementById('section-faq');
-      const listings = document.getElementById('section-listings');
-      if (!faq || !listings) return;
-
-      // TODO: swap "false &&" for real IDX results selector when IDX is live
-      const hasListings = false && document.querySelector('.idx-active-results') !== null;
-
-      const parent = faq.parentNode;
-      if (!parent) return;
-
-      // Only move elements if they are not already in the correct order
-      // This prevents the MutationObserver from triggering an infinite loop
-      const nodes = Array.from(parent.children);
-      const faqIndex      = nodes.indexOf(faq);
-      const listingsIndex = nodes.indexOf(listings);
-
-      if (hasListings) {
-        // Want: Listings → FAQ
-        if (listingsIndex > faqIndex) parent.insertBefore(listings, faq);
-      } else {
-        // Want: FAQ → Listings (default)
-        if (faqIndex > listingsIndex) parent.insertBefore(faq, listings);
-      }
+  (function() {
+    const noListings = document.querySelector('.subdiv-no-listings');
+    function applyWidgetStyles(shadowRoot) {
+      if (shadowRoot.getElementById('tjg-widget-styles')) return;
+      const style = document.createElement('style');
+      style.id = 'tjg-widget-styles';
+      style.textContent = `
+        .idx-listing-card__courtesy { display: none !important; }
+        .idx-listing-card__wrap { position: relative !important; }
+        .idx-listing-card__details { padding-bottom: 2rem !important; }
+        .idx-listing-card__additional-info {
+          position: absolute !important; bottom: 2rem !important; right: 1rem !important;
+          background: transparent !important; padding: 0 !important; margin: 0 !important;
+        }
+        .idx-listing-card__mls { background: transparent !important; mix-blend-mode: multiply !important; }
+        .idx-listing-card__mls img { height: 38px !important; width: auto !important; mix-blend-mode: multiply !important; background: transparent !important; }
+      `;
+      shadowRoot.appendChild(style);
     }
-    document.addEventListener('DOMContentLoaded', reorderSections);
-    new MutationObserver(reorderSections).observe(document.body, {childList:true, subtree:true});
+    function checkListings(shadowRoot) {
+      if (!noListings) return;
+      const cards = shadowRoot.querySelectorAll('.idx-listing-card');
+      noListings.style.display = cards.length > 0 ? 'none' : '';
+    }
+    function initWidget() {
+      const widget = document.querySelector('idx-listings-showcase');
+      if (!widget || !widget.shadowRoot) { setTimeout(initWidget, 400); return; }
+      applyWidgetStyles(widget.shadowRoot);
+      checkListings(widget.shadowRoot);
+      const observer = new MutationObserver(() => checkListings(widget.shadowRoot));
+      observer.observe(widget.shadowRoot, { childList: true, subtree: true });
+    }
+    setTimeout(initWidget, 800);
 
     const notifyForm = document.getElementById('notify-form');
-    if(notifyForm){
-      notifyForm.addEventListener('submit', async function(e){
+    if (notifyForm) {
+      notifyForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         const data = new FormData(notifyForm);
         const res = await fetch(notifyForm.action, {method:'POST', body:data, headers:{'Accept':'application/json'}});
-        if(res.ok){
+        if (res.ok) {
           notifyForm.innerHTML = '<p class="notify-success">Thank you! We&rsquo;ll make sure you&rsquo;re the first to know the moment a home becomes available in The Highlands Collection. We look forward to connecting with you.</p>';
         } else {
           notifyForm.innerHTML = '<p class="notify-success">Something went wrong. Please email us directly at <a href="mailto:Lynnette@thejaiswalgroup.com">Lynnette@thejaiswalgroup.com</a>.</p>';
         }
       });
     }
+  })();
   </script>
 </body>
 </html>
