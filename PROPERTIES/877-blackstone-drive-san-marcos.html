@@ -400,17 +400,17 @@
     .prop-calc-field label {
       display: block;
       font-family: 'Lato', sans-serif;
-      font-size: 0.65rem;
+      font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
+      color: #fff;
       margin-bottom: 0.5rem;
     }
     .prop-calc-input-wrap {
       display: flex;
       align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,0.35);
+      border-bottom: 1px solid rgba(255,255,255,0.45);
       padding-bottom: 0.25rem;
     }
     .prop-calc-input-wrap input,
@@ -419,13 +419,13 @@
       border: none;
       color: #fff;
       font-family: 'Lato', sans-serif;
-      font-size: 1rem;
+      font-size: 1.1rem;
       padding: 0.4rem 0.25rem;
       width: 100%;
       outline: none;
     }
     .prop-calc-field select {
-      border-bottom: 1px solid rgba(255,255,255,0.35);
+      border-bottom: 1px solid rgba(255,255,255,0.45);
       -webkit-appearance: none;
       appearance: none;
       cursor: pointer;
@@ -437,13 +437,13 @@
     }
     .prop-calc-prefix, .prop-calc-suffix {
       font-family: 'Lato', sans-serif;
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.35);
+      font-size: 1rem;
+      color: rgba(255,255,255,0.85);
       flex-shrink: 0;
     }
     .prop-calc-result {
-      background: rgba(18,30,62,0.72);
-      border: 1px solid rgba(179,137,135,0.45);
+      background: rgba(18,30,62,0.75);
+      border: 1px solid rgba(179,137,135,0.6);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       padding: 2.5rem 2rem;
@@ -451,11 +451,11 @@
     }
     .prop-calc-result-label {
       font-family: 'Lato', sans-serif;
-      font-size: 0.65rem;
+      font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.45);
+      color: #fff;
       margin-bottom: 1rem;
     }
     .prop-calc-result-amount {
@@ -467,31 +467,31 @@
     }
     .prop-calc-result-sub {
       font-family: 'Lato', sans-serif;
-      font-size: 0.68rem;
-      color: rgba(255,255,255,0.35);
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.85);
       line-height: 1.7;
       margin-bottom: 1.25rem;
     }
     .prop-calc-breakdown {
       width: 100%;
       margin: 0.75rem 0 1rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid rgba(255,255,255,0.3);
     }
     .prop-calc-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.45rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
       font-family: 'Lato', sans-serif;
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.55);
+      font-size: 0.8rem;
+      color: #fff;
     }
-    .prop-calc-row span:last-child { color: #fff; font-weight: 600; }
+    .prop-calc-row span:last-child { color: #B38987; font-weight: 600; }
     .prop-calc-result-loan {
       font-family: 'Lato', sans-serif;
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.5);
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.9);
     }
     .prop-calc-result-loan span { color: #fff; font-weight: 700; }
     .prop-calc-chart-section {
@@ -500,7 +500,7 @@
       align-items: center;
       margin-top: 2.5rem;
       padding-top: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
+      border-top: 1px solid rgba(255,255,255,0.25);
     }
     .prop-calc-donut-wrap { position: relative; width: 190px; flex-shrink: 0; }
     #calc-chart-svg { width: 100%; height: auto; display: block; }
@@ -509,23 +509,23 @@
       display: flex;
       align-items: center;
       gap: 0.65rem;
-      padding: 0.4rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 0.45rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
       font-family: 'Lato', sans-serif;
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.6);
+      font-size: 0.8rem;
+      color: #fff;
     }
     .prop-calc-legend-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
     .prop-calc-legend-val { margin-left: auto; color: #fff; font-weight: 600; white-space: nowrap; }
-    .prop-calc-legend-pct { color: rgba(255,255,255,0.35); font-weight: 400; margin-left: 0.35rem; }
+    .prop-calc-legend-pct { color: rgba(255,255,255,0.65); font-weight: 400; margin-left: 0.35rem; }
     @media (max-width: 600px) {
       .prop-calc-chart-section { flex-direction: column; }
       .prop-calc-donut-wrap { width: 160px; margin: 0 auto; }
     }
     .prop-calc-disclaimer {
       font-family: 'Lato', sans-serif;
-      font-size: 0.65rem;
-      color: rgba(255,255,255,0.7);
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.85);
       line-height: 1.8;
       margin-top: 2.5rem;
       text-align: center;
