@@ -541,6 +541,81 @@
     }
     .prop-map-section { line-height: 0; }
     #prop-map { width: 100%; height: 420px; }
+    /* ── COMMUNITY SPOTLIGHT ── */
+    .prop-community-section {
+      background: #fff;
+      padding: clamp(3rem, 5vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+    }
+    .prop-community-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+    .prop-community-img-wrap {
+      position: relative;
+    }
+    .prop-community-img-wrap::before {
+      content: '';
+      position: absolute;
+      top: -12px;
+      left: -12px;
+      right: 12px;
+      bottom: 12px;
+      background: #18254B;
+      z-index: 0;
+    }
+    .prop-community-img-wrap img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      display: block;
+    }
+    .prop-community-eyebrow {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #B38987;
+      margin: 0 0 0.6rem;
+    }
+    .prop-community-title {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: #18254B;
+      line-height: 1.2;
+      letter-spacing: 0.06em;
+      margin: 0 0 1rem;
+    }
+    .prop-community-desc {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.92rem;
+      color: #5a5250;
+      line-height: 1.8;
+      margin: 0 0 1.75rem;
+    }
+    .prop-community-btn {
+      display: inline-block;
+      border: 1.5px solid #B38987;
+      color: #B38987;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-decoration: none;
+      padding: 0.7rem 1.75rem;
+      transition: background 0.2s, color 0.2s;
+    }
+    .prop-community-btn:hover { background: #B38987; color: #fff; }
+    @media (max-width: 720px) {
+      .prop-community-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .prop-community-img-wrap::before { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -846,6 +921,23 @@
   ========================================================= -->
   <section class="prop-map-section">
     <div id="prop-map"></div>
+  </section>
+
+  <!-- =========================================================
+       COMMUNITY SPOTLIGHT
+  ========================================================= -->
+  <section class="prop-community-section">
+    <div class="prop-community-inner">
+      <div class="prop-community-img-wrap">
+        <img src="../HOTW/877%20BLACKSTONE%20DR/Image%201.jpg" alt="Rancho Tesoro community in San Marcos" />
+      </div>
+      <div class="prop-community-content">
+        <p class="prop-community-eyebrow">The Community</p>
+        <h2 class="prop-community-title">RANCHO TESORO HOMES</h2>
+        <p class="prop-community-desc">Rancho Tesoro is a gated master-planned community in San Marcos offering modern single-family homes with resort-style amenities — including a recreation center, pool, walking trails, and community parks. Ideally situated near top schools, Hwy 78, and the best of North County San Diego.</p>
+        <a href="#" class="prop-community-btn">EXPLORE</a>
+      </div>
+    </div>
   </section>
 
   <!-- =========================================================
