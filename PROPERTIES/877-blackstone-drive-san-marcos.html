@@ -533,6 +533,37 @@
     @media (max-width: 720px) {
       .prop-calc-grid { grid-template-columns: 1fr; }
     }
+    .prop-map-section {
+      background: #F3EFE8;
+      padding: clamp(2rem, 4vw, 3.5rem) 0 0;
+    }
+    .prop-map-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+    }
+    .prop-map-label {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #B38987;
+      margin-bottom: 0.6rem;
+    }
+    .prop-map-title {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+      color: #18254B;
+      margin: 0 0 1.5rem;
+      letter-spacing: 0.06em;
+    }
+    .prop-map-frame {
+      width: 100%;
+      height: 420px;
+      border: none;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -847,6 +878,24 @@
       </div>
       <p class="prop-calc-disclaimer">This calculator is for informational purposes only and does not constitute a loan commitment or guarantee of financing. Actual payments will vary based on credit profile, lender requirements, and market conditions. Contact us for a referral to a trusted lending partner.</p>
     </div>
+  </section>
+
+  <!-- =========================================================
+       LOCATION MAP
+  ========================================================= -->
+  <section class="prop-map-section">
+    <div class="prop-map-inner">
+      <p class="prop-map-label">Location</p>
+      <h2 class="prop-map-title">877 BLACKSTONE DRIVE, SAN MARCOS</h2>
+    </div>
+    <iframe
+      class="prop-map-frame"
+      src="https://maps.google.com/maps?q=877+Blackstone+Drive,+San+Marcos,+CA+92069&z=16&output=embed"
+      allowfullscreen
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="877 Blackstone Drive, San Marcos location map">
+    </iframe>
   </section>
 
   <!-- =========================================================
