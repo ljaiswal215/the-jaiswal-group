@@ -401,7 +401,8 @@
               </select>
             </div>
           </div>
-          <div id="calc-pmi-note" style="display:none; font-family:'Lato',sans-serif; font-size:0.72rem; color:rgba(255,255,255,0.5); margin:-0.5rem 0 1rem; line-height:1.6;">
+          <div id="calc-loan-category" style="display:none; font-family:'Lato',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; margin:-0.5rem 0 1rem; padding:0.4rem 0.75rem; border-left:2px solid #B38987; color:rgba(255,255,255,0.75);"></div>
+          <div id="calc-pmi-note" style="display:none; font-family:'Lato',sans-serif; font-size:0.72rem; color:rgba(255,255,255,0.5); margin:0 0 1rem; line-height:1.6;">
             PMI applies — less than 20% down on a Conventional loan. Rate: 0.8%/yr of loan balance. Drops off at 20% equity.
           </div>
 
@@ -534,7 +535,11 @@
     var melloEl      = document.getElementById('calc-mello');
     var resultEl     = document.getElementById('calc-result');
     var loanEl       = document.getElementById('calc-loan-amt');
-    var pmiNoteEl    = document.getElementById('calc-pmi-note');
+    var pmiNoteEl      = document.getElementById('calc-pmi-note');
+    var loanCategoryEl = document.getElementById('calc-loan-category');
+
+    var CONFORMING_LIMIT    = 806500;
+    var HIGH_BALANCE_LIMIT  = 1077550; // San Diego County 2025
 
     var NS = 'http://www.w3.org/2000/svg';
     var cx = 100, cy = 100, R = 76;
@@ -620,6 +625,23 @@
       var loanType = loanTypeEl.value;
       var downPct  = price > 0 ? (down / price) * 100 : 100;
       var pmi      = 0;
+
+      // Loan category label (Conventional only)
+      if (loanType === 'conventional') {
+        if (loan <= CONFORMING_LIMIT) {
+          loanCategoryEl.textContent = 'Standard Conforming Loan';
+          loanCategoryEl.style.borderColor = '#B38987';
+        } else if (loan <= HIGH_BALANCE_LIMIT) {
+          loanCategoryEl.textContent = 'High-Balance Conforming — San Diego County';
+          loanCategoryEl.style.borderColor = '#C9A89C';
+        } else {
+          loanCategoryEl.textContent = 'Exceeds Conforming Limit — Consider Jumbo';
+          loanCategoryEl.style.borderColor = '#7A5A58';
+        }
+        loanCategoryEl.style.display = '';
+      } else {
+        loanCategoryEl.style.display = 'none';
+      }
 
       if (loanType === 'conventional' && downPct < 20 && loan > 0) {
         pmi = (loan * 0.008) / 12; // 0.8% annual PMI
