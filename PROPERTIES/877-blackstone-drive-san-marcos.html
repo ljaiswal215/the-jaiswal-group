@@ -368,7 +368,7 @@
     .prop-calc-section {
       position: relative;
       background: url('../HOTW/877%20BLACKSTONE%20DR/Image%203.jpg') center 30% / cover no-repeat;
-      padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1.5rem, 5vw, 4rem);
+      padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 5vw, 4rem);
     }
     .prop-calc-section::before {
       content: '';
@@ -388,7 +388,7 @@
       font-size: clamp(1.4rem, 3vw, 2rem);
       color: #fff;
       letter-spacing: 0.08em;
-      margin: 0 0 2rem;
+      margin: 0 0 1.25rem;
     }
     .prop-calc-grid {
       display: grid;
@@ -396,7 +396,7 @@
       gap: 3rem;
       align-items: start;
     }
-    .prop-calc-field { margin-bottom: 1.5rem; }
+    .prop-calc-field { margin-bottom: 1rem; }
     .prop-calc-field label {
       display: block;
       font-family: 'Lato', sans-serif;
@@ -496,10 +496,10 @@
     .prop-calc-result-loan span { color: #fff; font-weight: 700; }
     .prop-calc-chart-section {
       display: flex;
-      gap: 2.5rem;
+      gap: 2rem;
       align-items: center;
-      margin-top: 2.5rem;
-      padding-top: 2rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
       border-top: 1px solid rgba(255,255,255,0.25);
     }
     .prop-calc-donut-wrap { position: relative; width: 190px; flex-shrink: 0; }
@@ -1004,7 +1004,7 @@
       var hoaEl     = document.getElementById('calc-hoa');
       var melloEl   = document.getElementById('calc-mello');
 
-      var CHART_COLORS  = ['#4A7FB5', '#B38987', '#7DADA8', '#C9A96E', '#9B86BD'];
+      var CHART_COLORS  = ['#2A4F8C', '#B38987', '#C9A89C', '#D4C5B0', '#7A5A58'];
       var CHART_LABELS  = ['Principal & Interest', 'Property Tax', 'Homeowners Insurance', 'HOA', 'Mello-Roos'];
 
       function drawChart(vals, total) {
