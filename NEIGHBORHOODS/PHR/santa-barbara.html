@@ -308,9 +308,7 @@
            widget code filtered to: Community = Santa Barbara,
            City = San Diego, Zip = 92130
       ═══════════════════════════════════════════════════════════ -->
-      <div class="idx-placeholder">
-        <p>IDX Broker Widget — Santa Barbara · Pacific Highlands Ranch · 92130</p>
-      </div>
+      <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-161739" src="//thejaiswalgroup.idxbroker.com/idx/widgets/161739"></script>
 
       <!-- No-listings fallback — always visible until IDX is live; becomes a secondary CTA once listings appear -->
       <div class="subdiv-no-listings">
@@ -429,35 +427,42 @@
          document.querySelector('.ihf-results-count') !== null
        Remove "false &&" once IDX is connected and the selector is confirmed.
     ─────────────────────────────────────────────────────────────────────── */
-    function reorderSections() {
-      const faq      = document.getElementById('section-faq');
-      const listings = document.getElementById('section-listings');
-      if (!faq || !listings) return;
-
-      // TODO: swap "false &&" for real IDX results selector when IDX is live
-      const hasListings = false && document.querySelector('.idx-active-results') !== null;
-
-      const parent = faq.parentNode;
-      if (!parent) return;
-
-      // Only move elements if they are not already in the correct order
-      // This prevents the MutationObserver from triggering an infinite loop
-      const nodes = Array.from(parent.children);
-      const faqIndex      = nodes.indexOf(faq);
-      const listingsIndex = nodes.indexOf(listings);
-
-      if (hasListings) {
-        // Want: Listings → FAQ
-        if (listingsIndex > faqIndex) parent.insertBefore(listings, faq);
-      } else {
-        // Want: FAQ → Listings (default)
-        if (faqIndex > listingsIndex) parent.insertBefore(faq, listings);
-      }
+      (function() {
+    const noListings = document.querySelector('.subdiv-no-listings');
+    function applyWidgetStyles(shadowRoot) {
+      if (shadowRoot.getElementById('tjg-widget-styles')) return;
+      const style = document.createElement('style');
+      style.id = 'tjg-widget-styles';
+      style.textContent = `
+        .idx-listing-card__courtesy { display: none !important; }
+        .idx-listing-card__wrap { position: relative !important; }
+        .idx-listing-card__details { padding-bottom: 2rem !important; }
+        .idx-listing-card__additional-info {
+          position: absolute !important; bottom: 2rem !important; right: 1rem !important;
+          background: transparent !important; padding: 0 !important; margin: 0 !important;
+        }
+        .idx-listing-card__mls { background: transparent !important; mix-blend-mode: multiply !important; }
+        .idx-listing-card__mls img { height: 38px !important; width: auto !important; mix-blend-mode: multiply !important; background: transparent !important; }
+      `;
+      shadowRoot.appendChild(style);
     }
-    document.addEventListener('DOMContentLoaded', reorderSections);
-    new MutationObserver(reorderSections).observe(document.body, {childList:true, subtree:true});
+    function checkListings(shadowRoot) {
+      if (!noListings) return;
+      const cards = shadowRoot.querySelectorAll('.idx-listing-card');
+      noListings.style.display = cards.length > 0 ? 'none' : '';
+    }
+    function initWidget() {
+      const widget = document.querySelector('idx-listings-showcase');
+      if (!widget || !widget.shadowRoot) { setTimeout(initWidget, 400); return; }
+      applyWidgetStyles(widget.shadowRoot);
+      checkListings(widget.shadowRoot);
+      const observer = new MutationObserver(() => checkListings(widget.shadowRoot));
+      observer.observe(widget.shadowRoot, { childList: true, subtree: true });
+    }
+    setTimeout(initWidget, 800);
+  })();
 
-    const notifyForm = document.getElementById('notify-form');
+    const notifyForm = document.getElementById('notify-form'); = document.getElementById('notify-form');
     if(notifyForm){
       notifyForm.addEventListener('submit', async function(e){
         e.preventDefault();
