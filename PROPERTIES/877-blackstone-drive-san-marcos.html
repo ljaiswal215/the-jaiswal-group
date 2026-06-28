@@ -355,10 +355,18 @@
 
     /* ── MORTGAGE CALCULATOR ── */
     .prop-calc-section {
-      background: #1C3063;
+      position: relative;
+      background: url('../HOTW/877%20BLACKSTONE%20DR/Image%203.jpg') center / cover no-repeat;
       padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1.5rem, 5vw, 4rem);
     }
-    .prop-calc-wrap { max-width: 960px; margin: 0 auto; }
+    .prop-calc-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(18, 30, 62, 0.85);
+      z-index: 0;
+    }
+    .prop-calc-wrap { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; }
     .prop-calc-wrap .prop-section-label { margin-bottom: 0.4rem; }
     .prop-calc-title {
       font-family: 'Marcellus', serif;
