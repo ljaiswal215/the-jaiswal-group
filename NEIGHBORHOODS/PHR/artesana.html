@@ -223,13 +223,16 @@
     <div class="subdiv-about-inner">
       <p class="section-eyebrow">ABOUT ARTESANA</p>
       <h2>TIMELESS ARCHITECTURE. ELEVATED LIVING.</h2>
-      <p>Tucked behind a private gated entrance within Pacific Highlands Ranch, Artesana draws its inspiration from the celebrated architect Lillian Rice&rsquo;s Spanish Colonial Revival style. This exclusive community of just 56 luxury residences offers a rare combination of architectural distinction, generous scale, and a coveted location in Carmel Valley&rsquo;s 92130.</p>
-      <p>Artesana&rsquo;s homes are situated along Meadowbrush Circle and Lilac Mist Bend, where thoughtful street design and lush landscaping create a sense of privacy and arrival. Residences range from approximately 4,051 to 5,065 square feet, and many homesites exceed 10,000 square feet &mdash; an exceptional offering in the Pacific Highlands Ranch area.</p>
-      <p>The community has earned recognition for its architectural excellence, with select homes earning Gold Nugget Merit Awards for outstanding design. Interior appointments reflect the craftsmanship and character consistent with Pardee Homes&rsquo; luxury portfolio.</p>
-      <p>Artesana residents enjoy access to two private recreation clubs: The Club at Lopelia Meadows and The Club at Pacific Highlands Ranch. Together, these amenities offer pools, spas, fitness facilities, and inviting gathering spaces that support an active and connected lifestyle throughout the year.</p>
-      <p>Beyond the community gates, residents are surrounded by more than 1,300 acres of open space and trail networks, providing a natural backdrop that is rare in a location this close to the coast. The Village at Pacific Highlands Ranch, One Paseo, and the beaches of Del Mar are all just minutes away, offering everyday conveniences and weekend escapes in equal measure.</p>
-      <p>Families are served by highly regarded schools within the Solana Beach School District and San Dieguito Union High School District. Depending on current attendance boundaries, students may attend Solana Ranch Elementary School, Pacific Trails Middle School, Canyon Crest Academy, or Torrey Pines High School. School enrollment and attendance boundaries should always be verified directly with the school district.</p>
-      <p>Artesana is governed by the Pacific Highlands Ranch HOA and is subject to Mello-Roos assessments. As one of the most exclusive gated communities within Pacific Highlands Ranch, Artesana represents a truly elevated chapter of Carmel Valley living.</p>
+      <p>Tucked behind a private gated entrance in Pacific Highlands Ranch, Artesana is one of Carmel Valley&rsquo;s most architecturally significant neighborhoods. Developed by Pardee Homes in 2017, this exclusive enclave of just 56 luxury residences draws inspiration from the celebrated work of architect Lillian Rice, whose influence helped define California&rsquo;s iconic Spanish Colonial Revival style.</p>
+      <p>From the moment you enter the community, Artesana feels distinct. Thoughtfully designed streetscapes, authentic architectural details, and generous homesites create a sense of place that is increasingly rare in modern residential development. Terracotta rooflines, arched entryways, private courtyards, and warm, timeless materials come together to create a neighborhood that feels both sophisticated and enduring.</p>
+      <p>Set along the quiet streets of Meadowbrush Circle and Lilac Mist Bend, Artesana offers an intimate residential experience within one of San Diego&rsquo;s most sought-after master-planned communities. With only 56 homes and a gated entrance, the neighborhood maintains a sense of privacy and exclusivity while remaining connected to the amenities, schools, and outdoor lifestyle that define Pacific Highlands Ranch.</p>
+      <p>Homes within Artesana are among the largest in the community, offering approximately 4,051 to 5,065 square feet of living space across three thoughtfully designed floor plans. Spacious interiors, expansive great rooms, generous outdoor living spaces, and large homesites create an environment well-suited for both everyday living and entertaining. Many residences sit on homesites of approximately 10,000 square feet or more, a rarity within the 92130 zip code.</p>
+      <p>The neighborhood&rsquo;s architectural excellence received national recognition when two of its floor plans earned Gold Nugget Merit Awards at the Pacific Coast Builders Conference, one of the most respected honors in residential design. The result is a community where craftsmanship, scale, and architectural integrity remain central to the homeowner experience.</p>
+      <p>Beyond its gates, Artesana enjoys access to everything that makes Pacific Highlands Ranch such a desirable place to live. Residents are surrounded by more than 1,300 acres of preserved open space and miles of interconnected hiking, biking, and equestrian trails that weave throughout the community. Nearby parks, recreational facilities, and gathering spaces create opportunities to enjoy San Diego&rsquo;s year-round outdoor lifestyle.</p>
+      <p>Residents also enjoy access to the community&rsquo;s private recreation amenities, including The Club at Lopelia Meadows and The Club at Pacific Highlands Ranch. These resort-inspired facilities feature pools, fitness centers, gathering spaces, and recreational amenities that complement the active lifestyle embraced throughout the neighborhood.</p>
+      <p>Families are often drawn to Artesana for its access to highly regarded public schools within the Solana Beach School District and San Dieguito Union High School District. Depending on current attendance boundaries, students may attend Solana Ranch Elementary School, Pacific Trails Middle School, Canyon Crest Academy, or Torrey Pines High School. School enrollment and attendance boundaries should always be verified directly with the applicable school district.</p>
+      <p>While Artesana feels remarkably private, everyday conveniences remain just minutes away. The Village at Pacific Highlands Ranch, One Paseo, Del Mar Highlands Town Center, and the beaches of Del Mar are all within easy reach, creating an ideal balance between seclusion and connectivity.</p>
+      <p>For those seeking architectural distinction, generous homesites, and a refined residential setting within Pacific Highlands Ranch, Artesana represents one of Carmel Valley&rsquo;s most exceptional addresses. Its combination of timeless design, gated privacy, and access to the very best of North County Coastal living continues to set it apart.</p>
     </div>
   </section>
 
@@ -306,9 +309,7 @@
            widget code filtered to: Community = Artesana,
            City = San Diego, Zip = 92130
       ═══════════════════════════════════════════════════════════ -->
-      <div class="idx-placeholder">
-        <p>IDX Broker Widget — Artesana · Pacific Highlands Ranch · 92130</p>
-      </div>
+      <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-161728" src="//thejaiswalgroup.idxbroker.com/idx/widgets/161728"></script>
 
       <!-- No-listings fallback — always visible until IDX is live; becomes a secondary CTA once listings appear -->
       <div class="subdiv-no-listings">
@@ -420,53 +421,54 @@
 
   <script src="../../main.js"></script>
   <script>
-    /* ── Auto-swap FAQ / Listings order based on IDX results ──────────────
-       When IDX is live: replace the hasListings condition below with the
-       selector that wraps actual listing results — e.g.:
-         document.querySelector('.ihf-results-count') !== null
-       Remove "false &&" once IDX is connected and the selector is confirmed.
-    ─────────────────────────────────────────────────────────────────────── */
-    function reorderSections() {
-      const faq      = document.getElementById('section-faq');
-      const listings = document.getElementById('section-listings');
-      if (!faq || !listings) return;
-
-      // TODO: swap "false &&" for real IDX results selector when IDX is live
-      const hasListings = false && document.querySelector('.idx-active-results') !== null;
-
-      const parent = faq.parentNode;
-      if (!parent) return;
-
-      // Only move elements if they are not already in the correct order
-      // This prevents the MutationObserver from triggering an infinite loop
-      const nodes = Array.from(parent.children);
-      const faqIndex      = nodes.indexOf(faq);
-      const listingsIndex = nodes.indexOf(listings);
-
-      if (hasListings) {
-        // Want: Listings → FAQ
-        if (listingsIndex > faqIndex) parent.insertBefore(listings, faq);
-      } else {
-        // Want: FAQ → Listings (default)
-        if (faqIndex > listingsIndex) parent.insertBefore(faq, listings);
-      }
+  (function() {
+    const noListings = document.querySelector('.subdiv-no-listings');
+    function applyWidgetStyles(shadowRoot) {
+      if (shadowRoot.getElementById('tjg-widget-styles')) return;
+      const style = document.createElement('style');
+      style.id = 'tjg-widget-styles';
+      style.textContent = `
+        .idx-listing-card__courtesy { display: none !important; }
+        .idx-listing-card__wrap { position: relative !important; }
+        .idx-listing-card__details { padding-bottom: 2rem !important; }
+        .idx-listing-card__additional-info {
+          position: absolute !important; bottom: 2rem !important; right: 1rem !important;
+          background: transparent !important; padding: 0 !important; margin: 0 !important;
+        }
+        .idx-listing-card__mls { background: transparent !important; mix-blend-mode: multiply !important; }
+        .idx-listing-card__mls img { height: 38px !important; width: auto !important; mix-blend-mode: multiply !important; background: transparent !important; }
+      `;
+      shadowRoot.appendChild(style);
     }
-    document.addEventListener('DOMContentLoaded', reorderSections);
-    new MutationObserver(reorderSections).observe(document.body, {childList:true, subtree:true});
+    function checkListings(shadowRoot) {
+      if (!noListings) return;
+      const cards = shadowRoot.querySelectorAll('.idx-listing-card');
+      noListings.style.display = cards.length > 0 ? 'none' : '';
+    }
+    function initWidget() {
+      const widget = document.querySelector('idx-listings-showcase');
+      if (!widget || !widget.shadowRoot) { setTimeout(initWidget, 400); return; }
+      applyWidgetStyles(widget.shadowRoot);
+      checkListings(widget.shadowRoot);
+      const observer = new MutationObserver(() => checkListings(widget.shadowRoot));
+      observer.observe(widget.shadowRoot, { childList: true, subtree: true });
+    }
+    setTimeout(initWidget, 800);
 
     const notifyForm = document.getElementById('notify-form');
-    if(notifyForm){
-      notifyForm.addEventListener('submit', async function(e){
+    if (notifyForm) {
+      notifyForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         const data = new FormData(notifyForm);
         const res = await fetch(notifyForm.action, {method:'POST', body:data, headers:{'Accept':'application/json'}});
-        if(res.ok){
+        if (res.ok) {
           notifyForm.innerHTML = '<p class="notify-success">Thank you! We&rsquo;ll make sure you&rsquo;re the first to know the moment a home becomes available in Artesana. We look forward to connecting with you.</p>';
         } else {
           notifyForm.innerHTML = '<p class="notify-success">Something went wrong. Please email us directly at <a href="mailto:Lynnette@thejaiswalgroup.com">Lynnette@thejaiswalgroup.com</a>.</p>';
         }
       });
     }
+  })();
   </script>
 </body>
 </html>
