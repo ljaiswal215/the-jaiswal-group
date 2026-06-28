@@ -447,6 +447,22 @@
       line-height: 1.7;
       margin-bottom: 1.25rem;
     }
+    .prop-calc-breakdown {
+      width: 100%;
+      margin: 0.75rem 0 1rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .prop-calc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.55);
+    }
+    .prop-calc-row span:last-child { color: #fff; font-weight: 600; }
     .prop-calc-result-loan {
       font-family: 'Lato', sans-serif;
       font-size: 0.78rem;
@@ -742,7 +758,28 @@
         <div class="prop-calc-result">
           <p class="prop-calc-result-label">Estimated Monthly Payment</p>
           <p class="prop-calc-result-amount" id="calc-result">—</p>
-          <p class="prop-calc-result-sub">Principal &amp; interest only. Does not include taxes, insurance, or HOA fees.</p>
+          <div class="prop-calc-breakdown">
+            <div class="prop-calc-row">
+              <span>Principal &amp; Interest</span>
+              <span id="calc-pi">—</span>
+            </div>
+            <div class="prop-calc-row">
+              <span>Property Tax (1.14247%)</span>
+              <span id="calc-tax">—</span>
+            </div>
+            <div class="prop-calc-row">
+              <span>Homeowners Insurance</span>
+              <span id="calc-ins">$150</span>
+            </div>
+            <div class="prop-calc-row">
+              <span>HOA</span>
+              <span id="calc-hoa">$272</span>
+            </div>
+            <div class="prop-calc-row">
+              <span>Mello-Roos</span>
+              <span id="calc-mello">$253</span>
+            </div>
+          </div>
           <p class="prop-calc-result-loan">Loan amount: <span id="calc-loan-amt">—</span></p>
         </div>
       </div>
@@ -899,6 +936,13 @@
       var termEl    = document.getElementById('calc-term');
       var resultEl  = document.getElementById('calc-result');
       var loanEl    = document.getElementById('calc-loan-amt');
+      var piEl      = document.getElementById('calc-pi');
+      var taxEl     = document.getElementById('calc-tax');
+
+      var HOA       = 272;
+      var MELLO     = 3040 / 12;
+      var INSURANCE = 1800 / 12;
+      var TAX_RATE  = 0.0114247;
 
       function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
 
@@ -908,16 +952,24 @@
         var rate  = parseFloat(rateEl.value) || 0;
         var term  = parseInt(termEl.value) || 30;
         var loan  = Math.max(0, price - down);
-        var monthly = 0;
+
+        var pi = 0;
         if (rate > 0 && loan > 0) {
           var r = (rate / 100) / 12;
           var n = term * 12;
-          monthly = loan * (r * Math.pow(1+r, n)) / (Math.pow(1+r, n) - 1);
+          pi = loan * (r * Math.pow(1+r, n)) / (Math.pow(1+r, n) - 1);
         } else if (loan > 0) {
-          monthly = loan / (term * 12);
+          pi = loan / (term * 12);
         }
-        resultEl.textContent = fmt(monthly) + '/mo';
+
+        var tax   = (price * TAX_RATE) / 12;
+        var total = pi + tax + INSURANCE + HOA + MELLO;
+
+        piEl.textContent  = fmt(pi) + '/mo';
+        taxEl.textContent = fmt(tax) + '/mo';
+        resultEl.textContent = fmt(total) + '/mo';
         loanEl.textContent = fmt(loan);
+
         if (price > 0) downPctEl.value = Math.round((down / price) * 1000) / 10;
       }
 
