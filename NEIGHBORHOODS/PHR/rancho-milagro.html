@@ -461,6 +461,13 @@
       observer.observe(widget.shadowRoot, { childList: true, subtree: true });
     }
     setTimeout(initWidget, 800);
+    // Fallback: if widget never produces cards after 10s, show no-listings section
+    setTimeout(function() {
+      if (!noListings) return;
+      const widget = document.querySelector('idx-listings-showcase');
+      const cards = widget && widget.shadowRoot ? widget.shadowRoot.querySelectorAll('.idx-listing-card') : [];
+      if (cards.length === 0) noListings.style.display = '';
+    }, 10000);
   })();
 
     const notifyForm = document.getElementById('notify-form'); = document.getElementById('notify-form');
