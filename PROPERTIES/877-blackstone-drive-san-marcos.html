@@ -352,6 +352,118 @@
       .prop-header__right { width: 100%; }
       .prop-header__cta-btn { width: 100%; text-align: center; display: block; }
     }
+
+    /* ── MORTGAGE CALCULATOR ── */
+    .prop-calc-section {
+      background: #1C3063;
+      padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1.5rem, 5vw, 4rem);
+    }
+    .prop-calc-wrap { max-width: 960px; margin: 0 auto; }
+    .prop-calc-wrap .prop-section-label { margin-bottom: 0.4rem; }
+    .prop-calc-title {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      color: #fff;
+      letter-spacing: 0.08em;
+      margin: 0 0 2rem;
+    }
+    .prop-calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .prop-calc-field { margin-bottom: 1.5rem; }
+    .prop-calc-field label {
+      display: block;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 0.5rem;
+    }
+    .prop-calc-input-wrap {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding-bottom: 0.25rem;
+    }
+    .prop-calc-input-wrap input,
+    .prop-calc-field select {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      padding: 0.4rem 0.25rem;
+      width: 100%;
+      outline: none;
+    }
+    .prop-calc-field select {
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+    }
+    .prop-calc-input-row {
+      display: grid;
+      grid-template-columns: 1fr 90px;
+      gap: 1rem;
+    }
+    .prop-calc-prefix, .prop-calc-suffix {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.35);
+      flex-shrink: 0;
+    }
+    .prop-calc-result {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(179,137,135,0.3);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+    .prop-calc-result-label {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 1rem;
+    }
+    .prop-calc-result-amount {
+      font-family: 'Marcellus', serif;
+      font-size: 3rem;
+      color: #B38987;
+      line-height: 1;
+      margin-bottom: 0.75rem;
+    }
+    .prop-calc-result-sub {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+    .prop-calc-result-loan {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+    }
+    .prop-calc-result-loan span { color: #fff; font-weight: 700; }
+    .prop-calc-disclaimer {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.25);
+      line-height: 1.8;
+      margin-top: 2.5rem;
+      text-align: center;
+    }
+    @media (max-width: 720px) {
+      .prop-calc-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -582,6 +694,63 @@
   </div>
 
   <!-- =========================================================
+       MORTGAGE CALCULATOR
+  ========================================================= -->
+  <section class="prop-calc-section">
+    <div class="prop-calc-wrap">
+      <p class="prop-section-label">ESTIMATE YOUR PAYMENT</p>
+      <h2 class="prop-calc-title">MORTGAGE CALCULATOR</h2>
+      <div class="prop-calc-grid">
+        <div class="prop-calc-inputs">
+          <div class="prop-calc-field">
+            <label for="calc-price">Home Price</label>
+            <div class="prop-calc-input-wrap">
+              <span class="prop-calc-prefix">$</span>
+              <input type="number" id="calc-price" value="650000" min="0" step="1000" />
+            </div>
+          </div>
+          <div class="prop-calc-field">
+            <label>Down Payment</label>
+            <div class="prop-calc-input-row">
+              <div class="prop-calc-input-wrap">
+                <span class="prop-calc-prefix">$</span>
+                <input type="number" id="calc-down-amt" value="130000" min="0" step="1000" />
+              </div>
+              <div class="prop-calc-input-wrap">
+                <input type="number" id="calc-down-pct" value="20" min="0" max="100" step="0.5" />
+                <span class="prop-calc-suffix">%</span>
+              </div>
+            </div>
+          </div>
+          <div class="prop-calc-field">
+            <label for="calc-rate">Interest Rate</label>
+            <div class="prop-calc-input-wrap">
+              <input type="number" id="calc-rate" value="6.75" min="0" max="30" step="0.125" />
+              <span class="prop-calc-suffix">%</span>
+            </div>
+          </div>
+          <div class="prop-calc-field">
+            <label for="calc-term">Loan Term</label>
+            <select id="calc-term">
+              <option value="30" selected>30 years</option>
+              <option value="20">20 years</option>
+              <option value="15">15 years</option>
+              <option value="10">10 years</option>
+            </select>
+          </div>
+        </div>
+        <div class="prop-calc-result">
+          <p class="prop-calc-result-label">Estimated Monthly Payment</p>
+          <p class="prop-calc-result-amount" id="calc-result">—</p>
+          <p class="prop-calc-result-sub">Principal &amp; interest only. Does not include taxes, insurance, or HOA fees.</p>
+          <p class="prop-calc-result-loan">Loan amount: <span id="calc-loan-amt">—</span></p>
+        </div>
+      </div>
+      <p class="prop-calc-disclaimer">This calculator is for informational purposes only and does not constitute a loan commitment or guarantee of financing. Actual payments will vary based on credit profile, lender requirements, and market conditions. Contact us for a referral to a trusted lending partner.</p>
+    </div>
+  </section>
+
+  <!-- =========================================================
        WORK WITH US
   ========================================================= -->
   <section class="work-with-us">
@@ -718,6 +887,59 @@
         }
       });
     });
+  </script>
+
+  <script>
+    // ── MORTGAGE CALCULATOR ──────────────────────────────────────
+    (function() {
+      var priceEl   = document.getElementById('calc-price');
+      var downAmtEl = document.getElementById('calc-down-amt');
+      var downPctEl = document.getElementById('calc-down-pct');
+      var rateEl    = document.getElementById('calc-rate');
+      var termEl    = document.getElementById('calc-term');
+      var resultEl  = document.getElementById('calc-result');
+      var loanEl    = document.getElementById('calc-loan-amt');
+
+      function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+
+      function calcPayment() {
+        var price = parseFloat(priceEl.value) || 0;
+        var down  = parseFloat(downAmtEl.value) || 0;
+        var rate  = parseFloat(rateEl.value) || 0;
+        var term  = parseInt(termEl.value) || 30;
+        var loan  = Math.max(0, price - down);
+        var monthly = 0;
+        if (rate > 0 && loan > 0) {
+          var r = (rate / 100) / 12;
+          var n = term * 12;
+          monthly = loan * (r * Math.pow(1+r, n)) / (Math.pow(1+r, n) - 1);
+        } else if (loan > 0) {
+          monthly = loan / (term * 12);
+        }
+        resultEl.textContent = fmt(monthly) + '/mo';
+        loanEl.textContent = fmt(loan);
+        if (price > 0) downPctEl.value = Math.round((down / price) * 1000) / 10;
+      }
+
+      downPctEl.addEventListener('input', function() {
+        var price = parseFloat(priceEl.value) || 0;
+        downAmtEl.value = Math.round(price * (parseFloat(this.value) || 0) / 100);
+        calcPayment();
+      });
+
+      priceEl.addEventListener('input', function() {
+        var price = parseFloat(this.value) || 0;
+        var pct = parseFloat(downPctEl.value) || 0;
+        downAmtEl.value = Math.round(price * pct / 100);
+        calcPayment();
+      });
+
+      downAmtEl.addEventListener('input', calcPayment);
+      rateEl.addEventListener('input', calcPayment);
+      termEl.addEventListener('change', calcPayment);
+
+      calcPayment();
+    })();
   </script>
 </body>
 </html>
