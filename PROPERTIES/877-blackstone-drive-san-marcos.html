@@ -469,6 +469,34 @@
       color: rgba(255,255,255,0.5);
     }
     .prop-calc-result-loan span { color: #fff; font-weight: 700; }
+    .prop-calc-chart-section {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .prop-calc-donut-wrap { position: relative; width: 190px; flex-shrink: 0; }
+    #calc-chart-svg { width: 100%; height: auto; display: block; }
+    .prop-calc-legend { flex: 1; }
+    .prop-calc-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.6);
+    }
+    .prop-calc-legend-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+    .prop-calc-legend-val { margin-left: auto; color: #fff; font-weight: 600; white-space: nowrap; }
+    .prop-calc-legend-pct { color: rgba(255,255,255,0.35); font-weight: 400; margin-left: 0.35rem; }
+    @media (max-width: 600px) {
+      .prop-calc-chart-section { flex-direction: column; }
+      .prop-calc-donut-wrap { width: 160px; margin: 0 auto; }
+    }
     .prop-calc-disclaimer {
       font-family: 'Lato', sans-serif;
       font-size: 0.65rem;
@@ -783,6 +811,12 @@
           <p class="prop-calc-result-loan">Loan amount: <span id="calc-loan-amt">—</span></p>
         </div>
       </div>
+      <div class="prop-calc-chart-section">
+        <div class="prop-calc-donut-wrap">
+          <svg id="calc-chart-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"></svg>
+        </div>
+        <div class="prop-calc-legend" id="calc-legend"></div>
+      </div>
       <p class="prop-calc-disclaimer">This calculator is for informational purposes only and does not constitute a loan commitment or guarantee of financing. Actual payments will vary based on credit profile, lender requirements, and market conditions. Contact us for a referral to a trusted lending partner.</p>
     </div>
   </section>
@@ -942,6 +976,53 @@
       var hoaEl     = document.getElementById('calc-hoa');
       var melloEl   = document.getElementById('calc-mello');
 
+      var CHART_COLORS  = ['#4A7FB5', '#B38987', '#7DADA8', '#C9A96E', '#9B86BD'];
+      var CHART_LABELS  = ['Principal & Interest', 'Property Tax', 'Homeowners Insurance', 'HOA', 'Mello-Roos'];
+
+      function drawChart(vals, total) {
+        var NS  = 'http://www.w3.org/2000/svg';
+        var svg = document.getElementById('calc-chart-svg');
+        if (!svg || total <= 0) return;
+        svg.innerHTML = '';
+        var R = 70, cx = 100, cy = 100;
+        var circ = 2 * Math.PI * R;
+        var bg = document.createElementNS(NS, 'circle');
+        bg.setAttribute('cx', cx); bg.setAttribute('cy', cy); bg.setAttribute('r', R);
+        bg.setAttribute('fill', 'none');
+        bg.setAttribute('stroke', 'rgba(255,255,255,0.06)');
+        bg.setAttribute('stroke-width', '28');
+        svg.appendChild(bg);
+        var cumLen = 0;
+        vals.forEach(function(val, i) {
+          if (val <= 0) return;
+          var len = (val / total) * circ;
+          var c = document.createElementNS(NS, 'circle');
+          c.setAttribute('cx', cx); c.setAttribute('cy', cy); c.setAttribute('r', R);
+          c.setAttribute('fill', 'none');
+          c.setAttribute('stroke', CHART_COLORS[i]);
+          c.setAttribute('stroke-width', '28');
+          c.setAttribute('stroke-dasharray', len + ' ' + circ);
+          c.setAttribute('stroke-dashoffset', -cumLen);
+          c.setAttribute('transform', 'rotate(-90 100 100)');
+          svg.appendChild(c);
+          cumLen += len;
+        });
+      }
+
+      function drawLegend(vals, total) {
+        var legend = document.getElementById('calc-legend');
+        if (!legend) return;
+        legend.innerHTML = CHART_LABELS.map(function(label, i) {
+          var pct = total > 0 ? Math.round(vals[i] / total * 100) : 0;
+          return '<div class="prop-calc-legend-item">' +
+            '<span class="prop-calc-legend-dot" style="background:' + CHART_COLORS[i] + '"></span>' +
+            '<span>' + label + '</span>' +
+            '<span class="prop-calc-legend-val">' + fmt(vals[i]) + '/mo' +
+            '<span class="prop-calc-legend-pct">(' + pct + '%)</span></span>' +
+            '</div>';
+        }).join('');
+      }
+
       var HOA       = 272;
       var MELLO     = 3040 / 12;
       var INSURANCE = 1800 / 12;
@@ -986,6 +1067,10 @@
         melloEl.textContent = fmt(MELLO)     + '/mo';
         resultEl.textContent = fmt(total)    + '/mo';
         loanEl.textContent   = fmt(loan);
+
+        var vals = [pi, tax, INSURANCE, HOA, MELLO];
+        drawChart(vals, total);
+        drawLegend(vals, total);
 
         if (price > 0) downPctEl.value = Math.round((down / price) * 1000) / 10;
       }
