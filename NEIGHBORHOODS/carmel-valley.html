@@ -43,18 +43,21 @@
     @media(max-width:700px){.nbhd-highlights-grid{grid-template-columns:1fr 1fr;}}
     @media(max-width:480px){.nbhd-highlights-grid{grid-template-columns:1fr;}}
 
-    .nbhd-subdivisions { background:#F6F6F4; padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem); }
-    .nbhd-subdivisions-inner { max-width:980px; margin:0 auto; }
-    .nbhd-subdivisions-inner .section-eyebrow { color:#B38987; margin-bottom:0.75rem; }
-    .nbhd-subdivisions-inner h2 { font-family:'Marcellus',serif; font-size:clamp(1.4rem,2.5vw,1.9rem); color:#18254B; letter-spacing:0.08em; margin-bottom:0.75rem; }
-    .nbhd-subdivisions-inner > p { font-family:'Lato',sans-serif; font-size:0.9rem; color:#3a4a6b; line-height:1.85; margin-bottom:2rem; }
-    .subdiv-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
-    .subdiv-card { background:#fff; border:1px solid rgba(28,48,99,0.08); padding:1.25rem; text-decoration:none; display:block; transition:border-color 0.25s,box-shadow 0.25s; }
-    .subdiv-card:hover { border-color:#B38987; box-shadow:0 3px 12px rgba(0,0,0,0.07); }
-    .subdiv-card h3 { font-family:'Marcellus',serif; font-size:0.95rem; color:#18254B; margin-bottom:0.35rem; }
-    .subdiv-card p { font-family:'Lato',sans-serif; font-size:0.78rem; color:#7a8dab; line-height:1.6; margin:0; }
-    @media(max-width:700px){.subdiv-grid{grid-template-columns:1fr 1fr;}}
-    @media(max-width:480px){.subdiv-grid{grid-template-columns:1fr;}}
+    .nbhd-subdivisions { background:#F3EFE8; padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem); overflow-x:hidden; }
+    .nbhd-subdivisions-inner { max-width:none; margin:0 auto; }
+    .nbhd-subdivisions-inner .section-eyebrow { color:#B38987; margin-bottom:0.75rem; text-align:center; }
+    .nbhd-subdivisions-inner > h2 { font-family:'Marcellus',serif; font-size:clamp(1.4rem,2.5vw,1.9rem); color:#18254B; letter-spacing:0.08em; margin-bottom:1.75rem; text-align:center; }
+    .cv-nbhd-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw); }
+    .cv-nbhd-card { position:relative; height:280px; display:flex; flex-direction:column; justify-content:flex-end; padding:1.25rem 1.25rem; text-decoration:none; background-color:#18254B; background-size:cover; background-position:center; overflow:hidden; transition:transform 0.25s; }
+    .cv-nbhd-card::before { content:''; position:absolute; inset:0; background:linear-gradient(to bottom,rgba(24,37,75,0.05) 0%,rgba(24,37,75,0.78) 100%); transition:background 0.25s; z-index:0; }
+    .cv-nbhd-card:hover { transform:scale(1.01); z-index:1; }
+    .cv-nbhd-card:hover::before { background:linear-gradient(to bottom,rgba(24,37,75,0.15) 0%,rgba(24,37,75,0.88) 100%); }
+    .cv-nbhd-card-name { position:relative; z-index:1; font-family:'Marcellus',serif; font-size:0.95rem; color:#fff; letter-spacing:0.05em; line-height:1.25; }
+    .cv-nbhd-card-cta { position:relative; z-index:1; font-family:'Lato',sans-serif; font-size:0.62rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.6); margin-top:0.25rem; transition:color 0.2s; }
+    .cv-nbhd-card:hover .cv-nbhd-card-cta { color:#B38987; }
+    .cv-nbhd-card:not([href="#"]) .cv-nbhd-card-cta { color:rgba(255,255,255,0.6); }
+    @media(max-width:900px){ .cv-nbhd-grid { grid-template-columns:repeat(2,1fr); } }
+    @media(max-width:540px){ .cv-nbhd-card { height:200px; } }
 
     .nbhd-cta { background:#fff; padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem); text-align:center; }
     .nbhd-cta .section-eyebrow { color:#B38987; margin-bottom:0.75rem; }
@@ -272,61 +275,58 @@
     </div>
   </section>
 
-  <!-- SUBDIVISIONS -->
+  <!-- NEIGHBORHOODS -->
   <section class="nbhd-subdivisions">
     <div class="nbhd-subdivisions-inner">
-      <p class="section-eyebrow">EXPLORE THE AREAS</p>
-      <h2>CARMEL VALLEY SUBDIVISIONS &amp; AREAS</h2>
-      <p>Carmel Valley is made up of a number of distinct communities and subdivisions, each with its own architectural style, HOA structure, and lifestyle character. Click any area below to explore it in depth — or <a href="../contact.html" style="color:#B38987; font-weight:600;">contact us</a> for a personalized tour.</p>
-      <div class="subdiv-grid">
-        <a href="#" class="subdiv-card">
-          <h3>Torrey Hills</h3>
-          <p>Hillside community with newer detached homes, open space, and sweeping canyon views. Very popular with young families.</p>
+      <p class="section-eyebrow">EXPLORE THE NEIGHBORHOODS</p>
+      <h2>CARMEL VALLEY NEIGHBORHOODS</h2>
+      <div class="cv-nbhd-grid">
+
+        <a href="#" class="cv-nbhd-card">
+          <span class="cv-nbhd-card-name">Carmel Country Highlands</span>
+          <span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span>
         </a>
-        <a href="#" class="subdiv-card">
-          <h3>Pacific Ranch</h3>
-          <p>Established single-family homes and town homes with mature landscaping. Convenient access to Canyon Crest Academy and Torrey Pines High.</p>
+
+        <a href="#" class="cv-nbhd-card">
+          <span class="cv-nbhd-card-name">Del Mar Mesa</span>
+          <span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span>
         </a>
-        <a href="#" class="subdiv-card">
-          <h3>Santa Fe Ridge</h3>
-          <p>Sought-after detached homes with larger lots, quiet cul-de-sacs, and a strong sense of community nestled in the hills.</p>
+
+        <a href="pacific-highlands-ranch.html" class="cv-nbhd-card">
+          <span class="cv-nbhd-card-name">Pacific Highlands Ranch</span>
+          <span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span>
         </a>
-        <a href="#" class="subdiv-card">
-          <h3>Briar Ridge</h3>
-          <p>Single-family residences in a quiet, tree-lined setting. Family-friendly atmosphere with easy freeway access.</p>
+
+        <a href="#" class="cv-nbhd-card">
+          <span class="cv-nbhd-card-name">Torrey Highlands</span>
+          <span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span>
         </a>
-        <a href="#" class="subdiv-card">
-          <h3>San Cantos / Village Walk</h3>
-          <p>A mix of detached homes and townhomes close to shopping, dining, and the SR-56 corridor. Well-maintained HOA community.</p>
+
+        <a href="#" class="cv-nbhd-card">
+          <span class="cv-nbhd-card-name">Torrey Hills</span>
+          <span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span>
         </a>
-        <a href="#" class="subdiv-card">
-          <h3>Canterbury</h3>
-          <p>Spacious single-family homes with refined architecture. One of the more established and private pockets of Carmel Valley.</p>
+
+        <a href="#" class="cv-nbhd-card">
+          <span class="cv-nbhd-card-name">Rancho Pacifica</span>
+          <span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span>
         </a>
-        <a href="#" class="subdiv-card">
-          <h3>Sonata</h3>
-          <p>Gated enclave of newer homes with a quieter, more private feel. Popular with buyers seeking security and community amenities.</p>
+
+        <a href="#" class="cv-nbhd-card">
+          <span class="cv-nbhd-card-name">Carmel Valley Townhomes</span>
+          <span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span>
         </a>
-        <a href="#" class="subdiv-card">
-          <h3>Torrey Reserve</h3>
-          <p>Townhomes and attached residences near the Torrey Hills area. Excellent value within the highly desirable 92130 zip code.</p>
+
+        <a href="#" class="cv-nbhd-card">
+          <span class="cv-nbhd-card-name">Carmel Valley Condos</span>
+          <span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span>
         </a>
-        <a href="#" class="subdiv-card">
-          <h3>Carmel Del Mar</h3>
-          <p>Located at the Del Mar border — a desirable pocket with access to Del Mar schools, coastal proximity, and charming streetscapes.</p>
+
+        <a href="#" class="cv-nbhd-card">
+          <span class="cv-nbhd-card-name">Carmel Valley Single-Family Homes</span>
+          <span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span>
         </a>
-        <a href="#" class="subdiv-card">
-          <h3>Del Mar Highlands</h3>
-          <p>Adjacent to the Del Mar Highlands Town Center. Walkable access to Whole Foods, dining, and boutique retail. Highly walkable by San Diego standards.</p>
-        </a>
-        <a href="#" class="subdiv-card">
-          <h3>One Paseo Residences</h3>
-          <p>Modern condos and apartments in the heart of the One Paseo mixed-use development. Urban lifestyle in a suburban setting.</p>
-        </a>
-        <a href="#" class="subdiv-card">
-          <h3>Custom Estates</h3>
-          <p>Larger custom-built homes on generous lots at the edges of Carmel Valley. Ideal for buyers seeking space, privacy, and prestige.</p>
-        </a>
+
       </div>
     </div>
   </section>
