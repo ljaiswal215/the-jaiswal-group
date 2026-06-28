@@ -80,7 +80,15 @@
     .nbhd-schools-inner{max-width:980px;margin:0 auto;}
     .nbhd-schools-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
     .nbhd-schools-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#fff;letter-spacing:0.08em;margin-bottom:1.5rem;text-align:center;}
-    .nbhd-schools-placeholder{border:2px dashed rgba(179,137,135,0.3);padding:2.5rem 2rem;text-align:center;font-family:'Lato',sans-serif;font-size:0.85rem;color:rgba(255,255,255,0.5);letter-spacing:0.08em;font-weight:600;text-transform:uppercase;}
+    .nbhd-schools-intro{font-family:'Lato',sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.75);line-height:1.9;margin-bottom:2rem;text-align:center;max-width:780px;margin-left:auto;margin-right:auto;}
+    .nbhd-schools-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-bottom:2rem;}
+    .nbhd-school-col h3{font-family:'Marcellus',serif;font-size:0.78rem;color:#B38987;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(179,137,135,0.25);}
+    .nbhd-school-item{font-family:'Lato',sans-serif;font-size:0.85rem;color:rgba(255,255,255,0.85);padding:0.55rem 0;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;}
+    .nbhd-school-item a{color:rgba(255,255,255,0.85);text-decoration:none;border-bottom:1px solid rgba(179,137,135,0.3);transition:color 0.2s,border-color 0.2s;}
+    .nbhd-school-item a:hover{color:#B38987;border-color:#B38987;}
+    .nbhd-school-grade{font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B38987;white-space:nowrap;flex-shrink:0;}
+    .nbhd-school-note{font-family:'Lato',sans-serif;font-size:0.76rem;color:rgba(255,255,255,0.45);line-height:1.75;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.1);text-align:center;}
+    @media(max-width:640px){.nbhd-schools-grid{grid-template-columns:1fr;}}
     /* ── Commute ── */
     .nbhd-commute{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}
     .nbhd-commute-inner{max-width:980px;margin:0 auto;}
@@ -355,9 +363,75 @@
   ========================================================= -->
   <section class="nbhd-schools">
     <div class="nbhd-schools-inner">
-      <p class="section-eyebrow">SCHOOLS</p>
-      <h2>EDUCATION IN CARMEL VALLEY</h2>
-      <div class="nbhd-schools-placeholder">Del Mar Union / San Dieguito Union &mdash; detailed school information coming soon</div>
+      <p class="section-eyebrow">EDUCATION</p>
+      <h2>SCHOOLS SERVING CARMEL VALLEY</h2>
+      <p class="nbhd-schools-intro">Carmel Valley (92130) is served by two elementary school districts — Del Mar Union School District and Solana Beach School District — feeding into San Dieguito Union High School District for middle and high school.</p>
+
+      <div class="nbhd-schools-grid">
+
+        <div class="nbhd-school-col">
+          <h3>Del Mar Union School District &mdash; Elementary (K&ndash;6)</h3>
+          <div class="nbhd-school-item">
+            <a href="https://carmeldelmar.dmusd.org" target="_blank" rel="noopener">Carmel Del Mar Elementary</a>
+            <span class="nbhd-school-grade">K&ndash;6</span>
+          </div>
+          <div class="nbhd-school-item">
+            <a href="https://sagecanyon.dmusd.org" target="_blank" rel="noopener">Sage Canyon Elementary</a>
+            <span class="nbhd-school-grade">K&ndash;6</span>
+          </div>
+          <div class="nbhd-school-item">
+            <a href="https://torreyhills.dmusd.org" target="_blank" rel="noopener">Torrey Hills Elementary</a>
+            <span class="nbhd-school-grade">K&ndash;6</span>
+          </div>
+          <div class="nbhd-school-item">
+            <a href="https://oceanair.dmusd.org" target="_blank" rel="noopener">Ocean Air Elementary</a>
+            <span class="nbhd-school-grade">K&ndash;6</span>
+          </div>
+          <div class="nbhd-school-item">
+            <a href="https://ashleyfalls.dmusd.org" target="_blank" rel="noopener">Ashley Falls Elementary</a>
+            <span class="nbhd-school-grade">K&ndash;6</span>
+          </div>
+          <div class="nbhd-school-item">
+            <a href="https://sycamoreridge.dmusd.org" target="_blank" rel="noopener">Sycamore Ridge Elementary</a>
+            <span class="nbhd-school-grade">K&ndash;6</span>
+          </div>
+          <div class="nbhd-school-item">
+            <a href="https://pacificsky.dmusd.org" target="_blank" rel="noopener">Pacific Sky School</a>
+            <span class="nbhd-school-grade">K&ndash;6</span>
+          </div>
+        </div>
+
+        <div class="nbhd-school-col">
+          <h3>Solana Beach School District &mdash; Elementary</h3>
+          <div class="nbhd-school-item">
+            <a href="https://cc.sbsd.k12.ca.us" target="_blank" rel="noopener">Carmel Creek Elementary</a>
+            <span class="nbhd-school-grade">K&ndash;3</span>
+          </div>
+          <div class="nbhd-school-item">
+            <a href="https://www.sbsd.k12.ca.us/solanahighlands" target="_blank" rel="noopener">Solana Highlands Elementary</a>
+            <span class="nbhd-school-grade">K&ndash;3</span>
+          </div>
+          <div class="nbhd-school-item">
+            <a href="https://www.sbsd.k12.ca.us/solanapacific" target="_blank" rel="noopener">Solana Pacific Elementary</a>
+            <span class="nbhd-school-grade">4&ndash;6</span>
+          </div>
+          <div class="nbhd-school-item">
+            <a href="https://www.sbsd.k12.ca.us/solanaranch" target="_blank" rel="noopener">Solana Ranch Elementary</a>
+            <span class="nbhd-school-grade">K&ndash;6</span>
+          </div>
+          <div class="nbhd-school-item">
+            <a href="https://ssf.sbsd.k12.ca.us" target="_blank" rel="noopener">Solana Santa Fe Elementary</a>
+            <span class="nbhd-school-grade">K&ndash;6</span>
+          </div>
+          <div class="nbhd-school-item">
+            <a href="https://www.sbsd.k12.ca.us" target="_blank" rel="noopener">Skyline Global Education</a>
+            <span class="nbhd-school-grade">K&ndash;6</span>
+          </div>
+        </div>
+
+      </div>
+
+      <p class="nbhd-school-note">Middle and high school students attend San Dieguito Union High School District (SDUHSD). Specific school assignments depend on your home&rsquo;s location within 92130. Always verify enrollment boundaries directly with the district prior to purchase.</p>
     </div>
   </section>
 
@@ -385,7 +459,7 @@
       </div>
       <div class="nbhd-faq-item">
         <h3>What school district serves Carmel Valley?</h3>
-        <p>Carmel Valley is served by Del Mar Union / San Dieguito Union. Additional school details and enrollment information will be added here.</p>
+        <p>Elementary-age students in 92130 attend either Del Mar Union School District (DMUSD) or Solana Beach School District (SBSD) depending on their home's location. Middle and high school students are served by San Dieguito Union High School District (SDUHSD). Enrollment boundaries vary by address — always verify directly with the district before purchase.</p>
       </div>
       <div class="nbhd-faq-item">
         <h3>Is Carmel Valley a good place to live?</h3>
