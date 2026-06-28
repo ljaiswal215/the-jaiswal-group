@@ -722,7 +722,7 @@
             <label for="calc-price">Home Price</label>
             <div class="prop-calc-input-wrap">
               <span class="prop-calc-prefix">$</span>
-              <input type="number" id="calc-price" value="650000" min="0" step="1000" />
+              <input type="text" inputmode="numeric" id="calc-price" value="650,000" />
             </div>
           </div>
           <div class="prop-calc-field">
@@ -730,7 +730,7 @@
             <div class="prop-calc-input-row">
               <div class="prop-calc-input-wrap">
                 <span class="prop-calc-prefix">$</span>
-                <input type="number" id="calc-down-amt" value="130000" min="0" step="1000" />
+                <input type="text" inputmode="numeric" id="calc-down-amt" value="130,000" />
               </div>
               <div class="prop-calc-input-wrap">
                 <input type="number" id="calc-down-pct" value="20" min="0" max="100" step="0.5" />
@@ -948,10 +948,21 @@
       var TAX_RATE  = 0.0114247;
 
       function fmt(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+      function parseAmt(el) { return parseFloat(el.value.replace(/,/g, '')) || 0; }
+      function fmtInput(el) {
+        var raw = el.value.replace(/,/g, '');
+        var n = parseInt(raw, 10);
+        el.value = isNaN(n) ? '' : n.toLocaleString('en-US');
+      }
+
+      [priceEl, downAmtEl].forEach(function(el) {
+        el.addEventListener('focus', function() { this.value = this.value.replace(/,/g, ''); });
+        el.addEventListener('blur',  function() { fmtInput(this); });
+      });
 
       function calcPayment() {
-        var price = parseFloat(priceEl.value) || 0;
-        var down  = parseFloat(downAmtEl.value) || 0;
+        var price = parseAmt(priceEl);
+        var down  = parseAmt(downAmtEl);
         var rate  = parseFloat(rateEl.value) || 0;
         var term  = parseInt(termEl.value) || 30;
         var loan  = Math.max(0, price - down);
@@ -980,15 +991,18 @@
       }
 
       downPctEl.addEventListener('input', function() {
-        var price = parseFloat(priceEl.value) || 0;
-        downAmtEl.value = Math.round(price * (parseFloat(this.value) || 0) / 100);
+        var price = parseAmt(priceEl);
+        var amt = Math.round(price * (parseFloat(this.value) || 0) / 100);
+        downAmtEl.value = amt.toLocaleString('en-US');
         calcPayment();
       });
 
       priceEl.addEventListener('input', function() {
-        var price = parseFloat(this.value) || 0;
+        var raw = this.value.replace(/,/g, '');
+        var price = parseFloat(raw) || 0;
         var pct = parseFloat(downPctEl.value) || 0;
-        downAmtEl.value = Math.round(price * pct / 100);
+        var amt = Math.round(price * pct / 100);
+        downAmtEl.value = amt.toLocaleString('en-US');
         calcPayment();
       });
 
