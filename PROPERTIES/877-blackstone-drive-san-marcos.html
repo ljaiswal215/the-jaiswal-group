@@ -231,6 +231,47 @@
       border-radius: 50%;
       flex-shrink: 0;
     }
+    .prop-schools { margin-top: 2rem; }
+    .prop-schools-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-top: 0.75rem;
+    }
+    .prop-school-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.65rem 1rem;
+      background: #F3EFE8;
+      border-left: 3px solid #B38987;
+    }
+    .prop-school-grade {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #B38987;
+      background: #fff;
+      border: 1px solid #B38987;
+      padding: 0.2rem 0.5rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .prop-school-name {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #18254B;
+      letter-spacing: 0.02em;
+    }
+    .prop-school-disclaimer {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      color: #9a8e88;
+      margin-top: 0.5rem;
+      line-height: 1.6;
+    }
 
     /* ── CONTACT SIDEBAR ── */
     .prop-contact-wrap {
@@ -814,6 +855,21 @@
         </ul>
       </div>
 
+      <div class="prop-schools">
+        <p class="prop-section-label">Assigned Schools</p>
+        <div class="prop-schools-list">
+          <div class="prop-school-item">
+            <span class="prop-school-grade">K–8</span>
+            <span class="prop-school-name">Double Peak School</span>
+          </div>
+          <div class="prop-school-item">
+            <span class="prop-school-grade">9–12</span>
+            <span class="prop-school-name">Mission Hills High School</span>
+          </div>
+        </div>
+        <p class="prop-school-disclaimer">School assignments are provided for reference only. Please verify directly with the San Marcos Unified School District.</p>
+      </div>
+
     </div>
 
     <!-- Right column: sticky contact card -->
@@ -942,7 +998,7 @@
       <div class="prop-community-content">
         <p class="prop-community-eyebrow">The Community</p>
         <h2 class="prop-community-title">RANCHO TESORO HOMES</h2>
-        <p class="prop-community-desc">Rancho Tesoro is a gated master-planned community in San Marcos offering modern single-family homes with resort-style amenities — including a recreation center, pool, walking trails, and community parks. Ideally situated near top schools, Hwy 78, and the best of North County San Diego.</p>
+        <p class="prop-community-desc">Rancho Tesoro is a gated master-planned community in San Marcos offering modern single-family homes with resort-style amenities — including a recreation center, pool, walking trails, and community parks. Zoned for Double Peak School (K–8) and Mission Hills High School (9–12), with easy access to Hwy 78 and the best of North County San Diego.</p>
         <a href="#" class="prop-community-btn">EXPLORE</a>
       </div>
     </div>
