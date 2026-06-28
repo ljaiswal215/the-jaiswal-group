@@ -338,6 +338,17 @@
       color: rgba(255,255,255,0.35);
       margin-top: 0.75rem;
       line-height: 1.6;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+    .prop-contact-legal input[type="checkbox"] {
+      margin-top: 0.15rem;
+      flex-shrink: 0;
+      accent-color: #B38987;
+      width: 13px;
+      height: 13px;
+      cursor: pointer;
     }
 
     /* ── RESPONSIVE ── */
@@ -745,7 +756,10 @@
           <strong>Message Received</strong>
           Thank you — Lynnette will be in touch shortly to assist you with this property.
         </div>
-        <p class="prop-contact-legal">By submitting this form you agree to be contacted by The Jaiswal Group Real Estate regarding this property. Your information will not be shared with third parties.</p>
+        <label class="prop-contact-legal">
+          <input type="checkbox" name="consent" required />
+          By submitting this form you agree to be contacted by The Jaiswal Group Real Estate regarding this property. Your information will not be shared with third parties.
+        </label>
       </div>
     </div>
 
