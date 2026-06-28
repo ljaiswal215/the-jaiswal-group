@@ -444,6 +444,15 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
     font-size: 1.05rem;
     line-height: 1.4;
   }
+  .hero-ctas {
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero-ctas .btn {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+  }
 }
 
 
