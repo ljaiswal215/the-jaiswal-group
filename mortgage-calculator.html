@@ -391,6 +391,18 @@
                 <span class="calc-suffix">%</span>
               </div>
             </div>
+            <div class="calc-field" style="grid-column: 1 / -1;">
+              <label for="calc-loan-type">Loan Type</label>
+              <select id="calc-loan-type">
+                <option value="conventional" selected>Conventional</option>
+                <option value="fha">FHA</option>
+                <option value="va">VA</option>
+                <option value="usda">USDA</option>
+              </select>
+            </div>
+          </div>
+          <div id="calc-pmi-note" style="display:none; font-family:'Lato',sans-serif; font-size:0.72rem; color:rgba(255,255,255,0.5); margin:-0.5rem 0 1rem; line-height:1.6;">
+            PMI applies — less than 20% down on a Conventional loan. Rate: 0.8%/yr of loan balance. Drops off at 20% equity.
           </div>
 
           <hr class="calc-divider" />
@@ -507,20 +519,22 @@
   <script src="main.js"></script>
   <script>
   (function() {
-    var CHART_COLORS  = ['#2A4F8C', '#B38987', '#C9A89C', '#D4C5B0', '#7A5A58'];
-    var CHART_LABELS  = ['Principal & Interest', 'Property Tax', 'Insurance', 'HOA', 'Mello-Roos'];
+    var CHART_COLORS  = ['#2A4F8C', '#B38987', '#C9A89C', '#D4C5B0', '#7A5A58', '#4A7BA8'];
+    var CHART_LABELS  = ['Principal & Interest', 'Property Tax', 'Insurance', 'HOA', 'Mello-Roos', 'PMI / MIP'];
 
-    var priceEl    = document.getElementById('calc-price');
-    var downAmtEl  = document.getElementById('calc-down-amt');
-    var downPctEl  = document.getElementById('calc-down-pct');
-    var rateEl     = document.getElementById('calc-rate');
-    var termEl     = document.getElementById('calc-term');
-    var taxRateEl  = document.getElementById('calc-tax-rate');
-    var insurEl    = document.getElementById('calc-insurance');
-    var hoaEl      = document.getElementById('calc-hoa');
-    var melloEl    = document.getElementById('calc-mello');
-    var resultEl   = document.getElementById('calc-result');
-    var loanEl     = document.getElementById('calc-loan-amt');
+    var priceEl      = document.getElementById('calc-price');
+    var downAmtEl    = document.getElementById('calc-down-amt');
+    var downPctEl    = document.getElementById('calc-down-pct');
+    var rateEl       = document.getElementById('calc-rate');
+    var termEl       = document.getElementById('calc-term');
+    var loanTypeEl   = document.getElementById('calc-loan-type');
+    var taxRateEl    = document.getElementById('calc-tax-rate');
+    var insurEl      = document.getElementById('calc-insurance');
+    var hoaEl        = document.getElementById('calc-hoa');
+    var melloEl      = document.getElementById('calc-mello');
+    var resultEl     = document.getElementById('calc-result');
+    var loanEl       = document.getElementById('calc-loan-amt');
+    var pmiNoteEl    = document.getElementById('calc-pmi-note');
 
     var NS = 'http://www.w3.org/2000/svg';
     var cx = 100, cy = 100, R = 76;
@@ -567,7 +581,12 @@
     function drawLegend(vals, total) {
       var legend = document.getElementById('calc-legend');
       if (!legend) return;
-      legend.innerHTML = CHART_LABELS.map(function(label, i) {
+      var loanType = loanTypeEl.value;
+      var labels = CHART_LABELS.slice();
+      if (loanType === 'fha')  labels[5] = 'MIP (FHA)';
+      if (loanType === 'usda') labels[5] = 'Guarantee Fee (USDA)';
+      if (loanType === 'va')   labels[5] = 'PMI / MIP';
+      legend.innerHTML = labels.map(function(label, i) {
         if (vals[i] <= 0) return '';
         var pct = total > 0 ? Math.round(vals[i] / total * 100) : 0;
         return '<div class="calc-legend-item">' +
@@ -599,13 +618,36 @@
         pi = loan / (term * 12);
       }
 
-      var tax   = (price * taxRate / 100) / 12;
-      var total = pi + tax + insurance + hoa + mello;
+      var tax      = (price * taxRate / 100) / 12;
+      var loanType = loanTypeEl.value;
+      var downPct  = price > 0 ? (down / price) * 100 : 100;
+      var pmi      = 0;
+
+      if (loanType === 'conventional' && downPct < 20 && loan > 0) {
+        pmi = (loan * 0.008) / 12; // 0.8% annual PMI
+        pmiNoteEl.style.display = '';
+      } else if (loanType === 'fha' && loan > 0) {
+        pmi = (loan * 0.0055) / 12; // 0.55% annual MIP
+        pmiNoteEl.style.display = 'none';
+      } else if (loanType === 'usda' && loan > 0) {
+        pmi = (loan * 0.0035) / 12; // 0.35% annual guarantee fee
+        pmiNoteEl.style.display = 'none';
+      } else {
+        pmiNoteEl.style.display = 'none';
+      }
+
+      // Update PMI note label based on loan type
+      if (loanType === 'conventional' && downPct < 20) {
+        pmiNoteEl.textContent = 'PMI applies — less than 20% down on a Conventional loan. Rate: 0.8%/yr of loan balance. Drops off at 20% equity.';
+        pmiNoteEl.style.display = '';
+      }
+
+      var total = pi + tax + insurance + hoa + mello + pmi;
 
       resultEl.textContent = total > 0 ? fmt(total) : '—';
       loanEl.textContent   = loan > 0 ? fmt(loan) : '—';
 
-      var vals = [pi, tax, insurance, hoa, mello];
+      var vals = [pi, tax, insurance, hoa, mello, pmi];
       drawChart(vals, total);
       drawLegend(vals, total);
 
@@ -630,17 +672,19 @@
       el.addEventListener('input', calcPayment);
     });
     termEl.addEventListener('change', calcPayment);
+    loanTypeEl.addEventListener('change', calcPayment);
 
     document.getElementById('calc-reset-btn').addEventListener('click', function() {
-      priceEl.value    = '800,000';
-      downAmtEl.value  = '160,000';
-      downPctEl.value  = '20';
-      rateEl.value     = '6.75';
-      termEl.value     = '30';
-      taxRateEl.value  = '1.14';
-      insurEl.value    = '150';
-      hoaEl.value      = '';
-      melloEl.value    = '';
+      priceEl.value      = '800,000';
+      downAmtEl.value    = '160,000';
+      downPctEl.value    = '20';
+      rateEl.value       = '6.75';
+      termEl.value       = '30';
+      loanTypeEl.value   = 'conventional';
+      taxRateEl.value    = '1.14';
+      insurEl.value      = '150';
+      hoaEl.value        = '';
+      melloEl.value      = '';
       calcPayment();
     });
 
