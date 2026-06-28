@@ -895,7 +895,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
   (function() {
-    var map = L.map('prop-map', { scrollWheelZoom: false, zoomControl: true }).setView([33.1238, -117.1719], 16);
+    var map = L.map('prop-map', { scrollWheelZoom: false, zoomControl: true }).setView([33.1173, -117.1657], 17);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
@@ -904,15 +904,23 @@
       '<circle cx="18" cy="18" r="8" fill="#B38987"/>' +
       '</svg>';
     var icon = L.divIcon({ html: pinSvg, iconSize: [36, 48], iconAnchor: [18, 48], popupAnchor: [0, -50], className: '' });
-    L.marker([33.1238, -117.1719], { icon: icon })
-      .addTo(map)
-      .bindPopup(
-        '<div style="font-family:Marcellus,serif;color:#18254B;font-size:0.95rem;line-height:1.4;">' +
-        '877 Blackstone Drive<br>' +
-        '<span style="font-family:Lato,sans-serif;font-size:0.78rem;color:#5a5250;font-weight:400;">San Marcos, CA 92069</span>' +
-        '</div>'
-      )
-      .openPopup();
+    var popup = '<div style="font-family:Marcellus,serif;color:#18254B;font-size:0.95rem;line-height:1.4;">' +
+      '877 Blackstone Drive<br>' +
+      '<span style="font-family:Lato,sans-serif;font-size:0.78rem;color:#5a5250;font-weight:400;">San Marcos, CA 92069</span>' +
+      '</div>';
+    fetch('https://nominatim.openstreetmap.org/search?format=json&street=877+Blackstone+Drive&city=San+Marcos&state=CA&limit=1', {
+      headers: { 'User-Agent': 'thejaiswalgroup.com/property-page' }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var lat = data.length ? parseFloat(data[0].lat) : 33.1173;
+      var lng = data.length ? parseFloat(data[0].lon) : -117.1657;
+      map.setView([lat, lng], 17);
+      L.marker([lat, lng], { icon: icon }).addTo(map).bindPopup(popup).openPopup();
+    })
+    .catch(function() {
+      L.marker([33.1173, -117.1657], { icon: icon }).addTo(map).bindPopup(popup).openPopup();
+    });
   })();
   </script>
   <script>
