@@ -32,6 +32,18 @@
     .nbhd-about-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
     .nbhd-about-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.5rem,2.5vw,2rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.5rem;}
     .nbhd-about-inner p{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#3a4a6b;line-height:1.95;margin-bottom:1.1rem;}
+    .phr-demographics{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}
+    .phr-demographics-inner{max-width:1100px;margin:0 auto;}
+    .phr-demographics-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .phr-demographics-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;text-align:center;}
+    .phr-demographics-inner>p.demo-intro{font-family:'Lato',sans-serif;font-size:0.85rem;color:#7a7068;text-align:center;margin:0 auto 2rem;max-width:640px;line-height:1.7;}
+    .phr-demo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+    .phr-demo-card{background:#F3EFE8;border-top:3px solid #B38987;padding:1.4rem 1.25rem 1.1rem;}
+    .phr-demo-card .demo-num{font-family:'Marcellus',serif;font-size:1.9rem;color:#18254B;line-height:1;margin-bottom:0.35rem;letter-spacing:0.02em;}
+    .phr-demo-card .demo-label{font-family:'Lato',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#9a8e88;}
+    .phr-demo-note{font-family:'Lato',sans-serif;font-size:0.68rem;color:#b0a89e;margin-top:1.5rem;line-height:1.7;border-top:1px solid rgba(24,37,75,0.08);padding-top:1rem;text-align:center;}
+    @media(max-width:700px){.phr-demo-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:420px){.phr-demo-grid{grid-template-columns:1fr 1fr;gap:0.75rem;}.phr-demo-card .demo-num{font-size:1.5rem;}}
     .nbhd-highlights{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}
     .nbhd-highlights-inner{max-width:1100px;margin:0 auto;}
     .nbhd-highlights-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
@@ -369,6 +381,41 @@
       <p>Families are particularly drawn to Pacific Highlands Ranch for its highly regarded schools and strong sense of community. The neighborhood is served by the Solana Beach School District, Del Mar Union School District, and San Dieguito Union High School District, with access to some of the region's most respected public schools. Nearby private school options further contribute to the area's appeal for those prioritizing educational opportunities.</p>
       <p>Equally compelling is the atmosphere residents often describe when talking about life in Pacific Highlands Ranch. It is a community where children ride bikes to parks, neighbors gather for local events, trails connect neighborhoods to open space, and daily conveniences are often just a short walk away. Despite its continued growth, Pacific Highlands Ranch has maintained a cohesive identity rooted in thoughtful planning, environmental stewardship, and a genuine sense of connection.</p>
       <p>Just minutes from the beaches of Del Mar, surrounded by preserved natural beauty, and anchored by exceptional schools, amenities, and recreation, Pacific Highlands Ranch offers a lifestyle that is increasingly difficult to replicate. For many residents, it represents the ideal balance of coastal proximity, modern convenience, outdoor living, and community — all within one of San Diego County's most desirable neighborhoods.</p>
+    </div>
+  </section>
+
+  <section class="phr-demographics">
+    <div class="phr-demographics-inner">
+      <p class="section-eyebrow">BY THE NUMBERS</p>
+      <h2>PACIFIC HIGHLANDS RANCH AT A GLANCE</h2>
+      <p class="demo-intro">A community built for families — with the demographics to match.</p>
+      <div class="phr-demo-grid">
+        <div class="phr-demo-card">
+          <div class="demo-num">13,300+</div>
+          <div class="demo-label">Residents</div>
+        </div>
+        <div class="phr-demo-card">
+          <div class="demo-num">Late 30s</div>
+          <div class="demo-label">Median Age</div>
+        </div>
+        <div class="phr-demo-card">
+          <div class="demo-num">$200K+</div>
+          <div class="demo-label">Median Household Income</div>
+        </div>
+        <div class="phr-demo-card">
+          <div class="demo-num">~$1.7M</div>
+          <div class="demo-label">Median Home Value</div>
+        </div>
+        <div class="phr-demo-card">
+          <div class="demo-num">84%</div>
+          <div class="demo-label">Bachelor&rsquo;s Degree or Higher</div>
+        </div>
+        <div class="phr-demo-card">
+          <div class="demo-num">74%</div>
+          <div class="demo-label">Owner-Occupied Homes</div>
+        </div>
+      </div>
+      <p class="phr-demo-note">Sources: U.S. Census Bureau / ACS 5-year estimates (2023), SANDAG neighborhood profiles, and current market data for Pacific Highlands Ranch / ZIP&nbsp;92130. Figures are estimates and subject to change.</p>
     </div>
   </section>
 
