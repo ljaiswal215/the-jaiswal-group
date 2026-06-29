@@ -131,6 +131,10 @@
     .phr-school-item a{color:#18254B;text-decoration:none;transition:color 0.2s;}
     .phr-school-item a:hover{color:#B38987;}
     @media(max-width:640px){.phr-schools-grid{grid-template-columns:1fr;}}
+    .phr-private-section{margin-top:2rem;padding-top:1.75rem;border-top:1px solid rgba(28,48,99,0.08);}
+    .phr-private-section>h3{font-family:'Marcellus',serif;font-size:0.82rem;color:#18254B;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1.25rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(28,48,99,0.12);}
+    .phr-private-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;}
+    @media(max-width:640px){.phr-private-grid{grid-template-columns:1fr;}}
     /* ── Employment & Commute ─────────────────────────────────────────── */
     .phr-commute{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}
     .phr-commute-inner{max-width:1100px;margin:0 auto;}
@@ -507,10 +511,34 @@
           <div class="phr-school-item"><span class="phr-school-item-name"><a href="https://pt.sduhsd.net/" target="_blank" rel="noopener">Pacific Trails Middle School</a></span><span class="phr-school-item-grade">7 &ndash; 8</span></div>
           <div class="phr-school-item"><span class="phr-school-item-name"><a href="https://cc.sduhsd.net/" target="_blank" rel="noopener">Canyon Crest Academy</a></span><span class="phr-school-item-grade">9 &ndash; 12</span></div>
           <div class="phr-school-item"><span class="phr-school-item-name"><a href="https://tp.sduhsd.net/" target="_blank" rel="noopener">Torrey Pines High School</a></span><span class="phr-school-item-grade">9 &ndash; 12</span></div>
-          <h3 style="margin-top:1.75rem;">Private School</h3>
-          <span class="phr-school-subdist">Private &nbsp;&middot;&nbsp; Catholic &nbsp;&middot;&nbsp; Co-Ed</span>
-          <div class="phr-school-item"><span class="phr-school-item-name"><a href="https://www.cathedralcatholic.org" target="_blank" rel="noopener">Cathedral Catholic High School</a></span><span class="phr-school-item-grade">9 &ndash; 12</span></div>
         </div>
+      </div>
+      <div class="phr-private-section">
+        <h3>PRIVATE SCHOOLS</h3>
+        <div class="phr-private-grid">
+          <div>
+            <span class="phr-school-subdist">Elementary &amp; K&ndash;8</span>
+            <div class="phr-school-item"><span class="phr-school-item-name"><a href="https://www.delmarpines.com" target="_blank" rel="noopener">Del Mar Pines School</a></span><span class="phr-school-item-grade">K &ndash; 6</span></div>
+            <div class="phr-school-item"><span class="phr-school-item-name"><a href="https://www.ndacademy.org" target="_blank" rel="noopener">Notre Dame Academy</a></span><span class="phr-school-item-grade">PK &ndash; 8</span></div>
+            <div class="phr-school-item"><span class="phr-school-item-name"><a href="https://www.sjacademy.org" target="_blank" rel="noopener">St. James Academy</a></span><span class="phr-school-item-grade">TK &ndash; 8</span></div>
+          </div>
+          <div>
+            <span class="phr-school-subdist">All Grades (TK &ndash; 12)</span>
+            <div class="phr-school-item"><span class="phr-school-item-name"><a href="https://www.francisparker.org" target="_blank" rel="noopener">Francis Parker School</a></span><span class="phr-school-item-grade">JK &ndash; 12</span></div>
+            <div class="phr-school-item"><span class="phr-school-item-name"><a href="https://www.horizonprep.org" target="_blank" rel="noopener">Horizon Prep</a></span><span class="phr-school-item-grade">TK &ndash; 12</span></div>
+            <div class="phr-school-item"><span class="phr-school-item-name"><a href="https://www.ljcds.org" target="_blank" rel="noopener">La Jolla Country Day School</a></span><span class="phr-school-item-grade">TK &ndash; 12</span></div>
+            <div class="phr-school-item"><span class="phr-school-item-name"><a href="https://www.maranathachristianschools.org" target="_blank" rel="noopener">Maranatha Christian Schools</a></span><span class="phr-school-item-grade">TK &ndash; 12</span></div>
+            <div class="phr-school-item"><span class="phr-school-item-name"><a href="https://www.sdja.com" target="_blank" rel="noopener">San Diego Jewish Academy</a></span><span class="phr-school-item-grade">PK &ndash; 12</span></div>
+            <div class="phr-school-item"><span class="phr-school-item-name"><a href="https://www.sfcs.net" target="_blank" rel="noopener">Santa Fe Christian Schools</a></span><span class="phr-school-item-grade">K &ndash; 12</span></div>
+          </div>
+          <div>
+            <span class="phr-school-subdist">Secondary (6 &ndash; 12)</span>
+            <div class="phr-school-item"><span class="phr-school-item-name"><a href="https://www.cathedralcatholic.org" target="_blank" rel="noopener">Cathedral Catholic High School</a></span><span class="phr-school-item-grade">9 &ndash; 12</span></div>
+            <div class="phr-school-item"><span class="phr-school-item-name"><a href="https://www.bishops.com" target="_blank" rel="noopener">The Bishop&rsquo;s School</a></span><span class="phr-school-item-grade">6 &ndash; 12</span></div>
+            <div class="phr-school-item"><span class="phr-school-item-name"><a href="https://www.pacificridge.org" target="_blank" rel="noopener">Pacific Ridge School</a></span><span class="phr-school-item-grade">7 &ndash; 12</span></div>
+          </div>
+        </div>
+        <p class="phr-school-district">Private school enrollment is not based on attendance boundaries. Proximity, program fit, and availability vary. We recommend confirming enrollment eligibility and application requirements directly with each school.</p>
       </div>
     </div>
   </section>
