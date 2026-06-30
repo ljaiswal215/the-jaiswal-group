@@ -144,9 +144,11 @@
     .nbhd-employ-section{border-top:1px solid rgba(28,48,99,0.08);padding-top:1.75rem;}
     .nbhd-employ-section>h3{font-family:'Marcellus',serif;font-size:0.82rem;color:#18254B;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1.25rem;}
     .nbhd-employ-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
-    .nbhd-employ-card{background:#F6F6F4;padding:1.25rem 1.25rem 1rem;}
-    .nbhd-employ-card h4{font-family:'Marcellus',serif;font-size:0.95rem;color:#18254B;letter-spacing:0.04em;margin-bottom:0.4rem;}
-    .nbhd-employ-card p{font-family:'Lato',sans-serif;font-size:0.85rem;color:#3a4a6b;line-height:1.75;margin:0;}
+    .nbhd-employ-card{background:#F6F6F4;padding:1.75rem 1.75rem 1.5rem;}
+    .nbhd-employ-icon{margin-bottom:0.85rem;color:#B38987;}
+    .nbhd-employ-icon svg{width:30px;height:30px;display:block;}
+    .nbhd-employ-card h4{font-family:'Marcellus',serif;font-size:1.05rem;color:#18254B;letter-spacing:0.04em;margin-bottom:0.5rem;}
+    .nbhd-employ-card p{font-family:'Lato',sans-serif;font-size:0.9rem;color:#3a4a6b;line-height:1.8;margin:0;}
     .nbhd-commute-note{font-family:'Lato',sans-serif;font-size:0.73rem;color:#8a9ab8;margin-top:1.5rem;line-height:1.6;}
     @media(max-width:768px){.nbhd-commute-grid{grid-template-columns:repeat(2,1fr);}.nbhd-employ-grid{grid-template-columns:1fr;}}
     @media(max-width:420px){.nbhd-commute-grid{grid-template-columns:1fr 1fr;}}
@@ -160,11 +162,11 @@
     .nbhd-faq-item h3{font-family:'Marcellus',serif;font-size:1.05rem;color:#18254B;letter-spacing:0.03em;margin-bottom:0.5rem;}
     .nbhd-faq-item p{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin:0;}
     /* ── Seller CTA ── */
-    .nbhd-seller-cta{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);text-align:center;}
-    .nbhd-seller-cta-inner{max-width:700px;margin:0 auto;}
+    .nbhd-seller-cta{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) 0;text-align:center;}
+    .nbhd-seller-cta-inner{max-width:1400px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}
     .nbhd-seller-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
     .nbhd-seller-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.3rem,2.2vw,1.8rem);color:#fff;letter-spacing:0.08em;margin-bottom:0.85rem;line-height:1.2;}
-    .nbhd-seller-cta p{font-family:'Lato',sans-serif;font-size:0.97rem;color:rgba(255,255,255,0.75);margin:0 auto 1.75rem;line-height:1.85;}
+    .nbhd-seller-cta p{font-family:'Lato',sans-serif;font-size:0.97rem;color:rgba(255,255,255,0.75);max-width:580px;margin:0 auto 1.75rem;line-height:1.85;}
     .nbhd-seller-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
     .nbhd-seller-cta-btns a{display:inline-block;min-width:220px;padding:0.85rem 2rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;text-align:center;background:transparent;color:#fff;border:1.5px solid #fff;text-decoration:none;transition:background 0.22s,color 0.22s,border-color 0.22s;}
     .nbhd-seller-cta-btns a:hover{background:#B38987;color:#fff;border-color:#B38987;}
@@ -471,12 +473,44 @@
         <div class="nbhd-commute-tile"><div class="nbhd-commute-dest">Encinitas</div><div class="nbhd-commute-time">~20</div><div class="nbhd-commute-unit">min by car</div></div>
       </div>
       <div class="nbhd-employ-section">
-        <h3>Major Employment Hubs Nearby</h3>
+        <h3>CONNECTED TO SAN DIEGO'S LEADING INDUSTRIES</h3>
         <div class="nbhd-employ-grid">
-          <div class="nbhd-employ-card"><h4>Sorrento Valley &amp; Torrey Pines Science Park</h4><p>San Diego's premier biotech and life sciences corridor — home to Illumina, Neurocrine Biosciences, Dexcom, Mirati Therapeutics, and dozens of research and pharmaceutical companies. One of the most walkable commutes in all of San Diego for Carmel Valley residents.</p></div>
-          <div class="nbhd-employ-card"><h4>UTC &amp; University Town Center</h4><p>A major mixed-use employment hub anchored by Westfield UTC, with a dense concentration of financial services, healthcare, professional services firms, and regional offices. UC San Diego, Scripps Health, and the VA Medical Center are all within a short drive.</p></div>
-          <div class="nbhd-employ-card"><h4>Del Mar Heights &amp; Carmel Mountain</h4><p>A growing corridor of tech offices, wealth management firms, and professional service providers immediately adjacent to Carmel Valley — many residents can reach these employers in under 10 minutes.</p></div>
-          <div class="nbhd-employ-card"><h4>Downtown San Diego</h4><p>Finance, law, government, media, and hospitality industries anchor Downtown San Diego. The I-5 corridor connects Carmel Valley in approximately 25 minutes outside peak hours, with express options available via MTS commuter routes.</p></div>
+          <div class="nbhd-employ-card">
+            <div class="nbhd-employ-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 3h6M9 3v7.5L5 17a2 2 0 001.7 3h10.6A2 2 0 0019 17l-4-6.5V3M8.5 14.5h7"/>
+              </svg>
+            </div>
+            <h4>Sorrento Valley &amp; Torrey Pines Science Park</h4>
+            <p>San Diego&rsquo;s premier biotech and life sciences corridor, home to industry leaders like Illumina, Dexcom, and Neurocrine Biosciences, along with a dense concentration of pharmaceutical, research, and medical device companies &mdash; all just minutes from Carmel Valley.</p>
+          </div>
+          <div class="nbhd-employ-card">
+            <div class="nbhd-employ-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-4h6v4M9 9h1.5M13.5 9H15M9 13h1.5M13.5 13H15"/>
+              </svg>
+            </div>
+            <h4>UTC &amp; University Towne Centre</h4>
+            <p>A major regional employment hub anchored by UC San Diego, Scripps Health, and Westfield UTC, with a strong presence of healthcare, finance, law, and professional services throughout San Diego&rsquo;s Golden Triangle.</p>
+          </div>
+          <div class="nbhd-employ-card">
+            <div class="nbhd-employ-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 20h20M4 20V12l4-3v11M8 20V7l4-3v16M12 20V4l4-3v19M16 20V9l4-3v14"/>
+              </svg>
+            </div>
+            <h4>Del Mar Heights &amp; Carmel Country</h4>
+            <p>A growing corridor of local office campuses, technology firms, wealth management groups, and professional services located just minutes from many Carmel Valley neighborhoods.</p>
+          </div>
+          <div class="nbhd-employ-card">
+            <div class="nbhd-employ-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 20h20M4 20v-6l3-2v8M7 20V9l3-2v13M10 20V6l2-1 2 1v14M14 20v-8l3-2v10M17 20v-5l3-2v7"/>
+              </svg>
+            </div>
+            <h4>Downtown San Diego</h4>
+            <p>The region&rsquo;s traditional center for finance, law, government, media, and hospitality &mdash; typically reachable from Carmel Valley in approximately 25&ndash;30 minutes outside peak traffic.</p>
+          </div>
         </div>
       </div>
       <p class="nbhd-commute-note">Drive times are estimates based on typical off-peak traffic and may vary significantly during commute hours. All times approximate from central Carmel Valley.</p>
