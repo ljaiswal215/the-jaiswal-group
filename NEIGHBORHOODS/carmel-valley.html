@@ -94,21 +94,18 @@
     @media(max-width:640px){.nbhd-open-house-banner-inner{flex-direction:column;text-align:center;}}
     .idx-placeholder-box{background:#F3EFE8;border:2px dashed rgba(179,137,135,0.4);padding:3rem 2rem;text-align:center;font-family:'Lato',sans-serif;font-size:0.85rem;color:#B38987;letter-spacing:0.08em;font-weight:600;text-transform:uppercase;}
     /* ── Local Favorites ── */
-    .nbhd-local{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-local{background:linear-gradient(rgba(24,37,75,0.76),rgba(24,37,75,0.76)),url('../neighborhood-carmelvalley.jpg') center/cover no-repeat;padding:clamp(2.5rem,4vw,3.5rem) clamp(1.5rem,4vw,3rem);}
     .nbhd-local-inner{max-width:1100px;margin:0 auto;}
-    .nbhd-local-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
-    .nbhd-local-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
-    .nbhd-local-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin-bottom:2rem;}
-    .nbhd-dining-cat{margin-bottom:2rem;}
-    .nbhd-dining-cat-label{font-family:'Lato',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#B38987;margin-bottom:0.75rem;padding-bottom:0.4rem;border-bottom:1px solid rgba(179,137,135,0.25);display:block;}
-    .nbhd-dining-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;}
-    .nbhd-dining-card{background:#fff;padding:1rem 1.1rem 0.9rem;}
-    .nbhd-dining-name{font-family:'Marcellus',serif;font-size:0.97rem;color:#18254B;margin-bottom:0.2rem;}
-    .nbhd-dining-type{font-family:'Lato',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B38987;margin-bottom:0.35rem;}
-    .nbhd-dining-desc{font-family:'Lato',sans-serif;font-size:0.83rem;color:#5a6a8a;line-height:1.65;}
-    .nbhd-local-note{font-family:'Lato',sans-serif;font-size:0.73rem;color:#8a9ab8;margin-top:0.5rem;line-height:1.6;}
-    @media(max-width:700px){.nbhd-dining-grid{grid-template-columns:1fr 1fr;}}
-    @media(max-width:440px){.nbhd-dining-grid{grid-template-columns:1fr;}}
+    .nbhd-local-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-local-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#fff;letter-spacing:0.08em;margin-bottom:2.5rem;text-align:center;}
+    .nbhd-restaurant-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+    .nbhd-restaurant-card{background:#F3EFE8;padding:1.75rem 1.5rem;text-align:center;display:flex;flex-direction:column;align-items:center;}
+    .nbhd-restaurant-card h3{font-family:'Marcellus',serif;font-size:1rem;color:#18254B;letter-spacing:0.06em;margin-bottom:0.35rem;}
+    .nbhd-rest-type{font-family:'Lato',sans-serif;font-size:0.64rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#B38987;display:block;margin-bottom:0.85rem;}
+    .nbhd-restaurant-card p{font-family:'Lato',sans-serif;font-size:0.95rem;color:#3a4a6b;line-height:1.8;margin:0;}
+    .nbhd-local-note{font-family:'Lato',sans-serif;font-size:0.73rem;color:rgba(255,255,255,0.55);margin-top:1.75rem;line-height:1.6;text-align:center;}
+    @media(max-width:800px){.nbhd-restaurant-grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:480px){.nbhd-restaurant-grid{grid-template-columns:1fr;}}
     .nbhd-placeholder-note{font-family:'Lato',sans-serif;font-size:0.85rem;color:#B38987;letter-spacing:0.08em;font-weight:600;text-transform:uppercase;border:2px dashed rgba(179,137,135,0.4);padding:2.5rem 2rem;text-align:center;}
     /* ── Schools ── */
     .nbhd-schools{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
@@ -527,30 +524,16 @@
     <div class="nbhd-local-inner">
       <p class="section-eyebrow">DINING IN CARMEL VALLEY</p>
       <h2>WHERE LOCALS EAT &amp; GATHER</h2>
-      <p class="nbhd-local-intro">One Paseo and Del Mar Highlands Town Center have transformed Carmel Valley into one of North County's most vibrant dining destinations. From weekday lunch spots to celebratory dinners, the neighborhood's restaurant scene covers every occasion without leaving the zip code.</p>
-      <div class="nbhd-dining-cat">
-        <span class="nbhd-dining-cat-label">Upscale &amp; Special Occasion</span>
-        <div class="nbhd-dining-grid">
-          <div class="nbhd-dining-card"><div class="nbhd-dining-name">Truluck's</div><div class="nbhd-dining-type">Seafood &amp; Steakhouse &nbsp;&middot;&nbsp; One Paseo</div><div class="nbhd-dining-desc">A neighborhood anchor for celebratory dinners — stone crab, prime cuts, and an elegant bar scene in a polished setting.</div></div>
-          <div class="nbhd-dining-card"><div class="nbhd-dining-name">The Craftsman New American Tavern</div><div class="nbhd-dining-type">New American &nbsp;&middot;&nbsp; One Paseo</div><div class="nbhd-dining-desc">Locally sourced, craft-forward menu with an approachable vibe. A go-to for upscale casual dinners and weekend brunch.</div></div>
-          <div class="nbhd-dining-card"><div class="nbhd-dining-name">Hawthorn</div><div class="nbhd-dining-type">Modern American &nbsp;&middot;&nbsp; One Paseo</div><div class="nbhd-dining-desc">A neighborhood bistro with a well-curated wine list and seasonal menu — popular for business lunches and intimate dinners.</div></div>
-        </div>
-      </div>
-      <div class="nbhd-dining-cat">
-        <span class="nbhd-dining-cat-label">Everyday Favorites</span>
-        <div class="nbhd-dining-grid">
-          <div class="nbhd-dining-card"><div class="nbhd-dining-name">Puesto</div><div class="nbhd-dining-type">Mexican &nbsp;&middot;&nbsp; One Paseo</div><div class="nbhd-dining-desc">Crispy tacos, fresh guacamole, and excellent margaritas in a lively open-air setting. A consistent local favorite.</div></div>
-          <div class="nbhd-dining-card"><div class="nbhd-dining-name">True Food Kitchen</div><div class="nbhd-dining-type">Health-Conscious &nbsp;&middot;&nbsp; One Paseo</div><div class="nbhd-dining-desc">Seasonal, nutrient-forward menu built around an anti-inflammatory philosophy. Great for lunch or a lighter dinner.</div></div>
-          <div class="nbhd-dining-card"><div class="nbhd-dining-name">Nectar Farm Kitchen</div><div class="nbhd-dining-type">Farm-to-Table &nbsp;&middot;&nbsp; Carmel Valley</div><div class="nbhd-dining-desc">A neighborhood gem focused on seasonal ingredients and simple preparations. Popular for weekend brunch and early dinners.</div></div>
-        </div>
-      </div>
-      <div class="nbhd-dining-cat">
-        <span class="nbhd-dining-cat-label">Coffee &amp; Casual</span>
-        <div class="nbhd-dining-grid">
-          <div class="nbhd-dining-card"><div class="nbhd-dining-name">Tender Loving Coffee</div><div class="nbhd-dining-type">Coffee &amp; Café &nbsp;&middot;&nbsp; Carmel Valley</div><div class="nbhd-dining-desc">A beloved local coffee shop known for quality espresso, a warm atmosphere, and a devoted neighborhood following.</div></div>
-          <div class="nbhd-dining-card"><div class="nbhd-dining-name">Shake Shack</div><div class="nbhd-dining-type">Burgers &nbsp;&middot;&nbsp; One Paseo</div><div class="nbhd-dining-desc">The quintessential quick-service burger spot — great for families and a natural post-errand or post-workout stop.</div></div>
-          <div class="nbhd-dining-card"><div class="nbhd-dining-name">Birdcall</div><div class="nbhd-dining-type">Chicken &amp; Sandwiches &nbsp;&middot;&nbsp; One Paseo</div><div class="nbhd-dining-desc">A fast-casual spot serving responsibly raised chicken in creative sandwiches and bowls. Kid-friendly and consistently good.</div></div>
-        </div>
+      <div class="nbhd-restaurant-grid">
+        <div class="nbhd-restaurant-card"><h3>Truluck&rsquo;s</h3><span class="nbhd-rest-type">Seafood &amp; Steakhouse &nbsp;&middot;&nbsp; One Paseo</span><p>A neighborhood anchor for celebratory dinners — stone crab, prime cuts, and an elegant bar scene in a polished setting.</p></div>
+        <div class="nbhd-restaurant-card"><h3>The Craftsman New American Tavern</h3><span class="nbhd-rest-type">New American &nbsp;&middot;&nbsp; One Paseo</span><p>Locally sourced, craft-forward menu with an approachable vibe. A go-to for upscale casual dinners and weekend brunch.</p></div>
+        <div class="nbhd-restaurant-card"><h3>Hawthorn</h3><span class="nbhd-rest-type">Modern American &nbsp;&middot;&nbsp; One Paseo</span><p>A neighborhood bistro with a well-curated wine list and seasonal menu — popular for business lunches and intimate dinners.</p></div>
+        <div class="nbhd-restaurant-card"><h3>Puesto</h3><span class="nbhd-rest-type">Mexican &nbsp;&middot;&nbsp; One Paseo</span><p>Crispy tacos, fresh guacamole, and excellent margaritas in a lively open-air setting. A consistent local favorite.</p></div>
+        <div class="nbhd-restaurant-card"><h3>True Food Kitchen</h3><span class="nbhd-rest-type">Health-Conscious &nbsp;&middot;&nbsp; One Paseo</span><p>Seasonal, nutrient-forward menu built around an anti-inflammatory philosophy. Great for lunch or a lighter dinner.</p></div>
+        <div class="nbhd-restaurant-card"><h3>Nectar Farm Kitchen</h3><span class="nbhd-rest-type">Farm-to-Table &nbsp;&middot;&nbsp; Carmel Valley</span><p>A neighborhood gem focused on seasonal ingredients and simple preparations. Popular for weekend brunch and early dinners.</p></div>
+        <div class="nbhd-restaurant-card"><h3>Tender Loving Coffee</h3><span class="nbhd-rest-type">Coffee &amp; Café &nbsp;&middot;&nbsp; Carmel Valley</span><p>A beloved local coffee shop known for quality espresso, a warm atmosphere, and a devoted neighborhood following.</p></div>
+        <div class="nbhd-restaurant-card"><h3>Shake Shack</h3><span class="nbhd-rest-type">Burgers &nbsp;&middot;&nbsp; One Paseo</span><p>The quintessential quick-service burger spot — great for families and a natural post-errand or post-workout stop.</p></div>
+        <div class="nbhd-restaurant-card"><h3>Birdcall</h3><span class="nbhd-rest-type">Chicken &amp; Sandwiches &nbsp;&middot;&nbsp; One Paseo</span><p>A fast-casual spot serving responsibly raised chicken in creative sandwiches and bowls. Kid-friendly and consistently good.</p></div>
       </div>
       <p class="nbhd-local-note">Restaurant availability subject to change. Del Mar Highlands Town Center, located adjacent to Carmel Valley, offers additional dining, grocery, and retail options including Whole Foods Market.</p>
     </div>
