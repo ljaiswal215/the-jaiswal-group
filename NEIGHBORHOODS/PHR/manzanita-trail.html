@@ -435,6 +435,37 @@
          document.querySelector('.ihf-results-count') !== null
        Remove "false &&" once IDX is connected and the selector is confirmed.
     ─────────────────────────────────────────────────────────────────────── */
+    function reorderSections() {
+      const faq      = document.getElementById('section-faq');
+      const listings = document.getElementById('section-listings');
+      if (!faq || !listings) return;
+
+      const hasListings = false && document.querySelector('.idx-active-results') !== null;
+
+      const parent = faq.parentNode;
+      if (!parent) return;
+
+      const nodes = Array.from(parent.children);
+      const faqIndex      = nodes.indexOf(faq);
+      const listingsIndex = nodes.indexOf(listings);
+
+      if (hasListings) {
+        if (listingsIndex > faqIndex) parent.insertBefore(listings, faq);
+      } else {
+        if (faqIndex > listingsIndex) parent.insertBefore(faq, listings);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', reorderSections);
+    new MutationObserver(reorderSections).observe(document.body, {childList:true, subtree:true});
+  </script>
+
+  <script>
+    /* ── Auto-swap FAQ / Listings order based on IDX results ──────────────
+       When IDX is live: replace the hasListings condition below with the
+       selector that wraps actual listing results — e.g.:
+         document.querySelector('.ihf-results-count') !== null
+       Remove "false &&" once IDX is connected and the selector is confirmed.
+    ─────────────────────────────────────────────────────────────────────── */
       (function() {
     const noListings = document.querySelector('.subdiv-no-listings');
     function applyWidgetStyles(shadowRoot) {
