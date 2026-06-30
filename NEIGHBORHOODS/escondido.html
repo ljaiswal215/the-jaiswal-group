@@ -10,12 +10,124 @@
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../style.css" />
   <style>
-    .page-hero{position:relative;width:100%;height:90vh;min-height:500px;overflow:hidden;}.page-hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#18254B 0%,#1C3063 55%,#243570 100%);}.page-hero-inner{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(2rem,6vw,6rem);}.page-hero-inner .section-eyebrow{color:#B38987;margin-bottom:1rem;}.page-hero-inner h1{font-family:'Marcellus',serif;font-size:clamp(2.2rem,4.5vw,3.5rem);color:#fff;letter-spacing:0.06em;line-height:1.1;margin-bottom:1rem;}.page-hero-inner p{font-family:'Cormorant Garamond',serif;font-size:0.92rem;color:rgba(255,255,255,0.82);max-width:520px;line-height:1.85;}
-    .nbhd-stats-strip{background:#fff;padding:2rem clamp(1.5rem,5vw,4rem);border-bottom:1px solid rgba(28,48,99,0.07);}.nbhd-stats-track{display:flex;justify-content:center;align-items:center;gap:clamp(2rem,5vw,5rem);max-width:860px;margin:0 auto;text-align:center;flex-wrap:wrap;}.nbhd-stat{text-align:center;}.nbhd-stat-num{font-family:'Marcellus',serif;font-size:clamp(1.3rem,2.2vw,1.8rem);color:#18254B;display:block;}.nbhd-stat-label{font-family:'Lato',sans-serif;font-size:0.64rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#B38987;display:block;margin-top:0.2rem;}.nbhd-stats-divider{width:1px;height:36px;background:rgba(28,48,99,0.12);flex-shrink:0;}
+    .page-hero{position:relative;width:100%;height:90vh;min-height:500px;overflow:hidden;}.page-hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#18254B 0%,#1C3063 55%,#243570 100%);}.page-hero-inner{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(2rem,6vw,6rem);}.page-hero-inner .section-eyebrow{color:#B38987;margin-bottom:1rem;}.page-hero-inner h1{font-family:'Marcellus',serif;font-size:clamp(2.2rem,4.5vw,3.5rem);color:#fff;letter-spacing:0.06em;line-height:1.1;margin-bottom:1rem;}.page-hero-inner p{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:rgba(255,255,255,0.82);max-width:860px;line-height:1.85;}
     .nbhd-about{background:#F3EFE8;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}.nbhd-about-inner{max-width:860px;margin:0 auto;}.nbhd-about-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}.nbhd-about-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.5rem,2.5vw,2rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.5rem;}.nbhd-about-inner p{font-family:'Cormorant Garamond',serif;font-size:0.93rem;color:#3a4a6b;line-height:1.95;margin-bottom:1.1rem;}
-    .nbhd-highlights{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}.nbhd-highlights-inner{max-width:980px;margin:0 auto;}.nbhd-highlights-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}.nbhd-highlights-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#fff;letter-spacing:0.08em;margin-bottom:2rem;text-align:center;}.nbhd-highlights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}.nbhd-highlight-item{background:rgba(255,255,255,0.05);border:1px solid rgba(179,137,135,0.2);padding:1.5rem 1.25rem;}.nbhd-highlight-item h3{font-family:'Marcellus',serif;font-size:1rem;color:#B38987;margin-bottom:0.6rem;}.nbhd-highlight-item p{font-family:'Cormorant Garamond',serif;font-size:0.83rem;color:rgba(255,255,255,0.75);line-height:1.8;margin:0;}
+    .nbhd-highlights{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}.nbhd-highlights-inner{max-width:1100px;margin:0 auto;}.nbhd-highlights-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}.nbhd-highlights-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#fff;letter-spacing:0.08em;margin-bottom:2rem;text-align:center;}.nbhd-highlights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}.nbhd-highlight-item{background:rgba(255,255,255,0.05);border:1px solid rgba(179,137,135,0.2);padding:1.5rem 1.25rem;}.nbhd-highlight-item h3{font-family:'Marcellus',serif;font-size:1rem;color:#B38987;margin-bottom:0.6rem;}.nbhd-highlight-item p{font-family:'Cormorant Garamond',serif;font-size:0.83rem;color:rgba(255,255,255,0.75);line-height:1.8;margin:0;}
     @media(max-width:700px){.nbhd-highlights-grid{grid-template-columns:1fr 1fr;}}@media(max-width:480px){.nbhd-highlights-grid{grid-template-columns:1fr;}}
-    .nbhd-cta{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);text-align:center;}.nbhd-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}.nbhd-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}.nbhd-cta p{font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:#3a4a6b;line-height:1.85;max-width:560px;margin:0 auto 2rem;}.nbhd-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+    .nbhd-cta{background:#F3EFE8;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);text-align:center;}.nbhd-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}.nbhd-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}.nbhd-cta p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#3a4a6b;line-height:1.85;max-width:860px;margin:0 auto 2rem;}.nbhd-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+    .nbhd-cta-btns a{display:inline-block;min-width:220px;padding:0.85rem 2rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;text-align:center;background:#1C3063;color:#F6F6F4;border:1.5px solid #1C3063;transition:background 0.25s,border-color 0.25s,color 0.25s;}
+    .nbhd-cta-btns a:hover{background:#18254B;border-color:#18254B;color:#B38987;}
+    .nbhd-demographics{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-demographics-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-demographics-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-demographics-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;text-align:center;}
+    .nbhd-demographics-inner>p.demo-intro{font-family:'Lato',sans-serif;font-size:0.85rem;color:#7a7068;text-align:center;margin:0 auto 2rem;max-width:640px;line-height:1.7;}
+    .nbhd-demo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+    .nbhd-demo-card{background:#F3EFE8;border-top:3px solid #B38987;padding:1.4rem 1.25rem 1.1rem;}
+    .nbhd-demo-card .demo-num{font-family:'Marcellus',serif;font-size:1.9rem;color:#18254B;line-height:1;margin-bottom:0.35rem;letter-spacing:0.02em;}
+    .nbhd-demo-card .demo-label{font-family:'Lato',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#9a8e88;}
+    .nbhd-demo-note{font-family:'Lato',sans-serif;font-size:0.68rem;color:#b0a89e;margin-top:1.5rem;line-height:1.7;border-top:1px solid rgba(24,37,75,0.08);padding-top:1rem;text-align:center;}
+    @media(max-width:700px){.nbhd-demo-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:420px){.nbhd-demo-grid{grid-template-columns:1fr 1fr;gap:0.75rem;}.nbhd-demo-card .demo-num{font-size:1.5rem;}}
+    .nbhd-listings{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-listings-inner{max-width:1100px;margin:0 auto;text-align:center;}
+    .nbhd-listings-inner .section-eyebrow{color:#B38987;margin-bottom:0.5rem;}
+    .nbhd-listings-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;}
+    .nbhd-listings-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;margin:0 auto 1.75rem;max-width:700px;line-height:1.8;}
+    .nbhd-listings-cta{margin-top:1.5rem;}
+    .nbhd-listings-cta a{display:inline-block;padding:0.85rem 2.25rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:#1C3063;border:1.5px solid #1C3063;background:transparent;transition:background 0.22s,color 0.22s;}
+    .nbhd-listings-cta a:hover{background:#1C3063;color:#fff;}
+    .nbhd-schools{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-schools-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-schools-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-schools-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
+    .nbhd-schools-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin-bottom:2rem;}
+    .nbhd-schools-intro a{color:#1C3063;text-decoration:underline;text-decoration-color:rgba(28,48,99,0.3);text-underline-offset:2px;transition:color 0.2s;}
+    .nbhd-schools-intro a:hover{color:#B38987;}
+    .nbhd-schools-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;}
+    .nbhd-school-col h3{font-family:'Marcellus',serif;font-size:0.82rem;color:#18254B;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(28,48,99,0.12);}
+    .nbhd-school-item{font-family:'Lato',sans-serif;font-size:0.95rem;color:#3a4a6b;padding:0.55rem 0;border-bottom:1px solid rgba(28,48,99,0.05);display:flex;justify-content:space-between;align-items:baseline;}
+    .nbhd-school-item-name{font-weight:500;}
+    .nbhd-school-item-grade{font-size:0.70rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#B38987;flex-shrink:0;margin-left:0.5rem;}
+    .nbhd-school-district{font-family:'Lato',sans-serif;font-size:0.73rem;color:#8a9ab8;margin-top:0.85rem;padding-top:0.75rem;border-top:1px solid rgba(28,48,99,0.08);line-height:1.6;}
+    .nbhd-school-subdist{font-family:'Lato',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#B38987;display:block;margin-top:1.1rem;margin-bottom:0.25rem;}
+    .nbhd-school-item a{color:#18254B;text-decoration:none;transition:color 0.2s;}
+    .nbhd-school-item a:hover{color:#B38987;}
+    @media(max-width:640px){.nbhd-schools-grid{grid-template-columns:1fr;}}
+    .nbhd-commute{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-commute-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-commute-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-commute-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
+    .nbhd-commute-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin-bottom:2rem;max-width:780px;}
+    .nbhd-commute-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+    .nbhd-commute-card{padding:1.5rem 1.25rem;background:#F3EFE8;}
+    .nbhd-commute-card h3{font-family:'Marcellus',serif;font-size:1.05rem;color:#18254B;letter-spacing:0.05em;margin-bottom:0.35rem;}
+    .nbhd-commute-time{font-family:'Lato',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#B38987;display:block;margin-bottom:0.65rem;}
+    .nbhd-commute-card p{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.75;margin:0;}
+    @media(max-width:700px){.nbhd-commute-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:480px){.nbhd-commute-grid{grid-template-columns:1fr;}}
+
+    /* ── Dining ─────────────────────────────────────────────────────── */
+    .nbhd-dining{padding:clamp(2.5rem,4vw,3.5rem) clamp(1.5rem,4vw,3rem);background-color:#18254B;background-size:cover;background-position:center;position:relative;}
+    .nbhd-dining::before{content:'';position:absolute;inset:0;background:linear-gradient(rgba(24,37,75,0.76),rgba(24,37,75,0.76));z-index:0;}
+    .nbhd-dining-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+    .nbhd-dining-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-dining-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#fff;letter-spacing:0.08em;margin-bottom:2.5rem;text-align:center;}
+    .nbhd-restaurant-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+    .nbhd-restaurant-card{background:#F3EFE8;padding:1.75rem 1.5rem;text-align:center;display:flex;flex-direction:column;align-items:center;}
+    .nbhd-restaurant-card h3{font-family:'Marcellus',serif;font-size:1rem;color:#18254B;letter-spacing:0.06em;margin-bottom:0.35rem;}
+    .nbhd-restaurant-card h3 a{color:#18254B;text-decoration:none;transition:color 0.2s;}
+    .nbhd-restaurant-card h3 a:hover{color:#B38987;}
+    .nbhd-rest-type{font-family:'Lato',sans-serif;font-size:0.64rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#B38987;display:block;margin-bottom:0.85rem;}
+    .nbhd-restaurant-card p{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.8;margin:0;}
+    @media(max-width:800px){.nbhd-restaurant-grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:480px){.nbhd-restaurant-grid{grid-template-columns:1fr;}}
+    /* ── Neighborhoods Grid ─────────────────────────────────────────── */
+    .nbhd-grid-section{background:#F3EFE8;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);overflow-x:hidden;}
+    .nbhd-grid-section-inner{margin:0 auto;}
+    .nbhd-grid-section-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-grid-section-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.75rem;text-align:center;}
+    .nbhd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);}
+    .nbhd-grid-card{position:relative;height:260px;display:flex;flex-direction:column;justify-content:flex-end;padding:1rem 1.1rem;text-decoration:none;background-color:#18254B;background-size:cover;background-position:center;overflow:hidden;transition:transform 0.25s;}
+    .nbhd-grid-card::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(24,37,75,0.05) 0%,rgba(24,37,75,0.78) 100%);transition:background 0.25s;z-index:0;}
+    .nbhd-grid-card:hover{transform:scale(1.01);z-index:1;}
+    .nbhd-grid-card:hover::before{background:linear-gradient(to bottom,rgba(24,37,75,0.15) 0%,rgba(24,37,75,0.88) 100%);}
+    .nbhd-grid-card-name{position:relative;z-index:1;font-family:'Marcellus',serif;font-size:1rem;color:#fff;letter-spacing:0.05em;line-height:1.25;}
+    .nbhd-grid-card-cta{position:relative;z-index:1;font-family:'Lato',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-top:0.25rem;transition:color 0.2s;}
+    .nbhd-grid-card:hover .nbhd-grid-card-cta{color:#B38987;}
+    @media(max-width:900px){.nbhd-grid{grid-template-columns:repeat(3,1fr);}}
+    @media(max-width:600px){.nbhd-grid{grid-template-columns:repeat(2,1fr);}.nbhd-grid-card{height:200px;}}
+    /* ── Map ────────────────────────────────────────────────────────── */
+    .nbhd-map{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) 0 0;}
+    .nbhd-map-inner{max-width:1100px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}
+    .nbhd-map-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-map-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;text-align:center;}
+    .nbhd-map-embed{width:100%;height:520px;border:0;display:block;}
+    @media(max-width:600px){.nbhd-map-embed{height:320px;}}
+    /* ── Seller CTA ─────────────────────────────────────────────────── */
+    .nbhd-seller-cta{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) 0;text-align:center;}
+    .nbhd-seller-cta-inner{max-width:1400px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}
+    .nbhd-seller-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-seller-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.3rem,2.2vw,1.8rem);color:#fff;letter-spacing:0.08em;margin-bottom:0.85rem;line-height:1.2;}
+    .nbhd-seller-cta-text{font-family:'Lato',sans-serif;font-size:0.97rem;color:rgba(255,255,255,0.75);max-width:680px;margin:0 auto 1.75rem !important;line-height:1.85;}
+    .nbhd-seller-cta a{display:inline-block;min-width:240px;padding:0.85rem 2.25rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;text-align:center;background:transparent;color:#fff;border:1.5px solid #fff;text-decoration:none;transition:background 0.22s,color 0.22s,border-color 0.22s;}
+    .nbhd-seller-cta a:hover{background:#B38987;color:#fff;border-color:#B38987;}
+    .nbhd-seller-cta-btns{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:560px;margin:1.75rem auto 0;}
+    @media(max-width:500px){.nbhd-seller-cta-btns{grid-template-columns:1fr;}}
+
+    /* ── FAQ ────────────────────────────────────────────────────────── */
+    .nbhd-faq{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-faq-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-faq-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-faq-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.5rem;}
+    .nbhd-faq-list{display:flex;flex-direction:column;}
+    .nbhd-faq-item{padding:1.35rem 0;border-bottom:1px solid rgba(28,48,99,0.08);}
+    .nbhd-faq-item:first-child{border-top:1px solid rgba(28,48,99,0.08);}
+    .nbhd-faq-item h3{font-family:'Marcellus',serif;font-size:1.05rem;color:#18254B;letter-spacing:0.03em;margin-bottom:0.5rem;}
+    .nbhd-faq-item p{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin:0;}
+    .nbhd-faq-item p+p{margin-top:0.85rem;}
+    .nbhd-faq-item a{color:#1C3063;text-decoration:underline;text-decoration-color:rgba(28,48,99,0.3);text-underline-offset:2px;transition:color 0.2s,text-decoration-color 0.2s;}
+    .nbhd-faq-item a:hover{color:#B38987;text-decoration-color:#B38987;}
   </style>
 </head>
 <body>
@@ -106,19 +218,24 @@
       <p>North County's inland heart — a diverse, culturally rich city surrounded by wine country, open space, and a thriving arts scene that surprises first-time visitors.</p>
     </div>
   </section>
+</div>
 
-  <div class="nbhd-stats-strip">
-    <div class="nbhd-stats-track">
-      <div class="nbhd-stat"><span class="nbhd-stat-num">$600K – $2M+</span><span class="nbhd-stat-label">Typical Price Range</span></div>
-      <div class="nbhd-stats-divider"></div>
-      <div class="nbhd-stat"><span class="nbhd-stat-num">92025 – 92029</span><span class="nbhd-stat-label">Zip Codes</span></div>
-      <div class="nbhd-stats-divider"></div>
-      <div class="nbhd-stat"><span class="nbhd-stat-num">Escondido Union</span><span class="nbhd-stat-label">School District</span></div>
-      <div class="nbhd-stats-divider"></div>
-      <div class="nbhd-stat"><span class="nbhd-stat-num">20 Miles</span><span class="nbhd-stat-label">Distance to Coast</span></div>
+  <section class="nbhd-demographics">
+    <div class="nbhd-demographics-inner">
+      <p class="section-eyebrow">BY THE NUMBERS</p>
+      <h2>ESCONDIDO AT A GLANCE</h2>
+      <p class="demo-intro">An inland hub with growing appeal — wineries, historic charm, and relative affordability in San Diego County.</p>
+      <div class="nbhd-demo-grid">
+        <div class="nbhd-demo-card"><div class="demo-num">~152,000</div><div class="demo-label">Residents</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">Mid 30s</div><div class="demo-label">Median Age</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">$70K+</div><div class="demo-label">Median Household Income</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">$750K</div><div class="demo-label">Median Home Value</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">24%</div><div class="demo-label">Bachelor's Degree or Higher</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">50%</div><div class="demo-label">Owner-Occupied Homes</div></div>
+      </div>
+      <p class="nbhd-demo-note">Sources: U.S. Census Bureau / ACS 5-year estimates (2023), SANDAG neighborhood profiles, and current market data for Escondido / ZIP&nbsp;92025–92029. Figures are estimates and subject to change.</p>
     </div>
-  </div>
-
+  </section>
   <section class="nbhd-about">
     <div class="nbhd-about-inner">
       <p class="section-eyebrow">ABOUT ESCONDIDO</p>
@@ -131,8 +248,8 @@
 
   <section class="nbhd-highlights">
     <div class="nbhd-highlights-inner">
-      <p class="section-eyebrow">WHAT MAKES ESCONDIDO SPECIAL</p>
-      <h2>COMMUNITY HIGHLIGHTS</h2>
+      <p class="section-eyebrow">COMMUNITY HIGHLIGHTS</p>
+      <h2>WHAT WE LOVE MOST ABOUT ESCONDIDO</h2>
       <div class="nbhd-highlights-grid">
         <div class="nbhd-highlight-item"><h3>California Center for the Arts</h3><p>A world-class performing and visual arts center that is Escondido's cultural crown — hosting an ambitious year-round calendar that brings top-tier entertainment to North County.</p></div>
         <div class="nbhd-highlight-item"><h3>Wine Country &amp; San Pasqual Valley</h3><p>Escondido sits at the gateway to San Diego's wine country — surrounded by vineyards, tasting rooms, and a scenic agricultural valley that adds a distinctive lifestyle dimension.</p></div>
@@ -140,6 +257,223 @@
         <div class="nbhd-highlight-item"><h3>Grand Avenue Downtown</h3><p>A revitalizing downtown core with locally-owned restaurants, antique shops, a Saturday farmers market, and growing energy that reflects Escondido's investment in its city center.</p></div>
         <div class="nbhd-highlight-item"><h3>Diverse Communities</h3><p>Escondido's multiple zip codes encompass a wide range of neighborhoods and price points — from hillside estates in 92029 to established family neighborhoods in 92026 and 92027.</p></div>
         <div class="nbhd-highlight-item"><h3>Value &amp; Space</h3><p>Escondido consistently offers more home for the money than comparable communities closer to the coast — with larger lots, more square footage, and a relaxed inland pace of life.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="nbhd-listings">
+    <div class="nbhd-listings-inner">
+      <p class="section-eyebrow">BROWSE LISTINGS</p>
+      <h2>ESCONDIDO HOMES FOR SALE</h2>
+      <p class="nbhd-listings-intro">Browse current homes for sale in Escondido, updated daily from the MLS &mdash; from vineyard estates to suburban family homes.</p>
+      <div class="nbhd-listings-cta">
+        <a href="http://thejaiswalgroup.idxbroker.com/idx/map/mapsearch" target="_blank" rel="noopener">VIEW ALL LISTINGS</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="nbhd-schools">
+    <div class="nbhd-schools-inner">
+      <p class="section-eyebrow">EDUCATION</p>
+      <h2>SCHOOLS SERVING ESCONDIDO</h2>
+      <p class="nbhd-schools-intro">Escondido is served by the <a href="https://www.eusd.org" target="_blank" rel="noopener">Escondido Union School District</a> for elementary and middle (K&ndash;8) and the <a href="https://www.euhsd.org" target="_blank" rel="noopener">Escondido Union High School District</a> for grades 9&ndash;12.</p>
+      <div class="nbhd-schools-grid">
+        <div class="nbhd-school-col">
+          <h3>Public Schools</h3>
+            <span class="nbhd-school-subdist">Elementary &amp; Middle &middot; Escondido USD</span>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Lincoln Elementary</span><span class="nbhd-school-item-grade">K &ndash; 6</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Pioneer Elementary</span><span class="nbhd-school-item-grade">K &ndash; 6</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Rincon Middle School</span><span class="nbhd-school-item-grade">7 &ndash; 8</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Mission Middle School</span><span class="nbhd-school-item-grade">7 &ndash; 8</span></div>
+        </div>
+        <div class="nbhd-school-col">
+          <h3>&nbsp;</h3>
+            <span class="nbhd-school-subdist">High School &middot; Escondido Union HSD</span>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Escondido High School</span><span class="nbhd-school-item-grade">9 &ndash; 12</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">San Pasqual High School</span><span class="nbhd-school-item-grade">9 &ndash; 12</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Orange Glen High School</span><span class="nbhd-school-item-grade">9 &ndash; 12</span></div>
+        </div>
+      </div>
+      <p class="nbhd-school-district">School assignments are subject to attendance boundaries and may change. Confirm enrollment eligibility and boundaries directly with the applicable school district.</p>
+    </div>
+  </section>
+
+  <section class="nbhd-commute">
+    <div class="nbhd-commute-inner">
+      <p class="section-eyebrow">GETTING AROUND</p>
+      <h2>LOCATION &amp; COMMUTE</h2>
+      <p class="nbhd-commute-intro">Escondido sits at the intersection of I-15 and SR-78, providing strong connectivity to North County employment centers, Rancho Bernardo, and downtown San Diego.</p>
+      <div class="nbhd-commute-grid">
+        <div class="nbhd-commute-card">
+          <h3>San Marcos</h3>
+          <span class="nbhd-commute-time">~10 Minutes</span>
+          <p>SR-78 West connects Escondido to San Marcos&rsquo;s growing employment base and Cal State San Marcos.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Rancho Bernardo Tech Corridor</h3>
+          <span class="nbhd-commute-time">~15 Minutes</span>
+          <p>I-15 South places Escondido residents within easy reach of Rancho Bernardo&rsquo;s technology and corporate campuses.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Poway</h3>
+          <span class="nbhd-commute-time">~15 Minutes</span>
+          <p>Poway&rsquo;s business park and residential community are a short drive south via I-15.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Sorrento Valley</h3>
+          <span class="nbhd-commute-time">~30 Minutes</span>
+          <p>San Diego&rsquo;s primary technology and life sciences hub is accessible via I-15 South to I-805 West.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Downtown San Diego</h3>
+          <span class="nbhd-commute-time">~35&ndash;40 Minutes</span>
+          <p>I-15 South provides a direct route to downtown San Diego for professional and cultural destinations.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>San Diego International Airport</h3>
+          <span class="nbhd-commute-time">~40 Minutes</span>
+          <p>The airport is approximately 40 minutes south via I-15 &mdash; manageable for periodic air travel.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       DINING
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-dining" style="background-image:url('../Lynnette-torreypinesbackground.jpg');">
+    <div class="nbhd-dining-inner">
+      <p class="section-eyebrow">DINING IN ESCONDIDO</p>
+      <h2>WHERE LOCALS EAT &amp; GATHER</h2>
+      <div class="nbhd-restaurant-grid">
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.vintana.com/" target="_blank" rel="noopener">Vintana Wine + Dine</a></h3>
+          <span class="nbhd-rest-type">Modern American &middot; Wine Country Views</span>
+          <p>Perched atop the Vineyard Escondido, Vintana delivers modern American cuisine with panoramic vineyard and valley views &mdash; one of the most stunning dining settings in all of San Diego County.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.pgrille.com/" target="_blank" rel="noopener">Pamplemousse Grille</a></h3>
+          <span class="nbhd-rest-type">California Bistro &middot; Award-Winning</span>
+          <p>Jeff Strauss&rsquo;s celebrated Escondido bistro where seasonal California cooking, a thoughtful wine list, and warm hospitality converge in a space that feels like a special-occasion dinner every night.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.stonebrewing.com/visit/bistros/escondido" target="_blank" rel="noopener">Stone Brewing World Bistro &amp; Gardens</a></h3>
+          <span class="nbhd-rest-type">Craft Beer &middot; Farm-to-Table</span>
+          <p>A landmark destination for craft beer enthusiasts nationwide, Stone Brewing&rsquo;s Escondido campus combines award-winning ales with a beautiful outdoor garden bistro and a farm-to-table menu worth the trip.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.kilowattbrewing.com/" target="_blank" rel="noopener">Kilowatt Brewing</a></h3>
+          <span class="nbhd-rest-type">Craft Beer &middot; Gastropub</span>
+          <p>A community-focused Escondido craft brewery delivering rotating seasonal taps and satisfying gastropub fare in a welcoming taproom that&rsquo;s become a favorite neighborhood gathering place.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.prohibitionbrewing.com/" target="_blank" rel="noopener">Prohibition Brewing Company</a></h3>
+          <span class="nbhd-rest-type">Craft Beer &middot; American Comfort</span>
+          <p>A lively Escondido brewpub offering a well-curated lineup of house beers, hearty comfort food, and the kind of casual, neighborhood energy that makes it a go-to for locals throughout the week.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://bernardowinery.com/" target="_blank" rel="noopener">The Muse at Bernardo Winery</a></h3>
+          <span class="nbhd-rest-type">Wine Country Dining &middot; Garden Setting</span>
+          <p>Set within one of San Diego&rsquo;s oldest and most storied wineries, The Muse offers relaxed wine country dining in a lush garden setting just minutes from downtown Escondido.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       NEIGHBORHOODS GRID
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-grid-section">
+    <div class="nbhd-grid-section-inner">
+      <p class="section-eyebrow">THE NEIGHBORHOODS</p>
+      <h2>EXPLORE ESCONDIDO NEIGHBORHOODS</h2>
+      <div class="nbhd-grid">
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Downtown Escondido</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Hidden Valley</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">West Escondido</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">North Escondido</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Felicita</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Reidy Creek</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       BUYER CTA
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-cta">
+    <p class="section-eyebrow">READY TO EXPLORE?</p>
+    <h2>LET&rsquo;S FIND YOUR DREAM HOME IN ESCONDIDO</h2>
+    <p>Whether you&rsquo;re seeking a spacious hillside estate, a walkable downtown lifestyle, or proximity to the San Diego Zoo Safari Park and the emerging wine country corridor, we&rsquo;d love to help you discover everything Escondido has to offer.</p>
+    <div class="nbhd-cta-btns">
+      <a href="../contact.html">SCHEDULE A CONSULTATION</a>
+    </div>
+    <p style="margin-top:1.25rem;font-family:'Lato',sans-serif;font-size:0.9rem;color:rgba(28,48,99,0.65);">Or call or text us at <a href="tel:8582907531" style="color:#18254B;font-weight:700;">(858) 290-7531</a></p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       MAP
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-map">
+    <div class="nbhd-map-inner">
+      <p class="section-eyebrow">LOCATION</p>
+      <h2>MAP OF ESCONDIDO</h2>
+      <p style="font-family:'Lato',sans-serif;font-size:0.9rem;color:#3a4a6b;text-align:center;margin:0.25rem 0 1.5rem;line-height:1.4;">Located at the center of inland San Diego County along I-15, Escondido offers convenient access to the I-78 corridor, San Marcos, and the Temecula wine country, with a growing arts and dining scene anchored around its historic downtown.</p>
+    </div>
+    <iframe
+      class="nbhd-map-embed"
+      src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d22000!2d-117.0864!3d33.1192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1750000000000!5m2!1sen!2sus"
+      title="Escondido, San Diego, CA"
+      allowfullscreen
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SELLER CTA
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-seller-cta">
+    <div class="nbhd-seller-cta-inner">
+      <p class="section-eyebrow">THINKING OF SELLING</p>
+      <h2>FIND OUT WHAT YOUR ESCONDIDO HOME IS WORTH</h2>
+      <p class="nbhd-seller-cta-text">Thinking of selling in Escondido? Whether you&rsquo;re simply curious about your home&rsquo;s value or considering a move in the near future, we&rsquo;d be happy to provide a personalized, data-driven analysis of today&rsquo;s market and what your Escondido home could be worth.</p>
+      <div class="nbhd-seller-cta-btns">
+        <a href="../home-valuation.html">GET FREE HOME VALUATION</a>
+        <a href="tel:8582907531">CALL (858) 290-7531</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       FAQ
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-faq">
+    <div class="nbhd-faq-inner">
+      <p class="section-eyebrow">FREQUENTLY ASKED</p>
+      <h2>COMMON QUESTIONS ABOUT ESCONDIDO</h2>
+      <div class="nbhd-faq-list">
+      <div class="nbhd-faq-item">
+        <h3>What types of homes are available in Escondido?</h3>
+        <p>Escondido is one of the most affordable major cities in San Diego County, and its real estate inventory reflects both the city&rsquo;s size and diversity. Buyers will find everything from smaller 1950s and 60s single-family homes in established West Escondido neighborhoods to newer hillside estates with panoramic views, rural residential parcels, citrus and avocado properties, and some of the most spacious lots available anywhere in the county at accessible price points.</p>
+          <p>The city&rsquo;s geography &mdash; ranging from the valley floor to surrounding hillsides &mdash; creates distinct micro-markets. Home prices range from the mid-$500s to over $2 million for premium view properties and larger parcels.</p>
+      </div>
+      <div class="nbhd-faq-item">
+        <h3>What is the lifestyle like in Escondido?</h3>
+        <p>Escondido offers a genuinely diverse lifestyle that blends suburban convenience with access to wine country, the San Diego Zoo Safari Park, hiking in the Elfin Forest and Lake Hodges area, and a downtown that has grown considerably as a cultural destination in recent years.</p>
+          <p>The city is home to the California Center for the Arts, a 1,500-seat performing arts center that hosts touring productions and local performances year-round. The downtown restaurant and brewery scene has expanded significantly, and the weekly farmers market is one of the largest in the county.</p>
+      </div>
+      <div class="nbhd-faq-item">
+        <h3>How far is Escondido from the coast?</h3>
+        <p>Escondido is approximately 20 to 30 minutes from the coast depending on your specific destination and the time of day. The SR-78 corridor connects to Oceanside and Carlsbad to the west, while I-15 provides quick access to Del Mar and the Carmel Valley area via SR-56. For buyers who want significantly more space, privacy, and purchasing power than coastal communities offer &mdash; while still being close to the beach &mdash; Escondido is a compelling option.</p>
+      </div>
+      <div class="nbhd-faq-item">
+        <h3>Is Escondido near wine country?</h3>
+        <p>Yes &mdash; Escondido sits at the gateway to San Diego&rsquo;s burgeoning wine country. The Bernardo Winery, one of California&rsquo;s oldest operating wineries, is just minutes from downtown. The I-15 corridor north of Escondido connects to the San Pasqual Valley wine growing region and continues into the Temecula wine country just across the county line.</p>
+          <p>For buyers who enjoy wine country living &mdash; vineyard visits, farm-to-table dining, and a relaxed rural atmosphere &mdash; Escondido&rsquo;s location is a significant lifestyle advantage.</p>
+      </div>
       </div>
     </div>
   </section>

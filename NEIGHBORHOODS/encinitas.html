@@ -10,12 +10,124 @@
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../style.css" />
   <style>
-    .page-hero{position:relative;width:100%;height:90vh;min-height:500px;overflow:hidden;}.page-hero-photo{position:absolute;inset:0;}.page-hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 50%;display:block;}.page-hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(24,37,75,0.2) 0%,rgba(24,37,75,0.8) 100%);}.page-hero-inner{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(2rem,6vw,6rem);}.page-hero-inner .section-eyebrow{color:#B38987;margin-bottom:1rem;}.page-hero-inner h1{font-family:'Marcellus',serif;font-size:clamp(2.2rem,4.5vw,3.5rem);color:#fff;letter-spacing:0.06em;line-height:1.1;margin-bottom:1rem;}.page-hero-inner p{font-family:'Cormorant Garamond',serif;font-size:0.92rem;color:rgba(255,255,255,0.82);max-width:520px;line-height:1.85;}
-    .nbhd-stats-strip{background:#fff;padding:2rem clamp(1.5rem,5vw,4rem);border-bottom:1px solid rgba(28,48,99,0.07);}.nbhd-stats-track{display:flex;justify-content:center;align-items:center;gap:clamp(2rem,5vw,5rem);max-width:860px;margin:0 auto;text-align:center;flex-wrap:wrap;}.nbhd-stat{text-align:center;}.nbhd-stat-num{font-family:'Marcellus',serif;font-size:clamp(1.3rem,2.2vw,1.8rem);color:#18254B;display:block;}.nbhd-stat-label{font-family:'Lato',sans-serif;font-size:0.64rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#B38987;display:block;margin-top:0.2rem;}.nbhd-stats-divider{width:1px;height:36px;background:rgba(28,48,99,0.12);flex-shrink:0;}
+    .page-hero{position:relative;width:100%;height:90vh;min-height:500px;overflow:hidden;}.page-hero-photo{position:absolute;inset:0;}.page-hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 50%;display:block;}.page-hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(24,37,75,0.2) 0%,rgba(24,37,75,0.8) 100%);}.page-hero-inner{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(2rem,6vw,6rem);}.page-hero-inner .section-eyebrow{color:#B38987;margin-bottom:1rem;}.page-hero-inner h1{font-family:'Marcellus',serif;font-size:clamp(2.2rem,4.5vw,3.5rem);color:#fff;letter-spacing:0.06em;line-height:1.1;margin-bottom:1rem;}.page-hero-inner p{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:rgba(255,255,255,0.82);max-width:860px;line-height:1.85;}
     .nbhd-about{background:#F3EFE8;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}.nbhd-about-inner{max-width:860px;margin:0 auto;}.nbhd-about-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}.nbhd-about-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.5rem,2.5vw,2rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.5rem;}.nbhd-about-inner p{font-family:'Cormorant Garamond',serif;font-size:0.93rem;color:#3a4a6b;line-height:1.95;margin-bottom:1.1rem;}
-    .nbhd-highlights{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}.nbhd-highlights-inner{max-width:980px;margin:0 auto;}.nbhd-highlights-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}.nbhd-highlights-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#fff;letter-spacing:0.08em;margin-bottom:2rem;text-align:center;}.nbhd-highlights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}.nbhd-highlight-item{background:rgba(255,255,255,0.05);border:1px solid rgba(179,137,135,0.2);padding:1.5rem 1.25rem;}.nbhd-highlight-item h3{font-family:'Marcellus',serif;font-size:1rem;color:#B38987;margin-bottom:0.6rem;}.nbhd-highlight-item p{font-family:'Cormorant Garamond',serif;font-size:0.83rem;color:rgba(255,255,255,0.75);line-height:1.8;margin:0;}
+    .nbhd-highlights{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}.nbhd-highlights-inner{max-width:1100px;margin:0 auto;}.nbhd-highlights-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}.nbhd-highlights-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#fff;letter-spacing:0.08em;margin-bottom:2rem;text-align:center;}.nbhd-highlights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}.nbhd-highlight-item{background:rgba(255,255,255,0.05);border:1px solid rgba(179,137,135,0.2);padding:1.5rem 1.25rem;}.nbhd-highlight-item h3{font-family:'Marcellus',serif;font-size:1rem;color:#B38987;margin-bottom:0.6rem;}.nbhd-highlight-item p{font-family:'Cormorant Garamond',serif;font-size:0.83rem;color:rgba(255,255,255,0.75);line-height:1.8;margin:0;}
     @media(max-width:700px){.nbhd-highlights-grid{grid-template-columns:1fr 1fr;}}@media(max-width:480px){.nbhd-highlights-grid{grid-template-columns:1fr;}}
-    .nbhd-cta{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);text-align:center;}.nbhd-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}.nbhd-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}.nbhd-cta p{font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:#3a4a6b;line-height:1.85;max-width:560px;margin:0 auto 2rem;}.nbhd-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+    .nbhd-cta{background:#F3EFE8;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);text-align:center;}.nbhd-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}.nbhd-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}.nbhd-cta p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#3a4a6b;line-height:1.85;max-width:860px;margin:0 auto 2rem;}.nbhd-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+    .nbhd-cta-btns a{display:inline-block;min-width:220px;padding:0.85rem 2rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;text-align:center;background:#1C3063;color:#F6F6F4;border:1.5px solid #1C3063;transition:background 0.25s,border-color 0.25s,color 0.25s;}
+    .nbhd-cta-btns a:hover{background:#18254B;border-color:#18254B;color:#B38987;}
+    .nbhd-demographics{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-demographics-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-demographics-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-demographics-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;text-align:center;}
+    .nbhd-demographics-inner>p.demo-intro{font-family:'Lato',sans-serif;font-size:0.85rem;color:#7a7068;text-align:center;margin:0 auto 2rem;max-width:640px;line-height:1.7;}
+    .nbhd-demo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+    .nbhd-demo-card{background:#F3EFE8;border-top:3px solid #B38987;padding:1.4rem 1.25rem 1.1rem;}
+    .nbhd-demo-card .demo-num{font-family:'Marcellus',serif;font-size:1.9rem;color:#18254B;line-height:1;margin-bottom:0.35rem;letter-spacing:0.02em;}
+    .nbhd-demo-card .demo-label{font-family:'Lato',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#9a8e88;}
+    .nbhd-demo-note{font-family:'Lato',sans-serif;font-size:0.68rem;color:#b0a89e;margin-top:1.5rem;line-height:1.7;border-top:1px solid rgba(24,37,75,0.08);padding-top:1rem;text-align:center;}
+    @media(max-width:700px){.nbhd-demo-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:420px){.nbhd-demo-grid{grid-template-columns:1fr 1fr;gap:0.75rem;}.nbhd-demo-card .demo-num{font-size:1.5rem;}}
+    .nbhd-listings{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-listings-inner{max-width:1100px;margin:0 auto;text-align:center;}
+    .nbhd-listings-inner .section-eyebrow{color:#B38987;margin-bottom:0.5rem;}
+    .nbhd-listings-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;}
+    .nbhd-listings-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;margin:0 auto 1.75rem;max-width:700px;line-height:1.8;}
+    .nbhd-listings-cta{margin-top:1.5rem;}
+    .nbhd-listings-cta a{display:inline-block;padding:0.85rem 2.25rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:#1C3063;border:1.5px solid #1C3063;background:transparent;transition:background 0.22s,color 0.22s;}
+    .nbhd-listings-cta a:hover{background:#1C3063;color:#fff;}
+    .nbhd-schools{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-schools-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-schools-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-schools-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
+    .nbhd-schools-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin-bottom:2rem;}
+    .nbhd-schools-intro a{color:#1C3063;text-decoration:underline;text-decoration-color:rgba(28,48,99,0.3);text-underline-offset:2px;transition:color 0.2s;}
+    .nbhd-schools-intro a:hover{color:#B38987;}
+    .nbhd-schools-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;}
+    .nbhd-school-col h3{font-family:'Marcellus',serif;font-size:0.82rem;color:#18254B;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(28,48,99,0.12);}
+    .nbhd-school-item{font-family:'Lato',sans-serif;font-size:0.95rem;color:#3a4a6b;padding:0.55rem 0;border-bottom:1px solid rgba(28,48,99,0.05);display:flex;justify-content:space-between;align-items:baseline;}
+    .nbhd-school-item-name{font-weight:500;}
+    .nbhd-school-item-grade{font-size:0.70rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#B38987;flex-shrink:0;margin-left:0.5rem;}
+    .nbhd-school-district{font-family:'Lato',sans-serif;font-size:0.73rem;color:#8a9ab8;margin-top:0.85rem;padding-top:0.75rem;border-top:1px solid rgba(28,48,99,0.08);line-height:1.6;}
+    .nbhd-school-subdist{font-family:'Lato',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#B38987;display:block;margin-top:1.1rem;margin-bottom:0.25rem;}
+    .nbhd-school-item a{color:#18254B;text-decoration:none;transition:color 0.2s;}
+    .nbhd-school-item a:hover{color:#B38987;}
+    @media(max-width:640px){.nbhd-schools-grid{grid-template-columns:1fr;}}
+    .nbhd-commute{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-commute-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-commute-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-commute-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
+    .nbhd-commute-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin-bottom:2rem;max-width:780px;}
+    .nbhd-commute-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+    .nbhd-commute-card{padding:1.5rem 1.25rem;background:#F3EFE8;}
+    .nbhd-commute-card h3{font-family:'Marcellus',serif;font-size:1.05rem;color:#18254B;letter-spacing:0.05em;margin-bottom:0.35rem;}
+    .nbhd-commute-time{font-family:'Lato',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#B38987;display:block;margin-bottom:0.65rem;}
+    .nbhd-commute-card p{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.75;margin:0;}
+    @media(max-width:700px){.nbhd-commute-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:480px){.nbhd-commute-grid{grid-template-columns:1fr;}}
+
+    /* ── Dining ─────────────────────────────────────────────────────── */
+    .nbhd-dining{padding:clamp(2.5rem,4vw,3.5rem) clamp(1.5rem,4vw,3rem);background-color:#18254B;background-size:cover;background-position:center;position:relative;}
+    .nbhd-dining::before{content:'';position:absolute;inset:0;background:linear-gradient(rgba(24,37,75,0.76),rgba(24,37,75,0.76));z-index:0;}
+    .nbhd-dining-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+    .nbhd-dining-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-dining-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#fff;letter-spacing:0.08em;margin-bottom:2.5rem;text-align:center;}
+    .nbhd-restaurant-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+    .nbhd-restaurant-card{background:#F3EFE8;padding:1.75rem 1.5rem;text-align:center;display:flex;flex-direction:column;align-items:center;}
+    .nbhd-restaurant-card h3{font-family:'Marcellus',serif;font-size:1rem;color:#18254B;letter-spacing:0.06em;margin-bottom:0.35rem;}
+    .nbhd-restaurant-card h3 a{color:#18254B;text-decoration:none;transition:color 0.2s;}
+    .nbhd-restaurant-card h3 a:hover{color:#B38987;}
+    .nbhd-rest-type{font-family:'Lato',sans-serif;font-size:0.64rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#B38987;display:block;margin-bottom:0.85rem;}
+    .nbhd-restaurant-card p{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.8;margin:0;}
+    @media(max-width:800px){.nbhd-restaurant-grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:480px){.nbhd-restaurant-grid{grid-template-columns:1fr;}}
+    /* ── Neighborhoods Grid ─────────────────────────────────────────── */
+    .nbhd-grid-section{background:#F3EFE8;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);overflow-x:hidden;}
+    .nbhd-grid-section-inner{margin:0 auto;}
+    .nbhd-grid-section-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-grid-section-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.75rem;text-align:center;}
+    .nbhd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);}
+    .nbhd-grid-card{position:relative;height:260px;display:flex;flex-direction:column;justify-content:flex-end;padding:1rem 1.1rem;text-decoration:none;background-color:#18254B;background-size:cover;background-position:center;overflow:hidden;transition:transform 0.25s;}
+    .nbhd-grid-card::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(24,37,75,0.05) 0%,rgba(24,37,75,0.78) 100%);transition:background 0.25s;z-index:0;}
+    .nbhd-grid-card:hover{transform:scale(1.01);z-index:1;}
+    .nbhd-grid-card:hover::before{background:linear-gradient(to bottom,rgba(24,37,75,0.15) 0%,rgba(24,37,75,0.88) 100%);}
+    .nbhd-grid-card-name{position:relative;z-index:1;font-family:'Marcellus',serif;font-size:1rem;color:#fff;letter-spacing:0.05em;line-height:1.25;}
+    .nbhd-grid-card-cta{position:relative;z-index:1;font-family:'Lato',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-top:0.25rem;transition:color 0.2s;}
+    .nbhd-grid-card:hover .nbhd-grid-card-cta{color:#B38987;}
+    @media(max-width:900px){.nbhd-grid{grid-template-columns:repeat(3,1fr);}}
+    @media(max-width:600px){.nbhd-grid{grid-template-columns:repeat(2,1fr);}.nbhd-grid-card{height:200px;}}
+    /* ── Map ────────────────────────────────────────────────────────── */
+    .nbhd-map{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) 0 0;}
+    .nbhd-map-inner{max-width:1100px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}
+    .nbhd-map-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-map-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;text-align:center;}
+    .nbhd-map-embed{width:100%;height:520px;border:0;display:block;}
+    @media(max-width:600px){.nbhd-map-embed{height:320px;}}
+    /* ── Seller CTA ─────────────────────────────────────────────────── */
+    .nbhd-seller-cta{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) 0;text-align:center;}
+    .nbhd-seller-cta-inner{max-width:1400px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}
+    .nbhd-seller-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-seller-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.3rem,2.2vw,1.8rem);color:#fff;letter-spacing:0.08em;margin-bottom:0.85rem;line-height:1.2;}
+    .nbhd-seller-cta-text{font-family:'Lato',sans-serif;font-size:0.97rem;color:rgba(255,255,255,0.75);max-width:680px;margin:0 auto 1.75rem !important;line-height:1.85;}
+    .nbhd-seller-cta a{display:inline-block;min-width:240px;padding:0.85rem 2.25rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;text-align:center;background:transparent;color:#fff;border:1.5px solid #fff;text-decoration:none;transition:background 0.22s,color 0.22s,border-color 0.22s;}
+    .nbhd-seller-cta a:hover{background:#B38987;color:#fff;border-color:#B38987;}
+    .nbhd-seller-cta-btns{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:560px;margin:1.75rem auto 0;}
+    @media(max-width:500px){.nbhd-seller-cta-btns{grid-template-columns:1fr;}}
+
+    /* ── FAQ ────────────────────────────────────────────────────────── */
+    .nbhd-faq{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-faq-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-faq-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-faq-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.5rem;}
+    .nbhd-faq-list{display:flex;flex-direction:column;}
+    .nbhd-faq-item{padding:1.35rem 0;border-bottom:1px solid rgba(28,48,99,0.08);}
+    .nbhd-faq-item:first-child{border-top:1px solid rgba(28,48,99,0.08);}
+    .nbhd-faq-item h3{font-family:'Marcellus',serif;font-size:1.05rem;color:#18254B;letter-spacing:0.03em;margin-bottom:0.5rem;}
+    .nbhd-faq-item p{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin:0;}
+    .nbhd-faq-item p+p{margin-top:0.85rem;}
+    .nbhd-faq-item a{color:#1C3063;text-decoration:underline;text-decoration-color:rgba(28,48,99,0.3);text-underline-offset:2px;transition:color 0.2s,text-decoration-color 0.2s;}
+    .nbhd-faq-item a:hover{color:#B38987;text-decoration-color:#B38987;}
   </style>
 </head>
 <body>
@@ -106,19 +218,24 @@
       <p>A vibrant coastal city with legendary surf, eclectic character, and a quality of life that earns it top rankings year after year.</p>
     </div>
   </section>
+</div>
 
-  <div class="nbhd-stats-strip">
-    <div class="nbhd-stats-track">
-      <div class="nbhd-stat"><span class="nbhd-stat-num">$1.2M – $6M+</span><span class="nbhd-stat-label">Typical Price Range</span></div>
-      <div class="nbhd-stats-divider"></div>
-      <div class="nbhd-stat"><span class="nbhd-stat-num">92024</span><span class="nbhd-stat-label">Primary Zip Code</span></div>
-      <div class="nbhd-stats-divider"></div>
-      <div class="nbhd-stat"><span class="nbhd-stat-num">San Dieguito Union</span><span class="nbhd-stat-label">School District</span></div>
-      <div class="nbhd-stats-divider"></div>
-      <div class="nbhd-stat"><span class="nbhd-stat-num">Direct</span><span class="nbhd-stat-label">Beach Access</span></div>
+  <section class="nbhd-demographics">
+    <div class="nbhd-demographics-inner">
+      <p class="section-eyebrow">BY THE NUMBERS</p>
+      <h2>ENCINITAS AT A GLANCE</h2>
+      <p class="demo-intro">A celebrated coastal city known for surf culture, wellness, and enduring residential appeal.</p>
+      <div class="nbhd-demo-grid">
+        <div class="nbhd-demo-card"><div class="demo-num">~62,000</div><div class="demo-label">Residents</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">Mid 40s</div><div class="demo-label">Median Age</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">$115K+</div><div class="demo-label">Median Household Income</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">$2M</div><div class="demo-label">Median Home Value</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">58%</div><div class="demo-label">Bachelor's Degree or Higher</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">60%</div><div class="demo-label">Owner-Occupied Homes</div></div>
+      </div>
+      <p class="nbhd-demo-note">Sources: U.S. Census Bureau / ACS 5-year estimates (2023), SANDAG neighborhood profiles, and current market data for Encinitas / ZIP&nbsp;92024. Figures are estimates and subject to change.</p>
     </div>
-  </div>
-
+  </section>
   <section class="nbhd-about">
     <div class="nbhd-about-inner">
       <p class="section-eyebrow">ABOUT ENCINITAS</p>
@@ -132,8 +249,8 @@
 
   <section class="nbhd-highlights">
     <div class="nbhd-highlights-inner">
-      <p class="section-eyebrow">WHAT MAKES ENCINITAS SPECIAL</p>
-      <h2>COMMUNITY HIGHLIGHTS</h2>
+      <p class="section-eyebrow">COMMUNITY HIGHLIGHTS</p>
+      <h2>WHAT WE LOVE MOST ABOUT ENCINITAS</h2>
       <div class="nbhd-highlights-grid">
         <div class="nbhd-highlight-item"><h3>Moonlight State Beach</h3><p>Encinitas's premier beach — a wide, sandy stretch just steps from downtown with lifeguard services, volleyball, fire pits, and a beloved community atmosphere.</p></div>
         <div class="nbhd-highlight-item"><h3>Old Encinitas Downtown</h3><p>A walkable stretch of Coast Highway 101 with acclaimed independent restaurants, surf shops, boutiques, and the historic La Paloma Theatre at its heart.</p></div>
@@ -141,6 +258,234 @@
         <div class="nbhd-highlight-item"><h3>Five Distinct Communities</h3><p>Old Encinitas, New Encinitas, Leucadia, Cardiff-by-the-Sea, and Olivenhain each offer distinct character — giving buyers exceptional variety within a single coastal city.</p></div>
         <div class="nbhd-highlight-item"><h3>Wellness &amp; Lifestyle</h3><p>Encinitas has become a recognized hub for yoga, wellness, outdoor fitness, and healthy living — with world-class studios, trails, and a culture that embraces an active outdoor life.</p></div>
         <div class="nbhd-highlight-item"><h3>Coastal Value</h3><p>Encinitas offers meaningful coastal access and genuine community character at price points that remain relatively accessible compared to Del Mar and Solana Beach to the south.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="nbhd-listings">
+    <div class="nbhd-listings-inner">
+      <p class="section-eyebrow">BROWSE LISTINGS</p>
+      <h2>ENCINITAS HOMES FOR SALE</h2>
+      <p class="nbhd-listings-intro">Browse current homes for sale in Encinitas, updated daily from the MLS &mdash; from surf-side bungalows to hillside estates.</p>
+      <div class="nbhd-listings-cta">
+        <a href="http://thejaiswalgroup.idxbroker.com/idx/map/mapsearch" target="_blank" rel="noopener">VIEW ALL LISTINGS</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="nbhd-schools">
+    <div class="nbhd-schools-inner">
+      <p class="section-eyebrow">EDUCATION</p>
+      <h2>SCHOOLS SERVING ENCINITAS</h2>
+      <p class="nbhd-schools-intro">Encinitas is served by the <a href="https://www.eusd.net" target="_blank" rel="noopener">Encinitas Union School District</a> at the elementary level and the <a href="https://www.sduhsd.net" target="_blank" rel="noopener">San Dieguito Union High School District</a> for middle and high school.</p>
+      <div class="nbhd-schools-grid">
+        <div class="nbhd-school-col">
+          <h3>Public Schools</h3>
+            <span class="nbhd-school-subdist">Elementary &middot; Encinitas USD</span>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Ocean Knoll Elementary</span><span class="nbhd-school-item-grade">K &ndash; 6</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Paul Ecke Central Elementary</span><span class="nbhd-school-item-grade">K &ndash; 6</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Flora Vista Elementary</span><span class="nbhd-school-item-grade">K &ndash; 6</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Capri Elementary</span><span class="nbhd-school-item-grade">K &ndash; 6</span></div>
+            <span class="nbhd-school-subdist">Middle &middot; SDUHSD</span>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Diegueno Middle School</span><span class="nbhd-school-item-grade">7 &ndash; 8</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Oak Crest Middle School</span><span class="nbhd-school-item-grade">7 &ndash; 8</span></div>
+        </div>
+        <div class="nbhd-school-col">
+          <h3>&nbsp;</h3>
+            <span class="nbhd-school-subdist">High School &middot; SDUHSD</span>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">San Dieguito Academy</span><span class="nbhd-school-item-grade">9 &ndash; 12</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">La Costa Canyon High School</span><span class="nbhd-school-item-grade">9 &ndash; 12</span></div>
+        </div>
+      </div>
+      <p class="nbhd-school-district">School assignments are subject to attendance boundaries and may change. Confirm enrollment eligibility and boundaries directly with the applicable school district.</p>
+    </div>
+  </section>
+
+  <section class="nbhd-commute">
+    <div class="nbhd-commute-inner">
+      <p class="section-eyebrow">GETTING AROUND</p>
+      <h2>LOCATION &amp; COMMUTE</h2>
+      <p class="nbhd-commute-intro">Encinitas is well-positioned along I-5 with both highway and COASTER commuter rail access, making it practical for professionals working throughout coastal San Diego County.</p>
+      <div class="nbhd-commute-grid">
+        <div class="nbhd-commute-card">
+          <h3>Carlsbad</h3>
+          <span class="nbhd-commute-time">~10 Minutes</span>
+          <p>Neighboring Carlsbad is just minutes north, offering additional employment, retail, and lifestyle options along the North County coast.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Solana Beach &amp; Del Mar</h3>
+          <span class="nbhd-commute-time">~10&ndash;20 Minutes</span>
+          <p>Heading south on I-5 connects Encinitas to Solana Beach, Del Mar, and the broader coastal corridor.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>UTC &amp; La Jolla</h3>
+          <span class="nbhd-commute-time">~25 Minutes</span>
+          <p>UC San Diego and the University Town Center job market are accessible via I-5 South in about 25 minutes.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Sorrento Valley</h3>
+          <span class="nbhd-commute-time">~25&ndash;30 Minutes</span>
+          <p>San Diego&rsquo;s technology and life sciences hub is within a manageable commute for biotech and engineering professionals.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Downtown San Diego</h3>
+          <span class="nbhd-commute-time">~35 Minutes</span>
+          <p>I-5 or the COASTER connect Encinitas to downtown San Diego for city-based employment and entertainment.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>San Diego International Airport</h3>
+          <span class="nbhd-commute-time">~35 Minutes</span>
+          <p>The airport is roughly 35 minutes south via I-5 &mdash; accessible for frequent travelers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       DINING
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-dining" style="background-image:url('../neighborhood-encinitas.png');">
+    <div class="nbhd-dining-inner">
+      <p class="section-eyebrow">DINING IN ENCINITAS</p>
+      <h2>WHERE LOCALS EAT &amp; GATHER</h2>
+      <div class="nbhd-restaurant-grid">
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.unionkitchenandtap.com/" target="_blank" rel="noopener">Union Kitchen &amp; Tap</a></h3>
+          <span class="nbhd-rest-type">American Gastropub &middot; Craft Beer</span>
+          <p>A cornerstone of the Encinitas dining scene, Union Kitchen delivers elevated bar food, local craft beers, and a lively, welcoming atmosphere that works equally well for a casual dinner or a night out with friends.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.honeysbistro.com/" target="_blank" rel="noopener">Honey's Bistro</a></h3>
+          <span class="nbhd-rest-type">European Brunch &middot; Charming</span>
+          <p>A neighborhood gem beloved for its carefully crafted European-inspired brunch menu and intimate setting &mdash; expect long waits on weekends, because regulars know it&rsquo;s worth it.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3>Pacific Coast Grill</h3>
+          <span class="nbhd-rest-type">California Cuisine &middot; Live Jazz</span>
+          <p>Blending fresh coastal flavors with live jazz on weekends, Pacific Coast Grill delivers a distinctly San Diego dining experience that&rsquo;s as memorable for the atmosphere as it is for the food.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://roxyrestaurant.com/" target="_blank" rel="noopener">Roxy Restaurant &amp; Ice Cream</a></h3>
+          <span class="nbhd-rest-type">All-American Diner &middot; Classic</span>
+          <p>An Encinitas institution for generations, Roxy serves hearty all-day breakfasts, classic diner fare, and house-made ice cream in a retro setting that locals have loved for decades.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.trattoriaitrulli.com/" target="_blank" rel="noopener">Trattoria I Trulli</a></h3>
+          <span class="nbhd-rest-type">Italian &middot; Neighborhood Gem</span>
+          <p>A warm, intimate Italian trattoria where handmade pastas, regional wines, and genuine Old World hospitality combine to create the kind of dinner experience that keeps you coming back.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.thelotuscafe.com/" target="_blank" rel="noopener">Lotus Cafe</a></h3>
+          <span class="nbhd-rest-type">Vegetarian &amp; Vegan &middot; Health-Focused</span>
+          <p>Encinitas&rsquo;s beloved plant-based destination, Lotus Cafe has been nourishing the community with thoughtfully prepared vegetarian and vegan cuisine for over two decades.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.lola55.com/" target="_blank" rel="noopener">Lola 55</a></h3>
+          <span class="nbhd-rest-type">Modern Mexican &middot; Downtown Encinitas</span>
+          <p>Bringing an elevated spin on Mexican street food to downtown Encinitas, Lola 55 impresses with house-made tortillas, inventive fillings, and a curated mezcal and cocktail program.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3>Baba Restaurant</h3>
+          <span class="nbhd-rest-type">Mediterranean &middot; Fresh &amp; Light</span>
+          <p>A bright, welcoming Mediterranean spot serving fresh mezze, housemade hummus, and vibrant flavors that feel like a welcome departure from the standard North County dining playbook.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       NEIGHBORHOODS GRID
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-grid-section">
+    <div class="nbhd-grid-section-inner">
+      <p class="section-eyebrow">THE NEIGHBORHOODS</p>
+      <h2>EXPLORE ENCINITAS NEIGHBORHOODS</h2>
+      <div class="nbhd-grid">
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Old Encinitas</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">New Encinitas</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Olivenhain</span></div>
+        <a href="leucadia.html" class="nbhd-grid-card"><span class="nbhd-grid-card-name">Leucadia</span><span class="nbhd-grid-card-cta">View Community &rarr;</span></a>
+        <a href="cardiff-by-the-sea.html" class="nbhd-grid-card"><span class="nbhd-grid-card-name">Cardiff-by-the-Sea</span><span class="nbhd-grid-card-cta">View Community &rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       BUYER CTA
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-cta">
+    <p class="section-eyebrow">READY TO EXPLORE?</p>
+    <h2>LET&rsquo;S FIND YOUR DREAM HOME IN ENCINITAS</h2>
+    <p>Whether you&rsquo;re drawn to the surf culture of Old Encinitas, the equestrian estates of Olivenhain, or the family-friendly neighborhoods of New Encinitas, we&rsquo;d love to help you find your perfect home here.</p>
+    <div class="nbhd-cta-btns">
+      <a href="../contact.html">SCHEDULE A CONSULTATION</a>
+    </div>
+    <p style="margin-top:1.25rem;font-family:'Lato',sans-serif;font-size:0.9rem;color:rgba(28,48,99,0.65);">Or call or text us at <a href="tel:8582907531" style="color:#18254B;font-weight:700;">(858) 290-7531</a></p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       MAP
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-map">
+    <div class="nbhd-map-inner">
+      <p class="section-eyebrow">LOCATION</p>
+      <h2>MAP OF ENCINITAS</h2>
+      <p style="font-family:'Lato',sans-serif;font-size:0.9rem;color:#3a4a6b;text-align:center;margin:0.25rem 0 1.5rem;line-height:1.4;">Located along I-5 in North San Diego County, Encinitas spans from the Pacific coast to the rolling hills of Olivenhain, offering easy access to the 78 corridor, Carlsbad&rsquo;s Flower Fields, and the beaches of Leucadia and Cardiff.</p>
+    </div>
+    <iframe
+      class="nbhd-map-embed"
+      src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14000!2d-117.292!3d33.0369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1750000000000!5m2!1sen!2sus"
+      title="Encinitas, San Diego, CA"
+      allowfullscreen
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SELLER CTA
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-seller-cta">
+    <div class="nbhd-seller-cta-inner">
+      <p class="section-eyebrow">THINKING OF SELLING</p>
+      <h2>FIND OUT WHAT YOUR ENCINITAS HOME IS WORTH</h2>
+      <p class="nbhd-seller-cta-text">Thinking of selling in Encinitas? Whether you&rsquo;re simply curious about your home&rsquo;s value or considering a move in the near future, we&rsquo;d be happy to provide a personalized, data-driven analysis of today&rsquo;s market and what your Encinitas home could be worth.</p>
+      <div class="nbhd-seller-cta-btns">
+        <a href="../home-valuation.html">GET FREE HOME VALUATION</a>
+        <a href="tel:8582907531">CALL (858) 290-7531</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       FAQ
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-faq">
+    <div class="nbhd-faq-inner">
+      <p class="section-eyebrow">FREQUENTLY ASKED</p>
+      <h2>COMMON QUESTIONS ABOUT ENCINITAS</h2>
+      <div class="nbhd-faq-list">
+      <div class="nbhd-faq-item">
+        <h3>What types of homes are available in Encinitas?</h3>
+        <p>Encinitas offers a wide range of housing options across its distinct sub-communities. Old Encinitas features charming beach cottages, Craftsman-style homes, and surf-culture bungalows close to the water. New Encinitas has larger suburban neighborhoods with mid-range to upscale single-family homes. Olivenhain offers rural residential estates and equestrian properties on spacious lots, while Leucadia and Cardiff-by-the-Sea provide their own unique coastal character.</p>
+          <p>Home prices range from the mid-$800s for condos and smaller homes to well over $5 million for oceanfront or estate properties. The diversity of neighborhoods means buyers with different priorities &mdash; walkability, school access, lot size, lifestyle &mdash; can usually find a strong fit somewhere in Encinitas.</p>
+      </div>
+      <div class="nbhd-faq-item">
+        <h3>Is Encinitas a good place to raise a family?</h3>
+        <p>Encinitas is an outstanding community for families. The Encinitas Union School District and San Dieguito Union High School District both earn strong marks, and the city offers abundant outdoor recreation &mdash; from the famous Beacon&rsquo;s Beach surf break and Swami&rsquo;s to trails through San Elijo Lagoon and the Olivenhain Open Space Preserve.</p>
+          <p>The city&rsquo;s relaxed, beach-town culture creates an environment where families enjoy both proximity to nature and a genuine sense of belonging in a well-established community.</p>
+      </div>
+      <div class="nbhd-faq-item">
+        <h3>What makes Olivenhain different from the rest of Encinitas?</h3>
+        <p>Olivenhain is a rural residential area within the city of Encinitas that feels distinctly different from the coastal neighborhoods. Properties here typically feature larger lots &mdash; often half an acre to several acres &mdash; and many are zoned for horses. It&rsquo;s a private, semi-rural enclave within minutes of the beach, offering the rare combination of wide-open space and North County coastal convenience.</p>
+          <p>Olivenhain has its own elementary school, no street lights (by design), and a quiet, community-oriented character that attracts buyers specifically seeking that lifestyle. Homes in Olivenhain range from the $1M range for smaller parcels to well over $5M for larger estates.</p>
+      </div>
+      <div class="nbhd-faq-item">
+        <h3>Does Encinitas have an HOA?</h3>
+        <p>HOA presence varies significantly by neighborhood in Encinitas. Many of the newer planned communities in New Encinitas have active HOAs with monthly dues. The older coastal neighborhoods of Old Encinitas, Leucadia, and much of Olivenhain are typically non-HOA. Cardiff and the areas along the coast also tend to be HOA-free. If HOA status matters to your search, we can quickly filter opportunities accordingly.</p>
+      </div>
       </div>
     </div>
   </section>

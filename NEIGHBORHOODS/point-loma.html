@@ -10,12 +10,124 @@
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../style.css" />
   <style>
-    .page-hero{position:relative;width:100%;height:90vh;min-height:500px;overflow:hidden;}.page-hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#18254B 0%,#1C3063 55%,#243570 100%);}.page-hero-inner{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(2rem,6vw,6rem);}.page-hero-inner .section-eyebrow{color:#B38987;margin-bottom:1rem;}.page-hero-inner h1{font-family:'Marcellus',serif;font-size:clamp(2.2rem,4.5vw,3.5rem);color:#fff;letter-spacing:0.06em;line-height:1.1;margin-bottom:1rem;}.page-hero-inner p{font-family:'Cormorant Garamond',serif;font-size:0.92rem;color:rgba(255,255,255,0.82);max-width:520px;line-height:1.85;}
-    .nbhd-stats-strip{background:#fff;padding:2rem clamp(1.5rem,5vw,4rem);border-bottom:1px solid rgba(28,48,99,0.07);}.nbhd-stats-track{display:flex;justify-content:center;align-items:center;gap:clamp(2rem,5vw,5rem);max-width:860px;margin:0 auto;text-align:center;flex-wrap:wrap;}.nbhd-stat{text-align:center;}.nbhd-stat-num{font-family:'Marcellus',serif;font-size:clamp(1.3rem,2.2vw,1.8rem);color:#18254B;display:block;}.nbhd-stat-label{font-family:'Lato',sans-serif;font-size:0.64rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#B38987;display:block;margin-top:0.2rem;}.nbhd-stats-divider{width:1px;height:36px;background:rgba(28,48,99,0.12);flex-shrink:0;}
+    .page-hero{position:relative;width:100%;height:90vh;min-height:500px;overflow:hidden;}.page-hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#18254B 0%,#1C3063 55%,#243570 100%);}.page-hero-inner{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(2rem,6vw,6rem);}.page-hero-inner .section-eyebrow{color:#B38987;margin-bottom:1rem;}.page-hero-inner h1{font-family:'Marcellus',serif;font-size:clamp(2.2rem,4.5vw,3.5rem);color:#fff;letter-spacing:0.06em;line-height:1.1;margin-bottom:1rem;}.page-hero-inner p{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:rgba(255,255,255,0.82);max-width:860px;line-height:1.85;}
     .nbhd-about{background:#F3EFE8;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}.nbhd-about-inner{max-width:860px;margin:0 auto;}.nbhd-about-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}.nbhd-about-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.5rem,2.5vw,2rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.5rem;}.nbhd-about-inner p{font-family:'Cormorant Garamond',serif;font-size:0.93rem;color:#3a4a6b;line-height:1.95;margin-bottom:1.1rem;}
-    .nbhd-highlights{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}.nbhd-highlights-inner{max-width:980px;margin:0 auto;}.nbhd-highlights-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}.nbhd-highlights-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#fff;letter-spacing:0.08em;margin-bottom:2rem;text-align:center;}.nbhd-highlights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}.nbhd-highlight-item{background:rgba(255,255,255,0.05);border:1px solid rgba(179,137,135,0.2);padding:1.5rem 1.25rem;}.nbhd-highlight-item h3{font-family:'Marcellus',serif;font-size:1rem;color:#B38987;margin-bottom:0.6rem;}.nbhd-highlight-item p{font-family:'Cormorant Garamond',serif;font-size:0.83rem;color:rgba(255,255,255,0.75);line-height:1.8;margin:0;}
+    .nbhd-highlights{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}.nbhd-highlights-inner{max-width:1100px;margin:0 auto;}.nbhd-highlights-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}.nbhd-highlights-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#fff;letter-spacing:0.08em;margin-bottom:2rem;text-align:center;}.nbhd-highlights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}.nbhd-highlight-item{background:rgba(255,255,255,0.05);border:1px solid rgba(179,137,135,0.2);padding:1.5rem 1.25rem;}.nbhd-highlight-item h3{font-family:'Marcellus',serif;font-size:1rem;color:#B38987;margin-bottom:0.6rem;}.nbhd-highlight-item p{font-family:'Cormorant Garamond',serif;font-size:0.83rem;color:rgba(255,255,255,0.75);line-height:1.8;margin:0;}
     @media(max-width:700px){.nbhd-highlights-grid{grid-template-columns:1fr 1fr;}}@media(max-width:480px){.nbhd-highlights-grid{grid-template-columns:1fr;}}
-    .nbhd-cta{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);text-align:center;}.nbhd-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}.nbhd-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}.nbhd-cta p{font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:#3a4a6b;line-height:1.85;max-width:560px;margin:0 auto 2rem;}.nbhd-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+    .nbhd-cta{background:#F3EFE8;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);text-align:center;}.nbhd-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}.nbhd-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}.nbhd-cta p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#3a4a6b;line-height:1.85;max-width:860px;margin:0 auto 2rem;}.nbhd-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+    .nbhd-cta-btns a{display:inline-block;min-width:220px;padding:0.85rem 2rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;text-align:center;background:#1C3063;color:#F6F6F4;border:1.5px solid #1C3063;transition:background 0.25s,border-color 0.25s,color 0.25s;}
+    .nbhd-cta-btns a:hover{background:#18254B;border-color:#18254B;color:#B38987;}
+    .nbhd-demographics{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-demographics-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-demographics-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-demographics-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;text-align:center;}
+    .nbhd-demographics-inner>p.demo-intro{font-family:'Lato',sans-serif;font-size:0.85rem;color:#7a7068;text-align:center;margin:0 auto 2rem;max-width:640px;line-height:1.7;}
+    .nbhd-demo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+    .nbhd-demo-card{background:#F3EFE8;border-top:3px solid #B38987;padding:1.4rem 1.25rem 1.1rem;}
+    .nbhd-demo-card .demo-num{font-family:'Marcellus',serif;font-size:1.9rem;color:#18254B;line-height:1;margin-bottom:0.35rem;letter-spacing:0.02em;}
+    .nbhd-demo-card .demo-label{font-family:'Lato',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#9a8e88;}
+    .nbhd-demo-note{font-family:'Lato',sans-serif;font-size:0.68rem;color:#b0a89e;margin-top:1.5rem;line-height:1.7;border-top:1px solid rgba(24,37,75,0.08);padding-top:1rem;text-align:center;}
+    @media(max-width:700px){.nbhd-demo-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:420px){.nbhd-demo-grid{grid-template-columns:1fr 1fr;gap:0.75rem;}.nbhd-demo-card .demo-num{font-size:1.5rem;}}
+    .nbhd-listings{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-listings-inner{max-width:1100px;margin:0 auto;text-align:center;}
+    .nbhd-listings-inner .section-eyebrow{color:#B38987;margin-bottom:0.5rem;}
+    .nbhd-listings-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;}
+    .nbhd-listings-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;margin:0 auto 1.75rem;max-width:700px;line-height:1.8;}
+    .nbhd-listings-cta{margin-top:1.5rem;}
+    .nbhd-listings-cta a{display:inline-block;padding:0.85rem 2.25rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:#1C3063;border:1.5px solid #1C3063;background:transparent;transition:background 0.22s,color 0.22s;}
+    .nbhd-listings-cta a:hover{background:#1C3063;color:#fff;}
+    .nbhd-schools{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-schools-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-schools-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-schools-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
+    .nbhd-schools-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin-bottom:2rem;}
+    .nbhd-schools-intro a{color:#1C3063;text-decoration:underline;text-decoration-color:rgba(28,48,99,0.3);text-underline-offset:2px;transition:color 0.2s;}
+    .nbhd-schools-intro a:hover{color:#B38987;}
+    .nbhd-schools-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;}
+    .nbhd-school-col h3{font-family:'Marcellus',serif;font-size:0.82rem;color:#18254B;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(28,48,99,0.12);}
+    .nbhd-school-item{font-family:'Lato',sans-serif;font-size:0.95rem;color:#3a4a6b;padding:0.55rem 0;border-bottom:1px solid rgba(28,48,99,0.05);display:flex;justify-content:space-between;align-items:baseline;}
+    .nbhd-school-item-name{font-weight:500;}
+    .nbhd-school-item-grade{font-size:0.70rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#B38987;flex-shrink:0;margin-left:0.5rem;}
+    .nbhd-school-district{font-family:'Lato',sans-serif;font-size:0.73rem;color:#8a9ab8;margin-top:0.85rem;padding-top:0.75rem;border-top:1px solid rgba(28,48,99,0.08);line-height:1.6;}
+    .nbhd-school-subdist{font-family:'Lato',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#B38987;display:block;margin-top:1.1rem;margin-bottom:0.25rem;}
+    .nbhd-school-item a{color:#18254B;text-decoration:none;transition:color 0.2s;}
+    .nbhd-school-item a:hover{color:#B38987;}
+    @media(max-width:640px){.nbhd-schools-grid{grid-template-columns:1fr;}}
+    .nbhd-commute{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-commute-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-commute-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-commute-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
+    .nbhd-commute-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin-bottom:2rem;max-width:780px;}
+    .nbhd-commute-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+    .nbhd-commute-card{padding:1.5rem 1.25rem;background:#F3EFE8;}
+    .nbhd-commute-card h3{font-family:'Marcellus',serif;font-size:1.05rem;color:#18254B;letter-spacing:0.05em;margin-bottom:0.35rem;}
+    .nbhd-commute-time{font-family:'Lato',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#B38987;display:block;margin-bottom:0.65rem;}
+    .nbhd-commute-card p{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.75;margin:0;}
+    @media(max-width:700px){.nbhd-commute-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:480px){.nbhd-commute-grid{grid-template-columns:1fr;}}
+
+    /* ── Dining ─────────────────────────────────────────────────────── */
+    .nbhd-dining{padding:clamp(2.5rem,4vw,3.5rem) clamp(1.5rem,4vw,3rem);background-color:#18254B;background-size:cover;background-position:center;position:relative;}
+    .nbhd-dining::before{content:'';position:absolute;inset:0;background:linear-gradient(rgba(24,37,75,0.76),rgba(24,37,75,0.76));z-index:0;}
+    .nbhd-dining-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+    .nbhd-dining-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-dining-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#fff;letter-spacing:0.08em;margin-bottom:2.5rem;text-align:center;}
+    .nbhd-restaurant-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+    .nbhd-restaurant-card{background:#F3EFE8;padding:1.75rem 1.5rem;text-align:center;display:flex;flex-direction:column;align-items:center;}
+    .nbhd-restaurant-card h3{font-family:'Marcellus',serif;font-size:1rem;color:#18254B;letter-spacing:0.06em;margin-bottom:0.35rem;}
+    .nbhd-restaurant-card h3 a{color:#18254B;text-decoration:none;transition:color 0.2s;}
+    .nbhd-restaurant-card h3 a:hover{color:#B38987;}
+    .nbhd-rest-type{font-family:'Lato',sans-serif;font-size:0.64rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#B38987;display:block;margin-bottom:0.85rem;}
+    .nbhd-restaurant-card p{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.8;margin:0;}
+    @media(max-width:800px){.nbhd-restaurant-grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:480px){.nbhd-restaurant-grid{grid-template-columns:1fr;}}
+    /* ── Neighborhoods Grid ─────────────────────────────────────────── */
+    .nbhd-grid-section{background:#F3EFE8;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);overflow-x:hidden;}
+    .nbhd-grid-section-inner{margin:0 auto;}
+    .nbhd-grid-section-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-grid-section-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.75rem;text-align:center;}
+    .nbhd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);}
+    .nbhd-grid-card{position:relative;height:260px;display:flex;flex-direction:column;justify-content:flex-end;padding:1rem 1.1rem;text-decoration:none;background-color:#18254B;background-size:cover;background-position:center;overflow:hidden;transition:transform 0.25s;}
+    .nbhd-grid-card::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(24,37,75,0.05) 0%,rgba(24,37,75,0.78) 100%);transition:background 0.25s;z-index:0;}
+    .nbhd-grid-card:hover{transform:scale(1.01);z-index:1;}
+    .nbhd-grid-card:hover::before{background:linear-gradient(to bottom,rgba(24,37,75,0.15) 0%,rgba(24,37,75,0.88) 100%);}
+    .nbhd-grid-card-name{position:relative;z-index:1;font-family:'Marcellus',serif;font-size:1rem;color:#fff;letter-spacing:0.05em;line-height:1.25;}
+    .nbhd-grid-card-cta{position:relative;z-index:1;font-family:'Lato',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-top:0.25rem;transition:color 0.2s;}
+    .nbhd-grid-card:hover .nbhd-grid-card-cta{color:#B38987;}
+    @media(max-width:900px){.nbhd-grid{grid-template-columns:repeat(3,1fr);}}
+    @media(max-width:600px){.nbhd-grid{grid-template-columns:repeat(2,1fr);}.nbhd-grid-card{height:200px;}}
+    /* ── Map ────────────────────────────────────────────────────────── */
+    .nbhd-map{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) 0 0;}
+    .nbhd-map-inner{max-width:1100px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}
+    .nbhd-map-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-map-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;text-align:center;}
+    .nbhd-map-embed{width:100%;height:520px;border:0;display:block;}
+    @media(max-width:600px){.nbhd-map-embed{height:320px;}}
+    /* ── Seller CTA ─────────────────────────────────────────────────── */
+    .nbhd-seller-cta{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) 0;text-align:center;}
+    .nbhd-seller-cta-inner{max-width:1400px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}
+    .nbhd-seller-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-seller-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.3rem,2.2vw,1.8rem);color:#fff;letter-spacing:0.08em;margin-bottom:0.85rem;line-height:1.2;}
+    .nbhd-seller-cta-text{font-family:'Lato',sans-serif;font-size:0.97rem;color:rgba(255,255,255,0.75);max-width:680px;margin:0 auto 1.75rem !important;line-height:1.85;}
+    .nbhd-seller-cta a{display:inline-block;min-width:240px;padding:0.85rem 2.25rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;text-align:center;background:transparent;color:#fff;border:1.5px solid #fff;text-decoration:none;transition:background 0.22s,color 0.22s,border-color 0.22s;}
+    .nbhd-seller-cta a:hover{background:#B38987;color:#fff;border-color:#B38987;}
+    .nbhd-seller-cta-btns{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:560px;margin:1.75rem auto 0;}
+    @media(max-width:500px){.nbhd-seller-cta-btns{grid-template-columns:1fr;}}
+
+    /* ── FAQ ────────────────────────────────────────────────────────── */
+    .nbhd-faq{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-faq-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-faq-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-faq-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.5rem;}
+    .nbhd-faq-list{display:flex;flex-direction:column;}
+    .nbhd-faq-item{padding:1.35rem 0;border-bottom:1px solid rgba(28,48,99,0.08);}
+    .nbhd-faq-item:first-child{border-top:1px solid rgba(28,48,99,0.08);}
+    .nbhd-faq-item h3{font-family:'Marcellus',serif;font-size:1.05rem;color:#18254B;letter-spacing:0.03em;margin-bottom:0.5rem;}
+    .nbhd-faq-item p{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin:0;}
+    .nbhd-faq-item p+p{margin-top:0.85rem;}
+    .nbhd-faq-item a{color:#1C3063;text-decoration:underline;text-decoration-color:rgba(28,48,99,0.3);text-underline-offset:2px;transition:color 0.2s,text-decoration-color 0.2s;}
+    .nbhd-faq-item a:hover{color:#B38987;text-decoration-color:#B38987;}
   </style>
 </head>
 <body>
@@ -106,19 +218,24 @@
       <p>A storied coastal peninsula where bay views, historic character, and some of San Diego's most coveted addresses converge at the city's western edge.</p>
     </div>
   </section>
+</div>
 
-  <div class="nbhd-stats-strip">
-    <div class="nbhd-stats-track">
-      <div class="nbhd-stat"><span class="nbhd-stat-num">$1.2M–$4M+</span><span class="nbhd-stat-label">Typical Price Range</span></div>
-      <div class="nbhd-stats-divider"></div>
-      <div class="nbhd-stat"><span class="nbhd-stat-num">92106 / 92107</span><span class="nbhd-stat-label">Primary Zip Codes</span></div>
-      <div class="nbhd-stats-divider"></div>
-      <div class="nbhd-stat"><span class="nbhd-stat-num">San Diego Unified</span><span class="nbhd-stat-label">School District</span></div>
-      <div class="nbhd-stats-divider"></div>
-      <div class="nbhd-stat"><span class="nbhd-stat-num">Direct</span><span class="nbhd-stat-label">Bay &amp; Ocean Access</span></div>
+  <section class="nbhd-demographics">
+    <div class="nbhd-demographics-inner">
+      <p class="section-eyebrow">BY THE NUMBERS</p>
+      <h2>POINT LOMA AT A GLANCE</h2>
+      <p class="demo-intro">A storied peninsula community where military heritage, bay views, and coastal elegance define the character.</p>
+      <div class="nbhd-demo-grid">
+        <div class="nbhd-demo-card"><div class="demo-num">~38,000</div><div class="demo-label">Residents</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">Early 40s</div><div class="demo-label">Median Age</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">$120K+</div><div class="demo-label">Median Household Income</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">$1.6M</div><div class="demo-label">Median Home Value</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">62%</div><div class="demo-label">Bachelor's Degree or Higher</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">57%</div><div class="demo-label">Owner-Occupied Homes</div></div>
+      </div>
+      <p class="nbhd-demo-note">Sources: U.S. Census Bureau / ACS 5-year estimates (2023), SANDAG neighborhood profiles, and current market data for Point Loma / ZIP&nbsp;92106. Figures are estimates and subject to change.</p>
     </div>
-  </div>
-
+  </section>
   <section class="nbhd-about">
     <div class="nbhd-about-inner">
       <p class="section-eyebrow">PENINSULA LIVING IN SAN DIEGO</p>
@@ -131,8 +248,8 @@
 
   <section class="nbhd-highlights">
     <div class="nbhd-highlights-inner">
-      <p class="section-eyebrow">WHAT MAKES POINT LOMA SPECIAL</p>
-      <h2>COMMUNITY HIGHLIGHTS</h2>
+      <p class="section-eyebrow">COMMUNITY HIGHLIGHTS</p>
+      <h2>WHAT WE LOVE MOST ABOUT POINT LOMA</h2>
       <div class="nbhd-highlights-grid">
         <div class="nbhd-highlight-item"><h3>Sunset Cliffs Natural Park</h3><p>Dramatic sandstone cliffs above the Pacific with some of San Diego's most spectacular sunset views — a beloved natural landmark and a defining feature of Point Loma's western edge.</p></div>
         <div class="nbhd-highlight-item"><h3>Cabrillo National Monument</h3><p>A National Park Service site at the peninsula's tip offering 360-degree views of San Diego Bay, the Pacific Ocean, and the Tijuana coastline — one of the most visited national monuments in the country.</p></div>
@@ -140,6 +257,225 @@
         <div class="nbhd-highlight-item"><h3>Shelter Island &amp; Marina</h3><p>San Diego's boating and marina hub — with yacht clubs, waterfront restaurants, fishing piers, and a relaxed nautical atmosphere steps from Point Loma's residential neighborhoods.</p></div>
         <div class="nbhd-highlight-item"><h3>Architectural Character</h3><p>Point Loma's neighborhoods span California Craftsman bungalows, mid-century contemporaries, newer custom builds on bluff-edge lots, and everything in between — a genuine diversity of architectural character.</p></div>
         <div class="nbhd-highlight-item"><h3>Location &amp; Access</h3><p>Positioned at the intersection of the harbor, the ocean, and central San Diego, Point Loma offers practical access to downtown, the airport, Coronado, and the city's core without sacrificing the tranquility of peninsula living.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="nbhd-listings">
+    <div class="nbhd-listings-inner">
+      <p class="section-eyebrow">BROWSE LISTINGS</p>
+      <h2>POINT LOMA HOMES FOR SALE</h2>
+      <p class="nbhd-listings-intro">Browse current homes for sale in Point Loma, updated daily from the MLS &mdash; from bay-view bungalows to peninsula estates.</p>
+      <div class="nbhd-listings-cta">
+        <a href="http://thejaiswalgroup.idxbroker.com/idx/map/mapsearch" target="_blank" rel="noopener">VIEW ALL LISTINGS</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="nbhd-schools">
+    <div class="nbhd-schools-inner">
+      <p class="section-eyebrow">EDUCATION</p>
+      <h2>SCHOOLS SERVING POINT LOMA</h2>
+      <p class="nbhd-schools-intro">Point Loma is served by the <a href="https://www.sandiegounified.org" target="_blank" rel="noopener">San Diego Unified School District</a>, home to some of San Diego&rsquo;s most well-regarded traditional public schools.</p>
+      <div class="nbhd-schools-grid">
+        <div class="nbhd-school-col">
+          <h3>Public Schools</h3>
+            <span class="nbhd-school-subdist">Elementary &middot; San Diego USD</span>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Point Loma Elementary</span><span class="nbhd-school-item-grade">K &ndash; 5</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Cabrillo Elementary</span><span class="nbhd-school-item-grade">K &ndash; 5</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Loma Portal Elementary</span><span class="nbhd-school-item-grade">K &ndash; 5</span></div>
+            <span class="nbhd-school-subdist">Middle &middot; San Diego USD</span>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Correia Middle School</span><span class="nbhd-school-item-grade">6 &ndash; 8</span></div>
+        </div>
+        <div class="nbhd-school-col">
+          <h3>&nbsp;</h3>
+            <span class="nbhd-school-subdist">High School &middot; San Diego USD</span>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Point Loma High School</span><span class="nbhd-school-item-grade">9 &ndash; 12</span></div>
+            <span class="nbhd-school-subdist">Magnet &middot; San Diego USD</span>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Point Loma High IB Program</span><span class="nbhd-school-item-grade">9 &ndash; 12</span></div>
+        </div>
+      </div>
+      <p class="nbhd-school-district">School assignments are subject to attendance boundaries and may change. Confirm enrollment eligibility and boundaries directly with the applicable school district.</p>
+    </div>
+  </section>
+
+  <section class="nbhd-commute">
+    <div class="nbhd-commute-inner">
+      <p class="section-eyebrow">GETTING AROUND</p>
+      <h2>LOCATION &amp; COMMUTE</h2>
+      <p class="nbhd-commute-intro">Point Loma&rsquo;s peninsula location places residents minutes from downtown San Diego, the airport, and Liberty Station &mdash; with easy I-8 and I-5 access for broader commutes.</p>
+      <div class="nbhd-commute-grid">
+        <div class="nbhd-commute-card">
+          <h3>San Diego International Airport</h3>
+          <span class="nbhd-commute-time">~5 Minutes</span>
+          <p>The airport is one of Point Loma&rsquo;s most notable advantages &mdash; just minutes away via Harbor Drive.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Liberty Station</h3>
+          <span class="nbhd-commute-time">~5 Minutes</span>
+          <p>The NTC campus and Liberty Station&rsquo;s restaurants, arts venues, and retail are immediately accessible.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Downtown San Diego</h3>
+          <span class="nbhd-commute-time">~10&ndash;15 Minutes</span>
+          <p>Harbor Drive or I-5 South place the Gaslamp Quarter, business district, and waterfront just minutes away.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Kearny Mesa</h3>
+          <span class="nbhd-commute-time">~15 Minutes</span>
+          <p>I-8 East connects Point Loma to Kearny Mesa&rsquo;s commercial and industrial employment hubs.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Mission Valley</h3>
+          <span class="nbhd-commute-time">~15 Minutes</span>
+          <p>I-8 East also provides swift access to Mission Valley&rsquo;s shopping, hotel, and office employment center.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>UTC &amp; La Jolla</h3>
+          <span class="nbhd-commute-time">~20 Minutes</span>
+          <p>I-5 North or I-8 to I-5 places UC San Diego and University Town Center within a manageable commute.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       DINING
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-dining" style="background-image:url('../Lynnette-torreypinesbackground.jpg');">
+    <div class="nbhd-dining-inner">
+      <p class="section-eyebrow">DINING IN POINT LOMA</p>
+      <h2>WHERE LOCALS EAT &amp; GATHER</h2>
+      <div class="nbhd-restaurant-grid">
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.mitchsseafood.com/" target="_blank" rel="noopener">Mitch's Seafood</a></h3>
+          <span class="nbhd-rest-type">Fresh Seafood &middot; Harborside Patio</span>
+          <p>A beloved Point Loma institution where the freshest local catch arrives daily, the patio overlooks the harbor, and the simple, honest preparation of exceptional seafood has earned a devoted local following.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.balihairestaurant.com/" target="_blank" rel="noopener">The Bali Hai Restaurant</a></h3>
+          <span class="nbhd-rest-type">Polynesian &middot; Iconic Harbor Views</span>
+          <p>A San Diego classic since 1954, Bali Hai&rsquo;s stunning waterfront setting on Shelter Island, sweeping bay views, and iconic Polynesian-American cuisine make it a truly one-of-a-kind dining destination.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.stonebrewing.com/visit/bistros/liberty-station" target="_blank" rel="noopener">Stone Brewing Tap Room Liberty Station</a></h3>
+          <span class="nbhd-rest-type">Craft Beer &middot; Farm-to-Table</span>
+          <p>Set within the beautifully restored Liberty Station complex, Stone Brewing&rsquo;s airy tap room pairs award-winning craft beers with a farm-to-table menu and one of the most beautiful outdoor patios in San Diego.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.junglebirdsd.com/" target="_blank" rel="noopener">Jungle Bird</a></h3>
+          <span class="nbhd-rest-type">Craft Cocktails &middot; Creative Small Plates</span>
+          <p>A stylish Point Loma cocktail bar where innovative house drinks and creative small plates combine with a sophisticated, design-forward atmosphere to create one of the city&rsquo;s best evenings out.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.miguels.com/" target="_blank" rel="noopener">Miguel's Cocina at Liberty Station</a></h3>
+          <span class="nbhd-rest-type">Mexican &middot; Festive</span>
+          <p>A lively, colorful Mexican cantina at Liberty Station where generous portions of San Diego-style Mexican comfort food and cold margaritas keep the fiesta going from brunch through dinner.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.tomhamslighthouse.com/" target="_blank" rel="noopener">Tom Ham's Lighthouse</a></h3>
+          <span class="nbhd-rest-type">American &middot; Panoramic Harbor Views</span>
+          <p>A genuine San Diego landmark housed in an actual working lighthouse on Harbor Island, Tom Ham&rsquo;s delivers classic American dining with some of the most spectacular bay and city skyline views in San Diego.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       NEIGHBORHOODS GRID
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-grid-section">
+    <div class="nbhd-grid-section-inner">
+      <p class="section-eyebrow">THE NEIGHBORHOODS</p>
+      <h2>EXPLORE POINT LOMA NEIGHBORHOODS</h2>
+      <div class="nbhd-grid">
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Ocean Beach</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Liberty Station</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Roseville / Fleetridge</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Sunset Cliffs</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Point Loma Heights</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Loma Portal</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       BUYER CTA
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-cta">
+    <p class="section-eyebrow">READY TO EXPLORE?</p>
+    <h2>LET&rsquo;S FIND YOUR DREAM HOME IN POINT LOMA</h2>
+    <p>Whether you&rsquo;re drawn to the eclectic surf culture of Ocean Beach, the beautifully restored Liberty Station, or the clifftop grandeur of Sunset Cliffs, Point Loma offers a rare combination of coastal character and community depth. We&rsquo;d love to help you explore it.</p>
+    <div class="nbhd-cta-btns">
+      <a href="../contact.html">SCHEDULE A CONSULTATION</a>
+    </div>
+    <p style="margin-top:1.25rem;font-family:'Lato',sans-serif;font-size:0.9rem;color:rgba(28,48,99,0.65);">Or call or text us at <a href="tel:8582907531" style="color:#18254B;font-weight:700;">(858) 290-7531</a></p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       MAP
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-map">
+    <div class="nbhd-map-inner">
+      <p class="section-eyebrow">LOCATION</p>
+      <h2>MAP OF POINT LOMA</h2>
+      <p style="font-family:'Lato',sans-serif;font-size:0.9rem;color:#3a4a6b;text-align:center;margin:0.25rem 0 1.5rem;line-height:1.4;">Located at the southern tip of San Diego Bay, Point Loma occupies a dramatic peninsula between the Pacific Ocean and San Diego Bay, offering easy access to downtown San Diego via I-8, the airport, and some of the city&rsquo;s most spectacular coastal scenery.</p>
+    </div>
+    <iframe
+      class="nbhd-map-embed"
+      src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13000!2d-117.2411!3d32.7428!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1750000000000!5m2!1sen!2sus"
+      title="Point Loma, San Diego, CA"
+      allowfullscreen
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SELLER CTA
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-seller-cta">
+    <div class="nbhd-seller-cta-inner">
+      <p class="section-eyebrow">THINKING OF SELLING</p>
+      <h2>FIND OUT WHAT YOUR POINT LOMA HOME IS WORTH</h2>
+      <p class="nbhd-seller-cta-text">Thinking of selling in Point Loma? Whether you&rsquo;re simply curious about your home&rsquo;s value or considering a move in the near future, we&rsquo;d be happy to provide a personalized, data-driven analysis of today&rsquo;s market and what your Point Loma home could be worth.</p>
+      <div class="nbhd-seller-cta-btns">
+        <a href="../home-valuation.html">GET FREE HOME VALUATION</a>
+        <a href="tel:8582907531">CALL (858) 290-7531</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       FAQ
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-faq">
+    <div class="nbhd-faq-inner">
+      <p class="section-eyebrow">FREQUENTLY ASKED</p>
+      <h2>COMMON QUESTIONS ABOUT POINT LOMA</h2>
+      <div class="nbhd-faq-list">
+      <div class="nbhd-faq-item">
+        <h3>What types of homes are available in Point Loma?</h3>
+        <p>Point Loma encompasses several distinct neighborhoods, each with its own character and housing inventory. Ocean Beach (OB) offers original beach cottages, bungalows, and a small number of multifamily properties with a vibrant, independent spirit. Sunset Cliffs and the Roseville/Fleetridge area have older custom homes and mid-century properties on the bluffs overlooking the Pacific. Liberty Station and the areas around Loma Portal offer a mix of renovated craftsman homes and newer construction.</p>
+          <p>Home prices in Point Loma range from the mid-$800s for condominiums and smaller single-family homes in Ocean Beach to well over $3 million for premium cliff-top or bay-view properties. The community&rsquo;s proximity to downtown, the airport, and the water makes it one of San Diego&rsquo;s most persistently sought-after areas.</p>
+      </div>
+      <div class="nbhd-faq-item">
+        <h3>What is Liberty Station and why is it significant?</h3>
+        <p>Liberty Station is a beautifully redeveloped mixed-use community built on the site of the former Naval Training Center. The 361-acre campus was transformed into a neighborhood of shops, restaurants, arts venues, parks, offices, and residences, anchored by the Arts District &mdash; home to galleries, theaters, and cultural institutions.</p>
+          <p>Stone Brewing&rsquo;s iconic tap room and farm, Miguel&rsquo;s Cocina, the NTC Promenade, and an extensive park system have made Liberty Station one of San Diego&rsquo;s most vibrant public spaces. For residents of Point Loma, it represents a remarkable quality-of-life amenity steps from their front door.</p>
+      </div>
+      <div class="nbhd-faq-item">
+        <h3>How close is Point Loma to the airport?</h3>
+        <p>Point Loma is one of the closest residential communities to San Diego International Airport, typically just 5 to 10 minutes from most of the neighborhood depending on your specific location. For frequent travelers, this proximity is a genuine convenience &mdash; and for some buyers, it&rsquo;s a primary driver of their decision to live here.</p>
+          <p>Flight noise is worth considering for buyers who are sensitive to it, particularly in areas immediately adjacent to the flight paths. We&rsquo;re happy to discuss specific streets and areas where noise is less of a factor.</p>
+      </div>
+      <div class="nbhd-faq-item">
+        <h3>What makes Ocean Beach (OB) unique?</h3>
+        <p>Ocean Beach is one of San Diego&rsquo;s most fiercely independent and community-oriented neighborhoods. Known for its bohemian spirit, local businesses, dog-friendly beaches, and a genuine resistance to chain retail and corporate homogenization, OB has maintained its character in a way that few urban coastal neighborhoods in the country have.</p>
+          <p>For buyers who want an authentic, walkable beach-town lifestyle with a strong sense of place and community, Ocean Beach is unlike anywhere else in San Diego.</p>
+      </div>
       </div>
     </div>
   </section>

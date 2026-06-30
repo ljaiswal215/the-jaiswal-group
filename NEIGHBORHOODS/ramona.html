@@ -10,12 +10,124 @@
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../style.css" />
   <style>
-    .page-hero{position:relative;width:100%;height:90vh;min-height:500px;overflow:hidden;}.page-hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#18254B 0%,#1C3063 55%,#243570 100%);}.page-hero-inner{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(2rem,6vw,6rem);}.page-hero-inner .section-eyebrow{color:#B38987;margin-bottom:1rem;}.page-hero-inner h1{font-family:'Marcellus',serif;font-size:clamp(2.2rem,4.5vw,3.5rem);color:#fff;letter-spacing:0.06em;line-height:1.1;margin-bottom:1rem;}.page-hero-inner p{font-family:'Cormorant Garamond',serif;font-size:0.92rem;color:rgba(255,255,255,0.82);max-width:520px;line-height:1.85;}
-    .nbhd-stats-strip{background:#fff;padding:2rem clamp(1.5rem,5vw,4rem);border-bottom:1px solid rgba(28,48,99,0.07);}.nbhd-stats-track{display:flex;justify-content:center;align-items:center;gap:clamp(2rem,5vw,5rem);max-width:860px;margin:0 auto;text-align:center;flex-wrap:wrap;}.nbhd-stat{text-align:center;}.nbhd-stat-num{font-family:'Marcellus',serif;font-size:clamp(1.3rem,2.2vw,1.8rem);color:#18254B;display:block;}.nbhd-stat-label{font-family:'Lato',sans-serif;font-size:0.64rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#B38987;display:block;margin-top:0.2rem;}.nbhd-stats-divider{width:1px;height:36px;background:rgba(28,48,99,0.12);flex-shrink:0;}
+    .page-hero{position:relative;width:100%;height:90vh;min-height:500px;overflow:hidden;}.page-hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#18254B 0%,#1C3063 55%,#243570 100%);}.page-hero-inner{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(2rem,6vw,6rem);}.page-hero-inner .section-eyebrow{color:#B38987;margin-bottom:1rem;}.page-hero-inner h1{font-family:'Marcellus',serif;font-size:clamp(2.2rem,4.5vw,3.5rem);color:#fff;letter-spacing:0.06em;line-height:1.1;margin-bottom:1rem;}.page-hero-inner p{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:rgba(255,255,255,0.82);max-width:860px;line-height:1.85;}
     .nbhd-about{background:#F3EFE8;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}.nbhd-about-inner{max-width:860px;margin:0 auto;}.nbhd-about-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}.nbhd-about-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.5rem,2.5vw,2rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.5rem;}.nbhd-about-inner p{font-family:'Cormorant Garamond',serif;font-size:0.93rem;color:#3a4a6b;line-height:1.95;margin-bottom:1.1rem;}
-    .nbhd-highlights{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}.nbhd-highlights-inner{max-width:980px;margin:0 auto;}.nbhd-highlights-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}.nbhd-highlights-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#fff;letter-spacing:0.08em;margin-bottom:2rem;text-align:center;}.nbhd-highlights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}.nbhd-highlight-item{background:rgba(255,255,255,0.05);border:1px solid rgba(179,137,135,0.2);padding:1.5rem 1.25rem;}.nbhd-highlight-item h3{font-family:'Marcellus',serif;font-size:1rem;color:#B38987;margin-bottom:0.6rem;}.nbhd-highlight-item p{font-family:'Cormorant Garamond',serif;font-size:0.83rem;color:rgba(255,255,255,0.75);line-height:1.8;margin:0;}
+    .nbhd-highlights{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}.nbhd-highlights-inner{max-width:1100px;margin:0 auto;}.nbhd-highlights-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}.nbhd-highlights-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#fff;letter-spacing:0.08em;margin-bottom:2rem;text-align:center;}.nbhd-highlights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}.nbhd-highlight-item{background:rgba(255,255,255,0.05);border:1px solid rgba(179,137,135,0.2);padding:1.5rem 1.25rem;}.nbhd-highlight-item h3{font-family:'Marcellus',serif;font-size:1rem;color:#B38987;margin-bottom:0.6rem;}.nbhd-highlight-item p{font-family:'Cormorant Garamond',serif;font-size:0.83rem;color:rgba(255,255,255,0.75);line-height:1.8;margin:0;}
     @media(max-width:700px){.nbhd-highlights-grid{grid-template-columns:1fr 1fr;}}@media(max-width:480px){.nbhd-highlights-grid{grid-template-columns:1fr;}}
-    .nbhd-cta{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);text-align:center;}.nbhd-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}.nbhd-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}.nbhd-cta p{font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:#3a4a6b;line-height:1.85;max-width:560px;margin:0 auto 2rem;}.nbhd-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+    .nbhd-cta{background:#F3EFE8;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);text-align:center;}.nbhd-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}.nbhd-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}.nbhd-cta p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#3a4a6b;line-height:1.85;max-width:860px;margin:0 auto 2rem;}.nbhd-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+    .nbhd-cta-btns a{display:inline-block;min-width:220px;padding:0.85rem 2rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;text-align:center;background:#1C3063;color:#F6F6F4;border:1.5px solid #1C3063;transition:background 0.25s,border-color 0.25s,color 0.25s;}
+    .nbhd-cta-btns a:hover{background:#18254B;border-color:#18254B;color:#B38987;}
+    .nbhd-demographics{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-demographics-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-demographics-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-demographics-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;text-align:center;}
+    .nbhd-demographics-inner>p.demo-intro{font-family:'Lato',sans-serif;font-size:0.85rem;color:#7a7068;text-align:center;margin:0 auto 2rem;max-width:640px;line-height:1.7;}
+    .nbhd-demo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+    .nbhd-demo-card{background:#F3EFE8;border-top:3px solid #B38987;padding:1.4rem 1.25rem 1.1rem;}
+    .nbhd-demo-card .demo-num{font-family:'Marcellus',serif;font-size:1.9rem;color:#18254B;line-height:1;margin-bottom:0.35rem;letter-spacing:0.02em;}
+    .nbhd-demo-card .demo-label{font-family:'Lato',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#9a8e88;}
+    .nbhd-demo-note{font-family:'Lato',sans-serif;font-size:0.68rem;color:#b0a89e;margin-top:1.5rem;line-height:1.7;border-top:1px solid rgba(24,37,75,0.08);padding-top:1rem;text-align:center;}
+    @media(max-width:700px){.nbhd-demo-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:420px){.nbhd-demo-grid{grid-template-columns:1fr 1fr;gap:0.75rem;}.nbhd-demo-card .demo-num{font-size:1.5rem;}}
+    .nbhd-listings{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-listings-inner{max-width:1100px;margin:0 auto;text-align:center;}
+    .nbhd-listings-inner .section-eyebrow{color:#B38987;margin-bottom:0.5rem;}
+    .nbhd-listings-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;}
+    .nbhd-listings-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;margin:0 auto 1.75rem;max-width:700px;line-height:1.8;}
+    .nbhd-listings-cta{margin-top:1.5rem;}
+    .nbhd-listings-cta a{display:inline-block;padding:0.85rem 2.25rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:#1C3063;border:1.5px solid #1C3063;background:transparent;transition:background 0.22s,color 0.22s;}
+    .nbhd-listings-cta a:hover{background:#1C3063;color:#fff;}
+    .nbhd-schools{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-schools-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-schools-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-schools-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
+    .nbhd-schools-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin-bottom:2rem;}
+    .nbhd-schools-intro a{color:#1C3063;text-decoration:underline;text-decoration-color:rgba(28,48,99,0.3);text-underline-offset:2px;transition:color 0.2s;}
+    .nbhd-schools-intro a:hover{color:#B38987;}
+    .nbhd-schools-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;}
+    .nbhd-school-col h3{font-family:'Marcellus',serif;font-size:0.82rem;color:#18254B;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(28,48,99,0.12);}
+    .nbhd-school-item{font-family:'Lato',sans-serif;font-size:0.95rem;color:#3a4a6b;padding:0.55rem 0;border-bottom:1px solid rgba(28,48,99,0.05);display:flex;justify-content:space-between;align-items:baseline;}
+    .nbhd-school-item-name{font-weight:500;}
+    .nbhd-school-item-grade{font-size:0.70rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#B38987;flex-shrink:0;margin-left:0.5rem;}
+    .nbhd-school-district{font-family:'Lato',sans-serif;font-size:0.73rem;color:#8a9ab8;margin-top:0.85rem;padding-top:0.75rem;border-top:1px solid rgba(28,48,99,0.08);line-height:1.6;}
+    .nbhd-school-subdist{font-family:'Lato',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#B38987;display:block;margin-top:1.1rem;margin-bottom:0.25rem;}
+    .nbhd-school-item a{color:#18254B;text-decoration:none;transition:color 0.2s;}
+    .nbhd-school-item a:hover{color:#B38987;}
+    @media(max-width:640px){.nbhd-schools-grid{grid-template-columns:1fr;}}
+    .nbhd-commute{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-commute-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-commute-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-commute-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
+    .nbhd-commute-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin-bottom:2rem;max-width:780px;}
+    .nbhd-commute-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+    .nbhd-commute-card{padding:1.5rem 1.25rem;background:#F3EFE8;}
+    .nbhd-commute-card h3{font-family:'Marcellus',serif;font-size:1.05rem;color:#18254B;letter-spacing:0.05em;margin-bottom:0.35rem;}
+    .nbhd-commute-time{font-family:'Lato',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#B38987;display:block;margin-bottom:0.65rem;}
+    .nbhd-commute-card p{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.75;margin:0;}
+    @media(max-width:700px){.nbhd-commute-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:480px){.nbhd-commute-grid{grid-template-columns:1fr;}}
+
+    /* ── Dining ─────────────────────────────────────────────────────── */
+    .nbhd-dining{padding:clamp(2.5rem,4vw,3.5rem) clamp(1.5rem,4vw,3rem);background-color:#18254B;background-size:cover;background-position:center;position:relative;}
+    .nbhd-dining::before{content:'';position:absolute;inset:0;background:linear-gradient(rgba(24,37,75,0.76),rgba(24,37,75,0.76));z-index:0;}
+    .nbhd-dining-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+    .nbhd-dining-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-dining-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#fff;letter-spacing:0.08em;margin-bottom:2.5rem;text-align:center;}
+    .nbhd-restaurant-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+    .nbhd-restaurant-card{background:#F3EFE8;padding:1.75rem 1.5rem;text-align:center;display:flex;flex-direction:column;align-items:center;}
+    .nbhd-restaurant-card h3{font-family:'Marcellus',serif;font-size:1rem;color:#18254B;letter-spacing:0.06em;margin-bottom:0.35rem;}
+    .nbhd-restaurant-card h3 a{color:#18254B;text-decoration:none;transition:color 0.2s;}
+    .nbhd-restaurant-card h3 a:hover{color:#B38987;}
+    .nbhd-rest-type{font-family:'Lato',sans-serif;font-size:0.64rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#B38987;display:block;margin-bottom:0.85rem;}
+    .nbhd-restaurant-card p{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.8;margin:0;}
+    @media(max-width:800px){.nbhd-restaurant-grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:480px){.nbhd-restaurant-grid{grid-template-columns:1fr;}}
+    /* ── Neighborhoods Grid ─────────────────────────────────────────── */
+    .nbhd-grid-section{background:#F3EFE8;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);overflow-x:hidden;}
+    .nbhd-grid-section-inner{margin:0 auto;}
+    .nbhd-grid-section-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-grid-section-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.75rem;text-align:center;}
+    .nbhd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);}
+    .nbhd-grid-card{position:relative;height:260px;display:flex;flex-direction:column;justify-content:flex-end;padding:1rem 1.1rem;text-decoration:none;background-color:#18254B;background-size:cover;background-position:center;overflow:hidden;transition:transform 0.25s;}
+    .nbhd-grid-card::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(24,37,75,0.05) 0%,rgba(24,37,75,0.78) 100%);transition:background 0.25s;z-index:0;}
+    .nbhd-grid-card:hover{transform:scale(1.01);z-index:1;}
+    .nbhd-grid-card:hover::before{background:linear-gradient(to bottom,rgba(24,37,75,0.15) 0%,rgba(24,37,75,0.88) 100%);}
+    .nbhd-grid-card-name{position:relative;z-index:1;font-family:'Marcellus',serif;font-size:1rem;color:#fff;letter-spacing:0.05em;line-height:1.25;}
+    .nbhd-grid-card-cta{position:relative;z-index:1;font-family:'Lato',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-top:0.25rem;transition:color 0.2s;}
+    .nbhd-grid-card:hover .nbhd-grid-card-cta{color:#B38987;}
+    @media(max-width:900px){.nbhd-grid{grid-template-columns:repeat(3,1fr);}}
+    @media(max-width:600px){.nbhd-grid{grid-template-columns:repeat(2,1fr);}.nbhd-grid-card{height:200px;}}
+    /* ── Map ────────────────────────────────────────────────────────── */
+    .nbhd-map{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) 0 0;}
+    .nbhd-map-inner{max-width:1100px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}
+    .nbhd-map-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-map-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;text-align:center;}
+    .nbhd-map-embed{width:100%;height:520px;border:0;display:block;}
+    @media(max-width:600px){.nbhd-map-embed{height:320px;}}
+    /* ── Seller CTA ─────────────────────────────────────────────────── */
+    .nbhd-seller-cta{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) 0;text-align:center;}
+    .nbhd-seller-cta-inner{max-width:1400px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}
+    .nbhd-seller-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-seller-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.3rem,2.2vw,1.8rem);color:#fff;letter-spacing:0.08em;margin-bottom:0.85rem;line-height:1.2;}
+    .nbhd-seller-cta-text{font-family:'Lato',sans-serif;font-size:0.97rem;color:rgba(255,255,255,0.75);max-width:680px;margin:0 auto 1.75rem !important;line-height:1.85;}
+    .nbhd-seller-cta a{display:inline-block;min-width:240px;padding:0.85rem 2.25rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;text-align:center;background:transparent;color:#fff;border:1.5px solid #fff;text-decoration:none;transition:background 0.22s,color 0.22s,border-color 0.22s;}
+    .nbhd-seller-cta a:hover{background:#B38987;color:#fff;border-color:#B38987;}
+    .nbhd-seller-cta-btns{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:560px;margin:1.75rem auto 0;}
+    @media(max-width:500px){.nbhd-seller-cta-btns{grid-template-columns:1fr;}}
+
+    /* ── FAQ ────────────────────────────────────────────────────────── */
+    .nbhd-faq{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-faq-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-faq-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-faq-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.5rem;}
+    .nbhd-faq-list{display:flex;flex-direction:column;}
+    .nbhd-faq-item{padding:1.35rem 0;border-bottom:1px solid rgba(28,48,99,0.08);}
+    .nbhd-faq-item:first-child{border-top:1px solid rgba(28,48,99,0.08);}
+    .nbhd-faq-item h3{font-family:'Marcellus',serif;font-size:1.05rem;color:#18254B;letter-spacing:0.03em;margin-bottom:0.5rem;}
+    .nbhd-faq-item p{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin:0;}
+    .nbhd-faq-item p+p{margin-top:0.85rem;}
+    .nbhd-faq-item a{color:#1C3063;text-decoration:underline;text-decoration-color:rgba(28,48,99,0.3);text-underline-offset:2px;transition:color 0.2s,text-decoration-color 0.2s;}
+    .nbhd-faq-item a:hover{color:#B38987;text-decoration-color:#B38987;}
   </style>
 </head>
 <body>
@@ -106,19 +218,24 @@
       <p>Rural California at its most authentic — rolling hills, a thriving wine region, horse properties, and wide open skies just 35 miles from the San Diego coast.</p>
     </div>
   </section>
+</div>
 
-  <div class="nbhd-stats-strip">
-    <div class="nbhd-stats-track">
-      <div class="nbhd-stat"><span class="nbhd-stat-num">$500K – $1.5M+</span><span class="nbhd-stat-label">Typical Price Range</span></div>
-      <div class="nbhd-stats-divider"></div>
-      <div class="nbhd-stat"><span class="nbhd-stat-num">92065</span><span class="nbhd-stat-label">Primary Zip Code</span></div>
-      <div class="nbhd-stats-divider"></div>
-      <div class="nbhd-stat"><span class="nbhd-stat-num">Ramona Unified</span><span class="nbhd-stat-label">School District</span></div>
-      <div class="nbhd-stats-divider"></div>
-      <div class="nbhd-stat"><span class="nbhd-stat-num">35 Miles</span><span class="nbhd-stat-label">Distance to Coast</span></div>
+  <section class="nbhd-demographics">
+    <div class="nbhd-demographics-inner">
+      <p class="section-eyebrow">BY THE NUMBERS</p>
+      <h2>RAMONA AT A GLANCE</h2>
+      <p class="demo-intro">A rural retreat in the foothills — wine country, equestrian properties, and wide-open space at San Diego's eastern edge.</p>
+      <div class="nbhd-demo-grid">
+        <div class="nbhd-demo-card"><div class="demo-num">~40,000</div><div class="demo-label">Residents</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">Mid 40s</div><div class="demo-label">Median Age</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">$85K+</div><div class="demo-label">Median Household Income</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">$750K</div><div class="demo-label">Median Home Value</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">26%</div><div class="demo-label">Bachelor's Degree or Higher</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">68%</div><div class="demo-label">Owner-Occupied Homes</div></div>
+      </div>
+      <p class="nbhd-demo-note">Sources: U.S. Census Bureau / ACS 5-year estimates (2023), SANDAG neighborhood profiles, and current market data for Ramona / ZIP&nbsp;92065. Figures are estimates and subject to change.</p>
     </div>
-  </div>
-
+  </section>
   <section class="nbhd-about">
     <div class="nbhd-about-inner">
       <p class="section-eyebrow">ABOUT RAMONA</p>
@@ -131,8 +248,8 @@
 
   <section class="nbhd-highlights">
     <div class="nbhd-highlights-inner">
-      <p class="section-eyebrow">WHAT MAKES RAMONA SPECIAL</p>
-      <h2>COMMUNITY HIGHLIGHTS</h2>
+      <p class="section-eyebrow">COMMUNITY HIGHLIGHTS</p>
+      <h2>WHAT WE LOVE MOST ABOUT RAMONA</h2>
       <div class="nbhd-highlights-grid">
         <div class="nbhd-highlight-item"><h3>Wine Country</h3><p>Ramona's San Diego County AVA designation recognizes its legitimate viticultural identity — a growing collection of family wineries and vineyard estates producing acclaimed wines in a scenic backcountry setting.</p></div>
         <div class="nbhd-highlight-item"><h3>Horse Properties</h3><p>Ramona is one of San Diego County's premier horse property communities — with multi-acre parcels routinely offering paddocks, arenas, and facilities for serious equestrians.</p></div>
@@ -140,6 +257,221 @@
         <div class="nbhd-highlight-item"><h3>Small Town Character</h3><p>A real Main Street with locally-owned businesses, community events, and a small-town identity that has survived San Diego County's development pressures with its character largely intact.</p></div>
         <div class="nbhd-highlight-item"><h3>Agricultural Lifestyle</h3><p>Working ranches, hobby farms, citrus groves, and agricultural operations of all scales are possible in Ramona — a rare lifestyle opportunity for buyers who want to live closer to the land.</p></div>
         <div class="nbhd-highlight-item"><h3>Value &amp; Land</h3><p>Ramona consistently offers the greatest combination of acreage and value of any community within a reasonable distance of the San Diego urban core — a compelling option for land-seeking buyers.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="nbhd-listings">
+    <div class="nbhd-listings-inner">
+      <p class="section-eyebrow">BROWSE LISTINGS</p>
+      <h2>RAMONA HOMES FOR SALE</h2>
+      <p class="nbhd-listings-intro">Browse current homes for sale in Ramona, updated daily from the MLS &mdash; ranches, equestrian properties, and wine country acreage.</p>
+      <div class="nbhd-listings-cta">
+        <a href="http://thejaiswalgroup.idxbroker.com/idx/map/mapsearch" target="_blank" rel="noopener">VIEW ALL LISTINGS</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="nbhd-schools">
+    <div class="nbhd-schools-inner">
+      <p class="section-eyebrow">EDUCATION</p>
+      <h2>SCHOOLS SERVING RAMONA</h2>
+      <p class="nbhd-schools-intro">Ramona is served by the <a href="https://www.ramonausd.net" target="_blank" rel="noopener">Ramona Unified School District</a>, which oversees all K&ndash;12 education across the community.</p>
+      <div class="nbhd-schools-grid">
+        <div class="nbhd-school-col">
+          <h3>Public Schools</h3>
+            <span class="nbhd-school-subdist">Elementary &middot; Ramona USD</span>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Barnett Elementary</span><span class="nbhd-school-item-grade">K &ndash; 6</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">James Dukes Elementary</span><span class="nbhd-school-item-grade">K &ndash; 6</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Hanson Elementary</span><span class="nbhd-school-item-grade">K &ndash; 6</span></div>
+            <span class="nbhd-school-subdist">Middle &middot; Ramona USD</span>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Ramona Middle School</span><span class="nbhd-school-item-grade">7 &ndash; 8</span></div>
+        </div>
+        <div class="nbhd-school-col">
+          <h3>&nbsp;</h3>
+            <span class="nbhd-school-subdist">High School &middot; Ramona USD</span>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Ramona High School</span><span class="nbhd-school-item-grade">9 &ndash; 12</span></div>
+        </div>
+      </div>
+      <p class="nbhd-school-district">School assignments are subject to attendance boundaries and may change. Confirm enrollment eligibility and boundaries directly with the applicable school district.</p>
+    </div>
+  </section>
+
+  <section class="nbhd-commute">
+    <div class="nbhd-commute-inner">
+      <p class="section-eyebrow">GETTING AROUND</p>
+      <h2>LOCATION &amp; COMMUTE</h2>
+      <p class="nbhd-commute-intro">Ramona&rsquo;s foothills location on SR-67 offers rural tranquility with reasonable access to Escondido, Poway, and San Diego via the freeway network.</p>
+      <div class="nbhd-commute-grid">
+        <div class="nbhd-commute-card">
+          <h3>Escondido</h3>
+          <span class="nbhd-commute-time">~20 Minutes</span>
+          <p>SR-78 West connects Ramona to Escondido&rsquo;s employment base, shopping, and I-15 access in about 20 minutes.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Poway</h3>
+          <span class="nbhd-commute-time">~20 Minutes</span>
+          <p>SR-67 South provides a scenic route to Poway and its Poway Unified schools and business parks.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Santee</h3>
+          <span class="nbhd-commute-time">~25 Minutes</span>
+          <p>SR-67 South reaches Santee&rsquo;s commercial district and I-8 access, expanding employment options eastward.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Rancho Bernardo &amp; I-15 Corridor</h3>
+          <span class="nbhd-commute-time">~30 Minutes</span>
+          <p>The SR-78/I-15 interchange connects Ramona residents to Rancho Bernardo&rsquo;s corporate corridor.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Downtown San Diego</h3>
+          <span class="nbhd-commute-time">~45&ndash;50 Minutes</span>
+          <p>SR-67 South to I-8 or I-15 provides a manageable but longer commute to downtown San Diego.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Julian Wine Country</h3>
+          <span class="nbhd-commute-time">~30 Minutes</span>
+          <p>SR-78 East leads through Banner and into Julian &mdash; a beloved weekend destination for Ramona residents.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       DINING
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-dining" style="background-image:url('../Lynnette-torreypinesbackground.jpg');">
+    <div class="nbhd-dining-inner">
+      <p class="section-eyebrow">DINING IN RAMONA</p>
+      <h2>WHERE LOCALS EAT &amp; GATHER</h2>
+      <div class="nbhd-restaurant-grid">
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.vincentsonthemesa.com/" target="_blank" rel="noopener">Vincent's on Grand</a></h3>
+          <span class="nbhd-rest-type">California Wine Country &middot; Upscale Casual</span>
+          <p>Ramona&rsquo;s culinary cornerstone, Vincent&rsquo;s combines wine-country sophistication with genuine warmth, offering a seasonally driven menu and an exceptional wine list that celebrates the unique character of San Diego&rsquo;s wine country.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.highlandvalleybrewing.com/" target="_blank" rel="noopener">Highland Valley Brewing Company</a></h3>
+          <span class="nbhd-rest-type">Craft Beer &middot; Artisan Brews</span>
+          <p>A community gathering place and craft brewery rooted in Ramona&rsquo;s rural character, Highland Valley serves rotating seasonal brews and casual bites in a relaxed, welcoming setting that feels authentically local.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.ashedramona.com/" target="_blank" rel="noopener">A Shed Restaurant &amp; Bar</a></h3>
+          <span class="nbhd-rest-type">Farm-to-Table &middot; Wine Country</span>
+          <p>Celebrating the agricultural richness that defines Ramona, A Shed crafts a seasonal menu rooted in local farms, orchards, and vineyards &mdash; bringing genuine wine-country dining to the heart of the valley.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://doscaminostaqueria.com/" target="_blank" rel="noopener">Dos Caminos Taqueria</a></h3>
+          <span class="nbhd-rest-type">Mexican &middot; Family Favorite</span>
+          <p>A neighborhood staple for authentic Mexican comfort food, Dos Caminos delivers generous portions and genuine flavors in a casual setting that&rsquo;s equally popular with local families and weekend visitors.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://oakcrestcoffee.com/" target="_blank" rel="noopener">Oakcrest Coffee Roasters</a></h3>
+          <span class="nbhd-rest-type">Artisan Coffee &middot; Morning Ritual</span>
+          <p>A thoughtfully curated Ramona coffeehouse where carefully sourced, expertly roasted coffees and fresh pastries make it the natural starting point for any morning in wine country.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3>Café Italia</h3>
+          <span class="nbhd-rest-type">Italian &middot; Casual Dining</span>
+          <p>A reliable neighborhood Italian restaurant where familiar classics, housemade sauces, and a welcoming family atmosphere create the kind of comfortable, uncomplicated dining that Ramona residents keep returning to.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       NEIGHBORHOODS GRID
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-grid-section">
+    <div class="nbhd-grid-section-inner">
+      <p class="section-eyebrow">THE NEIGHBORHOODS</p>
+      <h2>EXPLORE RAMONA NEIGHBORHOODS</h2>
+      <div class="nbhd-grid">
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Ramona Village</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">San Diego Country Estates</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Dye Road Area</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Highland Valley</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       BUYER CTA
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-cta">
+    <p class="section-eyebrow">READY TO EXPLORE?</p>
+    <h2>LET&rsquo;S FIND YOUR DREAM HOME IN RAMONA</h2>
+    <p>Whether you&rsquo;re seeking a peaceful hobby farm, a spacious horse property, or a quiet neighborhood home surrounded by rolling hills and vineyards, we&rsquo;d love to help you find your rural retreat in Ramona.</p>
+    <div class="nbhd-cta-btns">
+      <a href="../contact.html">SCHEDULE A CONSULTATION</a>
+    </div>
+    <p style="margin-top:1.25rem;font-family:'Lato',sans-serif;font-size:0.9rem;color:rgba(28,48,99,0.65);">Or call or text us at <a href="tel:8582907531" style="color:#18254B;font-weight:700;">(858) 290-7531</a></p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       MAP
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-map">
+    <div class="nbhd-map-inner">
+      <p class="section-eyebrow">LOCATION</p>
+      <h2>MAP OF RAMONA</h2>
+      <p style="font-family:'Lato',sans-serif;font-size:0.9rem;color:#3a4a6b;text-align:center;margin:0.25rem 0 1.5rem;line-height:1.4;">Located inland along SR-67 east of Poway, Ramona sits at the edge of the Cleveland National Forest at the base of the Cuyamaca Mountains, offering a genuine rural escape with surprisingly easy access to Poway, Escondido, and the I-8 corridor.</p>
+    </div>
+    <iframe
+      class="nbhd-map-embed"
+      src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d30000!2d-116.8728!3d33.042!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1750000000000!5m2!1sen!2sus"
+      title="Ramona, San Diego, CA"
+      allowfullscreen
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SELLER CTA
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-seller-cta">
+    <div class="nbhd-seller-cta-inner">
+      <p class="section-eyebrow">THINKING OF SELLING</p>
+      <h2>FIND OUT WHAT YOUR RAMONA HOME IS WORTH</h2>
+      <p class="nbhd-seller-cta-text">Thinking of selling in Ramona? Whether you&rsquo;re simply curious about your home&rsquo;s value or considering a move in the near future, we&rsquo;d be happy to provide a personalized, data-driven analysis of today&rsquo;s market and what your Ramona property could be worth.</p>
+      <div class="nbhd-seller-cta-btns">
+        <a href="../home-valuation.html">GET FREE HOME VALUATION</a>
+        <a href="tel:8582907531">CALL (858) 290-7531</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       FAQ
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-faq">
+    <div class="nbhd-faq-inner">
+      <p class="section-eyebrow">FREQUENTLY ASKED</p>
+      <h2>COMMON QUESTIONS ABOUT RAMONA</h2>
+      <div class="nbhd-faq-list">
+      <div class="nbhd-faq-item">
+        <h3>What types of homes are available in Ramona?</h3>
+        <p>Ramona&rsquo;s real estate market is defined by its rural residential character. Buyers will find single-family homes on standard village lots, rural residential parcels ranging from a fraction of an acre to many acres, equestrian properties with stables and arenas, hobby farms, and larger agricultural parcels. New construction is limited; most of Ramona&rsquo;s housing stock reflects a range of decades and styles.</p>
+          <p>Home prices in Ramona are among the most accessible for rural living in San Diego County &mdash; ranging from the mid-$500s for standard village homes to over $1.5 million for premier acreage estates with vineyards, orchards, or equestrian facilities.</p>
+      </div>
+      <div class="nbhd-faq-item">
+        <h3>Is Ramona good for horses and equestrian living?</h3>
+        <p>Absolutely. Ramona is one of San Diego County&rsquo;s premier equestrian communities. Horse keeping is common throughout much of the area, and many properties come equipped with existing stables, arenas, and direct access to trail systems. The San Diego Country Estates in particular offers a master-planned equestrian community with extensive riding trails and shared facilities.</p>
+          <p>If equestrian living is a priority, Ramona offers more options &mdash; and better value per acre &mdash; than virtually any other community in the county.</p>
+      </div>
+      <div class="nbhd-faq-item">
+        <h3>How far is Ramona from San Diego&rsquo;s major employment centers?</h3>
+        <p>Ramona is genuinely remote by San Diego County standards, which is exactly what many buyers are seeking. The community is approximately 35 to 50 minutes from downtown San Diego and major coastal employment centers via SR-67, depending on traffic.</p>
+          <p>Many Ramona residents work remotely, commute to Poway or Escondido, or run businesses that don&rsquo;t require a downtown presence. The trade-off in commute time is repaid many times over in the size, space, and lifestyle that Ramona delivers at a fraction of the cost of closer-in communities.</p>
+      </div>
+      <div class="nbhd-faq-item">
+        <h3>What wine and agricultural activities are available near Ramona?</h3>
+        <p>Ramona sits within the Ramona Valley AVA, a designated American Viticultural Area with a growing number of boutique wineries, tasting rooms, and farm operations. The valley&rsquo;s climate &mdash; warm days and cool nights &mdash; produces distinctive wines, and the community has invested in building out an agricultural tourism infrastructure that includes harvest festivals, farm tours, and wine trail events.</p>
+          <p>For buyers who want to own a piece of San Diego&rsquo;s wine country &mdash; whether as a lifestyle property, a working vineyard, or simply a home surrounded by agricultural character &mdash; Ramona is the primary destination within the county.</p>
+      </div>
       </div>
     </div>
   </section>

@@ -10,12 +10,124 @@
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../style.css" />
   <style>
-    .page-hero{position:relative;width:100%;height:90vh;min-height:500px;overflow:hidden;}.page-hero-photo{position:absolute;inset:0;}.page-hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 50%;display:block;}.page-hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(24,37,75,0.2) 0%,rgba(24,37,75,0.8) 100%);}.page-hero-inner{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(2rem,6vw,6rem);}.page-hero-inner .section-eyebrow{color:#B38987;margin-bottom:1rem;}.page-hero-inner h1{font-family:'Marcellus',serif;font-size:clamp(2.2rem,4.5vw,3.5rem);color:#fff;letter-spacing:0.06em;line-height:1.1;margin-bottom:1rem;}.page-hero-inner p{font-family:'Cormorant Garamond',serif;font-size:0.92rem;color:rgba(255,255,255,0.82);max-width:520px;line-height:1.85;}
-    .nbhd-stats-strip{background:#fff;padding:2rem clamp(1.5rem,5vw,4rem);border-bottom:1px solid rgba(28,48,99,0.07);}.nbhd-stats-track{display:flex;justify-content:center;align-items:center;gap:clamp(2rem,5vw,5rem);max-width:860px;margin:0 auto;text-align:center;flex-wrap:wrap;}.nbhd-stat{text-align:center;}.nbhd-stat-num{font-family:'Marcellus',serif;font-size:clamp(1.3rem,2.2vw,1.8rem);color:#18254B;display:block;}.nbhd-stat-label{font-family:'Lato',sans-serif;font-size:0.64rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#B38987;display:block;margin-top:0.2rem;}.nbhd-stats-divider{width:1px;height:36px;background:rgba(28,48,99,0.12);flex-shrink:0;}
+    .page-hero{position:relative;width:100%;height:90vh;min-height:500px;overflow:hidden;}.page-hero-photo{position:absolute;inset:0;}.page-hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 50%;display:block;}.page-hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(24,37,75,0.2) 0%,rgba(24,37,75,0.8) 100%);}.page-hero-inner{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(2rem,6vw,6rem);}.page-hero-inner .section-eyebrow{color:#B38987;margin-bottom:1rem;}.page-hero-inner h1{font-family:'Marcellus',serif;font-size:clamp(2.2rem,4.5vw,3.5rem);color:#fff;letter-spacing:0.06em;line-height:1.1;margin-bottom:1rem;}.page-hero-inner p{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:500;color:rgba(255,255,255,0.82);max-width:860px;line-height:1.85;}
     .nbhd-about{background:#F3EFE8;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}.nbhd-about-inner{max-width:860px;margin:0 auto;}.nbhd-about-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}.nbhd-about-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.5rem,2.5vw,2rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.5rem;}.nbhd-about-inner p{font-family:'Cormorant Garamond',serif;font-size:0.93rem;color:#3a4a6b;line-height:1.95;margin-bottom:1.1rem;}
-    .nbhd-highlights{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}.nbhd-highlights-inner{max-width:980px;margin:0 auto;}.nbhd-highlights-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}.nbhd-highlights-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#fff;letter-spacing:0.08em;margin-bottom:2rem;text-align:center;}.nbhd-highlights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}.nbhd-highlight-item{background:rgba(255,255,255,0.05);border:1px solid rgba(179,137,135,0.2);padding:1.5rem 1.25rem;}.nbhd-highlight-item h3{font-family:'Marcellus',serif;font-size:1rem;color:#B38987;margin-bottom:0.6rem;}.nbhd-highlight-item p{font-family:'Cormorant Garamond',serif;font-size:0.83rem;color:rgba(255,255,255,0.75);line-height:1.8;margin:0;}
+    .nbhd-highlights{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}.nbhd-highlights-inner{max-width:1100px;margin:0 auto;}.nbhd-highlights-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}.nbhd-highlights-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#fff;letter-spacing:0.08em;margin-bottom:2rem;text-align:center;}.nbhd-highlights-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}.nbhd-highlight-item{background:rgba(255,255,255,0.05);border:1px solid rgba(179,137,135,0.2);padding:1.5rem 1.25rem;}.nbhd-highlight-item h3{font-family:'Marcellus',serif;font-size:1rem;color:#B38987;margin-bottom:0.6rem;}.nbhd-highlight-item p{font-family:'Cormorant Garamond',serif;font-size:0.83rem;color:rgba(255,255,255,0.75);line-height:1.8;margin:0;}
     @media(max-width:700px){.nbhd-highlights-grid{grid-template-columns:1fr 1fr;}}@media(max-width:480px){.nbhd-highlights-grid{grid-template-columns:1fr;}}
-    .nbhd-cta{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);text-align:center;}.nbhd-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}.nbhd-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}.nbhd-cta p{font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:#3a4a6b;line-height:1.85;max-width:560px;margin:0 auto 2rem;}.nbhd-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+    .nbhd-cta{background:#F3EFE8;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);text-align:center;}.nbhd-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}.nbhd-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}.nbhd-cta p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#3a4a6b;line-height:1.85;max-width:860px;margin:0 auto 2rem;}.nbhd-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+    .nbhd-cta-btns a{display:inline-block;min-width:220px;padding:0.85rem 2rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;text-align:center;background:#1C3063;color:#F6F6F4;border:1.5px solid #1C3063;transition:background 0.25s,border-color 0.25s,color 0.25s;}
+    .nbhd-cta-btns a:hover{background:#18254B;border-color:#18254B;color:#B38987;}
+    .nbhd-demographics{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-demographics-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-demographics-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-demographics-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;text-align:center;}
+    .nbhd-demographics-inner>p.demo-intro{font-family:'Lato',sans-serif;font-size:0.85rem;color:#7a7068;text-align:center;margin:0 auto 2rem;max-width:640px;line-height:1.7;}
+    .nbhd-demo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+    .nbhd-demo-card{background:#F3EFE8;border-top:3px solid #B38987;padding:1.4rem 1.25rem 1.1rem;}
+    .nbhd-demo-card .demo-num{font-family:'Marcellus',serif;font-size:1.9rem;color:#18254B;line-height:1;margin-bottom:0.35rem;letter-spacing:0.02em;}
+    .nbhd-demo-card .demo-label{font-family:'Lato',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#9a8e88;}
+    .nbhd-demo-note{font-family:'Lato',sans-serif;font-size:0.68rem;color:#b0a89e;margin-top:1.5rem;line-height:1.7;border-top:1px solid rgba(24,37,75,0.08);padding-top:1rem;text-align:center;}
+    @media(max-width:700px){.nbhd-demo-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:420px){.nbhd-demo-grid{grid-template-columns:1fr 1fr;gap:0.75rem;}.nbhd-demo-card .demo-num{font-size:1.5rem;}}
+    .nbhd-listings{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-listings-inner{max-width:1100px;margin:0 auto;text-align:center;}
+    .nbhd-listings-inner .section-eyebrow{color:#B38987;margin-bottom:0.5rem;}
+    .nbhd-listings-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;}
+    .nbhd-listings-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;margin:0 auto 1.75rem;max-width:700px;line-height:1.8;}
+    .nbhd-listings-cta{margin-top:1.5rem;}
+    .nbhd-listings-cta a{display:inline-block;padding:0.85rem 2.25rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:#1C3063;border:1.5px solid #1C3063;background:transparent;transition:background 0.22s,color 0.22s;}
+    .nbhd-listings-cta a:hover{background:#1C3063;color:#fff;}
+    .nbhd-schools{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-schools-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-schools-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-schools-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
+    .nbhd-schools-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin-bottom:2rem;}
+    .nbhd-schools-intro a{color:#1C3063;text-decoration:underline;text-decoration-color:rgba(28,48,99,0.3);text-underline-offset:2px;transition:color 0.2s;}
+    .nbhd-schools-intro a:hover{color:#B38987;}
+    .nbhd-schools-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;}
+    .nbhd-school-col h3{font-family:'Marcellus',serif;font-size:0.82rem;color:#18254B;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(28,48,99,0.12);}
+    .nbhd-school-item{font-family:'Lato',sans-serif;font-size:0.95rem;color:#3a4a6b;padding:0.55rem 0;border-bottom:1px solid rgba(28,48,99,0.05);display:flex;justify-content:space-between;align-items:baseline;}
+    .nbhd-school-item-name{font-weight:500;}
+    .nbhd-school-item-grade{font-size:0.70rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#B38987;flex-shrink:0;margin-left:0.5rem;}
+    .nbhd-school-district{font-family:'Lato',sans-serif;font-size:0.73rem;color:#8a9ab8;margin-top:0.85rem;padding-top:0.75rem;border-top:1px solid rgba(28,48,99,0.08);line-height:1.6;}
+    .nbhd-school-subdist{font-family:'Lato',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#B38987;display:block;margin-top:1.1rem;margin-bottom:0.25rem;}
+    .nbhd-school-item a{color:#18254B;text-decoration:none;transition:color 0.2s;}
+    .nbhd-school-item a:hover{color:#B38987;}
+    @media(max-width:640px){.nbhd-schools-grid{grid-template-columns:1fr;}}
+    .nbhd-commute{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-commute-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-commute-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-commute-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
+    .nbhd-commute-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin-bottom:2rem;max-width:780px;}
+    .nbhd-commute-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+    .nbhd-commute-card{padding:1.5rem 1.25rem;background:#F3EFE8;}
+    .nbhd-commute-card h3{font-family:'Marcellus',serif;font-size:1.05rem;color:#18254B;letter-spacing:0.05em;margin-bottom:0.35rem;}
+    .nbhd-commute-time{font-family:'Lato',sans-serif;font-size:0.67rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#B38987;display:block;margin-bottom:0.65rem;}
+    .nbhd-commute-card p{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.75;margin:0;}
+    @media(max-width:700px){.nbhd-commute-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:480px){.nbhd-commute-grid{grid-template-columns:1fr;}}
+
+    /* ── Dining ─────────────────────────────────────────────────────── */
+    .nbhd-dining{padding:clamp(2.5rem,4vw,3.5rem) clamp(1.5rem,4vw,3rem);background-color:#18254B;background-size:cover;background-position:center;position:relative;}
+    .nbhd-dining::before{content:'';position:absolute;inset:0;background:linear-gradient(rgba(24,37,75,0.76),rgba(24,37,75,0.76));z-index:0;}
+    .nbhd-dining-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1;}
+    .nbhd-dining-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-dining-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#fff;letter-spacing:0.08em;margin-bottom:2.5rem;text-align:center;}
+    .nbhd-restaurant-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;}
+    .nbhd-restaurant-card{background:#F3EFE8;padding:1.75rem 1.5rem;text-align:center;display:flex;flex-direction:column;align-items:center;}
+    .nbhd-restaurant-card h3{font-family:'Marcellus',serif;font-size:1rem;color:#18254B;letter-spacing:0.06em;margin-bottom:0.35rem;}
+    .nbhd-restaurant-card h3 a{color:#18254B;text-decoration:none;transition:color 0.2s;}
+    .nbhd-restaurant-card h3 a:hover{color:#B38987;}
+    .nbhd-rest-type{font-family:'Lato',sans-serif;font-size:0.64rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#B38987;display:block;margin-bottom:0.85rem;}
+    .nbhd-restaurant-card p{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.8;margin:0;}
+    @media(max-width:800px){.nbhd-restaurant-grid{grid-template-columns:repeat(2,1fr);}}
+    @media(max-width:480px){.nbhd-restaurant-grid{grid-template-columns:1fr;}}
+    /* ── Neighborhoods Grid ─────────────────────────────────────────── */
+    .nbhd-grid-section{background:#F3EFE8;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);overflow-x:hidden;}
+    .nbhd-grid-section-inner{margin:0 auto;}
+    .nbhd-grid-section-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-grid-section-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.75rem;text-align:center;}
+    .nbhd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;width:100vw;margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);}
+    .nbhd-grid-card{position:relative;height:260px;display:flex;flex-direction:column;justify-content:flex-end;padding:1rem 1.1rem;text-decoration:none;background-color:#18254B;background-size:cover;background-position:center;overflow:hidden;transition:transform 0.25s;}
+    .nbhd-grid-card::before{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(24,37,75,0.05) 0%,rgba(24,37,75,0.78) 100%);transition:background 0.25s;z-index:0;}
+    .nbhd-grid-card:hover{transform:scale(1.01);z-index:1;}
+    .nbhd-grid-card:hover::before{background:linear-gradient(to bottom,rgba(24,37,75,0.15) 0%,rgba(24,37,75,0.88) 100%);}
+    .nbhd-grid-card-name{position:relative;z-index:1;font-family:'Marcellus',serif;font-size:1rem;color:#fff;letter-spacing:0.05em;line-height:1.25;}
+    .nbhd-grid-card-cta{position:relative;z-index:1;font-family:'Lato',sans-serif;font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-top:0.25rem;transition:color 0.2s;}
+    .nbhd-grid-card:hover .nbhd-grid-card-cta{color:#B38987;}
+    @media(max-width:900px){.nbhd-grid{grid-template-columns:repeat(3,1fr);}}
+    @media(max-width:600px){.nbhd-grid{grid-template-columns:repeat(2,1fr);}.nbhd-grid-card{height:200px;}}
+    /* ── Map ────────────────────────────────────────────────────────── */
+    .nbhd-map{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) 0 0;}
+    .nbhd-map-inner{max-width:1100px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}
+    .nbhd-map-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-map-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;text-align:center;}
+    .nbhd-map-embed{width:100%;height:520px;border:0;display:block;}
+    @media(max-width:600px){.nbhd-map-embed{height:320px;}}
+    /* ── Seller CTA ─────────────────────────────────────────────────── */
+    .nbhd-seller-cta{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) 0;text-align:center;}
+    .nbhd-seller-cta-inner{max-width:1400px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}
+    .nbhd-seller-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-seller-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.3rem,2.2vw,1.8rem);color:#fff;letter-spacing:0.08em;margin-bottom:0.85rem;line-height:1.2;}
+    .nbhd-seller-cta-text{font-family:'Lato',sans-serif;font-size:0.97rem;color:rgba(255,255,255,0.75);max-width:680px;margin:0 auto 1.75rem !important;line-height:1.85;}
+    .nbhd-seller-cta a{display:inline-block;min-width:240px;padding:0.85rem 2.25rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;text-align:center;background:transparent;color:#fff;border:1.5px solid #fff;text-decoration:none;transition:background 0.22s,color 0.22s,border-color 0.22s;}
+    .nbhd-seller-cta a:hover{background:#B38987;color:#fff;border-color:#B38987;}
+    .nbhd-seller-cta-btns{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;max-width:560px;margin:1.75rem auto 0;}
+    @media(max-width:500px){.nbhd-seller-cta-btns{grid-template-columns:1fr;}}
+
+    /* ── FAQ ────────────────────────────────────────────────────────── */
+    .nbhd-faq{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-faq-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-faq-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-faq-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.5rem;}
+    .nbhd-faq-list{display:flex;flex-direction:column;}
+    .nbhd-faq-item{padding:1.35rem 0;border-bottom:1px solid rgba(28,48,99,0.08);}
+    .nbhd-faq-item:first-child{border-top:1px solid rgba(28,48,99,0.08);}
+    .nbhd-faq-item h3{font-family:'Marcellus',serif;font-size:1.05rem;color:#18254B;letter-spacing:0.03em;margin-bottom:0.5rem;}
+    .nbhd-faq-item p{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin:0;}
+    .nbhd-faq-item p+p{margin-top:0.85rem;}
+    .nbhd-faq-item a{color:#1C3063;text-decoration:underline;text-decoration-color:rgba(28,48,99,0.3);text-underline-offset:2px;transition:color 0.2s,text-decoration-color 0.2s;}
+    .nbhd-faq-item a:hover{color:#B38987;text-decoration-color:#B38987;}
   </style>
 </head>
 <body>
@@ -106,19 +218,24 @@
       <p>One of California's most coveted addresses — sweeping estates, equestrian heritage, and an unmatched level of privacy and prestige.</p>
     </div>
   </section>
+</div>
 
-  <div class="nbhd-stats-strip">
-    <div class="nbhd-stats-track">
-      <div class="nbhd-stat"><span class="nbhd-stat-num">$3M – $30M+</span><span class="nbhd-stat-label">Typical Price Range</span></div>
-      <div class="nbhd-stats-divider"></div>
-      <div class="nbhd-stat"><span class="nbhd-stat-num">92067 / 92091</span><span class="nbhd-stat-label">Zip Codes</span></div>
-      <div class="nbhd-stats-divider"></div>
-      <div class="nbhd-stat"><span class="nbhd-stat-num">San Dieguito Union</span><span class="nbhd-stat-label">School District</span></div>
-      <div class="nbhd-stats-divider"></div>
-      <div class="nbhd-stat"><span class="nbhd-stat-num">1+ Acre+</span><span class="nbhd-stat-label">Typical Lot Size</span></div>
+  <section class="nbhd-demographics">
+    <div class="nbhd-demographics-inner">
+      <p class="section-eyebrow">BY THE NUMBERS</p>
+      <h2>RANCHO SANTA FE AT A GLANCE</h2>
+      <p class="demo-intro">One of Southern California's most exclusive enclaves — where privacy, equestrian estates, and legacy living converge.</p>
+      <div class="nbhd-demo-grid">
+        <div class="nbhd-demo-card"><div class="demo-num">~3,200</div><div class="demo-label">Residents</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">Early 50s</div><div class="demo-label">Median Age</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">$300K+</div><div class="demo-label">Median Household Income</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">$5.5M+</div><div class="demo-label">Median Home Value</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">82%</div><div class="demo-label">Bachelor's Degree or Higher</div></div>
+        <div class="nbhd-demo-card"><div class="demo-num">82%</div><div class="demo-label">Owner-Occupied Homes</div></div>
+      </div>
+      <p class="nbhd-demo-note">Sources: U.S. Census Bureau / ACS 5-year estimates (2023), SANDAG neighborhood profiles, and current market data for Rancho Santa Fe / ZIP&nbsp;92067. Figures are estimates and subject to change.</p>
     </div>
-  </div>
-
+  </section>
   <section class="nbhd-about">
     <div class="nbhd-about-inner">
       <p class="section-eyebrow">ABOUT RANCHO SANTA FE</p>
@@ -132,8 +249,8 @@
 
   <section class="nbhd-highlights">
     <div class="nbhd-highlights-inner">
-      <p class="section-eyebrow">WHAT MAKES RSF SPECIAL</p>
-      <h2>COMMUNITY HIGHLIGHTS</h2>
+      <p class="section-eyebrow">COMMUNITY HIGHLIGHTS</p>
+      <h2>WHAT WE LOVE MOST ABOUT RANCHO SANTA FE</h2>
       <div class="nbhd-highlights-grid">
         <div class="nbhd-highlight-item"><h3>The Covenant</h3><p>RSF's historic planned community spans over 6,000 acres with strict architectural and land-use standards that preserve its distinctive estate character generation after generation.</p></div>
         <div class="nbhd-highlight-item"><h3>Equestrian Lifestyle</h3><p>Miles of equestrian trails wind through the community, supported by polo grounds, riding facilities, and a culture of horsemanship deeply woven into Rancho Santa Fe's identity.</p></div>
@@ -141,6 +258,224 @@
         <div class="nbhd-highlight-item"><h3>RSF Village</h3><p>A charming, intimate town center with acclaimed dining, boutique shops, and a gathering place that serves the community without overwhelming it.</p></div>
         <div class="nbhd-highlight-item"><h3>Prestigious Address</h3><p>Rancho Santa Fe is consistently recognized as one of the wealthiest zip codes in California — a distinction that reflects both the community's desirability and its enduring market strength.</p></div>
         <div class="nbhd-highlight-item"><h3>Coastal Proximity</h3><p>Despite its inland feel, Rancho Santa Fe is just 8–12 miles from Del Mar and the Pacific Coast — rare access to world-class beaches from an estate setting.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="nbhd-listings">
+    <div class="nbhd-listings-inner">
+      <p class="section-eyebrow">BROWSE LISTINGS</p>
+      <h2>RANCHO SANTA FE HOMES FOR SALE</h2>
+      <p class="nbhd-listings-intro">Browse current homes for sale in Rancho Santa Fe, updated daily from the MLS &mdash; estate acreage, equestrian properties, and gated community luxury.</p>
+      <div class="nbhd-listings-cta">
+        <a href="http://thejaiswalgroup.idxbroker.com/idx/map/mapsearch" target="_blank" rel="noopener">VIEW ALL LISTINGS</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="nbhd-schools">
+    <div class="nbhd-schools-inner">
+      <p class="section-eyebrow">EDUCATION</p>
+      <h2>SCHOOLS SERVING RANCHO SANTA FE</h2>
+      <p class="nbhd-schools-intro">Rancho Santa Fe is primarily served by the <a href="https://www.rsfschool.net" target="_blank" rel="noopener">Rancho Santa Fe School District</a> (TK&ndash;8) and the <a href="https://www.sduhsd.net" target="_blank" rel="noopener">San Dieguito Union High School District</a> for high school.</p>
+      <div class="nbhd-schools-grid">
+        <div class="nbhd-school-col">
+          <h3>Public Schools</h3>
+            <span class="nbhd-school-subdist">Elementary &amp; Middle &middot; RSF SD</span>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Rancho Santa Fe Elementary School</span><span class="nbhd-school-item-grade">K &ndash; 6</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Roger Rowe School</span><span class="nbhd-school-item-grade">K &ndash; 8</span></div>
+            <span class="nbhd-school-subdist">High School &middot; SDUHSD</span>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Torrey Pines High School</span><span class="nbhd-school-item-grade">9 &ndash; 12</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Canyon Crest Academy</span><span class="nbhd-school-item-grade">9 &ndash; 12</span></div>
+        </div>
+        <div class="nbhd-school-col">
+          <h3>&nbsp;</h3>
+            <span class="nbhd-school-subdist">Also Nearby &middot; SDUHSD</span>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">Earl Warren Middle School</span><span class="nbhd-school-item-grade">7 &ndash; 8</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name">San Dieguito Academy</span><span class="nbhd-school-item-grade">9 &ndash; 12</span></div>
+        </div>
+      </div>
+      <p class="nbhd-school-district">School assignments are subject to attendance boundaries and may change. Confirm enrollment eligibility and boundaries directly with the applicable school district.</p>
+    </div>
+  </section>
+
+  <section class="nbhd-commute">
+    <div class="nbhd-commute-inner">
+      <p class="section-eyebrow">GETTING AROUND</p>
+      <h2>LOCATION &amp; COMMUTE</h2>
+      <p class="nbhd-commute-intro">Rancho Santa Fe&rsquo;s inland location provides a peaceful retreat while remaining well-connected to both coastal communities and San Diego&rsquo;s major employment corridors via nearby freeways.</p>
+      <div class="nbhd-commute-grid">
+        <div class="nbhd-commute-card">
+          <h3>Carmel Valley &amp; Del Mar</h3>
+          <span class="nbhd-commute-time">~15 Minutes</span>
+          <p>SR-56 and Via de la Valle connect Rancho Santa Fe to Carmel Valley, the Village at PHR, and Del Mar&rsquo;s coastal amenities.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Sorrento Valley</h3>
+          <span class="nbhd-commute-time">~20 Minutes</span>
+          <p>San Diego&rsquo;s technology and life sciences hub is accessible via SR-56 connecting to I-5 or I-805.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>UTC &amp; La Jolla</h3>
+          <span class="nbhd-commute-time">~20&ndash;25 Minutes</span>
+          <p>UC San Diego and the University Town Center employment and retail corridor are within a comfortable drive.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Encinitas &amp; Solana Beach</h3>
+          <span class="nbhd-commute-time">~20 Minutes</span>
+          <p>The North County coastal corridor is accessible via I-5, offering beaches, dining, and the COASTER rail station.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>Downtown San Diego</h3>
+          <span class="nbhd-commute-time">~30&ndash;35 Minutes</span>
+          <p>I-5 South via Del Mar Heights Road places downtown San Diego&rsquo;s business and cultural core within commuting range.</p>
+        </div>
+        <div class="nbhd-commute-card">
+          <h3>San Diego International Airport</h3>
+          <span class="nbhd-commute-time">~30 Minutes</span>
+          <p>The airport is approximately 30 minutes via the coastal freeway route &mdash; practical for frequent business travelers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       DINING
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-dining" style="background-image:url('../neighborhood-RSF.png');">
+    <div class="nbhd-dining-inner">
+      <p class="section-eyebrow">DINING IN RANCHO SANTA FE</p>
+      <h2>WHERE LOCALS EAT &amp; GATHER</h2>
+      <div class="nbhd-restaurant-grid">
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.millefleurs.com/" target="_blank" rel="noopener">Mille Fleurs</a></h3>
+          <span class="nbhd-rest-type">French Cuisine &middot; Romantic Fine Dining</span>
+          <p>One of San Diego&rsquo;s most celebrated fine dining destinations, Mille Fleurs has set the standard for French country cuisine in Rancho Santa Fe for decades &mdash; intimate, impeccable, and unforgettable.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.theinnatrsf.com/" target="_blank" rel="noopener">The Inn at Rancho Santa Fe Restaurant</a></h3>
+          <span class="nbhd-rest-type">California Comfort &middot; Historic Setting</span>
+          <p>Dining at the Inn is a Rancho Santa Fe tradition &mdash; timeless California comfort cuisine served in the gracious, garden-surrounded setting of the community&rsquo;s most beloved historic landmark.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://thymeintheranch.com/" target="_blank" rel="noopener">Thyme in the Ranch</a></h3>
+          <span class="nbhd-rest-type">Farm-to-Table &middot; Casual Fine Dining</span>
+          <p>A thoughtfully curated seasonal menu, a beautiful wine list, and the relaxed warmth of a true neighborhood restaurant make Thyme in the Ranch a cherished Rancho Santa Fe gathering place.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.deliciasrsf.com/" target="_blank" rel="noopener">Delicias</a></h3>
+          <span class="nbhd-rest-type">Contemporary American &middot; Wine Country</span>
+          <p>An elegant bistro in the heart of the Covenant, Delicias impresses with sophisticated contemporary American cuisine, an award-winning wine cellar, and a gracious patio that captures the spirit of RSF.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3><a href="https://www.pgrille.com/" target="_blank" rel="noopener">Pamplemousse Grille</a></h3>
+          <span class="nbhd-rest-type">California Bistro &middot; Seasonal</span>
+          <p>Chef Jeff Strauss&rsquo;s landmark Rancho Santa Fe bistro where seasonal California ingredients inspire a menu that&rsquo;s both approachable and exceptional &mdash; a locals&rsquo; staple for two decades.</p>
+        </div>
+        <div class="nbhd-restaurant-card">
+          <h3>Morgan's Restaurant &amp; Bar</h3>
+          <span class="nbhd-rest-type">American Steakhouse &middot; Lively</span>
+          <p>A convivial gathering spot beloved by Rancho Santa Fe residents for its generous portions, friendly atmosphere, well-made cocktails, and the kind of reliable hospitality that keeps the regulars loyal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       NEIGHBORHOODS GRID
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-grid-section">
+    <div class="nbhd-grid-section-inner">
+      <p class="section-eyebrow">THE NEIGHBORHOODS</p>
+      <h2>EXPLORE RANCHO SANTA FE NEIGHBORHOODS</h2>
+      <div class="nbhd-grid">
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">The Covenant</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Fairbanks Ranch</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Cielo</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Del Rayo Estates</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Morgan Run</span></div>
+        <div class="nbhd-grid-card" style="cursor:default;"><span class="nbhd-grid-card-name">Whispering Palms</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       BUYER CTA
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-cta">
+    <p class="section-eyebrow">READY TO EXPLORE?</p>
+    <h2>LET&rsquo;S FIND YOUR DREAM HOME IN RANCHO SANTA FE</h2>
+    <p>Whether you&rsquo;re seeking a historic Covenant estate surrounded by eucalyptus groves, a modern equestrian property, or a village retreat steps from world-class dining, we&rsquo;d love to guide you through one of San Diego&rsquo;s most coveted addresses.</p>
+    <div class="nbhd-cta-btns">
+      <a href="../contact.html">SCHEDULE A CONSULTATION</a>
+    </div>
+    <p style="margin-top:1.25rem;font-family:'Lato',sans-serif;font-size:0.9rem;color:rgba(28,48,99,0.65);">Or call or text us at <a href="tel:8582907531" style="color:#18254B;font-weight:700;">(858) 290-7531</a></p>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       MAP
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-map">
+    <div class="nbhd-map-inner">
+      <p class="section-eyebrow">LOCATION</p>
+      <h2>MAP OF RANCHO SANTA FE</h2>
+      <p style="font-family:'Lato',sans-serif;font-size:0.9rem;color:#3a4a6b;text-align:center;margin:0.25rem 0 1.5rem;line-height:1.4;">Situated inland from Solana Beach along the San Dieguito River Valley, Rancho Santa Fe offers serene privacy and easy access to I-5 and the coast &mdash; just 20 minutes from Del Mar&rsquo;s beaches and downtown San Diego&rsquo;s major employment centers.</p>
+    </div>
+    <iframe
+      class="nbhd-map-embed"
+      src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d16000!2d-117.2011!3d33.0192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1750000000000!5m2!1sen!2sus"
+      title="Rancho Santa Fe, San Diego, CA"
+      allowfullscreen
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       SELLER CTA
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-seller-cta">
+    <div class="nbhd-seller-cta-inner">
+      <p class="section-eyebrow">THINKING OF SELLING</p>
+      <h2>FIND OUT WHAT YOUR RANCHO SANTA FE HOME IS WORTH</h2>
+      <p class="nbhd-seller-cta-text">Thinking of selling in Rancho Santa Fe? Whether you&rsquo;re simply curious about your home&rsquo;s value or considering a move in the near future, we&rsquo;d be happy to provide a personalized, data-driven analysis of today&rsquo;s market and what your Rancho Santa Fe home could be worth.</p>
+      <div class="nbhd-seller-cta-btns">
+        <a href="../home-valuation.html">GET FREE HOME VALUATION</a>
+        <a href="tel:8582907531">CALL (858) 290-7531</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       FAQ
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="nbhd-faq">
+    <div class="nbhd-faq-inner">
+      <p class="section-eyebrow">FREQUENTLY ASKED</p>
+      <h2>COMMON QUESTIONS ABOUT RANCHO SANTA FE</h2>
+      <div class="nbhd-faq-list">
+      <div class="nbhd-faq-item">
+        <h3>What types of homes are available in Rancho Santa Fe?</h3>
+        <p>Rancho Santa Fe is defined by its large-lot estates and custom-built luxury homes. The Covenant &mdash; the historic heart of RSF &mdash; features Spanish Colonial Revival architecture on parcels of two acres or more, with strict design standards maintained by the RSF Association that preserve the community&rsquo;s timeless aesthetic.</p>
+          <p>Beyond The Covenant, gated enclaves like Cielo, Fairbanks Ranch, and Del Rayo Estates offer newer luxury construction with resort amenities. Price points in Rancho Santa Fe typically begin around $2.5 million and extend well into the tens of millions for premier estates. Horse properties, guest houses, and agricultural parcels are also common throughout the community.</p>
+      </div>
+      <div class="nbhd-faq-item">
+        <h3>What is the RSF Covenant and why is it important?</h3>
+        <p>The Rancho Santa Fe Association Covenant is the governing body that maintains the design standards, land use rules, and community character of the historic Covenant area. Properties within The Covenant are subject to architectural review, landscaping guidelines, and minimum lot size requirements that protect the community&rsquo;s heritage and property values.</p>
+          <p>The Covenant is one of the oldest planned communities in California and is listed on the National Register of Historic Places. Its eucalyptus-lined lanes, equestrian trails, and carefully preserved Spanish Colonial architecture are what make Rancho Santa Fe unlike any other address in San Diego County.</p>
+      </div>
+      <div class="nbhd-faq-item">
+        <h3>Does Rancho Santa Fe have equestrian properties?</h3>
+        <p>Yes &mdash; equestrian living is an important part of the Rancho Santa Fe lifestyle, particularly within The Covenant. Many properties feature private stables, arenas, and direct access to miles of community riding trails. Horse-keeping is permitted throughout much of the Covenant area, and the community has a long history of equestrian culture.</p>
+          <p>If you&rsquo;re looking specifically for an equestrian property, we can identify listings with existing facilities or lots with the space and zoning to accommodate horses.</p>
+      </div>
+      <div class="nbhd-faq-item">
+        <h3>How private and secure is Rancho Santa Fe?</h3>
+        <p>Rancho Santa Fe is one of San Diego&rsquo;s most private communities by design. The Covenant&rsquo;s rural road network limits through traffic naturally, and several sub-communities like Cielo and Fairbanks Ranch are gated with 24-hour security. The community has extremely low crime rates and a deeply established culture of privacy and discretion.</p>
+          <p>For buyers who value security and seclusion without sacrificing access to the coast, shopping, and San Diego&rsquo;s employment centers, Rancho Santa Fe represents the premier option in the county.</p>
+      </div>
       </div>
     </div>
   </section>
