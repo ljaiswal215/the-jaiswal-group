@@ -83,10 +83,12 @@
     .nbhd-listings-inner .section-eyebrow{color:#B38987;margin-bottom:0.5rem;text-align:center;}
     .nbhd-listings-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;text-align:center;}
     .nbhd-listings-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;text-align:center;margin:0 auto 1.25rem;max-width:1100px;line-height:1.8;}
-    .nbhd-listings-open-house{text-align:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(28,48,99,0.08);}
-    .nbhd-listings-open-house p{font-family:'Lato',sans-serif;font-size:0.95rem;color:#3a4a6b;margin-bottom:0.85rem;letter-spacing:0.02em;}
-    .nbhd-listings-open-house a{display:inline-block;padding:0.85rem 2.25rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:#1C3063;border:1.5px solid #1C3063;background:transparent;transition:background 0.22s,color 0.22s;}
-    .nbhd-listings-open-house a:hover{background:#1C3063;color:#fff;}
+    .nbhd-open-house-banner{background:#18254B;padding:2rem clamp(1.5rem,4vw,3rem);}
+    .nbhd-open-house-banner-inner{display:flex;align-items:center;justify-content:space-between;gap:2rem;}
+    .nbhd-open-house-banner-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.1rem,2vw,1.45rem);color:#fff;letter-spacing:0.06em;margin:0;}
+    .nbhd-open-house-banner-inner a{flex-shrink:0;display:inline-block;padding:0.85rem 2.25rem;font-family:'Lato',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:#fff;border:1.5px solid rgba(255,255,255,0.6);background:transparent;white-space:nowrap;transition:border-color 0.22s,color 0.22s,background 0.22s;}
+    .nbhd-open-house-banner-inner a:hover{border-color:#B38987;color:#B38987;}
+    @media(max-width:640px){.nbhd-open-house-banner-inner{flex-direction:column;text-align:center;}}
     .idx-placeholder-box{background:#F3EFE8;border:2px dashed rgba(179,137,135,0.4);padding:3rem 2rem;text-align:center;font-family:'Lato',sans-serif;font-size:0.85rem;color:#B38987;letter-spacing:0.08em;font-weight:600;text-transform:uppercase;}
     /* ── Local Favorites ── */
     .nbhd-local{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
@@ -388,10 +390,13 @@
       <h2>CARMEL VALLEY HOMES FOR SALE</h2>
       <p class="nbhd-listings-intro">Browse current homes for sale in Carmel Valley, updated daily from the MLS &mdash; from attached townhomes to expansive single-family estates.</p>
       <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-134159" src="//thejaiswalgroup.idxbroker.com/idx/widgets/134159"></script>
-      <div class="nbhd-listings-open-house">
-        <p>Looking for upcoming open houses in Carmel Valley?</p>
-        <a href="../open-houses-carmel-valley.html">View Open Houses</a>
-      </div>
+    </div>
+  </section>
+
+  <section class="nbhd-open-house-banner">
+    <div class="nbhd-open-house-banner-inner">
+      <h2>Looking for upcoming open houses in Carmel Valley?</h2>
+      <a href="../open-houses-carmel-valley.html">View Open Houses</a>
     </div>
   </section>
 
@@ -452,7 +457,7 @@
         <div class="nbhd-commute-tile"><div class="nbhd-commute-dest">Del Mar</div><div class="nbhd-commute-time">~8</div><div class="nbhd-commute-unit">min by car</div></div>
         <div class="nbhd-commute-tile"><div class="nbhd-commute-dest">Downtown San Diego</div><div class="nbhd-commute-time">~25</div><div class="nbhd-commute-unit">min by car</div></div>
         <div class="nbhd-commute-tile"><div class="nbhd-commute-dest">Carlsbad</div><div class="nbhd-commute-time">~25</div><div class="nbhd-commute-unit">min by car</div></div>
-        <div class="nbhd-commute-tile"><div class="nbhd-commute-dest">SAN Airport</div><div class="nbhd-commute-time">~25</div><div class="nbhd-commute-unit">min by car</div></div>
+        <div class="nbhd-commute-tile"><div class="nbhd-commute-dest">San Diego Airport</div><div class="nbhd-commute-time">~25</div><div class="nbhd-commute-unit">min by car</div></div>
         <div class="nbhd-commute-tile"><div class="nbhd-commute-dest">Encinitas</div><div class="nbhd-commute-time">~20</div><div class="nbhd-commute-unit">min by car</div></div>
       </div>
       <div class="nbhd-employ-section">
