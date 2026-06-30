@@ -75,11 +75,11 @@
     .nbhd-cta-btns a:hover{background:#18254B;border-color:#18254B;color:#B38987;}
 
     /* ── Listings ── */
-    .nbhd-listings-section{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
-    .nbhd-listings-inner{max-width:1100px;margin:0 auto;}
-    .nbhd-listings-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
-    .nbhd-listings-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.5rem,2.5vw,2rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
-    .nbhd-listings-intro{font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:#3a4a6b;line-height:1.85;margin-bottom:2rem;}
+    .nbhd-listings-section{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-listings-inner{max-width:none;margin:0 auto;}
+    .nbhd-listings-inner .section-eyebrow{color:#B38987;margin-bottom:0.5rem;text-align:center;}
+    .nbhd-listings-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;text-align:center;}
+    .nbhd-listings-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;text-align:center;margin:0 auto 1.25rem;max-width:1100px;line-height:1.8;}
     .idx-placeholder-box{background:#F3EFE8;border:2px dashed rgba(179,137,135,0.4);padding:3rem 2rem;text-align:center;font-family:'Lato',sans-serif;font-size:0.85rem;color:#B38987;letter-spacing:0.08em;font-weight:600;text-transform:uppercase;}
     /* ── Local Favorites ── */
     .nbhd-local{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
@@ -152,6 +152,35 @@
     .nbhd-seller-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
     .nbhd-seller-cta-btns a{display:inline-block;min-width:220px;padding:0.85rem 2rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;text-align:center;background:transparent;color:#fff;border:1.5px solid #fff;text-decoration:none;transition:background 0.22s,color 0.22s,border-color 0.22s;}
     .nbhd-seller-cta-btns a:hover{background:#B38987;color:#fff;border-color:#B38987;}
+    /* ── Dual CTA ── */
+    .nbhd-dual-cta{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-dual-cta-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-dual-cta-inner>.section-eyebrow{color:#B38987;margin-bottom:0.5rem;text-align:center;}
+    .nbhd-dual-cta-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.3rem,2.2vw,1.7rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.75rem;text-align:center;}
+    .nbhd-dual-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+    .nbhd-dual-card{padding:2.25rem 2rem 2rem;display:flex;flex-direction:column;}
+    .nbhd-dual-card--buyer{background:#18254B;}
+    .nbhd-dual-card--seller{background:#F3EFE8;}
+    .nbhd-dual-card .card-eyebrow{font-family:'Lato',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:0.75rem;}
+    .nbhd-dual-card--buyer .card-eyebrow{color:#B38987;}
+    .nbhd-dual-card--seller .card-eyebrow{color:#B38987;}
+    .nbhd-dual-card h3{font-family:'Marcellus',serif;font-size:clamp(1.1rem,1.8vw,1.4rem);letter-spacing:0.04em;line-height:1.25;margin-bottom:0.85rem;}
+    .nbhd-dual-card--buyer h3{color:#fff;}
+    .nbhd-dual-card--seller h3{color:#18254B;}
+    .nbhd-dual-card p{font-family:'Lato',sans-serif;font-size:0.88rem;line-height:1.8;margin-bottom:1.5rem;flex-grow:1;}
+    .nbhd-dual-card--buyer p{color:rgba(255,255,255,0.72);}
+    .nbhd-dual-card--seller p{color:#3a4a6b;}
+    .nbhd-dual-card-btns{display:flex;flex-direction:column;gap:0.6rem;}
+    .nbhd-dual-card-btns a{display:block;padding:0.8rem 1.5rem;font-family:'Lato',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;text-align:center;text-decoration:none;transition:background 0.22s,color 0.22s,border-color 0.22s;}
+    .nbhd-dual-card--buyer .nbhd-dual-card-btns a:first-child{background:transparent;color:#fff;border:1.5px solid #fff;}
+    .nbhd-dual-card--buyer .nbhd-dual-card-btns a:first-child:hover{background:#B38987;border-color:#B38987;}
+    .nbhd-dual-card--buyer .nbhd-dual-card-btns a:last-child{background:transparent;color:rgba(255,255,255,0.65);border:1.5px solid rgba(255,255,255,0.3);}
+    .nbhd-dual-card--buyer .nbhd-dual-card-btns a:last-child:hover{color:#fff;border-color:#fff;}
+    .nbhd-dual-card--seller .nbhd-dual-card-btns a:first-child{background:#18254B;color:#fff;border:1.5px solid #18254B;}
+    .nbhd-dual-card--seller .nbhd-dual-card-btns a:first-child:hover{background:#B38987;border-color:#B38987;}
+    .nbhd-dual-card--seller .nbhd-dual-card-btns a:last-child{background:transparent;color:#18254B;border:1.5px solid rgba(28,48,99,0.35);}
+    .nbhd-dual-card--seller .nbhd-dual-card-btns a:last-child:hover{border-color:#18254B;}
+    @media(max-width:640px){.nbhd-dual-grid{grid-template-columns:1fr;}}
     /* ── Map ── */
     .nbhd-map{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) 0 0;}
     .nbhd-map-inner{max-width:1100px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}
@@ -341,65 +370,6 @@
     </div>
   </section>
 
-  <!-- NEIGHBORHOODS -->
-  <section class="nbhd-subdivisions">
-    <div class="nbhd-subdivisions-inner">
-      <p class="section-eyebrow">EXPLORE THE NEIGHBORHOODS</p>
-      <h2>CARMEL VALLEY NEIGHBORHOODS</h2>
-      <div class="cv-nbhd-grid">
-
-        <a href="#" class="cv-nbhd-card">
-          <span class="cv-nbhd-card-name">Carmel Country Highlands</span>
-          <span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span>
-        </a>
-
-        <a href="#" class="cv-nbhd-card">
-          <span class="cv-nbhd-card-name">Del Mar Mesa</span>
-          <span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span>
-        </a>
-
-        <a href="pacific-highlands-ranch.html" class="cv-nbhd-card">
-          <span class="cv-nbhd-card-name">Pacific Highlands Ranch</span>
-          <span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span>
-        </a>
-
-        <a href="#" class="cv-nbhd-card">
-          <span class="cv-nbhd-card-name">Torrey Highlands</span>
-          <span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span>
-        </a>
-
-        <a href="#" class="cv-nbhd-card">
-          <span class="cv-nbhd-card-name">Torrey Hills</span>
-          <span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span>
-        </a>
-
-        <a href="#" class="cv-nbhd-card">
-          <span class="cv-nbhd-card-name">Rancho Pacifica</span>
-          <span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span>
-        </a>
-
-        <a href="#" class="cv-nbhd-card">
-          <span class="cv-nbhd-card-name">Carmel Valley Townhomes</span>
-          <span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span>
-        </a>
-
-        <a href="#" class="cv-nbhd-card">
-          <span class="cv-nbhd-card-name">Carmel Valley Condos</span>
-          <span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span>
-        </a>
-
-        <a href="#" class="cv-nbhd-card">
-          <span class="cv-nbhd-card-name">Carmel Valley Single-Family Homes</span>
-          <span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-
-  <!-- WORK WITH US -->
   <!-- =========================================================
        LISTINGS
   ========================================================= -->
@@ -410,82 +380,6 @@
       <p class="nbhd-listings-intro">Browse current homes for sale in Carmel Valley, updated daily from the MLS &mdash; from attached townhomes to expansive single-family estates.</p>
       <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-134159" src="//thejaiswalgroup.idxbroker.com/idx/widgets/134159"></script>
       <p style="margin-top:2rem;font-family:'Lato',sans-serif;font-size:0.85rem;color:#3a4a6b;text-align:center;">Looking for upcoming open houses in Carmel Valley? <a href="../open-houses-carmel-valley.html" style="color:#18254B;font-weight:700;letter-spacing:0.05em;text-decoration:underline;">View Open Houses &rarr;</a></p>
-    </div>
-  </section>
-
-  <!-- =========================================================
-       LOCAL FAVORITES
-  ========================================================= -->
-  <section class="nbhd-local">
-    <div class="nbhd-local-inner">
-      <p class="section-eyebrow">DINING IN CARMEL VALLEY</p>
-      <h2>WHERE LOCALS EAT &amp; GATHER</h2>
-      <p class="nbhd-local-intro">One Paseo and Del Mar Highlands Town Center have transformed Carmel Valley into one of North County's most vibrant dining destinations. From weekday lunch spots to celebratory dinners, the neighborhood's restaurant scene covers every occasion without leaving the zip code.</p>
-
-      <div class="nbhd-dining-cat">
-        <span class="nbhd-dining-cat-label">Upscale &amp; Special Occasion</span>
-        <div class="nbhd-dining-grid">
-          <div class="nbhd-dining-card">
-            <div class="nbhd-dining-name">Truluck's</div>
-            <div class="nbhd-dining-type">Seafood &amp; Steakhouse &nbsp;&middot;&nbsp; One Paseo</div>
-            <div class="nbhd-dining-desc">A neighborhood anchor for celebratory dinners — stone crab, prime cuts, and an elegant bar scene in a polished setting.</div>
-          </div>
-          <div class="nbhd-dining-card">
-            <div class="nbhd-dining-name">The Craftsman New American Tavern</div>
-            <div class="nbhd-dining-type">New American &nbsp;&middot;&nbsp; One Paseo</div>
-            <div class="nbhd-dining-desc">Locally sourced, craft-forward menu with an approachable vibe. A go-to for upscale casual dinners and weekend brunch.</div>
-          </div>
-          <div class="nbhd-dining-card">
-            <div class="nbhd-dining-name">Hawthorn</div>
-            <div class="nbhd-dining-type">Modern American &nbsp;&middot;&nbsp; One Paseo</div>
-            <div class="nbhd-dining-desc">A neighborhood bistro with a well-curated wine list and seasonal menu — popular for business lunches and intimate dinners.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="nbhd-dining-cat">
-        <span class="nbhd-dining-cat-label">Everyday Favorites</span>
-        <div class="nbhd-dining-grid">
-          <div class="nbhd-dining-card">
-            <div class="nbhd-dining-name">Puesto</div>
-            <div class="nbhd-dining-type">Mexican &nbsp;&middot;&nbsp; One Paseo</div>
-            <div class="nbhd-dining-desc">Crispy tacos, fresh guacamole, and excellent margaritas in a lively open-air setting. A consistent local favorite.</div>
-          </div>
-          <div class="nbhd-dining-card">
-            <div class="nbhd-dining-name">True Food Kitchen</div>
-            <div class="nbhd-dining-type">Health-Conscious &nbsp;&middot;&nbsp; One Paseo</div>
-            <div class="nbhd-dining-desc">Seasonal, nutrient-forward menu built around an anti-inflammatory philosophy. Great for lunch or a lighter dinner.</div>
-          </div>
-          <div class="nbhd-dining-card">
-            <div class="nbhd-dining-name">Nectar Farm Kitchen</div>
-            <div class="nbhd-dining-type">Farm-to-Table &nbsp;&middot;&nbsp; Carmel Valley</div>
-            <div class="nbhd-dining-desc">A neighborhood gem focused on seasonal ingredients and simple preparations. Popular for weekend brunch and early dinners.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="nbhd-dining-cat">
-        <span class="nbhd-dining-cat-label">Coffee &amp; Casual</span>
-        <div class="nbhd-dining-grid">
-          <div class="nbhd-dining-card">
-            <div class="nbhd-dining-name">Tender Loving Coffee</div>
-            <div class="nbhd-dining-type">Coffee &amp; Café &nbsp;&middot;&nbsp; Carmel Valley</div>
-            <div class="nbhd-dining-desc">A beloved local coffee shop known for quality espresso, a warm atmosphere, and a devoted neighborhood following.</div>
-          </div>
-          <div class="nbhd-dining-card">
-            <div class="nbhd-dining-name">Shake Shack</div>
-            <div class="nbhd-dining-type">Burgers &nbsp;&middot;&nbsp; One Paseo</div>
-            <div class="nbhd-dining-desc">The quintessential quick-service burger spot — great for families and a natural post-errand or post-workout stop.</div>
-          </div>
-          <div class="nbhd-dining-card">
-            <div class="nbhd-dining-name">Birdcall</div>
-            <div class="nbhd-dining-type">Chicken &amp; Sandwiches &nbsp;&middot;&nbsp; One Paseo</div>
-            <div class="nbhd-dining-desc">A fast-casual spot serving responsibly raised chicken in creative sandwiches and bowls. Kid-friendly and consistently good.</div>
-          </div>
-        </div>
-      </div>
-
-      <p class="nbhd-local-note">Restaurant availability subject to change. Del Mar Highlands Town Center, located adjacent to Carmel Valley, offers additional dining, grocery, and retail options including Whole Foods Market.</p>
     </div>
   </section>
 
@@ -540,70 +434,128 @@
       <h2>EMPLOYMENT &amp; COMMUTE</h2>
       <p class="nbhd-commute-intro">Carmel Valley's location at the intersection of I-5 and SR-56 makes it one of the most strategically positioned communities in San Diego County. Residents enjoy fast access to the region's most significant employment corridors — from the Sorrento Valley and Torrey Pines biotech hub to UTC, UC San Diego, and Downtown — without sacrificing the neighborhood's quiet, residential feel.</p>
       <div class="nbhd-commute-grid">
-        <div class="nbhd-commute-tile">
-          <div class="nbhd-commute-dest">Sorrento Valley</div>
-          <div class="nbhd-commute-time">~10</div>
-          <div class="nbhd-commute-unit">min by car</div>
-        </div>
-        <div class="nbhd-commute-tile">
-          <div class="nbhd-commute-dest">UTC &amp; La Jolla</div>
-          <div class="nbhd-commute-time">~12</div>
-          <div class="nbhd-commute-unit">min by car</div>
-        </div>
-        <div class="nbhd-commute-tile">
-          <div class="nbhd-commute-dest">UC San Diego</div>
-          <div class="nbhd-commute-time">~15</div>
-          <div class="nbhd-commute-unit">min by car</div>
-        </div>
-        <div class="nbhd-commute-tile">
-          <div class="nbhd-commute-dest">Del Mar</div>
-          <div class="nbhd-commute-time">~8</div>
-          <div class="nbhd-commute-unit">min by car</div>
-        </div>
-        <div class="nbhd-commute-tile">
-          <div class="nbhd-commute-dest">Downtown San Diego</div>
-          <div class="nbhd-commute-time">~25</div>
-          <div class="nbhd-commute-unit">min by car</div>
-        </div>
-        <div class="nbhd-commute-tile">
-          <div class="nbhd-commute-dest">Carlsbad</div>
-          <div class="nbhd-commute-time">~25</div>
-          <div class="nbhd-commute-unit">min by car</div>
-        </div>
-        <div class="nbhd-commute-tile">
-          <div class="nbhd-commute-dest">SAN Airport</div>
-          <div class="nbhd-commute-time">~25</div>
-          <div class="nbhd-commute-unit">min by car</div>
-        </div>
-        <div class="nbhd-commute-tile">
-          <div class="nbhd-commute-dest">Encinitas</div>
-          <div class="nbhd-commute-time">~20</div>
-          <div class="nbhd-commute-unit">min by car</div>
-        </div>
+        <div class="nbhd-commute-tile"><div class="nbhd-commute-dest">Sorrento Valley</div><div class="nbhd-commute-time">~10</div><div class="nbhd-commute-unit">min by car</div></div>
+        <div class="nbhd-commute-tile"><div class="nbhd-commute-dest">UTC &amp; La Jolla</div><div class="nbhd-commute-time">~12</div><div class="nbhd-commute-unit">min by car</div></div>
+        <div class="nbhd-commute-tile"><div class="nbhd-commute-dest">UC San Diego</div><div class="nbhd-commute-time">~15</div><div class="nbhd-commute-unit">min by car</div></div>
+        <div class="nbhd-commute-tile"><div class="nbhd-commute-dest">Del Mar</div><div class="nbhd-commute-time">~8</div><div class="nbhd-commute-unit">min by car</div></div>
+        <div class="nbhd-commute-tile"><div class="nbhd-commute-dest">Downtown San Diego</div><div class="nbhd-commute-time">~25</div><div class="nbhd-commute-unit">min by car</div></div>
+        <div class="nbhd-commute-tile"><div class="nbhd-commute-dest">Carlsbad</div><div class="nbhd-commute-time">~25</div><div class="nbhd-commute-unit">min by car</div></div>
+        <div class="nbhd-commute-tile"><div class="nbhd-commute-dest">SAN Airport</div><div class="nbhd-commute-time">~25</div><div class="nbhd-commute-unit">min by car</div></div>
+        <div class="nbhd-commute-tile"><div class="nbhd-commute-dest">Encinitas</div><div class="nbhd-commute-time">~20</div><div class="nbhd-commute-unit">min by car</div></div>
       </div>
       <div class="nbhd-employ-section">
         <h3>Major Employment Hubs Nearby</h3>
         <div class="nbhd-employ-grid">
-          <div class="nbhd-employ-card">
-            <h4>Sorrento Valley &amp; Torrey Pines Science Park</h4>
-            <p>San Diego's premier biotech and life sciences corridor — home to Illumina, Neurocrine Biosciences, Dexcom, Mirati Therapeutics, and dozens of research and pharmaceutical companies. One of the most walkable commutes in all of San Diego for Carmel Valley residents.</p>
-          </div>
-          <div class="nbhd-employ-card">
-            <h4>UTC &amp; University Town Center</h4>
-            <p>A major mixed-use employment hub anchored by Westfield UTC, with a dense concentration of financial services, healthcare, professional services firms, and regional offices. UC San Diego, Scripps Health, and the VA Medical Center are all within a short drive.</p>
-          </div>
-          <div class="nbhd-employ-card">
-            <h4>Del Mar Heights &amp; Carmel Mountain</h4>
-            <p>A growing corridor of tech offices, wealth management firms, and professional service providers immediately adjacent to Carmel Valley — many residents can reach these employers in under 10 minutes.</p>
-          </div>
-          <div class="nbhd-employ-card">
-            <h4>Downtown San Diego</h4>
-            <p>Finance, law, government, media, and hospitality industries anchor Downtown San Diego. The I-5 corridor connects Carmel Valley in approximately 25 minutes outside peak hours, with express options available via MTS commuter routes.</p>
-          </div>
+          <div class="nbhd-employ-card"><h4>Sorrento Valley &amp; Torrey Pines Science Park</h4><p>San Diego's premier biotech and life sciences corridor — home to Illumina, Neurocrine Biosciences, Dexcom, Mirati Therapeutics, and dozens of research and pharmaceutical companies. One of the most walkable commutes in all of San Diego for Carmel Valley residents.</p></div>
+          <div class="nbhd-employ-card"><h4>UTC &amp; University Town Center</h4><p>A major mixed-use employment hub anchored by Westfield UTC, with a dense concentration of financial services, healthcare, professional services firms, and regional offices. UC San Diego, Scripps Health, and the VA Medical Center are all within a short drive.</p></div>
+          <div class="nbhd-employ-card"><h4>Del Mar Heights &amp; Carmel Mountain</h4><p>A growing corridor of tech offices, wealth management firms, and professional service providers immediately adjacent to Carmel Valley — many residents can reach these employers in under 10 minutes.</p></div>
+          <div class="nbhd-employ-card"><h4>Downtown San Diego</h4><p>Finance, law, government, media, and hospitality industries anchor Downtown San Diego. The I-5 corridor connects Carmel Valley in approximately 25 minutes outside peak hours, with express options available via MTS commuter routes.</p></div>
         </div>
       </div>
       <p class="nbhd-commute-note">Drive times are estimates based on typical off-peak traffic and may vary significantly during commute hours. All times approximate from central Carmel Valley.</p>
     </div>
+  </section>
+
+  <!-- =========================================================
+       LOCAL FAVORITES / DINING
+  ========================================================= -->
+  <section class="nbhd-local">
+    <div class="nbhd-local-inner">
+      <p class="section-eyebrow">DINING IN CARMEL VALLEY</p>
+      <h2>WHERE LOCALS EAT &amp; GATHER</h2>
+      <p class="nbhd-local-intro">One Paseo and Del Mar Highlands Town Center have transformed Carmel Valley into one of North County's most vibrant dining destinations. From weekday lunch spots to celebratory dinners, the neighborhood's restaurant scene covers every occasion without leaving the zip code.</p>
+      <div class="nbhd-dining-cat">
+        <span class="nbhd-dining-cat-label">Upscale &amp; Special Occasion</span>
+        <div class="nbhd-dining-grid">
+          <div class="nbhd-dining-card"><div class="nbhd-dining-name">Truluck's</div><div class="nbhd-dining-type">Seafood &amp; Steakhouse &nbsp;&middot;&nbsp; One Paseo</div><div class="nbhd-dining-desc">A neighborhood anchor for celebratory dinners — stone crab, prime cuts, and an elegant bar scene in a polished setting.</div></div>
+          <div class="nbhd-dining-card"><div class="nbhd-dining-name">The Craftsman New American Tavern</div><div class="nbhd-dining-type">New American &nbsp;&middot;&nbsp; One Paseo</div><div class="nbhd-dining-desc">Locally sourced, craft-forward menu with an approachable vibe. A go-to for upscale casual dinners and weekend brunch.</div></div>
+          <div class="nbhd-dining-card"><div class="nbhd-dining-name">Hawthorn</div><div class="nbhd-dining-type">Modern American &nbsp;&middot;&nbsp; One Paseo</div><div class="nbhd-dining-desc">A neighborhood bistro with a well-curated wine list and seasonal menu — popular for business lunches and intimate dinners.</div></div>
+        </div>
+      </div>
+      <div class="nbhd-dining-cat">
+        <span class="nbhd-dining-cat-label">Everyday Favorites</span>
+        <div class="nbhd-dining-grid">
+          <div class="nbhd-dining-card"><div class="nbhd-dining-name">Puesto</div><div class="nbhd-dining-type">Mexican &nbsp;&middot;&nbsp; One Paseo</div><div class="nbhd-dining-desc">Crispy tacos, fresh guacamole, and excellent margaritas in a lively open-air setting. A consistent local favorite.</div></div>
+          <div class="nbhd-dining-card"><div class="nbhd-dining-name">True Food Kitchen</div><div class="nbhd-dining-type">Health-Conscious &nbsp;&middot;&nbsp; One Paseo</div><div class="nbhd-dining-desc">Seasonal, nutrient-forward menu built around an anti-inflammatory philosophy. Great for lunch or a lighter dinner.</div></div>
+          <div class="nbhd-dining-card"><div class="nbhd-dining-name">Nectar Farm Kitchen</div><div class="nbhd-dining-type">Farm-to-Table &nbsp;&middot;&nbsp; Carmel Valley</div><div class="nbhd-dining-desc">A neighborhood gem focused on seasonal ingredients and simple preparations. Popular for weekend brunch and early dinners.</div></div>
+        </div>
+      </div>
+      <div class="nbhd-dining-cat">
+        <span class="nbhd-dining-cat-label">Coffee &amp; Casual</span>
+        <div class="nbhd-dining-grid">
+          <div class="nbhd-dining-card"><div class="nbhd-dining-name">Tender Loving Coffee</div><div class="nbhd-dining-type">Coffee &amp; Café &nbsp;&middot;&nbsp; Carmel Valley</div><div class="nbhd-dining-desc">A beloved local coffee shop known for quality espresso, a warm atmosphere, and a devoted neighborhood following.</div></div>
+          <div class="nbhd-dining-card"><div class="nbhd-dining-name">Shake Shack</div><div class="nbhd-dining-type">Burgers &nbsp;&middot;&nbsp; One Paseo</div><div class="nbhd-dining-desc">The quintessential quick-service burger spot — great for families and a natural post-errand or post-workout stop.</div></div>
+          <div class="nbhd-dining-card"><div class="nbhd-dining-name">Birdcall</div><div class="nbhd-dining-type">Chicken &amp; Sandwiches &nbsp;&middot;&nbsp; One Paseo</div><div class="nbhd-dining-desc">A fast-casual spot serving responsibly raised chicken in creative sandwiches and bowls. Kid-friendly and consistently good.</div></div>
+        </div>
+      </div>
+      <p class="nbhd-local-note">Restaurant availability subject to change. Del Mar Highlands Town Center, located adjacent to Carmel Valley, offers additional dining, grocery, and retail options including Whole Foods Market.</p>
+    </div>
+  </section>
+
+  <!-- NEIGHBORHOODS -->
+  <section class="nbhd-subdivisions">
+    <div class="nbhd-subdivisions-inner">
+      <p class="section-eyebrow">EXPLORE THE NEIGHBORHOODS</p>
+      <h2>CARMEL VALLEY NEIGHBORHOODS</h2>
+      <div class="cv-nbhd-grid">
+        <a href="#" class="cv-nbhd-card"><span class="cv-nbhd-card-name">Carmel Country Highlands</span><span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span></a>
+        <a href="#" class="cv-nbhd-card"><span class="cv-nbhd-card-name">Del Mar Mesa</span><span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span></a>
+        <a href="pacific-highlands-ranch.html" class="cv-nbhd-card"><span class="cv-nbhd-card-name">Pacific Highlands Ranch</span><span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span></a>
+        <a href="#" class="cv-nbhd-card"><span class="cv-nbhd-card-name">Torrey Highlands</span><span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span></a>
+        <a href="#" class="cv-nbhd-card"><span class="cv-nbhd-card-name">Torrey Hills</span><span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span></a>
+        <a href="#" class="cv-nbhd-card"><span class="cv-nbhd-card-name">Rancho Pacifica</span><span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span></a>
+        <a href="#" class="cv-nbhd-card"><span class="cv-nbhd-card-name">Carmel Valley Townhomes</span><span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span></a>
+        <a href="#" class="cv-nbhd-card"><span class="cv-nbhd-card-name">Carmel Valley Condos</span><span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span></a>
+        <a href="#" class="cv-nbhd-card"><span class="cv-nbhd-card-name">Carmel Valley Single-Family Homes</span><span class="cv-nbhd-card-cta">Explore Neighborhood &rsaquo;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       DUAL CTA
+  ========================================================= -->
+  <section class="nbhd-dual-cta">
+    <div class="nbhd-dual-cta-inner">
+      <p class="section-eyebrow">BUYING OR SELLING IN CARMEL VALLEY?</p>
+      <h2>HOW CAN WE HELP YOU?</h2>
+      <div class="nbhd-dual-grid">
+
+        <div class="nbhd-dual-card nbhd-dual-card--buyer">
+          <div class="card-eyebrow">Ready to Buy</div>
+          <h3>Let&rsquo;s Find Your Dream Home in Carmel Valley</h3>
+          <p>Whether you&rsquo;re relocating to San Diego or exploring your next move, we&rsquo;d love to help you discover everything Carmel Valley has to offer. Personalized guidance from search to close.</p>
+          <div class="nbhd-dual-card-btns">
+            <a href="../contact.html">Schedule a Consultation</a>
+            <a href="tel:8582907531">Call (858) 290-7531</a>
+          </div>
+        </div>
+
+        <div class="nbhd-dual-card nbhd-dual-card--seller">
+          <div class="card-eyebrow">Thinking of Selling</div>
+          <h3>Find Out What Your Carmel Valley Home Is Worth</h3>
+          <p>Whether you&rsquo;re simply curious about your home&rsquo;s value or ready to make a move, we&rsquo;ll provide a personalized, data-driven analysis of today&rsquo;s market and what your home could sell for.</p>
+          <div class="nbhd-dual-card-btns">
+            <a href="../home-valuation.html">Get Free Home Valuation</a>
+            <a href="tel:8582907531">Call (858) 290-7531</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       MAP
+  ========================================================= -->
+  <section class="nbhd-map">
+    <div class="nbhd-map-inner">
+      <p class="section-eyebrow">LOCATION</p>
+      <h2>MAP OF CARMEL VALLEY</h2>
+      <p style="font-family:'Lato',sans-serif;font-size:0.9rem;color:#3a4a6b;text-align:center;margin:0.25rem 0 1.5rem;line-height:1.4;">Located along the I-5 and SR-56 corridors in northern San Diego, Carmel Valley offers easy access to Del Mar&rsquo;s beaches, Torrey Pines, downtown San Diego, and North County&rsquo;s major employment corridors.</p>
+    </div>
+    <!-- To update: go to maps.google.com → search "Carmel Valley San Diego CA 92130"
+         → Share → Embed a map → Copy HTML → paste iframe here with class="nbhd-map-embed" -->
+    <div class="nbhd-map-placeholder">Map Coming Soon</div>
   </section>
 
   <!-- =========================================================
@@ -634,49 +586,6 @@
         <p>Inventory in Carmel Valley tends to be limited relative to demand, especially for well-priced single-family homes in top school boundaries. Well-prepared buyers who have done their research and are working with an experienced local agent are best positioned to move quickly and negotiate effectively when the right home comes to market.</p>
       </div>
     </div>
-  </section>
-
-
-  <!-- =========================================================
-       MAP
-  ========================================================= -->
-  <section class="nbhd-map">
-    <div class="nbhd-map-inner">
-      <p class="section-eyebrow">LOCATION</p>
-      <h2>MAP OF CARMEL VALLEY</h2>
-      <p style="font-family:'Lato',sans-serif;font-size:0.9rem;color:#3a4a6b;text-align:center;margin:0.25rem 0 1.5rem;line-height:1.4;">Located along the I-5 and SR-56 corridors in northern San Diego, Carmel Valley offers easy access to Del Mar&rsquo;s beaches, Torrey Pines, downtown San Diego, and North County&rsquo;s major employment corridors.</p>
-    </div>
-    <!-- To update: go to maps.google.com → search "Carmel Valley San Diego CA 92130"
-         → Share → Embed a map → Copy HTML → paste iframe here with class="nbhd-map-embed" -->
-    <div class="nbhd-map-placeholder">Map Coming Soon</div>
-  </section>
-
-  <!-- =========================================================
-       SELLER CTA
-  ========================================================= -->
-  <section class="nbhd-seller-cta">
-    <div class="nbhd-seller-cta-inner">
-      <p class="section-eyebrow">THINKING OF SELLING</p>
-      <h2>FIND OUT WHAT YOUR CARMEL VALLEY HOME IS WORTH</h2>
-      <p>Thinking of selling in Carmel Valley? Whether you&rsquo;re simply curious about your home&rsquo;s value or considering a move in the near future, we&rsquo;d be happy to provide a personalized, data-driven analysis of today&rsquo;s market and what your home could be worth.</p>
-      <div class="nbhd-seller-cta-btns">
-        <a href="../home-valuation.html">GET FREE HOME VALUATION</a>
-        <a href="tel:8582907531">CALL (858) 290-7531</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================================================
-       BUYER CTA
-  ========================================================= -->
-  <section class="nbhd-cta">
-    <p class="section-eyebrow">READY TO EXPLORE?</p>
-    <h2>LET&rsquo;S FIND YOUR DREAM HOME IN CARMEL VALLEY</h2>
-    <p>Whether you&rsquo;re relocating to San Diego or simply exploring your next move, we&rsquo;d love to help you discover everything Carmel Valley has to offer. Reach out for a complimentary consultation and personalized guidance tailored to your goals.</p>
-    <div class="nbhd-cta-btns">
-      <a href="../contact.html">SCHEDULE A CONSULTATION</a>
-    </div>
-    <p style="margin-top:1.25rem;font-family:'Lato',sans-serif;font-size:0.9rem;color:rgba(28,48,99,0.65);">Or call or text us at <a href="tel:8582907531" style="color:#18254B;font-weight:700;">(858) 290-7531</a></p>
   </section>
 
   <section class="work-with-us">
