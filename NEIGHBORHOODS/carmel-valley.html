@@ -18,6 +18,8 @@
     .page-hero-inner .section-eyebrow { color:#B38987; margin-bottom:1rem; }
     .page-hero-inner h1 { font-family:'Marcellus',serif; font-size:clamp(2.2rem,4.5vw,3.5rem); color:#fff; letter-spacing:0.06em; line-height:1.1; margin-bottom:1rem; }
     .page-hero-inner p { font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:500; color:rgba(255,255,255,0.82); max-width:860px; line-height:1.85; }
+    .page-hero-anchor{position:absolute;left:50%;bottom:14%;transform:translateX(-50%);display:inline-block;padding:0.7rem 1.85rem;font-family:'Lato',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.80);border:1px solid rgba(255,255,255,0.30);text-decoration:none;transition:border-color 0.25s,color 0.25s;}
+    .page-hero-anchor:hover{border-color:#B38987;color:#B38987;}
 
 
     .nbhd-demographics{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
@@ -81,6 +83,10 @@
     .nbhd-listings-inner .section-eyebrow{color:#B38987;margin-bottom:0.5rem;text-align:center;}
     .nbhd-listings-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;text-align:center;}
     .nbhd-listings-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;text-align:center;margin:0 auto 1.25rem;max-width:1100px;line-height:1.8;}
+    .nbhd-listings-open-house{text-align:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(28,48,99,0.08);}
+    .nbhd-listings-open-house p{font-family:'Lato',sans-serif;font-size:0.95rem;color:#3a4a6b;margin-bottom:0.85rem;letter-spacing:0.02em;}
+    .nbhd-listings-open-house a{display:inline-block;padding:0.85rem 2.25rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:#1C3063;border:1.5px solid #1C3063;background:transparent;transition:background 0.22s,color 0.22s;}
+    .nbhd-listings-open-house a:hover{background:#1C3063;color:#fff;}
     .idx-placeholder-box{background:#F3EFE8;border:2px dashed rgba(179,137,135,0.4);padding:3rem 2rem;text-align:center;font-family:'Lato',sans-serif;font-size:0.85rem;color:#B38987;letter-spacing:0.08em;font-weight:600;text-transform:uppercase;}
     /* ── Local Favorites ── */
     .nbhd-local{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
@@ -285,6 +291,7 @@
     <div class="page-hero-inner">
       <h1>CARMEL VALLEY</h1>
       <p>One of San Diego's most sought-after communities — exceptional schools, master-planned living, and minutes from the coast.</p>
+      <a href="#listings" class="page-hero-anchor">Browse Current Listings</a>
     </div>
   </section>
 
@@ -375,13 +382,16 @@
   <!-- =========================================================
        LISTINGS
   ========================================================= -->
-  <section class="nbhd-listings-section">
+  <section class="nbhd-listings-section" id="listings">
     <div class="nbhd-listings-inner">
       <p class="section-eyebrow">BROWSE LISTINGS</p>
       <h2>CARMEL VALLEY HOMES FOR SALE</h2>
       <p class="nbhd-listings-intro">Browse current homes for sale in Carmel Valley, updated daily from the MLS &mdash; from attached townhomes to expansive single-family estates.</p>
       <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-134159" src="//thejaiswalgroup.idxbroker.com/idx/widgets/134159"></script>
-      <p style="margin-top:2rem;font-family:'Lato',sans-serif;font-size:0.85rem;color:#3a4a6b;text-align:center;">Looking for upcoming open houses in Carmel Valley? <a href="../open-houses-carmel-valley.html" style="color:#18254B;font-weight:700;letter-spacing:0.05em;text-decoration:underline;">View Open Houses &rarr;</a></p>
+      <div class="nbhd-listings-open-house">
+        <p>Looking for upcoming open houses in Carmel Valley?</p>
+        <a href="../open-houses-carmel-valley.html">View Open Houses</a>
+      </div>
     </div>
   </section>
 
