@@ -83,6 +83,9 @@
     .nbhd-listings-inner .section-eyebrow{color:#B38987;margin-bottom:0.5rem;text-align:center;}
     .nbhd-listings-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;text-align:center;}
     .nbhd-listings-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;text-align:center;margin:0 auto 1.25rem;max-width:1100px;line-height:1.8;}
+    .nbhd-listings-more{text-align:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(28,48,99,0.08);}
+    .nbhd-listings-more a{display:inline-block;padding:0.85rem 2.25rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:#1C3063;border:1.5px solid #1C3063;background:transparent;transition:background 0.22s,color 0.22s;}
+    .nbhd-listings-more a:hover{background:#1C3063;color:#fff;}
     .nbhd-open-house-banner{background:#18254B;padding:2rem clamp(1.5rem,4vw,3rem);}
     .nbhd-open-house-banner-inner{display:flex;align-items:center;justify-content:space-between;gap:2rem;}
     .nbhd-open-house-banner-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.1rem,2vw,1.45rem);color:#fff;letter-spacing:0.06em;margin:0;}
@@ -123,6 +126,10 @@
     .nbhd-school-subdist{font-family:'Lato',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#B38987;display:block;margin-top:1.1rem;margin-bottom:0.25rem;}
     .nbhd-school-note{font-family:'Lato',sans-serif;font-size:0.73rem;color:#8a9ab8;margin-top:1.5rem;padding-top:0.75rem;border-top:1px solid rgba(28,48,99,0.08);line-height:1.6;}
     @media(max-width:640px){.nbhd-schools-grid{grid-template-columns:1fr;}}
+    .nbhd-private-section{margin-top:2rem;padding-top:1.75rem;border-top:1px solid rgba(28,48,99,0.08);}
+    .nbhd-private-section>h3{font-family:'Marcellus',serif;font-size:0.82rem;color:#18254B;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1.25rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(28,48,99,0.12);}
+    .nbhd-private-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5rem;}
+    @media(max-width:640px){.nbhd-private-grid{grid-template-columns:1fr;}}
     /* ── Commute ── */
     .nbhd-commute{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
     .nbhd-commute-inner{max-width:1100px;margin:0 auto;}
@@ -390,6 +397,9 @@
       <h2>CARMEL VALLEY HOMES FOR SALE</h2>
       <p class="nbhd-listings-intro">Browse current homes for sale in Carmel Valley, updated daily from the MLS &mdash; from attached townhomes to expansive single-family estates.</p>
       <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-134159" src="//thejaiswalgroup.idxbroker.com/idx/widgets/134159"></script>
+      <div class="nbhd-listings-more">
+        <a href="https://thejaiswalgroup.idxbroker.com/idx/map/mapsearch" target="_blank" rel="noopener">VIEW ALL LISTINGS</a>
+      </div>
     </div>
   </section>
 
@@ -438,6 +448,34 @@
           <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://tp.sduhsd.net" target="_blank" rel="noopener">Torrey Pines High School</a></span><span class="nbhd-school-grade">9 &ndash; 12</span></div>
         </div>
       </div>
+      <div class="nbhd-private-section">
+        <h3>Private Schools</h3>
+        <div class="nbhd-private-grid">
+          <div>
+            <span class="nbhd-school-subdist">Elementary &amp; K&ndash;8</span>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://www.delmarpines.com" target="_blank" rel="noopener">Del Mar Pines School</a></span><span class="nbhd-school-grade">K &ndash; 6</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://www.ndacademy.org" target="_blank" rel="noopener">Notre Dame Academy</a></span><span class="nbhd-school-grade">PK &ndash; 8</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://www.sjacademy.org" target="_blank" rel="noopener">St. James Academy</a></span><span class="nbhd-school-grade">TK &ndash; 8</span></div>
+          </div>
+          <div>
+            <span class="nbhd-school-subdist">All Grades (TK &ndash; 12)</span>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://www.francisparker.org" target="_blank" rel="noopener">Francis Parker School</a></span><span class="nbhd-school-grade">JK &ndash; 12</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://www.horizonprep.org" target="_blank" rel="noopener">Horizon Prep</a></span><span class="nbhd-school-grade">TK &ndash; 12</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://www.ljcds.org" target="_blank" rel="noopener">La Jolla Country Day School</a></span><span class="nbhd-school-grade">TK &ndash; 12</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://www.maranathachristianschools.org" target="_blank" rel="noopener">Maranatha Christian Schools</a></span><span class="nbhd-school-grade">TK &ndash; 12</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://www.sdja.com" target="_blank" rel="noopener">San Diego Jewish Academy</a></span><span class="nbhd-school-grade">PK &ndash; 12</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://www.sfcs.net" target="_blank" rel="noopener">Santa Fe Christian Schools</a></span><span class="nbhd-school-grade">K &ndash; 12</span></div>
+          </div>
+          <div>
+            <span class="nbhd-school-subdist">Secondary (6 &ndash; 12)</span>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://www.cathedralcatholic.org" target="_blank" rel="noopener">Cathedral Catholic High School</a></span><span class="nbhd-school-grade">9 &ndash; 12</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://www.bishops.com" target="_blank" rel="noopener">The Bishop&rsquo;s School</a></span><span class="nbhd-school-grade">6 &ndash; 12</span></div>
+            <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://www.pacificridge.org" target="_blank" rel="noopener">Pacific Ridge School</a></span><span class="nbhd-school-grade">7 &ndash; 12</span></div>
+          </div>
+        </div>
+        <p class="nbhd-school-note">Private school enrollment is not based on attendance boundaries. Proximity, program fit, and availability vary. We recommend confirming enrollment eligibility and application requirements directly with each school.</p>
+      </div>
+
       <p class="nbhd-school-note">School attendance boundaries can change. Always verify current assignments directly with the applicable school district before making any home purchase decision.</p>
     </div>
   </section>
