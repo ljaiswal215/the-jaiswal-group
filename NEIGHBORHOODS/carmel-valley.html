@@ -19,20 +19,27 @@
     .page-hero-inner h1 { font-family:'Marcellus',serif; font-size:clamp(2.2rem,4.5vw,3.5rem); color:#fff; letter-spacing:0.06em; line-height:1.1; margin-bottom:1rem; }
     .page-hero-inner p { font-family:'Lato',sans-serif; font-size:0.92rem; color:rgba(255,255,255,0.82); max-width:520px; line-height:1.85; }
 
-    .nbhd-stats-strip { background:#fff; padding:2rem clamp(1.5rem,5vw,4rem); border-bottom:1px solid rgba(28,48,99,0.07); }
-    .nbhd-stats-track { display:flex; justify-content:center; align-items:center; gap:clamp(2rem,5vw,5rem); max-width:860px; margin:0 auto; text-align:center; flex-wrap:wrap; }
-    .nbhd-stat { text-align:center; }
-    .nbhd-stat-num { font-family:'Marcellus',serif; font-size:clamp(1.3rem,2.2vw,1.8rem); color:#18254B; display:block; }
-    .nbhd-stat-label { font-family:'Lato',sans-serif; font-size:0.64rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#B38987; display:block; margin-top:0.2rem; }
-    .nbhd-stats-divider { width:1px; height:36px; background:rgba(28,48,99,0.12); flex-shrink:0; }
 
-    .nbhd-about { background:#F3EFE8; padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem); }
+    .nbhd-demographics{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-demographics-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-demographics-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-demographics-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;text-align:center;}
+    .nbhd-demo-intro{font-family:'Lato',sans-serif;font-size:0.85rem;color:#7a7068;text-align:center;margin:0 auto 2rem;max-width:640px;line-height:1.7;}
+    .nbhd-demo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;}
+    .nbhd-demo-card{background:#F3EFE8;border-top:3px solid #B38987;padding:1.4rem 1.25rem 1.1rem;}
+    .nbhd-demo-card .demo-num{font-family:'Marcellus',serif;font-size:1.9rem;color:#18254B;line-height:1;margin-bottom:0.35rem;letter-spacing:0.02em;}
+    .nbhd-demo-card .demo-label{font-family:'Lato',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#9a8e88;}
+    .nbhd-demo-note{font-family:'Lato',sans-serif;font-size:0.68rem;color:#b0a89e;margin-top:1.5rem;line-height:1.7;border-top:1px solid rgba(24,37,75,0.08);padding-top:1rem;text-align:center;}
+    @media(max-width:700px){.nbhd-demo-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:420px){.nbhd-demo-grid{grid-template-columns:1fr 1fr;gap:0.75rem;}.nbhd-demo-card .demo-num{font-size:1.5rem;}}
+
+    .nbhd-about { background:#F3EFE8; padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem); }
     .nbhd-about-inner { max-width:860px; margin:0 auto; }
     .nbhd-about-inner .section-eyebrow { color:#B38987; margin-bottom:0.75rem; }
     .nbhd-about-inner h2 { font-family:'Marcellus',serif; font-size:clamp(1.5rem,2.5vw,2rem); color:#18254B; letter-spacing:0.08em; margin-bottom:1.5rem; }
     .nbhd-about-inner p { font-family:'Lato',sans-serif; font-size:0.93rem; color:#3a4a6b; line-height:1.95; margin-bottom:1.1rem; }
 
-    .nbhd-highlights { background:#18254B; padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem); }
+    .nbhd-highlights { background:#18254B; padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem); }
     .nbhd-highlights-inner { max-width:980px; margin:0 auto; }
     .nbhd-highlights-inner .section-eyebrow { color:#B38987; margin-bottom:0.75rem; text-align:center; }
     .nbhd-highlights-inner h2 { font-family:'Marcellus',serif; font-size:clamp(1.4rem,2.5vw,1.9rem); color:#fff; letter-spacing:0.08em; margin-bottom:2rem; text-align:center; }
@@ -59,46 +66,76 @@
     @media(max-width:900px){ .cv-nbhd-grid { grid-template-columns:repeat(2,1fr); } }
     @media(max-width:540px){ .cv-nbhd-card { height:200px; } }
 
-    .nbhd-cta { background:#fff; padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem); text-align:center; }
-    .nbhd-cta .section-eyebrow { color:#B38987; margin-bottom:0.75rem; }
-    .nbhd-cta h2 { font-family:'Marcellus',serif; font-size:clamp(1.4rem,2.5vw,1.9rem); color:#18254B; letter-spacing:0.08em; margin-bottom:1rem; }
-    .nbhd-cta p { font-family:'Lato',sans-serif; font-size:0.9rem; color:#3a4a6b; line-height:1.85; max-width:560px; margin:0 auto 2rem; }
-    .nbhd-cta-btns { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+    .nbhd-cta{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);text-align:center;}
+    .nbhd-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
+    .nbhd-cta p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#3a4a6b;line-height:1.85;max-width:860px;margin:0 auto 2rem;}
+    .nbhd-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+    .nbhd-cta-btns a{display:inline-block;min-width:220px;padding:0.85rem 2rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;text-align:center;background:#1C3063;color:#F6F6F4;border:1.5px solid #1C3063;transition:background 0.25s,border-color 0.25s,color 0.25s;}
+    .nbhd-cta-btns a:hover{background:#18254B;border-color:#18254B;color:#B38987;}
 
     /* ── Listings ── */
-    .nbhd-listings-section{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}
+    .nbhd-listings-section{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
     .nbhd-listings-inner{max-width:1100px;margin:0 auto;}
     .nbhd-listings-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
     .nbhd-listings-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.5rem,2.5vw,2rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
     .nbhd-listings-intro{font-family:'Cormorant Garamond',serif;font-size:0.9rem;color:#3a4a6b;line-height:1.85;margin-bottom:2rem;}
     .idx-placeholder-box{background:#F3EFE8;border:2px dashed rgba(179,137,135,0.4);padding:3rem 2rem;text-align:center;font-family:'Lato',sans-serif;font-size:0.85rem;color:#B38987;letter-spacing:0.08em;font-weight:600;text-transform:uppercase;}
     /* ── Local Favorites ── */
-    .nbhd-local{background:#F3EFE8;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}
+    .nbhd-local{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
     .nbhd-local-inner{max-width:1100px;margin:0 auto;}
     .nbhd-local-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
-    .nbhd-local-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.5rem,2.5vw,2rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.5rem;}
+    .nbhd-local-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
+    .nbhd-local-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin-bottom:2rem;}
+    .nbhd-dining-cat{margin-bottom:2rem;}
+    .nbhd-dining-cat-label{font-family:'Lato',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#B38987;margin-bottom:0.75rem;padding-bottom:0.4rem;border-bottom:1px solid rgba(179,137,135,0.25);display:block;}
+    .nbhd-dining-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;}
+    .nbhd-dining-card{background:#fff;padding:1rem 1.1rem 0.9rem;}
+    .nbhd-dining-name{font-family:'Marcellus',serif;font-size:0.97rem;color:#18254B;margin-bottom:0.2rem;}
+    .nbhd-dining-type{font-family:'Lato',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B38987;margin-bottom:0.35rem;}
+    .nbhd-dining-desc{font-family:'Lato',sans-serif;font-size:0.83rem;color:#5a6a8a;line-height:1.65;}
+    .nbhd-local-note{font-family:'Lato',sans-serif;font-size:0.73rem;color:#8a9ab8;margin-top:0.5rem;line-height:1.6;}
+    @media(max-width:700px){.nbhd-dining-grid{grid-template-columns:1fr 1fr;}}
+    @media(max-width:440px){.nbhd-dining-grid{grid-template-columns:1fr;}}
     .nbhd-placeholder-note{font-family:'Lato',sans-serif;font-size:0.85rem;color:#B38987;letter-spacing:0.08em;font-weight:600;text-transform:uppercase;border:2px dashed rgba(179,137,135,0.4);padding:2.5rem 2rem;text-align:center;}
     /* ── Schools ── */
-    .nbhd-schools{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}
-    .nbhd-schools-inner{max-width:980px;margin:0 auto;}
-    .nbhd-schools-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
-    .nbhd-schools-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#fff;letter-spacing:0.08em;margin-bottom:1.5rem;text-align:center;}
-    .nbhd-schools-intro{font-family:'Lato',sans-serif;font-size:0.9rem;color:rgba(255,255,255,0.75);line-height:1.9;margin-bottom:2rem;text-align:center;max-width:780px;margin-left:auto;margin-right:auto;}
-    .nbhd-schools-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-bottom:2rem;}
-    .nbhd-school-col h3{font-family:'Marcellus',serif;font-size:0.78rem;color:#B38987;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(179,137,135,0.25);}
-    .nbhd-school-item{font-family:'Lato',sans-serif;font-size:0.85rem;color:rgba(255,255,255,0.85);padding:0.55rem 0;border-bottom:1px solid rgba(255,255,255,0.07);display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem;}
-    .nbhd-school-item a{color:rgba(255,255,255,0.85);text-decoration:none;border-bottom:1px solid rgba(179,137,135,0.3);transition:color 0.2s,border-color 0.2s;}
-    .nbhd-school-item a:hover{color:#B38987;border-color:#B38987;}
-    .nbhd-school-grade{font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B38987;white-space:nowrap;flex-shrink:0;}
-    .nbhd-school-note{font-family:'Lato',sans-serif;font-size:0.76rem;color:rgba(255,255,255,0.45);line-height:1.75;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.1);text-align:center;}
+    .nbhd-schools{background:#F6F6F4;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-schools-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-schools-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-schools-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
+    .nbhd-schools-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin-bottom:2rem;}
+    .nbhd-schools-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;}
+    .nbhd-school-col h3{font-family:'Marcellus',serif;font-size:0.82rem;color:#18254B;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(28,48,99,0.12);}
+    .nbhd-school-item{font-family:'Lato',sans-serif;font-size:0.95rem;color:#3a4a6b;padding:0.55rem 0;border-bottom:1px solid rgba(28,48,99,0.05);display:flex;justify-content:space-between;align-items:baseline;}
+    .nbhd-school-item-name{font-weight:500;}
+    .nbhd-school-item a{color:#18254B;text-decoration:none;transition:color 0.2s;}
+    .nbhd-school-item a:hover{color:#B38987;}
+    .nbhd-school-grade{font-size:0.70rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#B38987;flex-shrink:0;margin-left:0.5rem;}
+    .nbhd-school-subdist{font-family:'Lato',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#B38987;display:block;margin-top:1.1rem;margin-bottom:0.25rem;}
+    .nbhd-school-note{font-family:'Lato',sans-serif;font-size:0.73rem;color:#8a9ab8;margin-top:1.5rem;padding-top:0.75rem;border-top:1px solid rgba(28,48,99,0.08);line-height:1.6;}
     @media(max-width:640px){.nbhd-schools-grid{grid-template-columns:1fr;}}
     /* ── Commute ── */
-    .nbhd-commute{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}
-    .nbhd-commute-inner{max-width:980px;margin:0 auto;}
-    .nbhd-commute-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
-    .nbhd-commute-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1.5rem;text-align:center;}
+    .nbhd-commute{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
+    .nbhd-commute-inner{max-width:1100px;margin:0 auto;}
+    .nbhd-commute-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-commute-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:1rem;}
+    .nbhd-commute-intro{font-family:'Lato',sans-serif;font-size:1rem;color:#3a4a6b;line-height:1.9;margin-bottom:2rem;}
+    .nbhd-commute-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2.5rem;}
+    .nbhd-commute-tile{background:#F3EFE8;padding:1.1rem 1rem 1rem;border-top:3px solid #B38987;}
+    .nbhd-commute-dest{font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#18254B;margin-bottom:0.4rem;}
+    .nbhd-commute-time{font-family:'Marcellus',serif;font-size:1.5rem;color:#18254B;line-height:1;}
+    .nbhd-commute-unit{font-family:'Lato',sans-serif;font-size:0.68rem;letter-spacing:0.07em;text-transform:uppercase;color:#B38987;margin-top:0.2rem;}
+    .nbhd-employ-section{border-top:1px solid rgba(28,48,99,0.08);padding-top:1.75rem;}
+    .nbhd-employ-section>h3{font-family:'Marcellus',serif;font-size:0.82rem;color:#18254B;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1.25rem;}
+    .nbhd-employ-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;}
+    .nbhd-employ-card{background:#F6F6F4;padding:1.25rem 1.25rem 1rem;}
+    .nbhd-employ-card h4{font-family:'Marcellus',serif;font-size:0.95rem;color:#18254B;letter-spacing:0.04em;margin-bottom:0.4rem;}
+    .nbhd-employ-card p{font-family:'Lato',sans-serif;font-size:0.85rem;color:#3a4a6b;line-height:1.75;margin:0;}
+    .nbhd-commute-note{font-family:'Lato',sans-serif;font-size:0.73rem;color:#8a9ab8;margin-top:1.5rem;line-height:1.6;}
+    @media(max-width:768px){.nbhd-commute-grid{grid-template-columns:repeat(2,1fr);}.nbhd-employ-grid{grid-template-columns:1fr;}}
+    @media(max-width:420px){.nbhd-commute-grid{grid-template-columns:1fr 1fr;}}
     /* ── FAQ ── */
-    .nbhd-faq{background:#F3EFE8;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,6vw,6rem);}
+    .nbhd-faq{background:#F3EFE8;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);}
     .nbhd-faq-inner{max-width:860px;margin:0 auto;}
     .nbhd-faq-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
     .nbhd-faq-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:2rem;text-align:center;}
@@ -106,6 +143,23 @@
     .nbhd-faq-item:last-child{border-bottom:none;}
     .nbhd-faq-item h3{font-family:'Marcellus',serif;font-size:1rem;color:#18254B;margin-bottom:0.5rem;}
     .nbhd-faq-item p{font-family:'Cormorant Garamond',serif;font-size:0.88rem;color:#3a4a6b;line-height:1.9;margin:0;}
+    /* ── Seller CTA ── */
+    .nbhd-seller-cta{background:#18254B;padding:clamp(1.5rem,3vw,2.5rem) clamp(1.5rem,4vw,3rem);text-align:center;}
+    .nbhd-seller-cta-inner{max-width:700px;margin:0 auto;}
+    .nbhd-seller-cta .section-eyebrow{color:#B38987;margin-bottom:0.75rem;}
+    .nbhd-seller-cta h2{font-family:'Marcellus',serif;font-size:clamp(1.3rem,2.2vw,1.8rem);color:#fff;letter-spacing:0.08em;margin-bottom:0.85rem;line-height:1.2;}
+    .nbhd-seller-cta p{font-family:'Lato',sans-serif;font-size:0.97rem;color:rgba(255,255,255,0.75);margin:0 auto 1.75rem;line-height:1.85;}
+    .nbhd-seller-cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+    .nbhd-seller-cta-btns a{display:inline-block;min-width:220px;padding:0.85rem 2rem;font-family:'Lato',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;text-align:center;background:transparent;color:#fff;border:1.5px solid #fff;text-decoration:none;transition:background 0.22s,color 0.22s,border-color 0.22s;}
+    .nbhd-seller-cta-btns a:hover{background:#B38987;color:#fff;border-color:#B38987;}
+    /* ── Map ── */
+    .nbhd-map{background:#fff;padding:clamp(1.5rem,3vw,2.5rem) 0 0;}
+    .nbhd-map-inner{max-width:1100px;margin:0 auto;padding:0 clamp(1.5rem,4vw,3rem);}
+    .nbhd-map-inner .section-eyebrow{color:#B38987;margin-bottom:0.75rem;text-align:center;}
+    .nbhd-map-inner>h2{font-family:'Marcellus',serif;font-size:clamp(1.4rem,2.5vw,1.9rem);color:#18254B;letter-spacing:0.08em;margin-bottom:0.5rem;text-align:center;}
+    .nbhd-map-embed{width:100%;height:520px;border:0;display:block;}
+    .nbhd-map-placeholder{width:100%;height:520px;background:#F3EFE8;display:flex;align-items:center;justify-content:center;font-family:'Lato',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#B38987;border:2px dashed rgba(179,137,135,0.4);}
+    @media(max-width:600px){.nbhd-map-embed,.nbhd-map-placeholder{height:320px;}}
   </style>
 </head>
 <body>
@@ -204,72 +258,84 @@
     </div>
   </section>
 
-  <!-- STATS STRIP -->
-  <div class="nbhd-stats-strip">
-    <div class="nbhd-stats-track">
-      <div class="nbhd-stat">
-        <span class="nbhd-stat-num">$1.5M – $3M+</span>
-        <span class="nbhd-stat-label">Typical Price Range</span>
-      </div>
-      <div class="nbhd-stats-divider"></div>
-      <div class="nbhd-stat">
-        <span class="nbhd-stat-num">92130</span>
-        <span class="nbhd-stat-label">Primary Zip Code</span>
-      </div>
-      <div class="nbhd-stats-divider"></div>
-      <div class="nbhd-stat">
-        <span class="nbhd-stat-num">Del Mar Union / San Dieguito</span>
-        <span class="nbhd-stat-label">School Districts</span>
-      </div>
-      <div class="nbhd-stats-divider"></div>
-      <div class="nbhd-stat">
-        <span class="nbhd-stat-num">~4 Miles</span>
-        <span class="nbhd-stat-label">Distance to Coast</span>
-      </div>
-    </div>
-  </div>
 
   <!-- ABOUT -->
   <section class="nbhd-about">
     <div class="nbhd-about-inner">
       <p class="section-eyebrow">ABOUT CARMEL VALLEY</p>
       <h2>WHERE FAMILY LIFE THRIVES</h2>
-      <p>Carmel Valley is consistently ranked among San Diego County's most desirable places to live — and for good reason. This master-planned community in North San Diego strikes a rare balance: suburban tranquility with urban convenience, family-friendly streets with walkable retail, and outstanding public schools that draw buyers from across the region.</p>
-      <p>Located in the 92130 zip code along the I-5 / SR-56 corridor, Carmel Valley places residents just minutes from the beaches of Del Mar and Torrey Pines, the dining and shopping of One Paseo, and major employment hubs including the Sorrento Valley tech corridor and UC San Diego. The Del Mar Union School District and San Dieguito Union High School District serve the area with consistently high-performing campuses.</p>
-      <p>From newer townhomes and condos to sprawling single-family estates, the housing stock in Carmel Valley spans a wide range of styles, price points, and community configurations. Each subdivision has its own character, architectural style, and HOA environment — making it all the more important to work with an agent who knows the nuances of this market intimately.</p>
-      <p>Whether you're relocating to San Diego, upsizing, or making a strategic investment, Carmel Valley represents one of the most stable and in-demand real estate markets in the region — with a track record of strong appreciation and consistent demand year-round.</p>
+      <p>Carmel Valley is one of North San Diego County&rsquo;s most sought-after master-planned communities, known for its top-rated schools, beautifully maintained neighborhoods, and exceptional balance of suburban comfort and coastal accessibility. Located within the highly desirable 92130 zip code, Carmel Valley has become one of the premier destinations for buyers searching for Carmel Valley homes for sale, offering a lifestyle centered around convenience, community, and long-term value. For many families relocating to San Diego, living in Carmel Valley represents the ideal blend of strong schools, modern amenities, and access to both work and recreation.</p>
+      <p>Positioned along the Interstate 5 and State Route 56 corridors, Carmel Valley offers one of the most strategically connected locations in San Diego County. Residents enjoy quick access to the beaches of Del Mar and Torrey Pines State Natural Reserve, as well as major employment hubs including Sorrento Valley, UTC, and University of California, San Diego. This accessibility has made Carmel Valley real estate especially appealing to professionals in technology, biotech, healthcare, and finance who value shorter commutes and a highly livable neighborhood environment.</p>
+      <p>Carmel Valley is widely recognized for its exceptional public schools, served primarily by the Del Mar Union School District and the San Dieguito Union High School District &mdash; two of the most highly regarded school districts in the region. Parks, sports fields, recreation centers, and trail systems are thoughtfully integrated throughout the community, supporting an active and family-oriented lifestyle. Combined with convenient shopping and dining destinations like One Paseo and Del Mar Highlands Town Center, Carmel Valley offers a level of day-to-day convenience that few San Diego communities can match.</p>
+      <p>Housing in Carmel Valley ranges from townhomes and condominiums to luxury estates and newer master-planned enclaves such as Pacific Highlands Ranch and Del Mar Mesa, each offering distinct neighborhoods, architectural styles, and lifestyle amenities. With its strong appreciation history, consistently high demand, and broad appeal to families and professionals alike, Carmel Valley remains one of the most stable and desirable real estate markets in San Diego &mdash; offering a lifestyle rooted in quality, convenience, and long-term confidence.</p>
+    </div>
+  </section>
+
+  <!-- BY THE NUMBERS -->
+  <section class="nbhd-demographics">
+    <div class="nbhd-demographics-inner">
+      <p class="section-eyebrow">BY THE NUMBERS</p>
+      <h2>CARMEL VALLEY AT A GLANCE</h2>
+      <p class="nbhd-demo-intro">A snapshot of the people, homes, and lifestyle that define Carmel Valley.</p>
+      <div class="nbhd-demo-grid">
+        <div class="nbhd-demo-card">
+          <div class="demo-num">35,310</div>
+          <div class="demo-label">Residents</div>
+        </div>
+        <div class="nbhd-demo-card">
+          <div class="demo-num">Mid 30s–40s</div>
+          <div class="demo-label">Median Age</div>
+        </div>
+        <div class="nbhd-demo-card">
+          <div class="demo-num">$199K+</div>
+          <div class="demo-label">Median Household Income</div>
+        </div>
+        <div class="nbhd-demo-card">
+          <div class="demo-num">$2.2M</div>
+          <div class="demo-label">Median Home Value</div>
+        </div>
+        <div class="nbhd-demo-card">
+          <div class="demo-num">82%</div>
+          <div class="demo-label">Bachelor&rsquo;s Degree or Higher</div>
+        </div>
+        <div class="nbhd-demo-card">
+          <div class="demo-num">65%</div>
+          <div class="demo-label">Owner-Occupied Homes</div>
+        </div>
+      </div>
+      <p class="nbhd-demo-note">Sources: U.S. Census Bureau / ACS 5-year estimates, SANDAG neighborhood profiles, and current market data for Carmel Valley / ZIP&nbsp;92130. Figures are estimates and subject to change.</p>
     </div>
   </section>
 
   <!-- HIGHLIGHTS -->
   <section class="nbhd-highlights">
     <div class="nbhd-highlights-inner">
-      <p class="section-eyebrow">WHAT MAKES CARMEL VALLEY SPECIAL</p>
-      <h2>COMMUNITY HIGHLIGHTS</h2>
+      <p class="section-eyebrow">COMMUNITY HIGHLIGHTS</p>
+      <h2>WHAT WE LOVE ABOUT CARMEL VALLEY</h2>
       <div class="nbhd-highlights-grid">
         <div class="nbhd-highlight-item">
-          <h3>Top-Rated Schools</h3>
-          <p>Del Mar Union Elementary and San Dieguito Union High School District campuses serve Carmel Valley with some of the highest academic ratings in San Diego County.</p>
+          <h3>Family-Centered Living</h3>
+          <p>Parks, sports fields, recreation centers, and community events create an environment designed for connection, activity, and everyday family life.</p>
         </div>
         <div class="nbhd-highlight-item">
-          <h3>One Paseo</h3>
-          <p>A vibrant mixed-use destination with boutique shops, acclaimed restaurants, fitness studios, and live events — all within walking distance for many Carmel Valley residents.</p>
+          <h3>Award-Winning Schools</h3>
+          <p>Home to highly regarded schools within Solana Beach School District, Del Mar Union and San Dieguito Union High School Districts — three of the most sought-after public school systems in San Diego County.</p>
         </div>
         <div class="nbhd-highlight-item">
-          <h3>Coastal Access</h3>
-          <p>Del Mar's beaches and Torrey Pines State Beach are minutes away — rare proximity to world-class coastline from a non-coastal zip code.</p>
+          <h3>One Paseo, Del Mar Highlands &amp; Local Conveniences</h3>
+          <p>Boutique shopping, acclaimed dining, fitness studios, and everyday conveniences create one of North County&rsquo;s most vibrant lifestyle hubs.</p>
         </div>
         <div class="nbhd-highlight-item">
-          <h3>Torrey Pines Preserve</h3>
-          <p>Over 1,750 acres of natural reserve with hiking trails offering panoramic ocean views, just south of the community boundaries.</p>
+          <h3>Minutes to the Coast</h3>
+          <p>Enjoy rare proximity to Del Mar beaches, Torrey Pines, and world-class coastal recreation &mdash; all just minutes from home.</p>
         </div>
         <div class="nbhd-highlight-item">
-          <h3>Easy Commute Access</h3>
-          <p>Direct access to I-5, SR-56, and the Carmel Valley Road corridor puts downtown San Diego, La Jolla, and the Sorrento Valley tech hub within easy reach.</p>
+          <h3>Trails &amp; Open Space</h3>
+          <p>Miles of nearby trails, canyon preserves, and open space connect Carmel Valley to some of San Diego&rsquo;s most scenic outdoor landscapes.</p>
         </div>
         <div class="nbhd-highlight-item">
-          <h3>Strong Appreciation</h3>
-          <p>Carmel Valley's fundamentals — schools, location, and lifestyle — have driven consistent long-term appreciation, making it a perennial favorite for buyers and investors alike.</p>
+          <h3>Centrally Located</h3>
+          <p>Direct access to I-5, SR-56, and Carmel Valley Road makes commuting to Sorrento Valley, UTC, La Jolla, and Downtown remarkably convenient.</p>
         </div>
       </div>
     </div>
@@ -341,7 +407,7 @@
     <div class="nbhd-listings-inner">
       <p class="section-eyebrow">BROWSE LISTINGS</p>
       <h2>CARMEL VALLEY HOMES FOR SALE</h2>
-      <p class="nbhd-listings-intro">Browse current homes for sale in Carmel Valley, updated daily from the MLS &mdash; from condos and townhomes to single-family residences.</p>
+      <p class="nbhd-listings-intro">Browse current homes for sale in Carmel Valley, updated daily from the MLS &mdash; from attached townhomes to expansive single-family estates.</p>
       <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-134159" src="//thejaiswalgroup.idxbroker.com/idx/widgets/134159"></script>
       <p style="margin-top:2rem;font-family:'Lato',sans-serif;font-size:0.85rem;color:#3a4a6b;text-align:center;">Looking for upcoming open houses in Carmel Valley? <a href="../open-houses-carmel-valley.html" style="color:#18254B;font-weight:700;letter-spacing:0.05em;text-decoration:underline;">View Open Houses &rarr;</a></p>
     </div>
@@ -352,9 +418,74 @@
   ========================================================= -->
   <section class="nbhd-local">
     <div class="nbhd-local-inner">
-      <p class="section-eyebrow">LOCAL FAVORITES</p>
-      <h2>DINING, SHOPS &amp; LOCAL LIFE IN CARMEL VALLEY</h2>
-      <div class="nbhd-placeholder-note">Local favorites &mdash; restaurants, shops &amp; spots &mdash; coming soon</div>
+      <p class="section-eyebrow">DINING IN CARMEL VALLEY</p>
+      <h2>WHERE LOCALS EAT &amp; GATHER</h2>
+      <p class="nbhd-local-intro">One Paseo and Del Mar Highlands Town Center have transformed Carmel Valley into one of North County's most vibrant dining destinations. From weekday lunch spots to celebratory dinners, the neighborhood's restaurant scene covers every occasion without leaving the zip code.</p>
+
+      <div class="nbhd-dining-cat">
+        <span class="nbhd-dining-cat-label">Upscale &amp; Special Occasion</span>
+        <div class="nbhd-dining-grid">
+          <div class="nbhd-dining-card">
+            <div class="nbhd-dining-name">Truluck's</div>
+            <div class="nbhd-dining-type">Seafood &amp; Steakhouse &nbsp;&middot;&nbsp; One Paseo</div>
+            <div class="nbhd-dining-desc">A neighborhood anchor for celebratory dinners — stone crab, prime cuts, and an elegant bar scene in a polished setting.</div>
+          </div>
+          <div class="nbhd-dining-card">
+            <div class="nbhd-dining-name">The Craftsman New American Tavern</div>
+            <div class="nbhd-dining-type">New American &nbsp;&middot;&nbsp; One Paseo</div>
+            <div class="nbhd-dining-desc">Locally sourced, craft-forward menu with an approachable vibe. A go-to for upscale casual dinners and weekend brunch.</div>
+          </div>
+          <div class="nbhd-dining-card">
+            <div class="nbhd-dining-name">Hawthorn</div>
+            <div class="nbhd-dining-type">Modern American &nbsp;&middot;&nbsp; One Paseo</div>
+            <div class="nbhd-dining-desc">A neighborhood bistro with a well-curated wine list and seasonal menu — popular for business lunches and intimate dinners.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nbhd-dining-cat">
+        <span class="nbhd-dining-cat-label">Everyday Favorites</span>
+        <div class="nbhd-dining-grid">
+          <div class="nbhd-dining-card">
+            <div class="nbhd-dining-name">Puesto</div>
+            <div class="nbhd-dining-type">Mexican &nbsp;&middot;&nbsp; One Paseo</div>
+            <div class="nbhd-dining-desc">Crispy tacos, fresh guacamole, and excellent margaritas in a lively open-air setting. A consistent local favorite.</div>
+          </div>
+          <div class="nbhd-dining-card">
+            <div class="nbhd-dining-name">True Food Kitchen</div>
+            <div class="nbhd-dining-type">Health-Conscious &nbsp;&middot;&nbsp; One Paseo</div>
+            <div class="nbhd-dining-desc">Seasonal, nutrient-forward menu built around an anti-inflammatory philosophy. Great for lunch or a lighter dinner.</div>
+          </div>
+          <div class="nbhd-dining-card">
+            <div class="nbhd-dining-name">Nectar Farm Kitchen</div>
+            <div class="nbhd-dining-type">Farm-to-Table &nbsp;&middot;&nbsp; Carmel Valley</div>
+            <div class="nbhd-dining-desc">A neighborhood gem focused on seasonal ingredients and simple preparations. Popular for weekend brunch and early dinners.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nbhd-dining-cat">
+        <span class="nbhd-dining-cat-label">Coffee &amp; Casual</span>
+        <div class="nbhd-dining-grid">
+          <div class="nbhd-dining-card">
+            <div class="nbhd-dining-name">Tender Loving Coffee</div>
+            <div class="nbhd-dining-type">Coffee &amp; Café &nbsp;&middot;&nbsp; Carmel Valley</div>
+            <div class="nbhd-dining-desc">A beloved local coffee shop known for quality espresso, a warm atmosphere, and a devoted neighborhood following.</div>
+          </div>
+          <div class="nbhd-dining-card">
+            <div class="nbhd-dining-name">Shake Shack</div>
+            <div class="nbhd-dining-type">Burgers &nbsp;&middot;&nbsp; One Paseo</div>
+            <div class="nbhd-dining-desc">The quintessential quick-service burger spot — great for families and a natural post-errand or post-workout stop.</div>
+          </div>
+          <div class="nbhd-dining-card">
+            <div class="nbhd-dining-name">Birdcall</div>
+            <div class="nbhd-dining-type">Chicken &amp; Sandwiches &nbsp;&middot;&nbsp; One Paseo</div>
+            <div class="nbhd-dining-desc">A fast-casual spot serving responsibly raised chicken in creative sandwiches and bowls. Kid-friendly and consistently good.</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="nbhd-local-note">Restaurant availability subject to change. Del Mar Highlands Town Center, located adjacent to Carmel Valley, offers additional dining, grocery, and retail options including Whole Foods Market.</p>
     </div>
   </section>
 
@@ -365,111 +496,38 @@
     <div class="nbhd-schools-inner">
       <p class="section-eyebrow">EDUCATION</p>
       <h2>SCHOOLS SERVING CARMEL VALLEY</h2>
-      <p class="nbhd-schools-intro">Carmel Valley (92130) is served by two elementary school districts — Del Mar Union School District and Solana Beach School District — feeding into San Dieguito Union High School District for middle and high school.</p>
-
+      <p class="nbhd-schools-intro">Carmel Valley is served by the <a href="https://www.dmusd.org" target="_blank" rel="noopener">Del Mar Union School District</a> and <a href="https://www.sbsd.k12.ca.us" target="_blank" rel="noopener">Solana Beach School District</a> at the elementary level, with students attending schools within the <a href="https://www.sduhsd.net" target="_blank" rel="noopener">San Dieguito Union High School District</a> for middle and high school. Access to these districts is one of the community&rsquo;s defining features and consistently ranks among the top reasons families choose to call Carmel Valley home.</p>
       <div class="nbhd-schools-grid">
-
         <div class="nbhd-school-col">
-          <h3>Del Mar Union School District &mdash; Elementary (K&ndash;6)</h3>
-          <div class="nbhd-school-item">
-            <a href="https://carmeldelmar.dmusd.org" target="_blank" rel="noopener">Carmel Del Mar Elementary</a>
-            <span class="nbhd-school-grade">K&ndash;6</span>
-          </div>
-          <div class="nbhd-school-item">
-            <a href="https://sagecanyon.dmusd.org" target="_blank" rel="noopener">Sage Canyon Elementary</a>
-            <span class="nbhd-school-grade">K&ndash;6</span>
-          </div>
-          <div class="nbhd-school-item">
-            <a href="https://torreyhills.dmusd.org" target="_blank" rel="noopener">Torrey Hills Elementary</a>
-            <span class="nbhd-school-grade">K&ndash;6</span>
-          </div>
-          <div class="nbhd-school-item">
-            <a href="https://oceanair.dmusd.org" target="_blank" rel="noopener">Ocean Air Elementary</a>
-            <span class="nbhd-school-grade">K&ndash;6</span>
-          </div>
-          <div class="nbhd-school-item">
-            <a href="https://ashleyfalls.dmusd.org" target="_blank" rel="noopener">Ashley Falls Elementary</a>
-            <span class="nbhd-school-grade">K&ndash;6</span>
-          </div>
-          <div class="nbhd-school-item">
-            <a href="https://sycamoreridge.dmusd.org" target="_blank" rel="noopener">Sycamore Ridge Elementary</a>
-            <span class="nbhd-school-grade">K&ndash;6</span>
-          </div>
-          <div class="nbhd-school-item">
-            <a href="https://pacificsky.dmusd.org" target="_blank" rel="noopener">Pacific Sky School</a>
-            <span class="nbhd-school-grade">K&ndash;6</span>
-          </div>
+          <h3>Elementary Schools</h3>
+          <span class="nbhd-school-subdist"><a href="https://www.dmusd.org" target="_blank" rel="noopener">Del Mar Union School District</a></span>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://ashleyfalls.dmusd.org" target="_blank" rel="noopener">Ashley Falls Elementary</a></span><span class="nbhd-school-grade">TK &ndash; 6</span></div>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://carmeldelmar.dmusd.org" target="_blank" rel="noopener">Carmel Del Mar Elementary</a></span><span class="nbhd-school-grade">K &ndash; 6</span></div>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://oceanair.dmusd.org" target="_blank" rel="noopener">Ocean Air Elementary</a></span><span class="nbhd-school-grade">K &ndash; 6</span></div>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://pacificsky.dmusd.org" target="_blank" rel="noopener">Pacific Sky Elementary</a></span><span class="nbhd-school-grade">K &ndash; 6</span></div>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://sagecanyon.dmusd.org" target="_blank" rel="noopener">Sage Canyon Elementary</a></span><span class="nbhd-school-grade">K &ndash; 6</span></div>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://sycamoreridge.dmusd.org" target="_blank" rel="noopener">Sycamore Ridge Elementary</a></span><span class="nbhd-school-grade">K &ndash; 6</span></div>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://torreyhills.dmusd.org" target="_blank" rel="noopener">Torrey Hills Elementary</a></span><span class="nbhd-school-grade">K &ndash; 6</span></div>
+          <span class="nbhd-school-subdist"><a href="https://www.sbsd.k12.ca.us" target="_blank" rel="noopener">Solana Beach School District</a></span>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://www.sbsd.k12.ca.us/Domain/12" target="_blank" rel="noopener">Carmel Creek Elementary</a></span><span class="nbhd-school-grade">TK &ndash; 3</span></div>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://www.sbsd.k12.ca.us/solanahighlands" target="_blank" rel="noopener">Solana Highlands Elementary</a></span><span class="nbhd-school-grade">K &ndash; 6</span></div>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://www.sbsd.k12.ca.us/Domain/13" target="_blank" rel="noopener">Solana Pacific Elementary</a></span><span class="nbhd-school-grade">4 &ndash; 6</span></div>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://www.sbsd.k12.ca.us/Domain/858" target="_blank" rel="noopener">Solana Ranch Elementary</a></span><span class="nbhd-school-grade">K &ndash; 6</span></div>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://ssf.sbsd.k12.ca.us" target="_blank" rel="noopener">Solana Santa Fe Elementary</a></span><span class="nbhd-school-grade">K &ndash; 6</span></div>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://sky.sbsd.k12.ca.us" target="_blank" rel="noopener">Skyline Global Education</a></span><span class="nbhd-school-grade">K &ndash; 6</span></div>
         </div>
-
         <div class="nbhd-school-col">
-          <h3>Solana Beach School District &mdash; Elementary</h3>
-          <div class="nbhd-school-item">
-            <a href="https://cc.sbsd.k12.ca.us" target="_blank" rel="noopener">Carmel Creek Elementary</a>
-            <span class="nbhd-school-grade">K&ndash;3</span>
-          </div>
-          <div class="nbhd-school-item">
-            <a href="https://www.sbsd.k12.ca.us/solanahighlands" target="_blank" rel="noopener">Solana Highlands Elementary</a>
-            <span class="nbhd-school-grade">K&ndash;3</span>
-          </div>
-          <div class="nbhd-school-item">
-            <a href="https://www.sbsd.k12.ca.us/solanapacific" target="_blank" rel="noopener">Solana Pacific Elementary</a>
-            <span class="nbhd-school-grade">4&ndash;6</span>
-          </div>
-          <div class="nbhd-school-item">
-            <a href="https://www.sbsd.k12.ca.us/solanaranch" target="_blank" rel="noopener">Solana Ranch Elementary</a>
-            <span class="nbhd-school-grade">K&ndash;6</span>
-          </div>
-          <div class="nbhd-school-item">
-            <a href="https://ssf.sbsd.k12.ca.us" target="_blank" rel="noopener">Solana Santa Fe Elementary</a>
-            <span class="nbhd-school-grade">K&ndash;6</span>
-          </div>
-          <div class="nbhd-school-item">
-            <a href="https://www.sbsd.k12.ca.us" target="_blank" rel="noopener">Skyline Global Education</a>
-            <span class="nbhd-school-grade">K&ndash;6</span>
-          </div>
+          <h3>Middle &amp; High School</h3>
+          <span class="nbhd-school-subdist"><a href="https://www.sduhsd.net" target="_blank" rel="noopener">San Dieguito Union High School District</a></span>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://cvms.sduhsd.net" target="_blank" rel="noopener">Carmel Valley Middle School</a></span><span class="nbhd-school-grade">7 &ndash; 8</span></div>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://ew.sduhsd.net" target="_blank" rel="noopener">Earl Warren Middle School</a></span><span class="nbhd-school-grade">7 &ndash; 8</span></div>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://pt.sduhsd.net" target="_blank" rel="noopener">Pacific Trails Middle School</a></span><span class="nbhd-school-grade">7 &ndash; 8</span></div>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://cc.sduhsd.net" target="_blank" rel="noopener">Canyon Crest Academy</a></span><span class="nbhd-school-grade">9 &ndash; 12</span></div>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://www.sduhsd.net" target="_blank" rel="noopener">San Dieguito High School Academy</a></span><span class="nbhd-school-grade">9 &ndash; 12</span></div>
+          <div class="nbhd-school-item"><span class="nbhd-school-item-name"><a href="https://tp.sduhsd.net" target="_blank" rel="noopener">Torrey Pines High School</a></span><span class="nbhd-school-grade">9 &ndash; 12</span></div>
         </div>
-
       </div>
-
-      <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:2rem 0;">
-
-      <div class="nbhd-schools-grid">
-
-        <div class="nbhd-school-col">
-          <h3>San Dieguito Union HSD &mdash; Middle School (7&ndash;8)</h3>
-          <div class="nbhd-school-item">
-            <span>Carmel Valley Middle School</span>
-            <span class="nbhd-school-grade">7&ndash;8</span>
-          </div>
-          <div class="nbhd-school-item">
-            <span>Pacific Trails Middle School</span>
-            <span class="nbhd-school-grade">7&ndash;8</span>
-          </div>
-          <div class="nbhd-school-item">
-            <span>Earl Warren Middle School</span>
-            <span class="nbhd-school-grade">7&ndash;8</span>
-          </div>
-        </div>
-
-        <div class="nbhd-school-col">
-          <h3>San Dieguito Union HSD &mdash; High School (9&ndash;12)</h3>
-          <div class="nbhd-school-item">
-            <span>Torrey Pines High School</span>
-            <span class="nbhd-school-grade">9&ndash;12</span>
-          </div>
-          <div class="nbhd-school-item">
-            <span>Canyon Crest Academy</span>
-            <span class="nbhd-school-grade">9&ndash;12</span>
-          </div>
-          <div class="nbhd-school-item">
-            <span>San Dieguito High School Academy</span>
-            <span class="nbhd-school-grade">9&ndash;12</span>
-          </div>
-        </div>
-
-      </div>
-
-      <p class="nbhd-school-note">Torrey Pines High School is the default boundary school for CVMS, PTMS, Earl Warren, and Rancho Santa Fe feeder areas. Canyon Crest Academy and San Dieguito High School Academy are school-of-choice campuses within SDUHSD. Specific assignments depend on your home&rsquo;s location — always verify enrollment boundaries with <a href="https://www.sduhsd.net" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.65);border-bottom:1px solid rgba(179,137,135,0.4);">SDUHSD</a> prior to purchase.</p>
+      <p class="nbhd-school-note">School attendance boundaries can change. Always verify current assignments directly with the applicable school district before making any home purchase decision.</p>
     </div>
   </section>
 
@@ -479,8 +537,72 @@
   <section class="nbhd-commute">
     <div class="nbhd-commute-inner">
       <p class="section-eyebrow">GETTING AROUND</p>
-      <h2>LOCATION &amp; COMMUTE</h2>
-      <div class="nbhd-placeholder-note">Commute times &amp; location details &mdash; coming soon</div>
+      <h2>EMPLOYMENT &amp; COMMUTE</h2>
+      <p class="nbhd-commute-intro">Carmel Valley's location at the intersection of I-5 and SR-56 makes it one of the most strategically positioned communities in San Diego County. Residents enjoy fast access to the region's most significant employment corridors — from the Sorrento Valley and Torrey Pines biotech hub to UTC, UC San Diego, and Downtown — without sacrificing the neighborhood's quiet, residential feel.</p>
+      <div class="nbhd-commute-grid">
+        <div class="nbhd-commute-tile">
+          <div class="nbhd-commute-dest">Sorrento Valley</div>
+          <div class="nbhd-commute-time">~10</div>
+          <div class="nbhd-commute-unit">min by car</div>
+        </div>
+        <div class="nbhd-commute-tile">
+          <div class="nbhd-commute-dest">UTC &amp; La Jolla</div>
+          <div class="nbhd-commute-time">~12</div>
+          <div class="nbhd-commute-unit">min by car</div>
+        </div>
+        <div class="nbhd-commute-tile">
+          <div class="nbhd-commute-dest">UC San Diego</div>
+          <div class="nbhd-commute-time">~15</div>
+          <div class="nbhd-commute-unit">min by car</div>
+        </div>
+        <div class="nbhd-commute-tile">
+          <div class="nbhd-commute-dest">Del Mar</div>
+          <div class="nbhd-commute-time">~8</div>
+          <div class="nbhd-commute-unit">min by car</div>
+        </div>
+        <div class="nbhd-commute-tile">
+          <div class="nbhd-commute-dest">Downtown San Diego</div>
+          <div class="nbhd-commute-time">~25</div>
+          <div class="nbhd-commute-unit">min by car</div>
+        </div>
+        <div class="nbhd-commute-tile">
+          <div class="nbhd-commute-dest">Carlsbad</div>
+          <div class="nbhd-commute-time">~25</div>
+          <div class="nbhd-commute-unit">min by car</div>
+        </div>
+        <div class="nbhd-commute-tile">
+          <div class="nbhd-commute-dest">SAN Airport</div>
+          <div class="nbhd-commute-time">~25</div>
+          <div class="nbhd-commute-unit">min by car</div>
+        </div>
+        <div class="nbhd-commute-tile">
+          <div class="nbhd-commute-dest">Encinitas</div>
+          <div class="nbhd-commute-time">~20</div>
+          <div class="nbhd-commute-unit">min by car</div>
+        </div>
+      </div>
+      <div class="nbhd-employ-section">
+        <h3>Major Employment Hubs Nearby</h3>
+        <div class="nbhd-employ-grid">
+          <div class="nbhd-employ-card">
+            <h4>Sorrento Valley &amp; Torrey Pines Science Park</h4>
+            <p>San Diego's premier biotech and life sciences corridor — home to Illumina, Neurocrine Biosciences, Dexcom, Mirati Therapeutics, and dozens of research and pharmaceutical companies. One of the most walkable commutes in all of San Diego for Carmel Valley residents.</p>
+          </div>
+          <div class="nbhd-employ-card">
+            <h4>UTC &amp; University Town Center</h4>
+            <p>A major mixed-use employment hub anchored by Westfield UTC, with a dense concentration of financial services, healthcare, professional services firms, and regional offices. UC San Diego, Scripps Health, and the VA Medical Center are all within a short drive.</p>
+          </div>
+          <div class="nbhd-employ-card">
+            <h4>Del Mar Heights &amp; Carmel Mountain</h4>
+            <p>A growing corridor of tech offices, wealth management firms, and professional service providers immediately adjacent to Carmel Valley — many residents can reach these employers in under 10 minutes.</p>
+          </div>
+          <div class="nbhd-employ-card">
+            <h4>Downtown San Diego</h4>
+            <p>Finance, law, government, media, and hospitality industries anchor Downtown San Diego. The I-5 corridor connects Carmel Valley in approximately 25 minutes outside peak hours, with express options available via MTS commuter routes.</p>
+          </div>
+        </div>
+      </div>
+      <p class="nbhd-commute-note">Drive times are estimates based on typical off-peak traffic and may vary significantly during commute hours. All times approximate from central Carmel Valley.</p>
     </div>
   </section>
 
@@ -501,11 +623,61 @@
       </div>
       <div class="nbhd-faq-item">
         <h3>Is Carmel Valley a good place to live?</h3>
-        <p>Detailed lifestyle information for Carmel Valley is coming soon. Contact us to learn more about what makes this community special.</p>
+        <p>Carmel Valley consistently ranks among San Diego&rsquo;s most desirable communities for families and professionals alike. With award-winning schools, easy freeway access, walkable lifestyle hubs like One Paseo and Del Mar Highlands, and proximity to the coast, it offers an exceptional quality of life in a well-established neighborhood setting.</p>
+      </div>
+      <div class="nbhd-faq-item">
+        <h3>What types of homes are available in Carmel Valley?</h3>
+        <p>Carmel Valley offers a broad range of housing options — from newer attached townhomes and condos starting in the low $1M range, to single-family homes in gated and non-gated communities, and expansive estate properties exceeding $4M. The neighborhood appeals to first-time luxury buyers through seasoned move-up buyers and investors.</p>
+      </div>
+      <div class="nbhd-faq-item">
+        <h3>How competitive is the Carmel Valley real estate market?</h3>
+        <p>Inventory in Carmel Valley tends to be limited relative to demand, especially for well-priced single-family homes in top school boundaries. Well-prepared buyers who have done their research and are working with an experienced local agent are best positioned to move quickly and negotiate effectively when the right home comes to market.</p>
       </div>
     </div>
   </section>
 
+
+  <!-- =========================================================
+       MAP
+  ========================================================= -->
+  <section class="nbhd-map">
+    <div class="nbhd-map-inner">
+      <p class="section-eyebrow">LOCATION</p>
+      <h2>MAP OF CARMEL VALLEY</h2>
+      <p style="font-family:'Lato',sans-serif;font-size:0.9rem;color:#3a4a6b;text-align:center;margin:0.25rem 0 1.5rem;line-height:1.4;">Located along the I-5 and SR-56 corridors in northern San Diego, Carmel Valley offers easy access to Del Mar&rsquo;s beaches, Torrey Pines, downtown San Diego, and North County&rsquo;s major employment corridors.</p>
+    </div>
+    <!-- To update: go to maps.google.com → search "Carmel Valley San Diego CA 92130"
+         → Share → Embed a map → Copy HTML → paste iframe here with class="nbhd-map-embed" -->
+    <div class="nbhd-map-placeholder">Map Coming Soon</div>
+  </section>
+
+  <!-- =========================================================
+       SELLER CTA
+  ========================================================= -->
+  <section class="nbhd-seller-cta">
+    <div class="nbhd-seller-cta-inner">
+      <p class="section-eyebrow">THINKING OF SELLING</p>
+      <h2>FIND OUT WHAT YOUR CARMEL VALLEY HOME IS WORTH</h2>
+      <p>Thinking of selling in Carmel Valley? Whether you&rsquo;re simply curious about your home&rsquo;s value or considering a move in the near future, we&rsquo;d be happy to provide a personalized, data-driven analysis of today&rsquo;s market and what your home could be worth.</p>
+      <div class="nbhd-seller-cta-btns">
+        <a href="../home-valuation.html">GET FREE HOME VALUATION</a>
+        <a href="tel:8582907531">CALL (858) 290-7531</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       BUYER CTA
+  ========================================================= -->
+  <section class="nbhd-cta">
+    <p class="section-eyebrow">READY TO EXPLORE?</p>
+    <h2>LET&rsquo;S FIND YOUR DREAM HOME IN CARMEL VALLEY</h2>
+    <p>Whether you&rsquo;re relocating to San Diego or simply exploring your next move, we&rsquo;d love to help you discover everything Carmel Valley has to offer. Reach out for a complimentary consultation and personalized guidance tailored to your goals.</p>
+    <div class="nbhd-cta-btns">
+      <a href="../contact.html">SCHEDULE A CONSULTATION</a>
+    </div>
+    <p style="margin-top:1.25rem;font-family:'Lato',sans-serif;font-size:0.9rem;color:rgba(28,48,99,0.65);">Or call or text us at <a href="tel:8582907531" style="color:#18254B;font-weight:700;">(858) 290-7531</a></p>
+  </section>
 
   <section class="work-with-us">
     <div class="wwu-content">
