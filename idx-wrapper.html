@@ -322,19 +322,28 @@
     // ── TJG Agent Card — injected into listing detail aside ──
     function _injectAgentCard() {
       if (document.getElementById('tjg-agent-card')) return;
-      var formWrap = document.getElementById('IDX-detailsLeadFormWrap');
-      if (!formWrap) return;
+
+      // Must be a listing detail page
+      var aside = document.getElementById('IDX-detailsAside');
+      if (!aside) return;
+
+      // Wait until IDX has rendered the contact section
+      var contactReady = document.getElementById('IDX-detailscontactContainer') ||
+                         document.getElementById('IDX-detailsContact') ||
+                         document.getElementById('IDX-contactInformation') ||
+                         document.getElementById('IDX-detailsLeadFormWrap');
+      if (!contactReady) return;
 
       // Property address auto-filled into the form subject
       var addrEl   = document.getElementById('IDX-detailsAddressStreet');
       var regionEl = document.getElementById('IDX-detailsAddressRegion');
       var propAddr = [addrEl && addrEl.textContent.trim(), regionEl && regionEl.textContent.trim()].filter(Boolean).join(', ');
 
-      // Hide old agent info card and aside header
+      // Hide old agent info card and aside listing header
       var oldCard = document.getElementById('IDX-contactInformation');
-      if (oldCard) oldCard.style.display = 'none';
-      var asideHdr = document.querySelector('#IDX-detailscontactContainer > h2, #IDX-detailscontactContainer > .IDX-pageHeader');
-      if (asideHdr) asideHdr.style.display = 'none';
+      if (oldCard) oldCard.style.setProperty('display', 'none', 'important');
+      var listingHdr = document.getElementById('IDX-ListingHeader');
+      if (listingHdr) listingHdr.style.setProperty('display', 'none', 'important');
 
       // Build agent card
       var card = document.createElement('div');
@@ -351,7 +360,9 @@
         '</div>' +
         '<button id="tjg-tour-btn">Request a Tour</button>' +
         '<a href="https://formspree.io/f/xkolppyb" id="tjg-contact-btn" target="_blank">Contact Us</a>';
-      formWrap.parentNode.insertBefore(card, formWrap);
+
+      // Insert at the very top of the aside — outside IDX's collapsible widget
+      aside.insertBefore(card, aside.firstChild);
 
       // Build modal (only once)
       var modal = document.createElement('div');
