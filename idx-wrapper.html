@@ -296,14 +296,21 @@
         if (!btn || btn.dataset.tjgHover) return;
         btn.dataset.tjgHover = '1';
         btn.addEventListener('mouseenter', function() {
-          this.style.setProperty('background', '#18254B', 'important');
-          this.style.setProperty('background-color', '#18254B', 'important');
-          this.style.setProperty('border-color', '#18254B', 'important');
-          this.style.setProperty('color', '#ffffff', 'important');
-          this.querySelectorAll('*').forEach(function(el) {
-            el.style.setProperty('color', '#ffffff', 'important');
-            el.style.setProperty('fill', '#ffffff', 'important');
-          });
+          var self = this;
+          self.style.setProperty('background', '#18254B', 'important');
+          self.style.setProperty('background-color', '#18254B', 'important');
+          self.style.setProperty('border-color', '#18254B', 'important');
+          self.style.setProperty('color', '#ffffff', 'important');
+          function whiteChildren() {
+            self.querySelectorAll('*').forEach(function(el) {
+              el.style.setProperty('color', '#ffffff', 'important');
+              el.style.setProperty('fill', '#ffffff', 'important');
+            });
+          }
+          whiteChildren();
+          // Re-apply after IDX's own hover handler runs
+          setTimeout(whiteChildren, 0);
+          setTimeout(whiteChildren, 50);
         });
         btn.addEventListener('mouseleave', function() {
           this.style.removeProperty('background');
