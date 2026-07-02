@@ -288,81 +288,87 @@
     _fixAgentInfo();
     new MutationObserver(_fixAgentInfo).observe(document.body, { childList: true, subtree: true });
 
-    // Button hover — IDX inline styles block CSS :hover, so force via JS
+    // Button hover — IDX re-applies its own colors after our handlers run.
+    // Solution: MutationObserver on each button re-enforces our color whenever
+    // IDX touches the style attribute while the mouse is over it.
     function _fixButtonHovers() {
-      // ADD TO FAVORITES — outline button: default navy text, hover white text on navy bg
+      function wireBtn(btn, restoreColor) {
+        if (btn.dataset.tjgHover) return;
+        btn.dataset.tjgHover = '1';
+        var hovered = false;
+        var enforcing = false;
+
+        function enforce() {
+          enforcing = true;
+          btn.style.setProperty('background', '#18254B', 'important');
+          btn.style.setProperty('background-color', '#18254B', 'important');
+          btn.style.setProperty('border-color', '#18254B', 'important');
+          btn.style.setProperty('color', '#ffffff', 'important');
+          btn.style.setProperty('opacity', '1', 'important');
+          btn.querySelectorAll('*').forEach(function(el) {
+            el.style.setProperty('color', '#ffffff', 'important');
+            el.style.setProperty('fill', '#ffffff', 'important');
+            el.style.setProperty('opacity', '1', 'important');
+          });
+          // Release lock after IDX's next mutation has been observed
+          setTimeout(function() { enforcing = false; }, 20);
+        }
+
+        function restore() {
+          btn.style.removeProperty('background');
+          btn.style.removeProperty('background-color');
+          btn.style.removeProperty('border-color');
+          btn.style.removeProperty('opacity');
+          if (restoreColor) {
+            btn.style.setProperty('color', restoreColor, 'important');
+            btn.querySelectorAll('*').forEach(function(el) {
+              el.style.setProperty('color', restoreColor, 'important');
+              el.style.setProperty('fill', restoreColor, 'important');
+              el.style.removeProperty('opacity');
+            });
+          } else {
+            btn.style.removeProperty('color');
+            btn.querySelectorAll('*').forEach(function(el) {
+              el.style.removeProperty('color');
+              el.style.removeProperty('fill');
+              el.style.removeProperty('opacity');
+            });
+          }
+        }
+
+        btn.addEventListener('mouseenter', function() {
+          hovered = true;
+          enforce();
+          setTimeout(enforce, 0);
+          setTimeout(enforce, 60);
+        });
+        btn.addEventListener('mouseleave', function() {
+          hovered = false;
+          restore();
+        });
+
+        // Re-enforce immediately whenever IDX mutates the button or a child's style
+        new MutationObserver(function() {
+          if (hovered && !enforcing) enforce();
+        }).observe(btn, { attributes: true, subtree: true, attributeFilter: ['style', 'class'] });
+      }
+
+      // ADD TO FAVORITES — outline: restore navy on mouseleave
       ['#IDX-saveProperty', '#IDX-addToFavorites'].forEach(function(sel) {
         document.querySelectorAll(sel).forEach(function(btn) {
-          if (btn.dataset.tjgHover) return;
-          btn.dataset.tjgHover = '1';
-          // Force navy text immediately (IDX overrides the CSS default)
           btn.style.setProperty('color', '#18254B', 'important');
           btn.querySelectorAll('*').forEach(function(el) {
             el.style.setProperty('color', '#18254B', 'important');
             el.style.setProperty('fill', '#18254B', 'important');
           });
-          btn.addEventListener('mouseenter', function() {
-            var self = this;
-            self.style.setProperty('background', '#18254B', 'important');
-            self.style.setProperty('background-color', '#18254B', 'important');
-            self.style.setProperty('border-color', '#18254B', 'important');
-            self.style.setProperty('color', '#ffffff', 'important');
-            function whiteChildren() {
-              self.querySelectorAll('*').forEach(function(el) {
-                el.style.setProperty('color', '#ffffff', 'important');
-                el.style.setProperty('fill', '#ffffff', 'important');
-              });
-            }
-            whiteChildren();
-            setTimeout(whiteChildren, 0);
-            setTimeout(whiteChildren, 50);
-          });
-          btn.addEventListener('mouseleave', function() {
-            var self = this;
-            self.style.removeProperty('background');
-            self.style.removeProperty('background-color');
-            self.style.removeProperty('border-color');
-            // Explicitly restore navy — don't just remove, IDX will set it back to invisible
-            self.style.setProperty('color', '#18254B', 'important');
-            self.querySelectorAll('*').forEach(function(el) {
-              el.style.setProperty('color', '#18254B', 'important');
-              el.style.setProperty('fill', '#18254B', 'important');
-            });
-          });
+          wireBtn(btn, '#18254B');
         });
       });
 
-      // PRINT FLYER, PHOTOS, TOUR — dark buttons: white text default, stay white on hover
+      // PRINT FLYER, PHOTOS, TOUR — dark: revert to CSS on mouseleave
       ['#IDX-printable', '#IDX-printFlyer', '#IDX-detailsPhotoGalleryLink', '.IDX-detailsVirtualTourAction'].forEach(function(sel) {
         document.querySelectorAll(sel).forEach(function(btn) {
-          if (btn.dataset.tjgHover) return;
-          btn.dataset.tjgHover = '1';
-          btn.addEventListener('mouseenter', function() {
-            var self = this;
-            self.style.setProperty('background', '#18254B', 'important');
-            self.style.setProperty('background-color', '#18254B', 'important');
-            self.style.setProperty('border-color', '#18254B', 'important');
-            self.style.setProperty('color', '#ffffff', 'important');
-            function whiteChildren() {
-              self.querySelectorAll('*').forEach(function(el) {
-                el.style.setProperty('color', '#ffffff', 'important');
-                el.style.setProperty('fill', '#ffffff', 'important');
-              });
-            }
-            whiteChildren();
-            setTimeout(whiteChildren, 0);
-            setTimeout(whiteChildren, 50);
-          });
-          btn.addEventListener('mouseleave', function() {
-            this.style.removeProperty('background');
-            this.style.removeProperty('background-color');
-            this.style.removeProperty('border-color');
-            this.style.removeProperty('color');
-            this.querySelectorAll('*').forEach(function(el) {
-              el.style.removeProperty('color');
-              el.style.removeProperty('fill');
-            });
-          });
+          wireBtn(btn, null);
         });
       });
     }
