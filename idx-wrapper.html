@@ -288,20 +288,21 @@
     _fixAgentInfo();
     new MutationObserver(_fixAgentInfo).observe(document.body, { childList: true, subtree: true });
 
-    // ADD TO FAVORITES + PRINT FLYER — static: cream bg, navy text, always
-    var NAVY = '#18254B', CREAM = '#F3EFE8';
+    // ADD TO FAVORITES + PRINT FLYER
+    // Default: cream bg, navy text | Hover: navy bg, white text
+    var NAVY = '#18254B', CREAM = '#F3EFE8', WHITE = '#ffffff';
 
-    function _lockBtn(btn) {
-      btn.style.setProperty('background', CREAM, 'important');
-      btn.style.setProperty('background-color', CREAM, 'important');
-      btn.style.setProperty('color', NAVY, 'important');
+    function _setBtnColors(btn, bg, color) {
+      btn.style.setProperty('background', bg, 'important');
+      btn.style.setProperty('background-color', bg, 'important');
+      btn.style.setProperty('color', color, 'important');
       btn.style.setProperty('border', '2px solid ' + NAVY, 'important');
       btn.style.setProperty('border-radius', '0', 'important');
       btn.style.setProperty('opacity', '1', 'important');
       btn.style.setProperty('transition', 'none', 'important');
       btn.querySelectorAll('*').forEach(function(el) {
-        el.style.setProperty('color', NAVY, 'important');
-        el.style.setProperty('fill', NAVY, 'important');
+        el.style.setProperty('color', color, 'important');
+        el.style.setProperty('fill', color, 'important');
         el.style.setProperty('opacity', '1', 'important');
         el.style.setProperty('transition', 'none', 'important');
       });
@@ -314,26 +315,31 @@
       addFav.dataset.tjgWired = '1';
       if (print) print.dataset.tjgWired = '1';
 
-      [addFav, print].forEach(function(btn) {
-        if (!btn) return;
-        _lockBtn(btn);
-        // Re-enforce if IDX mutates the button at any point
+      function wireBtn(btn) {
+        var hovered = false;
         var lock = false;
+        _setBtnColors(btn, CREAM, NAVY);
+        btn.addEventListener('mouseenter', function() {
+          hovered = true;
+          _setBtnColors(btn, NAVY, WHITE);
+        });
+        btn.addEventListener('mouseleave', function() {
+          hovered = false;
+          _setBtnColors(btn, CREAM, NAVY);
+        });
         new MutationObserver(function() {
           if (lock) return;
           lock = true;
-          _lockBtn(btn);
+          if (hovered) { _setBtnColors(btn, NAVY, WHITE); } else { _setBtnColors(btn, CREAM, NAVY); }
           setTimeout(function() { lock = false; }, 100);
         }).observe(btn, { attributes: true, subtree: true, attributeFilter: ['style', 'class'] });
-      });
+        [500, 1500, 3000, 5000].forEach(function(ms) {
+          setTimeout(function() { if (!hovered) _setBtnColors(btn, CREAM, NAVY); }, ms);
+        });
+      }
 
-      // Re-enforce at IDX's delayed-init milestones
-      [500, 1500, 3000, 5000].forEach(function(ms) {
-        setTimeout(function() {
-          _lockBtn(addFav);
-          if (print) _lockBtn(print);
-        }, ms);
-      });
+      wireBtn(addFav);
+      if (print) wireBtn(print);
     }
     _fixHeaderButtons();
     new MutationObserver(_fixHeaderButtons).observe(document.body, { childList: true, subtree: true });
