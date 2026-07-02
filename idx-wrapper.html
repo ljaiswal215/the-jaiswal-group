@@ -290,13 +290,50 @@
 
     // Button hover — IDX inline styles block CSS :hover, so force via JS
     function _fixButtonHovers() {
-      var selectors = [
-        '#IDX-saveProperty', '#IDX-addToFavorites',
-        '#IDX-printable', '#IDX-printFlyer',
-        '#IDX-detailsPhotoGalleryLink',
-        '.IDX-detailsVirtualTourAction'
-      ];
-      selectors.forEach(function(sel) {
+      // ADD TO FAVORITES — outline button: default navy text, hover white text on navy bg
+      ['#IDX-saveProperty', '#IDX-addToFavorites'].forEach(function(sel) {
+        document.querySelectorAll(sel).forEach(function(btn) {
+          if (btn.dataset.tjgHover) return;
+          btn.dataset.tjgHover = '1';
+          // Force navy text immediately (IDX overrides the CSS default)
+          btn.style.setProperty('color', '#18254B', 'important');
+          btn.querySelectorAll('*').forEach(function(el) {
+            el.style.setProperty('color', '#18254B', 'important');
+            el.style.setProperty('fill', '#18254B', 'important');
+          });
+          btn.addEventListener('mouseenter', function() {
+            var self = this;
+            self.style.setProperty('background', '#18254B', 'important');
+            self.style.setProperty('background-color', '#18254B', 'important');
+            self.style.setProperty('border-color', '#18254B', 'important');
+            self.style.setProperty('color', '#ffffff', 'important');
+            function whiteChildren() {
+              self.querySelectorAll('*').forEach(function(el) {
+                el.style.setProperty('color', '#ffffff', 'important');
+                el.style.setProperty('fill', '#ffffff', 'important');
+              });
+            }
+            whiteChildren();
+            setTimeout(whiteChildren, 0);
+            setTimeout(whiteChildren, 50);
+          });
+          btn.addEventListener('mouseleave', function() {
+            var self = this;
+            self.style.removeProperty('background');
+            self.style.removeProperty('background-color');
+            self.style.removeProperty('border-color');
+            // Explicitly restore navy — don't just remove, IDX will set it back to invisible
+            self.style.setProperty('color', '#18254B', 'important');
+            self.querySelectorAll('*').forEach(function(el) {
+              el.style.setProperty('color', '#18254B', 'important');
+              el.style.setProperty('fill', '#18254B', 'important');
+            });
+          });
+        });
+      });
+
+      // PRINT FLYER, PHOTOS, TOUR — dark buttons: white text default, stay white on hover
+      ['#IDX-printable', '#IDX-printFlyer', '#IDX-detailsPhotoGalleryLink', '.IDX-detailsVirtualTourAction'].forEach(function(sel) {
         document.querySelectorAll(sel).forEach(function(btn) {
           if (btn.dataset.tjgHover) return;
           btn.dataset.tjgHover = '1';
