@@ -274,12 +274,14 @@
     // Replace agent name and phone on moreinfo page
     function _fixAgentInfo() {
       document.querySelectorAll('.IDX-contact__name').forEach(function(el) {
-        if (el.textContent.trim() === 'Lynnette Jaiswal') {
+        if (!el.dataset.tjgFixed && el.textContent.trim() === 'Lynnette Jaiswal') {
+          el.dataset.tjgFixed = '1';
           el.textContent = 'The Jaiswal Group Real Estate';
         }
       });
       var info = document.querySelector('#IDX-contactInfo');
-      if (info) {
+      if (info && !info.dataset.tjgFixed && info.innerHTML.indexOf('858-663-4896') > -1) {
+        info.dataset.tjgFixed = '1';
         info.innerHTML = info.innerHTML.replace('858-663-4896', '858-290-7531');
       }
     }
