@@ -1908,14 +1908,14 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 }
 .hotw-city {
   font-family: 'Lato', sans-serif;
-  font-size: 0.78rem;
+  font-size: 1rem;
   color: rgba(255,255,255,0.72);
   letter-spacing: 0.07em;
   margin: 0.4rem 0 1rem;
 }
 .hotw-specs {
   font-family: 'Lato', sans-serif;
-  font-size: 0.76rem;
+  font-size: 0.95rem;
   color: rgba(255,255,255,0.75);
   letter-spacing: 0.06em;
   margin: 0 0 1.5rem;
@@ -1924,7 +1924,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   display: inline-block;
   color: #fff;
   font-family: 'Lato', sans-serif;
-  font-size: 0.68rem;
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
