@@ -322,12 +322,31 @@
           setTimeout(function() { enforcing = false; }, 20);
         }
 
+        function applyDefault() {
+          // Outline button default: transparent background, navy text
+          enforcing = true;
+          btn.style.setProperty('transition', 'none', 'important');
+          btn.style.setProperty('background', 'transparent', 'important');
+          btn.style.setProperty('background-color', 'transparent', 'important');
+          btn.style.setProperty('border-color', '#18254B', 'important');
+          btn.style.setProperty('color', restoreColor, 'important');
+          btn.style.setProperty('opacity', '1', 'important');
+          btn.querySelectorAll('*').forEach(function(el) {
+            el.style.setProperty('transition', 'none', 'important');
+            el.style.setProperty('color', restoreColor, 'important');
+            el.style.setProperty('fill', restoreColor, 'important');
+            el.style.setProperty('opacity', '1', 'important');
+          });
+          setTimeout(function() { enforcing = false; }, 20);
+        }
+
         function restore() {
-          btn.style.removeProperty('background');
-          btn.style.removeProperty('background-color');
           btn.style.removeProperty('border-color');
           btn.style.removeProperty('opacity');
           if (restoreColor) {
+            // Outline button — force transparent bg + navy text explicitly
+            btn.style.setProperty('background', 'transparent', 'important');
+            btn.style.setProperty('background-color', 'transparent', 'important');
             btn.style.setProperty('color', restoreColor, 'important');
             btn.querySelectorAll('*').forEach(function(el) {
               el.style.setProperty('color', restoreColor, 'important');
@@ -335,6 +354,9 @@
               el.style.removeProperty('opacity');
             });
           } else {
+            // Dark button — revert to CSS (navy bg + white text handled by stylesheet)
+            btn.style.removeProperty('background');
+            btn.style.removeProperty('background-color');
             btn.style.removeProperty('color');
             btn.querySelectorAll('*').forEach(function(el) {
               el.style.removeProperty('color');
@@ -355,15 +377,24 @@
           restore();
         });
 
-        // Re-enforce immediately whenever IDX mutates the button or a child's style
+        // Re-enforce hover state OR default state whenever IDX mutates anything
         new MutationObserver(function() {
-          if (hovered && !enforcing) enforce();
+          if (enforcing) return;
+          if (hovered) {
+            enforce();
+          } else if (restoreColor) {
+            // IDX changed something in default state (e.g. post-load init, saved status)
+            // Re-enforce our default: transparent + navy
+            applyDefault();
+          }
         }).observe(btn, { attributes: true, subtree: true, attributeFilter: ['style', 'class'] });
       }
 
       // ADD TO FAVORITES — outline: restore navy on mouseleave
       ['#IDX-saveProperty', '#IDX-addToFavorites'].forEach(function(sel) {
         document.querySelectorAll(sel).forEach(function(btn) {
+          btn.style.setProperty('background', 'transparent', 'important');
+          btn.style.setProperty('background-color', 'transparent', 'important');
           btn.style.setProperty('color', '#18254B', 'important');
           btn.querySelectorAll('*').forEach(function(el) {
             el.style.setProperty('color', '#18254B', 'important');
