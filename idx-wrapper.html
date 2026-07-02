@@ -14,6 +14,37 @@
     .nav-links > li > a { font-size: 0.72rem !important; letter-spacing: 0.07em !important; padding: 0.5rem 0.6rem !important; }
     .nav-logo img { height: 70px !important; }
     .main-nav { padding: 0.5rem 1.5rem !important; }
+
+    /* ─── TJG Agent Card (listing detail aside) ─── */
+    #tjg-agent-card { background:#fff; border:1px solid #E0D9CF; border-radius:8px; padding:20px; margin-bottom:16px; font-family:'Lato',sans-serif; }
+    #tjg-agent-card__header { display:flex; align-items:center; gap:14px; margin-bottom:18px; }
+    #tjg-agent-card__logo { width:56px; height:56px; border-radius:50%; background:#18254B; display:flex; align-items:center; justify-content:center; flex-shrink:0; padding:10px; box-sizing:border-box; }
+    #tjg-agent-card__logo img { width:100%; height:100%; object-fit:contain; filter:brightness(0) invert(1); }
+    #tjg-agent-card__name { font-family:'Marcellus',serif; color:#18254B; font-size:0.95rem; display:block; line-height:1.3; }
+    #tjg-agent-card__dre { color:#7a7269; font-size:0.68rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; display:block; margin-top:4px; }
+    #tjg-tour-btn { display:block; width:100%; background:#18254B; color:#fff; border:none; border-radius:0; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:14px; cursor:pointer; margin-bottom:10px; }
+    #tjg-tour-btn:hover { background:#0f1a35; }
+    #tjg-contact-btn { display:block; width:100%; background:transparent; color:#18254B; border:2px solid #18254B; border-radius:0; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:12px; cursor:pointer; text-align:center; text-decoration:none; box-sizing:border-box; }
+    #tjg-contact-btn:hover { background:#18254B; color:#fff; }
+
+    /* ─── Tour Request Modal ─── */
+    #tjg-tour-modal { display:none; position:fixed; inset:0; z-index:99999; align-items:center; justify-content:center; }
+    #tjg-tour-modal.tjg-open { display:flex; }
+    #tjg-tour-overlay { position:absolute; inset:0; background:rgba(24,37,75,0.75); }
+    #tjg-tour-box { position:relative; background:#fff; border-radius:8px; padding:32px; width:90%; max-width:480px; max-height:90vh; overflow-y:auto; z-index:1; box-shadow:0 8px 40px rgba(0,0,0,0.25); }
+    #tjg-tour-close { position:absolute; top:14px; right:18px; background:none; border:none; font-size:26px; color:#18254B; cursor:pointer; line-height:1; padding:0; }
+    #tjg-tour-box h3 { font-family:'Marcellus',serif !important; color:#18254B; font-size:1.4rem; margin:0 0 6px; }
+    #tjg-tour-box .tjg-subtitle { font-family:'Lato',sans-serif; font-size:0.82rem; color:#7a7269; margin-bottom:22px; }
+    #tjg-tour-form label { display:block; font-family:'Lato',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#18254B; margin:14px 0 4px; }
+    #tjg-tour-form input, #tjg-tour-form textarea { width:100%; padding:10px 12px; border:1.5px solid #E0D9CF; border-radius:4px; font-family:'Lato',sans-serif; font-size:0.88rem; color:#18254B; box-sizing:border-box; outline:none; }
+    #tjg-tour-form input:focus, #tjg-tour-form textarea:focus { border-color:#18254B; }
+    #tjg-tour-form textarea { resize:vertical; min-height:70px; }
+    .tjg-form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .tjg-form-row > div label { margin-top:0; }
+    #tjg-tour-submit { display:block; width:100%; background:#18254B; color:#fff; border:none; border-radius:0; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:15px; cursor:pointer; margin-top:22px; }
+    #tjg-tour-submit:hover { background:#0f1a35; }
+    #tjg-tour-success { display:none; text-align:center; padding:20px 0; font-family:'Lato',sans-serif; color:#18254B; }
+    #tjg-tour-success h4 { font-family:'Marcellus',serif !important; font-size:1.2rem; margin-bottom:10px; }
   </style>
 </head>
 <body>
@@ -287,6 +318,93 @@
     }
     _fixAgentInfo();
     new MutationObserver(_fixAgentInfo).observe(document.body, { childList: true, subtree: true });
+
+    // ── TJG Agent Card — injected into listing detail aside ──
+    function _injectAgentCard() {
+      if (document.getElementById('tjg-agent-card')) return;
+      var formWrap = document.getElementById('IDX-detailsLeadFormWrap');
+      if (!formWrap) return;
+
+      // Property address auto-filled into the form subject
+      var addrEl   = document.getElementById('IDX-detailsAddressStreet');
+      var regionEl = document.getElementById('IDX-detailsAddressRegion');
+      var propAddr = [addrEl && addrEl.textContent.trim(), regionEl && regionEl.textContent.trim()].filter(Boolean).join(', ');
+
+      // Hide old agent info card and aside header
+      var oldCard = document.getElementById('IDX-contactInformation');
+      if (oldCard) oldCard.style.display = 'none';
+      var asideHdr = document.querySelector('#IDX-detailscontactContainer > h2, #IDX-detailscontactContainer > .IDX-pageHeader');
+      if (asideHdr) asideHdr.style.display = 'none';
+
+      // Build agent card
+      var card = document.createElement('div');
+      card.id = 'tjg-agent-card';
+      card.innerHTML =
+        '<div id="tjg-agent-card__header">' +
+          '<div id="tjg-agent-card__logo">' +
+            '<img src="https://ljaiswal215.github.io/the-jaiswal-group/LOGOS/JaiswalGroupRE_white.png" alt="The Jaiswal Group Real Estate">' +
+          '</div>' +
+          '<div>' +
+            '<span id="tjg-agent-card__name">The Jaiswal Group Real Estate</span>' +
+            '<span id="tjg-agent-card__dre">CA DRE #02251231</span>' +
+          '</div>' +
+        '</div>' +
+        '<button id="tjg-tour-btn">Request a Tour</button>' +
+        '<a href="https://ljaiswal215.github.io/the-jaiswal-group/contact.html" id="tjg-contact-btn" target="_blank">Contact Us</a>';
+      formWrap.parentNode.insertBefore(card, formWrap);
+
+      // Build modal (only once)
+      var modal = document.createElement('div');
+      modal.id = 'tjg-tour-modal';
+      modal.innerHTML =
+        '<div id="tjg-tour-overlay"></div>' +
+        '<div id="tjg-tour-box">' +
+          '<button id="tjg-tour-close" aria-label="Close">&times;</button>' +
+          '<h3>Request a Tour</h3>' +
+          '<p class="tjg-subtitle">We\'ll reach out shortly to confirm your tour details.</p>' +
+          '<form id="tjg-tour-form" action="https://formspree.io/f/YOUR_FORMSPREE_TOUR_ID" method="POST">' +
+            '<input type="hidden" name="_subject" value="Tour Request — ' + propAddr + '">' +
+            '<input type="hidden" name="property" value="' + propAddr + '">' +
+            '<div class="tjg-form-row">' +
+              '<div><label for="tjg-fname">First Name *</label><input id="tjg-fname" name="first_name" type="text" required></div>' +
+              '<div><label for="tjg-lname">Last Name *</label><input id="tjg-lname" name="last_name" type="text" required></div>' +
+            '</div>' +
+            '<label for="tjg-email">Email *</label><input id="tjg-email" name="email" type="email" required>' +
+            '<label for="tjg-phone">Phone</label><input id="tjg-phone" name="phone" type="tel">' +
+            '<label for="tjg-date">Preferred Date</label><input id="tjg-date" name="preferred_date" type="date">' +
+            '<label for="tjg-msg">Message</label><textarea id="tjg-msg" name="message" rows="3"></textarea>' +
+            '<button type="submit" id="tjg-tour-submit">Send Request</button>' +
+          '</form>' +
+          '<div id="tjg-tour-success"><h4>Tour Request Sent!</h4><p>We\'ll be in touch shortly to confirm your details.</p></div>' +
+        '</div>';
+      document.body.appendChild(modal);
+
+      document.getElementById('tjg-tour-btn').addEventListener('click', function() {
+        document.getElementById('tjg-tour-modal').classList.add('tjg-open');
+      });
+      document.getElementById('tjg-tour-close').addEventListener('click', function() {
+        document.getElementById('tjg-tour-modal').classList.remove('tjg-open');
+      });
+      document.getElementById('tjg-tour-overlay').addEventListener('click', function() {
+        document.getElementById('tjg-tour-modal').classList.remove('tjg-open');
+      });
+      document.getElementById('tjg-tour-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var form = this, btn = document.getElementById('tjg-tour-submit');
+        btn.textContent = 'Sending…';
+        btn.disabled = true;
+        fetch(form.action, { method:'POST', body:new FormData(form), headers:{'Accept':'application/json'} })
+          .then(function(r) {
+            if (r.ok) {
+              form.style.display = 'none';
+              document.getElementById('tjg-tour-success').style.display = 'block';
+            } else { btn.textContent = 'Send Request'; btn.disabled = false; alert('Something went wrong. Please call us at (858) 290-7531.'); }
+          })
+          .catch(function() { btn.textContent = 'Send Request'; btn.disabled = false; alert('Something went wrong. Please call us at (858) 290-7531.'); });
+      });
+    }
+    _injectAgentCard();
+    new MutationObserver(_injectAgentCard).observe(document.body, { childList: true, subtree: true });
 
     // ADD TO FAVORITES + PRINT FLYER
     // Default: cream bg, navy text | Hover: navy bg, white text
