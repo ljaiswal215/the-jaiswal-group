@@ -388,6 +388,14 @@
             applyDefault();
           }
         }).observe(btn, { attributes: true, subtree: true, attributeFilter: ['style', 'class'] });
+
+        // Proactively re-enforce at IDX's common delayed-init milestones
+        // Eliminates the brief flash before the MutationObserver can react
+        if (restoreColor) {
+          [500, 1500, 3000, 5000].forEach(function(ms) {
+            setTimeout(function() { if (!hovered) applyDefault(); }, ms);
+          });
+        }
       }
 
       // ADD TO FAVORITES — outline: restore navy on mouseleave
