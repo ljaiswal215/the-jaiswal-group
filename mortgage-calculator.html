@@ -282,8 +282,81 @@
       font-size: 0.9rem;
       color: #3a4a6b;
       line-height: 1.9;
-      margin: 0;
+      margin: 0 0 0.75rem;
     }
+    .calc-faq-item p:last-child { margin-bottom: 0; }
+    .calc-info-intro {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.95rem;
+      color: #4a5568;
+      line-height: 1.9;
+      margin-bottom: 1.25rem;
+    }
+    .calc-faq-list, .calc-faq-check {
+      margin: 0.5rem 0 0.75rem 0;
+      padding: 0;
+      list-style: none;
+    }
+    .calc-faq-list li, .calc-faq-check li {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      color: #3a4a6b;
+      line-height: 1.75;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+    .calc-faq-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: #B38987;
+    }
+    .calc-faq-check li::before {
+      content: '✔';
+      position: absolute;
+      left: 0;
+      color: #B38987;
+      font-size: 0.8rem;
+    }
+    .calc-need-help {
+      margin-top: 2.5rem;
+      background: #18254B;
+      padding: 2rem 2.25rem;
+    }
+    .calc-need-help h3 {
+      font-family: 'Marcellus', serif;
+      font-size: 1.3rem;
+      color: #fff;
+      letter-spacing: 0.06em;
+      margin-bottom: 1rem;
+    }
+    .calc-need-help p {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.85;
+      margin-bottom: 0.85rem;
+    }
+    .calc-need-help ul {
+      margin: 0.5rem 0 1rem 0;
+      padding: 0;
+      list-style: none;
+    }
+    .calc-need-help ul li {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.8;
+      padding-left: 1.25rem;
+      position: relative;
+    }
+    .calc-need-help ul li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: #B38987;
+    }
+    .calc-need-help a { color: #B38987; text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -504,42 +577,121 @@
   <section class="calc-info">
     <div class="calc-info-inner">
       <p class="section-eyebrow">UNDERSTANDING YOUR PAYMENT</p>
-      <h2>WHAT GOES INTO YOUR MONTHLY PAYMENT?</h2>
+      <h2>UNDERSTANDING THE TRUE COST OF BUYING A HOME IN SAN DIEGO</h2>
+      <p class="calc-info-intro">A mortgage payment is more than just principal and interest. When buying a home in San Diego, it's important to understand the full monthly cost of ownership — including property taxes, homeowners insurance, HOA dues, and Mello-Roos. Our mortgage calculator helps estimate your monthly payment so you can budget more confidently and make informed decisions.</p>
+      <p class="calc-info-intro">If you want personalized guidance, we also work closely with trusted San Diego mortgage lenders and lending partners who can help you explore financing options, estimate cash-to-close, and determine what loan program may be the best fit for your goals.</p>
+
       <div class="calc-faq-item">
         <h3>Principal &amp; Interest (P&amp;I)</h3>
-        <p>This is the core of your mortgage payment. Principal is the portion that reduces your loan balance; interest is the cost of borrowing. Your rate, loan amount, and term determine this figure — it remains fixed for the life of a fixed-rate loan.</p>
+        <p>Principal and interest form the foundation of your mortgage payment. The principal is the amount borrowed that reduces your loan balance over time, while interest is the cost of borrowing from your lender.</p>
+        <p>Your monthly principal and interest payment is based on:</p>
+        <ul class="calc-faq-list">
+          <li>Purchase price</li>
+          <li>Down payment</li>
+          <li>Interest rate</li>
+          <li>Loan term (typically 15 or 30 years)</li>
+        </ul>
+        <p>For fixed-rate mortgages, this portion of your payment remains stable for the life of the loan, making it one of the most predictable parts of your housing payment.</p>
       </div>
+
       <div class="calc-faq-item">
-        <h3>Property Tax</h3>
-        <p>California property taxes are assessed by the county at approximately 1% of the purchase price, plus any voter-approved local assessments. In San Diego County, the effective rate typically falls between 1.1% and 1.3% depending on the city and any special districts. The calculator defaults to 1.14% — adjust it to match your target area.</p>
+        <h3>Property Taxes in San Diego</h3>
+        <p>Property taxes are one of the largest ongoing costs of owning a home in California. In most cases, San Diego property taxes start at approximately 1% of the assessed value, plus voter-approved local assessments, bonds, and special taxes.</p>
+        <p>In reality, the effective property tax rate in San Diego County often ranges between 1.1% and 1.3%, depending on the city, neighborhood, and whether the home carries additional obligations like Mello-Roos.</p>
+        <p>Our calculator defaults to 1.14%, but this should be adjusted based on the property you're considering.</p>
       </div>
+
       <div class="calc-faq-item">
-        <h3>What is Proposition 13?</h3>
-        <p>Passed by California voters in 1978, Proposition 13 is a foundational law that shapes how property taxes work in this state. It limits property taxes to 1% of a home's assessed value, plus any local voter-approved assessments. The assessed value is set at the purchase price when you buy — and from that point forward, it can only increase by a maximum of 2% per year, regardless of how much the home appreciates in the market.</p>
-        <p>This is why long-time homeowners in California often pay significantly lower property taxes than buyers who purchase today at current market prices. When a property sells, the assessed value resets to the new purchase price. As a buyer, your property tax obligation will be based on what you pay — not what the prior owner paid years ago. This is an important distinction to understand when budgeting for a home purchase in San Diego.</p>
+        <h3>What Is Proposition 13?</h3>
+        <p>Proposition 13 is one of the most important laws affecting California property taxes. Passed in 1978, it limits the base property tax rate to 1% of a home's assessed value and caps annual increases in assessed value at no more than 2% per year.</p>
+        <p>This means:</p>
+        <ul class="calc-faq-list">
+          <li>Your assessed value starts at your purchase price</li>
+          <li>Property taxes grow slowly over time</li>
+          <li>Long-term owners often pay significantly less in taxes than new buyers purchasing at today's market values</li>
+        </ul>
+        <p>When a property sells, the tax basis resets. This is why buyers in San Diego should calculate property taxes based on their purchase price — not what the current owner is paying.</p>
       </div>
+
       <div class="calc-faq-item">
         <h3>What Are Supplemental Property Taxes?</h3>
-        <p>When you purchase a home in California, you will receive a supplemental property tax bill in addition to your regular annual tax bill. This is a one-time charge that covers the difference between the previous owner's assessed value and your new purchase price — prorated for the remaining months of the current fiscal tax year, which runs July 1 through June 30.</p>
-        <p>Depending on when you close escrow, you may receive one or two supplemental bills. These are billed separately and are typically <strong>not</strong> included in your lender's initial escrow estimate, so it is important to budget for them on top of your regular property tax payments. Supplemental bills are mailed directly to you by the San Diego County Treasurer-Tax Collector. For full details on how supplemental taxes are calculated and when to expect your bill, visit the <a href="https://www.sdttc.com/content/ttc/en/tax-collection/supplemental-taxes.html" target="_blank" rel="noopener" style="color:#18254B;text-decoration:underline;">San Diego Treasurer-Tax Collector's supplemental tax page</a>.</p>
+        <p>Many California home buyers are surprised by supplemental property taxes.</p>
+        <p>When you buy a home, the county reassesses the property at your purchase price. If the seller's tax basis was lower, you may receive a separate supplemental tax bill covering the difference for the remainder of the fiscal year.</p>
+        <p>This is:</p>
+        <ul class="calc-faq-check">
+          <li>A one-time charge</li>
+          <li>Billed directly by the county</li>
+          <li>Often not included in your lender's escrow setup</li>
+        </ul>
+        <p>Depending on your closing date, you may receive one or even two supplemental tax bills. This is an important upfront cost many buyers overlook.</p>
       </div>
+
       <div class="calc-faq-item">
-        <h3>What Is the Difference Between Assessed Value and Market Value?</h3>
-        <p>These two figures often get confused, but they serve very different purposes. <strong>Market value</strong> is what a buyer is willing to pay for a home and what a seller can reasonably expect to receive — it is driven by current supply and demand, comparable sales, location, condition, and timing. It fluctuates with the market and is what determines your purchase price.</p>
-        <p><strong>Assessed value</strong>, on the other hand, is the figure the county uses specifically to calculate your property tax bill. In California, thanks to Proposition 13, your assessed value is set at your purchase price when you buy and can increase by no more than 2% per year — even if your home's market value climbs 20% in a single year. Over time, this means a home's market value can far exceed its assessed value, particularly for long-term owners.</p>
-        <p>As a buyer, your assessed value will start close to your purchase price, so your property taxes will initially reflect current market conditions. But as the years pass, your assessed value grows slowly while your home's market value may rise much faster — which is one of the built-in financial benefits of owning property in California.</p>
+        <h3>Assessed Value vs. Market Value</h3>
+        <p>Understanding the difference between market value and assessed value is critical.</p>
+        <p><strong>Market value</strong> is what a home is worth in today's market based on comparable sales, demand, condition, and location.</p>
+        <p><strong>Assessed value</strong> is what the county uses to calculate your property taxes.</p>
+        <p>In California, Proposition 13 keeps assessed value growth limited — even when market value rises significantly. This creates one of the long-term financial advantages of homeownership in California.</p>
       </div>
+
       <div class="calc-faq-item">
         <h3>Homeowners Insurance</h3>
-        <p>Most lenders require homeowners insurance, and your lender will typically include it in your monthly payment via an escrow account. Costs vary based on coverage, home size, and location — $100 to $250/month is a common range for San Diego County homes.</p>
+        <p>Most lenders require homeowners insurance in San Diego, and it's typically collected as part of your monthly mortgage payment through escrow.</p>
+        <p>Insurance costs vary based on:</p>
+        <ul class="calc-faq-list">
+          <li>Home value</li>
+          <li>Replacement cost</li>
+          <li>Fire zone exposure</li>
+          <li>Age of home</li>
+          <li>Coverage levels</li>
+        </ul>
+        <p>In San Diego County, many buyers can expect homeowners insurance costs to range between $100–$250 per month, though homes in wildfire-prone areas may be higher.</p>
+        <p>If you're comparing properties, our trusted lender partners can help estimate insurance costs more accurately based on your target neighborhood.</p>
       </div>
+
       <div class="calc-faq-item">
         <h3>HOA Dues</h3>
-        <p>Many communities in San Diego — particularly in master-planned developments like Pacific Highlands Ranch, Rancho Tesoro, and Carmel Valley — have Homeowners Associations (HOAs) that charge monthly dues. These cover shared amenities, common area maintenance, and community services. HOA dues vary widely by community; contact us for current rates in a specific neighborhood.</p>
+        <p>Many homes in San Diego — especially in master-planned communities like Pacific Highlands Ranch, Carmel Valley, Del Sur, Rancho Tesoro, and Otay Ranch — have monthly HOA dues.</p>
+        <p>HOA fees may cover:</p>
+        <ul class="calc-faq-list">
+          <li>Community maintenance</li>
+          <li>Pools and clubhouses</li>
+          <li>Gated security</li>
+          <li>Landscaping</li>
+          <li>Recreational amenities</li>
+        </ul>
+        <p>HOA dues can vary significantly by neighborhood and should always be factored into your monthly budget. If you're searching homes in a specific community, we can help provide current HOA information.</p>
       </div>
+
       <div class="calc-faq-item">
-        <h3>What is Mello-Roos?</h3>
-        <p>Mello-Roos is a special tax assessed in certain California communities to fund infrastructure improvements — roads, schools, parks, and utilities — in newer developments. It is charged in addition to standard property tax and can range from a few hundred to several thousand dollars per year depending on the district. Many newer communities in North San Diego County carry Mello-Roos assessments. We can help you understand the full tax picture for any home you're considering. <a href="BLOG/mello-roos-san-diego.html" style="color:#B38987;text-decoration:underline;">Read our full Mello-Roos guide &rarr;</a></p>
+        <h3>What Is Mello-Roos?</h3>
+        <p>Mello-Roos is a special tax assessment commonly found in newer California communities and master-planned developments. It helps fund infrastructure like schools, parks, roads, and utilities.</p>
+        <p>Unlike regular property taxes, Mello-Roos is separate and can add anywhere from a few hundred to several thousand dollars annually to your ownership costs.</p>
+        <p>In North County San Diego, Mello-Roos is common in communities like:</p>
+        <ul class="calc-faq-list">
+          <li>Pacific Highlands Ranch</li>
+          <li>4S Ranch / Del Sur</li>
+          <li>Santaluz</li>
+          <li>San Elijo Hills</li>
+          <li>Bressi Ranch</li>
+        </ul>
+        <p>Before making an offer, it's important to understand the total tax picture — and we can help you evaluate that.</p>
+        <p><a href="BLOG/mello-roos-san-diego.html" style="color:#B38987;text-decoration:underline;">Read more: What Is Mello-Roos in San Diego? &rarr;</a></p>
+      </div>
+
+      <div class="calc-need-help">
+        <h3>Need Help Understanding What You Can Afford?</h3>
+        <p>A mortgage calculator is a great starting point — but every buyer's situation is different.</p>
+        <p>From loan strategy and monthly payment estimates to taxes, insurance, and closing costs, working with experienced local professionals can make a big difference.</p>
+        <p>We partner with trusted San Diego mortgage lenders who can help you:</p>
+        <ul>
+          <li>Compare loan programs</li>
+          <li>Estimate monthly payments</li>
+          <li>Determine down payment options</li>
+          <li>Understand cash-to-close</li>
+          <li>Evaluate affordability before you start shopping</li>
+        </ul>
+        <p><a href="#">Explore our trusted lender partners here. &rarr;</a></p>
       </div>
     </div>
   </section>
