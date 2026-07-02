@@ -350,8 +350,8 @@
       card.id = 'tjg-agent-card';
       card.innerHTML =
         '<div id="tjg-agent-card__header">' +
-          '<div id="tjg-agent-card__logo">' +
-            '<img src="https://ljaiswal215.github.io/the-jaiswal-group/logo.png" alt="The Jaiswal Group Real Estate">' +
+          '<div id="tjg-agent-card__logo" style="width:70px;flex-shrink:0;background:none!important;border-radius:0!important;padding:0!important;height:auto!important;display:block;">' +
+            '<img src="https://ljaiswal215.github.io/the-jaiswal-group/logo.png" alt="The Jaiswal Group Real Estate" style="width:100%;height:auto;object-fit:contain;display:block;filter:none!important;">' +
           '</div>' +
           '<div>' +
             '<span id="tjg-agent-card__name">The Jaiswal Group Real Estate</span>' +
@@ -363,6 +363,27 @@
 
       // Insert at the very top of the aside — outside IDX's collapsible widget
       aside.insertBefore(card, aside.firstChild);
+
+      // Force-apply styles after insertion to beat any cached IDX wrapper CSS
+      card.style.setProperty('background', '#F3EFE8', 'important');
+      var logoDiv = document.getElementById('tjg-agent-card__logo');
+      if (logoDiv) {
+        logoDiv.style.setProperty('background', 'none', 'important');
+        logoDiv.style.setProperty('border-radius', '0', 'important');
+        logoDiv.style.setProperty('padding', '0', 'important');
+        logoDiv.style.setProperty('height', 'auto', 'important');
+        logoDiv.style.setProperty('width', '70px', 'important');
+        logoDiv.style.setProperty('display', 'block', 'important');
+        var logoImg = logoDiv.querySelector('img');
+        if (logoImg) logoImg.style.setProperty('filter', 'none', 'important');
+      }
+      var tourBtn = document.getElementById('tjg-tour-btn');
+      if (tourBtn) {
+        tourBtn.style.setProperty('background', '#F3EFE8', 'important');
+        tourBtn.style.setProperty('background-color', '#F3EFE8', 'important');
+        tourBtn.style.setProperty('color', '#18254B', 'important');
+        tourBtn.style.setProperty('border', '2px solid #18254B', 'important');
+      }
 
       // Build modal (only once)
       var modal = document.createElement('div');
