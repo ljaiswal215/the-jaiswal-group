@@ -407,8 +407,12 @@
     new MutationObserver(_injectAgentCard).observe(document.body, { childList: true, subtree: true });
 
     // ADD TO FAVORITES + PRINT FLYER
-    // Default: cream bg, navy text | Hover: navy bg, white text
+    // Hover state driven by real cursor position — immune to IDX synthetic mouse events
     var NAVY = '#18254B', CREAM = '#F3EFE8', WHITE = '#ffffff';
+
+    // Track actual cursor coordinates globally
+    var _curX = -9999, _curY = -9999;
+    document.addEventListener('mousemove', function(e) { _curX = e.clientX; _curY = e.clientY; });
 
     function _setBtnColors(btn, bg, color) {
       btn.style.setProperty('background', bg, 'important');
@@ -426,6 +430,11 @@
       });
     }
 
+    function _btnOver(btn) {
+      var r = btn.getBoundingClientRect();
+      return _curX >= r.left && _curX <= r.right && _curY >= r.top && _curY <= r.bottom;
+    }
+
     function _fixHeaderButtons() {
       var addFav = document.getElementById('IDX-saveProperty') || document.getElementById('IDX-addToFavorites');
       var print  = document.getElementById('IDX-printable')   || document.getElementById('IDX-printFlyer');
@@ -434,25 +443,18 @@
       if (print) print.dataset.tjgWired = '1';
 
       function wireBtn(btn) {
-        var hovered = false;
         var lock = false;
         _setBtnColors(btn, CREAM, NAVY);
-        btn.addEventListener('mouseenter', function() {
-          hovered = true;
-          _setBtnColors(btn, NAVY, WHITE);
-        });
-        btn.addEventListener('mouseleave', function() {
-          hovered = false;
-          _setBtnColors(btn, CREAM, NAVY);
-        });
+        // Re-enforce correct state whenever IDX mutates the button
         new MutationObserver(function() {
           if (lock) return;
           lock = true;
-          if (hovered) { _setBtnColors(btn, NAVY, WHITE); } else { _setBtnColors(btn, CREAM, NAVY); }
+          if (_btnOver(btn)) { _setBtnColors(btn, NAVY, WHITE); } else { _setBtnColors(btn, CREAM, NAVY); }
           setTimeout(function() { lock = false; }, 100);
         }).observe(btn, { attributes: true, subtree: true, attributeFilter: ['style', 'class'] });
+        // Re-enforce default at IDX's delayed-init milestones
         [500, 1500, 3000, 5000].forEach(function(ms) {
-          setTimeout(function() { if (!hovered) _setBtnColors(btn, CREAM, NAVY); }, ms);
+          setTimeout(function() { if (!_btnOver(btn)) _setBtnColors(btn, CREAM, NAVY); }, ms);
         });
       }
 
@@ -461,6 +463,21 @@
     }
     _fixHeaderButtons();
     new MutationObserver(_fixHeaderButtons).observe(document.body, { childList: true, subtree: true });
+
+    // Apply hover colors only on real cursor movement crossing button boundary
+    document.addEventListener('mousemove', function() {
+      var addFav = document.getElementById('IDX-saveProperty') || document.getElementById('IDX-addToFavorites');
+      var print  = document.getElementById('IDX-printable')   || document.getElementById('IDX-printFlyer');
+      [addFav, print].forEach(function(btn) {
+        if (!btn || !btn.dataset.tjgWired) return;
+        var over = _btnOver(btn);
+        var prev = btn.dataset.tjgOver === '1';
+        if (over !== prev) {
+          btn.dataset.tjgOver = over ? '1' : '0';
+          if (over) { _setBtnColors(btn, NAVY, WHITE); } else { _setBtnColors(btn, CREAM, NAVY); }
+        }
+      });
+    });
 
     var _idxBackLinkObserver = new MutationObserver(function() {
       var topNav = document.querySelector('#IDX-detailsTopNav');
