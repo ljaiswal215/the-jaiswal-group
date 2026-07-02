@@ -288,12 +288,10 @@
     _fixAgentInfo();
     new MutationObserver(_fixAgentInfo).observe(document.body, { childList: true, subtree: true });
 
-    // ADD TO FAVORITES + PRINT FLYER
-    // Default: cream bg (#F3EFE8), navy text, square border
-    // Hover/active: navy bg, white text
-    var NAVY = '#18254B', CREAM = '#F3EFE8', WHITE = '#ffffff';
+    // ADD TO FAVORITES + PRINT FLYER — static: cream bg, navy text, always
+    var NAVY = '#18254B', CREAM = '#F3EFE8';
 
-    function _applyBtnDefault(btn) {
+    function _lockBtn(btn) {
       btn.style.setProperty('background', CREAM, 'important');
       btn.style.setProperty('background-color', CREAM, 'important');
       btn.style.setProperty('color', NAVY, 'important');
@@ -309,65 +307,31 @@
       });
     }
 
-    function _applyBtnActive(btn) {
-      btn.style.setProperty('background', NAVY, 'important');
-      btn.style.setProperty('background-color', NAVY, 'important');
-      btn.style.setProperty('color', WHITE, 'important');
-      btn.style.setProperty('border', '2px solid ' + NAVY, 'important');
-      btn.style.setProperty('border-radius', '0', 'important');
-      btn.style.setProperty('opacity', '1', 'important');
-      btn.style.setProperty('transition', 'none', 'important');
-      btn.querySelectorAll('*').forEach(function(el) {
-        el.style.setProperty('color', WHITE, 'important');
-        el.style.setProperty('fill', WHITE, 'important');
-        el.style.setProperty('opacity', '1', 'important');
-        el.style.setProperty('transition', 'none', 'important');
-      });
-    }
-
     function _fixHeaderButtons() {
       var addFav = document.getElementById('IDX-saveProperty') || document.getElementById('IDX-addToFavorites');
       var print  = document.getElementById('IDX-printable')   || document.getElementById('IDX-printFlyer');
       if (!addFav || addFav.dataset.tjgWired) return;
       addFav.dataset.tjgWired = '1';
       if (print) print.dataset.tjgWired = '1';
-      console.log('[TJG] Header buttons wired');
 
-      var hovered = { addFav: false, print: false };
-
-      function wireBtn(btn, key) {
+      [addFav, print].forEach(function(btn) {
+        if (!btn) return;
+        _lockBtn(btn);
+        // Re-enforce if IDX mutates the button at any point
         var lock = false;
-        btn.addEventListener('mouseenter', function() {
-          console.log('[TJG] mouseenter:', key);
-          hovered[key] = true;
-          _applyBtnActive(btn);
-        });
-        btn.addEventListener('mouseleave', function() {
-          console.log('[TJG] mouseleave:', key);
-          hovered[key] = false;
-          _applyBtnDefault(btn);
-        });
-        // Re-enforce whenever IDX touches the button or its children
         new MutationObserver(function() {
           if (lock) return;
           lock = true;
-          console.log('[TJG] mutation on', key, '— hovered:', hovered[key]);
-          if (hovered[key]) { _applyBtnActive(btn); } else { _applyBtnDefault(btn); }
+          _lockBtn(btn);
           setTimeout(function() { lock = false; }, 100);
         }).observe(btn, { attributes: true, subtree: true, attributeFilter: ['style', 'class'] });
-      }
+      });
 
-      _applyBtnDefault(addFav);
-      if (print) _applyBtnDefault(print);
-      wireBtn(addFav, 'addFav');
-      if (print) wireBtn(print, 'print');
-
-      // Re-enforce at IDX's delayed-init milestones (AJAX checks, saved-property state, etc.)
+      // Re-enforce at IDX's delayed-init milestones
       [500, 1500, 3000, 5000].forEach(function(ms) {
         setTimeout(function() {
-          console.log('[TJG] milestone ' + ms + 'ms — hovered:', JSON.stringify(hovered));
-          if (!hovered.addFav) _applyBtnDefault(addFav);
-          if (print && !hovered.print) _applyBtnDefault(print);
+          _lockBtn(addFav);
+          if (print) _lockBtn(print);
         }, ms);
       });
     }
