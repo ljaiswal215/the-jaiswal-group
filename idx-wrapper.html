@@ -15,6 +15,24 @@
     .nav-logo img { height: 70px !important; }
     .main-nav { padding: 0.5rem 1.5rem !important; }
 
+    /* ─── Address & Title Fixes ─── */
+    /* Normalize street number + name to same size/weight */
+    #IDX-detailsAddressStreet * {
+      font-size: inherit !important;
+      font-weight: inherit !important;
+      font-family: inherit !important;
+      letter-spacing: inherit !important;
+    }
+    /* Restore the missing | divider between zip code and bed/bath */
+    .IDX-detailsAddress__divider {
+      display: inline-block !important;
+      margin: 0 6px !important;
+    }
+    .IDX-detailsAddress__divider::before {
+      content: '|' !important;
+      color: rgba(24,37,75,0.35) !important;
+    }
+
     /* ─── TJG Agent Card (listing detail aside) ─── */
     #tjg-agent-card { background:#F3EFE8; border:1px solid #E0D9CF; border-radius:0; padding:20px; margin-bottom:16px; font-family:'Lato',sans-serif; }
     #tjg-agent-card__header { display:flex; flex-direction:column; align-items:center; text-align:center; gap:10px; margin-bottom:18px; }
