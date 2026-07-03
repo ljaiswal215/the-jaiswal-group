@@ -529,6 +529,19 @@
       });
     });
 
+    // Prevent flash of off-area listings on map search page load
+    (function() {
+      if (window.location.href.indexOf('mapsearch') === -1 &&
+          window.location.href.indexOf('/map/') === -1) return;
+      var _mapHideStyle = document.createElement('style');
+      _mapHideStyle.textContent = '#prime-map-search--results, #IDX-mapResultsList, .idx-map-search-results { opacity:0 !important; transition:opacity 0.7s ease; }';
+      document.head.appendChild(_mapHideStyle);
+      setTimeout(function() {
+        _mapHideStyle.textContent = '#prime-map-search--results, #IDX-mapResultsList, .idx-map-search-results { opacity:1 !important; transition:opacity 0.7s ease; }';
+        setTimeout(function() { _mapHideStyle.remove(); }, 800);
+      }, 2200);
+    })();
+
     var _idxBackLinkObserver = new MutationObserver(function() {
       var topNav = document.querySelector('#IDX-detailsTopNav');
       if (!topNav) return;
