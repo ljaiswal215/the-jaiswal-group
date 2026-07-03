@@ -685,10 +685,20 @@
     _injectSignupBranding();
     [300, 800, 1500].forEach(function(ms) { setTimeout(_injectSignupBranding, ms); });
 
+    // Safety: if a prior bad run hid #IDX-main, restore it immediately
+    (function _recoverIDXMain() {
+      var m = document.getElementById('IDX-main');
+      if (m) m.style.removeProperty('display');
+    })();
+
     // Replace/fix IDX text strings we can't edit in admin
     function _fixSignupText() {
       var isSignup = document.querySelector('#IDX-main.IDX-page-usersignup');
       var isSignin = document.querySelector('#IDX-main.IDX-page-usersignin');
+
+      // Safety: ensure #IDX-main is never hidden by our code
+      var main = document.getElementById('IDX-main');
+      if (main) main.style.removeProperty('display');
 
       // Blank the panel title — CSS hides it, this is belt-and-suspenders
       var title = document.querySelector(
