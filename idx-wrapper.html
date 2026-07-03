@@ -121,6 +121,60 @@
       box-shadow: none !important;
     }
 
+    /* ─── Status filter dropdown panel ─── */
+    #status-filter-button [class*="content"],
+    #status-filter-button [class*="dropdown"],
+    #status-filter-button [class*="panel"],
+    #status-filter-button [class*="filter"],
+    [class*="status-dropdown"],
+    [class*="status-filter-panel"] {
+      background: #F3EFE8 !important;
+      border: 1px solid #E0D9CF !important;
+      box-shadow: 0 4px 20px rgba(24,37,75,0.14) !important;
+      border-radius: 0 !important;
+      font-family: 'Lato', sans-serif !important;
+      min-width: 180px !important;
+    }
+    #status-filter-button label,
+    #status-filter-button [class*="label"],
+    [class*="status-dropdown"] label {
+      font-family: 'Lato', sans-serif !important;
+      color: #18254B !important;
+      font-size: 13px !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.06em !important;
+      text-transform: uppercase !important;
+      cursor: pointer !important;
+    }
+    /* APPLY button inside status dropdown */
+    #status-filter-button button[class*="apply"],
+    [class*="status-dropdown"] button[class*="apply"],
+    #tjg-status-apply {
+      width: 100% !important;
+      background: #18254B !important;
+      color: #fff !important;
+      border: none !important;
+      border-radius: 0 !important;
+      font-family: 'Lato', sans-serif !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      padding: 10px !important;
+      margin-top: 8px !important;
+      cursor: pointer !important;
+    }
+    /* For Lease injected option */
+    #tjg-status-lease-row {
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      padding: 4px 0 !important;
+      cursor: pointer !important;
+    }
+    #tjg-status-lease-row label {
+      cursor: pointer !important;
+    }
+
     /* ─── Results count chip: Lato brand styling ─── */
     #listing-results-count__chip {
       font-family: 'Lato', sans-serif !important;
@@ -941,6 +995,130 @@
     _shrinkHeartIcons();
     var _heartInterval = setInterval(_shrinkHeartIcons, 800);
     setTimeout(function() { clearInterval(_heartInterval); }, 60000);
+
+    // ── Status dropdown: rename options, hide SOLD, inject For Lease ──────────
+    function _patchStatusPanel(root) {
+      if (!root) return false;
+      var anyNode = null, activeNode = null, soldRows = [];
+      var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+      var node;
+      while ((node = walker.nextNode())) {
+        var t = node.nodeValue.trim();
+        if (t === 'ANY')    { anyNode    = node; }
+        if (t === 'ACTIVE') { activeNode = node; }
+        if (t === 'SOLD')   { soldRows.push(node); }
+      }
+      if (!anyNode && !activeNode) return false;
+      if (anyNode)    anyNode.nodeValue    = 'All Active';
+      if (activeNode) activeNode.nodeValue = 'For Sale';
+      // Hide SOLD row
+      soldRows.forEach(function(n) {
+        var row = n.parentNode;
+        for (var i = 0; i < 6 && row; i++) {
+          if (/^(label|li)$/i.test(row.tagName || '') ||
+              (row.tagName === 'DIV' && row.querySelector && row.querySelector('input'))) {
+            row.style.setProperty('display', 'none', 'important');
+            break;
+          }
+          row = row.parentNode;
+        }
+      });
+      // Inject "For Lease" option if not already present
+      if (!root.querySelector('#tjg-status-lease-row')) {
+        // Find a checkbox row to clone for reference position
+        var refInput = root.querySelector('input[type="checkbox"]');
+        if (refInput) {
+          var refRow = refInput.parentNode;
+          while (refRow && refRow !== root && !/^(label|li)$/i.test(refRow.tagName || '')) {
+            if (refRow.tagName === 'DIV' && refRow.querySelector('input')) break;
+            refRow = refRow.parentNode;
+          }
+          var leaseRow = document.createElement('div');
+          leaseRow.id = 'tjg-status-lease-row';
+          var leaseCheck = document.createElement('input');
+          leaseCheck.type = 'checkbox';
+          leaseCheck.id = 'tjg-lease-checkbox';
+          var leaseLabel = document.createElement('label');
+          leaseLabel.htmlFor = 'tjg-lease-checkbox';
+          leaseLabel.textContent = 'For Lease';
+          leaseRow.appendChild(leaseCheck);
+          leaseRow.appendChild(leaseLabel);
+          if (refRow && refRow.parentNode) {
+            refRow.parentNode.insertBefore(leaseRow, refRow.nextSibling);
+          }
+          // Wire: when For Lease is checked, auto-uncheck others; intercept APPLY
+          leaseCheck.addEventListener('change', function() {
+            if (!leaseCheck.checked) return;
+            root.querySelectorAll('input[type="checkbox"]').forEach(function(cb) {
+              if (cb !== leaseCheck) cb.checked = false;
+            });
+          });
+          // Find APPLY button and wrap its click
+          var applyBtn = root.querySelector('button');
+          if (applyBtn && !applyBtn.dataset.tjgLeaseBound) {
+            applyBtn.dataset.tjgLeaseBound = '1';
+            applyBtn.addEventListener('click', function() {
+              if (!leaseCheck.checked) return;
+              // After status closes, programmatically open Property Type and select Residential Lease
+              setTimeout(function() {
+                var typePill = document.getElementById('tjg-type-btn');
+                if (!typePill) return;
+                var typeBtn = typePill.querySelector('button') || typePill;
+                typeBtn.click();
+                setTimeout(function() {
+                  // Walk the type dropdown for "Residential Lease" or "Lease"
+                  var typePanel = document.getElementById('tjg-type-btn');
+                  if (!typePanel) return;
+                  var w = document.createTreeWalker(typePanel, NodeFilter.SHOW_TEXT, null, false);
+                  var n2;
+                  while ((n2 = w.nextNode())) {
+                    if (/residential lease|lease/i.test(n2.nodeValue)) {
+                      var leaseOpt = n2.parentNode;
+                      if (leaseOpt.tagName === 'LABEL') {
+                        var inp = leaseOpt.querySelector('input') || leaseOpt.previousElementSibling;
+                        if (inp) inp.click();
+                      } else {
+                        leaseOpt.click();
+                      }
+                      // Click APPLY in the type dropdown
+                      setTimeout(function() {
+                        var typeApply = typePanel.querySelector('button');
+                        if (typeApply) typeApply.click();
+                      }, 150);
+                      break;
+                    }
+                  }
+                }, 300);
+              }, 400);
+            }, true); // capture phase so we run after IDX's handler
+          }
+        }
+      }
+      return true;
+    }
+
+    // Attach click listener to status button; re-patch each time it opens
+    function _watchStatusDropdown() {
+      var btn = document.getElementById('status-filter-button');
+      if (!btn || btn.dataset.tjgSWatched) return;
+      btn.dataset.tjgSWatched = '1';
+      btn.addEventListener('click', function() {
+        // Try inside the button first, then scan body-level portals
+        [100, 300, 700].forEach(function(ms) {
+          setTimeout(function() {
+            if (!_patchStatusPanel(btn)) {
+              Array.from(document.body.children).forEach(function(child) {
+                if (child.id !== 'IDX-main' && child.id !== 'site-header') {
+                  _patchStatusPanel(child);
+                }
+              });
+            }
+          }, ms);
+        });
+      });
+    }
+    _watchStatusDropdown();
+    [500, 1500, 3000].forEach(function(ms) { setTimeout(_watchStatusDropdown, ms); });
 
     // Rename filter pills — target divs directly by their injected IDs
     function _renameFilterLabels() {
