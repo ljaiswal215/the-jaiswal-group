@@ -870,19 +870,19 @@
     [300, 800, 1500, 3000].forEach(function(ms) { setTimeout(_fixPlaceholder, ms); });
 
     // Rename "ALL PROPERTY TYPES" filter pill → "Property Type"
+    // The element is a div#tjg-type-btn, not a button — target it directly by ID
     function _renamePropTypeLabel() {
-      document.querySelectorAll('button').forEach(function(btn) {
-        if (/all property types/i.test(btn.textContent)) {
-          var walker = document.createTreeWalker(btn, NodeFilter.SHOW_TEXT, null, false);
-          var node;
-          while ((node = walker.nextNode())) {
-            if (/all property types/i.test(node.nodeValue)) {
-              node.nodeValue = node.nodeValue.replace(/all property types/gi, 'Property Type');
-              break;
-            }
+      var el = document.getElementById('tjg-type-btn') ||
+               document.querySelector('[id*="type-btn"],[id*="proptype"]');
+      if (el) {
+        var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
+        var node;
+        while ((node = walker.nextNode())) {
+          if (/all property types/i.test(node.nodeValue)) {
+            node.nodeValue = node.nodeValue.replace(/all property types/gi, 'Property Type');
           }
         }
-      });
+      }
     }
     _renamePropTypeLabel();
     var _ptInterval = setInterval(_renamePropTypeLabel, 500);
