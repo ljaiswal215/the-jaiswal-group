@@ -947,8 +947,12 @@
     [300, 800, 1500, 3000].forEach(function(ms) { setTimeout(_fixPlaceholder, ms); });
 
     // Reorder filter pills: Status → Property Type → Any Price → Any Size → Bed → Bath
+    // Called from _tjgDispatch (throttled MutationObserver) so it fires AFTER each IDX DOM update.
     function _reorderFilterPills() {
-      var allPills = document.querySelectorAll('.idx-filter-button');
+      // Scope to the desktop filter bar only — avoids touching hidden mobile duplicates
+      var container = document.querySelector('.filter-buttons-container');
+      if (!container) return;
+      var allPills = container.querySelectorAll('.idx-filter-button');
       if (!allPills.length) return;
       var statusPill = null, typePill = null, pricePill = null,
           sqftPill = null, bedPill = null, bathPill = null;
@@ -962,19 +966,17 @@
         else if (/\bbath/.test(txt))          bathPill   = pill;
       });
       if (!statusPill) return;
-      // Walk the desired sequence, inserting each pill after the previous anchor
+      // Walk the desired sequence; use nextElementSibling (skips text nodes) for position check
       var anchor = statusPill;
       [typePill, pricePill, sqftPill, bedPill, bathPill].forEach(function(pill) {
         if (!pill) return;
-        if (anchor.nextSibling !== pill) {
+        if (anchor.nextElementSibling !== pill) {
           anchor.parentNode.insertBefore(pill, anchor.nextSibling);
         }
         anchor = pill;
       });
     }
     _reorderFilterPills();
-    var _reorderInterval = setInterval(_reorderFilterPills, 500);
-    setTimeout(function() { clearInterval(_reorderInterval); }, 30000);
 
     // Shrink heart/favorite SVG icons on listing cards via JS (CSS may miss IDX class names)
     function _shrinkHeartIcons() {
@@ -1419,6 +1421,7 @@
       var _tjgTimer = null;
       function _tjgDispatch() {
         _hideSearchTypeToggles();
+        _reorderFilterPills();
         _idxAddAdvancedSearchLink();
         _watchChipArea();
         _fixAgentInfo();
