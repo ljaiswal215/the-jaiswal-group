@@ -64,7 +64,9 @@
       text-overflow: ellipsis !important;
       margin-left: 32px !important;
     }
-    #prime-map-search--filter-bar__flyto .ti-tag * { color: #ffffff !important; }
+    /* Double-ID specificity (2,1,0) beats IDX global "#IDX-main span" (1,0,1) */
+    #IDX-main #prime-map-search--filter-bar__flyto .ti-tag,
+    #IDX-main #prime-map-search--filter-bar__flyto .ti-tag * { color: #ffffff !important; }
     #prime-map-search--filter-bar__flyto .ti-new-tag-input-wrapper { min-width: 0 !important; overflow: hidden !important; }
     #prime-map-search--filter-bar__flyto .ti-new-tag-input { text-align: left !important; min-width: 0 !important; }
     /* Constrain inner wrapper IDX injects (#tjg-search-wrap) so it never overflows right */
@@ -458,12 +460,11 @@
         chip.style.setProperty('max-width', '140px', 'important');
         chip.style.setProperty('background-color', '#18254B', 'important');
         chip.style.setProperty('color', '#ffffff', 'important');
-        // Push chip right past the search icon (absolute-positioned at ~32px from left)
+        // Push chip right past the magnifying glass icon on the left
         chip.style.setProperty('margin-left', '32px', 'important');
-        // Force white on every child — IDX global CSS sets color on spans via !important
-        chip.querySelectorAll('*').forEach(function(el) {
-          el.style.setProperty('color', '#ffffff', 'important');
-        });
+        // Child text color is handled via CSS — do NOT iterate chip children here,
+        // as setting style attributes on Vue's reactive spans triggers IDX's
+        // recursive MutationObserver bug (stack overflow at mapsearch:1034)
       }
       var inputWrapper = tiTags.querySelector('.ti-new-tag-input-wrapper');
       if (inputWrapper) {
@@ -472,7 +473,32 @@
         inputWrapper.style.setProperty('overflow', 'hidden', 'important');
       }
     }
-    _enforceTagChipLayout();
+    // Set up chip layout once when .ti-tags appears, then watch ONLY that element
+    // for chip add/remove — avoids touching document.body and triggering Vue's watchers
+    function _watchChipArea() {
+      var tiTags = document.querySelector('#prime-map-search--filter-bar__flyto .ti-tags');
+      if (!tiTags || tiTags._tjgWatched) return;
+      tiTags._tjgWatched = true;
+      _enforceTagChipLayout();
+      new MutationObserver(function() {
+        _enforceTagChipLayout();
+      }).observe(tiTags, { childList: true });
+    }
+    // Retry until the filter bar renders
+    _watchChipArea();
+    [200, 500, 1000, 2000, 4000].forEach(function(ms) {
+      setTimeout(_watchChipArea, ms);
+    });
+
+    // Fix placeholder text — one-shot timed retries, no persistent observer
+    function _fixPlaceholder() {
+      var input = document.querySelector('#prime-map-search--filter-bar__flyto .ti-new-tag-input');
+      if (input && !input._tjgPlaceholder) {
+        input._tjgPlaceholder = true;
+        input.placeholder = 'City, neighborhood, or ZIP...';
+      }
+    }
+    [300, 800, 1500, 3000].forEach(function(ms) { setTimeout(_fixPlaceholder, ms); });
 
     // Click anywhere in search field (when a zip/city tag is set) to clear it
     document.addEventListener('click', function(e) {
@@ -748,10 +774,9 @@
     (function() {
       var _tjgTimer = null;
       function _tjgDispatch() {
-        _abbreviateAllLabels();
         _hideSearchTypeToggles();
         _idxAddAdvancedSearchLink();
-        _enforceTagChipLayout();
+        _watchChipArea();
         _fixAgentInfo();
         _injectAgentCard();
         _fixHeaderButtons();
