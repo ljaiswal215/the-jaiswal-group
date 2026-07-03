@@ -38,7 +38,7 @@
     /* ── Navy Copy Section ── */
     .sc-copy {
       background: #18254B;
-      padding: 1rem clamp(1.5rem, 4vw, 4rem) clamp(2.5rem, 4vw, 3.5rem);
+      padding: clamp(2rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 4rem);
     }
     .sc-copy-inner {
       max-width: 1200px; margin: 0 auto; text-align: center;
@@ -48,95 +48,6 @@
       color: rgba(255,255,255,0.82); line-height: 1.95; margin-bottom: 1rem;
     }
     .sc-copy p:last-child { margin-bottom: 0; }
-
-    /* ── Booking Section ── */
-    .sc-booking {
-      background: #fff;
-      padding: clamp(1.5rem, 2.5vw, 2rem) clamp(1.5rem, 6vw, 6rem) clamp(3rem, 5vw, 4.5rem);
-    }
-    .sc-booking-header {
-      max-width: 900px; margin: 0 auto clamp(2rem, 4vw, 3rem); text-align: center;
-    }
-    .sc-booking-header h2 {
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      color: #18254B; letter-spacing: 0.08em;
-      line-height: 1.1; margin-bottom: 1.5rem; white-space: nowrap;
-    }
-    .sc-booking-divider {
-      width: clamp(200px, 55%, 500px); height: 1px; background: rgba(28,48,99,0.12);
-      margin: 0 auto 1.5rem;
-    }
-    .sc-booking-header > p {
-      font-family: 'Lato', sans-serif; font-size: 0.9rem;
-      color: #4a4643; line-height: 1.85;
-      max-width: 560px; margin: 0 auto;
-    }
-    .sc-booking-header > p a { color: #B38987; text-decoration: none; font-weight: 600; }
-    .sc-booking-header .section-eyebrow { color: #B38987; }
-    .sc-form-wrap { max-width: 900px; margin: 0 auto; }
-
-    /* ── Consultation Form ── */
-    .sc-form input:not([type="checkbox"]),
-    .sc-form select,
-    .sc-form textarea {
-      width: 100%; padding: 0.85rem 1rem;
-      font-family: 'Lato', sans-serif; font-size: 0.87rem; color: #18254B;
-      background: #F3EFE8; border: 1px solid rgba(28,48,99,0.15); outline: none;
-      box-sizing: border-box; transition: border-color 0.2s, background 0.2s;
-      border-radius: 0; appearance: none; -webkit-appearance: none;
-    }
-    .sc-form input:not([type="checkbox"]):focus,
-    .sc-form select:focus,
-    .sc-form textarea:focus { border-color: #B38987; background: #fff; }
-    .sc-form input:not([type="checkbox"])::placeholder,
-    .sc-form textarea::placeholder { color: rgba(28,48,99,0.38); }
-    .sc-form select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231C3063' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: right 1rem center;
-      padding-right: 2.5rem; cursor: pointer; color: rgba(28,48,99,0.38);
-    }
-    .sc-form select.has-value { color: #18254B; }
-    .sc-form textarea { min-height: 88px; resize: vertical; }
-    .sc-form-row {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 0.6rem;
-    }
-    .sc-form-field { margin-bottom: 0.6rem; }
-    .sc-form-submit {
-      margin-top: 1rem; width: 100%; padding: 0.9rem; background: #1C3063; color: #F6F6F4;
-      font-family: 'Lato', sans-serif; font-size: 0.75rem; font-weight: 700;
-      letter-spacing: 0.18em; text-transform: uppercase; border: 2px solid #1C3063;
-      cursor: pointer; transition: background 0.2s, color 0.2s;
-    }
-    .sc-form-submit:hover { background: #18254B; color: #B38987; border-color: #18254B; }
-    .sc-consent {
-      display: flex; align-items: flex-start; gap: 0.6rem;
-      cursor: pointer; margin-top: 1rem;
-    }
-    .sc-consent input[type="checkbox"] {
-      flex-shrink: 0; margin-top: 0.2rem;
-      width: 14px; height: 14px;
-      accent-color: #B38987; cursor: pointer;
-    }
-    .sc-consent span {
-      font-family: 'Lato', sans-serif; font-size: 0.62rem;
-      color: rgba(28,48,99,0.50); line-height: 1.6;
-    }
-    .sc-consent a { color: rgba(28,48,99,0.60); text-decoration: underline; }
-    .sc-consent a:hover { color: #B38987; }
-    .sc-consent.sc-consent--error span { color: rgba(180,50,50,0.85); }
-    .sc-success {
-      display: none; background: #F3EFE8; border-left: 4px solid #B38987; padding: 1.5rem;
-    }
-    .sc-success h4 {
-      font-family: 'Marcellus', serif; color: #18254B; margin-bottom: 0.5rem; font-size: 1.1rem;
-    }
-    .sc-success p {
-      font-family: 'Lato', sans-serif; font-size: 0.85rem; color: #4a4643; line-height: 1.8; margin: 0;
-    }
-
-    @media (max-width: 540px) {
-      .sc-form-row { grid-template-columns: 1fr; }
-    }
 
     /* ── Marketing / Video Section ── */
     .sc-marketing {
@@ -178,65 +89,189 @@
     .sc-video-play-btn:hover { border-color: #B38987; color: #B38987; }
     .sc-video-play-btn svg { width: 12px; height: 12px; fill: currentColor; flex-shrink: 0; }
 
-    /* ── Past Sales ── */
-    .sc-sales {
-      background: #fff;
-      padding: clamp(1.5rem, 2.5vw, 2rem) 10px;
+    /* ── Booking Section ── */
+    .sc-booking {
+      background: #F3EFE8;
+      padding: clamp(3rem, 5vw, 5rem) clamp(1.5rem, 4vw, 4rem);
     }
-    .sc-sales-header { text-align: center; margin-bottom: 2rem; padding: 0 10px; }
-    .sc-sales-header .section-eyebrow { color: #B38987; margin-bottom: 0.35rem; }
-    .sc-sales-header h2 {
-      font-family: 'Marcellus', serif; font-size: clamp(1.5rem, 2.5vw, 2rem);
-      color: #18254B; letter-spacing: 0.05em; margin-bottom: 0;
+    .sc-booking-inner {
+      display: grid;
+      grid-template-columns: minmax(260px, 320px) 1fr;
+      gap: clamp(2.5rem, 4vw, 5rem);
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: start;
     }
-    .sc-sold-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
-      width: 100%; margin: 0 0 2rem;
+
+    /* Sidebar */
+    .sc-sidebar-box {
+      background: #18254B;
+      padding: 2.5rem 2rem;
+      position: sticky;
+      top: 100px;
     }
-    .sc-sold-card { position: relative; background: #F3EFE8; }
-    .sc-sold-thumb {
-      aspect-ratio: 4 / 3; background: #1C3063;
-      display: flex; align-items: center; justify-content: center; position: relative;
+    .sc-sidebar-box .section-eyebrow { color: #B38987; margin-bottom: 0.75rem; }
+    .sc-sidebar-box h3 {
+      font-family: 'Marcellus', serif;
+      font-size: 1.5rem;
+      color: #fff;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.5rem;
     }
-    .sc-sold-thumb svg {
-      width: 52px; height: 52px; stroke: rgba(255,255,255,0.15);
-      fill: none; stroke-width: 1; stroke-linecap: round; stroke-linejoin: round;
+    .sc-expect-list { list-style: none; padding: 0; margin: 0 0 2rem; }
+    .sc-expect-list li {
+      font-family: 'Lato', sans-serif; font-size: 0.85rem;
+      color: rgba(255,255,255,0.82); line-height: 1.7;
+      padding: 0.65rem 0 0.65rem 1.5rem;
+      position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
-    .sc-sold-badge {
-      position: absolute; top: 1rem; left: 1rem;
-      background: #B38987; color: #fff;
-      font-family: 'Lato', sans-serif; font-size: 0.6rem; font-weight: 700;
-      letter-spacing: 0.2em; text-transform: uppercase; padding: 0.3rem 0.75rem;
+    .sc-expect-list li:first-child { border-top: 1px solid rgba(255,255,255,0.08); }
+    .sc-expect-list li::before {
+      content: '✦'; position: absolute; left: 0; top: 0.8rem;
+      color: #B38987; font-size: 0.55rem;
     }
-    .sc-sold-body { padding: 1.25rem 1.5rem 1.5rem; }
-    .sc-sold-community {
+    .sc-sidebar-divider { width: 40px; height: 1px; background: #B38987; margin: 1.75rem 0; }
+    .sc-sidebar-contact > p {
       font-family: 'Lato', sans-serif; font-size: 0.68rem; font-weight: 700;
-      letter-spacing: 0.14em; text-transform: uppercase; color: #B38987; margin-bottom: 0.35rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); margin-bottom: 0.75rem;
     }
-    .sc-sold-tagline {
-      font-family: 'Marcellus', serif; font-size: 1.05rem;
-      color: #18254B; margin-bottom: 0.5rem; line-height: 1.3;
+    .sc-sidebar-contact a {
+      display: block; font-family: 'Lato', sans-serif; font-size: 0.85rem;
+      color: #B38987; text-decoration: none; margin-bottom: 0.4rem;
+      transition: color 0.2s;
     }
-    .sc-sold-note {
-      font-family: 'Lato', sans-serif; font-size: 0.78rem;
-      color: #6b6460; line-height: 1.7;
+    .sc-sidebar-contact a:hover { color: #fff; }
+
+    /* Form column */
+    .sc-booking-header { margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+    .sc-booking-header .section-eyebrow { color: #B38987; }
+    .sc-booking-header h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      color: #18254B; letter-spacing: 0.08em;
+      line-height: 1.1; margin-bottom: 1rem;
     }
-    .sc-sales-cta { text-align: center; }
-    .sc-sales-cta p {
-      font-family: 'Lato', sans-serif; font-size: 0.87rem;
-      color: #6b6460; margin-bottom: 1.25rem; line-height: 1.8;
+    .sc-booking-divider {
+      width: clamp(80px, 30%, 200px); height: 1px;
+      background: rgba(28,48,99,0.15); margin: 0 0 1rem;
     }
-    .sc-sales-cta a.btn-outline {
+    .sc-booking-header > p {
+      font-family: 'Lato', sans-serif; font-size: 0.9rem;
+      color: #4a4643; line-height: 1.85;
+    }
+    .sc-booking-header > p a { color: #B38987; text-decoration: none; font-weight: 600; }
+
+    /* ── Consultation Form ── */
+    .sc-form input:not([type="checkbox"]),
+    .sc-form select,
+    .sc-form textarea {
+      width: 100%; padding: 0.85rem 1rem;
+      font-family: 'Lato', sans-serif; font-size: 0.87rem; color: #18254B;
+      background: #fff; border: 1px solid rgba(28,48,99,0.18); outline: none;
+      box-sizing: border-box; transition: border-color 0.2s;
+      border-radius: 0; appearance: none; -webkit-appearance: none;
+    }
+    .sc-form input:not([type="checkbox"]):focus,
+    .sc-form select:focus,
+    .sc-form textarea:focus { border-color: #B38987; }
+    .sc-form input:not([type="checkbox"])::placeholder,
+    .sc-form textarea::placeholder { color: rgba(28,48,99,0.38); }
+    .sc-form select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231C3063' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 1rem center;
+      background-color: #fff;
+      padding-right: 2.5rem; cursor: pointer; color: rgba(28,48,99,0.38);
+    }
+    .sc-form select.has-value { color: #18254B; }
+    .sc-form textarea { min-height: 110px; resize: vertical; }
+    .sc-form-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 0.6rem;
+    }
+    .sc-form-field { margin-bottom: 0.6rem; }
+    .sc-consent {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      cursor: pointer; margin-top: 1rem; margin-bottom: 0.75rem;
+    }
+    .sc-consent input[type="checkbox"] {
+      flex-shrink: 0; margin-top: 0.2rem;
+      width: 14px; height: 14px;
+      accent-color: #B38987; cursor: pointer;
+    }
+    .sc-consent span {
+      font-family: 'Lato', sans-serif; font-size: 0.62rem;
+      color: rgba(28,48,99,0.50); line-height: 1.6;
+    }
+    .sc-consent a { color: rgba(28,48,99,0.60); text-decoration: underline; }
+    .sc-consent a:hover { color: #B38987; }
+    .sc-consent.sc-consent--error span { color: rgba(180,50,50,0.85); }
+    .sc-form-submit {
+      width: 100%; padding: 0.9rem; background: #1C3063; color: #F6F6F4;
+      font-family: 'Lato', sans-serif; font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase; border: 2px solid #1C3063;
+      cursor: pointer; transition: background 0.2s, color 0.2s;
+    }
+    .sc-form-submit:hover { background: #18254B; color: #B38987; border-color: #18254B; }
+    .sc-success {
+      display: none; background: #fff; border-left: 4px solid #B38987; padding: 1.5rem; margin-top: 1rem;
+    }
+    .sc-success h4 {
+      font-family: 'Marcellus', serif; color: #18254B; margin-bottom: 0.5rem; font-size: 1.1rem;
+    }
+    .sc-success p {
+      font-family: 'Lato', sans-serif; font-size: 0.85rem; color: #4a4643; line-height: 1.8; margin: 0;
+    }
+
+    /* ── Testimonials ── */
+    .sc-testimonials {
+      background: #fff;
+      padding: clamp(3rem, 5vw, 5rem) clamp(1.5rem, 4vw, 4rem);
+    }
+    .sc-testimonials-header {
+      text-align: center;
+      margin-bottom: clamp(2rem, 3vw, 3rem);
+    }
+    .sc-testimonials-header .section-eyebrow { color: #B38987; margin-bottom: 0.35rem; }
+    .sc-testimonials-header h2 {
+      font-family: 'Marcellus', serif; font-size: clamp(1.5rem, 2.5vw, 2rem);
+      color: #18254B; letter-spacing: 0.05em;
+    }
+    .sc-testimonials-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+      max-width: 1200px; margin: 0 auto 2.5rem;
+    }
+    .sc-testimonial-card { background: #F3EFE8; padding: 2rem 1.75rem; }
+    .sc-testimonial-quote {
+      display: block; font-size: 2.5rem; line-height: 1;
+      color: #B38987; font-family: Georgia, serif; margin-bottom: 0.75rem;
+    }
+    .sc-testimonial-card blockquote {
+      font-family: 'Lato', sans-serif; font-size: 0.88rem;
+      color: #3a3634; line-height: 1.85; margin: 0 0 1.5rem;
+      font-style: italic;
+    }
+    .sc-testimonial-divider { width: 30px; height: 1px; background: #B38987; margin-bottom: 1rem; }
+    .sc-testimonial-cite {
+      font-family: 'Lato', sans-serif; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: #18254B;
+    }
+    .sc-testimonials-cta { text-align: center; }
+    .sc-testimonials-cta a {
       display: inline-block;
       font-family: 'Lato', sans-serif; font-size: 0.72rem; font-weight: 700;
       letter-spacing: 0.18em; text-transform: uppercase; color: #1C3063;
       border: 2px solid #1C3063; padding: 0.75rem 2rem; text-decoration: none;
       transition: background 0.2s, color 0.2s;
     }
-    .sc-sales-cta a.btn-outline:hover { background: #1C3063; color: #B38987; }
+    .sc-testimonials-cta a:hover { background: #1C3063; color: #B38987; }
 
     @media (max-width: 860px) {
-      .sc-sold-grid { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
+      .sc-booking-inner { grid-template-columns: 1fr; }
+      .sc-sidebar-box { position: static; }
+      .sc-testimonials-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+    }
+    @media (max-width: 540px) {
+      .sc-form-row { grid-template-columns: 1fr; }
     }
 
   </style>
@@ -346,124 +381,6 @@
     </div>
   </section>
 
-  <!-- BOOKING SECTION -->
-  <section class="sc-booking">
-
-    <div class="sc-booking-header">
-      <p class="section-eyebrow">Seller Consultation</p>
-      <h2>Thinking About Selling?</h2>
-      <div class="sc-booking-divider"></div>
-      <p>Book a time directly on Calendly <a href="https://calendly.com/thejaiswalgroupre" target="_blank" rel="noopener">here</a>, or fill out the form below to schedule a seller consultation and receive a custom-tailored proposal.</p>
-    </div>
-
-    <div class="sc-form-wrap">
-      <form id="sc-form" class="sc-form" action="https://formspree.io/f/xdarabwy" method="POST">
-        <input type="hidden" name="_subject" value="Seller Consultation Request — The Jaiswal Group" />
-        <input type="hidden" name="source" value="Seller Consultation Page" />
-        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
-
-        <div class="sc-form-row">
-          <input type="text" name="name" placeholder="Full Name *" required />
-          <input type="tel" name="phone" placeholder="Phone *" required />
-        </div>
-        <div class="sc-form-row">
-          <input type="email" name="email" placeholder="Email Address *" required />
-          <select name="referral" id="sc-referral">
-            <option value="">How did you hear about us?</option>
-            <option value="Google">Google</option>
-            <option value="Zillow">Zillow</option>
-            <option value="Social Media">Social Media</option>
-            <option value="Referral">Friend / Referral</option>
-            <option value="AI">Artificial Intelligence (AI)</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-        <div class="sc-form-row">
-          <input type="text" name="address" placeholder="Property Address" />
-          <input type="text" name="sqft" placeholder="Square Footage" />
-        </div>
-        <div class="sc-form-row">
-          <select name="bedrooms" id="sc-bedrooms">
-            <option value="">Bedrooms</option>
-            <option value="1">1 Bedroom</option>
-            <option value="2">2 Bedrooms</option>
-            <option value="3">3 Bedrooms</option>
-            <option value="4">4 Bedrooms</option>
-            <option value="5">5 Bedrooms</option>
-            <option value="6+">6+ Bedrooms</option>
-          </select>
-          <select name="bathrooms" id="sc-bathrooms">
-            <option value="">Bathrooms</option>
-            <option value="1">1 Bathroom</option>
-            <option value="1.5">1.5 Bathrooms</option>
-            <option value="2">2 Bathrooms</option>
-            <option value="2.5">2.5 Bathrooms</option>
-            <option value="3">3 Bathrooms</option>
-            <option value="3.5">3.5 Bathrooms</option>
-            <option value="4+">4+ Bathrooms</option>
-          </select>
-        </div>
-        <div class="sc-form-row">
-          <select name="reason" id="sc-reason">
-            <option value="">Reason for Selling</option>
-            <option value="Upsizing">Upsizing</option>
-            <option value="Downsizing">Downsizing</option>
-            <option value="Relocating">Relocating</option>
-            <option value="Investment">Investment / Portfolio</option>
-            <option value="Other">Other</option>
-          </select>
-          <select name="timeline" id="sc-timeline">
-            <option value="">Desired Timeline</option>
-            <option value="1-3 months">1–3 months</option>
-            <option value="3-6 months">3–6 months</option>
-            <option value="6-12 months">6–12 months</option>
-            <option value="Just exploring">Just exploring</option>
-          </select>
-        </div>
-        <div class="sc-form-row">
-          <select name="buy_after_selling">
-            <option value="">Do you need to buy a home after selling?</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-            <option value="Possibly">Possibly</option>
-            <option value="Not sure yet">Not sure yet</option>
-          </select>
-          <select name="connected_with_agent">
-            <option value="">Have you connected with another agent yet?</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-          </select>
-        </div>
-        <div class="sc-form-field">
-          <input type="text" name="estimated_value" placeholder="What do you think your home is worth today?" />
-        </div>
-        <div class="sc-form-field">
-          <textarea name="upgrades" placeholder="Notable upgrades in your home"></textarea>
-        </div>
-        <div class="sc-form-field">
-          <textarea name="realtor_priorities" placeholder="What are you looking for most in a REALTOR?"></textarea>
-        </div>
-        <div class="sc-form-field">
-          <textarea name="ideal_experience" placeholder="What are you hoping for in your ideal selling experience?"></textarea>
-        </div>
-        <div class="sc-form-field">
-          <textarea name="notes" placeholder="Anything else you'd like us to know? (optional)"></textarea>
-        </div>
-
-        <button type="submit" class="sc-form-submit">REQUEST A SELLER CONSULTATION</button>
-      </form>
-      <label class="sc-consent" id="sc-consent-label">
-        <input type="checkbox" name="consent" id="sc-consent-check" />
-        <span>I agree to be contacted by The Jaiswal Group Real Estate via call, email, and text for real estate services. To opt out, you can reply &lsquo;stop&rsquo; at any time or reply &lsquo;help&rsquo; for assistance. You can also click the unsubscribe link in the emails. Message and data rates may apply. Message frequency may vary. <a href="privacy-policy.html">Privacy Policy</a>.</span>
-      </label>
-      <div class="sc-success" id="sc-success">
-        <h4>We'll Be in Touch Shortly!</h4>
-        <p>Thank you for reaching out. We'll contact you within one business day to schedule your free seller consultation at a time that works for you.</p>
-      </div>
-    </div>
-
-  </section>
-
   <!-- VIDEO / APPROACH SECTION -->
   <section class="sc-marketing">
     <div class="sc-marketing-inner">
@@ -477,55 +394,174 @@
     </div>
   </section>
 
-  <!-- PAST SALES -->
-  <section class="sc-sales">
-    <div class="sc-sales-header">
-      <p class="section-eyebrow">Discover</p>
-      <h2>PAST TRANSACTIONS</h2>
+  <!-- BOOKING SECTION -->
+  <section class="sc-booking">
+    <div class="sc-booking-inner">
+
+      <!-- Left: sidebar -->
+      <div class="sc-booking-sidebar">
+        <div class="sc-sidebar-box">
+          <p class="section-eyebrow">Free Consultation</p>
+          <h3>What to Expect</h3>
+          <ul class="sc-expect-list">
+            <li>A detailed market analysis of your home</li>
+            <li>A customized pricing and marketing strategy</li>
+            <li>Honest answers to your questions — no pressure</li>
+            <li>A clear plan tailored to your goals and timeline</li>
+          </ul>
+          <div class="sc-sidebar-divider"></div>
+          <div class="sc-sidebar-contact">
+            <p>Prefer to connect now?</p>
+            <a href="tel:8582907531">(858) 290-7531</a>
+            <a href="mailto:Lynnette@thejaiswalgroup.com">Lynnette@thejaiswalgroup.com</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: form column -->
+      <div class="sc-booking-form-col">
+        <div class="sc-booking-header">
+          <p class="section-eyebrow">Seller Consultation</p>
+          <h2>Thinking About Selling?</h2>
+          <div class="sc-booking-divider"></div>
+          <p>Book a time directly on Calendly <a href="https://calendly.com/thejaiswalgroupre" target="_blank" rel="noopener">here</a>, or fill out the form below to schedule a seller consultation and receive a custom-tailored proposal.</p>
+        </div>
+
+        <form id="sc-form" class="sc-form" action="https://formspree.io/f/xdarabwy" method="POST">
+          <input type="hidden" name="_subject" value="Seller Consultation Request — The Jaiswal Group" />
+          <input type="hidden" name="source" value="Seller Consultation Page" />
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <div class="sc-form-row">
+            <input type="text" name="name" placeholder="Full Name *" required />
+            <input type="tel" name="phone" placeholder="Phone *" required />
+          </div>
+          <div class="sc-form-row">
+            <input type="email" name="email" placeholder="Email Address *" required />
+            <select name="referral" id="sc-referral">
+              <option value="">How did you hear about us?</option>
+              <option value="Google">Google</option>
+              <option value="Zillow">Zillow</option>
+              <option value="Social Media">Social Media</option>
+              <option value="Referral">Friend / Referral</option>
+              <option value="AI">Artificial Intelligence (AI)</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="sc-form-row">
+            <input type="text" name="address" placeholder="Property Address" />
+            <input type="text" name="sqft" placeholder="Square Footage" />
+          </div>
+          <div class="sc-form-row">
+            <select name="bedrooms" id="sc-bedrooms">
+              <option value="">Bedrooms</option>
+              <option value="1">1 Bedroom</option>
+              <option value="2">2 Bedrooms</option>
+              <option value="3">3 Bedrooms</option>
+              <option value="4">4 Bedrooms</option>
+              <option value="5">5 Bedrooms</option>
+              <option value="6+">6+ Bedrooms</option>
+            </select>
+            <select name="bathrooms" id="sc-bathrooms">
+              <option value="">Bathrooms</option>
+              <option value="1">1 Bathroom</option>
+              <option value="1.5">1.5 Bathrooms</option>
+              <option value="2">2 Bathrooms</option>
+              <option value="2.5">2.5 Bathrooms</option>
+              <option value="3">3 Bathrooms</option>
+              <option value="3.5">3.5 Bathrooms</option>
+              <option value="4+">4+ Bathrooms</option>
+            </select>
+          </div>
+          <div class="sc-form-row">
+            <select name="reason" id="sc-reason">
+              <option value="">Reason for Selling</option>
+              <option value="Upsizing">Upsizing</option>
+              <option value="Downsizing">Downsizing</option>
+              <option value="Relocating">Relocating</option>
+              <option value="Investment">Investment / Portfolio</option>
+              <option value="Other">Other</option>
+            </select>
+            <select name="timeline" id="sc-timeline">
+              <option value="">Desired Timeline</option>
+              <option value="1-3 months">1–3 months</option>
+              <option value="3-6 months">3–6 months</option>
+              <option value="6-12 months">6–12 months</option>
+              <option value="Just exploring">Just exploring</option>
+            </select>
+          </div>
+          <div class="sc-form-row">
+            <select name="buy_after_selling">
+              <option value="">Do you need to buy a home after selling?</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+              <option value="Possibly">Possibly</option>
+              <option value="Not sure yet">Not sure yet</option>
+            </select>
+            <select name="connected_with_agent">
+              <option value="">Have you connected with another agent yet?</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </div>
+          <div class="sc-form-field">
+            <input type="text" name="estimated_value" placeholder="What do you think your home is worth today?" />
+          </div>
+          <div class="sc-form-field">
+            <textarea name="additional_info" rows="5" placeholder="Tell us about your home and your selling goals — notable upgrades, what you&apos;re looking for in an agent, your ideal experience, or anything else you&apos;d like us to know."></textarea>
+          </div>
+
+          <label class="sc-consent" id="sc-consent-label">
+            <input type="checkbox" name="consent" id="sc-consent-check" />
+            <span>I agree to be contacted by The Jaiswal Group Real Estate via call, email, and text for real estate services. To opt out, you can reply &lsquo;stop&rsquo; at any time or reply &lsquo;help&rsquo; for assistance. You can also click the unsubscribe link in the emails. Message and data rates may apply. Message frequency may vary. <a href="privacy-policy.html">Privacy Policy</a>.</span>
+          </label>
+
+          <button type="submit" class="sc-form-submit">REQUEST A SELLER CONSULTATION</button>
+        </form>
+
+        <div class="sc-success" id="sc-success">
+          <h4>We'll Be in Touch Shortly!</h4>
+          <p>Thank you for reaching out. We'll contact you within one business day to schedule your free seller consultation at a time that works for you.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CLIENT TESTIMONIALS -->
+  <section class="sc-testimonials">
+    <div class="sc-testimonials-header">
+      <p class="section-eyebrow">Client Reviews</p>
+      <h2>WHAT OUR SELLERS SAY</h2>
     </div>
 
-    <div class="sc-sold-grid">
+    <div class="sc-testimonials-grid">
 
-      <div class="sc-sold-card">
-        <div class="sc-sold-thumb">
-          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          <span class="sc-sold-badge">Sold</span>
-        </div>
-        <div class="sc-sold-body">
-          <p class="sc-sold-community">Pacific Highlands Ranch &middot; San Diego, CA</p>
-          <p class="sc-sold-tagline">Single-Family Residence</p>
-          <p class="sc-sold-note">Details available upon request.</p>
-        </div>
+      <div class="sc-testimonial-card">
+        <span class="sc-testimonial-quote">&#8220;</span>
+        <blockquote>Lynnette handled the sale of our home with professionalism and made our experience as hassle-free as possible. She was always available via text, phone or Zoom and worked tirelessly to champion us as sellers. I would recommend her to anyone looking to sell or buy!</blockquote>
+        <div class="sc-testimonial-divider"></div>
+        <cite class="sc-testimonial-cite">Bill P.</cite>
       </div>
 
-      <div class="sc-sold-card">
-        <div class="sc-sold-thumb">
-          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          <span class="sc-sold-badge">Sold</span>
-        </div>
-        <div class="sc-sold-body">
-          <p class="sc-sold-community">Carmel Valley &middot; San Diego, CA</p>
-          <p class="sc-sold-tagline">Single-Family Residence</p>
-          <p class="sc-sold-note">Details available upon request.</p>
-        </div>
+      <div class="sc-testimonial-card">
+        <span class="sc-testimonial-quote">&#8220;</span>
+        <blockquote>EXCELLENT! Lynnette Jaiswal expertly managed the sale of our existing home &amp; purchase of our new home. Her ability to anticipate &amp; navigate potential road blocks was INVALUABLE. She helped us quickly sell our home in Del Mar &amp; I would absolutely recommend her to family &amp; friends.</blockquote>
+        <div class="sc-testimonial-divider"></div>
+        <cite class="sc-testimonial-cite">Marsha O.</cite>
       </div>
 
-      <div class="sc-sold-card">
-        <div class="sc-sold-thumb">
-          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          <span class="sc-sold-badge">Sold</span>
-        </div>
-        <div class="sc-sold-body">
-          <p class="sc-sold-community">Del Mar &middot; San Diego, CA</p>
-          <p class="sc-sold-tagline">Single-Family Residence</p>
-          <p class="sc-sold-note">Details available upon request.</p>
-        </div>
+      <div class="sc-testimonial-card">
+        <span class="sc-testimonial-quote">&#8220;</span>
+        <blockquote>After talking with Lynnette for the first time, I knew she was different from other realtors. She guided us every step of the way with her expertise and knowledge about selling in the La Jolla market. She was extremely communicative, encouraging, and patient. She is truly a gem!</blockquote>
+        <div class="sc-testimonial-divider"></div>
+        <cite class="sc-testimonial-cite">Nicole P.</cite>
       </div>
 
     </div>
 
-    <div class="sc-sales-cta">
-      <a href="https://www.zillow.com/profile/Lynnette%20Jaiswal" class="btn-outline" target="_blank" rel="noopener">VIEW ALL PROPERTIES</a>
+    <div class="sc-testimonials-cta">
+      <a href="clientreviews.html">READ ALL REVIEWS</a>
     </div>
   </section>
 
