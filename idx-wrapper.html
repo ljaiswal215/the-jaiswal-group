@@ -703,20 +703,24 @@
       );
       if (title) title.textContent = '';
 
-      // Reword "Have an account? Sign in" link
-      var actions = document.querySelector(
-        '.IDX-page-usersignup #IDX-signupFormActions, .IDX-page-usersignin #IDX-signupFormActions'
-      );
-      if (actions && !actions._tjgFixed) {
-        var signInLink = actions.querySelector('a');
-        if (signInLink) {
-          actions._tjgFixed = true;
-          signInLink.textContent = 'Log In';
-          var textNode = signInLink.previousSibling;
-          if (textNode && textNode.nodeType === 3) {
-            textNode.textContent = 'Already have an account? ';
+      // Reword "Have an account? Sign in" — search by link text since IDX element IDs vary
+      if (isSignup || isSignin) {
+        document.querySelectorAll('a').forEach(function(link) {
+          var t = link.textContent.trim();
+          if ((t === 'Sign in' || t === 'Sign In') && !link._tjgRewired) {
+            link._tjgRewired = true;
+            link.textContent = 'Log In';
+            // Fix the surrounding text node ("Have an account? " → "Already have an account? ")
+            var parent = link.parentNode;
+            if (parent) {
+              Array.from(parent.childNodes).forEach(function(node) {
+                if (node.nodeType === 3 && /have an account/i.test(node.textContent)) {
+                  node.textContent = 'Already have an account? ';
+                }
+              });
+            }
           }
-        }
+        });
       }
 
       // Replace IDX's generic alert box text with on-brand copy
@@ -737,8 +741,9 @@
           el.style.setProperty('display', 'none', 'important');
         });
         // Fallback: find by text content wherever IDX renders it
-        document.querySelectorAll('p, small, div').forEach(function(el) {
-          if (el.children.length === 0 && el.textContent.indexOf('Data services provided by') !== -1) {
+        // Note: no children.length check — IDX wraps "IDX Broker" in an <a> tag
+        document.querySelectorAll('p, small, div, span').forEach(function(el) {
+          if (el.textContent.indexOf('Data services provided by') !== -1) {
             el.style.setProperty('display', 'none', 'important');
           }
         });
