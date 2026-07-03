@@ -736,21 +736,8 @@
         }
       });
 
-      // Hide "Data services provided by IDX Broker" footer on signup/signin only
-      if (isSignup || isSignin) {
-        document.querySelectorAll(
-          '#IDX-poweredByIDX, #IDX-dataAttrib, [class*="powered"], [id*="powered"]'
-        ).forEach(function(el) {
-          el.style.setProperty('display', 'none', 'important');
-        });
-        // Fallback: find by text content — use only inline/text elements, never div
-        // (div textContent bubbles up through all children and would hide #IDX-main itself)
-        document.querySelectorAll('p, small, span, li').forEach(function(el) {
-          if (el.textContent.indexOf('Data services provided by') !== -1) {
-            el.style.setProperty('display', 'none', 'important');
-          }
-        });
-      }
+      // Attribution footer ("Data services provided by IDX Broker") is hidden via CSS only.
+      // JS text-content search was removed — it caused #IDX-main to be hidden on signup pages.
     }
     _fixSignupText();
     [400, 1000, 2000].forEach(function(ms) { setTimeout(_fixSignupText, ms); });
