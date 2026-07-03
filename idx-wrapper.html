@@ -878,6 +878,26 @@
     }
     [300, 800, 1500, 3000].forEach(function(ms) { setTimeout(_fixPlaceholder, ms); });
 
+    // Reorder filter pills: move Property Type to come right after Status
+    function _reorderFilterPills() {
+      var typePill = document.getElementById('tjg-type-btn');
+      if (!typePill) return;
+      // Find the Status pill by scanning all .idx-filter-button elements for "Status" text
+      var allPills = document.querySelectorAll('.idx-filter-button');
+      var statusPill = null;
+      allPills.forEach(function(pill) {
+        if (/\bstatus\b/i.test(pill.textContent)) statusPill = pill;
+      });
+      if (!statusPill) return;
+      // Already in correct position?
+      if (statusPill.nextSibling === typePill) return;
+      // Move Property Type to immediately follow Status
+      statusPill.parentNode.insertBefore(typePill, statusPill.nextSibling);
+    }
+    _reorderFilterPills();
+    var _reorderInterval = setInterval(_reorderFilterPills, 500);
+    setTimeout(function() { clearInterval(_reorderInterval); }, 30000);
+
     // Rename filter pills — target divs directly by their injected IDs
     function _renameFilterLabels() {
       var renames = [
