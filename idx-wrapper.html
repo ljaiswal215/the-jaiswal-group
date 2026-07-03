@@ -687,6 +687,50 @@
       if (m) m.style.removeProperty('display');
     })();
 
+    // Modal mode — when the signup page is loaded inside our popup iframe,
+    // hide the site header and footer so only the form card shows.
+    (function() {
+      if (/[?&]modal=1/.test(window.location.search)) {
+        var s = document.createElement('style');
+        s.textContent = '#site-header,footer.site-footer{display:none!important;}body{background:#F3EFE8!important;}';
+        document.head.appendChild(s);
+      }
+    })();
+
+    // Save Search modal — opens the signup page in a centered popup
+    function _openSaveSearchModal() {
+      if (document.getElementById('tjg-save-modal')) return;
+      var overlay = document.createElement('div');
+      overlay.id = 'tjg-save-modal';
+      overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(24,37,75,0.72);display:flex;align-items:center;justify-content:center;';
+      var box = document.createElement('div');
+      box.style.cssText = 'position:relative;width:92%;max-width:560px;height:82vh;max-height:680px;background:#F3EFE8;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,0.28);';
+      var closeBtn = document.createElement('button');
+      closeBtn.innerHTML = '&times;';
+      closeBtn.setAttribute('aria-label', 'Close');
+      closeBtn.style.cssText = 'position:absolute;top:12px;right:16px;z-index:10;background:none;border:none;font-size:30px;color:#18254B;cursor:pointer;line-height:1;padding:0;opacity:0.6;';
+      closeBtn.addEventListener('mouseenter', function(){ closeBtn.style.opacity='1'; });
+      closeBtn.addEventListener('mouseleave', function(){ closeBtn.style.opacity='0.6'; });
+      closeBtn.addEventListener('click', function(){ document.body.removeChild(overlay); });
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://thejaiswalgroup.idxbroker.com/idx/usersignup?modal=1';
+      iframe.style.cssText = 'width:100%;flex:1;border:none;background:#F3EFE8;';
+      iframe.setAttribute('frameborder','0');
+      // Close modal after successful signup redirect (second iframe load = redirect after submit)
+      var _iframeLoads = 0;
+      iframe.addEventListener('load', function() {
+        _iframeLoads++;
+        if (_iframeLoads > 1) {
+          setTimeout(function(){ if (document.getElementById('tjg-save-modal')) document.body.removeChild(overlay); }, 1200);
+        }
+      });
+      overlay.addEventListener('click', function(e){ if (e.target === overlay) document.body.removeChild(overlay); });
+      box.appendChild(closeBtn);
+      box.appendChild(iframe);
+      overlay.appendChild(box);
+      document.body.appendChild(overlay);
+    }
+
     // Replace/fix IDX text strings we can't edit in admin
     function _fixSignupText() {
       var isSignup = document.querySelector('#IDX-main.IDX-page-usersignup');
@@ -1076,6 +1120,7 @@
       link.href = 'https://thejaiswalgroup.idxbroker.com/idx/usersignup';
       link.target = '_self';
       link.textContent = 'SAVE SEARCH';
+      link.addEventListener('click', function(e) { e.preventDefault(); _openSaveSearchModal(); });
       // Base layout styles via cssText, then pin visual props with setProperty !important
       // so IDX's runtime CSS can never strip the border/color
       link.style.cssText = 'display:inline-flex;align-items:center;text-decoration:none;white-space:nowrap;margin-left:8px;cursor:pointer;font-family:Lato,sans-serif;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0 16px;height:38px;border-radius:2px;box-sizing:border-box;';
