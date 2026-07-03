@@ -17,11 +17,11 @@
 
     /* ─── TJG Agent Card (listing detail aside) ─── */
     #tjg-agent-card { background:#F3EFE8; border:1px solid #E0D9CF; border-radius:0; padding:20px; margin-bottom:16px; font-family:'Lato',sans-serif; }
-    #tjg-agent-card__header { display:flex; align-items:center; gap:14px; margin-bottom:18px; }
-    #tjg-agent-card__logo { width:100px; flex-shrink:0; }
+    #tjg-agent-card__header { display:flex; flex-direction:column; align-items:center; text-align:center; gap:10px; margin-bottom:18px; }
+    #tjg-agent-card__logo { width:130px; }
     #tjg-agent-card__logo img { width:100%; height:auto; object-fit:contain; display:block; }
     #tjg-agent-card__name { font-family:'Marcellus',serif; color:#18254B; font-size:0.95rem; display:block; line-height:1.3; }
-    #tjg-agent-card__dre { color:#7a7269; font-size:0.68rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; display:block; margin-top:4px; }
+    #tjg-agent-card__dre { color:#7a7269; font-size:0.68rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; display:block; margin-top:2px; }
     #tjg-tour-btn { display:block; width:100%; background:#18254B; color:#fff; border:2px solid #18254B; border-radius:0; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:14px; cursor:pointer; margin-bottom:10px; box-sizing:border-box; }
     #tjg-tour-btn:hover { background:#0f1a35; border-color:#0f1a35; color:#fff; }
     #tjg-contact-btn { display:block; width:100%; background:transparent; color:#18254B; border:2px solid #18254B; border-radius:0; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:12px; cursor:pointer; text-align:center; text-decoration:none; box-sizing:border-box; }
@@ -350,7 +350,7 @@
       card.id = 'tjg-agent-card';
       card.innerHTML =
         '<div id="tjg-agent-card__header">' +
-          '<div id="tjg-agent-card__logo" style="width:100px;flex-shrink:0;background:none!important;border-radius:0!important;padding:0!important;height:auto!important;display:block;">' +
+          '<div id="tjg-agent-card__logo" style="width:130px;background:none!important;border-radius:0!important;padding:0!important;height:auto!important;display:block;">' +
             '<img src="https://ljaiswal215.github.io/the-jaiswal-group/logo.png" alt="The Jaiswal Group Real Estate" style="width:100%;height:auto;object-fit:contain;display:block;filter:none!important;">' +
           '</div>' +
           '<div>' +
@@ -372,7 +372,7 @@
         logoDiv.style.setProperty('border-radius', '0', 'important');
         logoDiv.style.setProperty('padding', '0', 'important');
         logoDiv.style.setProperty('height', 'auto', 'important');
-        logoDiv.style.setProperty('width', '100px', 'important');
+        logoDiv.style.setProperty('width', '130px', 'important');
         logoDiv.style.setProperty('display', 'block', 'important');
         var logoImg = logoDiv.querySelector('img');
         if (logoImg) logoImg.style.setProperty('filter', 'none', 'important');
