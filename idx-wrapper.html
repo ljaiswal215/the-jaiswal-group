@@ -530,21 +530,22 @@
     /* ─── Tour Request Modal (Two-Step) ─── */
     #tjg-tour-modal { display:none; position:fixed; inset:0; z-index:99999; align-items:center; justify-content:center; }
     #tjg-tour-modal.tjg-open { display:flex; }
-    #tjg-tour-overlay { position:absolute; inset:0; background:rgba(24,37,75,0.75); }
-    #tjg-tour-box { position:relative; background:#fff; border-radius:12px; width:92%; max-width:680px; max-height:90vh; overflow-y:auto; z-index:1; box-shadow:0 8px 40px rgba(0,0,0,0.25); }
-    /* Shared header */
-    #tjg-tour-header { display:flex; align-items:center; justify-content:center; padding:18px 48px; border-bottom:1px solid #eee; position:relative; }
-    #tjg-tour-header h3 { font-family:'Lato',sans-serif; font-size:1rem; font-weight:700; color:#18254B; margin:0; letter-spacing:0.02em; }
-    #tjg-tour-close { position:absolute; top:50%; right:18px; transform:translateY(-50%); background:none; border:none; font-size:22px; color:#18254B; cursor:pointer; line-height:1; padding:4px; }
+    #tjg-tour-overlay { position:absolute; inset:0; background:rgba(24,37,75,0.72); }
+    #tjg-tour-box { position:relative; background:#F3EFE8; border-radius:0; width:92%; max-width:680px; max-height:90vh; overflow-y:auto; z-index:1; box-shadow:0 12px 48px rgba(0,0,0,0.28); }
+    /* Shared header — navy bar */
+    #tjg-tour-header { display:flex; align-items:center; justify-content:center; padding:16px 48px; background:#18254B; position:relative; }
+    #tjg-tour-header h3 { font-family:'Marcellus',serif; font-size:0.85rem; font-weight:400; color:#fff; margin:0; letter-spacing:0.18em; text-transform:uppercase; }
+    #tjg-tour-close { position:absolute; top:50%; right:18px; transform:translateY(-50%); background:none; border:none; font-size:22px; color:rgba(255,255,255,0.7); cursor:pointer; line-height:1; padding:4px; }
+    #tjg-tour-close:hover { color:#B38987; }
     /* Step 1 */
     #tjg-tour-step1 { display:block; }
     #tjg-tour-step1-body { display:grid; grid-template-columns:1fr 1fr; }
-    #tjg-tour-prop { padding:24px; border-right:1px solid #eee; }
-    #tjg-tour-prop-img { width:100%; height:155px; object-fit:cover; border-radius:6px; margin-bottom:12px; display:block; }
+    #tjg-tour-prop { padding:24px; border-right:1px solid rgba(24,37,75,0.1); }
+    #tjg-tour-prop-img { width:100%; height:155px; object-fit:cover; border-radius:0; margin-bottom:12px; display:block; }
     #tjg-tour-prop-addr { font-weight:700; font-family:'Lato',sans-serif; color:#18254B; font-size:0.88rem; line-height:1.4; margin-bottom:4px; }
     #tjg-tour-prop-meta { font-family:'Lato',sans-serif; color:#7a7269; font-size:0.82rem; }
     #tjg-tour-options { padding:24px; }
-    #tjg-tour-options h4 { font-family:'Lato',sans-serif; font-weight:700; color:#18254B; font-size:1rem; margin:0 0 6px; }
+    #tjg-tour-options h4 { font-family:'Marcellus',serif; font-weight:400; color:#18254B; font-size:1.1rem; margin:0 0 6px; letter-spacing:0.04em; }
     #tjg-tour-options .tjg-step1-sub { font-family:'Lato',sans-serif; font-size:0.82rem; color:#7a7269; margin-bottom:20px; line-height:1.5; }
     /* Radio buttons */
     #tjg-tour-types { display:flex; gap:24px; margin-bottom:20px; }
@@ -553,27 +554,27 @@
     .tjg-tour-type span { font-family:'Lato',sans-serif; font-size:0.9rem; color:#18254B; font-weight:600; }
     /* Date + time */
     #tjg-tour-date-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:24px; }
-    #tjg-tour-date, #tjg-tour-time { width:100%; padding:10px 12px; border:1.5px solid #E0D9CF; border-radius:8px; font-family:'Lato',sans-serif; font-size:0.84rem; color:#18254B; box-sizing:border-box; outline:none; background:#fff; }
+    #tjg-tour-date, #tjg-tour-time { width:100%; padding:10px 12px; border:1px solid rgba(24,37,75,0.2); border-radius:0; font-family:'Lato',sans-serif; font-size:0.84rem; color:#18254B; box-sizing:border-box; outline:none; background:#fff; }
     #tjg-tour-date:focus, #tjg-tour-time:focus { border-color:#18254B; }
-    #tjg-tour-next { display:block; width:100%; background:#18254B; color:#fff; border:none; border-radius:6px; font-family:'Lato',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:14px; cursor:pointer; }
-    #tjg-tour-next:hover { background:#0f1a35; }
+    #tjg-tour-next { display:block; width:100%; background:#18254B; color:#fff; border:2px solid #18254B; border-radius:0; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:14px; cursor:pointer; transition:background 0.2s, color 0.2s; }
+    #tjg-tour-next:hover { background:#B38987; border-color:#B38987; }
     /* Step 2 */
     #tjg-tour-step2 { display:none; padding:24px; }
     #tjg-tour-step2.tjg-s2-active { display:block; }
-    #tjg-tour-brand { display:flex; align-items:center; gap:14px; margin-bottom:22px; padding-bottom:18px; border-bottom:1px solid #eee; }
+    #tjg-tour-brand { display:flex; align-items:center; gap:14px; margin-bottom:22px; padding-bottom:18px; border-bottom:1px solid rgba(24,37,75,0.12); }
     #tjg-tour-brand img { width:80px; height:auto; object-fit:contain; }
     #tjg-tour-brand-name { font-family:'Lato',sans-serif; font-weight:700; font-size:0.88rem; color:#18254B; line-height:1.4; }
-    #tjg-tour-form label { display:block; font-family:'Lato',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#18254B; margin:16px 0 5px; }
-    #tjg-tour-form input, #tjg-tour-form textarea { width:100%; padding:10px 12px; border:1.5px solid #E0D9CF; border-radius:8px; font-family:'Lato',sans-serif; font-size:0.88rem; color:#18254B; box-sizing:border-box; outline:none; }
+    #tjg-tour-form label { display:block; font-family:'Lato',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#18254B; margin:14px 0 5px; }
+    #tjg-tour-form input, #tjg-tour-form textarea { width:100%; padding:10px 12px; border:1px solid rgba(24,37,75,0.2); border-radius:0; font-family:'Lato',sans-serif; font-size:0.88rem; color:#18254B; box-sizing:border-box; outline:none; background:#fff; }
     #tjg-tour-form input:focus, #tjg-tour-form textarea:focus { border-color:#18254B; }
     #tjg-tour-form textarea { resize:vertical; min-height:90px; text-align:left; }
     .tjg-form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
     .tjg-form-row > div > label { margin-top:0 !important; }
     #tjg-tour-step2-btns { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px; }
-    #tjg-tour-back { background:#fff; color:#18254B; border:1.5px solid #18254B; border-radius:6px; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:14px; cursor:pointer; }
-    #tjg-tour-back:hover { background:#F3EFE8; }
-    #tjg-tour-submit { background:#18254B; color:#fff; border:none; border-radius:6px; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:14px; cursor:pointer; }
-    #tjg-tour-submit:hover { background:#0f1a35; }
+    #tjg-tour-back { background:transparent; color:#18254B; border:1.5px solid #18254B; border-radius:0; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:14px; cursor:pointer; transition:background 0.2s; }
+    #tjg-tour-back:hover { background:rgba(24,37,75,0.06); }
+    #tjg-tour-submit { background:#18254B; color:#fff; border:2px solid #18254B; border-radius:0; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:14px; cursor:pointer; transition:background 0.2s, color 0.2s; }
+    #tjg-tour-submit:hover { background:#B38987; border-color:#B38987; }
     #tjg-tour-privacy { font-family:'Lato',sans-serif; font-size:0.7rem; color:#7a7269; margin-top:14px; line-height:1.5; }
     /* Opt-in consent block */
     #tjg-optin-wrap { margin-top:18px; }
@@ -589,7 +590,7 @@
     /* Mobile stack */
     @media (max-width:560px) {
       #tjg-tour-step1-body { grid-template-columns:1fr; }
-      #tjg-tour-prop { border-right:none; border-bottom:1px solid #eee; padding-bottom:18px; }
+      #tjg-tour-prop { border-right:none; border-bottom:1px solid rgba(24,37,75,0.1); padding-bottom:18px; }
       #tjg-tour-prop-img { height:120px; }
     }
   </style>
@@ -1403,7 +1404,7 @@
 
         // Fresh image lookup at open time — catches lazy-loaded gallery images
         var imgEl = document.getElementById('tjg-tour-prop-img');
-        if (imgEl && !imgEl.src) {
+        if (imgEl && !imgEl.getAttribute('src')) {
           var found =
             document.querySelector('#IDX-galleryMain img') ||
             document.querySelector('#IDX-gallery img') ||
