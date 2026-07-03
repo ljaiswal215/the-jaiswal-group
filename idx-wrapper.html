@@ -529,7 +529,7 @@
       });
     });
 
-    // Save Search button — inserted after #tjg-view-toggle (LIST/MAP) in the toolbar
+    // Save Search button — watches for #tjg-view-toggle (LIST/MAP) and inserts immediately after it
     function _idxInjectSaveSearch() {
       if (document.querySelector('#tjg-save-search')) return;
       var toggle = document.querySelector('#tjg-view-toggle');
@@ -543,8 +543,14 @@
       link.addEventListener('mouseleave',function(){ link.style.background='transparent'; link.style.color='#18254B'; });
       toggle.parentNode.insertBefore(link, toggle.nextSibling);
     }
-    setTimeout(_idxInjectSaveSearch, 1000);
-    setTimeout(_idxInjectSaveSearch, 3000);
+    var _saveSearchObserver = new MutationObserver(function() {
+      if (document.querySelector('#tjg-view-toggle') && !document.querySelector('#tjg-save-search')) {
+        _idxInjectSaveSearch();
+      }
+      if (document.querySelector('#tjg-save-search')) _saveSearchObserver.disconnect();
+    });
+    _saveSearchObserver.observe(document.body, { childList: true, subtree: true });
+    setTimeout(function(){ _saveSearchObserver.disconnect(); }, 30000);
 
     // Prevent flash of off-area listings on map search page load
     (function() {
