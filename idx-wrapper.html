@@ -51,6 +51,32 @@
     /* ─── Hide X icon inside results count chip ─── */
     #listing-results-count__chip svg { display: none !important; }
 
+    /* ─── Search field: fix ZIP tag chip overflow / right-side bleed ─── */
+    /* Clip the fly-to container so nothing escapes into the magnifying glass */
+    #prime-map-search--filter-bar__flyto { overflow: hidden !important; }
+    #prime-map-search--filter-bar__flyto .ti-input { overflow: hidden !important; text-align: left !important; }
+    /* Force tags flex-row left-to-right so chip always anchors left */
+    #prime-map-search--filter-bar__flyto .ti-tags {
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      justify-content: flex-start !important;
+      align-items: center !important;
+      overflow: hidden !important;
+    }
+    /* Brand the chip navy; cap its width so it never reaches the search icon */
+    #prime-map-search--filter-bar__flyto .ti-tag {
+      flex-shrink: 0 !important;
+      background-color: #18254B !important;
+      border-radius: 2px !important;
+      max-width: 160px !important;
+      overflow: hidden !important;
+      white-space: nowrap !important;
+      text-overflow: ellipsis !important;
+    }
+    /* Keep input left-anchored and prevent it from overflowing */
+    #prime-map-search--filter-bar__flyto .ti-new-tag-input-wrapper { min-width: 0 !important; overflow: hidden !important; }
+    #prime-map-search--filter-bar__flyto .ti-new-tag-input { text-align: left !important; min-width: 0 !important; }
+
     /* ─── Tour Request Modal ─── */
     #tjg-tour-modal { display:none; position:fixed; inset:0; z-index:99999; align-items:center; justify-content:center; }
     #tjg-tour-modal.tjg-open { display:flex; }
