@@ -133,7 +133,7 @@
       box-shadow: 0 2px 8px rgba(24,37,75,0.18) !important;
     }
     .leaflet-control-zoom a,
-    .leaflet-bar a,
+    .leaflet-bar a:not(#tjg-save-search),
     .leaflet-draw-toolbar a {
       background-color: #18254B !important;
       color: #fff !important;
@@ -147,7 +147,7 @@
       line-height: 30px !important;
     }
     .leaflet-control-zoom a:hover,
-    .leaflet-bar a:hover,
+    .leaflet-bar a:not(#tjg-save-search):hover,
     .leaflet-draw-toolbar a:hover {
       background-color: #0f1a35 !important;
       color: #fff !important;
@@ -158,7 +158,7 @@
     }
     /* SVGs inside map control buttons */
     .leaflet-control-zoom a svg,
-    .leaflet-bar a svg,
+    .leaflet-bar a:not(#tjg-save-search) svg,
     .leaflet-draw-toolbar a svg {
       fill: #fff !important;
       stroke: #fff !important;
