@@ -912,7 +912,7 @@
       if (!container) return;
       var isModal = /[?&]modal=1/.test(window.location.search);
       var titleText = isSignin ? 'Welcome Back'
-                    : (isModal ? 'Create Your Account to Save This Search' : 'Create Your Account');
+                    : (isModal ? 'Sign Up to Save This Search' : 'Sign Up');
       var header = document.createElement('div');
       header.id = 'tjg-signup-header';
       header.innerHTML = isModal
