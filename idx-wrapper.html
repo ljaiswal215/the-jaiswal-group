@@ -841,9 +841,8 @@
       });
     }
     _renamePropTypeLabel();
-    [400, 800, 1500, 3000, 5000, 8000].forEach(function(ms) { setTimeout(_renamePropTypeLabel, ms); });
-    var _ptObserver = new MutationObserver(_renamePropTypeLabel);
-    _ptObserver.observe(document.body, { childList: true, subtree: true });
+    var _ptInterval = setInterval(_renamePropTypeLabel, 500);
+    setTimeout(function() { clearInterval(_ptInterval); }, 30000);
 
     // Click anywhere in search field (when a zip/city tag is set) to clear it
     document.addEventListener('click', function(e) {
