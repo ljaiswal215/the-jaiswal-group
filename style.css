@@ -920,6 +920,15 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 .neighborhoods .nbhd-card-reveal {
   gap: 0.75rem;
 }
+/* Desktop: push name higher and reveal lower to create breathing room between them */
+@media (min-width: 1100px) {
+  .neighborhoods .nbhd-card:hover .nbhd-name {
+    transform: translateY(calc(-50% - 110px));
+  }
+  .neighborhoods .nbhd-card:hover .nbhd-card-reveal {
+    transform: translateY(calc(-50% + 25px));
+  }
+}
 
 /* Communities hub card — static, no animation */
 .nbhd-card--hub .nbhd-img {
