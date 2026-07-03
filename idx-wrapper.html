@@ -470,6 +470,22 @@
     });
     _idxTourLabelObserver.observe(document.body, { childList: true, subtree: true });
 
+    // Rename "ALL PROPERTY TYPES" filter pill to "Property Type"
+    function _fixPropertyTypeLabel() {
+      var bar = document.getElementById('prime-map-search--filter-bar') || document.body;
+      var walker = document.createTreeWalker(bar, NodeFilter.SHOW_TEXT);
+      var node;
+      while ((node = walker.nextNode())) {
+        if (node.nodeValue.trim() === 'ALL PROPERTY TYPES') {
+          node.nodeValue = 'Property Type';
+        }
+      }
+    }
+    _fixPropertyTypeLabel();
+    var _propTypeLabelObs = new MutationObserver(_fixPropertyTypeLabel);
+    _propTypeLabelObs.observe(document.body, { childList: true, subtree: true });
+    setTimeout(function() { _propTypeLabelObs.disconnect(); }, 30000);
+
     // Click anywhere in search field (when a zip/city tag is set) to clear it
     document.addEventListener('click', function(e) {
       var field = document.querySelector('.pm-ccz-fly-to-field-disabled');
