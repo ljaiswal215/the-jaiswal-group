@@ -214,7 +214,7 @@
     .IDX-page-usersignup #IDX-main,
     .IDX-page-usersignin #IDX-main {
       background: #F3EFE8 !important;
-      padding: 52px 20px 72px !important;
+      padding: 80px 20px 72px !important;
       min-height: 60vh !important;
     }
 
@@ -289,10 +289,34 @@
       box-sizing: border-box !important;
     }
 
-    /* Hide IDX's teal alert info box — our injected header replaces it */
-    .IDX-page-usersignup .alert,
-    .IDX-page-usersignup .alert-info,
-    .IDX-page-usersignin .alert { display: none !important; }
+    /* Restyle IDX's alert info box — brand cream with rose gold accent */
+    /* IDX uses IDX-alert / IDX-alert-info, not Bootstrap .alert */
+    .IDX-page-usersignup .IDX-alert,
+    .IDX-page-usersignup .IDX-alert-info,
+    .IDX-page-usersignin .IDX-alert,
+    .IDX-page-usersignin .IDX-alert-info {
+      display: block !important;
+      background: #F3EFE8 !important;
+      border: none !important;
+      border-left: 3px solid #B38987 !important;
+      border-radius: 0 !important;
+      color: #18254B !important;
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.82rem !important;
+      letter-spacing: 0.04em !important;
+      padding: 12px 16px !important;
+      margin-bottom: 20px !important;
+    }
+
+    /* Hide IDX attribution footer on signup/signin pages */
+    .IDX-page-usersignup #IDX-poweredByIDX,
+    .IDX-page-usersignup [class*="powered"],
+    .IDX-page-usersignup [id*="powered"],
+    .IDX-page-usersignup #IDX-dataAttrib,
+    .IDX-page-usersignin #IDX-poweredByIDX,
+    .IDX-page-usersignin [class*="powered"],
+    .IDX-page-usersignin [id*="powered"],
+    .IDX-page-usersignin #IDX-dataAttrib { display: none !important; }
 
     /* Field labels */
     .IDX-page-usersignup label,
@@ -668,18 +692,57 @@
     _injectSignupBranding();
     [300, 800, 1500].forEach(function(ms) { setTimeout(_injectSignupBranding, ms); });
 
-    // Fallback: directly replace IDX text we can't edit in admin
+    // Replace/fix IDX text strings we can't edit in admin
     function _fixSignupText() {
-      // Panel title "User Signup" → hidden by CSS, but also change text in case CSS misses
+      var isSignup = document.querySelector('#IDX-main.IDX-page-usersignup');
+      var isSignin = document.querySelector('#IDX-main.IDX-page-usersignin');
+
+      // Blank the panel title — CSS hides it, this is belt-and-suspenders
       var title = document.querySelector(
         '.IDX-page-usersignup .IDX-panel-title, .IDX-page-usersignin .IDX-panel-title'
       );
       if (title) title.textContent = '';
 
-      // Alert info box "To create an account, fill out the form" → hide via CSS + JS
-      document.querySelectorAll(
-        '.IDX-page-usersignup .alert, .IDX-page-usersignin .alert'
-      ).forEach(function(el) { el.style.setProperty('display', 'none', 'important'); });
+      // Reword "Have an account? Sign in" link
+      var actions = document.querySelector(
+        '.IDX-page-usersignup #IDX-signupFormActions, .IDX-page-usersignin #IDX-signupFormActions'
+      );
+      if (actions && !actions._tjgFixed) {
+        var signInLink = actions.querySelector('a');
+        if (signInLink) {
+          actions._tjgFixed = true;
+          signInLink.textContent = 'Log In';
+          var textNode = signInLink.previousSibling;
+          if (textNode && textNode.nodeType === 3) {
+            textNode.textContent = 'Already have an account? ';
+          }
+        }
+      }
+
+      // Replace IDX's generic alert box text with on-brand copy
+      // IDX uses IDX-alert / IDX-alert-info, not Bootstrap .alert
+      var alerts = document.querySelectorAll('.IDX-page-usersignup .IDX-alert, .IDX-page-usersignin .IDX-alert');
+      alerts.forEach(function(el) {
+        if (!el._tjgFixed) {
+          el._tjgFixed = true;
+          el.textContent = 'Your information is secure and never shared. Create a free account to save searches and receive personalized listing alerts.';
+        }
+      });
+
+      // Hide "Data services provided by IDX Broker" footer on signup/signin only
+      if (isSignup || isSignin) {
+        document.querySelectorAll(
+          '#IDX-poweredByIDX, #IDX-dataAttrib, [class*="powered"], [id*="powered"]'
+        ).forEach(function(el) {
+          el.style.setProperty('display', 'none', 'important');
+        });
+        // Fallback: find by text content wherever IDX renders it
+        document.querySelectorAll('p, small, div').forEach(function(el) {
+          if (el.children.length === 0 && el.textContent.indexOf('Data services provided by') !== -1) {
+            el.style.setProperty('display', 'none', 'important');
+          }
+        });
+      }
     }
     _fixSignupText();
     [400, 1000, 2000].forEach(function(ms) { setTimeout(_fixSignupText, ms); });
