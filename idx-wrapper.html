@@ -495,6 +495,10 @@
         chip.style.setProperty('max-width', '140px', 'important');
         chip.style.setProperty('background-color', '#18254B', 'important');
         chip.style.setProperty('color', '#ffffff', 'important');
+        // Force white on every child — IDX global CSS sets color on spans via !important
+        chip.querySelectorAll('*').forEach(function(el) {
+          el.style.setProperty('color', '#ffffff', 'important');
+        });
       }
       var inputWrapper = tiTags.querySelector('.ti-new-tag-input-wrapper');
       if (inputWrapper) {
