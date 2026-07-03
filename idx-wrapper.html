@@ -878,26 +878,31 @@
     }
     [300, 800, 1500, 3000].forEach(function(ms) { setTimeout(_fixPlaceholder, ms); });
 
-    // Reorder filter pills: move Property Type to come right after Status
+    // Reorder filter pills: Status → Property Type → Any Price → Any Size → Bed → Bath
     function _reorderFilterPills() {
-      var typePill = document.getElementById('tjg-type-btn');
-      if (!typePill) return;
-      // Find the Status pill by scanning all .idx-filter-button elements for "Status" text
       var allPills = document.querySelectorAll('.idx-filter-button');
-      var statusPill = null;
+      if (!allPills.length) return;
+      var statusPill = null, typePill = null, pricePill = null,
+          sqftPill = null, bedPill = null, bathPill = null;
       allPills.forEach(function(pill) {
-        if (/\bstatus\b/i.test(pill.textContent)) statusPill = pill;
+        var txt = pill.textContent.toLowerCase();
+        if (pill.id === 'tjg-type-btn')       typePill   = pill;
+        else if (pill.id === 'tjg-sqft-btn')  sqftPill   = pill;
+        else if (/\bstatus\b/.test(txt))      statusPill = pill;
+        else if (/\bprice\b/.test(txt))       pricePill  = pill;
+        else if (/\bbed/.test(txt))           bedPill    = pill;
+        else if (/\bbath/.test(txt))          bathPill   = pill;
       });
       if (!statusPill) return;
-      // Move Property Type to immediately follow Status
-      if (statusPill.nextSibling !== typePill) {
-        statusPill.parentNode.insertBefore(typePill, statusPill.nextSibling);
-      }
-      // Move Any Size to immediately follow Property Type
-      var sqftPill = document.getElementById('tjg-sqft-btn');
-      if (sqftPill && typePill.nextSibling !== sqftPill) {
-        typePill.parentNode.insertBefore(sqftPill, typePill.nextSibling);
-      }
+      // Walk the desired sequence, inserting each pill after the previous anchor
+      var anchor = statusPill;
+      [typePill, pricePill, sqftPill, bedPill, bathPill].forEach(function(pill) {
+        if (!pill) return;
+        if (anchor.nextSibling !== pill) {
+          anchor.parentNode.insertBefore(pill, anchor.nextSibling);
+        }
+        anchor = pill;
+      });
     }
     _reorderFilterPills();
     var _reorderInterval = setInterval(_reorderFilterPills, 500);
