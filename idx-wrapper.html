@@ -415,8 +415,6 @@
     _abbreviateAllLabels();
     var _priceInterval = setInterval(_abbreviateAllLabels, 500);
     setTimeout(function() { clearInterval(_priceInterval); }, 60000);
-    // Also watch DOM for new pins
-    new MutationObserver(_abbreviateAllLabels).observe(document.body, { childList: true, subtree: true });
 
 
     // Hide ADDRESS / ADVANCED SEARCH nav buttons (a.idx-nav-button)
@@ -425,7 +423,6 @@
       if (container) container.style.display = 'none';
     }
     _hideSearchTypeToggles();
-    new MutationObserver(_hideSearchTypeToggles).observe(document.body, { childList: true, subtree: true });
 
     // Advanced Search link — directly above listing cards, right-aligned
     function _idxAddAdvancedSearchLink() {
@@ -446,40 +443,6 @@
       if (document.querySelector('#idx-advsearch-link')) clearInterval(_advSearchInterval);
     }, 500);
     setTimeout(function() { clearInterval(_advSearchInterval); }, 60000);
-    new MutationObserver(_idxAddAdvancedSearchLink).observe(document.body, { childList: true, subtree: true });
-
-    var _idxPlaceholderObserver = new MutationObserver(function() {
-      var input = document.querySelector('.ti-new-tag-input');
-      if (input && (input.placeholder === 'City, County, Zip' || input.placeholder === 'City, Neighborhood, ZIP Code')) {
-        input.placeholder = 'City or ZIP';
-      }
-    });
-    _idxPlaceholderObserver.observe(document.body, { childList: true, subtree: true });
-
-    var _idxTourLabelObserver = new MutationObserver(function() {
-      document.querySelectorAll('.IDX-detailsVirtualTourAction').forEach(function(btn) {
-        if (btn.textContent.trim() === 'TOUR') {
-          btn.textContent = 'VIRTUAL TOUR';
-        }
-      });
-    });
-    _idxTourLabelObserver.observe(document.body, { childList: true, subtree: true });
-
-    // Rename "ALL PROPERTY TYPES" filter pill to "Property Type"
-    function _fixPropertyTypeLabel() {
-      var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-      var node;
-      while ((node = walker.nextNode())) {
-        var val = node.nodeValue.trim().toLowerCase();
-        if (val === 'all property types') {
-          node.nodeValue = 'Property Type';
-        }
-      }
-    }
-    _fixPropertyTypeLabel();
-    var _propTypeLabelObs = new MutationObserver(_fixPropertyTypeLabel);
-    _propTypeLabelObs.observe(document.body, { childList: true, subtree: true });
-    setTimeout(function() { _propTypeLabelObs.disconnect(); }, 30000);
 
     // Enforce ZIP tag chip layout via JS setProperty — beats IDX Vue inline style !important
     function _enforceTagChipLayout() {
@@ -510,7 +473,6 @@
       }
     }
     _enforceTagChipLayout();
-    new MutationObserver(_enforceTagChipLayout).observe(document.body, { childList: true, subtree: true });
 
     // Click anywhere in search field (when a zip/city tag is set) to clear it
     document.addEventListener('click', function(e) {
@@ -543,7 +505,6 @@
       }
     }
     _fixAgentInfo();
-    new MutationObserver(_fixAgentInfo).observe(document.body, { childList: true, subtree: true });
 
     // ── TJG Agent Card — injected into listing detail aside ──
     function _injectAgentCard() {
@@ -662,7 +623,6 @@
       });
     }
     _injectAgentCard();
-    new MutationObserver(_injectAgentCard).observe(document.body, { childList: true, subtree: true });
 
     // ADD TO FAVORITES + PRINT FLYER
     // Hover state driven by real cursor position — immune to IDX synthetic mouse events
@@ -720,7 +680,6 @@
       if (print) wireBtn(print);
     }
     _fixHeaderButtons();
-    new MutationObserver(_fixHeaderButtons).observe(document.body, { childList: true, subtree: true });
 
     // Apply hover colors only on real cursor movement crossing button boundary
     document.addEventListener('mousemove', function() {
@@ -782,22 +741,50 @@
       }, 2200);
     })();
 
-    var _idxBackLinkObserver = new MutationObserver(function() {
-      var topNav = document.querySelector('#IDX-detailsTopNav');
-      if (!topNav) return;
-      if (!document.querySelector('#IDX-backToResults')) {
-        var link = document.createElement('a');
-        link.id = 'IDX-backToResults';
-        link.href = '#';
-        link.innerHTML = '&larr; Back to Results';
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          history.back();
+    // ─── Single consolidated MutationObserver ──────────────────────────────────
+    // Replaces 10+ individual document.body observers to prevent the feedback
+    // loop with IDX's Vue watchers that caused "Maximum call stack size exceeded".
+    // Throttled to 80 ms so rapid IDX DOM churn fires our logic at most ~12×/s.
+    (function() {
+      var _tjgTimer = null;
+      function _tjgDispatch() {
+        _abbreviateAllLabels();
+        _hideSearchTypeToggles();
+        _idxAddAdvancedSearchLink();
+        _enforceTagChipLayout();
+        _fixAgentInfo();
+        _injectAgentCard();
+        _fixHeaderButtons();
+
+        // Placeholder label
+        var input = document.querySelector('.ti-new-tag-input');
+        if (input && (input.placeholder === 'City, County, Zip' ||
+                      input.placeholder === 'City, Neighborhood, ZIP Code')) {
+          input.placeholder = 'City or ZIP';
+        }
+
+        // Tour button label
+        document.querySelectorAll('.IDX-detailsVirtualTourAction').forEach(function(btn) {
+          if (btn.textContent.trim() === 'TOUR') btn.textContent = 'VIRTUAL TOUR';
         });
-        topNav.insertBefore(link, topNav.firstChild);
+
+        // Back-to-results link on detail pages
+        var topNav = document.querySelector('#IDX-detailsTopNav');
+        if (topNav && !document.querySelector('#IDX-backToResults')) {
+          var backLink = document.createElement('a');
+          backLink.id = 'IDX-backToResults';
+          backLink.href = '#';
+          backLink.innerHTML = '&larr; Back to Results';
+          backLink.addEventListener('click', function(e) { e.preventDefault(); history.back(); });
+          topNav.insertBefore(backLink, topNav.firstChild);
+        }
       }
-    });
-    _idxBackLinkObserver.observe(document.body, { childList: true, subtree: true });
+      function _tjgSchedule() {
+        clearTimeout(_tjgTimer);
+        _tjgTimer = setTimeout(_tjgDispatch, 80);
+      }
+      new MutationObserver(_tjgSchedule).observe(document.body, { childList: true, subtree: true });
+    })();
   </script>
 
 
