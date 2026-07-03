@@ -77,6 +77,93 @@
     #prime-map-search--filter-bar__flyto .ti-new-tag-input-wrapper { min-width: 0 !important; overflow: hidden !important; }
     #prime-map-search--filter-bar__flyto .ti-new-tag-input { text-align: left !important; min-width: 0 !important; }
 
+    /* ─── Results count chip: Lato brand styling ─── */
+    #listing-results-count__chip {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.68rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      color: #18254B !important;
+      background: transparent !important;
+      border: 1px solid #E0D9CF !important;
+      border-radius: 2px !important;
+      padding: 4px 10px !important;
+    }
+
+    /* ─── Map listing cards: reduce CRMLS logo visual weight ─── */
+    #prime-map-search--results img[alt*="CRMLS"],
+    #prime-map-search--results img[src*="CRMLS"],
+    #prime-map-search--results img[src*="crmls"],
+    #prime-map-search--results [class*="attrib"] img,
+    #prime-map-search--results [class*="attribution"] img,
+    #prime-map-search--results [class*="source-logo"] img,
+    #prime-map-search--results [class*="listing-source"] img {
+      opacity: 0.5 !important;
+      max-height: 16px !important;
+      width: auto !important;
+      max-width: 64px !important;
+    }
+
+    /* ─── Map listing cards: tone down heart/favorite icon ─── */
+    #prime-map-search--results button[class*="fav"],
+    #prime-map-search--results button[class*="favorite"],
+    #prime-map-search--results [class*="fav-btn"],
+    #prime-map-search--results [class*="favorite-btn"],
+    #prime-map-search--results .IDX-favoriteProperty,
+    #prime-map-search--results .IDX-mapCardFavorite {
+      opacity: 0.4 !important;
+      transform: scale(0.78) !important;
+      transform-origin: top right !important;
+      transition: opacity 0.2s !important;
+    }
+    #prime-map-search--results button[class*="fav"]:hover,
+    #prime-map-search--results button[class*="favorite"]:hover,
+    #prime-map-search--results .IDX-favoriteProperty:hover,
+    #prime-map-search--results .IDX-mapCardFavorite:hover {
+      opacity: 1 !important;
+    }
+
+    /* ─── Leaflet + IDX map controls: navy brand ─── */
+    .leaflet-control-zoom,
+    .leaflet-bar,
+    .leaflet-draw-toolbar {
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: 0 2px 8px rgba(24,37,75,0.18) !important;
+    }
+    .leaflet-control-zoom a,
+    .leaflet-bar a,
+    .leaflet-draw-toolbar a {
+      background-color: #18254B !important;
+      color: #fff !important;
+      border: none !important;
+      border-bottom: 1px solid rgba(255,255,255,0.12) !important;
+      border-radius: 0 !important;
+      font-family: 'Lato', sans-serif !important;
+      font-weight: 700 !important;
+      width: 30px !important;
+      height: 30px !important;
+      line-height: 30px !important;
+    }
+    .leaflet-control-zoom a:hover,
+    .leaflet-bar a:hover,
+    .leaflet-draw-toolbar a:hover {
+      background-color: #0f1a35 !important;
+      color: #fff !important;
+    }
+    .leaflet-control-zoom a.leaflet-disabled {
+      opacity: 0.35 !important;
+      cursor: default !important;
+    }
+    /* SVGs inside map control buttons */
+    .leaflet-control-zoom a svg,
+    .leaflet-bar a svg,
+    .leaflet-draw-toolbar a svg {
+      fill: #fff !important;
+      stroke: #fff !important;
+    }
+
     /* ─── Tour Request Modal ─── */
     #tjg-tour-modal { display:none; position:fixed; inset:0; z-index:99999; align-items:center; justify-content:center; }
     #tjg-tour-modal.tjg-open { display:flex; }
