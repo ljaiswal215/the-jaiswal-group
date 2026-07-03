@@ -210,16 +210,41 @@
 
     /* ─── User Signup / Login — full rebrand ──────────────────────────────── */
 
-    /* Hide IDX's generic "User Signup" subheader bar */
-    .IDX-page-usersignup #IDX-Subheader,
-    .IDX-page-usersignin #IDX-Subheader { display: none !important; }
-
     /* Cream page background */
     .IDX-page-usersignup #IDX-main,
     .IDX-page-usersignin #IDX-main {
       background: #F3EFE8 !important;
       padding: 52px 20px 72px !important;
       min-height: 60vh !important;
+    }
+
+    /* Hide IDX's "User Signup" panel heading — our injected header replaces it */
+    .IDX-page-usersignup #IDX-leadSignupHeader,
+    .IDX-page-usersignin #IDX-leadSignupHeader { display: none !important; }
+
+    /* Strip Bootstrap panel chrome — let our card styling take over */
+    .IDX-page-usersignup .IDX-panel.IDX-panel-default,
+    .IDX-page-usersignin .IDX-panel.IDX-panel-default {
+      border: none !important;
+      box-shadow: none !important;
+      background: transparent !important;
+      margin: 0 !important;
+    }
+
+    /* Override IDX's Bootstrap column offsets so our max-width centering works */
+    .IDX-page-usersignup #IDX-leadSignupContainer > .IDX-row,
+    .IDX-page-usersignin #IDX-leadSignupContainer > .IDX-row {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+    .IDX-page-usersignup #IDX-leadSignupContainer > .IDX-row > [class*="col-"],
+    .IDX-page-usersignin #IDX-leadSignupContainer > .IDX-row > [class*="col-"] {
+      float: none !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      margin-left: 0 !important;
     }
 
     /* Injected branded header (logo + heading + subtitle) */
