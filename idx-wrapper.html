@@ -51,33 +51,25 @@
     /* ─── Hide X icon inside results count chip ─── */
     #listing-results-count__chip svg { display: none !important; }
 
-    /* ─── Search field: fix ZIP tag chip overflow / right-side bleed ─── */
-    /* Clip the fly-to container so nothing escapes into the magnifying glass */
-    #prime-map-search--filter-bar__flyto { overflow: hidden !important; }
+    /* ─── Search field: ZIP tag chip — visual styles only (layout enforced via JS) ─── */
     #prime-map-search--filter-bar__flyto .ti-input { overflow: hidden !important; text-align: left !important; }
-    /* Force tags flex-row left-to-right so chip always anchors left */
-    #prime-map-search--filter-bar__flyto .ti-tags {
-      flex-direction: row !important;
-      flex-wrap: nowrap !important;
-      justify-content: flex-start !important;
-      align-items: center !important;
-      overflow: hidden !important;
-    }
-    /* Brand the chip navy; cap its width so it never reaches the search icon */
+    #prime-map-search--filter-bar__flyto .ti-tags { overflow: hidden !important; }
     #prime-map-search--filter-bar__flyto .ti-tag {
-      flex-shrink: 0 !important;
       background-color: #18254B !important;
       color: #ffffff !important;
       border-radius: 2px !important;
-      max-width: 160px !important;
+      max-width: 140px !important;
       overflow: hidden !important;
       white-space: nowrap !important;
       text-overflow: ellipsis !important;
     }
     #prime-map-search--filter-bar__flyto .ti-tag * { color: #ffffff !important; }
-    /* Keep input left-anchored and prevent it from overflowing */
     #prime-map-search--filter-bar__flyto .ti-new-tag-input-wrapper { min-width: 0 !important; overflow: hidden !important; }
     #prime-map-search--filter-bar__flyto .ti-new-tag-input { text-align: left !important; min-width: 0 !important; }
+    /* Constrain inner wrapper IDX injects (#tjg-search-wrap) so it never overflows right */
+    #tjg-search-wrap { min-width: 0 !important; width: auto !important; max-width: 100% !important; overflow: hidden !important; }
+    /* Hide IDX's own rm-btn — our click handler already dispatches a click on it */
+    #prime-map-search--filter-bar__flyto .rm-btn { display: none !important; }
 
     /* ─── Save Search button: lock styles against IDX !important overrides ─── */
     #tjg-save-search {
@@ -487,6 +479,32 @@
     var _propTypeLabelObs = new MutationObserver(_fixPropertyTypeLabel);
     _propTypeLabelObs.observe(document.body, { childList: true, subtree: true });
     setTimeout(function() { _propTypeLabelObs.disconnect(); }, 30000);
+
+    // Enforce ZIP tag chip layout via JS setProperty — beats IDX Vue inline style !important
+    function _enforceTagChipLayout() {
+      var tiTags = document.querySelector('#prime-map-search--filter-bar__flyto .ti-tags');
+      if (!tiTags) return;
+      tiTags.style.setProperty('flex-direction', 'row', 'important');
+      tiTags.style.setProperty('justify-content', 'flex-start', 'important');
+      tiTags.style.setProperty('flex-wrap', 'nowrap', 'important');
+      tiTags.style.setProperty('overflow', 'hidden', 'important');
+      tiTags.style.setProperty('width', '100%', 'important');
+      var chip = tiTags.querySelector('.ti-tag');
+      if (chip) {
+        chip.style.setProperty('flex-shrink', '1', 'important');
+        chip.style.setProperty('max-width', '140px', 'important');
+        chip.style.setProperty('background-color', '#18254B', 'important');
+        chip.style.setProperty('color', '#ffffff', 'important');
+      }
+      var inputWrapper = tiTags.querySelector('.ti-new-tag-input-wrapper');
+      if (inputWrapper) {
+        inputWrapper.style.setProperty('flex', '1', 'important');
+        inputWrapper.style.setProperty('min-width', '0', 'important');
+        inputWrapper.style.setProperty('overflow', 'hidden', 'important');
+      }
+    }
+    _enforceTagChipLayout();
+    new MutationObserver(_enforceTagChipLayout).observe(document.body, { childList: true, subtree: true });
 
     // Click anywhere in search field (when a zip/city tag is set) to clear it
     document.addEventListener('click', function(e) {
