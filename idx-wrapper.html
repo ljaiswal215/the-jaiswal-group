@@ -472,11 +472,11 @@
 
     // Rename "ALL PROPERTY TYPES" filter pill to "Property Type"
     function _fixPropertyTypeLabel() {
-      var bar = document.getElementById('prime-map-search--filter-bar') || document.body;
-      var walker = document.createTreeWalker(bar, NodeFilter.SHOW_TEXT);
+      var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
       var node;
       while ((node = walker.nextNode())) {
-        if (node.nodeValue.trim() === 'ALL PROPERTY TYPES') {
+        var val = node.nodeValue.trim().toLowerCase();
+        if (val === 'all property types') {
           node.nodeValue = 'Property Type';
         }
       }
