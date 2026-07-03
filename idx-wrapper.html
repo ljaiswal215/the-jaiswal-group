@@ -668,14 +668,16 @@
       if (document.getElementById('tjg-signup-header')) return;
       var container = document.getElementById('IDX-leadSignupContainer');
       if (!container) return;
+      var isModal = /[?&]modal=1/.test(window.location.search);
+      var titleText = isSignin ? 'Welcome Back'
+                    : (isModal ? 'Create Your Account to Save This Search' : 'Create Your Account');
       var header = document.createElement('div');
       header.id = 'tjg-signup-header';
-      header.innerHTML =
-        '<img src="https://ljaiswal215.github.io/the-jaiswal-group/logo.png" ' +
-             'alt="The Jaiswal Group Real Estate" id="tjg-signup-logo">' +
-        '<h2 id="tjg-signup-title">' +
-          (isSignin ? 'Welcome Back' : 'Create Your Account') +
-        '</h2>';
+      header.innerHTML = isModal
+        ? '<h2 id="tjg-signup-title">' + titleText + '</h2>'
+        : '<img src="https://ljaiswal215.github.io/the-jaiswal-group/logo.png" ' +
+               'alt="The Jaiswal Group Real Estate" id="tjg-signup-logo">' +
+          '<h2 id="tjg-signup-title">' + titleText + '</h2>';
       container.parentNode.insertBefore(header, container);
     }
     _injectSignupBranding();
@@ -748,22 +750,29 @@
 
       // Reword "Have an account? Sign in" — search by link text since IDX element IDs vary
       if (isSignup || isSignin) {
+        // Rename "Sign in" / "Sign In" link to "Log In"
         document.querySelectorAll('a').forEach(function(link) {
           var t = link.textContent.trim();
           if ((t === 'Sign in' || t === 'Sign In') && !link._tjgRewired) {
             link._tjgRewired = true;
             link.textContent = 'Log In';
-            // Fix the surrounding text node ("Have an account? " → "Already have an account? ")
-            var parent = link.parentNode;
-            if (parent) {
-              Array.from(parent.childNodes).forEach(function(node) {
-                if (node.nodeType === 3 && /have an account/i.test(node.textContent)) {
-                  node.textContent = 'Already have an account? ';
-                }
-              });
-            }
           }
         });
+        // Use TreeWalker to find "Have an account?" at any DOM depth, then reword it
+        var actionsEl = document.getElementById('IDX-signupFormActions')
+                     || document.querySelector('.IDX-page-usersignup')
+                     || document.querySelector('.IDX-page-usersignin');
+        if (actionsEl) {
+          var walker = document.createTreeWalker(actionsEl, NodeFilter.SHOW_TEXT, null, false);
+          var node;
+          while ((node = walker.nextNode())) {
+            if (/have an account/i.test(node.nodeValue) && !/already/i.test(node.nodeValue)) {
+              node.nodeValue = node.nodeValue.replace(/have an account\??/i, 'Already have an account?');
+            }
+          }
+          // Center the "Already have an account? Log in" line
+          actionsEl.style.textAlign = 'center';
+        }
       }
 
       // Replace IDX's generic alert box text with on-brand copy
