@@ -992,29 +992,36 @@
 
       // Reword "Have an account? Sign in" — search by link text since IDX element IDs vary
       if (isSignup || isSignin) {
-        // Rename "Sign in" / "Sign In" link to "Log In"
+        // Rename "Sign in" / "Sign In" link to "Log in" and center its parent line
         document.querySelectorAll('a').forEach(function(link) {
           var t = link.textContent.trim();
-          if ((t === 'Sign in' || t === 'Sign In') && !link._tjgRewired) {
+          if (/^sign.?in$/i.test(t) && !link._tjgRewired) {
             link._tjgRewired = true;
-            link.textContent = 'Log In';
+            link.textContent = 'Log in';
+            // Walk up to nearest block element and center it
+            var p = link.parentNode;
+            while (p && p !== document.body) {
+              if (p.tagName === 'P' || p.tagName === 'DIV' || p.tagName === 'SPAN') {
+                p.style.cssText += ';text-align:center !important;';
+                break;
+              }
+              p = p.parentNode;
+            }
           }
         });
-        // Use TreeWalker to find "Have an account?" at any DOM depth, then reword it
+        // Use TreeWalker on full body to find "Have an account?" at any DOM depth
+        var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+        var node;
+        while ((node = walker.nextNode())) {
+          if (/have an account/i.test(node.nodeValue) && !/already/i.test(node.nodeValue)) {
+            node.nodeValue = node.nodeValue.replace(/have an account\??/i, 'Already have an account?');
+          }
+        }
+        // Also center the actions container if it exists
         var actionsEl = document.getElementById('IDX-signupFormActions')
                      || document.querySelector('.IDX-page-usersignup')
                      || document.querySelector('.IDX-page-usersignin');
-        if (actionsEl) {
-          var walker = document.createTreeWalker(actionsEl, NodeFilter.SHOW_TEXT, null, false);
-          var node;
-          while ((node = walker.nextNode())) {
-            if (/have an account/i.test(node.nodeValue) && !/already/i.test(node.nodeValue)) {
-              node.nodeValue = node.nodeValue.replace(/have an account\??/i, 'Already have an account?');
-            }
-          }
-          // Center the "Already have an account? Log in" line
-          actionsEl.style.textAlign = 'center';
-        }
+        if (actionsEl) actionsEl.style.textAlign = 'center';
       }
 
       // Replace IDX's generic alert box text with on-brand copy
