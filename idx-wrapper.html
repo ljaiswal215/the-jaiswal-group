@@ -527,24 +527,63 @@
     #IDX-leadGenContainer a { color: #18254B !important; font-family: 'Lato', sans-serif !important; }
     #IDX-leadGenContainer a:hover { color: #B38987 !important; }
 
-    /* ─── Tour Request Modal ─── */
+    /* ─── Tour Request Modal (Two-Step) ─── */
     #tjg-tour-modal { display:none; position:fixed; inset:0; z-index:99999; align-items:center; justify-content:center; }
     #tjg-tour-modal.tjg-open { display:flex; }
     #tjg-tour-overlay { position:absolute; inset:0; background:rgba(24,37,75,0.75); }
-    #tjg-tour-box { position:relative; background:#fff; border-radius:8px; padding:32px; width:90%; max-width:480px; max-height:90vh; overflow-y:auto; z-index:1; box-shadow:0 8px 40px rgba(0,0,0,0.25); }
-    #tjg-tour-close { position:absolute; top:14px; right:18px; background:none; border:none; font-size:26px; color:#18254B; cursor:pointer; line-height:1; padding:0; }
-    #tjg-tour-box h3 { font-family:'Marcellus',serif !important; color:#18254B; font-size:1.4rem; margin:0 0 6px; }
-    #tjg-tour-box .tjg-subtitle { font-family:'Lato',sans-serif; font-size:0.82rem; color:#7a7269; margin-bottom:22px; }
-    #tjg-tour-form label { display:block; font-family:'Lato',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#18254B; margin:14px 0 4px; }
-    #tjg-tour-form input, #tjg-tour-form textarea { width:100%; padding:10px 12px; border:1.5px solid #E0D9CF; border-radius:4px; font-family:'Lato',sans-serif; font-size:0.88rem; color:#18254B; box-sizing:border-box; outline:none; }
+    #tjg-tour-box { position:relative; background:#fff; border-radius:12px; width:92%; max-width:680px; max-height:90vh; overflow-y:auto; z-index:1; box-shadow:0 8px 40px rgba(0,0,0,0.25); }
+    /* Shared header */
+    #tjg-tour-header { display:flex; align-items:center; justify-content:center; padding:18px 48px; border-bottom:1px solid #eee; position:relative; }
+    #tjg-tour-header h3 { font-family:'Lato',sans-serif; font-size:1rem; font-weight:700; color:#18254B; margin:0; letter-spacing:0.02em; }
+    #tjg-tour-close { position:absolute; top:50%; right:18px; transform:translateY(-50%); background:none; border:none; font-size:22px; color:#18254B; cursor:pointer; line-height:1; padding:4px; }
+    /* Step 1 */
+    #tjg-tour-step1 { display:block; }
+    #tjg-tour-step1-body { display:grid; grid-template-columns:1fr 1fr; }
+    #tjg-tour-prop { padding:24px; border-right:1px solid #eee; }
+    #tjg-tour-prop-img { width:100%; height:155px; object-fit:cover; border-radius:6px; margin-bottom:12px; display:block; }
+    #tjg-tour-prop-addr { font-weight:700; font-family:'Lato',sans-serif; color:#18254B; font-size:0.88rem; line-height:1.4; margin-bottom:4px; }
+    #tjg-tour-prop-meta { font-family:'Lato',sans-serif; color:#7a7269; font-size:0.82rem; }
+    #tjg-tour-options { padding:24px; }
+    #tjg-tour-options h4 { font-family:'Lato',sans-serif; font-weight:700; color:#18254B; font-size:1rem; margin:0 0 6px; }
+    #tjg-tour-options .tjg-step1-sub { font-family:'Lato',sans-serif; font-size:0.82rem; color:#7a7269; margin-bottom:20px; line-height:1.5; }
+    /* Radio buttons */
+    #tjg-tour-types { display:flex; gap:24px; margin-bottom:20px; }
+    .tjg-tour-type { display:flex; align-items:center; gap:8px; cursor:pointer; }
+    .tjg-tour-type input[type="radio"] { accent-color:#18254B; width:18px; height:18px; cursor:pointer; }
+    .tjg-tour-type span { font-family:'Lato',sans-serif; font-size:0.9rem; color:#18254B; font-weight:600; }
+    /* Date + time */
+    #tjg-tour-date-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:24px; }
+    #tjg-tour-date, #tjg-tour-time { width:100%; padding:10px 12px; border:1.5px solid #E0D9CF; border-radius:8px; font-family:'Lato',sans-serif; font-size:0.84rem; color:#18254B; box-sizing:border-box; outline:none; background:#fff; }
+    #tjg-tour-date:focus, #tjg-tour-time:focus { border-color:#18254B; }
+    #tjg-tour-next { display:block; width:100%; background:#18254B; color:#fff; border:none; border-radius:6px; font-family:'Lato',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:14px; cursor:pointer; }
+    #tjg-tour-next:hover { background:#0f1a35; }
+    /* Step 2 */
+    #tjg-tour-step2 { display:none; padding:24px; }
+    #tjg-tour-step2.tjg-s2-active { display:block; }
+    #tjg-tour-brand { display:flex; align-items:center; gap:14px; margin-bottom:22px; padding-bottom:18px; border-bottom:1px solid #eee; }
+    #tjg-tour-brand img { width:52px; height:52px; object-fit:contain; }
+    #tjg-tour-brand-name { font-family:'Lato',sans-serif; font-weight:700; font-size:0.88rem; color:#18254B; line-height:1.4; }
+    #tjg-tour-form label { display:block; font-family:'Lato',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#18254B; margin:16px 0 5px; }
+    #tjg-tour-form input, #tjg-tour-form textarea { width:100%; padding:10px 12px; border:1.5px solid #E0D9CF; border-radius:8px; font-family:'Lato',sans-serif; font-size:0.88rem; color:#18254B; box-sizing:border-box; outline:none; }
     #tjg-tour-form input:focus, #tjg-tour-form textarea:focus { border-color:#18254B; }
-    #tjg-tour-form textarea { resize:vertical; min-height:70px; }
+    #tjg-tour-form textarea { resize:vertical; min-height:90px; }
     .tjg-form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    .tjg-form-row > div label { margin-top:0; }
-    #tjg-tour-submit { display:block; width:100%; background:#18254B; color:#fff; border:none; border-radius:0; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:15px; cursor:pointer; margin-top:22px; }
+    .tjg-form-row > div > label { margin-top:0 !important; }
+    #tjg-tour-step2-btns { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px; }
+    #tjg-tour-back { background:#fff; color:#18254B; border:1.5px solid #18254B; border-radius:6px; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:14px; cursor:pointer; }
+    #tjg-tour-back:hover { background:#F3EFE8; }
+    #tjg-tour-submit { background:#18254B; color:#fff; border:none; border-radius:6px; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:14px; cursor:pointer; }
     #tjg-tour-submit:hover { background:#0f1a35; }
-    #tjg-tour-success { display:none; text-align:center; padding:20px 0; font-family:'Lato',sans-serif; color:#18254B; }
-    #tjg-tour-success h4 { font-family:'Marcellus',serif !important; font-size:1.2rem; margin-bottom:10px; }
+    #tjg-tour-privacy { font-family:'Lato',sans-serif; font-size:0.7rem; color:#7a7269; margin-top:14px; line-height:1.5; }
+    /* Success */
+    #tjg-tour-success { display:none; text-align:center; padding:40px 24px; font-family:'Lato',sans-serif; color:#18254B; }
+    #tjg-tour-success h4 { font-family:'Marcellus',serif !important; font-size:1.4rem; margin-bottom:10px; }
+    /* Mobile stack */
+    @media (max-width:560px) {
+      #tjg-tour-step1-body { grid-template-columns:1fr; }
+      #tjg-tour-prop { border-right:none; border-bottom:1px solid #eee; padding-bottom:18px; }
+      #tjg-tour-prop-img { height:120px; }
+    }
   </style>
 </head>
 <body>
@@ -1242,41 +1281,142 @@
         tourBtn.style.setProperty('border', '2px solid #18254B', 'important');
       }
 
+      // Grab property photo + price for Step 1
+      var propImgEl = document.querySelector('#IDX-detailsGallery img, .IDX-galleryMain img, #IDX-listingDetails img, .IDX-detailsPhoto img');
+      var propImg   = propImgEl ? propImgEl.src : '';
+      var priceEl   = document.querySelector('#IDX-listingPrice, .IDX-listingPrice, [class*="detailsPrice"], [id*="detailsPrice"]');
+      var propPrice = priceEl ? priceEl.textContent.trim() : '';
+      var statusEl  = document.querySelector('#IDX-listingStatus, .IDX-listingStatus, [class*="listingStatus"]');
+      var propStatus = statusEl ? statusEl.textContent.trim() : 'Active';
+
+      var propMetaText = [propPrice, propStatus].filter(Boolean).join(' • ');
+
+      // Time slot options
+      var timeSlots = ['8am to 10am','10am to 12pm','12pm to 2pm','2pm to 4pm','4pm to 6pm','6pm to 8pm'];
+      var timeOptions = '<option value="" disabled selected>Choose a time</option>' +
+        timeSlots.map(function(s){ return '<option value="' + s + '">' + s + '</option>'; }).join('');
+
       // Build modal (only once)
       var modal = document.createElement('div');
       modal.id = 'tjg-tour-modal';
       modal.innerHTML =
         '<div id="tjg-tour-overlay"></div>' +
         '<div id="tjg-tour-box">' +
-          '<button id="tjg-tour-close" aria-label="Close">&times;</button>' +
-          '<h3>Request a Tour</h3>' +
-          '<p class="tjg-subtitle">We\'ll reach out shortly to confirm your tour details.</p>' +
-          '<form id="tjg-tour-form" action="https://formspree.io/f/xeebppno" method="POST">' +
-            '<input type="hidden" name="_subject" value="Tour Request — ' + propAddr + '">' +
-            '<input type="hidden" name="property" value="' + propAddr + '">' +
-            '<div class="tjg-form-row">' +
-              '<div><label for="tjg-fname">First Name *</label><input id="tjg-fname" name="first_name" type="text" required></div>' +
-              '<div><label for="tjg-lname">Last Name *</label><input id="tjg-lname" name="last_name" type="text" required></div>' +
+          // Shared header
+          '<div id="tjg-tour-header">' +
+            '<h3>Request a Tour</h3>' +
+            '<button id="tjg-tour-close" aria-label="Close">&times;</button>' +
+          '</div>' +
+
+          // ── Step 1 ──
+          '<div id="tjg-tour-step1">' +
+            '<div id="tjg-tour-step1-body">' +
+              // Left: property card
+              '<div id="tjg-tour-prop">' +
+                (propImg ? '<img id="tjg-tour-prop-img" src="' + propImg + '" alt="">' : '') +
+                '<div id="tjg-tour-prop-addr">' + propAddr + '</div>' +
+                (propMetaText ? '<div id="tjg-tour-prop-meta">' + propMetaText + '</div>' : '') +
+              '</div>' +
+              // Right: options
+              '<div id="tjg-tour-options">' +
+                '<h4>Interested in this listing?</h4>' +
+                '<p class="tjg-step1-sub">Pick a tour type and suggest a date and time that works for you.</p>' +
+                '<div id="tjg-tour-types">' +
+                  '<label class="tjg-tour-type"><input type="radio" name="tjg_tour_type" value="In Person" checked><span>In Person</span></label>' +
+                  '<label class="tjg-tour-type"><input type="radio" name="tjg_tour_type" value="Virtual"><span>Virtual</span></label>' +
+                '</div>' +
+                '<div id="tjg-tour-date-row">' +
+                  '<input type="date" id="tjg-tour-date" placeholder="mm/dd/yyyy">' +
+                  '<select id="tjg-tour-time">' + timeOptions + '</select>' +
+                '</div>' +
+                '<button id="tjg-tour-next" type="button">Next &rarr;</button>' +
+              '</div>' +
             '</div>' +
-            '<label for="tjg-email">Email *</label><input id="tjg-email" name="email" type="email" required>' +
-            '<label for="tjg-phone">Phone</label><input id="tjg-phone" name="phone" type="tel">' +
-            '<label for="tjg-date">Preferred Date</label><input id="tjg-date" name="preferred_date" type="date">' +
-            '<label for="tjg-msg">Message</label><textarea id="tjg-msg" name="message" rows="3"></textarea>' +
-            '<button type="submit" id="tjg-tour-submit">Send Request</button>' +
-          '</form>' +
-          '<div id="tjg-tour-success"><h4>Tour Request Sent!</h4><p>We\'ll be in touch shortly to confirm your details.</p></div>' +
+          '</div>' +
+
+          // ── Step 2 ──
+          '<div id="tjg-tour-step2">' +
+            '<div id="tjg-tour-brand">' +
+              '<img src="https://ljaiswal215.github.io/the-jaiswal-group/logo.png" alt="The Jaiswal Group Real Estate">' +
+              '<div id="tjg-tour-brand-name">The Jaiswal Group Real Estate<br>CA DRE #02251231</div>' +
+            '</div>' +
+            '<form id="tjg-tour-form" action="https://formspree.io/f/xeebppno" method="POST">' +
+              '<input type="hidden" name="_subject" value="Tour Request — ' + propAddr + '">' +
+              '<input type="hidden" name="property" value="' + propAddr + '">' +
+              '<input type="hidden" id="tjg-hidden-type" name="tour_type" value="In Person">' +
+              '<input type="hidden" id="tjg-hidden-date" name="preferred_date" value="">' +
+              '<input type="hidden" id="tjg-hidden-time" name="preferred_time" value="">' +
+              '<label for="tjg-email">Email</label>' +
+              '<input id="tjg-email" name="email" type="email" required placeholder="Email*">' +
+              '<div class="tjg-form-row">' +
+                '<div><label for="tjg-fname">First Name</label><input id="tjg-fname" name="first_name" type="text" required placeholder="First name*"></div>' +
+                '<div><label for="tjg-lname">Last Name</label><input id="tjg-lname" name="last_name" type="text" required placeholder="Last name*"></div>' +
+              '</div>' +
+              '<label for="tjg-phone">Phone</label>' +
+              '<input id="tjg-phone" name="phone" type="tel" placeholder="Phone*">' +
+              '<label for="tjg-msg">Message</label>' +
+              '<textarea id="tjg-msg" name="message" rows="4"></textarea>' +
+              '<div id="tjg-tour-step2-btns">' +
+                '<button type="button" id="tjg-tour-back">Back</button>' +
+                '<button type="submit" id="tjg-tour-submit">Send Request</button>' +
+              '</div>' +
+            '</form>' +
+            '<p id="tjg-tour-privacy">Your information is secure and never shared without your consent.</p>' +
+            '<div id="tjg-tour-success"><h4>Tour Request Sent!</h4><p>We\'ll be in touch shortly to confirm your details.</p></div>' +
+          '</div>' +
         '</div>';
       document.body.appendChild(modal);
 
+      // ── Wire events ──
+      function _tourClose() { modal.classList.remove('tjg-open'); }
+      document.getElementById('tjg-tour-close').addEventListener('click', _tourClose);
+      document.getElementById('tjg-tour-overlay').addEventListener('click', _tourClose);
+
       document.getElementById('tjg-tour-btn').addEventListener('click', function() {
-        document.getElementById('tjg-tour-modal').classList.add('tjg-open');
+        // Reset to step 1 each open
+        document.getElementById('tjg-tour-step1').style.display = 'block';
+        document.getElementById('tjg-tour-step2').classList.remove('tjg-s2-active');
+        document.getElementById('tjg-tour-success').style.display = 'none';
+        document.getElementById('tjg-tour-form').style.display = 'block';
+        modal.classList.add('tjg-open');
       });
-      document.getElementById('tjg-tour-close').addEventListener('click', function() {
-        document.getElementById('tjg-tour-modal').classList.remove('tjg-open');
+
+      // Next: validate Step 1, auto-populate message, advance to Step 2
+      document.getElementById('tjg-tour-next').addEventListener('click', function() {
+        var dateVal = document.getElementById('tjg-tour-date').value;
+        var timeVal = document.getElementById('tjg-tour-time').value;
+        var typeVal = document.querySelector('input[name="tjg_tour_type"]:checked');
+        var typeStr = typeVal ? typeVal.value : 'In Person';
+        if (!dateVal || !timeVal) {
+          document.getElementById('tjg-tour-date').style.borderColor = dateVal ? '#E0D9CF' : '#B38987';
+          document.getElementById('tjg-tour-time').style.borderColor = timeVal ? '#E0D9CF' : '#B38987';
+          return;
+        }
+        // Format date nicely
+        var d = new Date(dateVal + 'T12:00:00');
+        var dateFormatted = d.toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' });
+        // Populate hidden fields
+        document.getElementById('tjg-hidden-type').value = typeStr;
+        document.getElementById('tjg-hidden-date').value = dateFormatted;
+        document.getElementById('tjg-hidden-time').value = timeVal;
+        // Auto-populate message
+        document.getElementById('tjg-msg').value =
+          'Hello, I\'m interested in an ' + typeStr.toLowerCase() + ' tour of the property located at ' +
+          propAddr + ' on ' + dateFormatted + ' between ' + timeVal + '.';
+        // Advance
+        document.getElementById('tjg-tour-step1').style.display = 'none';
+        document.getElementById('tjg-tour-step2').classList.add('tjg-s2-active');
+        document.getElementById('tjg-tour-box').scrollTop = 0;
       });
-      document.getElementById('tjg-tour-overlay').addEventListener('click', function() {
-        document.getElementById('tjg-tour-modal').classList.remove('tjg-open');
+
+      // Back: return to Step 1
+      document.getElementById('tjg-tour-back').addEventListener('click', function() {
+        document.getElementById('tjg-tour-step2').classList.remove('tjg-s2-active');
+        document.getElementById('tjg-tour-step1').style.display = 'block';
+        document.getElementById('tjg-tour-box').scrollTop = 0;
       });
+
+      // Submit
       document.getElementById('tjg-tour-form').addEventListener('submit', function(e) {
         e.preventDefault();
         var form = this, btn = document.getElementById('tjg-tour-submit');
@@ -1287,9 +1427,15 @@
             if (r.ok) {
               form.style.display = 'none';
               document.getElementById('tjg-tour-success').style.display = 'block';
-            } else { btn.textContent = 'Send Request'; btn.disabled = false; alert('Something went wrong. Please call us at (858) 290-7531.'); }
+            } else {
+              btn.textContent = 'Send Request'; btn.disabled = false;
+              alert('Something went wrong. Please call us at (858) 290-7531.');
+            }
           })
-          .catch(function() { btn.textContent = 'Send Request'; btn.disabled = false; alert('Something went wrong. Please call us at (858) 290-7531.'); });
+          .catch(function() {
+            btn.textContent = 'Send Request'; btn.disabled = false;
+            alert('Something went wrong. Please call us at (858) 290-7531.');
+          });
       });
     }
     _injectAgentCard();
