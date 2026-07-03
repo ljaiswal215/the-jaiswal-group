@@ -152,17 +152,31 @@
     /* ─── Map listing cards: tone down heart/favorite icon ─── */
     #prime-map-search--results button[class*="fav"],
     #prime-map-search--results button[class*="favorite"],
+    #prime-map-search--results button[class*="save"],
     #prime-map-search--results [class*="fav-btn"],
     #prime-map-search--results [class*="favorite-btn"],
+    #prime-map-search--results [aria-label*="avorite"],
+    #prime-map-search--results [aria-label*="ave"],
+    #prime-map-search--results [title*="avorite"],
     #prime-map-search--results .IDX-favoriteProperty,
     #prime-map-search--results .IDX-mapCardFavorite {
       opacity: 0.4 !important;
-      transform: scale(0.60) !important;
-      transform-origin: top right !important;
       transition: opacity 0.2s !important;
+    }
+    #prime-map-search--results button[class*="fav"] svg,
+    #prime-map-search--results button[class*="favorite"] svg,
+    #prime-map-search--results button[class*="save"] svg,
+    #prime-map-search--results [aria-label*="avorite"] svg,
+    #prime-map-search--results [aria-label*="ave"] svg,
+    #prime-map-search--results .IDX-favoriteProperty svg,
+    #prime-map-search--results .IDX-mapCardFavorite svg {
+      width: 14px !important;
+      height: 14px !important;
     }
     #prime-map-search--results button[class*="fav"]:hover,
     #prime-map-search--results button[class*="favorite"]:hover,
+    #prime-map-search--results button[class*="save"]:hover,
+    #prime-map-search--results [aria-label*="avorite"]:hover,
     #prime-map-search--results .IDX-favoriteProperty:hover,
     #prime-map-search--results .IDX-mapCardFavorite:hover {
       opacity: 1 !important;
@@ -907,6 +921,26 @@
     _reorderFilterPills();
     var _reorderInterval = setInterval(_reorderFilterPills, 500);
     setTimeout(function() { clearInterval(_reorderInterval); }, 30000);
+
+    // Shrink heart/favorite SVG icons on listing cards via JS (CSS may miss IDX class names)
+    function _shrinkHeartIcons() {
+      var results = document.getElementById('prime-map-search--results');
+      if (!results) return;
+      results.querySelectorAll('button, [role="button"]').forEach(function(btn) {
+        var label = (btn.getAttribute('aria-label') || btn.getAttribute('title') || '').toLowerCase();
+        var cls   = (btn.className || '').toLowerCase();
+        if (!/fav|favorite|save|heart/.test(label + cls)) return;
+        btn.querySelectorAll('svg').forEach(function(svg) {
+          if (svg.dataset.tjgSized) return;
+          svg.dataset.tjgSized = '1';
+          svg.style.setProperty('width',  '14px', 'important');
+          svg.style.setProperty('height', '14px', 'important');
+        });
+      });
+    }
+    _shrinkHeartIcons();
+    var _heartInterval = setInterval(_shrinkHeartIcons, 800);
+    setTimeout(function() { clearInterval(_heartInterval); }, 60000);
 
     // Rename filter pills — target divs directly by their injected IDs
     function _renameFilterLabels() {
