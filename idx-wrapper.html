@@ -869,23 +869,26 @@
     }
     [300, 800, 1500, 3000].forEach(function(ms) { setTimeout(_fixPlaceholder, ms); });
 
-    // Rename "ALL PROPERTY TYPES" filter pill → "Property Type"
-    // The element is a div#tjg-type-btn, not a button — target it directly by ID
-    function _renamePropTypeLabel() {
-      var el = document.getElementById('tjg-type-btn') ||
-               document.querySelector('[id*="type-btn"],[id*="proptype"]');
-      if (el) {
+    // Rename filter pills — target divs directly by their injected IDs
+    function _renameFilterLabels() {
+      var renames = [
+        { id: 'tjg-type-btn',  from: /all property types/i, to: 'Property Type' },
+        { id: 'tjg-sqft-btn',  from: /sq\.?\s*ft/i,         to: 'Any Size'      }
+      ];
+      renames.forEach(function(r) {
+        var el = document.getElementById(r.id);
+        if (!el) return;
         var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null, false);
         var node;
         while ((node = walker.nextNode())) {
-          if (/all property types/i.test(node.nodeValue)) {
-            node.nodeValue = node.nodeValue.replace(/all property types/gi, 'Property Type');
+          if (r.from.test(node.nodeValue)) {
+            node.nodeValue = node.nodeValue.replace(r.from, r.to);
           }
         }
-      }
+      });
     }
-    _renamePropTypeLabel();
-    var _ptInterval = setInterval(_renamePropTypeLabel, 500);
+    _renameFilterLabels();
+    var _ptInterval = setInterval(_renameFilterLabels, 500);
     setTimeout(function() { clearInterval(_ptInterval); }, 30000);
 
     // Click anywhere in search field (when a zip/city tag is set) to clear it
