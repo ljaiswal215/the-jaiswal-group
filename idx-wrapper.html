@@ -261,19 +261,12 @@
     }
     #tjg-signup-title {
       font-family: 'Marcellus', serif;
-      font-size: 1.75rem;
+      font-size: 2.1rem;
       font-weight: 400;
       color: #18254B;
-      margin: 0 0 10px;
+      margin: 0;
       letter-spacing: 0.02em;
       line-height: 1.2;
-    }
-    #tjg-signup-sub {
-      font-family: 'Lato', sans-serif;
-      font-size: 0.88rem;
-      color: #7a7269;
-      margin: 0;
-      line-height: 1.65;
     }
 
     /* White form card, centered */
@@ -284,7 +277,7 @@
       background: #ffffff !important;
       border: 1px solid #E0D9CF !important;
       border-radius: 0 !important;
-      padding: 40px 40px 36px !important;
+      padding: 48px 40px 40px !important;
       box-shadow: 0 4px 28px rgba(24,37,75,0.08) !important;
       box-sizing: border-box !important;
     }
@@ -394,6 +387,11 @@
       font-size: 0.73rem !important;
       color: #7a7269 !important;
       line-height: 1.55 !important;
+    }
+    /* reCAPTCHA notice — lighter so it recedes */
+    .IDX-page-usersignup #IDX-signUpForm p,
+    .IDX-page-usersignin #IDX-signUpForm p {
+      color: #a09890 !important;
     }
 
     /* "Have an account? Sign in" / "Back to search" links */
@@ -681,12 +679,7 @@
              'alt="The Jaiswal Group Real Estate" id="tjg-signup-logo">' +
         '<h2 id="tjg-signup-title">' +
           (isSignin ? 'Welcome Back' : 'Create Your Account') +
-        '</h2>' +
-        '<p id="tjg-signup-sub">' +
-          (isSignin
-            ? 'Sign in to access your saved searches and listing alerts.'
-            : 'Save searches, like listings, and receive personalized property updates.') +
-        '</p>';
+        '</h2>';
       container.parentNode.insertBefore(header, container);
     }
     _injectSignupBranding();
