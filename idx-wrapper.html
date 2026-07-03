@@ -668,6 +668,22 @@
     _injectSignupBranding();
     [300, 800, 1500].forEach(function(ms) { setTimeout(_injectSignupBranding, ms); });
 
+    // Fallback: directly replace IDX text we can't edit in admin
+    function _fixSignupText() {
+      // Panel title "User Signup" → hidden by CSS, but also change text in case CSS misses
+      var title = document.querySelector(
+        '.IDX-page-usersignup .IDX-panel-title, .IDX-page-usersignin .IDX-panel-title'
+      );
+      if (title) title.textContent = '';
+
+      // Alert info box "To create an account, fill out the form" → hide via CSS + JS
+      document.querySelectorAll(
+        '.IDX-page-usersignup .alert, .IDX-page-usersignin .alert'
+      ).forEach(function(el) { el.style.setProperty('display', 'none', 'important'); });
+    }
+    _fixSignupText();
+    [400, 1000, 2000].forEach(function(ms) { setTimeout(_fixSignupText, ms); });
+
     // Run immediately, then every 500ms for 60s to catch dynamically loaded pins
     _abbreviateAllLabels();
     var _priceInterval = setInterval(_abbreviateAllLabels, 500);
