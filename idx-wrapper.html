@@ -121,6 +121,43 @@
       box-shadow: none !important;
     }
 
+    /* ─── All filter dropdown panels (property type, price, size, beds) ─── */
+    .idx-filter-button [class*="dropdown"],
+    .idx-filter-button [class*="panel"],
+    .idx-filter-button [class*="content"],
+    [class*="pm-filter-panel"],
+    [class*="pm-property-type"],
+    [class*="property-type-filter"],
+    [class*="pm-price-filter"],
+    [class*="pm-beds-filter"],
+    [class*="pm-sqft-filter"] {
+      background: #F3EFE8 !important;
+      border: 1px solid #E0D9CF !important;
+      box-shadow: 0 4px 20px rgba(24,37,75,0.14) !important;
+      border-radius: 0 !important;
+      font-family: 'Lato', sans-serif !important;
+    }
+    /* APPLY button in all non-status filter dropdowns */
+    .idx-filter-button button[class*="pply"],
+    [class*="pm-filter-panel"] button[class*="pply"],
+    [class*="pm-property-type"] button,
+    [class*="property-type-filter"] button {
+      background: #18254B !important;
+      color: #fff !important;
+      border: none !important;
+      border-radius: 0 !important;
+      font-family: 'Lato', sans-serif !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      padding: 10px 16px !important;
+      cursor: pointer !important;
+    }
+    .idx-filter-button button[class*="pply"]:hover,
+    [class*="pm-filter-panel"] button[class*="pply"]:hover {
+      background: #B38987 !important;
+    }
+
     /* ─── Status filter dropdown panel ─── */
     #status-filter-button [class*="content"],
     #status-filter-button [class*="dropdown"],
@@ -1272,6 +1309,56 @@
     _renameFilterLabels();
     var _ptInterval = setInterval(_renameFilterLabels, 500);
     setTimeout(function() { clearInterval(_ptInterval); }, 30000);
+
+    // Auto-apply checkbox-based filter dropdowns (Property Type, etc.)
+    // Listens for checkbox changes in any non-status filter panel and clicks APPLY.
+    // The panel may be inline inside .idx-filter-button or teleported to body (Vue portal).
+    (function() {
+      if (document._tjgCheckboxAutoApply) return;
+      document._tjgCheckboxAutoApply = true;
+      document.addEventListener('change', function(e) {
+        var cb = e.target;
+        if (!cb || cb.type !== 'checkbox') return;
+        // Only on map search
+        if (!document.querySelector('#prime-map-search--filter-bar__flyto')) return;
+        // Skip our injected For Lease checkbox — that flow has its own handler
+        if (cb.id === 'tjg-lease-checkbox') return;
+        // Skip status filter — it has its own patching flow
+        var statusBtn = document.getElementById('status-filter-button');
+        if (statusBtn && statusBtn.contains(cb)) return;
+
+        setTimeout(function() {
+          // 1. Walk up to find an .idx-filter-button ancestor (inline panel)
+          var el = cb, pill = null;
+          while (el && el !== document.body) {
+            if (el.classList && el.classList.contains('idx-filter-button')) { pill = el; break; }
+            el = el.parentNode;
+          }
+
+          var applyBtn = null;
+          if (pill) {
+            applyBtn = pill.querySelector('button[class*="pply"]') ||
+                       pill.querySelector('button[class*="ubmit"]') ||
+                       pill.querySelector('button');
+          }
+
+          // 2. Teleported panel — scan body direct children for one containing this checkbox
+          if (!applyBtn) {
+            Array.from(document.body.children).some(function(child) {
+              if (child.id === 'IDX-main' || child.id === 'site-header' ||
+                  child.id === 'tjg-tour-modal') return false;
+              if (!child.contains(cb)) return false;
+              applyBtn = child.querySelector('button[class*="pply"]') ||
+                         child.querySelector('button[class*="ubmit"]') ||
+                         child.querySelector('button');
+              return true;
+            });
+          }
+
+          if (applyBtn) applyBtn.click();
+        }, 200);
+      });
+    })();
 
     // Click anywhere in search field (when a zip/city tag is set) to clear it
     document.addEventListener('click', function(e) {
