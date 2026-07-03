@@ -985,34 +985,22 @@
     }
     [300, 800, 1500, 3000].forEach(function(ms) { setTimeout(_fixPlaceholder, ms); });
 
-    // Reorder filter pills: Status → Property Type → Any Price → Any Size → Bed → Bath
-    // Called from _tjgDispatch (throttled MutationObserver) so it fires AFTER each IDX DOM update.
+    // Reorder filter pills via CSS `order` — never touches DOM structure so Vue's
+    // MutationObserver never fires from our code, breaking the mutation feedback loop.
     function _reorderFilterPills() {
-      // Scope to the desktop filter bar only — avoids touching hidden mobile duplicates
       var container = document.querySelector('.filter-buttons-container');
       if (!container) return;
-      var allPills = container.querySelectorAll('.idx-filter-button');
-      if (!allPills.length) return;
-      var statusPill = null, typePill = null, pricePill = null,
-          sqftPill = null, bedPill = null, bathPill = null;
-      allPills.forEach(function(pill) {
+      container.querySelectorAll('.idx-filter-button').forEach(function(pill) {
         var txt = pill.textContent.toLowerCase();
-        if (pill.id === 'tjg-type-btn')       typePill   = pill;
-        else if (pill.id === 'tjg-sqft-btn')  sqftPill   = pill;
-        else if (/\bstatus\b/.test(txt))      statusPill = pill;
-        else if (/\bprice\b/.test(txt))       pricePill  = pill;
-        else if (/\bbed/.test(txt))           bedPill    = pill;
-        else if (/\bbath/.test(txt))          bathPill   = pill;
-      });
-      if (!statusPill) return;
-      // Walk the desired sequence; use nextElementSibling (skips text nodes) for position check
-      var anchor = statusPill;
-      [typePill, pricePill, sqftPill, bedPill, bathPill].forEach(function(pill) {
-        if (!pill) return;
-        if (anchor.nextElementSibling !== pill) {
-          anchor.parentNode.insertBefore(pill, anchor.nextSibling);
-        }
-        anchor = pill;
+        var ord;
+        if      (/\bstatus\b/.test(txt))     ord = 1;
+        else if (pill.id === 'tjg-type-btn') ord = 2;
+        else if (/\bprice\b/.test(txt))      ord = 3;
+        else if (pill.id === 'tjg-sqft-btn') ord = 4;
+        else if (/\bbed/.test(txt))          ord = 5;
+        else if (/\bbath/.test(txt))         ord = 6;
+        else                                  ord = 9;
+        pill.style.setProperty('order', String(ord), 'important');
       });
     }
     _reorderFilterPills();
