@@ -1273,9 +1273,15 @@
         tourBtn.style.setProperty('border', '2px solid #18254B', 'important');
       }
 
-      // Grab property photo + price for Step 1
-      var propImgEl = document.querySelector('#IDX-detailsGallery img, .IDX-galleryMain img, #IDX-listingDetails img, .IDX-detailsPhoto img');
-      var propImg   = propImgEl ? propImgEl.src : '';
+      // Grab property photo + price for Step 1 (attempt at inject time; refreshed on open)
+      var propImgEl = document.querySelector(
+        '#IDX-galleryMain img, #IDX-gallery img, #IDX-gallerySlider img, ' +
+        '#IDX-detailsGallery img, .IDX-galleryMain img, .IDX-gallery img, ' +
+        '.IDX-detailsGallery img, #IDX-detailsImages img, #IDX-photoGallery img, ' +
+        '.IDX-photo img, .IDX-gallerySlides img, #IDX-listingPhotoGallery img, ' +
+        '#IDX-detailsPhoto img, #IDX-listingDetails img'
+      );
+      var propImg   = (propImgEl && propImgEl.src) ? propImgEl.src : '';
       var priceEl   = document.querySelector('#IDX-listingPrice, .IDX-listingPrice, [class*="detailsPrice"], [id*="detailsPrice"]');
       var propPrice = priceEl ? priceEl.textContent.trim() : '';
       var statusEl  = document.querySelector('#IDX-listingStatus, .IDX-listingStatus, [class*="listingStatus"]');
@@ -1305,7 +1311,7 @@
             '<div id="tjg-tour-step1-body">' +
               // Left: property card
               '<div id="tjg-tour-prop">' +
-                (propImg ? '<img id="tjg-tour-prop-img" src="' + propImg + '" alt="">' : '') +
+                '<img id="tjg-tour-prop-img" src="' + propImg + '" alt="" style="' + (propImg ? '' : 'display:none') + '">' +
                 '<div id="tjg-tour-prop-addr">' + propAddr + '</div>' +
                 (propMetaText ? '<div id="tjg-tour-prop-meta">' + propMetaText + '</div>' : '') +
               '</div>' +
@@ -1370,6 +1376,40 @@
         document.getElementById('tjg-tour-step2').classList.remove('tjg-s2-active');
         document.getElementById('tjg-tour-success').style.display = 'none';
         document.getElementById('tjg-tour-form').style.display = 'block';
+
+        // Fresh image lookup at open time — catches lazy-loaded gallery images
+        var imgEl = document.getElementById('tjg-tour-prop-img');
+        if (imgEl && !imgEl.src) {
+          var found =
+            document.querySelector('#IDX-galleryMain img') ||
+            document.querySelector('#IDX-gallery img') ||
+            document.querySelector('#IDX-gallerySlider img') ||
+            document.querySelector('#IDX-detailsGallery img') ||
+            document.querySelector('.IDX-galleryMain img') ||
+            document.querySelector('.IDX-gallery img') ||
+            document.querySelector('.IDX-detailsGallery img') ||
+            document.querySelector('#IDX-detailsImages img') ||
+            document.querySelector('#IDX-photoGallery img') ||
+            document.querySelector('.IDX-photo img') ||
+            document.querySelector('.IDX-gallerySlides img') ||
+            document.querySelector('#IDX-listingPhotoGallery img') ||
+            document.querySelector('#IDX-detailsPhoto img') ||
+            (function() {
+              var all = document.querySelectorAll('#IDX-main img');
+              for (var i = 0; i < all.length; i++) {
+                var s = all[i].src || all[i].getAttribute('data-src') || '';
+                if (s && s.indexOf('data:') === -1 && !/logo|icon|avatar|spinner/i.test(s)) return all[i];
+              }
+            })();
+          if (found) {
+            var src = found.src || found.getAttribute('data-src') || '';
+            if (src && src.indexOf('data:') === -1) {
+              imgEl.src = src;
+              imgEl.style.display = '';
+            }
+          }
+        }
+
         modal.classList.add('tjg-open');
       });
 
