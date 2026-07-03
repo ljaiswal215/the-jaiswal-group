@@ -733,9 +733,9 @@
         ).forEach(function(el) {
           el.style.setProperty('display', 'none', 'important');
         });
-        // Fallback: find by text content wherever IDX renders it
-        // Note: no children.length check — IDX wraps "IDX Broker" in an <a> tag
-        document.querySelectorAll('p, small, div, span').forEach(function(el) {
+        // Fallback: find by text content — use only inline/text elements, never div
+        // (div textContent bubbles up through all children and would hide #IDX-main itself)
+        document.querySelectorAll('p, small, span, li').forEach(function(el) {
           if (el.textContent.indexOf('Data services provided by') !== -1) {
             el.style.setProperty('display', 'none', 'important');
           }
