@@ -208,6 +208,259 @@
       stroke: #fff !important;
     }
 
+    /* ─── User Signup / Login — full rebrand ──────────────────────────────── */
+
+    /* Cream page background */
+    .IDX-page-usersignup #IDX-main,
+    .IDX-page-usersignin #IDX-main {
+      background: #F3EFE8 !important;
+      padding: 80px 20px 72px !important;
+      min-height: 60vh !important;
+    }
+
+    /* Hide IDX's "User Signup" panel heading — our injected header replaces it */
+    .IDX-page-usersignup #IDX-leadSignupHeader,
+    .IDX-page-usersignin #IDX-leadSignupHeader { display: none !important; }
+
+    /* Strip Bootstrap panel chrome — let our card styling take over */
+    .IDX-page-usersignup .IDX-panel.IDX-panel-default,
+    .IDX-page-usersignin .IDX-panel.IDX-panel-default {
+      border: none !important;
+      box-shadow: none !important;
+      background: transparent !important;
+      margin: 0 !important;
+    }
+
+    /* Override IDX's Bootstrap column offsets so our max-width centering works */
+    .IDX-page-usersignup #IDX-leadSignupContainer > .IDX-row,
+    .IDX-page-usersignin #IDX-leadSignupContainer > .IDX-row {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+    .IDX-page-usersignup #IDX-leadSignupContainer > .IDX-row > [class*="col-"],
+    .IDX-page-usersignin #IDX-leadSignupContainer > .IDX-row > [class*="col-"] {
+      float: none !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      margin-left: 0 !important;
+    }
+
+    /* Injected branded header (logo + heading + subtitle) */
+    #tjg-signup-header {
+      text-align: center;
+      max-width: 520px;
+      margin: 0 auto 28px;
+    }
+    #tjg-signup-logo {
+      height: 64px;
+      width: auto;
+      display: block;
+      margin: 0 auto 22px;
+    }
+    #tjg-signup-title {
+      font-family: 'Marcellus', serif;
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: #18254B;
+      margin: 0 0 10px;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+    #tjg-signup-sub {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.88rem;
+      color: #7a7269;
+      margin: 0;
+      line-height: 1.65;
+    }
+
+    /* White form card, centered */
+    .IDX-page-usersignup #IDX-leadSignupContainer,
+    .IDX-page-usersignin #IDX-leadSignupContainer {
+      max-width: 520px !important;
+      margin: 0 auto !important;
+      background: #ffffff !important;
+      border: 1px solid #E0D9CF !important;
+      border-radius: 0 !important;
+      padding: 40px 40px 36px !important;
+      box-shadow: 0 4px 28px rgba(24,37,75,0.08) !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Restyle IDX's alert info box — brand cream with rose gold accent */
+    /* IDX uses IDX-alert / IDX-alert-info, not Bootstrap .alert */
+    .IDX-page-usersignup .IDX-alert,
+    .IDX-page-usersignup .IDX-alert-info,
+    .IDX-page-usersignin .IDX-alert,
+    .IDX-page-usersignin .IDX-alert-info {
+      display: block !important;
+      background: #F3EFE8 !important;
+      border: none !important;
+      border-left: 3px solid #B38987 !important;
+      border-radius: 0 !important;
+      color: #18254B !important;
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.82rem !important;
+      letter-spacing: 0.04em !important;
+      padding: 12px 16px !important;
+      margin-bottom: 20px !important;
+    }
+
+    /* Hide IDX attribution footer on signup/signin pages */
+    .IDX-page-usersignup #IDX-poweredByIDX,
+    .IDX-page-usersignup [class*="powered"],
+    .IDX-page-usersignup [id*="powered"],
+    .IDX-page-usersignup #IDX-dataAttrib,
+    .IDX-page-usersignin #IDX-poweredByIDX,
+    .IDX-page-usersignin [class*="powered"],
+    .IDX-page-usersignin [id*="powered"],
+    .IDX-page-usersignin #IDX-dataAttrib { display: none !important; }
+
+    /* Field labels */
+    .IDX-page-usersignup label,
+    .IDX-page-usersignin label {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.65rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      color: #18254B !important;
+      display: block !important;
+      margin-bottom: 5px !important;
+    }
+
+    /* Text / email / tel / password inputs */
+    .IDX-page-usersignup input[type="text"],
+    .IDX-page-usersignup input[type="email"],
+    .IDX-page-usersignup input[type="tel"],
+    .IDX-page-usersignup input[type="password"],
+    .IDX-page-usersignin input[type="text"],
+    .IDX-page-usersignin input[type="email"],
+    .IDX-page-usersignin input[type="password"] {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.9rem !important;
+      color: #18254B !important;
+      background: #ffffff !important;
+      border: 1.5px solid #E0D9CF !important;
+      border-radius: 2px !important;
+      padding: 11px 13px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      outline: none !important;
+      box-shadow: none !important;
+      margin-bottom: 18px !important;
+      transition: border-color 0.15s !important;
+    }
+    .IDX-page-usersignup input[type="text"]:focus,
+    .IDX-page-usersignup input[type="email"]:focus,
+    .IDX-page-usersignup input[type="tel"]:focus,
+    .IDX-page-usersignup input[type="password"]:focus,
+    .IDX-page-usersignin input:focus {
+      border-color: #18254B !important;
+      box-shadow: none !important;
+    }
+
+    /* Submit button */
+    .IDX-page-usersignup input[type="submit"],
+    .IDX-page-usersignup button[type="submit"],
+    .IDX-page-usersignin input[type="submit"],
+    .IDX-page-usersignin button[type="submit"] {
+      display: block !important;
+      width: 100% !important;
+      background: #18254B !important;
+      color: #ffffff !important;
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.75rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.13em !important;
+      text-transform: uppercase !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 17px !important;
+      margin-top: 6px !important;
+      cursor: pointer !important;
+      transition: background 0.2s !important;
+    }
+    .IDX-page-usersignup input[type="submit"]:hover,
+    .IDX-page-usersignup button[type="submit"]:hover,
+    .IDX-page-usersignin input[type="submit"]:hover { background: #0f1a35 !important; }
+
+    /* Fine-print text (reCAPTCHA, consent, disclaimer) */
+    .IDX-page-usersignup p,
+    .IDX-page-usersignin p {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.73rem !important;
+      color: #7a7269 !important;
+      line-height: 1.55 !important;
+    }
+
+    /* "Have an account? Sign in" / "Back to search" links */
+    .IDX-page-usersignup a,
+    .IDX-page-usersignin a {
+      color: #18254B !important;
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.85rem !important;
+    }
+    .IDX-page-usersignup a:hover,
+    .IDX-page-usersignin a:hover { color: #B38987 !important; }
+
+    /* ─── Save Search popup modal ──────────────────────────────────────────── */
+    #IDX-leadGenContainer h2, #IDX-leadGenContainer h3,
+    .IDX-leadSignup h2, .IDX-leadSignup h3 {
+      font-family: 'Marcellus', serif !important;
+      color: #18254B !important;
+      font-weight: 400 !important;
+      font-size: 1.55rem !important;
+    }
+    #IDX-leadGenContainer p, .IDX-leadSignup p {
+      font-family: 'Lato', sans-serif !important;
+      color: #7a7269 !important;
+      font-size: 0.85rem !important;
+    }
+    #IDX-leadGenContainer label, .IDX-leadSignup label {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.65rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      color: #18254B !important;
+    }
+    #IDX-leadGenContainer input[type="text"],
+    #IDX-leadGenContainer input[type="email"],
+    #IDX-leadGenContainer input[type="tel"] {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.9rem !important;
+      color: #18254B !important;
+      border: 1.5px solid #E0D9CF !important;
+      border-radius: 2px !important;
+      padding: 10px 12px !important;
+      box-sizing: border-box !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    #IDX-leadGenContainer input:focus { border-color: #18254B !important; box-shadow: none !important; }
+    #IDX-leadGenContainer input[type="submit"],
+    #IDX-leadGenContainer button[type="submit"],
+    #IDX-leadGenContainer .IDX-btn-primary {
+      background: #18254B !important;
+      color: #ffffff !important;
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.75rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.12em !important;
+      text-transform: uppercase !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 15px !important;
+      width: 100% !important;
+      cursor: pointer !important;
+    }
+    #IDX-leadGenContainer .IDX-btn-primary:hover { background: #0f1a35 !important; }
+    #IDX-leadGenContainer a { color: #18254B !important; font-family: 'Lato', sans-serif !important; }
+    #IDX-leadGenContainer a:hover { color: #B38987 !important; }
+
     /* ─── Tour Request Modal ─── */
     #tjg-tour-modal { display:none; position:fixed; inset:0; z-index:99999; align-items:center; justify-content:center; }
     #tjg-tour-modal.tjg-open { display:flex; }
@@ -413,6 +666,87 @@
         }
       });
     }
+    // ── Signup / Login page: inject branded logo + heading above the form ──
+    function _injectSignupBranding() {
+      var isSignup = document.querySelector('#IDX-main.IDX-page-usersignup');
+      var isSignin = document.querySelector('#IDX-main.IDX-page-usersignin');
+      if (!isSignup && !isSignin) return;
+      if (document.getElementById('tjg-signup-header')) return;
+      var container = document.getElementById('IDX-leadSignupContainer');
+      if (!container) return;
+      var header = document.createElement('div');
+      header.id = 'tjg-signup-header';
+      header.innerHTML =
+        '<img src="https://ljaiswal215.github.io/the-jaiswal-group/logo.png" ' +
+             'alt="The Jaiswal Group Real Estate" id="tjg-signup-logo">' +
+        '<h2 id="tjg-signup-title">' +
+          (isSignin ? 'Welcome Back' : 'Create Your Account') +
+        '</h2>' +
+        '<p id="tjg-signup-sub">' +
+          (isSignin
+            ? 'Sign in to access your saved searches and listing alerts.'
+            : 'Save searches, like listings, and receive personalized property updates.') +
+        '</p>';
+      container.parentNode.insertBefore(header, container);
+    }
+    _injectSignupBranding();
+    [300, 800, 1500].forEach(function(ms) { setTimeout(_injectSignupBranding, ms); });
+
+    // Replace/fix IDX text strings we can't edit in admin
+    function _fixSignupText() {
+      var isSignup = document.querySelector('#IDX-main.IDX-page-usersignup');
+      var isSignin = document.querySelector('#IDX-main.IDX-page-usersignin');
+
+      // Blank the panel title — CSS hides it, this is belt-and-suspenders
+      var title = document.querySelector(
+        '.IDX-page-usersignup .IDX-panel-title, .IDX-page-usersignin .IDX-panel-title'
+      );
+      if (title) title.textContent = '';
+
+      // Reword "Have an account? Sign in" link
+      var actions = document.querySelector(
+        '.IDX-page-usersignup #IDX-signupFormActions, .IDX-page-usersignin #IDX-signupFormActions'
+      );
+      if (actions && !actions._tjgFixed) {
+        var signInLink = actions.querySelector('a');
+        if (signInLink) {
+          actions._tjgFixed = true;
+          signInLink.textContent = 'Log In';
+          var textNode = signInLink.previousSibling;
+          if (textNode && textNode.nodeType === 3) {
+            textNode.textContent = 'Already have an account? ';
+          }
+        }
+      }
+
+      // Replace IDX's generic alert box text with on-brand copy
+      // IDX uses IDX-alert / IDX-alert-info, not Bootstrap .alert
+      var alerts = document.querySelectorAll('.IDX-page-usersignup .IDX-alert, .IDX-page-usersignin .IDX-alert');
+      alerts.forEach(function(el) {
+        if (!el._tjgFixed) {
+          el._tjgFixed = true;
+          el.textContent = 'Create a free account to save searches and receive personalized listing alerts.';
+        }
+      });
+
+      // Hide "Data services provided by IDX Broker" footer on signup/signin only
+      if (isSignup || isSignin) {
+        document.querySelectorAll(
+          '#IDX-poweredByIDX, #IDX-dataAttrib, [class*="powered"], [id*="powered"]'
+        ).forEach(function(el) {
+          el.style.setProperty('display', 'none', 'important');
+        });
+        // Fallback: find by text content wherever IDX renders it
+        document.querySelectorAll('p, small, div').forEach(function(el) {
+          if (el.children.length === 0 && el.textContent.indexOf('Data services provided by') !== -1) {
+            el.style.setProperty('display', 'none', 'important');
+          }
+        });
+      }
+    }
+    _fixSignupText();
+    [400, 1000, 2000].forEach(function(ms) { setTimeout(_fixSignupText, ms); });
+
     // Run immediately, then every 500ms for 60s to catch dynamically loaded pins
     _abbreviateAllLabels();
     var _priceInterval = setInterval(_abbreviateAllLabels, 500);
@@ -730,6 +1064,7 @@
       var link = document.createElement('a');
       link.id   = 'tjg-save-search';
       link.href = 'https://thejaiswalgroup.idxbroker.com/idx/usersignup';
+      link.target = '_self';
       link.textContent = 'SAVE SEARCH';
       // Base layout styles via cssText, then pin visual props with setProperty !important
       // so IDX's runtime CSS can never strip the border/color
