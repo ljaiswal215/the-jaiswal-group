@@ -990,6 +990,10 @@
     function _reorderFilterPills() {
       var container = document.querySelector('.filter-buttons-container');
       if (!container) return;
+      // Pin #tjg-right-toolbar (LIST/MAP/SAVE SEARCH) to the far right first,
+      // since it's a flex sibling inside .filter-buttons-container and defaults to order:0.
+      var toolbar = container.querySelector('#tjg-right-toolbar');
+      if (toolbar) toolbar.style.setProperty('order', '99', 'important');
       container.querySelectorAll('.idx-filter-button').forEach(function(pill) {
         var txt = pill.textContent.toLowerCase();
         var ord;
