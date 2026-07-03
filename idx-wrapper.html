@@ -527,6 +527,95 @@
     #IDX-leadGenContainer a { color: #18254B !important; font-family: 'Lato', sans-serif !important; }
     #IDX-leadGenContainer a:hover { color: #B38987 !important; }
 
+    /* ─── Photo Gallery Page ─── */
+    .IDX-page-photogallery #IDX-main {
+      background: #F3EFE8 !important;
+    }
+    /* Property Info Header bar */
+    header.IDX-PIH {
+      background: #18254B !important;
+      border-bottom: 2px solid #B38987 !important;
+      padding: 0 clamp(1rem, 3vw, 2rem) !important;
+      font-family: 'Lato', sans-serif !important;
+      min-height: 48px !important;
+    }
+    header.IDX-PIH * {
+      font-family: 'Lato', sans-serif !important;
+      color: rgba(255,255,255,0.88) !important;
+      font-size: 0.78rem !important;
+      letter-spacing: 0.06em !important;
+      text-transform: uppercase !important;
+      font-weight: 600 !important;
+      background: transparent !important;
+      border: none !important;
+    }
+    header.IDX-PIH a {
+      color: #B38987 !important;
+      text-decoration: none !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.12em !important;
+      transition: color 0.2s !important;
+    }
+    header.IDX-PIH a:hover {
+      color: #fff !important;
+    }
+    /* Gallery container */
+    #IDX-photoGalleryContainer,
+    .IDX-photoGalleryContainer {
+      background: #F3EFE8 !important;
+      padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2.5rem) !important;
+    }
+    /* Page heading */
+    h2.IDX-pageHeader,
+    h2.IDX-photoGalleryTitle,
+    h2.IDX-photoGalleryHeader {
+      font-family: 'Marcellus', serif !important;
+      color: #18254B !important;
+      font-weight: 400 !important;
+      letter-spacing: 0.08em !important;
+      text-transform: uppercase !important;
+      font-size: clamp(1.1rem, 2vw, 1.4rem) !important;
+      margin-bottom: 1.5rem !important;
+    }
+    /* Gallery grid — clean edges, subtle hover */
+    #IDX-photoGallery img,
+    .IDX-photoGallery img,
+    .IDX-simple-gallery img {
+      border-radius: 0 !important;
+      display: block !important;
+      transition: opacity 0.2s !important;
+    }
+    #IDX-photoGallery img:hover,
+    .IDX-photoGallery img:hover,
+    .IDX-simple-gallery img:hover {
+      opacity: 0.88 !important;
+    }
+    /* Remove IDX default borders/shadows on gallery items */
+    #IDX-photoGallery a,
+    .IDX-photoGallery a,
+    .IDX-simple-gallery a {
+      border: none !important;
+      box-shadow: none !important;
+      text-decoration: none !important;
+    }
+    /* Pagination / back links */
+    .IDX-page-photogallery .IDX-pagination a,
+    .IDX-page-photogallery #IDX-backToResults,
+    .IDX-page-photogallery [class*="back"] {
+      font-family: 'Lato', sans-serif !important;
+      color: #18254B !important;
+      font-size: 0.75rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.12em !important;
+      text-transform: uppercase !important;
+      text-decoration: none !important;
+    }
+    .IDX-page-photogallery .IDX-pagination a:hover,
+    .IDX-page-photogallery #IDX-backToResults:hover,
+    .IDX-page-photogallery [class*="back"]:hover {
+      color: #B38987 !important;
+    }
+
     /* ─── Tour Request Modal (Two-Step) ─── */
     #tjg-tour-modal { display:none; position:fixed; inset:0; z-index:99999; align-items:center; justify-content:center; }
     #tjg-tour-modal.tjg-open { display:flex; }
