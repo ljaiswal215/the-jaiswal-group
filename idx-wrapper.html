@@ -545,6 +545,9 @@
       link.addEventListener('mouseenter',function(){ link.style.background='#18254B'; link.style.color='#fff'; });
       link.addEventListener('mouseleave',function(){ link.style.background='transparent'; link.style.color='#18254B'; });
       toggle.parentNode.insertBefore(link, toggle.nextSibling);
+      // Shift button group left to add breathing room on the right
+      var toolbar = document.getElementById('tjg-right-toolbar');
+      if (toolbar) toolbar.style.setProperty('margin-right', '2rem', 'important');
     }
     var _saveSearchObserver = new MutationObserver(function() {
       if (document.querySelector('#tjg-view-toggle') && !document.querySelector('#tjg-save-search')) {
