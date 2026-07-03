@@ -319,13 +319,16 @@
       font-size: 0.8rem;
     }
     .calc-need-help {
-      margin-top: 2.5rem;
       background: #18254B;
-      padding: 2rem 2.25rem;
+      padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4rem);
+    }
+    .calc-need-help-inner {
+      max-width: 900px;
+      margin: 0 auto;
     }
     .calc-need-help h3 {
       font-family: 'Marcellus', serif;
-      font-size: 1.3rem;
+      font-size: clamp(1.3rem, 2.5vw, 1.7rem);
       color: #fff;
       letter-spacing: 0.06em;
       margin-bottom: 1rem;
@@ -338,7 +341,7 @@
       margin-bottom: 0.85rem;
     }
     .calc-need-help ul {
-      margin: 0.5rem 0 1rem 0;
+      margin: 0.5rem 0 1.25rem 0;
       padding: 0;
       list-style: none;
     }
@@ -679,20 +682,24 @@
         <p><a href="BLOG/mello-roos-san-diego.html" style="color:#B38987;text-decoration:underline;">Read more: What Is Mello-Roos in San Diego? &rarr;</a></p>
       </div>
 
-      <div class="calc-need-help">
-        <h3>Need Help Understanding What You Can Afford?</h3>
-        <p>A mortgage calculator is a great starting point — but every buyer's situation is different.</p>
-        <p>From loan strategy and monthly payment estimates to taxes, insurance, and closing costs, working with experienced local professionals can make a big difference.</p>
-        <p>We partner with trusted San Diego mortgage lenders who can help you:</p>
-        <ul>
-          <li>Compare loan programs</li>
-          <li>Estimate monthly payments</li>
-          <li>Determine down payment options</li>
-          <li>Understand cash-to-close</li>
-          <li>Evaluate affordability before you start shopping</li>
-        </ul>
-        <p><a href="#">Explore our trusted lender partners here. &rarr;</a></p>
-      </div>
+    </div>
+  </section>
+
+  <!-- NEED HELP CTA — full width navy band -->
+  <section class="calc-need-help">
+    <div class="calc-need-help-inner">
+      <h3>Need Help Understanding What You Can Afford?</h3>
+      <p>A mortgage calculator is a great starting point — but every buyer's situation is different.</p>
+      <p>From loan strategy and monthly payment estimates to taxes, insurance, and closing costs, working with experienced local professionals can make a big difference.</p>
+      <p>We partner with trusted San Diego mortgage lenders who can help you:</p>
+      <ul>
+        <li>Compare loan programs</li>
+        <li>Estimate monthly payments</li>
+        <li>Determine down payment options</li>
+        <li>Understand cash-to-close</li>
+        <li>Evaluate affordability before you start shopping</li>
+      </ul>
+      <p><a href="#">Explore our trusted lender partners here. &rarr;</a></p>
     </div>
   </section>
 
