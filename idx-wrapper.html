@@ -756,13 +756,6 @@
         _injectAgentCard();
         _fixHeaderButtons();
 
-        // Placeholder label
-        var input = document.querySelector('.ti-new-tag-input');
-        if (input && (input.placeholder === 'City, County, Zip' ||
-                      input.placeholder === 'City, Neighborhood, ZIP Code')) {
-          input.placeholder = 'City or ZIP';
-        }
-
         // Tour button label
         document.querySelectorAll('.IDX-detailsVirtualTourAction').forEach(function(btn) {
           if (btn.textContent.trim() === 'TOUR') btn.textContent = 'VIRTUAL TOUR';
