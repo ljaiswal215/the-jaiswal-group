@@ -77,6 +77,17 @@
     #prime-map-search--filter-bar__flyto .ti-new-tag-input-wrapper { min-width: 0 !important; overflow: hidden !important; }
     #prime-map-search--filter-bar__flyto .ti-new-tag-input { text-align: left !important; min-width: 0 !important; }
 
+    /* ─── Filter bar pill buttons: subtler borders ─── */
+    .idx-filter-button button,
+    .idx-filter-button > div > button,
+    .idx-filter-button > button,
+    #prime-map-search--filter-bar button[class*="btn"],
+    #prime-map-search--filter-bar button[class*="button"],
+    #prime-map-search--filter-bar .pm-dropdown-button {
+      border-color: rgba(0,0,0,0.10) !important;
+      box-shadow: none !important;
+    }
+
     /* ─── Results count chip: Lato brand styling ─── */
     #listing-results-count__chip {
       font-family: 'Lato', sans-serif !important;
@@ -657,25 +668,8 @@
       link.id   = 'tjg-save-search';
       link.href = 'https://thejaiswalgroup.idxbroker.com/idx/usersignup';
       link.textContent = 'SAVE SEARCH';
-      // Copy styles from an existing IDX filter button for a perfect match
-      var refBtn = document.querySelector('.idx-filter-button, [class*="filter-button"], [class*="filter-btn"]');
-      var cs = refBtn ? window.getComputedStyle(refBtn) : null;
-      link.style.cssText = 'display:inline-flex;align-items:center;text-decoration:none;white-space:nowrap;margin-left:8px;cursor:pointer;transition:opacity 0.2s;';
-      if (cs) {
-        link.style.background      = cs.backgroundColor;
-        link.style.color           = cs.color;
-        link.style.border          = cs.border;
-        link.style.borderRadius    = cs.borderRadius;
-        link.style.height          = cs.height;
-        link.style.padding         = cs.padding;
-        link.style.fontSize        = cs.fontSize;
-        link.style.fontWeight      = cs.fontWeight;
-        link.style.fontFamily      = cs.fontFamily;
-        link.style.letterSpacing   = cs.letterSpacing;
-        link.style.textTransform   = cs.textTransform;
-      } else {
-        link.style.cssText += 'font-family:Lato,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:#fff;color:#18254B;border:1px solid rgba(0,0,0,0.18);padding:0 14px;height:34px;border-radius:2px;';
-      }
+      // Hardcoded styles — matches filter pill appearance reliably
+      link.style.cssText = 'display:inline-flex;align-items:center;text-decoration:none;white-space:nowrap;margin-left:8px;cursor:pointer;transition:opacity 0.2s;font-family:Lato,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;background:#fff;color:#18254B;border:1px solid rgba(0,0,0,0.12);padding:0 14px;height:34px;border-radius:2px;box-sizing:border-box;';
       link.addEventListener('mouseenter',function(){ link.style.opacity='0.7'; });
       link.addEventListener('mouseleave',function(){ link.style.opacity='1'; });
       toggle.parentNode.insertBefore(link, toggle.nextSibling);
