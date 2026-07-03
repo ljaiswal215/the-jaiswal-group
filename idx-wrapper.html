@@ -561,13 +561,13 @@
     #tjg-tour-step2 { display:none; padding:24px; }
     #tjg-tour-step2.tjg-s2-active { display:block; }
     #tjg-tour-brand { display:flex; align-items:center; gap:14px; margin-bottom:22px; padding-bottom:18px; border-bottom:1px solid #eee; }
-    #tjg-tour-brand img { width:52px; height:52px; object-fit:contain; }
+    #tjg-tour-brand img { width:80px; height:auto; object-fit:contain; }
     #tjg-tour-brand-name { font-family:'Lato',sans-serif; font-weight:700; font-size:0.88rem; color:#18254B; line-height:1.4; }
     #tjg-tour-form label { display:block; font-family:'Lato',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#18254B; margin:16px 0 5px; }
     #tjg-tour-form input, #tjg-tour-form textarea { width:100%; padding:10px 12px; border:1.5px solid #E0D9CF; border-radius:8px; font-family:'Lato',sans-serif; font-size:0.88rem; color:#18254B; box-sizing:border-box; outline:none; }
     #tjg-tour-form input:focus, #tjg-tour-form textarea:focus { border-color:#18254B; }
-    #tjg-tour-form textarea { resize:vertical; min-height:90px; }
-    .tjg-form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    #tjg-tour-form textarea { resize:vertical; min-height:90px; text-align:left; }
+    .tjg-form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
     .tjg-form-row > div > label { margin-top:0 !important; }
     #tjg-tour-step2-btns { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:20px; }
     #tjg-tour-back { background:#fff; color:#18254B; border:1.5px solid #18254B; border-radius:6px; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:14px; cursor:pointer; }
@@ -575,6 +575,14 @@
     #tjg-tour-submit { background:#18254B; color:#fff; border:none; border-radius:6px; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:14px; cursor:pointer; }
     #tjg-tour-submit:hover { background:#0f1a35; }
     #tjg-tour-privacy { font-family:'Lato',sans-serif; font-size:0.7rem; color:#7a7269; margin-top:14px; line-height:1.5; }
+    /* Opt-in consent block */
+    #tjg-optin-wrap { margin-top:18px; }
+    .tjg-optin-label { display:flex; align-items:flex-start; gap:9px; cursor:pointer; }
+    .tjg-optin-label input[type="checkbox"] { flex-shrink:0; margin-top:2px; accent-color:#18254B; width:14px; height:14px; cursor:pointer; }
+    #tjg-optin-text { font-family:'Lato',sans-serif; font-size:0.68rem; line-height:1.55; color:#7a7269; overflow:hidden; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; }
+    #tjg-optin-text.tjg-expanded { display:block; -webkit-line-clamp:unset; }
+    #tjg-optin-text a { color:#18254B; text-decoration:underline; }
+    #tjg-optin-toggle { background:none; border:none; color:#B38987; font-size:0.68rem; font-family:'Lato',sans-serif; font-weight:700; cursor:pointer; padding:3px 0 0; display:block; }
     /* Success */
     #tjg-tour-success { display:none; text-align:center; padding:40px 24px; font-family:'Lato',sans-serif; color:#18254B; }
     #tjg-tour-success h4 { font-family:'Marcellus',serif !important; font-size:1.4rem; margin-bottom:10px; }
@@ -1354,6 +1362,15 @@
               '<input id="tjg-phone" name="phone" type="tel" placeholder="Phone*">' +
               '<label for="tjg-msg">Message</label>' +
               '<textarea id="tjg-msg" name="message" rows="4"></textarea>' +
+              '<div id="tjg-optin-wrap">' +
+                '<label class="tjg-optin-label">' +
+                  '<input type="checkbox" id="tjg-optin-check" name="optin" value="yes">' +
+                  '<div>' +
+                    '<div id="tjg-optin-text">I agree to be contacted by The Jaiswal Group Real Estate via call, email, and text for real estate services. To opt out, you can reply &lsquo;stop&rsquo; at any time or reply &lsquo;help&rsquo; for assistance. You can also click the unsubscribe link in the emails. Message and data rates may apply. Message frequency may vary. <a href="https://thejaiswalgroup.com/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.</div>' +
+                    '<button type="button" id="tjg-optin-toggle">Read More</button>' +
+                  '</div>' +
+                '</label>' +
+              '</div>' +
               '<div id="tjg-tour-step2-btns">' +
                 '<button type="button" id="tjg-tour-back">Back</button>' +
                 '<button type="submit" id="tjg-tour-submit">Send Request</button>' +
@@ -1369,6 +1386,13 @@
       function _tourClose() { modal.classList.remove('tjg-open'); }
       document.getElementById('tjg-tour-close').addEventListener('click', _tourClose);
       document.getElementById('tjg-tour-overlay').addEventListener('click', _tourClose);
+
+      // Read More / Read Less toggle for opt-in text
+      document.getElementById('tjg-optin-toggle').addEventListener('click', function() {
+        var txt = document.getElementById('tjg-optin-text');
+        txt.classList.toggle('tjg-expanded');
+        this.textContent = txt.classList.contains('tjg-expanded') ? 'Read Less' : 'Read More';
+      });
 
       document.getElementById('tjg-tour-btn').addEventListener('click', function() {
         // Reset to step 1 each open
@@ -1431,10 +1455,11 @@
         document.getElementById('tjg-hidden-type').value = typeStr;
         document.getElementById('tjg-hidden-date').value = dateFormatted;
         document.getElementById('tjg-hidden-time').value = timeVal;
-        // Auto-populate message
+        // Auto-populate message (strip any embedded newlines/extra whitespace from address)
+        var cleanAddr = propAddr.replace(/\s+/g, ' ').trim();
         document.getElementById('tjg-msg').value =
           'Hello, I\'m interested in an ' + typeStr.toLowerCase() + ' tour of the property located at ' +
-          propAddr + ' on ' + dateFormatted + ' between ' + timeVal + '.';
+          cleanAddr + ' on ' + dateFormatted + ' between ' + timeVal + '.';
         // Advance
         document.getElementById('tjg-tour-step1').style.display = 'none';
         document.getElementById('tjg-tour-step2').classList.add('tjg-s2-active');
