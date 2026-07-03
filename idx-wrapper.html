@@ -529,6 +529,24 @@
       });
     });
 
+    // Save Search button next to LIST / MAP
+    setTimeout(function() {
+      if (document.querySelector('#tjg-save-search')) return;
+      var mapBtn = Array.from(document.querySelectorAll('button')).find(function(b){ return b.textContent.trim()==='MAP'; });
+      if (!mapBtn) return;
+      var btn = document.createElement('button');
+      btn.id = 'tjg-save-search';
+      btn.textContent = 'SAVE SEARCH';
+      btn.style.cssText = 'font-family:Lato,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:transparent;color:#18254B;border:1.5px solid #18254B;padding:6px 16px;cursor:pointer;margin-left:8px;transition:background 0.2s,color 0.2s;';
+      btn.addEventListener('mouseenter',function(){ btn.style.background='#18254B'; btn.style.color='#fff'; });
+      btn.addEventListener('mouseleave',function(){ btn.style.background='transparent'; btn.style.color='#18254B'; });
+      btn.onclick = function(){
+        var s = document.querySelector('#IDX-savedSearch,[class*="savedSearch"],[id*="savedSearch"]');
+        if (s) s.click();
+      };
+      mapBtn.parentElement.appendChild(btn);
+    }, 1500);
+
     // Prevent flash of off-area listings on map search page load
     (function() {
       if (window.location.href.indexOf('mapsearch') === -1 &&
