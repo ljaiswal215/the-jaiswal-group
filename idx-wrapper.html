@@ -825,6 +825,25 @@
     }
     [300, 800, 1500, 3000].forEach(function(ms) { setTimeout(_fixPlaceholder, ms); });
 
+    // Rename "ALL PROPERTY TYPES" filter pill → "Property Type"
+    function _renamePropTypeLabel() {
+      document.querySelectorAll('button').forEach(function(btn) {
+        if (/all property types/i.test(btn.textContent) && !btn._tjgPT) {
+          btn._tjgPT = true;
+          var walker = document.createTreeWalker(btn, NodeFilter.SHOW_TEXT, null, false);
+          var node;
+          while ((node = walker.nextNode())) {
+            if (/all property types/i.test(node.nodeValue)) {
+              node.nodeValue = node.nodeValue.replace(/all property types/gi, 'Property Type');
+              break;
+            }
+          }
+        }
+      });
+    }
+    _renamePropTypeLabel();
+    [400, 1000, 2000, 4000].forEach(function(ms) { setTimeout(_renamePropTypeLabel, ms); });
+
     // Click anywhere in search field (when a zip/city tag is set) to clear it
     document.addEventListener('click', function(e) {
       var field = document.querySelector('.pm-ccz-fly-to-field-disabled');
