@@ -529,23 +529,22 @@
       });
     });
 
-    // Save Search button — placed in the results header on map search pages
+    // Save Search button — inserted after #tjg-view-toggle (LIST/MAP) in the toolbar
     function _idxInjectSaveSearch() {
       if (document.querySelector('#tjg-save-search')) return;
-      var container = document.querySelector('#prime-map-search--results--header');
-      if (!container) return;
+      var toggle = document.querySelector('#tjg-view-toggle');
+      if (!toggle) return;
       var link = document.createElement('a');
       link.id   = 'tjg-save-search';
       link.href = 'https://thejaiswalgroup.idxbroker.com/idx/usersignup';
       link.textContent = 'SAVE SEARCH';
-      link.style.cssText = 'position:absolute;left:8px;top:50%;transform:translateY(-50%);font-family:Lato,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:transparent;color:#18254B;border:1.5px solid #18254B;padding:5px 14px;text-decoration:none;white-space:nowrap;transition:background 0.2s,color 0.2s;';
+      link.style.cssText = 'display:inline-flex;align-items:center;font-family:Lato,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:transparent;color:#18254B;border:1.5px solid #18254B;padding:0 14px;height:34px;text-decoration:none;white-space:nowrap;margin-left:8px;transition:background 0.2s,color 0.2s;';
       link.addEventListener('mouseenter',function(){ link.style.background='#18254B'; link.style.color='#fff'; });
       link.addEventListener('mouseleave',function(){ link.style.background='transparent'; link.style.color='#18254B'; });
-      container.style.position = 'relative';
-      container.appendChild(link);
+      toggle.parentNode.insertBefore(link, toggle.nextSibling);
     }
-    setTimeout(_idxInjectSaveSearch, 1500);
-    setTimeout(_idxInjectSaveSearch, 3500);
+    setTimeout(_idxInjectSaveSearch, 1000);
+    setTimeout(_idxInjectSaveSearch, 3000);
 
     // Prevent flash of off-area listings on map search page load
     (function() {
