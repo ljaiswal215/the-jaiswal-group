@@ -208,103 +208,194 @@
       stroke: #fff !important;
     }
 
-    /* ─── User Signup / Login — full page & IDX modal ─────────────────────── */
+    /* ─── User Signup / Login — full rebrand ──────────────────────────────── */
 
-    /* Page subheader bar: "User Signup" title */
+    /* Hide IDX's generic "User Signup" subheader bar */
     .IDX-page-usersignup #IDX-Subheader,
-    .IDX-page-usersignin #IDX-Subheader {
-      background: #18254B !important;
-      border: none !important;
-      padding: 28px 0 24px !important;
-    }
-    .IDX-page-usersignup #IDX-Subheader h1,
-    .IDX-page-usersignup #IDX-Subheader h2,
-    .IDX-page-usersignup #IDX-Subheader h3,
-    .IDX-page-usersignin #IDX-Subheader h1,
-    .IDX-page-usersignin #IDX-Subheader h2 {
-      font-family: 'Marcellus', serif !important;
-      font-weight: 400 !important;
-      font-size: 1.8rem !important;
-      color: #ffffff !important;
-      letter-spacing: 0.04em !important;
+    .IDX-page-usersignin #IDX-Subheader { display: none !important; }
+
+    /* Cream page background */
+    .IDX-page-usersignup #IDX-main,
+    .IDX-page-usersignin #IDX-main {
+      background: #F3EFE8 !important;
+      padding: 52px 20px 72px !important;
+      min-height: 60vh !important;
     }
 
-    /* Info / alert box: replace teal with brand cream */
+    /* Injected branded header (logo + heading + subtitle) */
+    #tjg-signup-header {
+      text-align: center;
+      max-width: 520px;
+      margin: 0 auto 28px;
+    }
+    #tjg-signup-logo {
+      height: 64px;
+      width: auto;
+      display: block;
+      margin: 0 auto 22px;
+    }
+    #tjg-signup-title {
+      font-family: 'Marcellus', serif;
+      font-size: 1.75rem;
+      font-weight: 400;
+      color: #18254B;
+      margin: 0 0 10px;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+    #tjg-signup-sub {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.88rem;
+      color: #7a7269;
+      margin: 0;
+      line-height: 1.65;
+    }
+
+    /* White form card, centered */
+    .IDX-page-usersignup #IDX-leadSignupContainer,
+    .IDX-page-usersignin #IDX-leadSignupContainer {
+      max-width: 520px !important;
+      margin: 0 auto !important;
+      background: #ffffff !important;
+      border: 1px solid #E0D9CF !important;
+      border-radius: 0 !important;
+      padding: 40px 40px 36px !important;
+      box-shadow: 0 4px 28px rgba(24,37,75,0.08) !important;
+      box-sizing: border-box !important;
+    }
+
+    /* Hide IDX's teal alert info box — our injected header replaces it */
     .IDX-page-usersignup .alert,
     .IDX-page-usersignup .alert-info,
-    .IDX-page-usersignin .alert,
-    #IDX-leadSignupContainer .alert {
-      background: #F3EFE8 !important;
-      border: 1px solid #E0D9CF !important;
-      border-radius: 2px !important;
-      color: #18254B !important;
-      font-family: 'Lato', sans-serif !important;
-      font-size: 0.88rem !important;
-    }
+    .IDX-page-usersignin .alert { display: none !important; }
 
-    /* Form labels — page and modal */
+    /* Field labels */
     .IDX-page-usersignup label,
-    .IDX-page-usersignin label,
-    #IDX-leadSignupContainer label,
-    #IDX-leadGenContainer label,
-    .IDX-leadSignup label {
+    .IDX-page-usersignin label {
       font-family: 'Lato', sans-serif !important;
-      font-size: 0.68rem !important;
+      font-size: 0.65rem !important;
       font-weight: 700 !important;
       letter-spacing: 0.1em !important;
       text-transform: uppercase !important;
       color: #18254B !important;
-      margin-bottom: 5px !important;
       display: block !important;
+      margin-bottom: 5px !important;
     }
 
-    /* Form inputs — page and modal */
+    /* Text / email / tel / password inputs */
     .IDX-page-usersignup input[type="text"],
     .IDX-page-usersignup input[type="email"],
     .IDX-page-usersignup input[type="tel"],
     .IDX-page-usersignup input[type="password"],
     .IDX-page-usersignin input[type="text"],
     .IDX-page-usersignin input[type="email"],
-    .IDX-page-usersignin input[type="password"],
-    #IDX-leadSignupContainer input[type="text"],
-    #IDX-leadSignupContainer input[type="email"],
-    #IDX-leadSignupContainer input[type="tel"],
-    #IDX-leadGenContainer input[type="text"],
-    #IDX-leadGenContainer input[type="email"],
-    #IDX-leadGenContainer input[type="tel"] {
+    .IDX-page-usersignin input[type="password"] {
       font-family: 'Lato', sans-serif !important;
       font-size: 0.9rem !important;
       color: #18254B !important;
       background: #ffffff !important;
       border: 1.5px solid #E0D9CF !important;
       border-radius: 2px !important;
-      padding: 10px 12px !important;
+      padding: 11px 13px !important;
+      width: 100% !important;
       box-sizing: border-box !important;
       outline: none !important;
       box-shadow: none !important;
-      width: 100% !important;
+      margin-bottom: 18px !important;
+      transition: border-color 0.15s !important;
     }
-    .IDX-page-usersignup input:focus,
-    .IDX-page-usersignin input:focus,
-    #IDX-leadSignupContainer input:focus,
-    #IDX-leadGenContainer input:focus {
+    .IDX-page-usersignup input[type="text"]:focus,
+    .IDX-page-usersignup input[type="email"]:focus,
+    .IDX-page-usersignup input[type="tel"]:focus,
+    .IDX-page-usersignup input[type="password"]:focus,
+    .IDX-page-usersignin input:focus {
       border-color: #18254B !important;
       box-shadow: none !important;
     }
 
-    /* Submit / Sign Up button */
+    /* Submit button */
     .IDX-page-usersignup input[type="submit"],
     .IDX-page-usersignup button[type="submit"],
     .IDX-page-usersignin input[type="submit"],
-    .IDX-page-usersignin button[type="submit"],
-    #IDX-leadSignupContainer input[type="submit"],
-    #IDX-leadSignupContainer button[type="submit"],
+    .IDX-page-usersignin button[type="submit"] {
+      display: block !important;
+      width: 100% !important;
+      background: #18254B !important;
+      color: #ffffff !important;
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.75rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.13em !important;
+      text-transform: uppercase !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 17px !important;
+      margin-top: 6px !important;
+      cursor: pointer !important;
+      transition: background 0.2s !important;
+    }
+    .IDX-page-usersignup input[type="submit"]:hover,
+    .IDX-page-usersignup button[type="submit"]:hover,
+    .IDX-page-usersignin input[type="submit"]:hover { background: #0f1a35 !important; }
+
+    /* Fine-print text (reCAPTCHA, consent, disclaimer) */
+    .IDX-page-usersignup p,
+    .IDX-page-usersignin p {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.73rem !important;
+      color: #7a7269 !important;
+      line-height: 1.55 !important;
+    }
+
+    /* "Have an account? Sign in" / "Back to search" links */
+    .IDX-page-usersignup a,
+    .IDX-page-usersignin a {
+      color: #18254B !important;
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.85rem !important;
+    }
+    .IDX-page-usersignup a:hover,
+    .IDX-page-usersignin a:hover { color: #B38987 !important; }
+
+    /* ─── Save Search popup modal ──────────────────────────────────────────── */
+    #IDX-leadGenContainer h2, #IDX-leadGenContainer h3,
+    .IDX-leadSignup h2, .IDX-leadSignup h3 {
+      font-family: 'Marcellus', serif !important;
+      color: #18254B !important;
+      font-weight: 400 !important;
+      font-size: 1.55rem !important;
+    }
+    #IDX-leadGenContainer p, .IDX-leadSignup p {
+      font-family: 'Lato', sans-serif !important;
+      color: #7a7269 !important;
+      font-size: 0.85rem !important;
+    }
+    #IDX-leadGenContainer label, .IDX-leadSignup label {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.65rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      color: #18254B !important;
+    }
+    #IDX-leadGenContainer input[type="text"],
+    #IDX-leadGenContainer input[type="email"],
+    #IDX-leadGenContainer input[type="tel"] {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.9rem !important;
+      color: #18254B !important;
+      border: 1.5px solid #E0D9CF !important;
+      border-radius: 2px !important;
+      padding: 10px 12px !important;
+      box-sizing: border-box !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+    #IDX-leadGenContainer input:focus { border-color: #18254B !important; box-shadow: none !important; }
     #IDX-leadGenContainer input[type="submit"],
     #IDX-leadGenContainer button[type="submit"],
-    #IDX-leadGenContainer .IDX-btn-primary,
-    .IDX-leadSignup .IDX-btn-primary {
+    #IDX-leadGenContainer .IDX-btn-primary {
       background: #18254B !important;
-      background-color: #18254B !important;
       color: #ffffff !important;
       font-family: 'Lato', sans-serif !important;
       font-size: 0.75rem !important;
@@ -316,46 +407,10 @@
       padding: 15px !important;
       width: 100% !important;
       cursor: pointer !important;
-      margin-top: 8px !important;
     }
-    .IDX-page-usersignup input[type="submit"]:hover,
-    .IDX-page-usersignup button[type="submit"]:hover,
-    #IDX-leadGenContainer .IDX-btn-primary:hover {
-      background: #0f1a35 !important;
-      background-color: #0f1a35 !important;
-    }
-
-    /* Modal headings (Sign Up popup) */
-    #IDX-leadGenContainer h2,
-    #IDX-leadGenContainer h3,
-    .IDX-leadSignup h2,
-    .IDX-leadSignup h3 {
-      font-family: 'Marcellus', serif !important;
-      color: #18254B !important;
-      font-weight: 400 !important;
-      font-size: 1.6rem !important;
-    }
-    #IDX-leadGenContainer p,
-    .IDX-leadSignup p,
-    #IDX-leadSignupContainer p {
-      font-family: 'Lato', sans-serif !important;
-      color: #7a7269 !important;
-      font-size: 0.88rem !important;
-    }
-
-    /* Links */
-    .IDX-page-usersignup a,
-    .IDX-page-usersignin a,
-    #IDX-leadSignupContainer a,
-    #IDX-leadGenContainer a {
-      color: #18254B !important;
-      font-family: 'Lato', sans-serif !important;
-      font-size: 0.85rem !important;
-    }
-    .IDX-page-usersignup a:hover,
-    #IDX-leadGenContainer a:hover {
-      color: #B38987 !important;
-    }
+    #IDX-leadGenContainer .IDX-btn-primary:hover { background: #0f1a35 !important; }
+    #IDX-leadGenContainer a { color: #18254B !important; font-family: 'Lato', sans-serif !important; }
+    #IDX-leadGenContainer a:hover { color: #B38987 !important; }
 
     /* ─── Tour Request Modal ─── */
     #tjg-tour-modal { display:none; position:fixed; inset:0; z-index:99999; align-items:center; justify-content:center; }
@@ -562,6 +617,32 @@
         }
       });
     }
+    // ── Signup / Login page: inject branded logo + heading above the form ──
+    function _injectSignupBranding() {
+      var isSignup = document.querySelector('#IDX-main.IDX-page-usersignup');
+      var isSignin = document.querySelector('#IDX-main.IDX-page-usersignin');
+      if (!isSignup && !isSignin) return;
+      if (document.getElementById('tjg-signup-header')) return;
+      var container = document.getElementById('IDX-leadSignupContainer');
+      if (!container) return;
+      var header = document.createElement('div');
+      header.id = 'tjg-signup-header';
+      header.innerHTML =
+        '<img src="https://ljaiswal215.github.io/the-jaiswal-group/logo.png" ' +
+             'alt="The Jaiswal Group Real Estate" id="tjg-signup-logo">' +
+        '<h2 id="tjg-signup-title">' +
+          (isSignin ? 'Welcome Back' : 'Create Your Account') +
+        '</h2>' +
+        '<p id="tjg-signup-sub">' +
+          (isSignin
+            ? 'Sign in to access your saved searches and listing alerts.'
+            : 'Save searches, like listings, and receive personalized property updates.') +
+        '</p>';
+      container.parentNode.insertBefore(header, container);
+    }
+    _injectSignupBranding();
+    [300, 800, 1500].forEach(function(ms) { setTimeout(_injectSignupBranding, ms); });
+
     // Run immediately, then every 500ms for 60s to catch dynamically loaded pins
     _abbreviateAllLabels();
     var _priceInterval = setInterval(_abbreviateAllLabels, 500);
