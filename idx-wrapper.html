@@ -91,7 +91,7 @@
       text-transform: uppercase !important;
       background: #fff !important;
       color: #18254B !important;
-      border: 1px solid rgba(0,0,0,0.12) !important;
+      border: 1px solid rgba(0,0,0,0.22) !important;
       border-radius: 2px !important;
       height: 34px !important;
       padding: 0 14px !important;
@@ -100,6 +100,18 @@
       transition: opacity 0.2s !important;
     }
     #tjg-save-search:hover { opacity: 0.7 !important; }
+
+    /* ─── LIST / MAP toggle: match filter pill font ─── */
+    #tjg-view-toggle button,
+    #tjg-view-toggle a,
+    #tjg-view-toggle [class*="btn"],
+    #tjg-view-toggle [class*="toggle"] {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.09em !important;
+      text-transform: uppercase !important;
+    }
 
     /* ─── Filter bar pill buttons: subtler borders ─── */
     .idx-filter-button button,
@@ -692,10 +704,15 @@
       link.id   = 'tjg-save-search';
       link.href = 'https://thejaiswalgroup.idxbroker.com/idx/usersignup';
       link.textContent = 'SAVE SEARCH';
-      // Hardcoded styles — matches filter pill appearance reliably
-      link.style.cssText = 'display:inline-flex;align-items:center;text-decoration:none;white-space:nowrap;margin-left:8px;cursor:pointer;transition:opacity 0.2s;font-family:Lato,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;background:#fff;color:#18254B;border:1px solid rgba(0,0,0,0.12);padding:0 14px;height:34px;border-radius:2px;box-sizing:border-box;';
-      link.addEventListener('mouseenter',function(){ link.style.opacity='0.7'; });
-      link.addEventListener('mouseleave',function(){ link.style.opacity='1'; });
+      // Base layout styles via cssText, then pin visual props with setProperty !important
+      // so IDX's runtime CSS can never strip the border/color
+      link.style.cssText = 'display:inline-flex;align-items:center;text-decoration:none;white-space:nowrap;margin-left:8px;cursor:pointer;font-family:Lato,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;padding:0 14px;height:34px;border-radius:2px;box-sizing:border-box;';
+      link.style.setProperty('background', '#ffffff', 'important');
+      link.style.setProperty('color', '#18254B', 'important');
+      link.style.setProperty('border', '1px solid rgba(0,0,0,0.22)', 'important');
+      link.style.setProperty('transition', 'opacity 0.2s', 'important');
+      link.addEventListener('mouseenter',function(){ link.style.setProperty('opacity','0.7','important'); });
+      link.addEventListener('mouseleave',function(){ link.style.setProperty('opacity','1','important'); });
       toggle.parentNode.insertBefore(link, toggle.nextSibling);
       // Shift button group left to add breathing room on the right
       var toolbar = document.getElementById('tjg-right-toolbar');
