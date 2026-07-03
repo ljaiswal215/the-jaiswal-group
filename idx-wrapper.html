@@ -889,10 +889,15 @@
         if (/\bstatus\b/i.test(pill.textContent)) statusPill = pill;
       });
       if (!statusPill) return;
-      // Already in correct position?
-      if (statusPill.nextSibling === typePill) return;
       // Move Property Type to immediately follow Status
-      statusPill.parentNode.insertBefore(typePill, statusPill.nextSibling);
+      if (statusPill.nextSibling !== typePill) {
+        statusPill.parentNode.insertBefore(typePill, statusPill.nextSibling);
+      }
+      // Move Any Size to immediately follow Property Type
+      var sqftPill = document.getElementById('tjg-sqft-btn');
+      if (sqftPill && typePill.nextSibling !== sqftPill) {
+        typePill.parentNode.insertBefore(sqftPill, typePill.nextSibling);
+      }
     }
     _reorderFilterPills();
     var _reorderInterval = setInterval(_reorderFilterPills, 500);
