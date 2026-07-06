@@ -116,41 +116,62 @@
       background: #18254B;
       padding: clamp(4rem,7vw,7rem) clamp(2rem,6vw,6rem);
     }
-    .lj-credentials-highlights {
+    .lj-why-heading {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      color: #fff;
+      letter-spacing: 0.05em;
+      margin-bottom: clamp(2rem,4vw,3rem);
+    }
+    .lj-why-list {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem 4rem;
       border-bottom: 1px solid rgba(255,255,255,0.15);
+      padding-bottom: clamp(3rem,5vw,5rem);
       margin-bottom: clamp(3rem,5vw,5rem);
     }
-    .lj-cred-highlight {
-      padding: 0 clamp(1.5rem,3vw,3rem) clamp(2.5rem,4vw,3.5rem) 0;
-      border-right: 1px solid rgba(255,255,255,0.15);
+    .lj-why-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
     }
-    .lj-cred-highlight:first-child { padding-left: 0; }
-    .lj-cred-highlight:last-child { border-right: none; padding-right: 0; }
-    .lj-cred-number {
-      font-family: 'Marcellus', serif;
-      font-size: clamp(2rem,4vw,3.25rem);
-      color: #B38987;
-      line-height: 1;
-      margin-bottom: 0.6rem;
+    .lj-why-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border: 1.5px solid #B38987;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.15rem;
     }
-    .lj-cred-title {
+    .lj-why-icon::after {
+      content: '';
+      display: block;
+      width: 5px;
+      height: 9px;
+      border-right: 1.5px solid #B38987;
+      border-bottom: 1.5px solid #B38987;
+      transform: rotate(45deg) translate(-1px, -1px);
+    }
+    .lj-why-title {
       font-family: 'Lato', sans-serif;
-      font-size: 0.7rem;
+      font-size: 0.78rem;
       font-weight: 700;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #fff;
-      margin-bottom: 0.65rem;
+      margin-bottom: 0.35rem;
     }
-    .lj-cred-desc {
+    .lj-why-desc {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 0.975rem;
+      font-size: 1rem;
       color: rgba(255,255,255,0.6);
       line-height: 1.7;
     }
+    @media(max-width:700px){ .lj-why-list { grid-template-columns: 1fr; } }
     .lj-desig-header {
       font-family: 'Marcellus', serif;
       font-size: clamp(1.3rem, 2.5vw, 1.9rem);
@@ -660,26 +681,42 @@
        CREDENTIALS + CERTIFICATIONS
   ═══════════════════════════════════════════════════════════════ -->
   <section class="lj-credentials">
-    <div class="lj-credentials-highlights">
-      <div class="lj-cred-highlight">
-        <div class="lj-cred-number">Native</div>
-        <div class="lj-cred-title">San Diego Native</div>
-        <div class="lj-cred-desc">A lifetime of local knowledge and firsthand insight into the communities she serves.</div>
+    <div class="lj-why-heading">Why Clients Choose The Jaiswal Group</div>
+    <div class="lj-why-list">
+      <div class="lj-why-item">
+        <div class="lj-why-icon"></div>
+        <div>
+          <div class="lj-why-title">San Diego Native</div>
+          <div class="lj-why-desc">With lifelong knowledge of North County Coastal and Inland communities.</div>
+        </div>
       </div>
-      <div class="lj-cred-highlight">
-        <div class="lj-cred-number">25+</div>
-        <div class="lj-cred-title">Years of Customer Service &amp; Sales Experience</div>
-        <div class="lj-cred-desc">Helping clients navigate important decisions with strategy, communication, and care.</div>
+      <div class="lj-why-item">
+        <div class="lj-why-icon"></div>
+        <div>
+          <div class="lj-why-title">Broker &amp; Founder of The Jaiswal Group Real Estate</div>
+          <div class="lj-why-desc">Providing boutique-level service with a highly personalized approach.</div>
+        </div>
       </div>
-      <div class="lj-cred-highlight">
-        <div class="lj-cred-number">Top 3%</div>
-        <div class="lj-cred-title">of REALTORS&reg; in San Diego County</div>
-        <div class="lj-cred-desc">Recognized by the North San Diego County REALTORS&reg; for sales production.</div>
+      <div class="lj-why-item">
+        <div class="lj-why-icon"></div>
+        <div>
+          <div class="lj-why-title">Top 3% of REALTORS&reg; in San Diego County</div>
+          <div class="lj-why-desc">Recognized by the North San Diego County REALTORS&reg; for sales production.</div>
+        </div>
       </div>
-      <div class="lj-cred-highlight">
-        <div class="lj-cred-number">15+</div>
-        <div class="lj-cred-title">Advanced Professional Designations</div>
-        <div class="lj-cred-desc">Continually investing in education across luxury marketing, negotiation, pricing strategy, relocation, and construction.</div>
+      <div class="lj-why-item">
+        <div class="lj-why-icon"></div>
+        <div>
+          <div class="lj-why-title">15+ Advanced Professional Designations</div>
+          <div class="lj-why-desc">Spanning luxury marketing, negotiation, pricing strategy, relocation, construction, and buyer and seller representation.</div>
+        </div>
+      </div>
+      <div class="lj-why-item">
+        <div class="lj-why-icon"></div>
+        <div>
+          <div class="lj-why-title">Trusted Local Resource</div>
+          <div class="lj-why-desc">Creating one of the region&rsquo;s most comprehensive collections of neighborhood guides, relocation resources, market reports, and educational content for buyers and sellers.</div>
+        </div>
       </div>
     </div>
 
