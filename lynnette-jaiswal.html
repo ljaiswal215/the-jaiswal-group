@@ -151,19 +151,36 @@
       color: rgba(255,255,255,0.6);
       line-height: 1.7;
     }
-    .lj-certifications-label {
+    .lj-desig-header {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+      color: #fff;
+      letter-spacing: 0.06em;
+      margin-bottom: 1.25rem;
+    }
+    .lj-desig-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.85;
+      max-width: 860px;
+      margin-bottom: 3rem;
+    }
+    .lj-cert-groups {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem 3rem;
+    }
+    .lj-cert-group-heading {
       font-family: 'Lato', sans-serif;
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       font-weight: 700;
-      letter-spacing: 0.25em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: #B38987;
-      margin-bottom: 1.75rem;
-    }
-    .lj-certifications-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.75rem 2rem;
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid rgba(179,137,135,0.3);
     }
     .lj-cert-item {
       display: flex;
@@ -173,9 +190,11 @@
       font-size: 0.8rem;
       font-weight: 400;
       color: rgba(255,255,255,0.75);
-      letter-spacing: 0.04em;
-      line-height: 1.4;
+      letter-spacing: 0.03em;
+      line-height: 1.5;
+      margin-bottom: 0.5rem;
     }
+    .lj-cert-item:last-child { margin-bottom: 0; }
     .lj-cert-item::before {
       content: '';
       display: block;
@@ -184,19 +203,19 @@
       height: 4px;
       border-radius: 50%;
       background: #B38987;
-      margin-top: 0.4em;
+      margin-top: 0.45em;
     }
     @media(max-width:900px){
       .lj-credentials-highlights { grid-template-columns: repeat(2,1fr); gap: 2rem 0; }
       .lj-cred-highlight { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); padding: 0 0 2rem; }
       .lj-cred-highlight:nth-child(2n) { padding-left: 2rem; }
       .lj-cred-highlight:last-child { border-bottom: none; }
-      .lj-certifications-grid { grid-template-columns: repeat(2,1fr); }
+      .lj-cert-groups { grid-template-columns: repeat(2,1fr); }
     }
     @media(max-width:500px){
       .lj-credentials-highlights { grid-template-columns: 1fr; }
       .lj-cred-highlight { padding-left: 0 !important; }
-      .lj-certifications-grid { grid-template-columns: 1fr; }
+      .lj-cert-groups { grid-template-columns: 1fr; }
     }
 
     /* ══════════════════════════════════════════════════════
@@ -658,29 +677,46 @@
         <div class="lj-cred-desc">Recognized by the North San Diego County REALTORS&reg; for sales production.</div>
       </div>
       <div class="lj-cred-highlight">
-        <div class="lj-cred-number">14+</div>
+        <div class="lj-cred-number">15+</div>
         <div class="lj-cred-title">Advanced Professional Designations</div>
         <div class="lj-cred-desc">Continually investing in education across luxury marketing, negotiation, pricing strategy, relocation, and construction.</div>
       </div>
     </div>
 
-    <div class="lj-certifications-label">Designations &amp; Certifications</div>
-    <div class="lj-certifications-grid">
-      <!-- Update these with Lynnette's actual designations -->
-      <div class="lj-cert-item">Accredited Buyer&rsquo;s Representative (ABR&reg;)</div>
-      <div class="lj-cert-item">Seller Representative Specialist (SRS)</div>
-      <div class="lj-cert-item">Certified Luxury Home Marketing Specialist (CLHMS)</div>
-      <div class="lj-cert-item">Graduate, REALTOR&reg; Institute (GRI)</div>
-      <div class="lj-cert-item">Certified Negotiation Expert (CNE)</div>
-      <div class="lj-cert-item">Pricing Strategy Advisor (PSA)</div>
-      <div class="lj-cert-item">Military Relocation Professional (MRP)</div>
-      <div class="lj-cert-item">Seniors Real Estate Specialist (SRES&reg;)</div>
-      <div class="lj-cert-item">Real Estate Negotiation Expert (RENE)</div>
-      <div class="lj-cert-item">Short Sales &amp; Foreclosure Resource (SFR&reg;)</div>
-      <div class="lj-cert-item">New Home Construction &amp; Buyer Representative</div>
-      <div class="lj-cert-item">NAR GREEN Designation</div>
-      <div class="lj-cert-item">Certified Residential Specialist (CRS)</div>
-      <div class="lj-cert-item">At Home With Diversity (AHWD)</div>
+    <div class="lj-desig-header">Professional Designations &amp; Certifications</div>
+    <p class="lj-desig-intro">Lynnette believes exceptional representation begins with continual learning. Real estate, technology, negotiation strategies, and market conditions are constantly evolving, and she is committed to staying at the forefront of the industry through ongoing education and advanced professional training. These designations reflect specialized expertise across luxury marketing, negotiation, pricing strategy, construction, relocation, and buyer and seller representation&mdash;allowing her to better serve clients throughout every stage of their real estate journey.</p>
+
+    <div class="lj-cert-groups">
+      <div class="lj-cert-group">
+        <div class="lj-cert-group-heading">Luxury Marketing &amp; Sales</div>
+        <div class="lj-cert-item">Certified Luxury Home Marketing Specialist (CLHMS&#8482;)</div>
+      </div>
+      <div class="lj-cert-group">
+        <div class="lj-cert-group-heading">Negotiation &amp; Client Representation</div>
+        <div class="lj-cert-item">Master Certified Negotiation Expert (MCNE&reg;)</div>
+        <div class="lj-cert-item">Real Estate Negotiation Expert (RENE&reg;)</div>
+        <div class="lj-cert-item">Accredited Buyer&rsquo;s Representative (ABR&reg;)</div>
+        <div class="lj-cert-item">Seller Representative Specialist (SRS&reg;)</div>
+      </div>
+      <div class="lj-cert-group">
+        <div class="lj-cert-group-heading">Pricing, Construction &amp; New Homes</div>
+        <div class="lj-cert-item">Pricing Strategy Advisor (PSA)</div>
+        <div class="lj-cert-item">Residential Construction Certified (RCC&#8482;)</div>
+        <div class="lj-cert-item">Certified New Home Specialist (CNHS&#8482;)</div>
+      </div>
+      <div class="lj-cert-group">
+        <div class="lj-cert-group-heading">Relocation &amp; Specialized Client Services</div>
+        <div class="lj-cert-item">Military Relocation Professional (MRP)</div>
+        <div class="lj-cert-item">Seniors Real Estate Specialist&reg; (SRES&reg;)</div>
+        <div class="lj-cert-item">First Time Buyer Specialist (FTBS)</div>
+        <div class="lj-cert-item">Short Sale &amp; Foreclosure Resource (SFR&reg;)</div>
+      </div>
+      <div class="lj-cert-group">
+        <div class="lj-cert-group-heading">Technology &amp; Professional Practice</div>
+        <div class="lj-cert-item">e-PRO&reg;</div>
+        <div class="lj-cert-item">At Home With Diversity (AHWD&reg;)</div>
+        <div class="lj-cert-item">GREEN</div>
+      </div>
     </div>
   </section>
 
