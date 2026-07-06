@@ -12,146 +12,6 @@
   <style>
 
     /* ══════════════════════════════════════════════════════
-       HERO
-    ══════════════════════════════════════════════════════ */
-    .lj-hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: flex-end;
-      background: #18254B;
-      overflow: hidden;
-    }
-    .lj-hero-photo {
-      position: absolute;
-      inset: 0;
-      background: #18254B center top / cover no-repeat;
-      /* ▸ PHOTO: Replace with Lynnette professional hero photo
-         background-image: url('Lynnette-hotpinkblazerandpants.jpg'); */
-    }
-    .lj-hero-photo-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255,255,255,0.2);
-      font-family: 'Lato', sans-serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      gap: 0.75rem;
-    }
-    .lj-hero-photo-placeholder svg {
-      width: 48px; height: 48px;
-      stroke: rgba(255,255,255,0.15);
-      fill: none;
-      stroke-width: 1;
-    }
-    .lj-hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to top,
-        rgba(24,37,75,0.92) 0%,
-        rgba(24,37,75,0.55) 45%,
-        rgba(24,37,75,0.15) 100%
-      );
-    }
-    .lj-hero-content {
-      position: relative;
-      z-index: 2;
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: clamp(4rem,8vw,8rem) clamp(2rem,6vw,6rem) clamp(5rem,8vw,7rem);
-    }
-    .lj-hero-eyebrow {
-      font-family: 'Lato', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: #B38987;
-      margin-bottom: 1.25rem;
-      display: block;
-    }
-    .lj-hero h1 {
-      font-family: 'Marcellus', serif;
-      font-size: clamp(3rem, 7vw, 5.5rem);
-      color: #fff;
-      letter-spacing: 0.06em;
-      line-height: 1.05;
-      margin-bottom: 0.75rem;
-    }
-    .lj-hero-title {
-      font-family: 'Lato', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 400;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: 2rem;
-    }
-    .lj-hero-tagline {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-      font-style: italic;
-      color: rgba(255,255,255,0.85);
-      line-height: 1.6;
-      max-width: 580px;
-      margin-bottom: 2.5rem;
-    }
-    .lj-hero-ctas {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    /* ══════════════════════════════════════════════════════
-       STATS BAR
-    ══════════════════════════════════════════════════════ */
-    .lj-stats {
-      background: #B38987;
-      padding: 0;
-    }
-    .lj-stats-inner {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .lj-stat {
-      padding: clamp(1.5rem,3vw,2.5rem) 2rem;
-      text-align: center;
-      border-right: 1px solid rgba(255,255,255,0.25);
-    }
-    .lj-stat:last-child { border-right: none; }
-    .lj-stat-number {
-      font-family: 'Marcellus', serif;
-      font-size: clamp(2rem, 4vw, 3rem);
-      color: #fff;
-      line-height: 1;
-      margin-bottom: 0.4rem;
-    }
-    .lj-stat-label {
-      font-family: 'Lato', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.8);
-    }
-    @media(max-width:700px){
-      .lj-stats-inner { grid-template-columns: repeat(2,1fr); }
-      .lj-stat { border-bottom: 1px solid rgba(255,255,255,0.25); }
-      .lj-stat:nth-child(2) { border-right: none; }
-      .lj-stat:nth-child(3) { border-bottom: none; }
-      .lj-stat:nth-child(4) { border-right: none; border-bottom: none; }
-    }
-
-    /* ══════════════════════════════════════════════════════
        STORY SECTION
     ══════════════════════════════════════════════════════ */
     .lj-story { background: #fff; }
@@ -247,6 +107,96 @@
       .lj-story-intro { grid-template-columns: 1fr; }
       .lj-story-photo { min-height: 420px; order: 1; }
       .lj-story-bio { grid-template-columns: 1fr; }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       CREDENTIALS SECTION
+    ══════════════════════════════════════════════════════ */
+    .lj-credentials {
+      background: #18254B;
+      padding: clamp(4rem,7vw,7rem) clamp(2rem,6vw,6rem);
+    }
+    .lj-credentials-highlights {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+      margin-bottom: clamp(3rem,5vw,5rem);
+    }
+    .lj-cred-highlight {
+      padding: 0 clamp(1.5rem,3vw,3rem) clamp(2.5rem,4vw,3.5rem) 0;
+      border-right: 1px solid rgba(255,255,255,0.15);
+    }
+    .lj-cred-highlight:first-child { padding-left: 0; }
+    .lj-cred-highlight:last-child { border-right: none; padding-right: 0; }
+    .lj-cred-number {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(2rem,4vw,3.25rem);
+      color: #B38987;
+      line-height: 1;
+      margin-bottom: 0.6rem;
+    }
+    .lj-cred-title {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 0.65rem;
+    }
+    .lj-cred-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.975rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+    }
+    .lj-certifications-label {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #B38987;
+      margin-bottom: 1.75rem;
+    }
+    .lj-certifications-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem 2rem;
+    }
+    .lj-cert-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.04em;
+      line-height: 1.4;
+    }
+    .lj-cert-item::before {
+      content: '';
+      display: block;
+      flex-shrink: 0;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #B38987;
+      margin-top: 0.4em;
+    }
+    @media(max-width:900px){
+      .lj-credentials-highlights { grid-template-columns: repeat(2,1fr); gap: 2rem 0; }
+      .lj-cred-highlight { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); padding: 0 0 2rem; }
+      .lj-cred-highlight:nth-child(2n) { padding-left: 2rem; }
+      .lj-cred-highlight:last-child { border-bottom: none; }
+      .lj-certifications-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media(max-width:500px){
+      .lj-credentials-highlights { grid-template-columns: 1fr; }
+      .lj-cred-highlight { padding-left: 0 !important; }
+      .lj-certifications-grid { grid-template-columns: 1fr; }
     }
 
     /* ══════════════════════════════════════════════════════
@@ -647,53 +597,7 @@
   </header>
 
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       HERO
-  ═══════════════════════════════════════════════════════════════ -->
-  <section class="lj-hero">
-    <div class="lj-hero-photo">
-      <div class="lj-hero-photo-placeholder">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        HERO PHOTO PLACEHOLDER
-      </div>
-    </div>
-    <div class="lj-hero-overlay"></div>
-    <div class="lj-hero-content">
-      <span class="lj-hero-eyebrow">Meet Your Agent</span>
-      <h1>LYNNETTE<br>JAISWAL</h1>
-      <p class="lj-hero-title">Founder &amp; Broker &nbsp;&middot;&nbsp; The Jaiswal Group Real Estate &nbsp;&middot;&nbsp; CA DRE #02100367</p>
-      <p class="lj-hero-tagline">"I got into real estate to be the agent I wish I had — someone you can genuinely trust."</p>
-      <div class="lj-hero-ctas">
-        <a href="contact.html" class="btn btn-outline-light">WORK WITH LYNNETTE</a>
-        <a href="https://calendly.com/thejaiswalgroupre" target="_blank" rel="noopener" class="btn btn-outline-light">SCHEDULE A CALL</a>
-      </div>
-    </div>
-  </section>
 
-
-  <!-- ═══════════════════════════════════════════════════════════════
-       STATS BAR
-  ═══════════════════════════════════════════════════════════════ -->
-  <div class="lj-stats">
-    <div class="lj-stats-inner">
-      <div class="lj-stat">
-        <div class="lj-stat-number">7+</div>
-        <div class="lj-stat-label">Years of Experience</div>
-      </div>
-      <div class="lj-stat">
-        <div class="lj-stat-number">40+</div>
-        <div class="lj-stat-label">Homes Sold</div>
-      </div>
-      <div class="lj-stat">
-        <div class="lj-stat-number">$75M+</div>
-        <div class="lj-stat-label">Total Sales Volume</div>
-      </div>
-      <div class="lj-stat">
-        <div class="lj-stat-number">Top 3%</div>
-        <div class="lj-stat-label">San Diego Agents</div>
-      </div>
-    </div>
-  </div>
 
 
   <!-- ═══════════════════════════════════════════════════════════════
@@ -729,6 +633,54 @@
         <p>Through comprehensive neighborhood guides, in-depth market analysis, relocation resources, educational videos, and original content, Lynnette has created one of the region&rsquo;s most comprehensive online resources for people considering a move to San Diego. Her goal is simple: to empower buyers and sellers with the knowledge they need to make informed decisions while showcasing what makes San Diego such an exceptional place to call home.</p>
         <p>Whether you&rsquo;re relocating across the country, purchasing your first home, selling a luxury property, investing in real estate, or simply exploring your options, Lynnette is committed to helping you navigate every step of the journey with professionalism, integrity, and confidence.</p>
       </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       CREDENTIALS + CERTIFICATIONS
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="lj-credentials">
+    <div class="lj-credentials-highlights">
+      <div class="lj-cred-highlight">
+        <div class="lj-cred-number">Native</div>
+        <div class="lj-cred-title">San Diego Native</div>
+        <div class="lj-cred-desc">A lifetime of local knowledge and firsthand insight into the communities she serves.</div>
+      </div>
+      <div class="lj-cred-highlight">
+        <div class="lj-cred-number">25+</div>
+        <div class="lj-cred-title">Years of Customer Service &amp; Sales Experience</div>
+        <div class="lj-cred-desc">Helping clients navigate important decisions with strategy, communication, and care.</div>
+      </div>
+      <div class="lj-cred-highlight">
+        <div class="lj-cred-number">Top 3%</div>
+        <div class="lj-cred-title">of REALTORS&reg; in San Diego County</div>
+        <div class="lj-cred-desc">Recognized by the North San Diego County REALTORS&reg; for sales production.</div>
+      </div>
+      <div class="lj-cred-highlight">
+        <div class="lj-cred-number">14+</div>
+        <div class="lj-cred-title">Advanced Professional Designations</div>
+        <div class="lj-cred-desc">Continually investing in education across luxury marketing, negotiation, pricing strategy, relocation, and construction.</div>
+      </div>
+    </div>
+
+    <div class="lj-certifications-label">Designations &amp; Certifications</div>
+    <div class="lj-certifications-grid">
+      <!-- Update these with Lynnette's actual designations -->
+      <div class="lj-cert-item">Accredited Buyer&rsquo;s Representative (ABR&reg;)</div>
+      <div class="lj-cert-item">Seller Representative Specialist (SRS)</div>
+      <div class="lj-cert-item">Certified Luxury Home Marketing Specialist (CLHMS)</div>
+      <div class="lj-cert-item">Graduate, REALTOR&reg; Institute (GRI)</div>
+      <div class="lj-cert-item">Certified Negotiation Expert (CNE)</div>
+      <div class="lj-cert-item">Pricing Strategy Advisor (PSA)</div>
+      <div class="lj-cert-item">Military Relocation Professional (MRP)</div>
+      <div class="lj-cert-item">Seniors Real Estate Specialist (SRES&reg;)</div>
+      <div class="lj-cert-item">Real Estate Negotiation Expert (RENE)</div>
+      <div class="lj-cert-item">Short Sales &amp; Foreclosure Resource (SFR&reg;)</div>
+      <div class="lj-cert-item">New Home Construction &amp; Buyer Representative</div>
+      <div class="lj-cert-item">NAR GREEN Designation</div>
+      <div class="lj-cert-item">Certified Residential Specialist (CRS)</div>
+      <div class="lj-cert-item">At Home With Diversity (AHWD)</div>
     </div>
   </section>
 
