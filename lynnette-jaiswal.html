@@ -154,35 +154,43 @@
     /* ══════════════════════════════════════════════════════
        STORY SECTION
     ══════════════════════════════════════════════════════ */
-    .lj-story {
+    .lj-story { background: #fff; }
+
+    /* Top: name + photo side by side */
+    .lj-story-intro {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      min-height: 680px;
+      min-height: 580px;
     }
-    .lj-story-text {
+    .lj-story-name-col {
       padding: clamp(4rem,7vw,7rem) clamp(2.5rem,6vw,6rem);
       display: flex;
       flex-direction: column;
       justify-content: center;
       background: #fff;
     }
-    .lj-story-text .section-eyebrow { margin-bottom: 1.25rem; }
-    .lj-story-text h2 {
+    .lj-meet-label {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #B38987;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+    .lj-meet-name {
       font-family: 'Marcellus', serif;
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-size: clamp(2.8rem, 6vw, 5rem);
       color: #18254B;
       letter-spacing: 0.06em;
-      line-height: 1.25;
-      margin-bottom: 1.75rem;
+      line-height: 1.05;
+      border-left: 3px solid #B38987;
+      padding-left: 1.5rem;
+      margin: 0;
     }
-    .lj-story-text p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem;
-      color: #4a4643;
-      line-height: 1.9;
-      margin-bottom: 1.1rem;
-    }
-    .lj-story-text p:last-of-type { margin-bottom: 0; }
+
+    /* Photo column */
     .lj-story-photo {
       position: relative;
       overflow: hidden;
@@ -216,9 +224,29 @@
       object-fit: cover;
       object-position: center top;
     }
+
+    /* Below: two-column body copy */
+    .lj-story-bio {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem,4vw,4rem);
+      padding: clamp(3rem,5vw,5rem) clamp(2.5rem,6vw,6rem);
+      background: #fff;
+      border-top: 1px solid #E0D9CF;
+    }
+    .lj-story-bio p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: #4a4643;
+      line-height: 1.9;
+      margin: 0 0 1.1rem;
+    }
+    .lj-story-bio p:last-child { margin-bottom: 0; }
+
     @media(max-width:860px){
-      .lj-story { grid-template-columns: 1fr; }
-      .lj-story-photo { min-height: 420px; order: -1; }
+      .lj-story-intro { grid-template-columns: 1fr; }
+      .lj-story-photo { min-height: 420px; order: 1; }
+      .lj-story-bio { grid-template-columns: 1fr; }
     }
 
     /* ══════════════════════════════════════════════════════
@@ -672,20 +700,35 @@
        STORY SECTION
   ═══════════════════════════════════════════════════════════════ -->
   <section class="lj-story">
-    <div class="lj-story-text">
-      <span class="section-eyebrow">Her Story</span>
-      <h2>DRIVEN BY A PERSONAL MISSION</h2>
-      <p>Lynnette Jaiswal is a native San Diegan who has spent her entire life in the community she now serves. Before real estate, she spent more than five years in hospital administration and medical education — a career that taught her to operate with precision, care, and the highest standards of service under pressure.</p>
-      <p>Her path into real estate came from a deeply personal place. After a frustrating experience with poor agent representation during her own home purchase, Lynnette decided to be the change she wished had existed. She entered the industry with a single purpose: to be the kind of agent her clients could truly trust — one who puts their interests first, communicates with complete honesty, and never leaves them guessing.</p>
-      <p>That commitment has defined her career. Whether she is guiding a first-time buyer, helping a family relocate from across the country, or marketing a luxury property, Lynnette brings the same unwavering standard of care to every transaction.</p>
-    </div>
-    <div class="lj-story-photo">
-      <div class="lj-story-photo-placeholder">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        PHOTO PLACEHOLDER
+    <div class="lj-story-intro">
+      <div class="lj-story-name-col">
+        <span class="lj-meet-label">Meet</span>
+        <h2 class="lj-meet-name">LYNNETTE<br>JAISWAL</h2>
       </div>
-      <!-- Uncomment when photo is ready: -->
-      <!-- <img src="Lynnette-pink-dress.jpg" alt="Lynnette Jaiswal, Founder of The Jaiswal Group Real Estate" /> -->
+      <div class="lj-story-photo">
+        <div class="lj-story-photo-placeholder">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          PHOTO PLACEHOLDER
+        </div>
+        <!-- Uncomment when photo is ready: -->
+        <!-- <img src="Lynnette-pink-dress.jpg" alt="Lynnette Jaiswal, Founder of The Jaiswal Group Real Estate" /> -->
+      </div>
+    </div>
+    <div class="lj-story-bio">
+      <div class="lj-story-bio-col">
+        <p>Buying or selling a home is about far more than a transaction. It is one of the most significant financial and personal decisions you&rsquo;ll ever make, and it deserves thoughtful guidance, honest advice, and an advocate who genuinely has your best interests at heart.</p>
+        <p>As the Founder and Principal Broker of The Jaiswal Group Real Estate, Lynnette Jaiswal has built her business around helping buyers and sellers make informed real estate decisions with confidence. Known for her thoughtful guidance, strategic insight, and deep knowledge of the San Diego market, she combines local expertise with a highly personalized approach to help clients navigate every stage of their real estate journey.</p>
+        <p>A San Diego native raised in North County, Lynnette offers clients something that cannot be learned from market reports alone&mdash;a lifetime of firsthand knowledge about the communities she serves. She has watched San Diego evolve over the years while developing a deep understanding of its neighborhoods, schools, housing market, and the lifestyle that continues to attract families, professionals, and retirees from around the world. That perspective allows her to advise clients not only on where to buy or sell, but why one community may be a better fit for their lifestyle, priorities, and long-term goals.</p>
+        <p>Today, Lynnette specializes in North County Coastal and Inland communities, including Carmel Valley, Pacific Highlands Ranch, Del Mar, Del Mar Mesa, Solana Beach, Cardiff-by-the-Sea, Encinitas, Leucadia, Rancho Santa Fe, Fairbanks Ranch, Carlsbad, Oceanside, La Jolla, and the surrounding areas, while serving buyers and sellers throughout San Diego County.</p>
+        <p>Her approach to real estate is rooted in education. Every recommendation is supported by market data, local knowledge, and thoughtful analysis rather than assumptions or sales tactics. Whether developing a pricing strategy, negotiating a competitive offer, or creating a customized marketing plan, Lynnette believes clients deserve the information and perspective necessary to make confident decisions that support both their immediate needs and long-term financial goals.</p>
+      </div>
+      <div class="lj-story-bio-col">
+        <p>Recognizing that today&rsquo;s buyers and sellers expect more than traditional real estate services, Lynnette has intentionally built her business around innovation, technology, and strategic marketing. She combines professional photography and videography, digital marketing, market analytics, and tailored advertising with a high-touch client experience to create customized strategies for every property she represents. No two homes&mdash;or clients&mdash;are exactly alike, and she believes their marketing shouldn&rsquo;t be either.</p>
+        <p>What truly distinguishes Lynnette, however, is her commitment to serving as a trusted advisor rather than simply facilitating a transaction. She values communication, transparency, and relationships built on trust, taking the time to understand each client&rsquo;s unique goals before offering guidance. Her role extends well beyond opening doors or negotiating contracts&mdash;it&rsquo;s about helping clients make sound decisions with clarity, confidence, and peace of mind.</p>
+        <p>Her commitment to professional excellence is reflected not only in her extensive industry education and advanced certifications, but also in her dedication to continually refining her knowledge of the San Diego market, emerging technology, negotiation strategies, and consumer trends. She believes that learning never stops&mdash;and that her clients benefit from that commitment every day.</p>
+        <p>Through comprehensive neighborhood guides, in-depth market analysis, relocation resources, educational videos, and original content, Lynnette has created one of the region&rsquo;s most comprehensive online resources for people considering a move to San Diego. Her goal is simple: to empower buyers and sellers with the knowledge they need to make informed decisions while showcasing what makes San Diego such an exceptional place to call home.</p>
+        <p>Whether you&rsquo;re relocating across the country, purchasing your first home, selling a luxury property, investing in real estate, or simply exploring your options, Lynnette is committed to helping you navigate every step of the journey with professionalism, integrity, and confidence.</p>
+      </div>
     </div>
   </section>
 
