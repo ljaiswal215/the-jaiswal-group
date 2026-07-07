@@ -82,9 +82,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: 55% top;
-      transform: scale(1.4);
-      transform-origin: 82% 8%;
+      object-position: 68% top;
+      transform: scale(1.22);
+      transform-origin: 78% 0%;
     }
     .lj-story-photo-placeholder { display: none; }
 
@@ -132,7 +132,7 @@
       gap: 1.5rem 4rem;
       border-bottom: 1px solid rgba(255,255,255,0.15);
       padding-bottom: clamp(3rem,5vw,5rem);
-      margin-bottom: clamp(3rem,5vw,5rem);
+      margin-bottom: clamp(1.5rem,2.5vw,2rem);
     }
     .lj-why-item {
       display: flex;
@@ -181,7 +181,7 @@
       color: #fff;
       letter-spacing: 0.06em;
       margin-bottom: 1rem;
-      margin-top: clamp(1.5rem,3vw,2.5rem);
+      margin-top: 0.75rem;
     }
     .lj-desig-intro {
       font-family: 'Cormorant Garamond', serif;
@@ -247,25 +247,29 @@
        BOUTIQUE SECTION
     ══════════════════════════════════════════════════════ */
     .lj-boutique {
-      position: relative;
-      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       background: #18254B;
-      /* ▸ When photo is ready, set background-image here: */
-      /* background: url('Lynnette-community.jpg') center 30% / cover no-repeat; */
     }
-    .lj-boutique::before {
-      content: '';
+    .lj-boutique-photo {
+      position: relative;
+      min-height: 600px;
+      overflow: hidden;
+      order: 2;
+    }
+    .lj-boutique-photo img {
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(24,37,75,0.92) 0%, rgba(24,37,75,0.80) 100%);
-      z-index: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: saturate(0.75) brightness(1.04);
     }
-    .lj-boutique-photo { display: none; }
+    .lj-boutique-photo-placeholder { display: none; }
     .lj-boutique-text {
-      position: relative;
-      z-index: 1;
-      max-width: 860px;
-      padding: clamp(5rem,8vw,8rem) clamp(2rem,6vw,6rem);
+      order: 1;
+      padding: clamp(2.5rem,4vw,4rem) clamp(2rem,6vw,6rem) clamp(5rem,8vw,8rem);
     }
     .lj-boutique-text .section-eyebrow {
       color: #B38987;
@@ -299,7 +303,6 @@
     .lj-personal {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      min-height: 640px;
       background: #F3EFE8;
     }
     .lj-personal-text {
@@ -348,71 +351,37 @@
       line-height: 1.6;
     }
     .lj-personal-photo {
-      position: relative;
-      overflow: hidden;
-      background: #C5B9B0;
-      /* ▸ PHOTO: Lynnette beach / casual photo */
-    }
-    .lj-personal-photo-placeholder {
-      position: absolute;
-      inset: 0;
+      order: 1;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: rgba(24,37,75,0.3);
-      font-family: 'Lato', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      gap: 0.75rem;
     }
-    .lj-personal-photo-placeholder svg {
-      width: 48px; height: 48px;
-      stroke: rgba(24,37,75,0.2);
-      fill: none; stroke-width: 1;
-    }
+    .lj-personal-text { order: 2; }
     .lj-personal-photo img {
-      position: absolute;
-      inset: 0;
-      width: 100%; height: 100%;
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .lj-kids-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      margin-top: 3px;
+    }
+    .lj-kids-row img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
       object-fit: cover;
+      object-position: center 35%;
+      display: block;
     }
     @media(max-width:860px){
+      .lj-boutique { grid-template-columns: 1fr; }
+      .lj-boutique-photo { min-height: 420px; order: 1; }
+      .lj-boutique-text { order: 2; }
       .lj-personal { grid-template-columns: 1fr; }
-      .lj-personal-photo { min-height: 420px; order: -1; }
+      .lj-personal-photo { order: -1; }
     }
 
-    /* ══════════════════════════════════════════════════════
-       CTA
-    ══════════════════════════════════════════════════════ */
-    .lj-cta {
-      background: #18254B;
-      padding: clamp(4rem,7vw,6rem) clamp(2rem,5vw,5rem);
-      text-align: center;
-    }
-    .lj-cta-inner { max-width: 680px; margin: 0 auto; }
-    .lj-cta .section-eyebrow { color: #B38987; margin-bottom: 1rem; }
-    .lj-cta h2 {
-      font-family: 'Marcellus', serif;
-      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      color: #fff;
-      letter-spacing: 0.07em;
-      margin-bottom: 1rem;
-    }
-    .lj-cta p {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      color: rgba(255,255,255,0.75);
-      line-height: 1.85;
-      margin-bottom: 2.5rem;
-    }
-    .lj-cta-buttons {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
 
   </style>
 </head>
@@ -627,12 +596,7 @@
   ═══════════════════════════════════════════════════════════════ -->
   <section class="lj-boutique">
     <div class="lj-boutique-photo">
-      <div class="lj-boutique-photo-placeholder">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        PHOTO PLACEHOLDER
-      </div>
-      <!-- Add a community/volunteer photo here when ready -->
-      <!-- <img src="Lynnette-community.jpg" alt="Lynnette Jaiswal giving back to the community" /> -->
+      <img src="Lynnette_community.jpg" alt="Lynnette Jaiswal giving back to the San Diego community" />
     </div>
     <div class="lj-boutique-text">
       <span class="section-eyebrow">Her Focus</span>
@@ -657,52 +621,39 @@
   ═══════════════════════════════════════════════════════════════ -->
   <section class="lj-personal">
     <div class="lj-personal-text">
-      <span class="section-eyebrow">Beyond the Business</span>
-      <h2>THE PERSON BEHIND THE AGENT</h2>
-      <p>Outside of real estate, Lynnette is first and foremost a mom. Her three kids — Kailey, Aiden, and Emma — are her greatest inspiration and keep her grounded in what matters most. She also shares her home with two dogs and a bunny, making for a full and lively household.</p>
-      <p>Even as a lifelong San Diegan, Lynnette still loves discovering new corners of the city alongside her kids. She is passionate about personal growth, reads constantly, and finds her deepest sense of calm at the beach — her place to breathe, reflect, and reset.</p>
-      <div class="lj-personal-detail">
-        <div class="lj-personal-detail-item">
-          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          <span>Mom of three — Kailey (27), Aiden (9), Emma (7)</span>
-        </div>
-        <div class="lj-personal-detail-item">
-          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          <span>2 dogs &amp; a bunny</span>
-        </div>
-        <div class="lj-personal-detail-item">
-          <svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
-          <span>Avid reader &amp; personal development enthusiast</span>
-        </div>
-        <div class="lj-personal-detail-item">
-          <svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/></svg>
-          <span>Native San Diegan — the beach is her calm space</span>
-        </div>
-      </div>
+      <span class="section-eyebrow">Beyond Real Estate</span>
+      <h2>FAMILY &amp; LIFE</h2>
+      <p>Before anything else, Lynnette is a wife, a mom, a daughter, and a sister. Family has always been at the center of her life, shaping not only who she is personally but also how she serves her clients professionally. She understands that a home is far more than a financial investment&mdash;it&rsquo;s where life&rsquo;s most meaningful moments unfold, traditions are created, and memories are made for generations.</p>
+      <p>As a proud mom to three wonderful children&mdash;Kailey, Aiden, and Emma&mdash;Lynnette treasures the everyday moments spent together, whether it&rsquo;s exploring San Diego, enjoying local parks and beaches, or simply being home. She also shares her home with two dogs and a much-loved bunny, making for a lively household filled with plenty of laughter and activity.</p>
+      <p>Her close-knit family has taught her the importance of showing up for others, giving back, and building lasting relationships&mdash;values that naturally carry into her work. Whether helping a first-time buyer find the right neighborhood, assisting a growing family with their next chapter, or guiding longtime homeowners through a significant life transition, Lynnette approaches every client with the same care, patience, and dedication she would want for her own family.</p>
+      <p>A lifelong San Diegan, Lynnette still finds joy in discovering new places throughout the county and appreciates the incredible lifestyle San Diego offers. She is an avid reader with a passion for personal growth and believes there is always something new to learn. When she needs to recharge, you&rsquo;ll most often find her at the beach&mdash;her favorite place to reflect, reset, and appreciate the beauty of the city she&rsquo;s been fortunate to call home her entire life.</p>
     </div>
     <div class="lj-personal-photo">
-      <div class="lj-personal-photo-placeholder">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        PHOTO PLACEHOLDER
+      <img src="Lynnette_family.jpg" alt="Lynnette Jaiswal with her family on the beach in San Diego" />
+      <div class="lj-kids-row">
+        <img src="Emma.jpg" alt="Emma Jaiswal" />
+        <img src="Aiden.jpg" alt="Aiden Jaiswal" />
+        <img src="Kailey.jpg" alt="Kailey Jaiswal" />
       </div>
-      <!-- Uncomment when photo is ready: -->
-      <!-- <img src="Lynnette-casual.jpg" alt="Lynnette Jaiswal" /> -->
     </div>
   </section>
 
 
-  <!-- ═══════════════════════════════════════════════════════════════
-       CTA
-  ═══════════════════════════════════════════════════════════════ -->
-  <section class="lj-cta">
-    <div class="lj-cta-inner">
-      <span class="section-eyebrow">Let's Connect</span>
-      <h2>READY TO WORK TOGETHER?</h2>
-      <p>Whether you're buying, selling, or relocating to San Diego, Lynnette would love to be your advocate. Reach out directly or schedule a no-pressure call to start the conversation.</p>
-      <div class="lj-cta-buttons">
-        <a href="https://calendly.com/thejaiswalgroupre" target="_blank" rel="noopener" class="btn btn-outline-light">SCHEDULE A FREE CALL</a>
-        <a href="contact.html" class="btn btn-outline-light">SEND A MESSAGE</a>
-      </div>
+  <!-- =========================================================
+       WORK WITH US
+  ========================================================= -->
+  <section class="work-with-us">
+    <div class="wwu-content">
+      <h2>WORK WITH US</h2>
+      <p>Choosing the right representation matters.</p>
+      <p>At The Jaiswal Group Real Estate, every client receives a tailored, concierge-level approach — from exclusive opportunities and strategic negotiation to responsive communication and thoughtful guidance throughout every step of the process.</p>
+      <p>Our goal is simple: to help you feel confident, informed, and well-supported from beginning to end.</p>
+      <p>Every client relationship is personal, intentional, and backed by a team that genuinely cares about your goals and outcome.</p>
+      <p>Let's explore what's possible.</p>
+      <a href="contact.html" class="btn btn-primary">CONTACT US</a>
+    </div>
+    <div class="wwu-photo">
+      <img src="Lynnette-torreypinesbackground.jpg" alt="Lynnette Jaiswal, The Jaiswal Group Real Estate" />
     </div>
   </section>
 
