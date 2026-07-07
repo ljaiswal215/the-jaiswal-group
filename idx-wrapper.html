@@ -1128,14 +1128,17 @@
       tiTags.style.setProperty('justify-content', 'flex-start', 'important');
       tiTags.style.setProperty('flex-wrap', 'nowrap', 'important');
       tiTags.style.setProperty('overflow', 'hidden', 'important');
+      // Padding clears the magnifying glass for BOTH the bare input (no chip) and
+      // the chip itself — previously only the chip had margin-left which left the
+      // placeholder overlapping the icon in the empty state.
+      tiTags.style.setProperty('padding-left', '32px', 'important');
       var chip = tiTags.querySelector('.ti-tag');
       if (chip) {
         chip.style.setProperty('flex-shrink', '1', 'important');
         chip.style.setProperty('max-width', '140px', 'important');
         chip.style.setProperty('background-color', '#18254B', 'important');
         chip.style.setProperty('color', '#ffffff', 'important');
-        // Push chip right past the magnifying glass icon on the left
-        chip.style.setProperty('margin-left', '32px', 'important');
+        chip.style.setProperty('margin-left', '0', 'important');
         // Child text color is handled via CSS — do NOT iterate chip children here,
         // as setting style attributes on Vue's reactive spans triggers IDX's
         // recursive MutationObserver bug (stack overflow at mapsearch:1034)
@@ -1164,12 +1167,18 @@
       setTimeout(_watchChipArea, ms);
     });
 
-    // Fix placeholder text — one-shot timed retries, no persistent observer
+    // Fix placeholder text — set once then watch for IDX/Vue resets
     function _fixPlaceholder() {
       var input = document.querySelector('#prime-map-search--filter-bar__flyto .ti-new-tag-input');
-      if (input && !input._tjgPlaceholder) {
-        input._tjgPlaceholder = true;
-        input.placeholder = 'City, neighborhood, or ZIP...';
+      if (!input) return;
+      input.placeholder = 'City, neighborhood, or ZIP...';
+      if (!input._tjgPlaceholderWatched) {
+        input._tjgPlaceholderWatched = true;
+        new MutationObserver(function() {
+          if (input.placeholder !== 'City, neighborhood, or ZIP...') {
+            input.placeholder = 'City, neighborhood, or ZIP...';
+          }
+        }).observe(input, { attributes: true, attributeFilter: ['placeholder'] });
       }
     }
     [300, 800, 1500, 3000].forEach(function(ms) { setTimeout(_fixPlaceholder, ms); });
