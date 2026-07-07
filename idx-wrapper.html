@@ -98,16 +98,33 @@
     }
     #tjg-save-search:hover { opacity: 0.7 !important; }
 
-    /* ─── LIST / MAP toggle: match filter pill font ─── */
+    /* ─── LIST / MAP toggle: box shape + font matching filter pills ─── */
+    #tjg-view-toggle {
+      border-radius: 0 !important;
+      overflow: visible !important;
+    }
     #tjg-view-toggle button,
     #tjg-view-toggle a,
     #tjg-view-toggle [class*="btn"],
     #tjg-view-toggle [class*="toggle"] {
+      border-radius: 0 !important;
       font-family: 'Lato', sans-serif !important;
       font-size: 13px !important;
       font-weight: 700 !important;
       letter-spacing: 0.08em !important;
       text-transform: uppercase !important;
+    }
+    /* Inactive (unselected) button: cream bg + navy border to match filter pills */
+    #tjg-view-toggle button.tjg-vt-inactive {
+      background: #F3EFE8 !important;
+      color: #18254B !important;
+      border: 1px solid rgba(0,0,0,0.12) !important;
+    }
+    /* Active (selected) button: navy fill */
+    #tjg-view-toggle button.tjg-vt-active {
+      background: #18254B !important;
+      color: #fff !important;
+      border: 1px solid #18254B !important;
     }
 
     /* ─── Filter bar pill buttons: subtler borders ─── */
