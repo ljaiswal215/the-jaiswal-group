@@ -48,6 +48,36 @@
     /* ─── Search bar button group: shift left to add right margin ─── */
     #tjg-right-toolbar { margin-right: 2rem !important; }
 
+    /* ─── Listings page: location search bar ─── */
+    #tjg-lst-search-wrap {
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      background: #ffffff !important;
+      border: 1px solid rgba(0,0,0,0.12) !important;
+      height: 38px !important;
+      padding: 0 12px !important;
+      min-width: 200px !important;
+      max-width: 260px !important;
+      box-sizing: border-box !important;
+      flex-shrink: 0 !important;
+    }
+    #tjg-lst-search-wrap svg { flex-shrink: 0 !important; }
+    #tjg-lst-search-input {
+      border: none !important;
+      outline: none !important;
+      background: transparent !important;
+      font-family: 'Lato', sans-serif !important;
+      font-size: 13px !important;
+      color: #18254B !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      padding: 0 !important;
+    }
+    #tjg-lst-search-input::placeholder { color: rgba(24,37,75,0.45) !important; }
+    /* Allow dropdown/focus ring to overflow the filter bar */
+    #tjg-results-filter-bar { overflow: visible !important; }
+
     /* ─── Hide X icon inside results count chip ─── */
     #listing-results-count__chip svg { display: none !important; }
 
