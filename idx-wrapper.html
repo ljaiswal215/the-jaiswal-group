@@ -1186,6 +1186,14 @@
     }
     [300, 800, 1500, 3000].forEach(function(ms) { setTimeout(_fixPlaceholder, ms); });
 
+    // Fix placeholder on listings page search input (overrides Sub-Header default)
+    [400, 900, 1800].forEach(function(ms) {
+      setTimeout(function() {
+        var inp = document.getElementById('tjg-lst-search-input');
+        if (inp) inp.placeholder = 'City, neighborhood, or Zip...';
+      }, ms);
+    });
+
     // Reorder filter pills via CSS `order` — never touches DOM structure so Vue's
     // MutationObserver never fires from our code, breaking the mutation feedback loop.
     function _reorderFilterPills() {
