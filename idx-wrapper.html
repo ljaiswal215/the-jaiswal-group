@@ -1147,6 +1147,16 @@
     function _enforceTagChipLayout() {
       var tiTags = document.querySelector('#prime-map-search--filter-bar__flyto .ti-tags');
       if (!tiTags) return;
+
+      // Only one location chip allowed — when a second is added, remove the first.
+      // rm-btn is display:none visually but still clickable by JS.
+      var allChips = tiTags.querySelectorAll('.ti-tag');
+      if (allChips.length > 1) {
+        var oldRm = allChips[0].querySelector('.rm-btn');
+        if (oldRm) oldRm.click();
+        return; // MutationObserver will re-fire after Vue removes the old chip
+      }
+
       tiTags.style.setProperty('flex-direction', 'row', 'important');
       tiTags.style.setProperty('justify-content', 'flex-start', 'important');
       tiTags.style.setProperty('flex-wrap', 'nowrap', 'important');
