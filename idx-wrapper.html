@@ -1934,12 +1934,33 @@
         if (e.key !== 'Enter') return;
         var val = this.value.trim();
         if (!val) return;
-        var base = window.location.origin + '/idx/map/mapsearch';
-        if (/^\d{5}$/.test(val)) {
-          window.location.href = base + '?ccz=zipcode&zipcode[]=' + encodeURIComponent(val);
-        } else {
-          window.location.href = base + '?ccz=city&city[]=' + encodeURIComponent(val);
-        }
+
+        // The native IDX flyto is CSS-hidden but its Vue component is still active.
+        // Forward the value into it so IDX handles map zoom + result filtering normally.
+        var nativeInput = document.querySelector(
+          '#prime-map-search--filter-bar__flyto .ti-new-tag-input'
+        );
+        if (!nativeInput) return;
+
+        // 1. Clear any existing location chip
+        var rmBtn = document.querySelector(
+          '#prime-map-search--filter-bar__flyto .ti-tag .rm-btn'
+        );
+        if (rmBtn) rmBtn.click();
+
+        // 2. Push value into Vue's v-model via native setter + input event
+        var setter = Object.getOwnPropertyDescriptor(
+          window.HTMLInputElement.prototype, 'value'
+        ).set;
+        setter.call(nativeInput, val);
+        nativeInput.dispatchEvent(new Event('input', { bubbles: true }));
+
+        // 3. Dispatch Enter so the Vue tags-input creates the chip and triggers search
+        setTimeout(function() {
+          nativeInput.dispatchEvent(new KeyboardEvent('keydown', {
+            key: 'Enter', keyCode: 13, which: 13, bubbles: true, cancelable: true
+          }));
+        }, 80);
       });
     }
 
