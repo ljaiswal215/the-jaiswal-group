@@ -84,7 +84,10 @@
 
     /* ─── Search field: ZIP tag chip — visual styles only (layout enforced via JS) ─── */
     #prime-map-search--filter-bar__flyto .ti-input { overflow: hidden !important; text-align: left !important; }
-    #prime-map-search--filter-bar__flyto .ti-tags { overflow: hidden !important; }
+    /* padding-left clears the magnifying glass for both the bare input and any chip.
+       Vue never sets padding-left inline, so this CSS rule wins during chip transitions
+       even when Vue resets other inline styles before our MutationObserver re-fires. */
+    #prime-map-search--filter-bar__flyto .ti-tags { overflow: hidden !important; padding-left: 32px !important; }
     #prime-map-search--filter-bar__flyto .ti-tag {
       background-color: #18254B !important;
       color: #ffffff !important;
