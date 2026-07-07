@@ -1165,10 +1165,40 @@
     }, 500);
     setTimeout(function() { clearInterval(_advSearchInterval); }, 60000);
 
+    // Inject magnifying glass into flyto container — JS fallback so the icon shows
+    // even when IDX Broker serves a cached wrapper without the ::before CSS rule.
+    // Appended as a direct child of #prime-map-search--filter-bar__flyto (outside
+    // the Vue component), so Vue re-renders never remove it.
+    function _injectSearchGlass() {
+      var flyto = document.getElementById('prime-map-search--filter-bar__flyto');
+      if (!flyto) return;
+      flyto.style.setProperty('position', 'relative', 'important'); // anchor for absolute icon
+      if (flyto.querySelector('#tjg-glass-icon')) return; // already injected
+      var ns = 'http://www.w3.org/2000/svg';
+      var svg = document.createElementNS(ns, 'svg');
+      svg.id = 'tjg-glass-icon';
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('fill', 'none');
+      svg.setAttribute('stroke', '#18254B');
+      svg.setAttribute('stroke-width', '2.5');
+      svg.setAttribute('stroke-linecap', 'round');
+      svg.setAttribute('stroke-linejoin', 'round');
+      svg.style.cssText = 'position:absolute!important;left:10px!important;top:50%!important;transform:translateY(-50%)!important;width:14px!important;height:14px!important;pointer-events:none!important;z-index:3!important;';
+      var c = document.createElementNS(ns, 'circle');
+      c.setAttribute('cx', '11'); c.setAttribute('cy', '11'); c.setAttribute('r', '8');
+      var l = document.createElementNS(ns, 'line');
+      l.setAttribute('x1', '21'); l.setAttribute('y1', '21');
+      l.setAttribute('x2', '16.65'); l.setAttribute('y2', '16.65');
+      svg.appendChild(c); svg.appendChild(l);
+      flyto.appendChild(svg);
+    }
+    [0, 300, 800, 1500, 3000].forEach(function(ms) { setTimeout(_injectSearchGlass, ms); });
+
     // Enforce ZIP tag chip layout via JS setProperty — beats IDX Vue inline style !important
     function _enforceTagChipLayout() {
       var tiTags = document.querySelector('#prime-map-search--filter-bar__flyto .ti-tags');
       if (!tiTags) return;
+      _injectSearchGlass(); // re-check on every chip change in case DOM was replaced
 
       // Only one location chip allowed — when a second is added, remove the first.
       // rm-btn is display:none visually but still clickable by JS.
