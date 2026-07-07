@@ -82,9 +82,9 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: 68% top;
+      object-position: 76% top;
       transform: scale(1.22);
-      transform-origin: 78% 0%;
+      transform-origin: 84% 0%;
     }
     .lj-story-photo-placeholder { display: none; }
 
@@ -175,6 +175,7 @@
       line-height: 1.7;
     }
     @media(max-width:700px){ .lj-why-list { grid-template-columns: 1fr; } }
+    @media(min-width:701px){ .lj-why-item:nth-child(5) { margin-top: -2rem; } }
     .lj-desig-header {
       font-family: 'Marcellus', serif;
       font-size: clamp(1.3rem, 2.5vw, 1.9rem);
@@ -244,6 +245,41 @@
     }
 
     /* ══════════════════════════════════════════════════════
+       VIDEO PLACEHOLDER
+    ══════════════════════════════════════════════════════ */
+    .lj-video-placeholder {
+      display: none;
+      background: #18254B;
+      padding: clamp(3rem,6vw,5rem) clamp(2rem,6vw,6rem);
+    }
+    .lj-video-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .lj-video-frame {
+      border: 1.5px dashed rgba(179,137,135,0.45);
+      border-radius: 4px;
+      aspect-ratio: 16/9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+    }
+    .lj-video-frame svg {
+      width: 72px;
+      height: 72px;
+      opacity: 0.6;
+    }
+    .lj-video-frame p {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(179,137,135,0.6);
+    }
+
+    /* ══════════════════════════════════════════════════════
        BOUTIQUE SECTION
     ══════════════════════════════════════════════════════ */
     .lj-boutique {
@@ -264,7 +300,7 @@
       height: 100%;
       object-fit: cover;
       object-position: center top;
-      filter: saturate(0.75) brightness(1.04);
+      filter: saturate(0.72) brightness(1.06);
     }
     .lj-boutique-photo-placeholder { display: none; }
     .lj-boutique-text {
@@ -373,6 +409,9 @@
       object-fit: cover;
       object-position: center 35%;
       display: block;
+    }
+    .lj-kids-row img:nth-child(3) {
+      object-position: center 70%;
     }
     @media(max-width:860px){
       .lj-boutique { grid-template-columns: 1fr; }
@@ -592,6 +631,18 @@
 
 
   <!-- ═══════════════════════════════════════════════════════════════
+       VIDEO PLACEHOLDER
+  ═══════════════════════════════════════════════════════════════ -->
+  <section class="lj-video-placeholder">
+    <div class="lj-video-inner">
+      <div class="lj-video-frame">
+        <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="40" cy="40" r="39" stroke="#B38987" stroke-width="1.5"/><polygon points="32,24 32,56 58,40" fill="#B38987"/></svg>
+        <p>Video coming soon</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════
        GIVING BACK
   ═══════════════════════════════════════════════════════════════ -->
   <section class="lj-boutique">
@@ -599,16 +650,15 @@
       <img src="Lynnette_community.jpg" alt="Lynnette Jaiswal giving back to the San Diego community" />
     </div>
     <div class="lj-boutique-text">
-      <span class="section-eyebrow">Her Focus</span>
+      <span class="section-eyebrow">Community</span>
       <h2>GIVING BACK TO HER COMMUNITY</h2>
-      <p>For Lynnette, real estate has always been about more than helping people buy and sell homes. It is about helping build stronger communities and investing in the places people call home.</p>
-      <p>As a lifelong San Diegan and resident of Pacific Highlands Ranch, Lynnette believes that being involved in the community is one of the most meaningful ways to make a lasting impact. Whether supporting local schools, serving families in need, or simply creating opportunities for neighbors to connect, she is passionate about strengthening the community she is proud to call home.</p>
-      <p>Her commitment to service has taken many forms over the years. Lynnette proudly served as Site President of the Solana Ranch Elementary School Foundation, where she worked alongside fellow parents, volunteers, and school leaders to support educational programs and enrich the student experience. Although she has recently stepped down from her leadership role, she remains actively involved and continues to volunteer on school committees and support initiatives that benefit students and families.</p>
-      <p>She is also an active volunteer with 92130 Cares, a grassroots organization dedicated to creating community connection through acts of kindness, compassion, and neighborly support. Through its community food market and outreach programs, the organization helps provide food and essential resources to local families experiencing hardship while fostering a culture of generosity throughout the 92130 community.</p>
-      <p>Giving back also extends to Lynnette&rsquo;s work with Meals on Wheels, where she helps deliver meals and friendly visits to seniors throughout the community. During the holiday season, she partners with the local Sheriff&rsquo;s Department to help provide gifts and bring Christmas cheer to survivors of domestic violence and their families&mdash;an effort that reflects her belief that even small acts of kindness can have a lasting impact.</p>
-      <p>Closer to home, Lynnette has always enjoyed creating opportunities for neighbors to connect. From organizing community gatherings and neighborhood activities through her HOA to hosting annual Donuts in the Park events before the start of each school year and coordinating local playdates for families, she believes strong communities are built through meaningful relationships and shared experiences.</p>
-      <p>Looking ahead, community involvement will continue to be an important part of both her personal life and her business. As The Jaiswal Group Real Estate grows, so does her desire to create opportunities that bring people together, support local organizations, and give back to the neighborhoods that have given so much to her family.</p>
-      <p>Because at the end of the day, helping people find a home is only part of the job. Helping create a community where people truly feel they belong is what makes it meaningful.</p>
+      <p>For Lynnette, real estate has always been about more than helping people buy and sell homes. It&rsquo;s about building stronger communities and investing in the places where people live, grow, and create lasting memories.</p>
+      <p>As a lifelong San Diegan and resident of Pacific Highlands Ranch, Lynnette believes that giving back is both a privilege and a responsibility. Whether supporting local schools, serving families in need, or creating opportunities for neighbors to connect, she is passionate about making a positive impact in the community her own family proudly calls home.</p>
+      <p>Her commitment to service includes serving as Site President of the Solana Ranch Elementary School Foundation, where she worked alongside parents, volunteers, and school leaders to support educational programs and enrich the student experience. Although she has since stepped down from her leadership role, she continues to volunteer on school committees and remains actively involved in supporting local students and families.</p>
+      <p>Lynnette also volunteers with 92130 Cares, a grassroots organization dedicated to creating community through acts of kindness and compassion by providing food and essential resources to local families. She proudly serves with Meals on Wheels, delivering meals and companionship to seniors throughout the community, and each holiday season partners with the San Diego County Sheriff&rsquo;s Department to help bring Christmas gifts and joy to survivors of domestic violence and their families.</p>
+      <p>She also enjoys bringing neighbors together through local events&mdash;from organizing HOA activities and community gatherings to hosting annual Donuts in the Park celebrations before the start of each school year and coordinating neighborhood playdates for local families. For Lynnette, these simple moments help foster the relationships that transform neighborhoods into true communities.</p>
+      <p>Community involvement will always remain an important part of both Lynnette&rsquo;s personal life and her business. As The Jaiswal Group Real Estate continues to grow, so does her commitment to supporting local organizations, strengthening neighborhood connections, and finding new ways to give back.</p>
+      <p>Because helping people find a home is only part of the job. Helping create a community where people truly feel they belong is what makes it meaningful.</p>
     </div>
   </section>
 
