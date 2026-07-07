@@ -82,40 +82,31 @@
     #IDX-main.IDX-page-listings #listing-results-count__chip { display: none !important; }
     #listing-results-count__chip svg { display: none !important; }
 
-    /* ─── Mapsearch: custom location search bar ─── */
-    #tjg-map-search-bar {
-      display: flex !important;
-      align-items: center !important;
-      gap: 8px !important;
-      background: #ffffff !important;
-      border: 1px solid rgba(0,0,0,0.12) !important;
-      height: 38px !important;
-      padding: 0 12px !important;
+    /* ─── Search field: native IDX flyto — restored, styled as a box ─── */
+    #prime-map-search--filter-bar__flyto {
       min-width: 220px !important;
       max-width: 320px !important;
-      box-sizing: border-box !important;
       flex-shrink: 0 !important;
-      cursor: text !important;
+      order: -1 !important;
     }
-    #tjg-map-search-input {
-      border: none !important;
-      outline: none !important;
+    /* Box appearance matching the filter pills */
+    #prime-map-search--filter-bar__flyto .vue-tags-input,
+    #prime-map-search--filter-bar__flyto .ti-focus-border {
+      background: #ffffff !important;
+      border: 1px solid rgba(0,0,0,0.12) !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      height: 38px !important;
+      box-sizing: border-box !important;
+    }
+    #prime-map-search--filter-bar__flyto .ti-input {
+      overflow: hidden !important;
       background: transparent !important;
-      font-family: 'Lato', sans-serif !important;
-      font-size: 13px !important;
-      color: #18254B !important;
-      width: 100% !important;
-      min-width: 0 !important;
-      padding: 0 !important;
+      border: none !important;
+      height: 100% !important;
     }
-    #tjg-map-search-input::placeholder { color: rgba(24,37,75,0.45) !important; }
-
-    /* ─── Search field: native IDX flyto hidden (replaced by custom bar above) ─── */
-    #prime-map-search--filter-bar__flyto { display: none !important; }
-    #prime-map-search--filter-bar__flyto .ti-input { overflow: hidden !important; text-align: left !important; }
     /* padding-left clears the magnifying glass for both the bare input and any chip.
-       Vue never sets padding-left inline, so this CSS rule wins during chip transitions
-       even when Vue resets other inline styles before our MutationObserver re-fires. */
+       Vue never sets padding-left inline so this CSS rule wins during chip transitions. */
     #prime-map-search--filter-bar__flyto .ti-tags { overflow: hidden !important; padding-left: 32px !important; }
     #prime-map-search--filter-bar__flyto .ti-tag {
       background-color: #18254B !important;
@@ -1902,47 +1893,6 @@
     })();
 
     // ─── Mapsearch: inject custom location search bar ───────────────────────────
-    function _injectMapSearchBar() {
-      if (window.location.href.indexOf('/map/mapsearch') === -1) return;
-      if (document.getElementById('tjg-map-search-bar')) return;
-      var container = document.querySelector('.filter-buttons-container');
-      if (!container) return;
-
-      var params = new URLSearchParams(window.location.search);
-      var existing = params.get('city[]') || params.get('zipcode[]') || '';
-
-      var bar = document.createElement('div');
-      bar.id = 'tjg-map-search-bar';
-      bar.innerHTML =
-        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#18254B"' +
-        ' stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0">' +
-          '<circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>' +
-        '</svg>' +
-        '<input id="tjg-map-search-input" type="text" placeholder="City, neighborhood, or Zip..."' +
-        ' autocomplete="off" value="' + existing.replace(/"/g, '&quot;') + '" />';
-
-      bar.style.setProperty('order', '-1', 'important');
-      container.insertBefore(bar, container.firstChild);
-
-      // Click anywhere on the bar focuses the input
-      bar.addEventListener('click', function() {
-        var inp = document.getElementById('tjg-map-search-input');
-        if (inp) inp.focus();
-      });
-
-      document.getElementById('tjg-map-search-input').addEventListener('keydown', function(e) {
-        if (e.key !== 'Enter') return;
-        var val = this.value.trim();
-        if (!val) return;
-        var base = window.location.origin + '/idx/map/mapsearch';
-        if (/^\d{5}$/.test(val)) {
-          window.location.href = base + '?ccz=zipcode&zipcode[]=' + encodeURIComponent(val);
-        } else {
-          window.location.href = base + '?ccz=city&city[]=' + encodeURIComponent(val);
-        }
-      });
-    }
-
     // ─── Single consolidated MutationObserver ──────────────────────────────────
     // Replaces 10+ individual document.body observers to prevent the feedback
     // loop with IDX's Vue watchers that caused "Maximum call stack size exceeded".
@@ -1954,7 +1904,6 @@
         _reorderFilterPills();
         _idxAddAdvancedSearchLink();
         _watchChipArea();
-        _injectMapSearchBar();
         _fixAgentInfo();
         _injectAgentCard();
         _fixHeaderButtons();
