@@ -1173,6 +1173,14 @@
       flyto.style.setProperty('align-self',  'center', 'important');
       flyto.style.setProperty('flex-shrink', '0',      'important');
       flyto.style.setProperty('overflow',    'hidden', 'important');
+      // Also set height directly on the visible bordered pill — CSS inheritance
+      // through the section#fly-to-options-containers chain is unreliable.
+      var field = flyto.querySelector('.pm-ccz-fly-to-field, .pm-ccz-fly-to-field-disabled');
+      if (field) {
+        field.style.setProperty('height',     '66px', 'important');
+        field.style.setProperty('min-height', '66px', 'important');
+        field.style.setProperty('box-sizing', 'border-box', 'important');
+      }
     }
     _lockSearchBarWidth();
 
