@@ -1141,10 +1141,10 @@
       var s = document.createElement('style');
       s.id = 'tjg-flyto-styles';
       s.textContent =
-        // Gap between search column and filter buttons column
-        '#prime-map-search--filter-bar{column-gap:20px!important;}' +
         // Fixed-width column — max-width + overflow:hidden prevent growth as tags are added
         '#prime-map-search--filter-bar__flyto{width:340px!important;min-width:340px!important;max-width:340px!important;flex-shrink:0!important;overflow:hidden!important;}' +
+        // Shift filter pills away from the search bar
+        '.filter-buttons-container{padding-left:20px!important;}' +
         // Inner containers fill the column without overflowing
         '#fly-to-options-containers,.pm-ccz-fly-to-field,.pm-ccz-fly-to-field-disabled{width:100%!important;min-width:0!important;max-width:100%!important;overflow:hidden!important;}' +
         // Tags row stays on one line and clips rather than stretching the bar
