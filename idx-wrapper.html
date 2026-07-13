@@ -1163,17 +1163,20 @@
     function _lockSearchBarWidth() {
       var flyto = document.getElementById('prime-map-search--filter-bar__flyto');
       if (!flyto) return;
-      // Read the filter button height dynamically so the search bar always matches
+      // Read the filter button height dynamically so the search bar always matches.
+      // Fallback to 44px (slightly taller than browser default) until buttons render.
       var filterBtn = document.querySelector('.idx-filter-button button, .idx-filter-button > button, .idx-filter-button > div > button');
-      var h = (filterBtn && filterBtn.offsetHeight > 10) ? filterBtn.offsetHeight : 38;
-      flyto.style.setProperty('width',      '190px',      'important');
-      flyto.style.setProperty('min-width',  '190px',      'important');
-      flyto.style.setProperty('max-width',  '190px',      'important');
-      flyto.style.setProperty('height',     h + 'px',     'important');
-      flyto.style.setProperty('flex-shrink','0',          'important');
-      flyto.style.setProperty('overflow',   'hidden',     'important');
+      var h = (filterBtn && filterBtn.offsetHeight > 10) ? filterBtn.offsetHeight : 44;
+      flyto.style.setProperty('width',      '190px',  'important');
+      flyto.style.setProperty('min-width',  '190px',  'important');
+      flyto.style.setProperty('max-width',  '190px',  'important');
+      flyto.style.setProperty('height',     h + 'px', 'important');
+      flyto.style.setProperty('flex-shrink','0',       'important');
+      flyto.style.setProperty('overflow',   'hidden',  'important');
     }
     _lockSearchBarWidth();
+    // Retry at key IDX render milestones to pick up the correct filter button height
+    [200, 600, 1200, 2500].forEach(function(ms) { setTimeout(_lockSearchBarWidth, ms); });
 
     // Set placeholder on the flyto text input — IDX controls this attribute so we override via JS
     function _fixFlytoPlaceholder() {
