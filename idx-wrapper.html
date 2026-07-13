@@ -1132,6 +1132,28 @@
     }
     _reorderFilterPills();
 
+    // Inject search bar styles via JS — IDX's scoped Vue CSS (data-v-* selectors + !important)
+    // defeats backend custom CSS. A <style> tag appended at runtime comes later in the cascade
+    // and wins even against IDX's !important rules.
+    function _styleSearchBar() {
+      if (document.getElementById('tjg-flyto-styles')) return;
+      if (!document.getElementById('prime-map-search--filter-bar__flyto')) return;
+      var s = document.createElement('style');
+      s.id = 'tjg-flyto-styles';
+      s.textContent =
+        // Widen the search bar column
+        '#prime-map-search--filter-bar__flyto{width:340px!important;min-width:340px!important;flex-shrink:0!important;}' +
+        // Let inner containers fill that width
+        '#fly-to-options-containers,.pm-ccz-fly-to-field,.pm-ccz-fly-to-field-disabled{width:100%!important;min-width:0!important;}' +
+        // Gap between magnifying glass icon and the input box
+        '#prime-map-search--filter-bar__flyto .vue-tags-input{margin-left:10px!important;}' +
+        // Navy chip background + white text when a location tag is added
+        '#prime-map-search--filter-bar__flyto .ti-tag{background:#18254B!important;background-color:#18254B!important;}' +
+        '#prime-map-search--filter-bar__flyto .ti-tag,#prime-map-search--filter-bar__flyto .ti-tag *{color:#fff!important;}';
+      document.head.appendChild(s);
+    }
+    _styleSearchBar();
+
     // Shrink heart/favorite SVG icons on listing cards via JS (CSS may miss IDX class names)
     function _shrinkHeartIcons() {
       var results = document.getElementById('prime-map-search--results');
@@ -1792,6 +1814,7 @@
       var _tjgTimer = null;
       function _tjgDispatch() {
         _reorderFilterPills();
+        _styleSearchBar();
         _idxAddAdvancedSearchLink();
         _fixAgentInfo();
         _injectAgentCard();
