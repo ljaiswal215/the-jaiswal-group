@@ -1159,6 +1159,19 @@
     }
     _styleSearchBar();
 
+    // Force the flyto container to stay exactly 340px via inline styles — beats any inline
+    // styles IDX's Vue component applies dynamically when the input is focused or a tag is added.
+    function _lockSearchBarWidth() {
+      var flyto = document.getElementById('prime-map-search--filter-bar__flyto');
+      if (!flyto) return;
+      flyto.style.setProperty('width',      '340px', 'important');
+      flyto.style.setProperty('min-width',  '340px', 'important');
+      flyto.style.setProperty('max-width',  '340px', 'important');
+      flyto.style.setProperty('flex-shrink','0',     'important');
+      flyto.style.setProperty('overflow',   'hidden','important');
+    }
+    _lockSearchBarWidth();
+
     // Set placeholder on the flyto text input — IDX controls this attribute so we override via JS
     function _fixFlytoPlaceholder() {
       var inp = document.querySelector(
@@ -1833,6 +1846,7 @@
       function _tjgDispatch() {
         _reorderFilterPills();
         _styleSearchBar();
+        _lockSearchBarWidth();
         _fixFlytoPlaceholder();
         _idxAddAdvancedSearchLink();
         _fixAgentInfo();
