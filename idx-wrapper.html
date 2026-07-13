@@ -121,9 +121,18 @@
     /* Badge/status on /i/ page stays white since it sits over the photo */
     #IDX-main.IDX-page-listings .idx-listing-card__content [class*="status"] { color: #18254B !important; }
 
-    /* ─── Hide listings count chip on results page ─── */
+    /* ─── Listings count: hide from filter bar; JS moves it above cards ─── */
     #IDX-main.IDX-page-listings #listing-results-count__chip { display: none !important; }
     #listing-results-count__chip svg { display: none !important; }
+    #IDX-main.IDX-page-listings .idx-results-total__heading {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.68rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      color: #18254B !important;
+      margin: 0 !important;
+    }
 
 
     /* ─── Save Search button: lock styles against IDX !important overrides ─── */
@@ -825,7 +834,7 @@
       box-sizing: border-box !important;
       display: flex !important;
       align-items: center !important;
-      padding-bottom: 4px !important;
+      padding-bottom: 8px !important;
     }
     #prime-map-search--filter-bar__flyto .vue-tags-input,
     #prime-map-search--filter-bar__flyto .ti-input,
@@ -1249,7 +1258,7 @@
         '#prime-map-search--filter-bar__flyto{width:190px!important;min-width:190px!important;max-width:190px!important;align-self:stretch!important;flex-shrink:0!important;overflow:hidden!important;}' +
         // Inner containers fill the column without overflowing; border + radius + height match filter pills
         '#fly-to-options-containers,.pm-ccz-fly-to-field,.pm-ccz-fly-to-field-disabled{width:100%!important;min-width:0!important;max-width:100%!important;height:100%!important;overflow:hidden!important;}' +
-        '#prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field,#prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field-disabled{border:1px solid rgba(0,0,0,0.18)!important;box-shadow:none!important;border-radius:6px!important;height:100%!important;display:flex!important;align-items:center!important;background:#fff!important;background-color:#fff!important;padding-bottom:4px!important;}' +
+        '#prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field,#prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field-disabled{border:1px solid rgba(0,0,0,0.18)!important;box-shadow:none!important;border-radius:6px!important;height:100%!important;display:flex!important;align-items:center!important;background:#fff!important;background-color:#fff!important;padding-bottom:8px!important;}' +
         '#prime-map-search--filter-bar__flyto .vue-tags-input,#prime-map-search--filter-bar__flyto .ti-input,#prime-map-search--filter-bar__flyto .ti-tags{background:#fff!important;background-color:#fff!important;}' +
         // Tags row stays on one line and clips rather than stretching the bar
         '#prime-map-search--filter-bar__flyto .vue-tags-input{margin-left:10px!important;overflow:hidden!important;max-width:100%!important;height:100%!important;}' +
@@ -1961,6 +1970,20 @@
     // Throttled to 80 ms so rapid IDX DOM churn fires our logic at most ~12×/s.
     (function() {
       var _tjgTimer = null;
+      function _moveResultsCount() {
+        var idxMain = document.getElementById('IDX-main');
+        if (!idxMain || !idxMain.classList.contains('IDX-page-listings')) return;
+        var total = document.querySelector('.idx-results__total');
+        var content = document.getElementById('idx-results-content');
+        if (!total || !content) return;
+        if (total.parentElement === content.parentElement && total.nextElementSibling === content) return;
+        content.parentElement.insertBefore(total, content);
+        total.style.setProperty('display', 'block', 'important');
+        total.style.setProperty('text-align', 'right', 'important');
+        total.style.setProperty('padding', '6px 0 4px', 'important');
+        total.style.setProperty('margin', '0', 'important');
+      }
+
       function _tjgDispatch() {
         _reorderFilterPills();
         _styleSearchBar();
@@ -1970,6 +1993,7 @@
         _fixAgentInfo();
         _injectAgentCard();
         _fixHeaderButtons();
+        _moveResultsCount();
 
         // Tour button label
         document.querySelectorAll('.IDX-detailsVirtualTourAction').forEach(function(btn) {
