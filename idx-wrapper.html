@@ -746,6 +746,51 @@
       #tjg-tour-prop-img { height:120px; }
     }
   </style>
+  <style id="tjg-flyto-preflight">
+    /* Pre-flight flyto styles: applied immediately on parse, before IDX JS runs,
+       to eliminate the flash of unstyled search bar on hard refresh. */
+    #prime-map-search--filter-bar__flyto {
+      width: 260px !important;
+      min-width: 260px !important;
+      max-width: 260px !important;
+      flex-shrink: 0 !important;
+      align-self: center !important;
+      overflow: visible !important;
+    }
+    #prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field,
+    #prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field-disabled {
+      border: 1px solid rgba(0,0,0,0.18) !important;
+      border-radius: 6px !important;
+      box-shadow: none !important;
+      background: #fff !important;
+      background-color: #fff !important;
+      height: 30px !important;
+      min-height: 30px !important;
+      box-sizing: border-box !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+    #prime-map-search--filter-bar__flyto .vue-tags-input,
+    #prime-map-search--filter-bar__flyto .ti-input,
+    #prime-map-search--filter-bar__flyto .ti-tags {
+      background: #fff !important;
+      background-color: #fff !important;
+    }
+    #prime-map-search--filter-bar__flyto .vue-tags-input {
+      margin-left: 10px !important;
+      overflow: hidden !important;
+    }
+    #prime-map-search--filter-bar__flyto .ti-tags {
+      flex-wrap: nowrap !important;
+      overflow: hidden !important;
+    }
+    #prime-map-search--filter-bar__flyto .ti-tag {
+      background: #18254B !important;
+      background-color: #18254B !important;
+      color: #fff !important;
+    }
+    .filter-buttons-container { padding-left: 20px !important; }
+  </style>
 </head>
 <body>
 
