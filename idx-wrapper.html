@@ -1156,8 +1156,11 @@
         // Navy chip background + white text when a location tag is added
         '#prime-map-search--filter-bar__flyto .ti-tag{background:#18254B!important;background-color:#18254B!important;}' +
         '#prime-map-search--filter-bar__flyto .ti-tag,#prime-map-search--filter-bar__flyto .ti-tag *{color:#fff!important;}' +
-        // Hide the autocomplete suggestions dropdown that appears on focus
-        '#prime-map-search--filter-bar__flyto .ti-autocomplete{display:none!important;}';
+        // Style the autocomplete suggestions dropdown
+        '#prime-map-search--filter-bar__flyto .ti-autocomplete{position:absolute!important;top:100%!important;left:0!important;right:0!important;z-index:9999!important;background:#fff!important;border:1px solid rgba(0,0,0,0.18)!important;border-radius:6px!important;box-shadow:0 4px 12px rgba(0,0,0,0.12)!important;margin-top:4px!important;overflow:hidden!important;}' +
+        '#prime-map-search--filter-bar__flyto .ti-autocomplete ul{list-style:none!important;margin:0!important;padding:4px 0!important;}' +
+        '#prime-map-search--filter-bar__flyto .ti-autocomplete li{padding:8px 14px!important;font-size:14px!important;color:#18254B!important;cursor:pointer!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;}' +
+        '#prime-map-search--filter-bar__flyto .ti-autocomplete li:hover,#prime-map-search--filter-bar__flyto .ti-autocomplete li.ti-selected-item{background:#f0f3fa!important;color:#18254B!important;}';
       document.head.appendChild(s);
     }
     _styleSearchBar();
