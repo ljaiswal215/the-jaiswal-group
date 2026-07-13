@@ -120,17 +120,16 @@
       height: 38px !important;
       box-sizing: border-box !important;
     }
-    /* padding-left on .ti-input shifts ALL content (chips + bare input) to the right of
-       the ::before glass. Applying here instead of .ti-tags means the chip itself also
-       clears the glass, preventing the double-offset that caused alignment issues. */
     #prime-map-search--filter-bar__flyto .ti-input {
       overflow: hidden !important;
       background: transparent !important;
       border: none !important;
       height: 100% !important;
-      padding-left: 34px !important;
     }
-    #prime-map-search--filter-bar__flyto .ti-tags { overflow: hidden !important; }
+    /* padding-left on .ti-tags clears the ::before glass for both the bare input and
+       any chip. IDX does not set inline padding on .ti-tags, so this rule is stable.
+       (.ti-input padding was unreliable — IDX's idxstyles overrides it post-load.) */
+    #prime-map-search--filter-bar__flyto .ti-tags { overflow: hidden !important; padding-left: 32px !important; }
     #prime-map-search--filter-bar__flyto .ti-tag {
       background-color: #18254B !important;
       color: #ffffff !important;
@@ -1213,11 +1212,10 @@
       tiTags.style.setProperty('justify-content', 'flex-start', 'important');
       tiTags.style.setProperty('flex-wrap', 'nowrap', 'important');
       tiTags.style.setProperty('overflow', 'hidden', 'important');
-      tiTags.style.setProperty('padding-left', '0', 'important');
-      // Offset is on .ti-input (parent of .ti-tags) so chips AND bare input both
-      // clear the ::before magnifying glass without a double-offset.
-      var tiInput = tiTags.closest ? tiTags.closest('.ti-input') : tiTags.parentNode;
-      if (tiInput) tiInput.style.setProperty('padding-left', '34px', 'important');
+      // 32px clears the magnifying glass for both bare input and chip.
+      // Applied here (not on .ti-input) because IDX's idxstyles overrides
+      // .ti-input padding post-load; .ti-tags padding is left alone by IDX.
+      tiTags.style.setProperty('padding-left', '32px', 'important');
       var chip = tiTags.querySelector('.ti-tag');
       if (chip) {
         chip.style.setProperty('flex-shrink', '1', 'important');
@@ -1967,6 +1965,7 @@
         _reorderFilterPills();
         _idxAddAdvancedSearchLink();
         _watchChipArea();
+        _injectSearchGlass(); // re-check every tick — Vue may strip it after SPA navigation
         _fixAgentInfo();
         _injectAgentCard();
         _fixHeaderButtons();
