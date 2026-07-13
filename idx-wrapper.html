@@ -1478,6 +1478,41 @@
     var _ptInterval = setInterval(_renameFilterLabels, 500);
     setTimeout(function() { clearInterval(_ptInterval); }, 30000);
 
+    // Rename /i/ listing-page filter buttons to match mapsearch labels
+    function _renameListingsFilterBtns() {
+      var idxMain = document.getElementById('IDX-main');
+      if (!idxMain || !idxMain.classList.contains('IDX-page-listings')) return;
+      var renames = [
+        [/^all\s+active$/i,               'Status'       ],
+        [/^active$/i,                      'Status'       ],
+        [/^all\s+property\s+types?$/i,     'Property Type'],
+        [/^all\s+types?$/i,               'Property Type'],
+        [/^any\s+price$/i,                'Any Price'    ],
+        [/^all\s+sizes?$/i,               'Any Size'     ],
+        [/^any\s+size$/i,                 'Any Size'     ],
+        [/^all\s+sq\.?\s*ft\.?$/i,        'Any Size'     ],
+        [/^all\s+beds?$/i,                'All Beds'     ],
+        [/^all\s+baths?$/i,               'All Baths'    ],
+      ];
+      document.querySelectorAll('.idx-filter-button button').forEach(function(btn) {
+        var fullText = btn.textContent.trim();
+        renames.forEach(function(pair) {
+          if (!pair[0].test(fullText)) return;
+          var walker = document.createTreeWalker(btn, NodeFilter.SHOW_TEXT, null, false);
+          var node;
+          while ((node = walker.nextNode())) {
+            if (pair[0].test(node.nodeValue.trim())) {
+              node.nodeValue = pair[1];
+              return;
+            }
+          }
+        });
+      });
+    }
+    _renameListingsFilterBtns();
+    var _lstBtnInterval = setInterval(_renameListingsFilterBtns, 500);
+    setTimeout(function() { clearInterval(_lstBtnInterval); }, 30000);
+
     // Auto-apply checkbox-based filter dropdowns (Property Type, etc.)
     // Listens for checkbox changes in any non-status filter panel and clicks APPLY.
     // The panel may be inline inside .idx-filter-button or teleported to body (Vue portal).
