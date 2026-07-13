@@ -1141,14 +1141,14 @@
       var s = document.createElement('style');
       s.id = 'tjg-flyto-styles';
       s.textContent =
-        // Fixed-width column — narrowed to 220px to match filter pill proportions
-        '#prime-map-search--filter-bar__flyto{width:220px!important;min-width:220px!important;max-width:220px!important;flex-shrink:0!important;overflow:hidden!important;}' +
-        // Inner containers fill the column without overflowing; border + radius match filter pills
-        '#fly-to-options-containers,.pm-ccz-fly-to-field,.pm-ccz-fly-to-field-disabled{width:100%!important;min-width:0!important;max-width:100%!important;overflow:hidden!important;}' +
-        '#prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field,#prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field-disabled{border:1px solid rgba(0,0,0,0.12)!important;box-shadow:none!important;border-radius:22px!important;}' +
+        // Fixed-width column, height matches filter pills
+        '#prime-map-search--filter-bar__flyto{width:190px!important;min-width:190px!important;max-width:190px!important;height:38px!important;flex-shrink:0!important;overflow:hidden!important;}' +
+        // Inner containers fill the column without overflowing; border + radius + height match filter pills
+        '#fly-to-options-containers,.pm-ccz-fly-to-field,.pm-ccz-fly-to-field-disabled{width:100%!important;min-width:0!important;max-width:100%!important;height:100%!important;overflow:hidden!important;}' +
+        '#prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field,#prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field-disabled{border:1px solid rgba(0,0,0,0.12)!important;box-shadow:none!important;border-radius:22px!important;height:100%!important;display:flex!important;align-items:center!important;}' +
         // Tags row stays on one line and clips rather than stretching the bar
-        '#prime-map-search--filter-bar__flyto .vue-tags-input{margin-left:10px!important;overflow:hidden!important;max-width:100%!important;}' +
-        '#prime-map-search--filter-bar__flyto .ti-input{overflow:hidden!important;}' +
+        '#prime-map-search--filter-bar__flyto .vue-tags-input{margin-left:10px!important;overflow:hidden!important;max-width:100%!important;height:100%!important;}' +
+        '#prime-map-search--filter-bar__flyto .ti-input{overflow:hidden!important;height:100%!important;align-items:center!important;}' +
         '#prime-map-search--filter-bar__flyto .ti-tags{flex-wrap:nowrap!important;overflow:hidden!important;max-width:100%!important;}' +
         // Navy chip background + white text when a location tag is added
         '#prime-map-search--filter-bar__flyto .ti-tag{background:#18254B!important;background-color:#18254B!important;}' +
@@ -1162,9 +1162,10 @@
     function _lockSearchBarWidth() {
       var flyto = document.getElementById('prime-map-search--filter-bar__flyto');
       if (!flyto) return;
-      flyto.style.setProperty('width',      '220px', 'important');
-      flyto.style.setProperty('min-width',  '220px', 'important');
-      flyto.style.setProperty('max-width',  '220px', 'important');
+      flyto.style.setProperty('width',      '190px', 'important');
+      flyto.style.setProperty('min-width',  '190px', 'important');
+      flyto.style.setProperty('max-width',  '190px', 'important');
+      flyto.style.setProperty('height',     '38px',  'important');
       flyto.style.setProperty('flex-shrink','0',     'important');
       flyto.style.setProperty('overflow',   'hidden','important');
     }
