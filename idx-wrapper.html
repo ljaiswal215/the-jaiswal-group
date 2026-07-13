@@ -1141,6 +1141,8 @@
       var s = document.createElement('style');
       s.id = 'tjg-flyto-styles';
       s.textContent =
+        // Gap between search column and filter buttons column
+        '#prime-map-search--filter-bar{column-gap:20px!important;}' +
         // Fixed-width column — max-width + overflow:hidden prevent growth as tags are added
         '#prime-map-search--filter-bar__flyto{width:340px!important;min-width:340px!important;max-width:340px!important;flex-shrink:0!important;overflow:hidden!important;}' +
         // Inner containers fill the column without overflowing
