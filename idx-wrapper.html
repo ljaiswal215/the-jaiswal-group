@@ -1163,12 +1163,15 @@
     function _lockSearchBarWidth() {
       var flyto = document.getElementById('prime-map-search--filter-bar__flyto');
       if (!flyto) return;
-      flyto.style.setProperty('width',      '190px', 'important');
-      flyto.style.setProperty('min-width',  '190px', 'important');
-      flyto.style.setProperty('max-width',  '190px', 'important');
-      flyto.style.setProperty('height',     '38px',  'important');
-      flyto.style.setProperty('flex-shrink','0',     'important');
-      flyto.style.setProperty('overflow',   'hidden','important');
+      // Read the filter button height dynamically so the search bar always matches
+      var filterBtn = document.querySelector('.idx-filter-button button, .idx-filter-button > button, .idx-filter-button > div > button');
+      var h = (filterBtn && filterBtn.offsetHeight > 10) ? filterBtn.offsetHeight : 38;
+      flyto.style.setProperty('width',      '190px',      'important');
+      flyto.style.setProperty('min-width',  '190px',      'important');
+      flyto.style.setProperty('max-width',  '190px',      'important');
+      flyto.style.setProperty('height',     h + 'px',     'important');
+      flyto.style.setProperty('flex-shrink','0',          'important');
+      flyto.style.setProperty('overflow',   'hidden',     'important');
     }
     _lockSearchBarWidth();
 
