@@ -304,6 +304,19 @@
       opacity: 1 !important;
     }
 
+    /* ─── Listing results cards: remove gray background from heart/favorite button ─── */
+    #IDX-main .idx-listing-card [class*="fav"],
+    #IDX-main .idx-listing-card [class*="favorite"],
+    #IDX-main .idx-listing-card [class*="heart"],
+    #IDX-main .idx-listing-card [aria-label*="avorite"],
+    #IDX-main .idx-listing-card .IDX-favoriteProperty,
+    #IDX-main .idx-listing-card__actions [class*="fav"],
+    #IDX-main .idx-listing-card__actions button {
+      background: transparent !important;
+      background-color: transparent !important;
+      box-shadow: none !important;
+    }
+
     /* ─── Leaflet + IDX map controls: navy brand ─── */
     .leaflet-control-zoom,
     .leaflet-bar,
