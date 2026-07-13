@@ -106,6 +106,21 @@
     #IDX-main [class*="listing-card"] [class*="badge"],
     #IDX-main [class*="listing-card"] [class*="tag"] { color: #fff !important; }
 
+    /* ─── /i/ listing page cards: white content section so navy text is visible ─── */
+    #IDX-main.IDX-page-listings .idx-listing-card__content {
+      background: #fff !important;
+      background-color: #fff !important;
+      position: relative !important;
+      z-index: 5 !important;
+      padding: 10px 12px !important;
+    }
+    #IDX-main.IDX-page-listings .idx-listing-card__content,
+    #IDX-main.IDX-page-listings .idx-listing-card__content * {
+      color: #18254B !important;
+    }
+    /* Badge/status on /i/ page stays white since it sits over the photo */
+    #IDX-main.IDX-page-listings .idx-listing-card__content [class*="status"] { color: #18254B !important; }
+
     /* ─── Hide listings count chip on results page ─── */
     #IDX-main.IDX-page-listings #listing-results-count__chip { display: none !important; }
     #listing-results-count__chip svg { display: none !important; }
