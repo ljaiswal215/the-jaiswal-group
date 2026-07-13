@@ -1166,19 +1166,20 @@
     function _lockSearchBarWidth() {
       var flyto = document.getElementById('prime-map-search--filter-bar__flyto');
       if (!flyto) return;
+      // Read the filter button height so search bar always matches exactly
+      var filterBtn = document.querySelector('.filter-buttons-container button');
+      var h = (filterBtn && filterBtn.offsetHeight > 0) ? filterBtn.offsetHeight + 'px' : '36px';
       flyto.style.setProperty('width',       '190px',  'important');
       flyto.style.setProperty('min-width',   '190px',  'important');
       flyto.style.setProperty('max-width',   '190px',  'important');
-      flyto.style.setProperty('height',      '44px',   'important');
+      flyto.style.setProperty('height',      h,        'important');
       flyto.style.setProperty('align-self',  'center', 'important');
       flyto.style.setProperty('flex-shrink', '0',      'important');
       flyto.style.setProperty('overflow',    'hidden', 'important');
-      // Also set height directly on the visible bordered pill — CSS inheritance
-      // through the section#fly-to-options-containers chain is unreliable.
       var field = flyto.querySelector('.pm-ccz-fly-to-field, .pm-ccz-fly-to-field-disabled');
       if (field) {
-        field.style.setProperty('height',     '44px', 'important');
-        field.style.setProperty('min-height', '44px', 'important');
+        field.style.setProperty('height',     h, 'important');
+        field.style.setProperty('min-height', h, 'important');
         field.style.setProperty('box-sizing', 'border-box', 'important');
       }
     }
