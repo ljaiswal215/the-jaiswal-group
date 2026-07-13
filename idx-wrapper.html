@@ -1141,8 +1141,10 @@
       var s = document.createElement('style');
       s.id = 'tjg-flyto-styles';
       s.textContent =
-        // Fixed width; height:100% lets the grid row (set by filter buttons) define the height
-        '#prime-map-search--filter-bar__flyto{width:190px!important;min-width:190px!important;max-width:190px!important;height:100%!important;align-self:stretch!important;flex-shrink:0!important;overflow:hidden!important;}' +
+        // Grid container: explicit height so child height:100% has a reference
+        '#prime-map-search--filter-bar{align-items:stretch!important;}' +
+        // Fixed width and height on the flyto column
+        '#prime-map-search--filter-bar__flyto{width:190px!important;min-width:190px!important;max-width:190px!important;align-self:stretch!important;flex-shrink:0!important;overflow:hidden!important;}' +
         // Inner containers fill the column without overflowing; border + radius + height match filter pills
         '#fly-to-options-containers,.pm-ccz-fly-to-field,.pm-ccz-fly-to-field-disabled{width:100%!important;min-width:0!important;max-width:100%!important;height:100%!important;overflow:hidden!important;}' +
         '#prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field,#prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field-disabled{border:1px solid rgba(0,0,0,0.18)!important;box-shadow:none!important;border-radius:6px!important;height:100%!important;display:flex!important;align-items:center!important;background:#fff!important;background-color:#fff!important;}' +
@@ -1164,11 +1166,13 @@
     function _lockSearchBarWidth() {
       var flyto = document.getElementById('prime-map-search--filter-bar__flyto');
       if (!flyto) return;
-      flyto.style.setProperty('width',      '190px',   'important');
-      flyto.style.setProperty('min-width',  '190px',   'important');
-      flyto.style.setProperty('max-width',  '190px',   'important');
-      flyto.style.setProperty('flex-shrink','0',        'important');
-      flyto.style.setProperty('overflow',   'hidden',   'important');
+      flyto.style.setProperty('width',       '190px',  'important');
+      flyto.style.setProperty('min-width',   '190px',  'important');
+      flyto.style.setProperty('max-width',   '190px',  'important');
+      flyto.style.setProperty('height',      '44px',   'important');
+      flyto.style.setProperty('align-self',  'center', 'important');
+      flyto.style.setProperty('flex-shrink', '0',      'important');
+      flyto.style.setProperty('overflow',    'hidden', 'important');
     }
     _lockSearchBarWidth();
 
