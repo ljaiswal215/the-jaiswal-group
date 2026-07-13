@@ -78,10 +78,23 @@
     /* Allow dropdown/focus ring to overflow the filter bar */
     #tjg-results-filter-bar { overflow: visible !important; }
 
-    /* ─── Listing card address: white text ─── */
+    /* ─── Listing card address + beds/baths/sqft: white text ─── */
     .idx-listing-card [class*="address"],
     .idx-listing-card__address,
-    #IDX-main [class*="listing-card"] [class*="address"] { color: #fff !important; }
+    #IDX-main [class*="listing-card"] [class*="address"],
+    .idx-listing-card [class*="bed"],
+    .idx-listing-card [class*="bath"],
+    .idx-listing-card [class*="sqft"],
+    .idx-listing-card [class*="sq-ft"],
+    .idx-listing-card [class*="size"],
+    .idx-listing-card [class*="spec"],
+    .idx-listing-card [class*="stat"],
+    .idx-listing-card [class*="detail"],
+    .idx-listing-card__specs,
+    .idx-listing-card__stats,
+    #IDX-main [class*="listing-card"] [class*="bed"],
+    #IDX-main [class*="listing-card"] [class*="bath"],
+    #IDX-main [class*="listing-card"] [class*="sqft"] { color: #fff !important; }
 
     /* ─── Listing card badge/tag (top-left navy box): white text ─── */
     .idx-listing-card [class*="badge"],
