@@ -1137,12 +1137,6 @@
     setTimeout(function() { clearInterval(_priceInterval); }, 60000);
 
 
-    // Hide ADDRESS / ADVANCED SEARCH nav buttons (a.idx-nav-button)
-    function _hideSearchTypeToggles() {
-      var container = document.querySelector('#navigation-container');
-      if (container) container.style.display = 'none';
-    }
-    _hideSearchTypeToggles();
 
     // Advanced Search link — directly above listing cards, right-aligned
     function _idxAddAdvancedSearchLink() {
@@ -1961,7 +1955,6 @@
     (function() {
       var _tjgTimer = null;
       function _tjgDispatch() {
-        _hideSearchTypeToggles();
         _reorderFilterPills();
         _idxAddAdvancedSearchLink();
         _watchChipArea();
