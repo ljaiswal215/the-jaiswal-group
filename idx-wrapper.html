@@ -1141,8 +1141,8 @@
       var s = document.createElement('style');
       s.id = 'tjg-flyto-styles';
       s.textContent =
-        // Fixed-width column, height matches filter pills
-        '#prime-map-search--filter-bar__flyto{width:190px!important;min-width:190px!important;max-width:190px!important;height:38px!important;flex-shrink:0!important;overflow:hidden!important;}' +
+        // Fixed width; height:100% lets the grid row (set by filter buttons) define the height
+        '#prime-map-search--filter-bar__flyto{width:190px!important;min-width:190px!important;max-width:190px!important;height:100%!important;align-self:stretch!important;flex-shrink:0!important;overflow:hidden!important;}' +
         // Inner containers fill the column without overflowing; border + radius + height match filter pills
         '#fly-to-options-containers,.pm-ccz-fly-to-field,.pm-ccz-fly-to-field-disabled{width:100%!important;min-width:0!important;max-width:100%!important;height:100%!important;overflow:hidden!important;}' +
         '#prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field,#prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field-disabled{border:1px solid rgba(0,0,0,0.18)!important;box-shadow:none!important;border-radius:6px!important;height:100%!important;display:flex!important;align-items:center!important;background:#fff!important;background-color:#fff!important;}' +
@@ -1158,25 +1158,19 @@
     }
     _styleSearchBar();
 
-    // Force the flyto container to stay exactly 340px via inline styles — beats any inline
-    // styles IDX's Vue component applies dynamically when the input is focused or a tag is added.
+    // Lock the flyto container width via inline styles — beats any inline styles IDX's
+    // Vue component applies dynamically. Height is handled purely by CSS (height:100% /
+    // align-self:stretch so the grid row from filter buttons sets it automatically).
     function _lockSearchBarWidth() {
       var flyto = document.getElementById('prime-map-search--filter-bar__flyto');
       if (!flyto) return;
-      // Read the filter button height dynamically so the search bar always matches.
-      // Fallback to 44px (slightly taller than browser default) until buttons render.
-      var filterBtn = document.querySelector('.idx-filter-button button, .idx-filter-button > button, .idx-filter-button > div > button');
-      var h = (filterBtn && filterBtn.offsetHeight > 10) ? filterBtn.offsetHeight : 44;
-      flyto.style.setProperty('width',      '190px',  'important');
-      flyto.style.setProperty('min-width',  '190px',  'important');
-      flyto.style.setProperty('max-width',  '190px',  'important');
-      flyto.style.setProperty('height',     h + 'px', 'important');
-      flyto.style.setProperty('flex-shrink','0',       'important');
-      flyto.style.setProperty('overflow',   'hidden',  'important');
+      flyto.style.setProperty('width',      '190px',   'important');
+      flyto.style.setProperty('min-width',  '190px',   'important');
+      flyto.style.setProperty('max-width',  '190px',   'important');
+      flyto.style.setProperty('flex-shrink','0',        'important');
+      flyto.style.setProperty('overflow',   'hidden',   'important');
     }
     _lockSearchBarWidth();
-    // Retry at key IDX render milestones to pick up the correct filter button height
-    [200, 600, 1200, 2500].forEach(function(ms) { setTimeout(_lockSearchBarWidth, ms); });
 
     // Set placeholder on the flyto text input — IDX controls this attribute so we override via JS
     function _fixFlytoPlaceholder() {
