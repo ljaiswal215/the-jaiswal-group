@@ -172,6 +172,74 @@ document.addEventListener('DOMContentLoaded', () => {
       style.id = 'tjg-widget-styles';
       style.textContent = TJG_WIDGET_CSS;
       widget.shadowRoot.appendChild(style);
+      setupIDXLoginInterception(widget);
+    });
+  }
+
+  // When a heart is clicked, IDX repositions its login form via inline style.
+  // Watch for that style change, hide the form, and show our custom popup instead.
+  function setupIDXLoginInterception(widget) {
+    if (!widget.shadowRoot) return;
+    if (widget.shadowRoot.getElementById('tjg-login-interceptor')) return;
+    var marker = document.createElement('span');
+    marker.id = 'tjg-login-interceptor';
+    marker.style.display = 'none';
+    widget.shadowRoot.appendChild(marker);
+
+    var observer = new MutationObserver(function(mutations) {
+      for (var i = 0; i < mutations.length; i++) {
+        var mutation = mutations[i];
+        if (mutation.type !== 'attributes' || mutation.attributeName !== 'style') continue;
+        var el = mutation.target;
+        var cls = typeof el.className === 'string' ? el.className : '';
+        if (cls.indexOf('login-form') === -1) continue;
+        // IDX sets top/left to position the form near the clicked heart
+        var top = parseInt(el.style.top);
+        if (!isNaN(top) && top > 0) {
+          el.style.setProperty('display', 'none', 'important');
+          showTJGFavoriteSignup();
+        }
+      }
+    });
+    observer.observe(widget.shadowRoot, { attributes: true, attributeFilter: ['style'], subtree: true });
+  }
+
+  function showTJGFavoriteSignup() {
+    var existing = document.getElementById('tjg-favorite-modal');
+    if (existing) { existing.style.display = 'flex'; return; }
+
+    var style = document.createElement('style');
+    style.textContent = [
+      '#tjg-favorite-modal{position:fixed;inset:0;z-index:99999;background:rgba(18,28,60,0.55);display:flex;align-items:center;justify-content:center;}',
+      '#tjg-favorite-modal-box{background:#fff;max-width:420px;width:90%;padding:2.5rem 2rem 2rem;text-align:center;position:relative;border-radius:2px;}',
+      '#tjg-favorite-modal-close{position:absolute;top:0.75rem;right:1rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:#18254B;line-height:1;}',
+      '#tjg-favorite-modal h2{font-family:"Marcellus",serif;color:#18254B;font-size:1.4rem;margin:0 0 0.65rem;}',
+      '#tjg-favorite-modal p{font-family:"Lato",sans-serif;color:#444;font-size:0.9rem;line-height:1.6;margin:0 0 1.5rem;}',
+      '#tjg-favorite-modal .tjg-fav-btn{display:inline-block;background:#18254B;color:#fff;padding:12px 32px;text-decoration:none;font-family:"Lato",sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;}',
+      '#tjg-favorite-modal .tjg-fav-btn:hover{background:#C4975A;}',
+      '#tjg-favorite-modal .tjg-fav-signin{display:block;font-family:"Lato",sans-serif;font-size:0.82rem;color:#18254B;text-decoration:none;}',
+      '#tjg-favorite-modal .tjg-fav-signin:hover{text-decoration:underline;}'
+    ].join('');
+    document.head.appendChild(style);
+
+    var modal = document.createElement('div');
+    modal.id = 'tjg-favorite-modal';
+    modal.innerHTML = [
+      '<div id="tjg-favorite-modal-box">',
+      '  <button id="tjg-favorite-modal-close" aria-label="Close">&times;</button>',
+      '  <h2>Save This Listing</h2>',
+      '  <p>Create a free account to save your favorite homes, track price changes, and stay up to date on new listings.</p>',
+      '  <a href="/i/account-registration" class="tjg-fav-btn">Create Free Account</a>',
+      '  <a href="/i/account-login" class="tjg-fav-signin">Already have an account? Sign In</a>',
+      '</div>'
+    ].join('');
+    document.body.appendChild(modal);
+
+    document.getElementById('tjg-favorite-modal-close').addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) modal.style.display = 'none';
     });
   }
 
