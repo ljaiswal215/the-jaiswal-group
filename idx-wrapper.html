@@ -106,34 +106,48 @@
     #IDX-main [class*="listing-card"] [class*="badge"],
     #IDX-main [class*="listing-card"] [class*="tag"] { color: #fff !important; }
 
-    /* ─── /i/ listing page cards: white content section so navy text is visible ─── */
+    /* ─── /i/ listing page cards: photo on top, details below ─── */
+    /* __content is a flex column; link (photo) is moved first with order:-1 */
     #IDX-main.IDX-page-listings .idx-listing-card__content {
+      display: flex !important;
+      flex-direction: column !important;
       background: #fff !important;
       background-color: #fff !important;
       position: relative !important;
-      z-index: 5 !important;
-      padding: 10px 12px !important;
+      padding: 0 !important;
     }
     #IDX-main.IDX-page-listings .idx-listing-card__content,
     #IDX-main.IDX-page-listings .idx-listing-card__content * {
       color: #18254B !important;
     }
-    /* Badge/status on /i/ page stays white since it sits over the photo */
-    #IDX-main.IDX-page-listings .idx-listing-card__content [class*="status"] { color: #18254B !important; }
-
-    /* ─── /i/ listing page cards: taller photo area ─── */
+    /* Photo link: pull to top of flex column */
     #IDX-main.IDX-page-listings .idx-listing-card__link {
+      order: -1 !important;
+      flex-shrink: 0 !important;
       display: block !important;
+      width: 100% !important;
       height: 200px !important;
       overflow: hidden !important;
       position: relative !important;
     }
     #IDX-main.IDX-page-listings .idx-listing-card__image {
       width: 100% !important;
-      height: 200px !important;
+      height: 100% !important;
       object-fit: cover !important;
       object-position: center center !important;
       display: block !important;
+      position: static !important;
+    }
+    /* Text detail children of __content: padding so they have breathing room */
+    #IDX-main.IDX-page-listings .idx-listing-card__content > :not(.idx-listing-card__link) {
+      padding-left: 12px !important;
+      padding-right: 12px !important;
+    }
+    #IDX-main.IDX-page-listings .idx-listing-card__content > :not(.idx-listing-card__link):first-of-type {
+      padding-top: 8px !important;
+    }
+    #IDX-main.IDX-page-listings .idx-listing-card__content > :not(.idx-listing-card__link):last-child {
+      padding-bottom: 10px !important;
     }
 
     /* ─── Listings count: hide from filter bar; JS moves it above cards ─── */
