@@ -180,5 +180,19 @@
   </footer>
 
   <script src="main.js"></script>
+  <script>
+  (function() {
+    function hideFavorites() {
+      var widget = document.querySelector('idx-listings-showcase');
+      if (!widget || !widget.shadowRoot) { setTimeout(hideFavorites, 400); return; }
+      if (widget.shadowRoot.getElementById('tjg-no-favorites')) return;
+      var s = document.createElement('style');
+      s.id = 'tjg-no-favorites';
+      s.textContent = '[class*="favorite"],[class*="__heart"],[class*="save-listing"]{display:none!important;} .idx-listings-showcase__login-form,[class*="login-form"]{display:none!important;}';
+      widget.shadowRoot.appendChild(s);
+    }
+    setTimeout(hideFavorites, 1000);
+  })();
+  </script>
 </body>
 </html>
