@@ -92,3 +92,94 @@ document.addEventListener('DOMContentLoaded', () => {
   fadeEls.forEach(el => fadeObserver.observe(el));
 
 });
+
+// ── Universal IDX widget shadow DOM styles ──
+// Runs on any page with an idx-listings-showcase widget (community pages).
+// Injects fonts, layout, and badge styles so all carousels look identical.
+(function() {
+  var TJG_WIDGET_CSS = `
+    :host { background: transparent !important; }
+    * { box-sizing: border-box; font-family: 'Lato', sans-serif !important; }
+    [class*="price"], [class*="Price"] { font-family: 'Marcellus', serif !important; }
+    .idx-showcase,
+    .idx-showcase__grid,
+    [class*="showcase"],
+    [class*="listings-grid"],
+    [class*="grid"] { background: transparent !important; }
+    /* Hide courtesy text and header View All link */
+    .idx-listing-card__courtesy { display: none !important; }
+    .idx-listings-showcase__header a { display: none !important; }
+    .idx-showcase__view-all,
+    [class*="view-all"],
+    [class*="viewAll"] { display: none !important; }
+    /* Card wrap */
+    .idx-listing-card__wrap { position: relative !important; overflow: hidden !important; }
+    /* Status badge — move to top-left, style as solid navy pill */
+    .idx-listing-card__banner-info {
+      position: absolute !important;
+      top: 0 !important; left: 0 !important; right: 0 !important; bottom: auto !important;
+      z-index: 5 !important;
+      display: flex !important;
+      align-items: flex-start !important;
+      justify-content: space-between !important;
+      padding: 8px !important;
+      background: transparent !important;
+      pointer-events: none !important;
+    }
+    .idx-listing-card__prop-status,
+    .idx-listing-card__status,
+    [class*="prop-status"] {
+      background: #18254B !important;
+      color: #fff !important;
+      padding: 4px 10px !important;
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.65rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      border-radius: 2px !important;
+      pointer-events: auto !important;
+      display: inline-block !important;
+    }
+    [class*="pending"] .idx-listing-card__prop-status { background: #9e8b7e !important; }
+    .idx-listing-card__favorite { pointer-events: auto !important; }
+    /* Details & MLS logo */
+    .idx-listing-card__details { padding-bottom: 2rem !important; }
+    .idx-listing-card__additional-info {
+      position: absolute !important; bottom: 2rem !important; right: 1rem !important;
+      background: transparent !important; padding: 0 !important; margin: 0 !important;
+    }
+    .idx-listing-card__mls { background: transparent !important; mix-blend-mode: multiply !important; }
+    .idx-listing-card__mls img { height: 38px !important; width: auto !important; mix-blend-mode: multiply !important; background: transparent !important; }
+  `;
+
+  function applyWidgetStyles() {
+    var widgets = document.querySelectorAll('idx-listings-showcase');
+    if (!widgets.length) return;
+    widgets.forEach(function(widget) {
+      if (!widget.shadowRoot) return;
+      if (widget.shadowRoot.getElementById('tjg-widget-styles')) return;
+      var fontLink = document.createElement('link');
+      fontLink.rel = 'stylesheet';
+      fontLink.href = 'https://fonts.googleapis.com/css2?family=Marcellus&family=Lato:wght@300;400;700;900&display=swap';
+      widget.shadowRoot.appendChild(fontLink);
+      var style = document.createElement('style');
+      style.id = 'tjg-widget-styles';
+      style.textContent = TJG_WIDGET_CSS;
+      widget.shadowRoot.appendChild(style);
+    });
+  }
+
+  // Poll until widgets are ready, then stop
+  var _widgetInterval = setInterval(function() {
+    var widgets = document.querySelectorAll('idx-listings-showcase');
+    if (!widgets.length) return;
+    var allDone = true;
+    widgets.forEach(function(w) {
+      if (!w.shadowRoot || !w.shadowRoot.getElementById('tjg-widget-styles')) allDone = false;
+    });
+    applyWidgetStyles();
+    if (allDone) clearInterval(_widgetInterval);
+  }, 500);
+  setTimeout(function() { clearInterval(_widgetInterval); }, 30000);
+})();
