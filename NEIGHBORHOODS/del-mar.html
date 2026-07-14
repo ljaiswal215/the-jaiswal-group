@@ -635,11 +635,16 @@
       const widget = document.querySelector('idx-listings-showcase');
       if (!widget || !widget.shadowRoot) { setTimeout(initWidget, 400); return; }
       if (widget.shadowRoot.getElementById('tjg-widget-styles')) return;
+      const fontLink = document.createElement('link');
+      fontLink.rel = 'stylesheet';
+      fontLink.href = 'https://fonts.googleapis.com/css2?family=Marcellus&family=Lato:wght@300;400;700;900&display=swap';
+      widget.shadowRoot.appendChild(fontLink);
       const style = document.createElement('style');
       style.id = 'tjg-widget-styles';
       style.textContent = `
         :host { background: transparent !important; }
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; font-family: 'Lato', sans-serif !important; }
+        [class*="price"], [class*="Price"] { font-family: 'Marcellus', serif !important; }
         .idx-showcase,
         .idx-showcase__grid,
         [class*="showcase"],
