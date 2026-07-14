@@ -150,6 +150,40 @@
       padding-bottom: 10px !important;
     }
 
+    /* ─── /i/ page cards: injected details section (built from data-* attrs by JS) ─── */
+    #IDX-main.IDX-page-listings .tjg-card-details {
+      background: #fff !important;
+      padding: 8px 12px 10px !important;
+      flex-shrink: 0 !important;
+    }
+    #IDX-main.IDX-page-listings .tjg-cd-status {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.65rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      color: #18254B !important;
+      margin-bottom: 2px !important;
+    }
+    #IDX-main.IDX-page-listings .tjg-cd-price {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 1.05rem !important;
+      font-weight: 700 !important;
+      color: #18254B !important;
+      margin-bottom: 3px !important;
+    }
+    #IDX-main.IDX-page-listings .tjg-cd-specs {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.72rem !important;
+      color: #18254B !important;
+      margin-bottom: 2px !important;
+    }
+    #IDX-main.IDX-page-listings .tjg-cd-addr {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.72rem !important;
+      color: #18254B !important;
+    }
+
     /* ─── Listings count: hide from filter bar; JS moves it above cards ─── */
     #IDX-main.IDX-page-listings #listing-results-count__chip { display: none !important; }
     #listing-results-count__chip svg { display: none !important; }
@@ -2054,6 +2088,37 @@
         total.style.setProperty('margin', '0', 'important');
       }
 
+      function _buildListingCardDetails() {
+        var idxMain = document.getElementById('IDX-main');
+        if (!idxMain || !idxMain.classList.contains('IDX-page-listings')) return;
+        idxMain.querySelectorAll('article.idx-listing-card:not([data-tjg-details])').forEach(function(card) {
+          card.setAttribute('data-tjg-details', '1');
+          var price   = parseInt(card.getAttribute('data-price')     || '0', 10);
+          var beds    = card.getAttribute('data-beds')    || '';
+          var baths   = card.getAttribute('data-baths')   || '';
+          var sqft    = card.getAttribute('data-sqft')    || '';
+          var status  = (card.getAttribute('data-idxstatus') || '').trim();
+          var img     = card.querySelector('.idx-listing-card__image');
+          var address = img ? (img.getAttribute('alt') || '') : '';
+          var specs   = [];
+          if (beds)  specs.push(beds  + ' Bed');
+          if (baths) specs.push(baths + ' Bath');
+          if (sqft)  specs.push(sqft  + ' SqFt');
+          var html = '';
+          if (status) html += '<div class="tjg-cd-status">Status ' +
+            status.charAt(0).toUpperCase() + status.slice(1).toLowerCase() + '</div>';
+          if (price)         html += '<div class="tjg-cd-price">$' + price.toLocaleString() + '</div>';
+          if (specs.length)  html += '<div class="tjg-cd-specs">'  + specs.join(' · ')      + '</div>';
+          if (address)       html += '<div class="tjg-cd-addr">'   + address                + '</div>';
+          if (!html) return;
+          var details = document.createElement('div');
+          details.className = 'tjg-card-details';
+          details.innerHTML = html;
+          var content = card.querySelector('.idx-listing-card__content');
+          if (content) content.appendChild(details);
+        });
+      }
+
       function _tjgDispatch() {
         _reorderFilterPills();
         _styleSearchBar();
@@ -2064,6 +2129,7 @@
         _injectAgentCard();
         _fixHeaderButtons();
         _moveResultsCount();
+        _buildListingCardDetails();
 
         // Tour button label
         document.querySelectorAll('.IDX-detailsVirtualTourAction').forEach(function(btn) {
