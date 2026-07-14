@@ -469,11 +469,17 @@
       position: static !important;
     }
 
-    /* "Virtual Tour" overlay text: navy pill at top-left of photo */
+    /* "Virtual Tour" overlay: IDX sizes this to cover the full photo (gradient scrim).
+       Reset to content-size so it becomes a small pill badge, not a full navy cover. */
     .idx-listing-card__image-overlay {
       position: absolute !important;
       top: 8px !important;
       left: 8px !important;
+      right: auto !important;
+      bottom: auto !important;
+      width: auto !important;
+      height: auto !important;
+      display: inline-block !important;
       background: #18254B !important;
       color: #fff !important;
       font-family: 'Lato', sans-serif !important;
@@ -577,13 +583,33 @@
       background: transparent !important;
     }
 
+    /* Narrow cards: hide native IDX text content (status/price/address in IDX format).
+       The JS-injected .tjg-card-details block shows our branded version instead. */
+    .idx-listing-card__content--narrow > :not(.idx-listing-card__link):not(.tjg-card-details) {
+      display: none !important;
+    }
+    /* Narrow .tjg-card-details: cream bg to match card */
+    .idx-listing-card__content--narrow .tjg-card-details,
+    .idx-listing-card__content--narrow ~ .tjg-card-details {
+      background: #F3EFE8 !important;
+      padding: 8px 10px 10px !important;
+    }
+
     /* Restore white bg on /i/ listing pages — those use JS-injected .tjg-card-details */
-    #IDX-main.IDX-page-listings .idx-listing-card,
-    #IDX-main.IDX-page-listings .idx-listing-card__content {
+    #IDX-main.IDX-page-listings .idx-listing-card:not(:has(.idx-listing-card__content--narrow)),
+    #IDX-main.IDX-page-listings .idx-listing-card__content:not(.idx-listing-card__content--narrow) {
       background: #fff !important;
     }
     #IDX-main.IDX-page-listings .tjg-card-details {
       background: #fff !important;
+    }
+    /* Narrow cards: keep cream bg even on IDX-page-listings pages */
+    #IDX-main.IDX-page-listings .idx-listing-card:has(.idx-listing-card__content--narrow),
+    #IDX-main.IDX-page-listings .idx-listing-card__content--narrow {
+      background: #F3EFE8 !important;
+    }
+    #IDX-main.IDX-page-listings .idx-listing-card__content--narrow .tjg-card-details {
+      background: #F3EFE8 !important;
     }
 
     /* ─── Leaflet + IDX map controls: navy brand ─── */
