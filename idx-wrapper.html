@@ -1511,31 +1511,37 @@
     function _renameListingsFilterBtns() {
       var idxMain = document.getElementById('IDX-main');
       if (!idxMain || !idxMain.classList.contains('IDX-page-listings')) return;
+      // Non-anchored patterns so a trailing caret/chevron in textContent doesn't block the match
       var renames = [
-        [/^all\s+active$/i,               'Status'       ],
-        [/^active$/i,                      'Status'       ],
-        [/^all\s+property\s+types?$/i,     'Property Type'],
-        [/^all\s+types?$/i,               'Property Type'],
-        [/^any\s+price$/i,                'Any Price'    ],
-        [/^all\s+sizes?$/i,               'Any Size'     ],
-        [/^any\s+size$/i,                 'Any Size'     ],
-        [/^all\s+sq\.?\s*ft\.?$/i,        'Any Size'     ],
-        [/^all\s+beds?$/i,                'All Beds'     ],
-        [/^all\s+baths?$/i,               'All Baths'    ],
+        [/all\s+active/i,          'Status'       ],
+        [/\bactive\b/i,            'Status'       ],
+        [/all\s+property\s+type/i, 'Property Type'],
+        [/all\s+type/i,            'Property Type'],
+        [/any\s+price/i,           'Any Price'    ],
+        [/all\s+size/i,            'Any Size'     ],
+        [/any\s+size/i,            'Any Size'     ],
+        [/all\s+sq/i,              'Any Size'     ],
+        [/all\s+bed/i,             'All Beds'     ],
+        [/all\s+bath/i,            'All Baths'    ],
       ];
-      document.querySelectorAll('.idx-filter-button button').forEach(function(btn) {
+      // Try both the IDX class and the container class as fallback
+      var btns = document.querySelectorAll('.idx-filter-button button, .filter-buttons-container button');
+      btns.forEach(function(btn) {
         var fullText = btn.textContent.trim();
-        renames.forEach(function(pair) {
-          if (!pair[0].test(fullText)) return;
+        for (var i = 0; i < renames.length; i++) {
+          if (!renames[i][0].test(fullText)) continue;
+          var newLabel = renames[i][1];
+          // Replace the first substantive text node (skip single icon chars like › ▾)
           var walker = document.createTreeWalker(btn, NodeFilter.SHOW_TEXT, null, false);
           var node;
           while ((node = walker.nextNode())) {
-            if (pair[0].test(node.nodeValue.trim())) {
-              node.nodeValue = pair[1];
-              return;
+            if (node.nodeValue.trim().length > 2) {
+              node.nodeValue = newLabel;
+              break;
             }
           }
-        });
+          break;
+        }
       });
     }
     _renameListingsFilterBtns();
