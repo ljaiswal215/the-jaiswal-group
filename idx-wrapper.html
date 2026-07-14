@@ -427,6 +427,165 @@
       box-shadow: none !important;
     }
 
+    /* ─── Saved Links / results page map-view sidebar cards ─────────────────
+       Matches mapsearch card style: vertical layout, cream bg, navy badge,
+       visible price + address, transparent CRMLS logo.
+    ─────────────────────────────────────────────────────────────────────── */
+
+    /* Full card: cream bg */
+    .idx-listing-card {
+      background: #F3EFE8 !important;
+      overflow: hidden !important;
+      position: relative !important;
+    }
+
+    /* Content area: always vertical (column), cream bg */
+    .idx-listing-card__content,
+    .idx-listing-card__content--narrow {
+      display: flex !important;
+      flex-direction: column !important;
+      background: #F3EFE8 !important;
+      width: 100% !important;
+    }
+
+    /* Photo link: pull to top, full width, fixed height */
+    .idx-listing-card__link {
+      order: -1 !important;
+      display: block !important;
+      width: 100% !important;
+      height: 185px !important;
+      overflow: hidden !important;
+      position: relative !important;
+      flex-shrink: 0 !important;
+    }
+
+    /* Photo image: fill the link box */
+    .idx-listing-card__image {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      object-position: center !important;
+      display: block !important;
+      position: static !important;
+    }
+
+    /* "Virtual Tour" overlay text: navy pill at top-left of photo */
+    .idx-listing-card__image-overlay {
+      position: absolute !important;
+      top: 8px !important;
+      left: 8px !important;
+      background: #18254B !important;
+      color: #fff !important;
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.6rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      padding: 4px 10px !important;
+      z-index: 2 !important;
+      pointer-events: none !important;
+      line-height: 1.4 !important;
+    }
+
+    /* Heart / actions: absolute top-right of card */
+    .idx-listing-card__actions {
+      position: absolute !important;
+      top: 8px !important;
+      right: 8px !important;
+      z-index: 3 !important;
+      background: transparent !important;
+    }
+    .idx-listing-card__actions button,
+    .idx-listing-card__actions [class*="fav"],
+    .idx-listing-card__actions [class*="heart"],
+    .idx-listing-card__actions [class*="save"] {
+      background: transparent !important;
+      background-color: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+
+    /* Status badge (Active / Pending): navy pill */
+    .idx-listing-card [class*="prop-status"],
+    .idx-listing-card [class*="idxstatus"],
+    .idx-listing-card [class*="status-badge"] {
+      background: #18254B !important;
+      color: #fff !important;
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.6rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      padding: 4px 10px !important;
+      display: inline-block !important;
+      margin: 8px 10px 2px !important;
+    }
+
+    /* Price: large and prominent */
+    .idx-listing-card [class*="price"]:not([class*="reduced"]),
+    .idx-listing-card__price {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 1.05rem !important;
+      font-weight: 700 !important;
+      color: #18254B !important;
+      padding: 6px 10px 2px !important;
+      display: block !important;
+      background: transparent !important;
+    }
+
+    /* Price-reduced label: smaller, muted */
+    .idx-listing-card [class*="reduced"] {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.7rem !important;
+      color: #7a7269 !important;
+      padding: 0 10px !important;
+    }
+
+    /* Address */
+    .idx-listing-card [class*="address"],
+    .idx-listing-card__address {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.72rem !important;
+      color: #18254B !important;
+      padding: 2px 10px !important;
+      background: transparent !important;
+    }
+
+    /* Beds / baths / sqft specs */
+    .idx-listing-card [class*="spec"],
+    .idx-listing-card [class*="beds"],
+    .idx-listing-card [class*="baths"],
+    .idx-listing-card [class*="sqft"],
+    .idx-listing-card [class*="sq-ft"],
+    .idx-listing-card__specs {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.72rem !important;
+      color: #18254B !important;
+      padding: 0 10px 8px !important;
+      background: transparent !important;
+    }
+
+    /* CRMLS logo: transparent background */
+    .idx-listing-card [class*="mls"] img,
+    .idx-listing-card [class*="crmls"] img,
+    .idx-listing-card [class*="CRMLS"] img,
+    .idx-listing-card [class*="attrib"] img,
+    .idx-listing-card [class*="attribution"] img {
+      mix-blend-mode: multiply !important;
+      max-height: 28px !important;
+      width: auto !important;
+      background: transparent !important;
+    }
+
+    /* Restore white bg on /i/ listing pages — those use JS-injected .tjg-card-details */
+    #IDX-main.IDX-page-listings .idx-listing-card,
+    #IDX-main.IDX-page-listings .idx-listing-card__content {
+      background: #fff !important;
+    }
+    #IDX-main.IDX-page-listings .tjg-card-details {
+      background: #fff !important;
+    }
+
     /* ─── Leaflet + IDX map controls: navy brand ─── */
     .leaflet-control-zoom,
     .leaflet-bar,
