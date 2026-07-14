@@ -121,6 +121,21 @@
     /* Badge/status on /i/ page stays white since it sits over the photo */
     #IDX-main.IDX-page-listings .idx-listing-card__content [class*="status"] { color: #18254B !important; }
 
+    /* ─── /i/ listing page cards: taller photo area ─── */
+    #IDX-main.IDX-page-listings .idx-listing-card__link {
+      display: block !important;
+      height: 200px !important;
+      overflow: hidden !important;
+      position: relative !important;
+    }
+    #IDX-main.IDX-page-listings .idx-listing-card__image {
+      width: 100% !important;
+      height: 200px !important;
+      object-fit: cover !important;
+      object-position: center center !important;
+      display: block !important;
+    }
+
     /* ─── Listings count: hide from filter bar; JS moves it above cards ─── */
     #IDX-main.IDX-page-listings #listing-results-count__chip { display: none !important; }
     #listing-results-count__chip svg { display: none !important; }
