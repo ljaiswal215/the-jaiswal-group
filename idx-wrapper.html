@@ -829,8 +829,8 @@
       box-shadow: none !important;
       background: #fff !important;
       background-color: #fff !important;
-      height: 30px !important;
-      min-height: 30px !important;
+      height: 36px !important;
+      min-height: 36px !important;
       box-sizing: border-box !important;
       display: flex !important;
       align-items: center !important;
@@ -1257,7 +1257,7 @@
         // Fixed width and height on the flyto column
         '#prime-map-search--filter-bar__flyto{width:190px!important;min-width:190px!important;max-width:190px!important;align-self:stretch!important;flex-shrink:0!important;overflow:hidden!important;}' +
         // Inner containers fill the column without overflowing; border + radius + height match filter pills
-        '#fly-to-options-containers,.pm-ccz-fly-to-field,.pm-ccz-fly-to-field-disabled{width:100%!important;min-width:0!important;max-width:100%!important;height:100%!important;overflow:hidden!important;}' +
+        '#fly-to-options-containers,.pm-ccz-fly-to-field,.pm-ccz-fly-to-field-disabled{width:100%!important;min-width:0!important;max-width:100%!important;height:100%!important;overflow:visible!important;}' +
         '#prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field,#prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field-disabled{border:1px solid rgba(0,0,0,0.18)!important;box-shadow:none!important;border-radius:6px!important;height:100%!important;display:flex!important;align-items:center!important;background:#fff!important;background-color:#fff!important;padding-bottom:8px!important;}' +
         '#prime-map-search--filter-bar__flyto .vue-tags-input,#prime-map-search--filter-bar__flyto .ti-input,#prime-map-search--filter-bar__flyto .ti-tags{background:#fff!important;background-color:#fff!important;}' +
         // Tags row stays on one line and clips rather than stretching the bar
@@ -1282,14 +1282,14 @@
     function _lockSearchBarWidth() {
       var flyto = document.getElementById('prime-map-search--filter-bar__flyto');
       if (!flyto) return;
-      var h = '30px';
+      var h = '36px';
       flyto.style.setProperty('width',       '260px',  'important');
       flyto.style.setProperty('min-width',   '260px',  'important');
       flyto.style.setProperty('max-width',   '260px',  'important');
       flyto.style.setProperty('height',      h,        'important');
       flyto.style.setProperty('align-self',  'center', 'important');
       flyto.style.setProperty('flex-shrink', '0',      'important');
-      flyto.style.setProperty('overflow',    'hidden', 'important');
+      flyto.style.setProperty('overflow',    'visible', 'important');
       var field = flyto.querySelector('.pm-ccz-fly-to-field, .pm-ccz-fly-to-field-disabled');
       if (field) {
         field.style.setProperty('height',     h, 'important');
