@@ -128,6 +128,12 @@
     .nbhd-faq-item p+p{margin-top:0.85rem;}
     .nbhd-faq-item a{color:#1C3063;text-decoration:underline;text-decoration-color:rgba(28,48,99,0.3);text-underline-offset:2px;transition:color 0.2s,text-decoration-color 0.2s;}
     .nbhd-faq-item a:hover{color:#B38987;text-decoration-color:#B38987;}
+      .nbhd-open-house-banner{background:#18254B;padding:2rem clamp(1.5rem,4vw,3rem);}
+    .nbhd-open-house-banner-inner{display:flex;align-items:center;justify-content:space-between;gap:2rem;}
+    .nbhd-open-house-banner-inner h2{font-family:'Marcellus',serif;font-size:clamp(1.1rem,2vw,1.45rem);color:#fff;letter-spacing:0.06em;margin:0;}
+    .nbhd-open-house-banner-inner a{flex-shrink:0;display:inline-block;padding:0.85rem 2.25rem;font-family:'Lato',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:#fff;border:1.5px solid rgba(255,255,255,0.6);background:transparent;white-space:nowrap;transition:border-color 0.22s,color 0.22s,background 0.22s;}
+    .nbhd-open-house-banner-inner a:hover{border-color:#B38987;color:#B38987;}
+    @media(max-width:640px){.nbhd-open-house-banner-inner{flex-direction:column;text-align:center;}}
   </style>
 </head>
 <body>
@@ -270,6 +276,12 @@
       <div class="nbhd-listings-cta">
         <a href="http://thejaiswalgroup.idxbroker.com/idx/map/mapsearch" target="_blank" rel="noopener">VIEW ALL LISTINGS</a>
       </div>
+    </div>
+  </section>
+  <section class="nbhd-open-house-banner">
+    <div class="nbhd-open-house-banner-inner">
+      <h2>LOOKING FOR UPCOMING OPEN HOUSES IN POWAY?</h2>
+      <a href="../open-houses-poway.html">View Open Houses</a>
     </div>
   </section>
 
