@@ -151,6 +151,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     .idx-listing-card__mls { background: transparent !important; mix-blend-mode: multiply !important; }
     .idx-listing-card__mls img { height: 38px !important; width: auto !important; mix-blend-mode: multiply !important; background: transparent !important; }
+    /* Open house widget uses idx-property-card__* class names */
+    .idx-property-card__mls,
+    .idx-property-card__mls-logo { background: transparent !important; mix-blend-mode: multiply !important; }
+    .idx-property-card__mls img,
+    .idx-property-card__mls-logo img { mix-blend-mode: multiply !important; background: transparent !important; }
   `;
 
   function applyWidgetStyles() {
