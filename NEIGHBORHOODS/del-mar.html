@@ -626,6 +626,13 @@
       const style = document.createElement('style');
       style.id = 'tjg-widget-styles';
       style.textContent = `
+        :host { background: transparent !important; }
+        * { box-sizing: border-box; }
+        .idx-showcase,
+        .idx-showcase__grid,
+        [class*="showcase"],
+        [class*="listings-grid"],
+        [class*="grid"] { background: transparent !important; }
         .idx-listing-card__courtesy { display: none !important; }
         .idx-listing-card__wrap { position: relative !important; }
         .idx-listing-card__details { padding-bottom: 2rem !important; }
