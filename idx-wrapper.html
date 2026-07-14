@@ -492,15 +492,31 @@
       pointer-events: none !important;
       line-height: 1.4 !important;
     }
+    /* Ensure child text nodes inside the overlay are also white */
+    .idx-listing-card__image-overlay * {
+      color: #fff !important;
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.6rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.1em !important;
+    }
 
-    /* Heart / actions: absolute top-right of card */
+    /* Remove default gap between listing card rows in the results panel */
+    .idx-results__listing {
+      padding: 0 !important;
+      margin: 0 0 8px 0 !important;
+    }
+
+    /* Heart / actions: absolute top-right, fully transparent */
     .idx-listing-card__actions {
       position: absolute !important;
       top: 8px !important;
       right: 8px !important;
       z-index: 3 !important;
       background: transparent !important;
+      background-color: transparent !important;
     }
+    .idx-listing-card__actions *,
     .idx-listing-card__actions button,
     .idx-listing-card__actions [class*="fav"],
     .idx-listing-card__actions [class*="heart"],
@@ -509,6 +525,14 @@
       background-color: transparent !important;
       border: none !important;
       box-shadow: none !important;
+    }
+    /* Heart SVG: white so it's visible against the photo */
+    .idx-listing-card__actions svg,
+    .idx-listing-card__actions svg path,
+    .idx-listing-card__actions button svg {
+      fill: rgba(255,255,255,0.85) !important;
+      stroke: rgba(255,255,255,0.85) !important;
+      color: rgba(255,255,255,0.85) !important;
     }
 
     /* Status badge (Active / Pending): navy pill */
