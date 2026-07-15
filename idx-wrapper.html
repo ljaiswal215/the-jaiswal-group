@@ -1795,39 +1795,37 @@
     var _ptInterval = setInterval(_renameFilterLabels, 500);
     setTimeout(function() { clearInterval(_ptInterval); }, 30000);
 
-    // Rename /i/ listing-page filter buttons to match mapsearch labels
+    // Rename /i/ listing-page filter buttons to match mapsearch labels.
+    // Pills use div.idx-filter-button > div > span — no <button> element inside.
     function _renameListingsFilterBtns() {
       var idxMain = document.getElementById('IDX-main');
       if (!idxMain || !idxMain.classList.contains('IDX-page-listings')) return;
-      // Non-anchored patterns so a trailing caret/chevron in textContent doesn't block the match
       var renames = [
         [/all\s+active/i,          'Status'       ],
         [/\bactive\b/i,            'Status'       ],
         [/all\s+property\s+type/i, 'Property Type'],
         [/all\s+type/i,            'Property Type'],
         [/any\s+price/i,           'Any Price'    ],
+        [/all\s+price/i,           'Any Price'    ],
+        [/price\s+range/i,         'Any Price'    ],
         [/all\s+size/i,            'Any Size'     ],
         [/any\s+size/i,            'Any Size'     ],
         [/all\s+sq/i,              'Any Size'     ],
+        [/sq\.?\s*ft/i,            'Any Size'     ],
         [/all\s+bed/i,             'All Beds'     ],
+        [/bedrooms?/i,             'All Beds'     ],
         [/all\s+bath/i,            'All Baths'    ],
+        [/bathrooms?/i,            'All Baths'    ],
       ];
-      // Try both the IDX class and the container class as fallback
-      var btns = document.querySelectorAll('.idx-filter-button button, .filter-buttons-container button');
-      btns.forEach(function(btn) {
-        var fullText = btn.textContent.trim();
+      // Target the span inside each pill — IDX renders div.idx-filter-button > div > span
+      document.querySelectorAll('.idx-filter-button').forEach(function(pill) {
+        // Find the first span (the visible label); skip if already renamed
+        var span = pill.querySelector('span');
+        if (!span) return;
+        var fullText = span.textContent.trim();
         for (var i = 0; i < renames.length; i++) {
           if (!renames[i][0].test(fullText)) continue;
-          var newLabel = renames[i][1];
-          // Replace the first substantive text node (skip single icon chars like › ▾)
-          var walker = document.createTreeWalker(btn, NodeFilter.SHOW_TEXT, null, false);
-          var node;
-          while ((node = walker.nextNode())) {
-            if (node.nodeValue.trim().length > 2) {
-              node.nodeValue = newLabel;
-              break;
-            }
-          }
+          span.textContent = renames[i][1];
           break;
         }
       });
@@ -2415,6 +2413,7 @@
 
       function _tjgDispatch() {
         _reorderFilterPills();
+        _renameListingsFilterBtns();
         _styleSearchBar();
         _lockSearchBarWidth();
         _fixFlytoPlaceholder();
