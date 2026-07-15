@@ -614,37 +614,38 @@
     .idx-listing-card__content--narrow > :not(.idx-listing-card__link):not(.tjg-card-details):not(.idx-listing-card__additional-info):not([class*="mls"]):not([class*="attribution"]) {
       display: none !important;
     }
-    /* CRMLS logo: absolute bottom-right corner of card, inline with details */
-    .idx-listing-card__content--narrow .idx-listing-card__additional-info {
-      position: absolute !important;
-      bottom: 8px !important;
-      right: 8px !important;
-      background: transparent !important;
-      padding: 0 !important;
-      margin: 0 !important;
+    /* Address + CRMLS logo on one flex row */
+    .tjg-cd-bottom {
       display: flex !important;
       align-items: flex-end !important;
+      justify-content: space-between !important;
+      gap: 6px !important;
     }
-    .idx-listing-card__content--narrow .idx-listing-card__additional-info img,
-    .idx-listing-card__content--narrow [class*="mls"] img,
-    .idx-listing-card__content--narrow [class*="crmls"] img {
+    .tjg-cd-addr {
+      flex: 1 !important;
+      min-width: 0 !important;
+    }
+    .tjg-crmls-logo {
       max-height: 22px !important;
       width: auto !important;
+      flex-shrink: 0 !important;
       mix-blend-mode: multiply !important;
       background: transparent !important;
+      display: block !important;
     }
-    /* Narrow .tjg-card-details: cream bg, extra bottom room for CRMLS logo */
+    /* Narrow .tjg-card-details: cream bg */
     .idx-listing-card__content--narrow .tjg-card-details,
     .idx-listing-card__content--narrow ~ .tjg-card-details {
       background: #F3EFE8 !important;
-      padding: 8px 10px 32px !important;
+      padding: 8px 10px 10px !important;
     }
-    /* Align all detail lines to the same left edge — zero out individual element padding */
-    .idx-listing-card__content--narrow .tjg-cd-price,
-    .idx-listing-card__content--narrow .tjg-cd-specs,
-    .idx-listing-card__content--narrow .tjg-cd-addr {
+    /* All detail lines: same left edge, consistent spacing */
+    .tjg-card-details .tjg-cd-price,
+    .tjg-card-details .tjg-cd-specs,
+    .tjg-card-details .tjg-cd-bottom {
+      display: block !important;
       padding: 0 !important;
-      margin: 0 0 2px 0 !important;
+      margin: 0 0 3px 0 !important;
     }
 
     /* Restore white bg on /i/ listing pages — those use JS-injected .tjg-card-details */
@@ -2354,11 +2355,22 @@
             }
           }
 
-          // Details block: price, specs, address (no status — it lives on the photo)
+          // Grab CRMLS logo from IDX's native additional-info block, then hide that block
+          var crmlsImg = card.querySelector('.idx-listing-card__additional-info img, [class*="mls"] img, [class*="crmls"] img');
+          var crmlsSrc = crmlsImg ? crmlsImg.getAttribute('src') : '';
+          var nativeInfo = card.querySelector('.idx-listing-card__additional-info');
+          if (nativeInfo) nativeInfo.style.setProperty('display', 'none', 'important');
+
+          // Details block: price / specs / bottom-row (address + CRMLS logo)
           var html = '';
-          if (price)         html += '<div class="tjg-cd-price">$' + price.toLocaleString() + '</div>';
-          if (specs.length)  html += '<div class="tjg-cd-specs">'  + specs.join(' · ')      + '</div>';
-          if (address)       html += '<div class="tjg-cd-addr">'   + address                + '</div>';
+          if (price)        html += '<div class="tjg-cd-price">$' + price.toLocaleString() + '</div>';
+          if (specs.length) html += '<div class="tjg-cd-specs">' + specs.join(' · ') + '</div>';
+          // Address and CRMLS logo share one flex row
+          var bottomHtml = '<div class="tjg-cd-bottom">';
+          bottomHtml += '<div class="tjg-cd-addr">' + (address || '') + '</div>';
+          if (crmlsSrc) bottomHtml += '<img class="tjg-crmls-logo" src="' + crmlsSrc + '" alt="CRMLS" loading="lazy">';
+          bottomHtml += '</div>';
+          if (address || crmlsSrc) html += bottomHtml;
           if (!html) return;
           var details = document.createElement('div');
           details.className = 'tjg-card-details';
