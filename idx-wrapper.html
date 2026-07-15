@@ -1250,7 +1250,7 @@
       box-sizing: border-box !important;
       display: flex !important;
       align-items: center !important;
-      padding-bottom: 8px !important;
+      padding: 0 !important;
     }
     #prime-map-search--filter-bar__flyto .vue-tags-input,
     #prime-map-search--filter-bar__flyto .ti-input,
@@ -1265,11 +1265,14 @@
     #prime-map-search--filter-bar__flyto .ti-tags {
       flex-wrap: nowrap !important;
       overflow: hidden !important;
+      align-items: center !important;
     }
     #prime-map-search--filter-bar__flyto .ti-tag {
       background: #18254B !important;
       background-color: #18254B !important;
       color: #fff !important;
+      display: inline-flex !important;
+      align-items: center !important;
     }
     .filter-buttons-container { padding-left: 20px !important; }
   </style>
@@ -1674,14 +1677,14 @@
         '#prime-map-search--filter-bar__flyto{width:190px!important;min-width:190px!important;max-width:190px!important;align-self:stretch!important;flex-shrink:0!important;overflow:hidden!important;}' +
         // Inner containers fill the column without overflowing; border + radius + height match filter pills
         '#fly-to-options-containers,.pm-ccz-fly-to-field,.pm-ccz-fly-to-field-disabled{width:100%!important;min-width:0!important;max-width:100%!important;height:100%!important;overflow:visible!important;}' +
-        '#prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field,#prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field-disabled{border:1px solid rgba(0,0,0,0.18)!important;box-shadow:none!important;border-radius:6px!important;height:100%!important;display:flex!important;align-items:center!important;background:#fff!important;background-color:#fff!important;padding-bottom:8px!important;}' +
+        '#prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field,#prime-map-search--filter-bar__flyto .pm-ccz-fly-to-field-disabled{border:1px solid rgba(0,0,0,0.18)!important;box-shadow:none!important;border-radius:6px!important;height:100%!important;display:flex!important;align-items:center!important;background:#fff!important;background-color:#fff!important;padding:0!important;}' +
         '#prime-map-search--filter-bar__flyto .vue-tags-input,#prime-map-search--filter-bar__flyto .ti-input,#prime-map-search--filter-bar__flyto .ti-tags{background:#fff!important;background-color:#fff!important;}' +
         // Tags row stays on one line and clips rather than stretching the bar
         '#prime-map-search--filter-bar__flyto .vue-tags-input{margin-left:10px!important;overflow:hidden!important;max-width:100%!important;height:100%!important;}' +
         '#prime-map-search--filter-bar__flyto .ti-input{overflow:hidden!important;height:100%!important;align-items:center!important;}' +
-        '#prime-map-search--filter-bar__flyto .ti-tags{flex-wrap:nowrap!important;overflow:hidden!important;max-width:100%!important;}' +
-        // Navy chip background + white text when a location tag is added
-        '#prime-map-search--filter-bar__flyto .ti-tag{background:#18254B!important;background-color:#18254B!important;}' +
+        '#prime-map-search--filter-bar__flyto .ti-tags{flex-wrap:nowrap!important;overflow:hidden!important;max-width:100%!important;align-items:center!important;}' +
+        // Navy chip background + white text when a location tag is added; centered vertically
+        '#prime-map-search--filter-bar__flyto .ti-tag{background:#18254B!important;background-color:#18254B!important;display:inline-flex!important;align-items:center!important;}' +
         '#prime-map-search--filter-bar__flyto .ti-tag,#prime-map-search--filter-bar__flyto .ti-tag *{color:#fff!important;}' +
         // Style the autocomplete suggestions dropdown
         '#prime-map-search--filter-bar__flyto .ti-autocomplete{position:absolute!important;top:100%!important;left:0!important;right:0!important;z-index:9999!important;background:#fff!important;border:1px solid rgba(0,0,0,0.18)!important;border-radius:6px!important;box-shadow:0 4px 12px rgba(0,0,0,0.12)!important;margin-top:4px!important;overflow:hidden!important;}' +
