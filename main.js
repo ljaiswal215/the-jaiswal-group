@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!btn) return;
       e.stopPropagation();
       e.preventDefault();
-      window.location.href = 'https://thejaiswalgroup.idxbroker.com/i/account-registration';
+      window.open('https://thejaiswalgroup.idxbroker.com/i/account-registration', '_blank');
     }, true); // capture phase — fires before IDX's own listener
   }
 
