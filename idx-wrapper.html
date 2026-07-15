@@ -2395,6 +2395,18 @@
         }
       }
 
+      function _setToggleActive(activeBtn) {
+        var toggle = document.getElementById('tjg-view-toggle') || toolbar;
+        toggle.querySelectorAll('button, a').forEach(function(b) {
+          var isActive = b === activeBtn;
+          b.classList.toggle('tjg-vt-active',   isActive);
+          b.classList.toggle('tjg-vt-inactive', !isActive);
+          b.style.setProperty('background', isActive ? '#18254B' : '#F3EFE8', 'important');
+          b.style.setProperty('color',      isActive ? '#ffffff'  : '#18254B', 'important');
+          b.style.setProperty('border',     isActive ? '1px solid #18254B' : '1px solid rgba(0,0,0,0.12)', 'important');
+        });
+      }
+
       toolbar.addEventListener('click', function(e) {
         var btn = e.target.closest('button, a, [role="button"]') || e.target;
         var txt = (btn.textContent || '').trim().toUpperCase();
@@ -2404,10 +2416,12 @@
           e.stopPropagation();
           e.preventDefault();
           idxMain.classList.add('tjg-list-view');
+          _setToggleActive(btn);
           _applyListLayout();
           setTimeout(function() { _applyListLayout(); _tjgSchedule(); }, 200);
         } else if (isMapBtn) {
           idxMain.classList.remove('tjg-list-view');
+          _setToggleActive(btn);
           _restoreMapLayout();
           setTimeout(_alignResultsCount, 400);
         }
