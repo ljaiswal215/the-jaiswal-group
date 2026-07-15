@@ -1675,13 +1675,18 @@
         var ord;
         // Listings-page pills keyed by ID — label changes with active filter, can't use text
         if      (pill.id === 'tjg-lst-status-btn') ord = 0;
-        else if (pill.id === 'tjg-lst-price-btn')  ord = 1;
-        else if (/\bstatus\b/.test(txt))           ord = 2;
-        else if (pill.id === 'tjg-type-btn')        ord = 3;
-        else if (/\bprice\b/.test(txt))             ord = 4;
-        else if (pill.id === 'tjg-sqft-btn')        ord = 5;
-        else if (/\bbed/.test(txt))                 ord = 6;
-        else if (/\bbath/.test(txt))                ord = 7;
+        else if (pill.id === 'tjg-lst-type-btn')   ord = 1;
+        else if (pill.id === 'tjg-lst-price-btn')  ord = 2;
+        else if (pill.id === 'tjg-lst-sqft-btn')   ord = 3;
+        else if (pill.id === 'tjg-lst-beds-btn')   ord = 4;
+        else if (pill.id === 'tjg-lst-baths-btn')  ord = 5;
+        // Map search pills (text-based — only present on mapsearch page)
+        else if (/\bstatus\b/.test(txt))           ord = 0;
+        else if (pill.id === 'tjg-type-btn')        ord = 1;
+        else if (/\bprice\b/.test(txt))             ord = 2;
+        else if (pill.id === 'tjg-sqft-btn')        ord = 3;
+        else if (/\bbed/.test(txt))                 ord = 4;
+        else if (/\bbath/.test(txt))                ord = 5;
         else                                         ord = 9;
         pill.style.setProperty('order', String(ord), 'important');
       });
