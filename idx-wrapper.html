@@ -202,9 +202,17 @@
       text-shadow: none !important;
     }
 
-    /* ─── Listings count: hide from filter bar; JS moves it above cards ─── */
+    /* ─── Listings count: hide from filter bar; JS moves it beside "Search Results" ─── */
     #IDX-main.IDX-page-listings #listing-results-count__chip { display: none !important; }
     #listing-results-count__chip svg { display: none !important; }
+    /* Flex row: "Search Results" left, count right, aligned to card edges */
+    .tjg-results-header {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      padding: 6px 0 4px !important;
+      margin: 0 !important;
+    }
     #IDX-main.IDX-page-listings .idx-results-total__heading {
       font-family: 'Lato', sans-serif !important;
       font-size: 0.68rem !important;
@@ -2325,14 +2333,21 @@
         var idxMain = document.getElementById('IDX-main');
         if (!idxMain || !idxMain.classList.contains('IDX-page-listings')) return;
         var total = document.querySelector('.idx-results__total');
-        var content = document.getElementById('idx-results-content');
-        if (!total || !content) return;
-        if (total.parentElement === content.parentElement && total.nextElementSibling === content) return;
-        content.parentElement.insertBefore(total, content);
-        total.style.setProperty('display', 'block', 'important');
-        total.style.setProperty('text-align', 'right', 'important');
-        total.style.setProperty('padding', '6px 0 4px', 'important');
+        var title = idxMain.querySelector(
+          '.idx-results__category--title, .idx-results-active-title, [class*="category--title"]'
+        );
+        if (!total || !title) return;
+        // Already done
+        if (title.parentElement && title.parentElement.classList.contains('tjg-results-header')) return;
+        // Wrap title + count in a flex row aligned to the card edges
+        var wrap = document.createElement('div');
+        wrap.className = 'tjg-results-header';
+        title.parentNode.insertBefore(wrap, title);
+        wrap.appendChild(title);
+        wrap.appendChild(total);
+        total.style.removeProperty('display');
         total.style.setProperty('margin', '0', 'important');
+        total.style.setProperty('padding', '0', 'important');
       }
 
       function _buildListingCardDetails() {
