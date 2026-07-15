@@ -625,9 +625,8 @@
       background: transparent !important;
     }
 
-    /* Narrow cards: hide native IDX text content (status/price/address in IDX format).
-       Allow the CRMLS logo container and our injected details block through. */
-    .idx-listing-card__content--narrow > :not(.idx-listing-card__link):not(.tjg-card-details):not(.idx-listing-card__additional-info):not([class*="mls"]):not([class*="attribution"]) {
+    /* Narrow cards: hide ALL native IDX content — JS injects our own details + CRMLS logo */
+    .idx-listing-card__content--narrow > :not(.idx-listing-card__link):not(.tjg-card-details) {
       display: none !important;
     }
     /* Address + CRMLS logo on one flex row */
@@ -2353,21 +2352,23 @@
       function _buildListingCardDetails() {
         var idxMain = document.getElementById('IDX-main');
         if (!idxMain || !idxMain.classList.contains('IDX-page-listings')) return;
+
+        // ── Pass 1: inject price / specs / address on first encounter ──
         idxMain.querySelectorAll('article.idx-listing-card:not([data-tjg-details])').forEach(function(card) {
           card.setAttribute('data-tjg-details', '1');
-          var price   = parseInt(card.getAttribute('data-price')     || '0', 10);
-          var beds    = card.getAttribute('data-beds')    || '';
-          var baths   = card.getAttribute('data-baths')   || '';
-          var sqft    = card.getAttribute('data-sqft')    || '';
-          var status  = (card.getAttribute('data-idxstatus') || '').trim();
-          var img     = card.querySelector('.idx-listing-card__image');
+          var price  = parseInt(card.getAttribute('data-price') || '0', 10);
+          var beds   = card.getAttribute('data-beds')  || '';
+          var baths  = card.getAttribute('data-baths') || '';
+          var sqft   = card.getAttribute('data-sqft')  || '';
+          var status = (card.getAttribute('data-idxstatus') || '').trim();
+          var img    = card.querySelector('.idx-listing-card__image');
           var address = img ? (img.getAttribute('alt') || '') : '';
-          var specs   = [];
+          var specs = [];
           if (beds)  specs.push(beds  + ' Bed');
           if (baths) specs.push(baths + ' Bath');
           if (sqft)  specs.push(sqft  + ' SqFt');
 
-          // Status badge: "Active" / "Pending" overlaid at bottom-left of photo
+          // Status badge at bottom-left of photo
           if (status) {
             var link = card.querySelector('.idx-listing-card__link');
             if (link && !link.querySelector('.tjg-status-badge')) {
@@ -2378,28 +2379,37 @@
             }
           }
 
-          // Grab CRMLS logo from IDX's native additional-info block, then hide that block
-          var crmlsImg = card.querySelector('.idx-listing-card__additional-info img, [class*="mls"] img, [class*="crmls"] img');
-          var crmlsSrc = crmlsImg ? crmlsImg.getAttribute('src') : '';
-          var nativeInfo = card.querySelector('.idx-listing-card__additional-info');
-          if (nativeInfo) nativeInfo.style.setProperty('display', 'none', 'important');
-
-          // Details block: price / specs / bottom-row (address + CRMLS logo)
+          // Details block: price / specs / bottom row (address only for now; logo added in Pass 2)
           var html = '';
           if (price)        html += '<div class="tjg-cd-price">$' + price.toLocaleString() + '</div>';
           if (specs.length) html += '<div class="tjg-cd-specs">' + specs.join(' · ') + '</div>';
-          // Address and CRMLS logo share one flex row
-          var bottomHtml = '<div class="tjg-cd-bottom">';
-          bottomHtml += '<div class="tjg-cd-addr">' + (address || '') + '</div>';
-          if (crmlsSrc) bottomHtml += '<img class="tjg-crmls-logo" src="' + crmlsSrc + '" alt="CRMLS" loading="lazy">';
-          bottomHtml += '</div>';
-          if (address || crmlsSrc) html += bottomHtml;
-          if (!html) return;
+          html += '<div class="tjg-cd-bottom"><div class="tjg-cd-addr">' + (address || '') + '</div></div>';
           var details = document.createElement('div');
           details.className = 'tjg-card-details';
           details.innerHTML = html;
           var content = card.querySelector('.idx-listing-card__content');
           if (content) content.appendChild(details);
+        });
+
+        // ── Pass 2: inject CRMLS logo once IDX adds it (retried every observer cycle) ──
+        idxMain.querySelectorAll('article.idx-listing-card[data-tjg-details]:not([data-tjg-logo])').forEach(function(card) {
+          var crmlsEl = card.querySelector('.idx-listing-card__additional-info img, [class*="mls"] img, [class*="crmls"] img');
+          var src = crmlsEl ? (crmlsEl.getAttribute('src') || '') : '';
+          if (!src) return; // not ready yet — will retry on next cycle
+          card.setAttribute('data-tjg-logo', '1');
+          // Hide the native block
+          var nativeInfo = card.querySelector('.idx-listing-card__additional-info');
+          if (nativeInfo) nativeInfo.style.setProperty('display', 'none', 'important');
+          // Append logo to the existing .tjg-cd-bottom row
+          var bottom = card.querySelector('.tjg-cd-bottom');
+          if (bottom && !bottom.querySelector('.tjg-crmls-logo')) {
+            var logoImg = document.createElement('img');
+            logoImg.className = 'tjg-crmls-logo';
+            logoImg.src = src;
+            logoImg.alt = 'CRMLS';
+            logoImg.loading = 'lazy';
+            bottom.appendChild(logoImg);
+          }
         });
       }
 
