@@ -2361,15 +2361,22 @@
 
     // ─── /i/ pages: LIST/MAP toggle → 5-column grid on LIST ─────────────────
 
-    // Finds the container that holds .idx-results__listing card wrappers.
-    // IDX sometimes uses .idx-results__listings (plural) as the grid parent,
-    // but on /i/ saved-link pages the parent may have a different class.
-    // Falling back to firstListing.parentElement is always reliable.
+    // Finds the ACTUAL card grid container on /i/ saved-link pages.
+    // DOM structure: div.idx-results__listings (outer block)
+    //   → div#idx-results-category-active (the real 4-col card grid)  ← we want this
+    //     → div.idx-results__listing (one per card)
+    //   → div (CRMLS copyright block, sibling of the card grid)
+    // Targeting .idx-results__listings (the outer wrapper) caused us to turn its
+    // 5 heterogeneous children into a 5-col grid instead of the actual cards.
     function _findListingsContainer() {
-      var named = document.querySelector('.idx-results__listings');
-      if (named) return named;
+      // Primary: the active category div that IS the card grid on /i/ pages
+      var cat = document.querySelector('#idx-results-category-active, .idx-results__category--active');
+      if (cat) return cat;
+      // Fallback: direct parent of first card wrapper
       var first = document.querySelector('.idx-results__listing');
-      return first ? first.parentElement : null;
+      if (first) return first.parentElement;
+      // Last resort: named outer wrapper
+      return document.querySelector('.idx-results__listings');
     }
 
     function _applyListLayout() {
@@ -2379,45 +2386,45 @@
         map.style.setProperty('width', '0', 'important');
       }
 
+      // listings = #idx-results-category-active (the actual card grid)
       var listings = _findListingsContainer();
       if (!listings) return;
 
-      // Mark so CSS selector [data-tjg-list-grid] also applies
       listings.dataset.tjgListGrid = '1';
 
-      // Collapse the parent wrapper (usually a 2-col grid with map+sidebar)
-      // and hide any siblings that aren't the listings container or the map
-      // (e.g. CRMLS copyright block that occupies the right grid cell).
-      var parent = listings.parentElement;
-      if (parent) {
-        parent.style.setProperty('display', 'block', 'important');
-        parent.style.setProperty('width', '100%', 'important');
-        Array.from(parent.children).forEach(function(child) {
-          if (child !== listings && child.id !== 'IDX-map') {
-            child.dataset.tjgHidden = '1';
-            child.style.setProperty('display', 'none', 'important');
-          }
-        });
-      }
-
+      // Apply 5-col grid directly to the card container
       listings.style.setProperty('display', 'grid', 'important');
       listings.style.setProperty('grid-template-columns', 'repeat(5, 1fr)', 'important');
-      listings.style.setProperty('grid-column', '1 / -1', 'important');
       listings.style.setProperty('gap', '16px', 'important');
       listings.style.setProperty('padding', '16px 24px', 'important');
       listings.style.setProperty('width', '100%', 'important');
       listings.style.setProperty('max-width', 'none', 'important');
       listings.style.setProperty('box-sizing', 'border-box', 'important');
+
+      // Hide the CRMLS copyright block and any other non-card siblings that live
+      // in the outer wrapper (div.idx-results__listings). Keep the results-count
+      // header (.tjg-results-header), map (#IDX-map), and the card grid itself.
+      var parent = listings.parentElement;
+      if (parent) {
+        parent.style.setProperty('display', 'block', 'important');
+        parent.style.setProperty('width', '100%', 'important');
+        Array.from(parent.children).forEach(function(child) {
+          if (child !== listings && child.id !== 'IDX-map' && !child.classList.contains('tjg-results-header')) {
+            child.dataset.tjgHidden = '1';
+            child.style.setProperty('display', 'none', 'important');
+          }
+        });
+      }
     }
 
     function _restoreMapLayout() {
       var map = document.getElementById('IDX-map');
       if (map) { map.style.removeProperty('display'); map.style.removeProperty('width'); }
 
-      var listings = document.querySelector('[data-tjg-list-grid]') || document.querySelector('.idx-results__listings');
+      var listings = document.querySelector('[data-tjg-list-grid]');
       if (listings) {
         delete listings.dataset.tjgListGrid;
-        ['display','grid-template-columns','grid-column','gap','padding','width','max-width','box-sizing']
+        ['display','grid-template-columns','gap','padding','width','max-width','box-sizing']
           .forEach(function(p) { listings.style.removeProperty(p); });
 
         var parent = listings.parentElement;
