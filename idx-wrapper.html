@@ -609,18 +609,21 @@
     .idx-listing-card__content--narrow > :not(.idx-listing-card__link):not(.tjg-card-details):not(.idx-listing-card__additional-info):not([class*="mls"]):not([class*="attribution"]) {
       display: none !important;
     }
-    /* CRMLS logo: show small at bottom-right of details */
+    /* CRMLS logo: absolute bottom-right corner of card, inline with details */
     .idx-listing-card__content--narrow .idx-listing-card__additional-info {
+      position: absolute !important;
+      bottom: 8px !important;
+      right: 8px !important;
       background: transparent !important;
-      padding: 0 10px 8px !important;
+      padding: 0 !important;
       margin: 0 !important;
       display: flex !important;
-      justify-content: flex-end !important;
+      align-items: flex-end !important;
     }
     .idx-listing-card__content--narrow .idx-listing-card__additional-info img,
     .idx-listing-card__content--narrow [class*="mls"] img,
     .idx-listing-card__content--narrow [class*="crmls"] img {
-      max-height: 24px !important;
+      max-height: 22px !important;
       width: auto !important;
       mix-blend-mode: multiply !important;
       background: transparent !important;
