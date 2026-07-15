@@ -516,8 +516,15 @@
     .idx-listing-card__actions [class*="save"] {
       background: transparent !important;
       background-color: transparent !important;
+      background-image: none !important;
       border: none !important;
       box-shadow: none !important;
+    }
+    .idx-listing-card__actions *::before,
+    .idx-listing-card__actions *::after {
+      background: transparent !important;
+      background-color: transparent !important;
+      background-image: none !important;
     }
     /* Heart SVG: transparent fill, white stroke — outline-only heart */
     .idx-listing-card__actions svg,
@@ -628,11 +635,18 @@
       mix-blend-mode: multiply !important;
       background: transparent !important;
     }
-    /* Narrow .tjg-card-details: cream bg to match card */
+    /* Narrow .tjg-card-details: cream bg, extra bottom room for CRMLS logo */
     .idx-listing-card__content--narrow .tjg-card-details,
     .idx-listing-card__content--narrow ~ .tjg-card-details {
       background: #F3EFE8 !important;
-      padding: 8px 10px 10px !important;
+      padding: 8px 10px 32px !important;
+    }
+    /* Align all detail lines to the same left edge — zero out individual element padding */
+    .idx-listing-card__content--narrow .tjg-cd-price,
+    .idx-listing-card__content--narrow .tjg-cd-specs,
+    .idx-listing-card__content--narrow .tjg-cd-addr {
+      padding: 0 !important;
+      margin: 0 0 2px 0 !important;
     }
 
     /* Restore white bg on /i/ listing pages — those use JS-injected .tjg-card-details */
