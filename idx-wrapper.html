@@ -483,36 +483,9 @@
       position: static !important;
     }
 
-    /* "Virtual Tour" overlay: IDX sizes this to cover the full photo (gradient scrim).
-       Reset to content-size so it becomes a small pill badge, not a full navy cover. */
+    /* IDX's image overlay span is empty — hide it; status badge is injected by JS instead */
     .idx-listing-card__image-overlay {
-      position: absolute !important;
-      top: 8px !important;
-      left: 8px !important;
-      right: auto !important;
-      bottom: auto !important;
-      width: auto !important;
-      height: auto !important;
-      display: inline-block !important;
-      background: #18254B !important;
-      color: #fff !important;
-      font-family: 'Lato', sans-serif !important;
-      font-size: 0.6rem !important;
-      font-weight: 700 !important;
-      letter-spacing: 0.1em !important;
-      text-transform: uppercase !important;
-      padding: 4px 10px !important;
-      z-index: 2 !important;
-      pointer-events: none !important;
-      line-height: 1.4 !important;
-    }
-    /* Ensure child text nodes inside the overlay are also white */
-    .idx-listing-card__image-overlay * {
-      color: #fff !important;
-      font-family: 'Lato', sans-serif !important;
-      font-size: 0.6rem !important;
-      font-weight: 700 !important;
-      letter-spacing: 0.1em !important;
+      display: none !important;
     }
 
     /* Remove default gap between listing card rows in the results panel */
@@ -540,13 +513,17 @@
       border: none !important;
       box-shadow: none !important;
     }
-    /* Heart SVG: white so it's visible against the photo */
+    /* Heart SVG: transparent fill, white stroke — outline-only heart */
     .idx-listing-card__actions svg,
-    .idx-listing-card__actions svg path,
     .idx-listing-card__actions button svg {
-      fill: rgba(255,255,255,0.85) !important;
+      fill: none !important;
       stroke: rgba(255,255,255,0.85) !important;
+      stroke-width: 1.5px !important;
       color: rgba(255,255,255,0.85) !important;
+    }
+    .idx-listing-card__actions svg path {
+      fill: none !important;
+      stroke: rgba(255,255,255,0.85) !important;
     }
 
     /* Status badge (Active / Pending): navy pill */
