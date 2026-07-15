@@ -158,6 +158,21 @@ document.addEventListener('DOMContentLoaded', () => {
     .idx-property-card__mls-logo img { mix-blend-mode: multiply !important; background: transparent !important; }
   `;
 
+  // Hide any showcase card whose status badge is not "Active".
+  // IDX maps "Active Under Contract" to "Pending" on the card but still returns it
+  // when filtering by Active status — CSS can't match text content, so we use JS.
+  function hidePendingCards() {
+    document.querySelectorAll('idx-listings-showcase').forEach(function(widget) {
+      var root = widget.shadowRoot;
+      if (!root) return;
+      root.querySelectorAll('.idx-listing-card__prop-status').forEach(function(badge) {
+        if (badge.textContent.trim().toLowerCase() === 'active') return;
+        var card = badge.closest('.idx-listings-showcase__property');
+        if (card) card.style.setProperty('display', 'none', 'important');
+      });
+    });
+  }
+
   function applyWidgetStyles() {
     var widgets = document.querySelectorAll('idx-listings-showcase');
     if (!widgets.length) return;
@@ -252,6 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!w.shadowRoot || !w.shadowRoot.getElementById('tjg-widget-styles')) allDone = false;
     });
     applyWidgetStyles();
+    hidePendingCards();
     if (allDone) clearInterval(_widgetInterval);
   }, 500);
   setTimeout(function() { clearInterval(_widgetInterval); }, 30000);
