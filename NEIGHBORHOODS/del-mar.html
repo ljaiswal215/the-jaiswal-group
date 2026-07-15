@@ -713,30 +713,33 @@
   </footer>
   <script src="../main.js"></script>
   <script>
-  // Limit the listings showcase to 2 rows by hiding cards beyond the column count × 2.
-  // Detects column count dynamically from card positions so it works at any breakpoint.
+  // Limit the listings showcase to 2 rows.
+  // Waits for cards to have real height, then groups by offsetTop and hides rows 3+.
   (function() {
-    var applied = false;
+    var done = false;
     var t = setInterval(function() {
+      if (done) { clearInterval(t); return; }
       var widget = document.querySelector('idx-listings-showcase');
       if (!widget || !widget.shadowRoot) return;
-      var cards = Array.from(widget.shadowRoot.querySelectorAll('.idx-listings-showcase__property'));
-      if (cards.length < 2) return;
-      if (applied) { clearInterval(t); return; }
-      // Count columns: how many cards share the same top position as the first card
-      var firstTop = cards[0].getBoundingClientRect().top;
-      var cols = cards.filter(function(c) {
-        return Math.abs(c.getBoundingClientRect().top - firstTop) < 5;
-      }).length;
-      if (cols < 1) cols = 3;
-      var maxCards = cols * 2;
-      var style = document.createElement('style');
-      style.id = 'tjg-row-limit';
-      style.textContent = '.idx-listings-showcase__property:nth-child(n+' + (maxCards + 1) + '){display:none!important}';
-      widget.shadowRoot.appendChild(style);
-      applied = true;
+      var cards = Array.from(widget.shadowRoot.querySelectorAll('.idx-listings-showcase__property'))
+                    .filter(function(c) { return c.style.display !== 'none'; });
+      if (cards.length < 2 || cards[0].offsetHeight === 0) return;
+      // Group visible cards into rows by offsetTop
+      var rows = [], currentTop = -1;
+      cards.forEach(function(card) {
+        var top = card.offsetTop;
+        if (top > currentTop + 10) { rows.push([]); currentTop = top; }
+        rows[rows.length - 1].push(card);
+      });
+      // Hide everything beyond row 2
+      for (var i = 2; i < rows.length; i++) {
+        rows[i].forEach(function(card) {
+          card.style.setProperty('display', 'none', 'important');
+        });
+      }
+      done = true;
       clearInterval(t);
-    }, 300);
+    }, 500);
     setTimeout(function() { clearInterval(t); }, 20000);
   })();
   </script>
