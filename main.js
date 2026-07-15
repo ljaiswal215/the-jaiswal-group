@@ -145,7 +145,15 @@ document.addEventListener('DOMContentLoaded', () => {
     .idx-listing-card__favorite,
     .idx-listing-card__favorite button,
     .idx-listing-card__favorite svg,
-    .idx-listing-card__favorite i {
+    .idx-listing-card__favorite i,
+    .idx-property-card__favorite,
+    .idx-property-card__favorite button,
+    .idx-property-card__favorite svg,
+    .idx-property-card__favorite i,
+    [class*="__favorite"],
+    [class*="__favorite"] button,
+    [class*="__favorite"] svg,
+    [class*="__favorite"] i {
       display: block !important;
       visibility: visible !important;
       opacity: 1 !important;
