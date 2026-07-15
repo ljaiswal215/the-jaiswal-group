@@ -295,9 +295,15 @@
       display: none !important;
       width: 0 !important;
     }
+    /* Hide CRMLS copyright / any non-listing siblings that appear in the right grid cell */
+    #IDX-main.IDX-page-listings.tjg-list-view .idx-results__content > *:not(.idx-results__listings):not(#IDX-map),
+    #IDX-main.IDX-page-listings.tjg-list-view #idx-results-content > *:not(.idx-results__listings):not(#IDX-map) {
+      display: none !important;
+    }
     #IDX-main.IDX-page-listings.tjg-list-view .idx-results__listings {
       display: grid !important;
       grid-template-columns: repeat(4, 1fr) !important;
+      grid-column: 1 / -1 !important;
       gap: 16px !important;
       padding: 16px 24px !important;
       box-sizing: border-box !important;
@@ -2365,6 +2371,13 @@
         if (content) {
           content.style.setProperty('display', 'block', 'important');
           content.style.setProperty('width', '100%', 'important');
+          // Hide CRMLS copyright block and any other non-listing siblings
+          Array.from(content.children).forEach(function(child) {
+            if (!child.classList.contains('idx-results__listings') && child.id !== 'IDX-map') {
+              child.dataset.tjgHidden = '1';
+              child.style.setProperty('display', 'none', 'important');
+            }
+          });
         }
         var map = document.getElementById('IDX-map');
         if (map) {
@@ -2375,6 +2388,7 @@
         if (listings) {
           listings.style.setProperty('display', 'grid', 'important');
           listings.style.setProperty('grid-template-columns', 'repeat(4, 1fr)', 'important');
+          listings.style.setProperty('grid-column', '1 / -1', 'important');
           listings.style.setProperty('gap', '16px', 'important');
           listings.style.setProperty('padding', '16px 24px', 'important');
           listings.style.setProperty('width', '100%', 'important');
@@ -2385,12 +2399,22 @@
 
       function _restoreMapLayout() {
         var content = document.getElementById('idx-results-content') || document.querySelector('.idx-results__content');
-        if (content) { content.style.removeProperty('display'); content.style.removeProperty('width'); }
+        if (content) {
+          content.style.removeProperty('display');
+          content.style.removeProperty('width');
+          // Restore siblings that were hidden for list view
+          Array.from(content.children).forEach(function(child) {
+            if (child.dataset.tjgHidden) {
+              child.style.removeProperty('display');
+              delete child.dataset.tjgHidden;
+            }
+          });
+        }
         var map = document.getElementById('IDX-map');
         if (map) { map.style.removeProperty('display'); map.style.removeProperty('width'); }
         var listings = document.querySelector('.idx-results__listings');
         if (listings) {
-          ['display','grid-template-columns','gap','padding','width','max-width','box-sizing']
+          ['display','grid-template-columns','grid-column','gap','padding','width','max-width','box-sizing']
             .forEach(function(p) { listings.style.removeProperty(p); });
         }
       }
