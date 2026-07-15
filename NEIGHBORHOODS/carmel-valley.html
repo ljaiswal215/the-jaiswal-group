@@ -739,6 +739,41 @@
   </footer>
 
   <script src="../main.js"></script>
+  <script>
+  (function() {
+    var done = false;
+    var t = setInterval(function() {
+      if (done) { clearInterval(t); return; }
+      var widget = document.querySelector('idx-listings-showcase');
+      if (!widget || !widget.shadowRoot) return;
+      var root = widget.shadowRoot;
+      var allCards = Array.from(root.querySelectorAll('.idx-listings-showcase__property'));
+      if (!allCards.length || allCards[0].offsetHeight === 0) return;
+      var pendingStillVisible = Array.from(root.querySelectorAll('.idx-listing-card__prop-status'))
+        .some(function(b) {
+          var p = b.closest('.idx-listings-showcase__property');
+          return p && p.style.display !== 'none' && b.textContent.trim().toLowerCase() !== 'active';
+        });
+      if (pendingStillVisible) return;
+      var cards = allCards.filter(function(c) { return c.style.display !== 'none'; });
+      if (!cards.length) return;
+      var cols = 3;
+      try {
+        var gtc = getComputedStyle(cards[0].parentElement).gridTemplateColumns;
+        if (gtc && gtc !== 'none' && gtc !== '') {
+          var n = gtc.trim().split(/\s+(?=[\d(])/).length;
+          if (n >= 1) cols = n;
+        }
+      } catch(e) {}
+      cards.slice(cols * 2).forEach(function(c) {
+        c.style.setProperty('display', 'none', 'important');
+      });
+      done = true;
+      clearInterval(t);
+    }, 500);
+    setTimeout(function() { clearInterval(t); }, 20000);
+  })();
+  </script>
 
 </body>
 </html>
