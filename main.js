@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Intercept heart/favorite clicks inside the shadow DOM before IDX's popup fires.
-  // Redirects straight to IDX account registration instead of showing the IDX login form.
+  // Shows the TJG signup modal instead of IDX's native login form.
   function setupIDXLoginInterception(widget) {
     var root = widget.shadowRoot;
     if (!root) return;
@@ -223,8 +223,47 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!btn) return;
       e.stopPropagation();
       e.preventDefault();
-      window.open('https://thejaiswalgroup.idxbroker.com/i/account-registration', '_blank');
+      showTJGFavoriteSignup();
     }, true); // capture phase — fires before IDX's own listener
+  }
+
+  function showTJGFavoriteSignup() {
+    var existing = document.getElementById('tjg-favorite-modal');
+    if (existing) { existing.style.display = 'flex'; return; }
+
+    var style = document.createElement('style');
+    style.textContent = [
+      '#tjg-favorite-modal{position:fixed;inset:0;z-index:99999;background:rgba(18,28,60,0.55);display:flex;align-items:center;justify-content:center;}',
+      '#tjg-favorite-modal-box{background:#fff;max-width:420px;width:90%;padding:2.5rem 2rem 2rem;text-align:center;position:relative;border-radius:2px;}',
+      '#tjg-favorite-modal-close{position:absolute;top:0.75rem;right:1rem;background:none;border:none;font-size:1.4rem;cursor:pointer;color:#18254B;line-height:1;}',
+      '#tjg-favorite-modal h2{font-family:"Marcellus",serif;color:#18254B;font-size:1.4rem;margin:0 0 0.65rem;}',
+      '#tjg-favorite-modal p{font-family:"Lato",sans-serif;color:#444;font-size:0.9rem;line-height:1.6;margin:0 0 1.5rem;}',
+      '#tjg-favorite-modal .tjg-fav-btn{display:inline-block;background:#18254B;color:#fff;padding:12px 32px;text-decoration:none;font-family:"Lato",sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1rem;}',
+      '#tjg-favorite-modal .tjg-fav-btn:hover{background:#B38987;}',
+      '#tjg-favorite-modal .tjg-fav-signin{display:block;font-family:"Lato",sans-serif;font-size:0.82rem;color:#18254B;text-decoration:none;}',
+      '#tjg-favorite-modal .tjg-fav-signin:hover{text-decoration:underline;}'
+    ].join('');
+    document.head.appendChild(style);
+
+    var modal = document.createElement('div');
+    modal.id = 'tjg-favorite-modal';
+    modal.innerHTML = [
+      '<div id="tjg-favorite-modal-box">',
+      '  <button id="tjg-favorite-modal-close" aria-label="Close">&times;</button>',
+      '  <h2>Save This Listing</h2>',
+      '  <p>Create a free account to save your favorite homes, track price changes, and get notified of new listings.</p>',
+      '  <a href="https://thejaiswalgroup.idxbroker.com/i/account-registration" class="tjg-fav-btn">Create Free Account</a>',
+      '  <a href="https://thejaiswalgroup.idxbroker.com/i/account-login" class="tjg-fav-signin">Already have an account? Sign In</a>',
+      '</div>'
+    ].join('');
+    document.body.appendChild(modal);
+
+    document.getElementById('tjg-favorite-modal-close').addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) modal.style.display = 'none';
+    });
   }
 
   // Poll until widgets are ready, then stop
