@@ -335,6 +335,19 @@
       }
     }
 
+    /* ─── LIST view: hide "Search Results / 14 LISTINGS" header (redundant) ─── */
+    #IDX-main.IDX-page-listings.tjg-list-view .tjg-results-header {
+      display: none !important;
+    }
+
+    /* ─── Price-reduction badge: navy instead of IDX's default green ─── */
+    #IDX-main .IDX-badge--success,
+    #IDX-main .IDX-badge.IDX-badge--success {
+      background: #18254B !important;
+      background-color: #18254B !important;
+      color: #fff !important;
+    }
+
     /* ─── Filter bar pill buttons: muted box matching LIST/MAP inactive style ─── */
     .idx-filter-button button,
     .idx-filter-button > div > button,
