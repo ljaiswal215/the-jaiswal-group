@@ -2352,19 +2352,27 @@
       var toolbar = document.getElementById('tjg-right-toolbar');
       if (!toolbar) return;
       idxMain.dataset.tjgListToggleWired = '1';
+
+      // useCapture=true so we fire BEFORE IDX's own button listener.
+      // For LIST: stopPropagation keeps IDX from executing its own list-mode
+      // transition (which empties the card container). The sidebar cards stay
+      // in the DOM and our CSS turns them into the 4-column grid.
+      // For MAP: let IDX run normally to restore the map layout.
       toolbar.addEventListener('click', function(e) {
-        var btn = e.target.closest('button') || e.target;
-        if (!btn) return;
+        var btn = e.target.closest('button, a, [role="button"]') || e.target;
         var txt = (btn.textContent || '').trim().toUpperCase();
-        if (txt === 'LIST') {
+        var isListBtn = txt.indexOf('LIST') !== -1 && txt.indexOf('MAP') === -1;
+        var isMapBtn  = txt.indexOf('MAP')  !== -1 && txt.indexOf('LIST') === -1;
+        if (isListBtn) {
+          e.stopPropagation();
+          e.preventDefault();
           idxMain.classList.add('tjg-list-view');
-          // Re-inject card details and re-align count after Vue re-renders
-          setTimeout(_tjgSchedule, 350);
-        } else if (txt === 'MAP') {
+          setTimeout(_tjgSchedule, 200);
+        } else if (isMapBtn) {
           idxMain.classList.remove('tjg-list-view');
-          setTimeout(_alignResultsCount, 350);
+          setTimeout(_alignResultsCount, 400);
         }
-      });
+      }, true); // capture phase
     }
     _initListViewToggle();
 
