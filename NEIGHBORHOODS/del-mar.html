@@ -712,6 +712,34 @@
     </div>
   </footer>
   <script src="../main.js"></script>
+  <script>
+  // Limit the listings showcase to 2 rows by hiding cards beyond the column count × 2.
+  // Detects column count dynamically from card positions so it works at any breakpoint.
+  (function() {
+    var applied = false;
+    var t = setInterval(function() {
+      var widget = document.querySelector('idx-listings-showcase');
+      if (!widget || !widget.shadowRoot) return;
+      var cards = Array.from(widget.shadowRoot.querySelectorAll('.idx-listings-showcase__property'));
+      if (cards.length < 2) return;
+      if (applied) { clearInterval(t); return; }
+      // Count columns: how many cards share the same top position as the first card
+      var firstTop = cards[0].getBoundingClientRect().top;
+      var cols = cards.filter(function(c) {
+        return Math.abs(c.getBoundingClientRect().top - firstTop) < 5;
+      }).length;
+      if (cols < 1) cols = 3;
+      var maxCards = cols * 2;
+      var style = document.createElement('style');
+      style.id = 'tjg-row-limit';
+      style.textContent = '.idx-listings-showcase__property:nth-child(n+' + (maxCards + 1) + '){display:none!important}';
+      widget.shadowRoot.appendChild(style);
+      applied = true;
+      clearInterval(t);
+    }, 300);
+    setTimeout(function() { clearInterval(t); }, 20000);
+  })();
+  </script>
 
 </body>
 </html>
