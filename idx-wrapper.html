@@ -2344,9 +2344,9 @@
           '.idx-results__category--title, .idx-results-active-title, [class*="category--title"]'
         );
         if (!total || !title) return;
-        // Already done
-        if (title.parentElement && title.parentElement.classList.contains('tjg-results-header')) return;
-        // Wrap title + count in a flex row aligned to the card edges
+        if (title.parentElement && title.parentElement.classList.contains('tjg-results-header')) {
+          _alignResultsCount(); return;
+        }
         var wrap = document.createElement('div');
         wrap.className = 'tjg-results-header';
         title.parentNode.insertBefore(wrap, title);
@@ -2355,6 +2355,24 @@
         total.style.removeProperty('display');
         total.style.setProperty('margin', '0', 'important');
         total.style.setProperty('padding', '0', 'important');
+        _alignResultsCount();
+      }
+
+      // Align "14 LISTINGS" right edge with the right edge of the last card in the first row.
+      // IDX's card grid leaves a small gap after the last column; we compensate with padding-right.
+      function _alignResultsCount() {
+        var header = document.querySelector('.tjg-results-header');
+        var cards = document.querySelectorAll('article.idx-listing-card');
+        if (!header || !cards.length) return;
+        var firstTop = cards[0].getBoundingClientRect().top;
+        var firstRowCards = Array.from(cards).filter(function(c) {
+          return Math.abs(c.getBoundingClientRect().top - firstTop) < 10;
+        });
+        var lastCard = firstRowCards[firstRowCards.length - 1];
+        var grid = document.querySelector('.idx-results__listings');
+        if (!lastCard || !grid) return;
+        var gap = Math.max(0, Math.round(grid.getBoundingClientRect().right - lastCard.getBoundingClientRect().right));
+        header.style.setProperty('padding-right', gap + 'px', 'important');
       }
 
       function _buildListingCardDetails() {
@@ -2432,6 +2450,7 @@
         _injectAgentCard();
         _fixHeaderButtons();
         _moveResultsCount();
+        _alignResultsCount();
         _buildListingCardDetails();
         // Enforce flex on address+logo row — IDX's scoped CSS can override our stylesheet rule
         document.querySelectorAll('.tjg-cd-bottom').forEach(function(el) {
@@ -2459,6 +2478,13 @@
         _tjgTimer = setTimeout(_tjgDispatch, 80);
       }
       new MutationObserver(_tjgSchedule).observe(document.body, { childList: true, subtree: true });
+
+      // Re-align the listings count on resize (column count changes)
+      var _resizeTimer;
+      window.addEventListener('resize', function() {
+        clearTimeout(_resizeTimer);
+        _resizeTimer = setTimeout(_alignResultsCount, 150);
+      });
     })();
   </script>
 
