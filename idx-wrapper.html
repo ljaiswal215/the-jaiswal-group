@@ -553,6 +553,37 @@
       color: rgba(255,255,255,0.85) !important;
     }
 
+    /* Heart hover → brand pink (#B38987) */
+    /* SVG hearts (listing cards) */
+    .idx-listing-card__actions button:hover svg,
+    .idx-listing-card__actions button:hover svg path,
+    .idx-listing-card__actions [class*="fav"]:hover svg,
+    .idx-listing-card__actions [class*="fav"]:hover svg path,
+    .idx-listing-card__actions [class*="heart"]:hover svg,
+    .idx-listing-card__actions [class*="heart"]:hover svg path {
+      stroke: #B38987 !important;
+      fill: none !important;
+      transition: stroke 0.2s !important;
+    }
+    /* Font Awesome hearts (listing cards) */
+    #IDX-main .idx-listing-card__action:hover i.fa:last-of-type,
+    #IDX-main .idx-listing-card__action:hover .fa-heart-o,
+    #IDX-main .idx-listing-card__actions button:hover i.fa:last-of-type,
+    #IDX-main .idx-listing-card__actions button:hover .fa-heart-o {
+      color: #B38987 !important;
+      transition: color 0.2s !important;
+    }
+    /* Mapsearch cards heart hover → pink */
+    #prime-map-search--results button[class*="fav"]:hover svg,
+    #prime-map-search--results button[class*="fav"]:hover svg path,
+    #prime-map-search--results .IDX-favoriteProperty:hover svg,
+    #prime-map-search--results .IDX-favoriteProperty:hover svg path,
+    #prime-map-search--results .IDX-mapCardFavorite:hover svg,
+    #prime-map-search--results .IDX-mapCardFavorite:hover svg path {
+      stroke: #B38987 !important;
+      fill: none !important;
+    }
+
     /* Status badge (Active / Pending): navy pill */
     .idx-listing-card [class*="prop-status"],
     .idx-listing-card [class*="idxstatus"],
