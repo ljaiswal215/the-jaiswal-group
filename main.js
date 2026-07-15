@@ -207,8 +207,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Intercept heart/favorite clicks inside the shadow DOM before IDX's popup fires.
-  // Shows the TJG signup modal instead of IDX's native login form.
+  // Replace heart/favorite buttons inside the shadow DOM with clones that have no
+  // IDX event listeners, then attach our own handler to open the registration page.
+  // Cloning strips any listeners IDX attached to the element itself; a MutationObserver
+  // catches cards that load lazily after the initial paint.
   function setupIDXLoginInterception(widget) {
     var root = widget.shadowRoot;
     if (!root) return;
@@ -218,13 +220,23 @@ document.addEventListener('DOMContentLoaded', () => {
     marker.style.display = 'none';
     root.appendChild(marker);
 
-    root.addEventListener('click', function(e) {
-      var btn = e.target.closest('[class*="favorite"], [class*="heart"], [class*="fav"], button[aria-label*="avorite"]');
-      if (!btn) return;
-      e.stopPropagation();
-      e.preventDefault();
-      window.open('https://thejaiswalgroup.idxbroker.com/idx/account-registration', '_blank');
-    }, true); // capture phase — fires before IDX's own listener
+    function patchFavs() {
+      root.querySelectorAll('[class*="__favorite"] button, [class*="__favorite"] a').forEach(function(btn) {
+        if (btn.dataset.tjgFavPatched) return;
+        var clone = btn.cloneNode(true);
+        clone.dataset.tjgFavPatched = '1';
+        clone.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          window.open('https://thejaiswalgroup.idxbroker.com/idx/account-registration', '_blank');
+        });
+        btn.parentNode.replaceChild(clone, btn);
+      });
+    }
+
+    patchFavs();
+    var mo = new MutationObserver(patchFavs);
+    mo.observe(root, { childList: true, subtree: true });
   }
 
   function showTJGFavoriteSignup() {
