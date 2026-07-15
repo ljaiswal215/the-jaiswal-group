@@ -142,7 +142,15 @@ document.addEventListener('DOMContentLoaded', () => {
       display: inline-block !important;
     }
     [class*="pending"] .idx-listing-card__prop-status { background: #9e8b7e !important; }
-    .idx-listing-card__favorite { pointer-events: auto !important; }
+    .idx-listing-card__favorite,
+    .idx-listing-card__favorite button,
+    .idx-listing-card__favorite svg,
+    .idx-listing-card__favorite i {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+    }
     /* Details & MLS logo */
     .idx-listing-card__details { padding-bottom: 2rem !important; }
     .idx-listing-card__additional-info {
