@@ -286,8 +286,10 @@
     }
 
     /* ─── /i/ listing pages: LIST view → 4-column card grid, map hidden ─── */
-    #IDX-main.IDX-page-listings.tjg-list-view .idx-results__content {
+    #IDX-main.IDX-page-listings.tjg-list-view .idx-results__content,
+    #IDX-main.IDX-page-listings.tjg-list-view #idx-results-content {
       display: block !important;
+      width: 100% !important;
     }
     #IDX-main.IDX-page-listings.tjg-list-view #IDX-map {
       display: none !important;
@@ -2358,6 +2360,41 @@
       // transition (which empties the card container). The sidebar cards stay
       // in the DOM and our CSS turns them into the 4-column grid.
       // For MAP: let IDX run normally to restore the map layout.
+      function _applyListLayout() {
+        var content = document.getElementById('idx-results-content') || document.querySelector('.idx-results__content');
+        if (content) {
+          content.style.setProperty('display', 'block', 'important');
+          content.style.setProperty('width', '100%', 'important');
+        }
+        var map = document.getElementById('IDX-map');
+        if (map) {
+          map.style.setProperty('display', 'none', 'important');
+          map.style.setProperty('width', '0', 'important');
+        }
+        var listings = document.querySelector('.idx-results__listings');
+        if (listings) {
+          listings.style.setProperty('display', 'grid', 'important');
+          listings.style.setProperty('grid-template-columns', 'repeat(4, 1fr)', 'important');
+          listings.style.setProperty('gap', '16px', 'important');
+          listings.style.setProperty('padding', '16px 24px', 'important');
+          listings.style.setProperty('width', '100%', 'important');
+          listings.style.setProperty('max-width', 'none', 'important');
+          listings.style.setProperty('box-sizing', 'border-box', 'important');
+        }
+      }
+
+      function _restoreMapLayout() {
+        var content = document.getElementById('idx-results-content') || document.querySelector('.idx-results__content');
+        if (content) { content.style.removeProperty('display'); content.style.removeProperty('width'); }
+        var map = document.getElementById('IDX-map');
+        if (map) { map.style.removeProperty('display'); map.style.removeProperty('width'); }
+        var listings = document.querySelector('.idx-results__listings');
+        if (listings) {
+          ['display','grid-template-columns','gap','padding','width','max-width','box-sizing']
+            .forEach(function(p) { listings.style.removeProperty(p); });
+        }
+      }
+
       toolbar.addEventListener('click', function(e) {
         var btn = e.target.closest('button, a, [role="button"]') || e.target;
         var txt = (btn.textContent || '').trim().toUpperCase();
@@ -2367,9 +2404,11 @@
           e.stopPropagation();
           e.preventDefault();
           idxMain.classList.add('tjg-list-view');
-          setTimeout(_tjgSchedule, 200);
+          _applyListLayout();
+          setTimeout(function() { _applyListLayout(); _tjgSchedule(); }, 200);
         } else if (isMapBtn) {
           idxMain.classList.remove('tjg-list-view');
+          _restoreMapLayout();
           setTimeout(_alignResultsCount, 400);
         }
       }, true); // capture phase
