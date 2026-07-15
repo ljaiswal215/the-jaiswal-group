@@ -277,6 +277,44 @@
       border: 1px solid #18254B !important;
     }
 
+    /* ─── /i/ listing pages: LIST view → 4-column card grid, map hidden ─── */
+    #IDX-main.IDX-page-listings.tjg-list-view .idx-results__content {
+      display: block !important;
+    }
+    #IDX-main.IDX-page-listings.tjg-list-view #IDX-map {
+      display: none !important;
+      width: 0 !important;
+    }
+    #IDX-main.IDX-page-listings.tjg-list-view .idx-results__listings {
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 16px !important;
+      padding: 16px 24px !important;
+      box-sizing: border-box !important;
+      width: 100% !important;
+      max-width: none !important;
+    }
+    #IDX-main.IDX-page-listings.tjg-list-view .idx-results__listing {
+      margin: 0 !important;
+      width: 100% !important;
+      padding: 0 !important;
+    }
+    #IDX-main.IDX-page-listings.tjg-list-view .idx-listing-card {
+      width: 100% !important;
+      min-width: 0 !important;
+      max-width: none !important;
+    }
+    @media (max-width: 960px) {
+      #IDX-main.IDX-page-listings.tjg-list-view .idx-results__listings {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+    }
+    @media (max-width: 600px) {
+      #IDX-main.IDX-page-listings.tjg-list-view .idx-results__listings {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
     /* ─── Filter bar pill buttons: muted box matching LIST/MAP inactive style ─── */
     .idx-filter-button button,
     .idx-filter-button > div > button,
@@ -2298,6 +2336,30 @@
     }
     _fixHeaderButtons();
 
+    // ─── /i/ pages: LIST/MAP toggle → 4-column grid on LIST ─────────────────
+    function _initListViewToggle() {
+      var idxMain = document.getElementById('IDX-main');
+      if (!idxMain || !idxMain.classList.contains('IDX-page-listings')) return;
+      if (idxMain.dataset.tjgListToggleWired) return;
+      var toolbar = document.getElementById('tjg-right-toolbar');
+      if (!toolbar) return;
+      idxMain.dataset.tjgListToggleWired = '1';
+      toolbar.addEventListener('click', function(e) {
+        var btn = e.target.closest('button') || e.target;
+        if (!btn) return;
+        var txt = (btn.textContent || '').trim().toUpperCase();
+        if (txt === 'LIST') {
+          idxMain.classList.add('tjg-list-view');
+          // Re-inject card details and re-align count after Vue re-renders
+          setTimeout(_tjgSchedule, 350);
+        } else if (txt === 'MAP') {
+          idxMain.classList.remove('tjg-list-view');
+          setTimeout(_alignResultsCount, 350);
+        }
+      });
+    }
+    _initListViewToggle();
+
     // Apply hover colors only on real cursor movement crossing button boundary
     document.addEventListener('mousemove', function() {
       var addFav = document.getElementById('IDX-saveProperty') || document.getElementById('IDX-addToFavorites');
@@ -2480,6 +2542,7 @@
         _fixAgentInfo();
         _injectAgentCard();
         _fixHeaderButtons();
+        _initListViewToggle();
         _moveResultsCount();
         _alignResultsCount();
         _buildListingCardDetails();
