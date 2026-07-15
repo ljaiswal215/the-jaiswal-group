@@ -524,17 +524,25 @@
     .idx-listing-card__actions *::after {
       background-color: transparent !important;
     }
-    /* Heart SVG: transparent fill, white stroke — outline-only heart */
+    /* Heart SVG fallback (some IDX themes use inline SVG) */
     .idx-listing-card__actions svg,
     .idx-listing-card__actions button svg {
       fill: none !important;
       stroke: rgba(255,255,255,0.85) !important;
       stroke-width: 1.5px !important;
-      color: rgba(255,255,255,0.85) !important;
     }
     .idx-listing-card__actions svg path {
       fill: none !important;
       stroke: rgba(255,255,255,0.85) !important;
+    }
+    /* Heart Font Awesome stack: filled heart (fa-heart) → transparent; outline (fa-heart-o) → white */
+    #IDX-main .idx-listing-card__action i.fa,
+    #IDX-main .idx-listing-card__action .fa-heart {
+      color: transparent !important;
+    }
+    #IDX-main .idx-listing-card__action i.fa:last-of-type,
+    #IDX-main .idx-listing-card__action .fa-heart-o {
+      color: rgba(255,255,255,0.85) !important;
     }
 
     /* Status badge (Active / Pending): navy pill */
