@@ -2433,6 +2433,10 @@
         _fixHeaderButtons();
         _moveResultsCount();
         _buildListingCardDetails();
+        // Enforce flex on address+logo row — IDX's scoped CSS can override our stylesheet rule
+        document.querySelectorAll('.tjg-cd-bottom').forEach(function(el) {
+          el.style.setProperty('display', 'flex', 'important');
+        });
 
         // Tour button label
         document.querySelectorAll('.IDX-detailsVirtualTourAction').forEach(function(btn) {
