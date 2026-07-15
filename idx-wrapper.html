@@ -286,7 +286,7 @@
       border: 1px solid #18254B !important;
     }
 
-    /* ─── /i/ listing pages: LIST view → 4-column card grid, map hidden ─── */
+    /* ─── /i/ listing pages: LIST view → 5-column card grid, map hidden ─── */
     #IDX-main.IDX-page-listings.tjg-list-view .idx-results__content,
     #IDX-main.IDX-page-listings.tjg-list-view #idx-results-content {
       display: block !important;
@@ -297,13 +297,14 @@
       width: 0 !important;
     }
     /* Hide CRMLS copyright / any non-listing siblings that appear in the right grid cell */
-    #IDX-main.IDX-page-listings.tjg-list-view .idx-results__content > *:not(.idx-results__listings):not(#IDX-map),
-    #IDX-main.IDX-page-listings.tjg-list-view #idx-results-content > *:not(.idx-results__listings):not(#IDX-map) {
+    #IDX-main.IDX-page-listings.tjg-list-view .idx-results__content > *:not(.idx-results__listings):not(#IDX-map):not([data-tjg-list-grid]),
+    #IDX-main.IDX-page-listings.tjg-list-view #idx-results-content > *:not(.idx-results__listings):not(#IDX-map):not([data-tjg-list-grid]) {
       display: none !important;
     }
-    #IDX-main.IDX-page-listings.tjg-list-view .idx-results__listings {
+    #IDX-main.IDX-page-listings.tjg-list-view .idx-results__listings,
+    #IDX-main.IDX-page-listings.tjg-list-view [data-tjg-list-grid] {
       display: grid !important;
-      grid-template-columns: repeat(4, 1fr) !important;
+      grid-template-columns: repeat(5, 1fr) !important;
       grid-column: 1 / -1 !important;
       gap: 16px !important;
       padding: 16px 24px !important;
@@ -322,13 +323,15 @@
       max-width: none !important;
     }
     @media (max-width: 960px) {
-      #IDX-main.IDX-page-listings.tjg-list-view .idx-results__listings {
-        grid-template-columns: repeat(2, 1fr) !important;
+      #IDX-main.IDX-page-listings.tjg-list-view .idx-results__listings,
+      #IDX-main.IDX-page-listings.tjg-list-view [data-tjg-list-grid] {
+        grid-template-columns: repeat(3, 1fr) !important;
       }
     }
     @media (max-width: 600px) {
-      #IDX-main.IDX-page-listings.tjg-list-view .idx-results__listings {
-        grid-template-columns: 1fr !important;
+      #IDX-main.IDX-page-listings.tjg-list-view .idx-results__listings,
+      #IDX-main.IDX-page-listings.tjg-list-view [data-tjg-list-grid] {
+        grid-template-columns: repeat(2, 1fr) !important;
       }
     }
 
@@ -2353,7 +2356,81 @@
     }
     _fixHeaderButtons();
 
-    // ─── /i/ pages: LIST/MAP toggle → 4-column grid on LIST ─────────────────
+    // ─── /i/ pages: LIST/MAP toggle → 5-column grid on LIST ─────────────────
+
+    // Finds the container that holds .idx-results__listing card wrappers.
+    // IDX sometimes uses .idx-results__listings (plural) as the grid parent,
+    // but on /i/ saved-link pages the parent may have a different class.
+    // Falling back to firstListing.parentElement is always reliable.
+    function _findListingsContainer() {
+      var named = document.querySelector('.idx-results__listings');
+      if (named) return named;
+      var first = document.querySelector('.idx-results__listing');
+      return first ? first.parentElement : null;
+    }
+
+    function _applyListLayout() {
+      var map = document.getElementById('IDX-map');
+      if (map) {
+        map.style.setProperty('display', 'none', 'important');
+        map.style.setProperty('width', '0', 'important');
+      }
+
+      var listings = _findListingsContainer();
+      if (!listings) return;
+
+      // Mark so CSS selector [data-tjg-list-grid] also applies
+      listings.dataset.tjgListGrid = '1';
+
+      // Collapse the parent wrapper (usually a 2-col grid with map+sidebar)
+      // and hide any siblings that aren't the listings container or the map
+      // (e.g. CRMLS copyright block that occupies the right grid cell).
+      var parent = listings.parentElement;
+      if (parent) {
+        parent.style.setProperty('display', 'block', 'important');
+        parent.style.setProperty('width', '100%', 'important');
+        Array.from(parent.children).forEach(function(child) {
+          if (child !== listings && child.id !== 'IDX-map') {
+            child.dataset.tjgHidden = '1';
+            child.style.setProperty('display', 'none', 'important');
+          }
+        });
+      }
+
+      listings.style.setProperty('display', 'grid', 'important');
+      listings.style.setProperty('grid-template-columns', 'repeat(5, 1fr)', 'important');
+      listings.style.setProperty('grid-column', '1 / -1', 'important');
+      listings.style.setProperty('gap', '16px', 'important');
+      listings.style.setProperty('padding', '16px 24px', 'important');
+      listings.style.setProperty('width', '100%', 'important');
+      listings.style.setProperty('max-width', 'none', 'important');
+      listings.style.setProperty('box-sizing', 'border-box', 'important');
+    }
+
+    function _restoreMapLayout() {
+      var map = document.getElementById('IDX-map');
+      if (map) { map.style.removeProperty('display'); map.style.removeProperty('width'); }
+
+      var listings = document.querySelector('[data-tjg-list-grid]') || document.querySelector('.idx-results__listings');
+      if (listings) {
+        delete listings.dataset.tjgListGrid;
+        ['display','grid-template-columns','grid-column','gap','padding','width','max-width','box-sizing']
+          .forEach(function(p) { listings.style.removeProperty(p); });
+
+        var parent = listings.parentElement;
+        if (parent) {
+          parent.style.removeProperty('display');
+          parent.style.removeProperty('width');
+          Array.from(parent.children).forEach(function(child) {
+            if (child.dataset.tjgHidden) {
+              child.style.removeProperty('display');
+              delete child.dataset.tjgHidden;
+            }
+          });
+        }
+      }
+    }
+
     function _initListViewToggle() {
       var idxMain = document.getElementById('IDX-main');
       if (!idxMain || !idxMain.classList.contains('IDX-page-listings')) return;
@@ -2361,64 +2438,6 @@
       var toolbar = document.getElementById('tjg-right-toolbar');
       if (!toolbar) return;
       idxMain.dataset.tjgListToggleWired = '1';
-
-      // useCapture=true so we fire BEFORE IDX's own button listener.
-      // For LIST: stopPropagation keeps IDX from executing its own list-mode
-      // transition (which empties the card container). The sidebar cards stay
-      // in the DOM and our CSS turns them into the 4-column grid.
-      // For MAP: let IDX run normally to restore the map layout.
-      function _applyListLayout() {
-        var content = document.getElementById('idx-results-content') || document.querySelector('.idx-results__content');
-        if (content) {
-          content.style.setProperty('display', 'block', 'important');
-          content.style.setProperty('width', '100%', 'important');
-          // Hide CRMLS copyright block and any other non-listing siblings
-          Array.from(content.children).forEach(function(child) {
-            if (!child.classList.contains('idx-results__listings') && child.id !== 'IDX-map') {
-              child.dataset.tjgHidden = '1';
-              child.style.setProperty('display', 'none', 'important');
-            }
-          });
-        }
-        var map = document.getElementById('IDX-map');
-        if (map) {
-          map.style.setProperty('display', 'none', 'important');
-          map.style.setProperty('width', '0', 'important');
-        }
-        var listings = document.querySelector('.idx-results__listings');
-        if (listings) {
-          listings.style.setProperty('display', 'grid', 'important');
-          listings.style.setProperty('grid-template-columns', 'repeat(4, 1fr)', 'important');
-          listings.style.setProperty('grid-column', '1 / -1', 'important');
-          listings.style.setProperty('gap', '16px', 'important');
-          listings.style.setProperty('padding', '16px 24px', 'important');
-          listings.style.setProperty('width', '100%', 'important');
-          listings.style.setProperty('max-width', 'none', 'important');
-          listings.style.setProperty('box-sizing', 'border-box', 'important');
-        }
-      }
-
-      function _restoreMapLayout() {
-        var content = document.getElementById('idx-results-content') || document.querySelector('.idx-results__content');
-        if (content) {
-          content.style.removeProperty('display');
-          content.style.removeProperty('width');
-          // Restore siblings that were hidden for list view
-          Array.from(content.children).forEach(function(child) {
-            if (child.dataset.tjgHidden) {
-              child.style.removeProperty('display');
-              delete child.dataset.tjgHidden;
-            }
-          });
-        }
-        var map = document.getElementById('IDX-map');
-        if (map) { map.style.removeProperty('display'); map.style.removeProperty('width'); }
-        var listings = document.querySelector('.idx-results__listings');
-        if (listings) {
-          ['display','grid-template-columns','grid-column','gap','padding','width','max-width','box-sizing']
-            .forEach(function(p) { listings.style.removeProperty(p); });
-        }
-      }
 
       function _setToggleActive(activeBtn) {
         var toggle = document.getElementById('tjg-view-toggle') || toolbar;
@@ -2640,6 +2659,11 @@
         _moveResultsCount();
         _alignResultsCount();
         _buildListingCardDetails();
+        // Re-enforce grid layout on every DOM mutation while list view is active
+        var _idxMain = document.getElementById('IDX-main');
+        if (_idxMain && _idxMain.classList.contains('tjg-list-view')) {
+          _applyListLayout();
+        }
         // Enforce flex on address+logo row — IDX's scoped CSS can override our stylesheet rule
         document.querySelectorAll('.tjg-cd-bottom').forEach(function(el) {
           el.style.setProperty('display', 'flex', 'important');
