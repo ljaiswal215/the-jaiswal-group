@@ -1816,14 +1816,22 @@
           });
         }
 
+        // Hide any IDX-injected consent checkbox/row that isn't ours (the orange dot)
+        var _idxCb = submitBtn.parentNode.querySelector('input[type="checkbox"]:not(#tjg-signup-check)');
+        if (_idxCb) {
+          var _idxCbRow = _idxCb.closest('label') || _idxCb.parentNode;
+          if (_idxCbRow) _idxCbRow.style.display = 'none';
+        }
+
         var wrap = document.createElement('div');
         wrap.id = 'tjg-signup-optin';
-        wrap.style.cssText = 'margin-bottom:14px;';
+        // display:block + width:100% overrides IDX's flex layout on #IDX-registration > div
+        wrap.style.cssText = 'margin-bottom:14px;display:block;width:100%;clear:both;box-sizing:border-box;';
         wrap.innerHTML =
-          '<label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-family:Lato,sans-serif;">' +
+          '<label style="display:flex;align-items:flex-start;gap:6px;cursor:pointer;font-family:Lato,sans-serif;width:100%;text-align:left;">' +
             '<input type="checkbox" id="tjg-signup-check" style="flex-shrink:0;margin-top:2px;accent-color:#18254B;width:14px;height:14px;cursor:pointer;">' +
-            '<div style="flex:1;min-width:0;">' +
-              '<div id="tjg-signup-optin-text" style="font-size:0.68rem;line-height:1.55;color:#7a7269;font-weight:400;text-transform:none;letter-spacing:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;">' +
+            '<div style="flex:1;min-width:0;text-align:left;">' +
+              '<div id="tjg-signup-optin-text" style="font-size:0.68rem;line-height:1.55;color:#7a7269;font-weight:400;text-transform:none;letter-spacing:0;text-align:left;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;">' +
                 'By providing The Jaiswal Group Real Estate your contact information, you acknowledge and agree to our ' +
                 '<a href="https://thejaiswalgroup.com/privacy-policy.html" target="_blank" rel="noopener" style="color:#18254B;text-decoration:underline;">Privacy Policy</a>' +
                 ' and consent to receiving marketing communications, including through automated calls, texts, and emails, some of which may use artificial or prerecorded voices. This consent isn\'t necessary for purchasing any products or services and you may opt out at any time. To opt out from texts, you can reply \'stop\' at any time. To opt out from emails, you can click on the unsubscribe link in the emails. Message and data rates may apply.' +
