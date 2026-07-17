@@ -53,6 +53,51 @@
       font-size: 16px !important;
     }
 
+    /* ─── Similar Listings: cream card layout (info panel below photo) ─── */
+    .IDX-similar-listings--item {
+      display: flex !important;
+      flex-direction: column !important;
+      background: #F3EFE8 !important;
+      border: 1px solid rgba(24,37,75,0.08) !important;
+    }
+    .IDX-similar-listings--item-image {
+      position: relative !important;
+      display: block !important;
+      flex-shrink: 0 !important;
+    }
+    .IDX-similar-listings--item-image img {
+      display: block !important;
+      width: 100% !important;
+      height: 190px !important;
+      object-fit: cover !important;
+    }
+    #IDX-main .IDX-similar-listings--item .IDX-similar-listings--info {
+      position: static !important;
+      background: #F3EFE8 !important;
+      padding: 10px 12px 14px !important;
+    }
+    #IDX-main .IDX-similar-listings--item .IDX-similar-listings--info,
+    #IDX-main .IDX-similar-listings--item .IDX-similar-listings--info *,
+    #IDX-main .IDX-similar-listings--item .IDX-similar-listings--info a,
+    #IDX-main .IDX-similar-listings--item .IDX-similar-listings--info a:hover {
+      color: #18254B !important;
+      text-shadow: none !important;
+    }
+    /* CRMLS logo stays bottom-right of photo after JS moves it inside image link */
+    .IDX-similar-listings--item-image .IDX-similar-listings--item-MLSLogo {
+      position: absolute !important;
+      bottom: 8px !important;
+      right: 8px !important;
+      top: auto !important;
+      z-index: 5 !important;
+      background: transparent !important;
+      mix-blend-mode: multiply !important;
+      max-height: 32px !important;
+      width: auto !important;
+      padding: 0 !important;
+      border-radius: 0 !important;
+    }
+
     /* ─── Search bar button group: shift left to add right margin ─── */
     #tjg-right-toolbar { margin-right: 0 !important; }
 
@@ -2553,6 +2598,23 @@
       if (print) wireBtn(print);
     }
     _fixHeaderButtons();
+
+    // ─── Similar Listings: move CRMLS logo inside image link ─────────────────
+    // Allows position:absolute bottom-right to anchor to the photo, not the card
+    (function() {
+      function _moveSimilarLogos() {
+        document.querySelectorAll('.IDX-similar-listings--item').forEach(function(item) {
+          var logo    = item.querySelector(':scope > .IDX-similar-listings--item-MLSLogo');
+          var imgLink = item.querySelector('.IDX-similar-listings--item-image');
+          if (logo && imgLink && !imgLink.contains(logo)) {
+            imgLink.appendChild(logo);
+          }
+        });
+      }
+      _moveSimilarLogos();
+      setTimeout(_moveSimilarLogos, 800);
+      setTimeout(_moveSimilarLogos, 2500);
+    })();
 
     // ─── /i/ pages: LIST/MAP toggle → 5-column grid on LIST ─────────────────
 
