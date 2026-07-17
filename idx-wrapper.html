@@ -1846,7 +1846,9 @@
           /* our injected header: reduce margin since we removed the large top padding */
           '#tjg-signup-header{margin-top:20px!important;margin-bottom:14px!important;padding-top:0!important;}',
           /* hide IDX cookie/privacy notice banner when shown inside our popup */
-          '#idx-privacy-notice,.idx-notice{display:none!important;}'
+          '#idx-privacy-notice,.idx-notice{display:none!important;}',
+          /* hide "Data services provided by IDX Broker" attribution footer */
+          '#IDX-poweredByIDX,#IDX-dataAttrib,[id*="poweredBy"],[class*="powered"],[class*="attribution"]{display:none!important;}'
         ].join('');
         document.head.appendChild(s);
       }
