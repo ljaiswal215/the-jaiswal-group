@@ -2598,6 +2598,22 @@
     }
     _fixHeaderButtons();
 
+    // ─── Association Fee: prepend $ if value is numeric ──────────────────────
+    (function() {
+      function _fixAssocFee() {
+        var field = document.getElementById('IDX-field-associationFee');
+        if (!field) return;
+        var val = field.querySelector('.IDX-text, [class*="IDX-text"]');
+        if (!val || val.dataset.tjgDollar) return;
+        var txt = val.textContent.trim();
+        if (/^\d/.test(txt)) {
+          val.textContent = '$' + txt;
+          val.dataset.tjgDollar = '1';
+        }
+      }
+      [500, 1500, 3000].forEach(function(ms) { setTimeout(_fixAssocFee, ms); });
+    })();
+
     // ─── Listing detail: inject listing attribution above disclaimer ──────────
     (function() {
       function _injectAttribution() {
