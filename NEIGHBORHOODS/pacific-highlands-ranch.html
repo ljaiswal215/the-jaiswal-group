@@ -927,10 +927,6 @@
   </script>
 
   <script>
-  // Custom heart button → branded signup popup.
-  // Injects our own heart button into each listing card's image overlay
-  // inside the idx-listings-showcase shadow root. No dependence on IDX's
-  // native save/login form at all.
   (function() {
     var _loadCount = 0;
 
@@ -959,13 +955,12 @@
       hdr.style.cssText = 'background:#F3EFE8;display:flex;align-items:center;justify-content:flex-end;padding:6px 12px;flex-shrink:0;border-bottom:1px solid rgba(24,37,75,0.12);border-radius:14px 14px 0 0;';
 
       var cl = document.createElement('button');
-      cl.innerHTML = '&times;';
+      cl.innerHTML = '×';
       cl.setAttribute('aria-label', 'Close');
       cl.style.cssText = 'background:none;border:none;font-size:30px;color:#18254B;cursor:pointer;line-height:1;padding:0 2px;';
       cl.addEventListener('click', _close);
       hdr.appendChild(cl);
 
-      // Wrapper holds iframe + transparent blocker overlay
       var frWrap = document.createElement('div');
       frWrap.style.cssText = 'position:relative;flex:1;min-height:0;display:flex;flex-direction:column;';
 
@@ -979,7 +974,6 @@
         if (_loadCount > 1) setTimeout(_close, 1200);
       });
 
-      // Blocker sits over iframe until opt-in checkbox is checked
       var blocker = document.createElement('div');
       blocker.style.cssText = 'position:absolute;inset:0;z-index:5;cursor:pointer;';
       blocker.addEventListener('click', function() {
@@ -991,7 +985,6 @@
       frWrap.appendChild(fr);
       frWrap.appendChild(blocker);
 
-      // Footer: checkbox + disclosure text
       var ftr = document.createElement('div');
       ftr.style.cssText = 'background:#F3EFE8;padding:10px 16px;border-top:1px solid rgba(24,37,75,0.12);flex-shrink:0;border-radius:0 0 14px 14px;';
 
@@ -1018,22 +1011,20 @@
       bx.appendChild(hdr); bx.appendChild(frWrap); bx.appendChild(ftr); ov.appendChild(bx); document.body.appendChild(ov);
     }
 
-    // Pre-build modal on load so iframe is ready in background — heart click feels instant
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', _build);
     } else {
       setTimeout(_build, 0);
     }
 
-    var HEART_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
-    var SHARE_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block;"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="#fff" stroke="none"/></svg>';
+    var HEART_SVG = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+    var SHARE_SVG = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;display:block;"><polygon points="22 2 15 22 11 13 2 9 22 2" fill="#fff"/></svg>';
 
     function _addHeart(card) {
       if (card.querySelector('.tjg-heart')) return;
       var wrap = card.querySelector('.idx-listing-card__image--wrap');
       if (!wrap) return;
 
-      // Heart button — opens signup popup
       var heart = document.createElement('button');
       heart.className = 'tjg-heart';
       heart.setAttribute('aria-label', 'Save this property');
@@ -1044,7 +1035,6 @@
         _show();
       });
 
-      // Share button — native share dialog using the listing detail URL
       var share = document.createElement('button');
       share.className = 'tjg-share';
       share.setAttribute('aria-label', 'Share this property');
@@ -1054,10 +1044,11 @@
         e.stopPropagation();
         var link = card.querySelector('.idx-listing-card__link');
         var url = link ? link.href.replace('?widgetReferer=true', '') : window.location.href;
-        var title = card.querySelector('.idx-listing-card__address') ? card.querySelector('.idx-listing-card__address').textContent.trim() : 'Property listing';
-        var price = card.querySelector('.idx-listing-card__listing-price') ? card.querySelector('.idx-listing-card__listing-price').textContent.trim() : '';
+        var addr = card.querySelector('.idx-listing-card__address');
+        var price = card.querySelector('.idx-listing-card__listing-price');
+        var title = (addr ? addr.textContent.trim() : 'Property') + (price ? ' — ' + price.textContent.trim() : '');
         if (navigator.share) {
-          navigator.share({ title: title + (price ? ' — ' + price : ''), url: url });
+          navigator.share({ title: title, url: url });
         } else {
           navigator.clipboard.writeText(url).then(function() {
             share.innerHTML = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2.5;display:block;"><polyline points="20 6 9 17 4 12"/></svg>';
@@ -1071,27 +1062,13 @@
     }
 
     function _initWidget(root) {
-      // Inject heart + share button styles into shadow root
       if (!root.querySelector('#tjg-heart-styles')) {
         var st = document.createElement('style');
         st.id = 'tjg-heart-styles';
-        st.textContent = [
-          '.idx-listing-card__image--wrap { position: relative !important; z-index: 3 !important; }',
-          '.tjg-heart, .tjg-share {',
-          '  position: absolute; top: 10px; z-index: 10;',
-          '  width: 36px; height: 36px; border-radius: 50%; border: none; cursor: pointer;',
-          '  background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center;',
-          '  padding: 0; transition: background 0.2s; pointer-events: auto;',
-          '}',
-          '.tjg-heart { right: 54px; }',
-          '.tjg-share { right: 10px; }',
-          '.tjg-heart:hover, .tjg-share:hover { background: rgba(0,0,0,0.6); }'
-        ].join('');
+        st.textContent = '.idx-listing-card__image--wrap{position:relative!important;z-index:3!important}.tjg-heart,.tjg-share{position:absolute;top:10px;z-index:10;width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;padding:0;transition:background 0.2s;pointer-events:auto}.tjg-heart{right:54px}.tjg-share{right:10px}.tjg-heart:hover,.tjg-share:hover{background:rgba(0,0,0,0.6)}';
         root.appendChild(st);
       }
-
       root.querySelectorAll('.idx-listing-card').forEach(_addHeart);
-
       new MutationObserver(function() {
         root.querySelectorAll('.idx-listing-card').forEach(_addHeart);
       }).observe(root, { childList: true, subtree: true });
