@@ -1714,6 +1714,24 @@
         if (!submitBtn || submitBtn.dataset.tjgCheckbox) return;
         submitBtn.dataset.tjgCheckbox = '1';
 
+        // Replace dialog title "Sign Up" → custom copy
+        var dialogTitle = document.getElementById('ui-dialog-title-IDX-registration');
+        if (dialogTitle && !dialogTitle.dataset.tjgFixed) {
+          dialogTitle.dataset.tjgFixed = '1';
+          dialogTitle.textContent = 'Sign up to save this home';
+        }
+
+        // Replace "To create an account..." paragraph
+        var dlgContent = submitBtn.closest('.ui-dialog-content') || document.querySelector('.ui-dialog-content');
+        if (dlgContent) {
+          dlgContent.querySelectorAll('p').forEach(function(p) {
+            if (/to create an account/i.test(p.textContent) && !p.dataset.tjgFixed) {
+              p.dataset.tjgFixed = '1';
+              p.textContent = ‘Almost there! Don’t miss updates on this listing.’;
+            }
+          });
+        }
+
         var wrap = document.createElement('div');
         wrap.id = 'tjg-signup-optin';
         wrap.style.cssText = 'margin-bottom:14px;';
