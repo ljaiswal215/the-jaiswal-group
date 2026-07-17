@@ -33,6 +33,11 @@
       box-shadow: none !important;
       border-radius: 0 !important;
     }
+    /* Force title text to render exactly as set — no browser/IDX capitalize transforms */
+    .IDX-registrationModal .ui-dialog-title,
+    .IDX-loginModal .ui-dialog-title {
+      text-transform: none !important;
+    }
     /* Login modal: brand the form fields and button */
     .IDX-loginModal .ui-dialog-content { font-family: Lato, sans-serif !important; }
     .IDX-loginModal #IDX-myListingManagerForm label,
@@ -1789,7 +1794,7 @@
         var dialogTitle = document.getElementById('ui-dialog-title-IDX-registration');
         if (dialogTitle && !dialogTitle.dataset.tjgFixed) {
           dialogTitle.dataset.tjgFixed = '1';
-          dialogTitle.textContent = 'Sign up to save this home';
+          dialogTitle.textContent = 'Log in to save this home';
         }
 
         // Replace subtitle and "To create an account..." paragraph
@@ -1872,8 +1877,8 @@
         // ── Registration modal ──
         // Title — always enforce (IDX may overwrite it during dialog init)
         var _dlgTitle = document.getElementById('ui-dialog-title-IDX-registration');
-        if (_dlgTitle && _dlgTitle.textContent.trim() !== 'Sign up to save this home') {
-          _dlgTitle.textContent = 'Sign up to save this home';
+        if (_dlgTitle && _dlgTitle.textContent.trim() !== 'Log in to save this home') {
+          _dlgTitle.textContent = 'Log in to save this home';
         }
         // Subtitle — always enforce
         var _dlgContent = document.querySelector('.IDX-registrationModal .ui-dialog-content');
