@@ -930,21 +930,30 @@
   // then watch the form's style attribute — IDX repositions it (style.top) only when
   // an unauthenticated user clicks a heart, so that attribute change is our trigger.
   (function() {
+    var _loadCount = 0;
+
     function _close() {
       var m = document.getElementById('tjg-heart-modal');
-      if (m) document.body.removeChild(m);
+      if (m) m.style.display = 'none';
     }
 
     function _openHeartModal() {
+      var m = document.getElementById('tjg-heart-modal');
+      if (m) { m.style.display = 'flex'; return; }
+      _buildModal();
+      document.getElementById('tjg-heart-modal').style.display = 'flex';
+    }
+
+    function _buildModal() {
       if (document.getElementById('tjg-heart-modal')) return;
       var ov = document.createElement('div');
       ov.id = 'tjg-heart-modal';
-      ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(24,37,75,0.72);display:flex;align-items:center;justify-content:center;';
+      // Built hidden so the iframe preloads in the background; shown instantly on heart click
+      ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(24,37,75,0.72);display:none;align-items:center;justify-content:center;';
       var bx = document.createElement('div');
-      bx.style.cssText = 'width:92%;max-width:560px;height:82vh;max-height:680px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,0.28);';
-      // Close button lives in its own header row above the iframe — never overlapped by it
+      bx.style.cssText = 'width:92%;max-width:560px;height:82vh;max-height:680px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,0.28);border-radius:14px;';
       var hdr = document.createElement('div');
-      hdr.style.cssText = 'background:#F3EFE8;display:flex;align-items:center;justify-content:flex-end;padding:6px 12px;flex-shrink:0;border-bottom:1px solid rgba(24,37,75,0.12);';
+      hdr.style.cssText = 'background:#F3EFE8;display:flex;align-items:center;justify-content:flex-end;padding:6px 12px;flex-shrink:0;border-bottom:1px solid rgba(24,37,75,0.12);border-radius:14px 14px 0 0;';
       var cl = document.createElement('button');
       cl.innerHTML = '&times;';
       cl.setAttribute('aria-label', 'Close');
@@ -955,12 +964,20 @@
       fr.src = 'https://thejaiswalgroup.idxbroker.com/idx/usersignup?modal=1';
       fr.style.cssText = 'width:100%;flex:1;border:none;background:#F3EFE8;min-height:0;';
       fr.setAttribute('frameborder', '0');
-      var _n = 0;
+      _loadCount = 0;
       fr.addEventListener('load', function() {
-        if (++_n > 1) setTimeout(_close, 1200);
+        _loadCount++;
+        if (_loadCount > 1) setTimeout(_close, 1200);
       });
       ov.addEventListener('click', function(e) { if (e.target === ov) _close(); });
       bx.appendChild(hdr); bx.appendChild(fr); ov.appendChild(bx); document.body.appendChild(ov);
+    }
+
+    // Pre-build the modal on page load so the iframe loads in the background — heart click is instant
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', _buildModal);
+    } else {
+      setTimeout(_buildModal, 0);
     }
 
     function _initWidget(root) {
