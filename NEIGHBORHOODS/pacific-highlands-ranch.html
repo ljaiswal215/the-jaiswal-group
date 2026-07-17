@@ -985,13 +985,8 @@
     }
 
     function _initWidget(root) {
-      // Primary: MutationObserver fires whenever IDX mutates the form's attributes or DOM
-      var obs = new MutationObserver(function() {
-        if (_checkAndHide(root)) _openHeartModal();
-      });
-      obs.observe(root, { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class', 'hidden'] });
-
-      // Belt-and-suspenders: after any click inside the widget, poll briefly for the form
+      // After any click inside the widget, poll for IDX's form to become visible.
+      // Using click-only (no MutationObserver) prevents false triggers during widget init.
       root.addEventListener('click', function() {
         var polls = 0;
         var pid = setInterval(function() {
