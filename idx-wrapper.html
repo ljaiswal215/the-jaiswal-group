@@ -1145,7 +1145,12 @@
       color: #7a7269 !important;
       line-height: 1.55 !important;
     }
-    /* reCAPTCHA notice — lighter so it recedes */
+    /* reCAPTCHA notice — hide entirely */
+    .IDX-page-usersignup p.IDX-googleRecaptchaPolicy,
+    .IDX-page-usersignin p.IDX-googleRecaptchaPolicy {
+      display: none !important;
+    }
+    /* Fine-print text (consent, disclaimer) */
     .IDX-page-usersignup #IDX-signUpForm p,
     .IDX-page-usersignin #IDX-signUpForm p {
       color: #a09890 !important;
@@ -1800,15 +1805,16 @@
       var container = document.getElementById('IDX-leadSignupContainer');
       if (!container) return;
       var isModal = /[?&]modal=1/.test(window.location.search);
-      var titleText = isSignin ? 'Welcome Back' : (isModal ? 'Log In To Save This Home' : 'Sign Up');
-      var subtitleText = isSignin ? 'Access your saved homes and searches' : 'Almost there! Don\'t miss updates on this listing';
+      var titleText = isSignin ? 'Welcome Back' : 'Log In To Save This Home';
+      var subtitleText = isSignin ? 'Access your saved homes and searches' : "Almost there! Don't miss updates on this listing";
       var header = document.createElement('div');
       header.id = 'tjg-signup-header';
       header.innerHTML = isModal
         ? '<h2 id="tjg-signup-title">' + titleText + '</h2><p id="tjg-signup-subtitle">' + subtitleText + '</p>'
         : '<img src="https://ljaiswal215.github.io/the-jaiswal-group/logo.png" ' +
                'alt="The Jaiswal Group Real Estate" id="tjg-signup-logo">' +
-          '<h2 id="tjg-signup-title">' + titleText + '</h2>';
+          '<h2 id="tjg-signup-title">' + titleText + '</h2>' +
+          '<p id="tjg-signup-subtitle">' + subtitleText + '</p>';
       container.parentNode.insertBefore(header, container);
     }
     _injectSignupBranding();
@@ -2164,7 +2170,14 @@
             '</span>' +
           '</label>';
 
-        phoneGroup.insertAdjacentElement('afterend', wrap);
+        // Insert before the sign-up actions div (button row) — reliable regardless of phone group nesting
+        var actionsDiv = document.getElementById('IDX-signUpFormActions') ||
+                         document.querySelector('#IDX-signUpForm .IDX-signUpActions');
+        if (actionsDiv) {
+          actionsDiv.parentNode.insertBefore(wrap, actionsDiv);
+        } else if (phoneGroup) {
+          phoneGroup.insertAdjacentElement('afterend', wrap);
+        }
       }
       [600, 1400, 3000].forEach(function(ms) { setTimeout(_injectFullPageCheckbox, ms); });
     })();
