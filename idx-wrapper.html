@@ -2506,7 +2506,15 @@
 
       function wireBtn(btn) {
         var lock = false;
+        var _over = false;
         _setBtnColors(btn, CREAM, NAVY);
+        // Drive hover colors from real cursor position in real time
+        document.addEventListener('mousemove', function() {
+          var nowOver = _btnOver(btn);
+          if (nowOver === _over) return;
+          _over = nowOver;
+          _setBtnColors(btn, _over ? NAVY : CREAM, _over ? WHITE : NAVY);
+        });
         // Re-enforce correct state whenever IDX mutates the button
         new MutationObserver(function() {
           if (lock) return;
