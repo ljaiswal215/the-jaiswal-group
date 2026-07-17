@@ -2080,6 +2080,19 @@
             }
           }
         }
+
+        // Make the jQuery UI overlay dismissible — clicking the dark backdrop closes the modal
+        var _overlay = document.querySelector('.ui-widget-overlay:not([data-tjg-dismissible])');
+        if (_overlay) {
+          _overlay.setAttribute('data-tjg-dismissible', '1');
+          _overlay.style.cursor = 'pointer';
+          _overlay.addEventListener('click', function() {
+            if (window.jQuery) {
+              jQuery('.IDX-registrationModal:visible, .IDX-loginModal:visible')
+                .dialog('close');
+            }
+          });
+        }
       }).observe(document.body, { childList: true, subtree: true });
     })();
 
