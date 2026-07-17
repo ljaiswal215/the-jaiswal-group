@@ -1154,6 +1154,152 @@
     .IDX-page-usersignup a:hover,
     .IDX-page-usersignin a:hover { color: #B38987 !important; }
 
+    /* ─── User Login page (/idx/userlogin) ─────────────────────────────────── */
+
+    /* Cream page background */
+    .IDX-page-userlogin #IDX-main {
+      background: #F3EFE8 !important;
+      padding: 80px 20px 72px !important;
+      min-height: 60vh !important;
+    }
+
+    /* Fix Bootstrap column offsets so card centers correctly */
+    .IDX-page-userlogin #IDX-leadLoginContainer > .IDX-row {
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+    .IDX-page-userlogin #IDX-leadLoginContainer > .IDX-row > [class*="col-"] {
+      float: none !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      margin-left: 0 !important;
+    }
+
+    /* White card — scoped to the IDX-panel wrapper */
+    .IDX-page-userlogin .IDX-panel.IDX-panel-default {
+      max-width: 480px !important;
+      margin: 0 auto !important;
+      background: #ffffff !important;
+      border: 1px solid #E0D9CF !important;
+      border-radius: 0 !important;
+      box-shadow: 0 4px 28px rgba(24,37,75,0.08) !important;
+      overflow: hidden !important;
+    }
+
+    /* Repurpose the panel heading as branded title block */
+    .IDX-page-userlogin .IDX-panel-heading {
+      background: transparent !important;
+      background-color: transparent !important;
+      border-bottom: 1px solid rgba(24,37,75,0.12) !important;
+      padding: 28px 36px 22px !important;
+      text-align: center !important;
+    }
+    /* Hide "Existing Users" text; replace with our copy */
+    .IDX-page-userlogin .IDX-panel-title {
+      font-size: 0 !important;
+      display: block !important;
+    }
+    .IDX-page-userlogin .IDX-panel-title::before {
+      content: 'Welcome Back';
+      font-family: 'Marcellus', serif;
+      font-size: 1.7rem;
+      font-weight: 400;
+      color: #18254B;
+      display: block;
+      text-align: center;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+    .IDX-page-userlogin .IDX-panel-title::after {
+      content: 'Access your saved homes and searches';
+      font-family: 'Lato', sans-serif;
+      font-size: 0.83rem;
+      font-weight: 400;
+      color: #7a7269;
+      display: block;
+      text-align: center;
+      margin-top: 8px;
+      letter-spacing: 0;
+      line-height: 1.5;
+    }
+
+    /* Form body padding */
+    .IDX-page-userlogin .IDX-panel-body {
+      padding: 28px 36px 32px !important;
+      background: #ffffff !important;
+    }
+
+    /* Field labels */
+    .IDX-page-userlogin label {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.65rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      color: #18254B !important;
+      display: block !important;
+      margin-bottom: 5px !important;
+    }
+
+    /* Email input */
+    .IDX-page-userlogin input[type="email"],
+    .IDX-page-userlogin input[type="text"] {
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.9rem !important;
+      color: #18254B !important;
+      background: #ffffff !important;
+      border: 1.5px solid #E0D9CF !important;
+      border-radius: 2px !important;
+      padding: 11px 13px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      outline: none !important;
+      box-shadow: none !important;
+      margin-bottom: 16px !important;
+    }
+    .IDX-page-userlogin input[type="email"]:focus,
+    .IDX-page-userlogin input[type="text"]:focus {
+      border-color: #18254B !important;
+      box-shadow: none !important;
+    }
+
+    /* Checkbox + label */
+    .IDX-page-userlogin input[type="checkbox"] {
+      accent-color: #18254B !important;
+    }
+
+    /* Sign In button */
+    .IDX-page-userlogin input[type="submit"],
+    .IDX-page-userlogin button[type="submit"] {
+      display: block !important;
+      width: 100% !important;
+      background: #18254B !important;
+      color: #ffffff !important;
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.75rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.13em !important;
+      text-transform: uppercase !important;
+      border: none !important;
+      border-radius: 0 !important;
+      padding: 15px !important;
+      margin-top: 10px !important;
+      cursor: pointer !important;
+    }
+    .IDX-page-userlogin input[type="submit"]:hover,
+    .IDX-page-userlogin button[type="submit"]:hover { background: #0f1a35 !important; }
+
+    /* Links */
+    .IDX-page-userlogin a { color: #18254B !important; font-family: 'Lato', sans-serif !important; }
+    .IDX-page-userlogin a:hover { color: #B38987 !important; }
+
+    /* Hide IDX attribution */
+    .IDX-page-userlogin #IDX-poweredByIDX,
+    .IDX-page-userlogin [class*="powered"],
+    .IDX-page-userlogin #IDX-dataAttrib { display: none !important; }
+
     /* ─── Save Search popup modal ──────────────────────────────────────────── */
     #IDX-leadGenContainer h2, #IDX-leadGenContainer h3,
     .IDX-leadSignup h2, .IDX-leadSignup h3 {
