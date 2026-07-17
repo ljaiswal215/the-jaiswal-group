@@ -53,6 +53,11 @@
       font-size: 16px !important;
     }
 
+    /* ─── Listing detail: attribution block above disclaimer ─── */
+    #tjg-listing-attribution { display:flex; align-items:center; gap:14px; padding:10px 0 12px; border-top:1px solid rgba(24,37,75,0.12); }
+    #tjg-listing-attribution .tjg-attr-logo { height:36px; width:auto; mix-blend-mode:multiply; flex-shrink:0; }
+    #tjg-listing-attribution .tjg-attr-text { font-family:'Lato',sans-serif; font-size:11px; color:#18254B; line-height:1.5; }
+
     /* ─── Similar Listings: cream card layout (info panel below photo) ─── */
     .IDX-similar-listings--item {
       display: flex !important;
@@ -2583,6 +2588,46 @@
       if (print) wireBtn(print);
     }
     _fixHeaderButtons();
+
+    // ─── Listing detail: inject listing attribution above disclaimer ──────────
+    (function() {
+      function _injectAttribution() {
+        if (document.getElementById('tjg-listing-attribution')) return;
+        var disclaimer = document.getElementById('IDX-detailsDisclaimer');
+        if (!disclaimer) return;
+
+        var courtesyEl = document.getElementById('IDX-detailsCourtesy');
+        var courtesyText = courtesyEl ? courtesyEl.textContent.trim() : '';
+
+        var mlsMatch = window.location.pathname.match(/\/details\/listing\/([^\/]+)\//);
+        var mlsId = mlsMatch ? mlsMatch[1] : null;
+        var logoSrc = mlsId ? 'https://s3.amazonaws.com/staticos.idxbroker.com/mls-logos/' + mlsId + '-logoURL-idxsandbox' : '';
+
+        var block = document.createElement('div');
+        block.id = 'tjg-listing-attribution';
+
+        if (logoSrc) {
+          var logo = document.createElement('img');
+          logo.src = logoSrc;
+          logo.alt = 'MLS Logo';
+          logo.className = 'tjg-attr-logo';
+          block.appendChild(logo);
+        }
+
+        if (courtesyText) {
+          var text = document.createElement('span');
+          text.textContent = courtesyText;
+          text.className = 'tjg-attr-text';
+          block.appendChild(text);
+        }
+
+        if (block.children.length) {
+          disclaimer.parentNode.insertBefore(block, disclaimer);
+        }
+      }
+
+      [800, 2000, 4000].forEach(function(ms) { setTimeout(_injectAttribution, ms); });
+    })();
 
     // ─── /i/ pages: LIST/MAP toggle → 5-column grid on LIST ─────────────────
 
