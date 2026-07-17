@@ -987,37 +987,66 @@
     }
 
     var HEART_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+    var SHARE_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block;"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>';
 
     function _addHeart(card) {
       if (card.querySelector('.tjg-heart')) return;
       var wrap = card.querySelector('.idx-listing-card__image--wrap');
       if (!wrap) return;
-      var btn = document.createElement('button');
-      btn.className = 'tjg-heart';
-      btn.setAttribute('aria-label', 'Save this property');
-      btn.innerHTML = HEART_SVG;
-      btn.addEventListener('click', function(e) {
+
+      // Heart button — opens signup popup
+      var heart = document.createElement('button');
+      heart.className = 'tjg-heart';
+      heart.setAttribute('aria-label', 'Save this property');
+      heart.innerHTML = HEART_SVG;
+      heart.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
         _show();
       });
-      wrap.appendChild(btn);
+
+      // Share button — native share dialog using the listing detail URL
+      var share = document.createElement('button');
+      share.className = 'tjg-share';
+      share.setAttribute('aria-label', 'Share this property');
+      share.innerHTML = SHARE_SVG;
+      share.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var link = card.querySelector('.idx-listing-card__link');
+        var url = link ? link.href.replace('?widgetReferer=true', '') : window.location.href;
+        var title = card.querySelector('.idx-listing-card__address') ? card.querySelector('.idx-listing-card__address').textContent.trim() : 'Property listing';
+        var price = card.querySelector('.idx-listing-card__listing-price') ? card.querySelector('.idx-listing-card__listing-price').textContent.trim() : '';
+        if (navigator.share) {
+          navigator.share({ title: title + (price ? ' — ' + price : ''), url: url });
+        } else {
+          navigator.clipboard.writeText(url).then(function() {
+            share.innerHTML = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2.5;display:block;"><polyline points="20 6 9 17 4 12"/></svg>';
+            setTimeout(function() { share.innerHTML = SHARE_SVG; }, 2000);
+          });
+        }
+      });
+
+      wrap.appendChild(heart);
+      wrap.appendChild(share);
     }
 
     function _initWidget(root) {
-      // Inject heart button styles into shadow root
+      // Inject heart + share button styles into shadow root
       if (!root.querySelector('#tjg-heart-styles')) {
         var st = document.createElement('style');
         st.id = 'tjg-heart-styles';
         st.textContent = [
           '.idx-listing-card__image--wrap { position: relative !important; z-index: 3 !important; }',
-          '.tjg-heart {',
-          '  position: absolute; top: 10px; right: 10px; z-index: 10;',
+          '.tjg-heart, .tjg-share {',
+          '  position: absolute; top: 10px; z-index: 10;',
           '  width: 36px; height: 36px; border-radius: 50%; border: none; cursor: pointer;',
           '  background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center;',
           '  padding: 0; transition: background 0.2s; pointer-events: auto;',
           '}',
-          '.tjg-heart:hover { background: rgba(0,0,0,0.6); }'
+          '.tjg-heart { right: 10px; }',
+          '.tjg-share { right: 54px; }',
+          '.tjg-heart:hover, .tjg-share:hover { background: rgba(0,0,0,0.6); }'
         ].join('');
         root.appendChild(st);
       }
