@@ -975,8 +975,12 @@
         if (_loadCount > 1) setTimeout(_close, 1200);
       });
 
+      var ftr = document.createElement('div');
+      ftr.style.cssText = 'background:#F3EFE8;padding:10px 16px;border-top:1px solid rgba(24,37,75,0.12);flex-shrink:0;border-radius:0 0 14px 14px;';
+      ftr.innerHTML = '<p style="margin:0;font-family:Lato,sans-serif;font-size:10px;line-height:1.5;color:#555;text-align:left;">By providing The Jaiswal Group Real Estate your contact information, you acknowledge and agree to our <a href="/privacy-policy.html" target="_blank" style="color:#18254B;">Privacy Policy</a> and consent to receiving marketing communications, including through automated calls, texts, and emails, some of which may use artificial or prerecorded voices. This consent isn’t necessary for purchasing any products or services and you may opt out at any time. To opt out from texts, you can reply ‘stop’ at any time. To opt out from emails, you can click on the unsubscribe link in the emails. Message and data rates may apply.</p>';
+
       ov.addEventListener('click', function(e) { if (e.target === ov) _close(); });
-      bx.appendChild(hdr); bx.appendChild(fr); ov.appendChild(bx); document.body.appendChild(ov);
+      bx.appendChild(hdr); bx.appendChild(fr); bx.appendChild(ftr); ov.appendChild(bx); document.body.appendChild(ov);
     }
 
     // Pre-build modal on load so iframe is ready in background — heart click feels instant
