@@ -929,6 +929,15 @@
   // When a non-logged-in user clicks a heart, IDX shows its inline login form
   // inside the shadow root. We hide that form and open our branded signup popup instead.
   (function() {
+    var _form = null;       // cached ref to #listings-showcase-login-form
+    var _foverlay = null;   // cached ref to .idx-listings-showcase__login-form-overlay
+
+    // Remove our display:none from IDX's elements so they work again on the next heart click.
+    function _resetIDXForm() {
+      if (_form) _form.style.removeProperty('display');
+      if (_foverlay) _foverlay.style.removeProperty('display');
+    }
+
     function _openHeartModal() {
       if (document.getElementById('tjg-heart-modal')) return;
       var ov = document.createElement('div');
@@ -942,7 +951,7 @@
       cl.style.cssText = 'position:absolute;top:12px;right:16px;z-index:10;background:none;border:none;font-size:30px;color:#18254B;cursor:pointer;line-height:1;padding:0;opacity:0.6;';
       cl.addEventListener('mouseenter', function(){ cl.style.opacity='1'; });
       cl.addEventListener('mouseleave', function(){ cl.style.opacity='0.6'; });
-      cl.addEventListener('click', function(){ document.body.removeChild(ov); });
+      cl.addEventListener('click', function(){ _resetIDXForm(); document.body.removeChild(ov); });
       var fr = document.createElement('iframe');
       fr.src = 'https://thejaiswalgroup.idxbroker.com/idx/usersignup?modal=1';
       fr.style.cssText = 'width:100%;flex:1;border:none;background:#F3EFE8;';
@@ -950,33 +959,33 @@
       var _n = 0;
       fr.addEventListener('load', function() {
         if (++_n > 1) {
-          setTimeout(function() { var m = document.getElementById('tjg-heart-modal'); if (m) document.body.removeChild(m); }, 1200);
+          setTimeout(function() { _resetIDXForm(); var m = document.getElementById('tjg-heart-modal'); if (m) document.body.removeChild(m); }, 1200);
         }
       });
-      ov.addEventListener('click', function(e) { if (e.target === ov) document.body.removeChild(ov); });
+      ov.addEventListener('click', function(e) { if (e.target === ov) { _resetIDXForm(); document.body.removeChild(ov); } });
       bx.appendChild(cl); bx.appendChild(fr); ov.appendChild(bx); document.body.appendChild(ov);
     }
 
-    // Check if IDX's inline login form is visible in the shadow root; hide it if so.
-    // Returns true if the form was found and hidden.
+    // Returns true if IDX's inline form is currently visible and was successfully hidden.
     function _checkAndHide(root) {
-      var form = root.querySelector('#listings-showcase-login-form');
-      if (!form) return false;
-      // IDX wraps the form in an overlay element — try to find it
-      var wrap = form.parentElement;
-      var target = (wrap && wrap !== root) ? wrap : form;
-      // Skip if already hidden by us
-      if (target.style.display === 'none' && target.style.getPropertyPriority('display') === 'important') return false;
-      // Visible if not explicitly hidden
-      if (target.style.display !== 'none') {
-        target.style.setProperty('display', 'none', 'important');
-        return true;
-      }
-      return false;
+      if (!_form) _form = root.querySelector('#listings-showcase-login-form');
+      if (!_form) return false;
+      // Don't re-trigger if we already set display:none !important on this cycle
+      if (_form.style.display === 'none' && _form.style.getPropertyPriority('display') === 'important') return false;
+      // Check actual computed visibility — IDX may toggle via class, not inline style
+      try {
+        var cs = window.getComputedStyle(_form);
+        if (cs.display === 'none' || cs.visibility === 'hidden') return false;
+      } catch(e) { return false; }
+      // Form is genuinely visible — hide it and its dark card overlay
+      _form.style.setProperty('display', 'none', 'important');
+      if (!_foverlay) _foverlay = root.querySelector('.idx-listings-showcase__login-form-overlay');
+      if (_foverlay) _foverlay.style.setProperty('display', 'none', 'important');
+      return true;
     }
 
     function _initWidget(root) {
-      // MutationObserver: fires whenever IDX shows/hides the form or adds it to the DOM
+      // Primary: MutationObserver fires whenever IDX mutates the form's attributes or DOM
       var obs = new MutationObserver(function() {
         if (_checkAndHide(root)) _openHeartModal();
       });
@@ -988,7 +997,7 @@
         var pid = setInterval(function() {
           polls++;
           if (_checkAndHide(root)) { _openHeartModal(); clearInterval(pid); return; }
-          if (polls >= 8) clearInterval(pid);
+          if (polls >= 10) clearInterval(pid);
         }, 75);
       }, true);
     }
