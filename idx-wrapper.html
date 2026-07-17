@@ -3437,6 +3437,25 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         _resizeTimer = setTimeout(_alignResultsCount, 150);
       });
     })();
+
+    // My Account page: replace blank placeholder images with TJG logo
+    if (document.querySelector('.IDX-page-myaccount')) {
+      (function() {
+        var LOGO = 'https://ljaiswal215.github.io/the-jaiswal-group/logo.png';
+        function _replacePlaceholders() {
+          document.querySelectorAll('.mlm-card__title-image').forEach(function(img) {
+            if (img.src && img.src.indexOf('data:') === 0) {
+              img.src = LOGO;
+              img.style.cssText = 'object-fit:contain;padding:20px;background:#F3EFE8;width:100%;';
+            }
+          });
+        }
+        _replacePlaceholders();
+        var _obs = new MutationObserver(_replacePlaceholders);
+        _obs.observe(document.body, { childList: true, subtree: true });
+        setTimeout(function() { _obs.disconnect(); }, 20000);
+      })();
+    }
   </script>
 
 
