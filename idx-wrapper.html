@@ -2467,6 +2467,8 @@
           .then(function(r) {
             if (r.ok) {
               form.style.display = 'none';
+              var priv = document.getElementById('tjg-tour-privacy');
+              if (priv) priv.style.display = 'none';
               document.getElementById('tjg-tour-success').style.display = 'block';
             } else {
               btn.textContent = 'Send Request'; btn.disabled = false;
