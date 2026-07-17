@@ -1732,20 +1732,20 @@
         }
 
         // Replace subtitle and "To create an account..." paragraph
-        var dlgContent = submitBtn.closest(‘.ui-dialog-content’) || document.querySelector(‘.ui-dialog-content’);
+        var dlgContent = submitBtn.closest('.ui-dialog-content') || document.querySelector('.ui-dialog-content');
         if (dlgContent) {
           var walker = document.createTreeWalker(dlgContent, NodeFilter.SHOW_TEXT, null, false);
           var node;
           while ((node = walker.nextNode())) {
             if (/like listings/i.test(node.nodeValue) && !node.parentElement.dataset.tjgFixed) {
-              node.parentElement.dataset.tjgFixed = ‘1’;
-              node.nodeValue = "Almost there! Don’t miss updates on this listing.";
+              node.parentElement.dataset.tjgFixed = '1';
+              node.nodeValue = "Almost there! Don't miss updates on this listing.";
             }
           }
-          dlgContent.querySelectorAll(‘p’).forEach(function(p) {
+          dlgContent.querySelectorAll('p').forEach(function(p) {
             if (/to create an account/i.test(p.textContent) && !p.dataset.tjgFixed) {
-              p.dataset.tjgFixed = ‘1’;
-              p.style.display = ‘none’;
+              p.dataset.tjgFixed = '1';
+              p.style.display = 'none';
             }
           });
         }
