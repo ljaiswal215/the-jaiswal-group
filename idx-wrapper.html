@@ -1263,14 +1263,14 @@
     #tjg-tour-back:hover { background:rgba(24,37,75,0.06); }
     #tjg-tour-submit { background:#18254B; color:#fff; border:2px solid #18254B; border-radius:0; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:14px; cursor:pointer; transition:background 0.2s, color 0.2s; }
     #tjg-tour-submit:hover { background:#B38987; border-color:#B38987; }
-    /* Opt-in consent block */
-    #tjg-optin-wrap { margin-top:18px; }
+    /* Opt-in consent block (shared by tour + contact forms) */
+    #tjg-optin-wrap, #tjg-contact-optin-wrap { margin-top:18px; }
     .tjg-optin-label { display:flex; align-items:flex-start; gap:9px; cursor:pointer; text-transform:none !important; font-weight:400 !important; letter-spacing:0 !important; }
     .tjg-optin-label input[type="checkbox"] { flex-shrink:0; margin-top:3px; accent-color:#18254B; width:14px; height:14px; cursor:pointer; }
-    #tjg-optin-text { font-family:'Lato',sans-serif; font-size:0.68rem; line-height:1.55; color:#7a7269; overflow:hidden; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; }
-    #tjg-optin-text.tjg-expanded { display:block; -webkit-line-clamp:unset; }
-    #tjg-optin-text a { color:#18254B; text-decoration:underline; }
-    #tjg-optin-toggle { background:none; border:none; color:#B38987; font-size:0.68rem; font-family:'Lato',sans-serif; font-weight:700; cursor:pointer; padding:3px 0 0; display:block; }
+    #tjg-optin-text, #tjg-contact-optin-text { font-family:'Lato',sans-serif; font-size:0.68rem; line-height:1.55; color:#7a7269; overflow:hidden; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; }
+    #tjg-optin-text.tjg-expanded, #tjg-contact-optin-text.tjg-expanded { display:block; -webkit-line-clamp:unset; }
+    #tjg-optin-text a, #tjg-contact-optin-text a { color:#18254B; text-decoration:underline; }
+    #tjg-optin-toggle, #tjg-contact-optin-toggle { background:none; border:none; color:#B38987; font-size:0.68rem; font-family:'Lato',sans-serif; font-weight:700; cursor:pointer; padding:3px 0 0; display:block; }
     /* Success */
     #tjg-tour-success { display:none; text-align:center; padding:40px 24px; font-family:'Lato',sans-serif; color:#18254B; }
     #tjg-tour-success h4 { font-family:'Marcellus',serif !important; font-size:1.4rem; margin-bottom:10px; }
@@ -1304,7 +1304,6 @@
     .tjg-contact-row > div > label { margin-top:0 !important; }
     #tjg-contact-submit { display:block; width:100%; margin-top:20px; background:#18254B; color:#fff; border:2px solid #18254B; border-radius:0; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:14px; cursor:pointer; transition:background 0.2s, border-color 0.2s; }
     #tjg-contact-submit:hover { background:#B38987; border-color:#B38987; }
-    #tjg-contact-privacy { font-family:'Lato',sans-serif; font-size:0.7rem; color:#7a7269; margin-top:12px; line-height:1.5; text-align:center; }
     #tjg-contact-success { display:none; text-align:center; padding:40px 24px; font-family:'Lato',sans-serif; color:#18254B; }
     #tjg-contact-success h4 { font-family:'Marcellus',serif !important; font-size:1.4rem; margin-bottom:10px; }
     #tjg-contact-success p { font-size:0.9rem; color:#7a7269; }
@@ -2338,8 +2337,16 @@
               '<label>Email<span>*</span><input type="email" name="email" required placeholder="Email*"></label>' +
               '<label>Phone<input type="tel" name="phone" placeholder="Phone"></label>' +
               '<label>Message<textarea id="tjg-contact-msg" name="message"></textarea></label>' +
+              '<div id="tjg-contact-optin-wrap">' +
+                '<label class="tjg-optin-label">' +
+                  '<input type="checkbox" id="tjg-contact-optin-check" name="optin" value="yes" required>' +
+                  '<div>' +
+                    '<div id="tjg-contact-optin-text">I agree to be contacted by The Jaiswal Group Real Estate via call, email, and text for real estate services. To opt out, you can reply &lsquo;stop&rsquo; at any time or reply &lsquo;help&rsquo; for assistance. You can also click the unsubscribe link in the emails. Message and data rates may apply. Message frequency may vary. <a href="https://thejaiswalgroup.com/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>.</div>' +
+                    '<button type="button" id="tjg-contact-optin-toggle">Read More</button>' +
+                  '</div>' +
+                '</label>' +
+              '</div>' +
               '<button type="submit" id="tjg-contact-submit">Send Message</button>' +
-              '<p id="tjg-contact-privacy">By submitting you agree to receive communications from The Jaiswal Group. We respect your privacy.</p>' +
             '</form>' +
             '<div id="tjg-contact-success">' +
               '<h4>Message Sent!</h4>' +
@@ -2359,9 +2366,14 @@
       document.getElementById('tjg-tour-close').addEventListener('click', _tourClose);
       document.getElementById('tjg-tour-overlay').addEventListener('click', _tourClose);
 
-      // Read More / Read Less toggle for opt-in text
+      // Read More / Read Less toggle for opt-in text (tour + contact)
       document.getElementById('tjg-optin-toggle').addEventListener('click', function() {
         var txt = document.getElementById('tjg-optin-text');
+        txt.classList.toggle('tjg-expanded');
+        this.textContent = txt.classList.contains('tjg-expanded') ? 'Read Less' : 'Read More';
+      });
+      document.getElementById('tjg-contact-optin-toggle').addEventListener('click', function() {
+        var txt = document.getElementById('tjg-contact-optin-text');
         txt.classList.toggle('tjg-expanded');
         this.textContent = txt.classList.contains('tjg-expanded') ? 'Read Less' : 'Read More';
       });
