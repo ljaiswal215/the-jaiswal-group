@@ -1754,11 +1754,38 @@
         wrap.id = 'tjg-signup-optin';
         wrap.style.cssText = 'margin-bottom:14px;';
         wrap.innerHTML =
-          '<label style="display:flex;align-items:flex-start;gap:14px;cursor:pointer;font-size:0.72rem;line-height:1.55;color:#555;font-family:Lato,sans-serif;font-weight:400;text-transform:none;letter-spacing:0;">' +
+          '<label style="display:flex;align-items:flex-start;gap:14px;cursor:pointer;font-family:Lato,sans-serif;">' +
             '<input type="checkbox" id="tjg-signup-check" style="flex-shrink:0;margin-top:3px;accent-color:#18254B;width:14px;height:14px;cursor:pointer;">' +
-            '<span style="font-weight:400!important;text-transform:none!important;letter-spacing:0!important;">I agree to be contacted by The Jaiswal Group Real Estate via call, email, and text for real estate services. To opt out, reply &ldquo;stop&rdquo; at any time. Message and data rates may apply. <a href="https://thejaiswalgroup.com/privacy-policy.html" target="_blank" rel="noopener" style="color:#18254B;text-decoration:underline;">Privacy Policy</a>.</span>' +
+            '<div style="flex:1;min-width:0;">' +
+              '<div id="tjg-signup-optin-text" style="font-size:0.68rem;line-height:1.55;color:#7a7269;font-weight:400;text-transform:none;letter-spacing:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;">' +
+                'By providing The Jaiswal Group Real Estate your contact information, you acknowledge and agree to our ' +
+                '<a href="https://thejaiswalgroup.com/privacy-policy.html" target="_blank" rel="noopener" style="color:#18254B;text-decoration:underline;">Privacy Policy</a>' +
+                ' and consent to receiving marketing communications, including through automated calls, texts, and emails, some of which may use artificial or prerecorded voices. This consent isn\'t necessary for purchasing any products or services and you may opt out at any time. To opt out from texts, you can reply \'stop\' at any time. To opt out from emails, you can click on the unsubscribe link in the emails. Message and data rates may apply.' +
+              '</div>' +
+              '<button type="button" id="tjg-signup-optin-toggle" style="background:none;border:none;color:#B38987;font-size:0.68rem;font-family:Lato,sans-serif;font-weight:700;cursor:pointer;padding:3px 0 0;display:block;text-transform:none;letter-spacing:0;">Read More</button>' +
+            '</div>' +
           '</label>';
         submitBtn.parentNode.insertBefore(wrap, submitBtn);
+
+        // Read More / Less toggle for signup opt-in
+        var _signupToggle = wrap.querySelector('#tjg-signup-optin-toggle');
+        var _signupText   = wrap.querySelector('#tjg-signup-optin-text');
+        if (_signupToggle && _signupText) {
+          _signupToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var expanded = _signupText.style.webkitLineClamp === 'unset';
+            if (expanded) {
+              _signupText.style.display = '-webkit-box';
+              _signupText.style.webkitLineClamp = '3';
+              _signupToggle.textContent = 'Read More';
+            } else {
+              _signupText.style.display = 'block';
+              _signupText.style.webkitLineClamp = 'unset';
+              _signupToggle.textContent = 'Read Less';
+            }
+          });
+        }
 
         // Gate submit on checkbox
         submitBtn.addEventListener('click', function(e) {
