@@ -2143,7 +2143,12 @@
       // Property address auto-filled into the form subject
       var addrEl   = document.getElementById('IDX-detailsAddressStreet');
       var regionEl = document.getElementById('IDX-detailsAddressRegion');
-      var propAddr = [addrEl && addrEl.textContent.trim(), regionEl && regionEl.textContent.trim()].filter(Boolean).join(', ');
+      // Collapse whitespace; truncate region after zip code to strip bed/bath/price text
+      var _addrText   = addrEl ? addrEl.textContent.replace(/\s+/g, ' ').trim() : '';
+      var _regionText = regionEl ? regionEl.textContent.replace(/\s+/g, ' ').trim() : '';
+      var _zipTrim = _regionText.match(/^(.+?\d{5})/);
+      if (_zipTrim) _regionText = _zipTrim[1].trim();
+      var propAddr = [_addrText, _regionText].filter(Boolean).join(', ');
 
       // Hide old agent info card and aside listing header
       var oldCard = document.getElementById('IDX-contactInformation');
