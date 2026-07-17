@@ -1810,10 +1810,27 @@
 
       [600, 1500, 3000].forEach(function(ms) { setTimeout(_injectSignupCheckbox, ms); });
 
-      // Also watch for the dialog to open dynamically
+      // Watch for dialog to open; also keep title/subtitle current (IDX resets them after we set them)
       new MutationObserver(function() {
+        // Checkbox — inject once per dialog instance
         if (document.getElementById('IDX-submitBtn') && !document.getElementById('tjg-signup-check')) {
           _injectSignupCheckbox();
+        }
+        // Title — always enforce (IDX may overwrite it during dialog init)
+        var _dlgTitle = document.getElementById('ui-dialog-title-IDX-registration');
+        if (_dlgTitle && _dlgTitle.textContent.trim() !== 'Sign up to save this home') {
+          _dlgTitle.textContent = 'Sign up to save this home';
+        }
+        // Subtitle — always enforce
+        var _dlgContent = document.querySelector('.IDX-registrationModal .ui-dialog-content');
+        if (_dlgContent) {
+          var _walker = document.createTreeWalker(_dlgContent, NodeFilter.SHOW_TEXT, null, false);
+          var _node;
+          while ((_node = _walker.nextNode())) {
+            if (/like listings/i.test(_node.nodeValue)) {
+              _node.nodeValue = "Almost there! Don't miss updates on this listing";
+            }
+          }
         }
       }).observe(document.body, { childList: true, subtree: true });
     })();
