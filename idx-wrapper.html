@@ -20,10 +20,12 @@
 
     /* ─── IDX jQuery UI dialogs (signup/login): render above fixed site header ─── */
     .ui-dialog { z-index: 1100 !important; }
-    /* Registration modal: narrow to match brand style */
-    .IDX-registrationModal { width: 440px !important; max-width: 92vw !important; }
+    /* Registration + login modals: narrow to match brand style */
+    .IDX-registrationModal,
+    .IDX-loginModal { width: 440px !important; max-width: 92vw !important; }
     /* Strip jQuery UI titlebar box — replace with a single divider line */
-    .IDX-registrationModal .ui-dialog-titlebar {
+    .IDX-registrationModal .ui-dialog-titlebar,
+    .IDX-loginModal .ui-dialog-titlebar {
       background: transparent !important;
       background-color: transparent !important;
       border: none !important;
@@ -31,6 +33,56 @@
       box-shadow: none !important;
       border-radius: 0 !important;
     }
+    /* Login modal: brand the form fields and button */
+    .IDX-loginModal .ui-dialog-content { font-family: Lato, sans-serif !important; }
+    .IDX-loginModal #IDX-myListingManagerForm label,
+    .IDX-loginModal label {
+      font-family: Lato, sans-serif !important;
+      font-size: 0.72rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+      color: #18254B !important;
+    }
+    .IDX-loginModal input[type="email"],
+    .IDX-loginModal input[type="text"] {
+      font-family: Lato, sans-serif !important;
+      border: 1px solid #C8C0B4 !important;
+      border-radius: 0 !important;
+      padding: 10px 14px !important;
+      font-size: 0.9rem !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      background: #fff !important;
+    }
+    .IDX-loginModal input[type="email"]:focus,
+    .IDX-loginModal input[type="text"]:focus {
+      outline: none !important;
+      border-color: #18254B !important;
+    }
+    .IDX-loginModal input[type="submit"],
+    .IDX-loginModal button[type="submit"] {
+      background: #18254B !important;
+      color: #fff !important;
+      border: none !important;
+      border-radius: 0 !important;
+      font-family: Lato, sans-serif !important;
+      font-size: 0.75rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.14em !important;
+      text-transform: uppercase !important;
+      padding: 14px 20px !important;
+      width: 100% !important;
+      cursor: pointer !important;
+    }
+    .IDX-loginModal input[type="submit"]:hover,
+    .IDX-loginModal button[type="submit"]:hover {
+      background: #B38987 !important;
+    }
+    .IDX-loginModal input[type="checkbox"] { accent-color: #18254B !important; }
+    .IDX-loginModal a { color: #18254B !important; }
+    .IDX-loginModal .IDX-alertInfo,
+    .IDX-loginModal .IDX-alert { display: none !important; }
 
     /* ─── Custom listing action row ─── */
     #tjg-action-row { display:flex; gap:10px; align-items:center; }
@@ -1816,6 +1868,8 @@
         if (document.getElementById('IDX-submitBtn') && !document.getElementById('tjg-signup-check')) {
           _injectSignupCheckbox();
         }
+
+        // ── Registration modal ──
         // Title — always enforce (IDX may overwrite it during dialog init)
         var _dlgTitle = document.getElementById('ui-dialog-title-IDX-registration');
         if (_dlgTitle && _dlgTitle.textContent.trim() !== 'Sign up to save this home') {
@@ -1829,6 +1883,33 @@
           while ((_node = _walker.nextNode())) {
             if (/like listings/i.test(_node.nodeValue)) {
               _node.nodeValue = "Almost there! Don't miss updates on this listing";
+            }
+          }
+        }
+
+        // ── Login modal ──
+        var _loginTitle = document.getElementById('ui-dialog-title-IDX-login');
+        if (_loginTitle && _loginTitle.textContent.trim() !== 'Welcome Back') {
+          _loginTitle.textContent = 'Welcome Back';
+          // Center login modal now that CSS has narrowed it
+          var _loginDlg = document.querySelector('.IDX-loginModal');
+          if (_loginDlg) {
+            var _vw = window.innerWidth;
+            _loginDlg.style.left = Math.max(0, Math.round((_vw - 440) / 2)) + 'px';
+          }
+        }
+        // Login subtitle — replace IDX default
+        var _loginContent = document.querySelector('.IDX-loginModal .ui-dialog-content');
+        if (_loginContent) {
+          var _lWalker = document.createTreeWalker(_loginContent, NodeFilter.SHOW_TEXT, null, false);
+          var _lNode;
+          while ((_lNode = _lWalker.nextNode())) {
+            if (/like listings/i.test(_lNode.nodeValue)) {
+              _lNode.nodeValue = 'Access your saved homes and searches';
+            }
+            // Also clean up the "Current My Listing Manager Members" label
+            if (/current my listing manager/i.test(_lNode.nodeValue)) {
+              _lNode.parentElement.style.display = 'none';
             }
           }
         }
