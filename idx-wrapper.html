@@ -1825,7 +1825,21 @@
     (function() {
       if (/[?&]modal=1/.test(window.location.search)) {
         var s = document.createElement('style');
-        s.textContent = '#site-header,footer.site-footer{display:none!important;}body{background:#F3EFE8!important;}';
+        s.textContent = [
+          /* hide site chrome */
+          '#site-header,footer.site-footer{display:none!important;}',
+          'body{background:#F3EFE8!important;}',
+          /* strip the blue "Create a free account…" alert — shows in full page but not in dialog */
+          '.IDX-page-usersignup .IDX-alert,.IDX-page-usersignup .IDX-alert-info{display:none!important;}',
+          /* remove the heavy top/bottom padding so the form fills the iframe without blank space */
+          '.IDX-page-usersignup #IDX-main{padding:0!important;}',
+          /* remove the outer signup container margin/padding that adds whitespace */
+          '.IDX-page-usersignup #IDX-leadSignupContainer{padding-top:12px!important;padding-bottom:12px!important;}',
+          /* tighten the panel so it sits flush */
+          '.IDX-page-usersignup .IDX-panel.IDX-panel-default{margin-top:0!important;border:none!important;box-shadow:none!important;}',
+          /* our injected header: reduce margin since we removed the large top padding */
+          '#tjg-signup-header{margin-top:20px!important;margin-bottom:14px!important;padding-top:0!important;}'
+        ].join('');
         document.head.appendChild(s);
       }
     })();
