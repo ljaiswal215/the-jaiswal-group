@@ -22,6 +22,15 @@
     .ui-dialog { z-index: 1100 !important; }
     /* Registration modal: narrow to match brand style */
     .IDX-registrationModal { width: 440px !important; max-width: 92vw !important; }
+    /* Strip jQuery UI titlebar box — replace with a single divider line */
+    .IDX-registrationModal .ui-dialog-titlebar {
+      background: transparent !important;
+      background-color: transparent !important;
+      border: none !important;
+      border-bottom: 1px solid rgba(24,37,75,0.15) !important;
+      box-shadow: none !important;
+      border-radius: 0 !important;
+    }
 
     /* ─── Custom listing action row ─── */
     #tjg-action-row { display:flex; gap:10px; align-items:center; }
