@@ -953,16 +953,12 @@
 
       var hdr = document.createElement('div');
       hdr.style.cssText = 'background:#F3EFE8;display:flex;align-items:center;justify-content:flex-end;padding:6px 12px;flex-shrink:0;border-bottom:1px solid rgba(24,37,75,0.12);border-radius:14px 14px 0 0;';
-
       var cl = document.createElement('button');
-      cl.innerHTML = '×';
+      cl.innerHTML = '&times;';
       cl.setAttribute('aria-label', 'Close');
       cl.style.cssText = 'background:none;border:none;font-size:30px;color:#18254B;cursor:pointer;line-height:1;padding:0 2px;';
       cl.addEventListener('click', _close);
       hdr.appendChild(cl);
-
-      var frWrap = document.createElement('div');
-      frWrap.style.cssText = 'position:relative;flex:1;min-height:0;display:flex;flex-direction:column;';
 
       var fr = document.createElement('iframe');
       fr.src = 'https://thejaiswalgroup.idxbroker.com/idx/usersignup?modal=1';
@@ -974,41 +970,23 @@
         if (_loadCount > 1) setTimeout(_close, 1200);
       });
 
-      var blocker = document.createElement('div');
-      blocker.style.cssText = 'position:absolute;inset:0;z-index:5;cursor:pointer;';
-      blocker.addEventListener('click', function() {
-        ftr.style.outline = '2px solid #B38987';
-        ftr.style.borderRadius = '4px';
-        cb.focus();
-        setTimeout(function() { ftr.style.outline = ''; ftr.style.borderRadius = ''; }, 1500);
-      });
-      frWrap.appendChild(fr);
-      frWrap.appendChild(blocker);
-
       var ftr = document.createElement('div');
       ftr.style.cssText = 'background:#F3EFE8;padding:10px 16px;border-top:1px solid rgba(24,37,75,0.12);flex-shrink:0;border-radius:0 0 14px 14px;';
-
       var lbl = document.createElement('label');
       lbl.style.cssText = 'display:flex;align-items:flex-start;gap:8px;cursor:pointer;';
-
       var cb = document.createElement('input');
       cb.type = 'checkbox';
+      cb.required = true;
       cb.style.cssText = 'margin-top:2px;flex-shrink:0;width:14px;height:14px;accent-color:#18254B;cursor:pointer;';
-      cb.addEventListener('change', function() {
-        blocker.style.display = cb.checked ? 'none' : 'block';
-        ftr.style.outline = '';
-      });
-
       var txt = document.createElement('span');
       txt.style.cssText = 'font-family:Lato,sans-serif;font-size:10px;line-height:1.5;color:#555;';
       txt.innerHTML = 'By providing The Jaiswal Group Real Estate your contact information, you acknowledge and agree to our <a href="/privacy-policy.html" target="_blank" style="color:#18254B;">Privacy Policy</a> and consent to receiving marketing communications, including through automated calls, texts, and emails, some of which may use artificial or prerecorded voices. This consent isn\'t necessary for purchasing any products or services and you may opt out at any time. To opt out from texts, you can reply \'stop\' at any time. To opt out from emails, you can click on the unsubscribe link in the emails. Message and data rates may apply.';
-
       lbl.appendChild(cb);
       lbl.appendChild(txt);
       ftr.appendChild(lbl);
 
       ov.addEventListener('click', function(e) { if (e.target === ov) _close(); });
-      bx.appendChild(hdr); bx.appendChild(frWrap); bx.appendChild(ftr); ov.appendChild(bx); document.body.appendChild(ov);
+      bx.appendChild(hdr); bx.appendChild(fr); bx.appendChild(ftr); ov.appendChild(bx); document.body.appendChild(ov);
     }
 
     if (document.readyState === 'loading') {
@@ -1046,7 +1024,7 @@
         var url = link ? link.href.replace('?widgetReferer=true', '') : window.location.href;
         var addr = card.querySelector('.idx-listing-card__address');
         var price = card.querySelector('.idx-listing-card__listing-price');
-        var title = (addr ? addr.textContent.trim() : 'Property') + (price ? ' — ' + price.textContent.trim() : '');
+        var title = (addr ? addr.textContent.trim() : 'Property') + (price ? ' - ' + price.textContent.trim() : '');
         if (navigator.share) {
           navigator.share({ title: title, url: url });
         } else {
