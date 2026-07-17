@@ -3455,6 +3455,44 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         _obs.observe(document.body, { childList: true, subtree: true });
         setTimeout(function() { _obs.disconnect(); }, 20000);
       })();
+
+      // Flash message (after Resend Code): force navy bg, center checkmark + text
+      (function() {
+        function _styleFlash() {
+          var flash = document.querySelector('.flash-message');
+          if (!flash || flash.dataset.tjgStyled) return;
+          flash.dataset.tjgStyled = '1';
+          flash.style.cssText = [
+            'position:fixed', 'top:0', 'left:0',
+            'width:100vw', 'height:100vh',
+            'background:#18254B',
+            'display:flex', 'flex-direction:column',
+            'align-items:center', 'justify-content:center',
+            'text-align:center',
+            'z-index:9999', 'padding:40px',
+            'box-sizing:border-box'
+          ].join('!important;') + '!important;';
+          // Center every direct child (icon + text)
+          Array.prototype.forEach.call(flash.children, function(el) {
+            el.style.setProperty('display', 'block', 'important');
+            el.style.setProperty('margin', '0 auto', 'important');
+            el.style.setProperty('color', '#fff', 'important');
+            el.style.setProperty('text-align', 'center', 'important');
+            if (el.tagName === 'SVG' || el.querySelector('svg')) {
+              el.style.setProperty('width', '120px', 'important');
+              el.style.setProperty('height', '120px', 'important');
+              el.style.setProperty('margin-bottom', '24px', 'important');
+            }
+          });
+          // Also whiten any nested text
+          flash.querySelectorAll('p, span, div').forEach(function(el) {
+            el.style.setProperty('color', '#fff', 'important');
+          });
+        }
+        var _fObs = new MutationObserver(_styleFlash);
+        _fObs.observe(document.body, { childList: true, subtree: true });
+        setTimeout(function() { _fObs.disconnect(); }, 60000);
+      })();
     }
   </script>
 
