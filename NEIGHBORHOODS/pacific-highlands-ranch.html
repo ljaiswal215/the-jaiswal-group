@@ -927,10 +927,10 @@
   </script>
 
   <script>
-  // Heart click → branded signup popup.
-  // Strategy: suppress IDX's native inline form via shadow-root CSS injection,
-  // then watch the form's style attribute — IDX repositions it only when an
-  // unauthenticated user clicks a heart, so that mutation is our trigger.
+  // Custom heart button → branded signup popup.
+  // Injects our own heart button into each listing card's image overlay
+  // inside the idx-listings-showcase shadow root. No dependence on IDX's
+  // native save/login form at all.
   (function() {
     var _loadCount = 0;
 
@@ -986,32 +986,47 @@
       setTimeout(_build, 0);
     }
 
-    function _initWidget(root) {
-      // Suppress IDX's inline login form and overlay inside the shadow root
-      var st = document.createElement('style');
-      st.textContent = '#listings-showcase-login-form, .idx-listings-showcase__login-form-overlay { display: none !important; }';
-      root.appendChild(st);
+    var HEART_SVG = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
 
-      // IDX repositions the form's style.top only when an unauthenticated user clicks a heart
-      var _lastStyle = '';
-      var _ready = false;
-      var _attempts = 0;
-      var _fp = setInterval(function() {
-        _attempts++;
-        var form = root.querySelector('#listings-showcase-login-form');
-        if (!form && _attempts < 30) return;
-        clearInterval(_fp);
-        if (!form) return;
-        _lastStyle = form.getAttribute('style') || '';
-        setTimeout(function() { _ready = true; }, 3000);
-        new MutationObserver(function() {
-          if (!_ready) return;
-          var s = form.getAttribute('style') || '';
-          if (s === _lastStyle) return;
-          _lastStyle = s;
-          _show();
-        }).observe(form, { attributes: true, attributeFilter: ['style'] });
-      }, 400);
+    function _addHeart(card) {
+      if (card.querySelector('.tjg-heart')) return;
+      var wrap = card.querySelector('.idx-listing-card__image--wrap');
+      if (!wrap) return;
+      var btn = document.createElement('button');
+      btn.className = 'tjg-heart';
+      btn.setAttribute('aria-label', 'Save this property');
+      btn.innerHTML = HEART_SVG;
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        _show();
+      });
+      wrap.appendChild(btn);
+    }
+
+    function _initWidget(root) {
+      // Inject heart button styles into shadow root
+      if (!root.querySelector('#tjg-heart-styles')) {
+        var st = document.createElement('style');
+        st.id = 'tjg-heart-styles';
+        st.textContent = [
+          '.idx-listing-card__image--wrap { position: relative !important; }',
+          '.tjg-heart {',
+          '  position: absolute; top: 10px; right: 10px; z-index: 10;',
+          '  width: 36px; height: 36px; border-radius: 50%; border: none; cursor: pointer;',
+          '  background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center;',
+          '  padding: 0; transition: background 0.2s;',
+          '}',
+          '.tjg-heart:hover { background: rgba(0,0,0,0.6); }'
+        ].join('');
+        root.appendChild(st);
+      }
+
+      root.querySelectorAll('.idx-listing-card').forEach(_addHeart);
+
+      new MutationObserver(function() {
+        root.querySelectorAll('.idx-listing-card').forEach(_addHeart);
+      }).observe(root, { childList: true, subtree: true });
     }
 
     var _watching = false;
