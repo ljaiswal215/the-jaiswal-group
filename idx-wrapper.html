@@ -18,6 +18,9 @@
     /* ─── Hide native header action buttons (replaced by custom row) ─── */
     #IDX-saveProperty, #IDX-addToFavorites, #IDX-printable, #IDX-printFlyer { display: none !important; }
 
+    /* ─── IDX jQuery UI dialogs (signup/login): render above fixed site header ─── */
+    .ui-dialog { z-index: 1100 !important; }
+
     /* ─── Custom listing action row ─── */
     #tjg-action-row { display:flex; gap:10px; align-items:center; }
     .tjg-action-btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; background:#F3EFE8; color:#18254B; border:2px solid #18254B; border-radius:0; font-family:'Lato',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:11px 18px; cursor:pointer; white-space:nowrap; }
