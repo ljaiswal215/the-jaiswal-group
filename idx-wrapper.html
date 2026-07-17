@@ -1794,7 +1794,7 @@
         var dialogTitle = document.getElementById('ui-dialog-title-IDX-registration');
         if (dialogTitle && !dialogTitle.dataset.tjgFixed) {
           dialogTitle.dataset.tjgFixed = '1';
-          dialogTitle.textContent = 'Log in to save this home';
+          dialogTitle.textContent = 'Log In To Save This Home';
         }
 
         // Replace subtitle and "To create an account..." paragraph
@@ -1820,8 +1820,8 @@
         wrap.id = 'tjg-signup-optin';
         wrap.style.cssText = 'margin-bottom:14px;';
         wrap.innerHTML =
-          '<label style="display:flex;align-items:flex-start;gap:14px;cursor:pointer;font-family:Lato,sans-serif;">' +
-            '<input type="checkbox" id="tjg-signup-check" style="flex-shrink:0;margin-top:3px;accent-color:#18254B;width:14px;height:14px;cursor:pointer;">' +
+          '<label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-family:Lato,sans-serif;">' +
+            '<input type="checkbox" id="tjg-signup-check" style="flex-shrink:0;margin-top:2px;accent-color:#18254B;width:14px;height:14px;cursor:pointer;">' +
             '<div style="flex:1;min-width:0;">' +
               '<div id="tjg-signup-optin-text" style="font-size:0.68rem;line-height:1.55;color:#7a7269;font-weight:400;text-transform:none;letter-spacing:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;">' +
                 'By providing The Jaiswal Group Real Estate your contact information, you acknowledge and agree to our ' +
@@ -1877,8 +1877,8 @@
         // ── Registration modal ──
         // Title — always enforce (IDX may overwrite it during dialog init)
         var _dlgTitle = document.getElementById('ui-dialog-title-IDX-registration');
-        if (_dlgTitle && _dlgTitle.textContent.trim() !== 'Log in to save this home') {
-          _dlgTitle.textContent = 'Log in to save this home';
+        if (_dlgTitle && _dlgTitle.textContent.trim() !== 'Log In To Save This Home') {
+          _dlgTitle.textContent = 'Log In To Save This Home';
         }
         // Subtitle — always enforce
         var _dlgContent = document.querySelector('.IDX-registrationModal .ui-dialog-content');
