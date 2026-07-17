@@ -927,23 +927,30 @@
   </script>
 
   <script>
-  // Intercept IDX signup/login links (e.g. "Register Here" from heart tooltip) → branded popup
+  // Heart click → branded signup popup.
+  // Strategy: suppress IDX's native inline form via shadow-root CSS injection,
+  // then watch the form's style attribute — IDX repositions it only when an
+  // unauthenticated user clicks a heart, so that mutation is our trigger.
   (function() {
-    var AUTH_RE = /\/idx\/(usersignup|userlogin)/i;
+    var _loadCount = 0;
 
-    function _closeAuthModal() {
-      var m = document.getElementById('tjg-auth-modal');
-      if (m) document.body.removeChild(m);
+    function _close() {
+      var m = document.getElementById('tjg-heart-modal');
+      if (m) m.style.display = 'none';
     }
 
-    function _openAuthPopup(url) {
-      if (document.getElementById('tjg-auth-modal')) return;
-      var popupUrl = url.replace(/[?&]modal=1/, '');
-      popupUrl += (popupUrl.indexOf('?') > -1 ? '&' : '?') + 'modal=1';
+    function _show() {
+      var m = document.getElementById('tjg-heart-modal');
+      if (m) { m.style.display = 'flex'; return; }
+      _build();
+      document.getElementById('tjg-heart-modal').style.display = 'flex';
+    }
 
+    function _build() {
+      if (document.getElementById('tjg-heart-modal')) return;
       var ov = document.createElement('div');
-      ov.id = 'tjg-auth-modal';
-      ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(24,37,75,0.72);display:flex;align-items:center;justify-content:center;';
+      ov.id = 'tjg-heart-modal';
+      ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(24,37,75,0.72);display:none;align-items:center;justify-content:center;';
 
       var bx = document.createElement('div');
       bx.style.cssText = 'width:92%;max-width:560px;height:82vh;max-height:680px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,0.28);border-radius:14px;';
@@ -955,42 +962,68 @@
       cl.innerHTML = '&times;';
       cl.setAttribute('aria-label', 'Close');
       cl.style.cssText = 'background:none;border:none;font-size:30px;color:#18254B;cursor:pointer;line-height:1;padding:0 2px;';
-      cl.addEventListener('click', _closeAuthModal);
+      cl.addEventListener('click', _close);
       hdr.appendChild(cl);
 
       var fr = document.createElement('iframe');
-      fr.src = popupUrl;
+      fr.src = 'https://thejaiswalgroup.idxbroker.com/idx/usersignup?modal=1';
       fr.style.cssText = 'width:100%;flex:1;border:none;background:#F3EFE8;min-height:0;';
       fr.setAttribute('frameborder', '0');
-
-      var _n = 0;
+      _loadCount = 0;
       fr.addEventListener('load', function() {
-        if (++_n > 1) setTimeout(function() { _closeAuthModal(); }, 1200);
+        _loadCount++;
+        if (_loadCount > 1) setTimeout(_close, 1200);
       });
 
-      ov.addEventListener('click', function(e) { if (e.target === ov) _closeAuthModal(); });
-      bx.appendChild(hdr);
-      bx.appendChild(fr);
-      ov.appendChild(bx);
-      document.body.appendChild(ov);
+      ov.addEventListener('click', function(e) { if (e.target === ov) _close(); });
+      bx.appendChild(hdr); bx.appendChild(fr); ov.appendChild(bx); document.body.appendChild(ov);
     }
 
-    function _interceptAuthLinks() {
-      document.querySelectorAll('a[href]').forEach(function(link) {
-        if (AUTH_RE.test(link.href) && !link.dataset.tjgAuth) {
-          link.dataset.tjgAuth = '1';
-          link.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            _openAuthPopup(link.href);
-          });
-        }
-      });
+    // Pre-build modal on load so iframe is ready in background — heart click feels instant
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', _build);
+    } else {
+      setTimeout(_build, 0);
     }
 
-    _interceptAuthLinks();
-    var _aObs = new MutationObserver(_interceptAuthLinks);
-    _aObs.observe(document.body, { childList: true, subtree: true });
+    function _initWidget(root) {
+      // Suppress IDX's inline login form and overlay inside the shadow root
+      var st = document.createElement('style');
+      st.textContent = '#listings-showcase-login-form, .idx-listings-showcase__login-form-overlay { display: none !important; }';
+      root.appendChild(st);
+
+      // IDX repositions the form's style.top only when an unauthenticated user clicks a heart
+      var _lastStyle = '';
+      var _ready = false;
+      var _attempts = 0;
+      var _fp = setInterval(function() {
+        _attempts++;
+        var form = root.querySelector('#listings-showcase-login-form');
+        if (!form && _attempts < 30) return;
+        clearInterval(_fp);
+        if (!form) return;
+        _lastStyle = form.getAttribute('style') || '';
+        setTimeout(function() { _ready = true; }, 3000);
+        new MutationObserver(function() {
+          if (!_ready) return;
+          var s = form.getAttribute('style') || '';
+          if (s === _lastStyle) return;
+          _lastStyle = s;
+          _show();
+        }).observe(form, { attributes: true, attributeFilter: ['style'] });
+      }, 400);
+    }
+
+    var _watching = false;
+    var _wt = setInterval(function() {
+      if (_watching) { clearInterval(_wt); return; }
+      var widget = document.querySelector('idx-listings-showcase');
+      if (!widget || !widget.shadowRoot) return;
+      _watching = true;
+      clearInterval(_wt);
+      _initWidget(widget.shadowRoot);
+    }, 300);
+    setTimeout(function() { clearInterval(_wt); }, 25000);
   })();
   </script>
 </body>
