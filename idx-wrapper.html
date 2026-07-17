@@ -1739,7 +1739,7 @@
           while ((node = walker.nextNode())) {
             if (/like listings/i.test(node.nodeValue) && !node.parentElement.dataset.tjgFixed) {
               node.parentElement.dataset.tjgFixed = '1';
-              node.nodeValue = "Almost there! Don't miss updates on this listing.";
+              node.nodeValue = "Almost there! Don't miss updates on this listing";
             }
           }
           dlgContent.querySelectorAll('p').forEach(function(p) {
