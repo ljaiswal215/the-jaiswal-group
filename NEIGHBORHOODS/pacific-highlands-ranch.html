@@ -925,5 +925,73 @@
     setTimeout(function() { clearInterval(t); }, 20000);
   })();
   </script>
+
+  <script>
+  // Intercept IDX signup/login links (e.g. "Register Here" from heart tooltip) → branded popup
+  (function() {
+    var AUTH_RE = /\/idx\/(usersignup|userlogin)/i;
+
+    function _closeAuthModal() {
+      var m = document.getElementById('tjg-auth-modal');
+      if (m) document.body.removeChild(m);
+    }
+
+    function _openAuthPopup(url) {
+      if (document.getElementById('tjg-auth-modal')) return;
+      var popupUrl = url.replace(/[?&]modal=1/, '');
+      popupUrl += (popupUrl.indexOf('?') > -1 ? '&' : '?') + 'modal=1';
+
+      var ov = document.createElement('div');
+      ov.id = 'tjg-auth-modal';
+      ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(24,37,75,0.72);display:flex;align-items:center;justify-content:center;';
+
+      var bx = document.createElement('div');
+      bx.style.cssText = 'width:92%;max-width:560px;height:82vh;max-height:680px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,0.28);border-radius:14px;';
+
+      var hdr = document.createElement('div');
+      hdr.style.cssText = 'background:#F3EFE8;display:flex;align-items:center;justify-content:flex-end;padding:6px 12px;flex-shrink:0;border-bottom:1px solid rgba(24,37,75,0.12);border-radius:14px 14px 0 0;';
+
+      var cl = document.createElement('button');
+      cl.innerHTML = '&times;';
+      cl.setAttribute('aria-label', 'Close');
+      cl.style.cssText = 'background:none;border:none;font-size:30px;color:#18254B;cursor:pointer;line-height:1;padding:0 2px;';
+      cl.addEventListener('click', _closeAuthModal);
+      hdr.appendChild(cl);
+
+      var fr = document.createElement('iframe');
+      fr.src = popupUrl;
+      fr.style.cssText = 'width:100%;flex:1;border:none;background:#F3EFE8;min-height:0;';
+      fr.setAttribute('frameborder', '0');
+
+      var _n = 0;
+      fr.addEventListener('load', function() {
+        if (++_n > 1) setTimeout(function() { _closeAuthModal(); }, 1200);
+      });
+
+      ov.addEventListener('click', function(e) { if (e.target === ov) _closeAuthModal(); });
+      bx.appendChild(hdr);
+      bx.appendChild(fr);
+      ov.appendChild(bx);
+      document.body.appendChild(ov);
+    }
+
+    function _interceptAuthLinks() {
+      document.querySelectorAll('a[href]').forEach(function(link) {
+        if (AUTH_RE.test(link.href) && !link.dataset.tjgAuth) {
+          link.dataset.tjgAuth = '1';
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            _openAuthPopup(link.href);
+          });
+        }
+      });
+    }
+
+    _interceptAuthLinks();
+    var _aObs = new MutationObserver(_interceptAuthLinks);
+    _aObs.observe(document.body, { childList: true, subtree: true });
+  })();
+  </script>
 </body>
 </html>
