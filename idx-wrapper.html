@@ -1263,7 +1263,6 @@
     #tjg-tour-back:hover { background:rgba(24,37,75,0.06); }
     #tjg-tour-submit { background:#18254B; color:#fff; border:2px solid #18254B; border-radius:0; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:14px; cursor:pointer; transition:background 0.2s, color 0.2s; }
     #tjg-tour-submit:hover { background:#B38987; border-color:#B38987; }
-    #tjg-tour-privacy { font-family:'Lato',sans-serif; font-size:0.7rem; color:#7a7269; margin-top:14px; line-height:1.5; }
     /* Opt-in consent block */
     #tjg-optin-wrap { margin-top:18px; }
     .tjg-optin-label { display:flex; align-items:flex-start; gap:9px; cursor:pointer; text-transform:none !important; font-weight:400 !important; letter-spacing:0 !important; }
@@ -2305,7 +2304,6 @@
                 '<button type="submit" id="tjg-tour-submit">Send Request</button>' +
               '</div>' +
             '</form>' +
-            '<p id="tjg-tour-privacy">Your information is secure and never shared without your consent.</p>' +
             '<div id="tjg-tour-success"><h4>Tour Request Sent!</h4><p>We\'ll be in touch shortly to confirm your details.</p></div>' +
           '</div>' +
         '</div>';
@@ -2467,9 +2465,7 @@
           .then(function(r) {
             if (r.ok) {
               form.style.display = 'none';
-              var priv = document.getElementById('tjg-tour-privacy');
-              if (priv) priv.style.display = 'none';
-              document.getElementById('tjg-tour-success').style.display = 'block';
+document.getElementById('tjg-tour-success').style.display = 'block';
             } else {
               btn.textContent = 'Send Request'; btn.disabled = false;
               alert('Something went wrong. Please call us at (858) 290-7531.');
