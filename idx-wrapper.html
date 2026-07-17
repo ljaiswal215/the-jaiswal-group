@@ -20,6 +20,8 @@
 
     /* ─── IDX jQuery UI dialogs (signup/login): render above fixed site header ─── */
     .ui-dialog { z-index: 1100 !important; }
+    /* Registration modal: narrow to match brand style */
+    .IDX-registrationModal { width: 440px !important; max-width: 92vw !important; }
 
     /* ─── Custom listing action row ─── */
     #tjg-action-row { display:flex; gap:10px; align-items:center; }
@@ -1713,6 +1715,14 @@
         var submitBtn = document.getElementById('IDX-submitBtn');
         if (!submitBtn || submitBtn.dataset.tjgCheckbox) return;
         submitBtn.dataset.tjgCheckbox = '1';
+
+        // Re-center the dialog now that CSS has narrowed it
+        var dlg = submitBtn.closest('.IDX-registrationModal') || document.querySelector('.IDX-registrationModal');
+        if (dlg) {
+          var dlgW = 440;
+          var vw = window.innerWidth;
+          dlg.style.left = Math.max(0, Math.round((vw - dlgW) / 2)) + 'px';
+        }
 
         // Replace dialog title "Sign Up" → custom copy
         var dialogTitle = document.getElementById('ui-dialog-title-IDX-registration');
