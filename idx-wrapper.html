@@ -2310,10 +2310,9 @@
       document.body.appendChild(contactModal);
 
       // Populate hidden listing field with current page address
-      var _cListingEl = document.querySelector('#IDX-listingAddress, .IDX-listingAddress, [class*="detailsAddress"]');
-      var _cListing = _cListingEl ? _cListingEl.textContent.trim() : window.location.href;
+      // Use same address source as tour modal (propAddr already resolved above)
       var _cListingInput = document.getElementById('tjg-contact-listing');
-      if (_cListingInput) _cListingInput.value = _cListing;
+      if (_cListingInput) _cListingInput.value = propAddr;
 
       // ── Wire events ──
       function _tourClose() { modal.classList.remove('tjg-open'); }
@@ -2451,17 +2450,16 @@
         submitBtn.disabled = false;
 
         // Stamp subject line + listing_address field with the actual listing address
-        var addr = _cListing || window.location.href;
         var subjectEl = document.getElementById('tjg-contact-subject');
-        if (subjectEl && addr) subjectEl.value = 'Contact Us — ' + addr;
+        if (subjectEl) subjectEl.value = propAddr ? 'Contact Us — ' + propAddr : 'Contact Us — Listing Inquiry';
         var listingEl = document.getElementById('tjg-contact-listing');
-        if (listingEl && addr) listingEl.value = addr;
+        if (listingEl) listingEl.value = propAddr;
 
         // Pre-fill message with listing address
         var msgEl = document.getElementById('tjg-contact-msg');
         if (msgEl) {
-          msgEl.value = addr
-            ? 'Hello, I\'m interested in the property located at ' + addr + '. Could you please provide additional information?'
+          msgEl.value = propAddr
+            ? 'Hello, I\'m interested in the property located at ' + propAddr + '. Could you please provide additional information?'
             : 'Hello, I\'m interested in this property. Could you please provide additional information?';
         }
 
