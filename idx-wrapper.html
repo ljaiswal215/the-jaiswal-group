@@ -2095,16 +2095,27 @@
           }
         }
 
-        // Make the jQuery UI overlay dismissible — clicking the dark backdrop closes the modal
+        // Make the jQuery UI overlay dismissible — clicking the dark backdrop closes the modal.
+        // Uses setTimeout so the close call is deferred out of the overlay's own click handler,
+        // avoiding a jQuery UI cleanup conflict that leaves the overlay stuck in the DOM.
         var _overlay = document.querySelector('.ui-widget-overlay:not([data-tjg-dismissible])');
         if (_overlay) {
           _overlay.setAttribute('data-tjg-dismissible', '1');
           _overlay.style.cursor = 'pointer';
           _overlay.addEventListener('click', function() {
             if (window.jQuery) {
-              jQuery('.IDX-registrationModal:visible, .IDX-loginModal:visible')
-                .dialog('close');
+              setTimeout(function() {
+                jQuery('.IDX-registrationModal:visible, .IDX-loginModal:visible').dialog('close');
+              }, 0);
             }
+          });
+        }
+        // Belt-and-suspenders: whenever ANY dialog closes (via × or backdrop or Escape),
+        // force-remove leftover overlays after a short tick so the screen never stays frozen.
+        if (window.jQuery && !document.documentElement.dataset.tjgOverlayCleanup) {
+          document.documentElement.dataset.tjgOverlayCleanup = '1';
+          jQuery(document).on('dialogclose', function() {
+            setTimeout(function() { jQuery('.ui-widget-overlay').remove(); }, 150);
           });
         }
       }).observe(document.body, { childList: true, subtree: true });
