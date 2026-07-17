@@ -1018,6 +1018,13 @@
       letter-spacing: 0.02em;
       line-height: 1.2;
     }
+    #tjg-signup-subtitle {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.85rem;
+      color: #7a7269;
+      margin: 8px 0 0;
+      line-height: 1.5;
+    }
 
     /* White form card, centered */
     .IDX-page-usersignup #IDX-leadSignupContainer,
@@ -1793,11 +1800,12 @@
       var container = document.getElementById('IDX-leadSignupContainer');
       if (!container) return;
       var isModal = /[?&]modal=1/.test(window.location.search);
-      var titleText = isSignin ? 'Welcome Back' : 'Sign Up';
+      var titleText = isSignin ? 'Welcome Back' : (isModal ? 'Log In To Save This Home' : 'Sign Up');
+      var subtitleText = isSignin ? 'Access your saved homes and searches' : 'Almost there! Don\'t miss updates on this listing';
       var header = document.createElement('div');
       header.id = 'tjg-signup-header';
       header.innerHTML = isModal
-        ? '<h2 id="tjg-signup-title">' + titleText + '</h2>'
+        ? '<h2 id="tjg-signup-title">' + titleText + '</h2><p id="tjg-signup-subtitle">' + subtitleText + '</p>'
         : '<img src="https://ljaiswal215.github.io/the-jaiswal-group/logo.png" ' +
                'alt="The Jaiswal Group Real Estate" id="tjg-signup-logo">' +
           '<h2 id="tjg-signup-title">' + titleText + '</h2>';

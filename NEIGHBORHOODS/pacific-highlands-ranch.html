@@ -926,16 +926,13 @@
   })();
 
   // Intercept heart/favorite clicks in the IDX listings showcase widget.
-  // When a non-logged-in user clicks a heart, IDX shows its inline login form
-  // inside the shadow root. We hide that form and open our branded signup popup instead.
+  // Strategy: inject CSS into the shadow root to permanently suppress IDX's inline form,
+  // then watch the form's style attribute — IDX repositions it (style.top) only when
+  // an unauthenticated user clicks a heart, so that attribute change is our trigger.
   (function() {
-    var _form = null;       // cached ref to #listings-showcase-login-form
-    var _foverlay = null;   // cached ref to .idx-listings-showcase__login-form-overlay
-
-    // Remove our display:none from IDX's elements so they work again on the next heart click.
-    function _resetIDXForm() {
-      if (_form) _form.style.removeProperty('display');
-      if (_foverlay) _foverlay.style.removeProperty('display');
+    function _close() {
+      var m = document.getElementById('tjg-heart-modal');
+      if (m) document.body.removeChild(m);
     }
 
     function _openHeartModal() {
@@ -944,65 +941,66 @@
       ov.id = 'tjg-heart-modal';
       ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(24,37,75,0.72);display:flex;align-items:center;justify-content:center;';
       var bx = document.createElement('div');
-      bx.style.cssText = 'position:relative;width:92%;max-width:560px;height:82vh;max-height:680px;background:#F3EFE8;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,0.28);';
+      bx.style.cssText = 'width:92%;max-width:560px;height:82vh;max-height:680px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,0.28);';
+      // Close button lives in its own header row above the iframe — never overlapped by it
+      var hdr = document.createElement('div');
+      hdr.style.cssText = 'background:#F3EFE8;display:flex;align-items:center;justify-content:flex-end;padding:6px 12px;flex-shrink:0;border-bottom:1px solid rgba(24,37,75,0.12);';
       var cl = document.createElement('button');
       cl.innerHTML = '&times;';
       cl.setAttribute('aria-label', 'Close');
-      cl.style.cssText = 'position:absolute;top:12px;right:16px;z-index:10;background:none;border:none;font-size:30px;color:#18254B;cursor:pointer;line-height:1;padding:0;opacity:0.6;';
-      cl.addEventListener('mouseenter', function(){ cl.style.opacity='1'; });
-      cl.addEventListener('mouseleave', function(){ cl.style.opacity='0.6'; });
-      cl.addEventListener('click', function(){ _resetIDXForm(); document.body.removeChild(ov); });
+      cl.style.cssText = 'background:none;border:none;font-size:30px;color:#18254B;cursor:pointer;line-height:1;padding:0 2px;';
+      cl.addEventListener('click', _close);
+      hdr.appendChild(cl);
       var fr = document.createElement('iframe');
       fr.src = 'https://thejaiswalgroup.idxbroker.com/idx/usersignup?modal=1';
-      fr.style.cssText = 'width:100%;flex:1;border:none;background:#F3EFE8;';
+      fr.style.cssText = 'width:100%;flex:1;border:none;background:#F3EFE8;min-height:0;';
       fr.setAttribute('frameborder', '0');
       var _n = 0;
       fr.addEventListener('load', function() {
-        if (++_n > 1) {
-          setTimeout(function() { _resetIDXForm(); var m = document.getElementById('tjg-heart-modal'); if (m) document.body.removeChild(m); }, 1200);
-        }
+        if (++_n > 1) setTimeout(_close, 1200);
       });
-      ov.addEventListener('click', function(e) { if (e.target === ov) { _resetIDXForm(); document.body.removeChild(ov); } });
-      bx.appendChild(cl); bx.appendChild(fr); ov.appendChild(bx); document.body.appendChild(ov);
-    }
-
-    // Returns true if IDX's inline form is currently visible and was successfully hidden.
-    function _checkAndHide(root) {
-      if (!_form) _form = root.querySelector('#listings-showcase-login-form');
-      if (!_form) return false;
-      // Don't re-trigger if we already set display:none !important on this cycle
-      if (_form.style.display === 'none' && _form.style.getPropertyPriority('display') === 'important') return false;
-      // Check actual computed visibility — IDX may toggle via class, not inline style
-      try {
-        var cs = window.getComputedStyle(_form);
-        if (cs.display === 'none' || cs.visibility === 'hidden') return false;
-      } catch(e) { return false; }
-      // Form is genuinely visible — hide it and its dark card overlay
-      _form.style.setProperty('display', 'none', 'important');
-      if (!_foverlay) _foverlay = root.querySelector('.idx-listings-showcase__login-form-overlay');
-      if (_foverlay) _foverlay.style.setProperty('display', 'none', 'important');
-      return true;
+      ov.addEventListener('click', function(e) { if (e.target === ov) _close(); });
+      bx.appendChild(hdr); bx.appendChild(fr); ov.appendChild(bx); document.body.appendChild(ov);
     }
 
     function _initWidget(root) {
-      // After any click inside the widget, poll for IDX's form to become visible.
-      // Using click-only (no MutationObserver) prevents false triggers during widget init.
-      root.addEventListener('click', function() {
-        var polls = 0;
-        var pid = setInterval(function() {
-          polls++;
-          if (_checkAndHide(root)) { _openHeartModal(); clearInterval(pid); return; }
-          if (polls >= 10) clearInterval(pid);
-        }, 75);
-      }, true);
+      // Suppress IDX's inline login form and dark card overlay via shadow-root CSS injection.
+      // This is permanent — no inline style !important fight needed.
+      var st = document.createElement('style');
+      st.textContent = '#listings-showcase-login-form, .idx-listings-showcase__login-form-overlay { display: none !important; }';
+      root.appendChild(st);
+
+      // Find the form, record its initial style (IDX sets it once on widget init),
+      // then watch for subsequent changes. IDX only repositions the form when
+      // an unauthenticated user clicks a heart, so a style change = heart click by non-logged-in user.
+      var _lastStyle = '';
+      var _ready = false;
+      var _attempts = 0;
+      var _fp = setInterval(function() {
+        _attempts++;
+        var form = root.querySelector('#listings-showcase-login-form');
+        if (!form && _attempts < 30) return;
+        clearInterval(_fp);
+        if (!form) return;
+        _lastStyle = form.getAttribute('style') || '';
+        // Allow 3 s for IDX to finish any initial style setup before we start listening
+        setTimeout(function() { _ready = true; }, 3000);
+        new MutationObserver(function() {
+          if (!_ready) return;
+          var s = form.getAttribute('style') || '';
+          if (s === _lastStyle) return;
+          _lastStyle = s;
+          _openHeartModal();
+        }).observe(form, { attributes: true, attributeFilter: ['style'] });
+      }, 400);
     }
 
-    var _ready = false;
+    var _watching = false;
     var _wt = setInterval(function() {
-      if (_ready) { clearInterval(_wt); return; }
+      if (_watching) { clearInterval(_wt); return; }
       var widget = document.querySelector('idx-listings-showcase');
       if (!widget || !widget.shadowRoot) return;
-      _ready = true;
+      _watching = true;
       clearInterval(_wt);
       _initWidget(widget.shadowRoot);
     }, 300);
