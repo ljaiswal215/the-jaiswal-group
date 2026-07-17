@@ -2289,14 +2289,14 @@
               '</div>' +
             '</div>' +
             '<form id="tjg-contact-form" action="https://formspree.io/f/xkolppyb" method="POST">' +
-              '<input type="hidden" name="_subject" value="Contact Us — Listing Inquiry">' +
-              '<input type="hidden" name="_listing" id="tjg-contact-listing" value="">' +
+              '<input type="hidden" name="_subject" id="tjg-contact-subject" value="Contact Us — Listing Inquiry">' +
+              '<input type="hidden" name="listing_address" id="tjg-contact-listing" value="">' +
               '<div class="tjg-contact-row">' +
                 '<div><label>First Name <span>*</span><input type="text" name="first_name" required placeholder="First name"></label></div>' +
                 '<div><label>Last Name <span>*</span><input type="text" name="last_name" required placeholder="Last name"></label></div>' +
               '</div>' +
               '<label>Email <span>*</span><input type="email" name="email" required placeholder="your@email.com"></label>' +
-              '<label>Phone<input type="tel" name="phone" placeholder="(858) 000-0000"></label>' +
+              '<label>Phone<input type="tel" name="phone" placeholder="000-000-0000"></label>' +
               '<label>Message<textarea name="message" placeholder="Hello, I&#39;m interested in this property and would love more information."></textarea></label>' +
               '<button type="submit" id="tjg-contact-submit">Send Message</button>' +
               '<p id="tjg-contact-privacy">By submitting you agree to receive communications from The Jaiswal Group. We respect your privacy.</p>' +
@@ -2449,6 +2449,14 @@
         var submitBtn = document.getElementById('tjg-contact-submit');
         submitBtn.textContent = 'Send Message';
         submitBtn.disabled = false;
+
+        // Stamp subject line + listing_address field with the actual listing address
+        var addr = _cListing || window.location.href;
+        var subjectEl = document.getElementById('tjg-contact-subject');
+        if (subjectEl && addr) subjectEl.value = 'Contact Us — ' + addr;
+        var listingEl = document.getElementById('tjg-contact-listing');
+        if (listingEl && addr) listingEl.value = addr;
+
         contactModal.classList.add('tjg-open');
       });
 
