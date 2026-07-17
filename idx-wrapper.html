@@ -2123,6 +2123,52 @@
       }).observe(document.body, { childList: true, subtree: true });
     })();
 
+    // ─── Full-page signup form: inject checkbox + disclosure; remove reCAPTCHA notice ───
+    (function() {
+      function _injectFullPageCheckbox() {
+        if (!document.querySelector('#IDX-main.IDX-page-usersignup')) return;
+        if (document.getElementById('tjg-fp-optin')) return;
+
+        // Hide reCAPTCHA notice paragraph
+        document.querySelectorAll('#IDX-signUpForm p, .IDX-page-usersignup p').forEach(function(p) {
+          if (/reCAPTCHA|google.*privacy|terms of service/i.test(p.textContent)) {
+            p.style.display = 'none';
+          }
+        });
+
+        // Find phone field and its form-group wrapper
+        var phoneInput = document.getElementById('IDX-phone') ||
+                         document.querySelector('#IDX-signUpForm input[type="tel"]') ||
+                         document.querySelector('.IDX-page-usersignup input[type="tel"]');
+        if (!phoneInput) return;
+
+        // Walk up to the form-group wrapper
+        var phoneGroup = phoneInput.parentNode;
+        while (phoneGroup && !phoneGroup.classList.contains('IDX-form-group') &&
+               !phoneGroup.classList.contains('form-group') &&
+               phoneGroup.parentNode && phoneGroup.parentNode !== document.body) {
+          phoneGroup = phoneGroup.parentNode;
+          if (phoneGroup.tagName === 'FORM' || phoneGroup.id === 'IDX-signUpForm') break;
+        }
+
+        var wrap = document.createElement('div');
+        wrap.id = 'tjg-fp-optin';
+        wrap.style.cssText = 'margin:0 0 18px;box-sizing:border-box;';
+        wrap.innerHTML =
+          '<label style="display:flex;align-items:flex-start;gap:8px;cursor:pointer;">' +
+            '<input type="checkbox" id="tjg-fp-check" style="flex-shrink:0;margin-top:3px;accent-color:#18254B;width:14px;height:14px;cursor:pointer;">' +
+            '<span style="font-family:Lato,sans-serif;font-size:0.68rem;line-height:1.6;color:#7a7269;font-weight:400;text-transform:none;letter-spacing:0;">' +
+              'By providing The Jaiswal Group Real Estate your contact information, you acknowledge and agree to our ' +
+              '<a href="https://thejaiswalgroup.com/privacy-policy.html" target="_blank" rel="noopener" style="color:#18254B;text-decoration:underline;">Privacy Policy</a>' +
+              ' and consent to receiving marketing communications, including through automated calls, texts, and emails, some of which may use artificial or prerecorded voices. This consent isn\'t necessary for purchasing any products or services and you may opt out at any time. To opt out from texts, you can reply \'stop\' at any time. To opt out from emails, you can click on the unsubscribe link in the emails.' +
+            '</span>' +
+          '</label>';
+
+        phoneGroup.insertAdjacentElement('afterend', wrap);
+      }
+      [600, 1400, 3000].forEach(function(ms) { setTimeout(_injectFullPageCheckbox, ms); });
+    })();
+
     // Run immediately, then every 500ms for 60s to catch dynamically loaded pins
     _abbreviateAllLabels();
     var _priceInterval = setInterval(_abbreviateAllLabels, 500);
