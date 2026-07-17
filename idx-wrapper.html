@@ -2292,12 +2292,12 @@
               '<input type="hidden" name="_subject" id="tjg-contact-subject" value="Contact Us — Listing Inquiry">' +
               '<input type="hidden" name="listing_address" id="tjg-contact-listing" value="">' +
               '<div class="tjg-contact-row">' +
-                '<div><label>First Name <span>*</span><input type="text" name="first_name" required placeholder="First name"></label></div>' +
-                '<div><label>Last Name <span>*</span><input type="text" name="last_name" required placeholder="Last name"></label></div>' +
+                '<div><label>First Name<span>*</span><input type="text" name="first_name" required placeholder="First name"></label></div>' +
+                '<div><label>Last Name<span>*</span><input type="text" name="last_name" required placeholder="Last name"></label></div>' +
               '</div>' +
-              '<label>Email <span>*</span><input type="email" name="email" required placeholder="your@email.com"></label>' +
+              '<label>Email<span>*</span><input type="email" name="email" required placeholder="your@email.com"></label>' +
               '<label>Phone<input type="tel" name="phone" placeholder="000-000-0000"></label>' +
-              '<label>Message<textarea name="message" placeholder="Hello, I&#39;m interested in this property and would love more information."></textarea></label>' +
+              '<label>Message<textarea id="tjg-contact-msg" name="message"></textarea></label>' +
               '<button type="submit" id="tjg-contact-submit">Send Message</button>' +
               '<p id="tjg-contact-privacy">By submitting you agree to receive communications from The Jaiswal Group. We respect your privacy.</p>' +
             '</form>' +
@@ -2456,6 +2456,14 @@
         if (subjectEl && addr) subjectEl.value = 'Contact Us — ' + addr;
         var listingEl = document.getElementById('tjg-contact-listing');
         if (listingEl && addr) listingEl.value = addr;
+
+        // Pre-fill message with listing address
+        var msgEl = document.getElementById('tjg-contact-msg');
+        if (msgEl) {
+          msgEl.value = addr
+            ? 'Hello, I\'m interested in the property located at ' + addr + '. Could you please provide additional information?'
+            : 'Hello, I\'m interested in this property. Could you please provide additional information?';
+        }
 
         contactModal.classList.add('tjg-open');
       });
