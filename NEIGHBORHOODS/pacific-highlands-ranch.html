@@ -974,14 +974,14 @@
       ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(24,37,75,0.72);display:none;align-items:center;justify-content:center;';
 
       var bx = document.createElement('div');
-      bx.style.cssText = 'width:92%;max-width:560px;height:82vh;max-height:680px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,0.28);border-radius:14px;';
+      bx.style.cssText = 'width:88%;max-width:460px;height:74vh;max-height:580px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 8px 36px rgba(0,0,0,0.24);border-radius:12px;';
 
       var hdr = document.createElement('div');
-      hdr.style.cssText = 'background:#F3EFE8;display:flex;align-items:center;justify-content:flex-end;padding:6px 12px;flex-shrink:0;border-bottom:1px solid rgba(24,37,75,0.12);border-radius:14px 14px 0 0;';
+      hdr.style.cssText = 'background:#F3EFE8;display:flex;align-items:center;justify-content:flex-end;padding:2px 10px;flex-shrink:0;border-bottom:1px solid rgba(24,37,75,0.10);border-radius:12px 12px 0 0;';
       var cl = document.createElement('button');
       cl.innerHTML = '&times;';
       cl.setAttribute('aria-label', 'Close');
-      cl.style.cssText = 'background:none;border:none;font-size:30px;color:#18254B;cursor:pointer;line-height:1;padding:0 2px;';
+      cl.style.cssText = 'background:none;border:none;font-size:26px;color:#18254B;cursor:pointer;line-height:1;padding:0 2px;opacity:0.6;';
       cl.addEventListener('click', _close);
       hdr.appendChild(cl);
 
@@ -996,7 +996,7 @@
       });
 
       var ftr = document.createElement('div');
-      ftr.style.cssText = 'background:#F3EFE8;padding:10px 16px;border-top:1px solid rgba(24,37,75,0.12);flex-shrink:0;border-radius:0 0 14px 14px;';
+      ftr.style.cssText = 'background:#F3EFE8;padding:7px 14px;border-top:1px solid rgba(24,37,75,0.10);flex-shrink:0;border-radius:0 0 12px 12px;';
       var lbl = document.createElement('label');
       lbl.style.cssText = 'display:flex;align-items:flex-start;gap:8px;cursor:pointer;';
       var cb = document.createElement('input');
@@ -1004,7 +1004,7 @@
       cb.required = true;
       cb.style.cssText = 'margin-top:2px;flex-shrink:0;width:14px;height:14px;accent-color:#18254B;cursor:pointer;';
       var txt = document.createElement('span');
-      txt.style.cssText = 'font-family:Lato,sans-serif;font-size:10px;line-height:1.5;color:#555;';
+      txt.style.cssText = 'font-family:Lato,sans-serif;font-size:9px;line-height:1.45;color:#777;';
       txt.innerHTML = 'By providing The Jaiswal Group Real Estate your contact information, you acknowledge and agree to our <a href="/privacy-policy.html" target="_blank" style="color:#18254B;">Privacy Policy</a> and consent to receiving marketing communications, including through automated calls, texts, and emails, some of which may use artificial or prerecorded voices. This consent isn\'t necessary for purchasing any products or services and you may opt out at any time. To opt out from texts, you can reply \'stop\' at any time. To opt out from emails, you can click on the unsubscribe link in the emails. Message and data rates may apply.';
       lbl.appendChild(cb);
       lbl.appendChild(txt);

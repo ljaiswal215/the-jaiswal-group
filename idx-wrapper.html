@@ -1805,8 +1805,8 @@
       var container = document.getElementById('IDX-leadSignupContainer');
       if (!container) return;
       var isModal = /[?&]modal=1/.test(window.location.search);
-      var titleText = isSignin ? 'Welcome Back' : 'Log In To Save This Home';
-      var subtitleText = isSignin ? 'Access your saved homes and searches' : "Almost there! Don't miss updates on this listing";
+      var titleText = isSignin ? 'Welcome Back' : 'Register';
+      var subtitleText = isSignin ? 'Access your saved homes and searches' : "Save your favorite homes, receive instant listing alerts, and access additional property information—all at no cost.";
       var header = document.createElement('div');
       header.id = 'tjg-signup-header';
       header.innerHTML = isModal
@@ -1848,7 +1848,13 @@
           /* hide IDX cookie/privacy notice banner when shown inside our popup */
           '#idx-privacy-notice,.idx-notice{display:none!important;}',
           /* hide "Data services provided by IDX Broker" attribution footer */
-          '#IDX-poweredByIDX,#IDX-dataAttrib,[id*="poweredBy"],[class*="powered"],[class*="attribution"]{display:none!important;}'
+          '#IDX-poweredByIDX,#IDX-dataAttrib,[id*="poweredBy"],[class*="powered"],[class*="attribution"]{display:none!important;}',
+          /* compact title + subtitle inside popup */
+          '#tjg-signup-title{font-size:1.35rem!important;margin-bottom:2px!important;}',
+          '#tjg-signup-subtitle{font-size:0.75rem!important;margin-top:4px!important;}',
+          '#tjg-signup-header{margin-bottom:8px!important;}',
+          /* reduce form card padding inside popup */
+          '.IDX-page-usersignup #IDX-leadSignupContainer{padding:18px 24px 18px!important;}'
         ].join('');
         document.head.appendChild(s);
       }
