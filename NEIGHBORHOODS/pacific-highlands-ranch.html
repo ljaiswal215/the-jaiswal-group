@@ -1003,10 +1003,8 @@
       var ov = document.createElement('div');
       ov.id = 'tjg-email-modal';
       ov.style.cssText = 'position:fixed;inset:0;z-index:100001;background:rgba(24,37,75,0.72);display:flex;align-items:center;justify-content:center;';
-
       var bx = document.createElement('div');
       bx.style.cssText = 'width:88%;max-width:420px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,0.22);display:flex;flex-direction:column;font-family:Lato,sans-serif;';
-
       if (imgSrc) {
         var photo = document.createElement('div');
         photo.style.cssText = 'width:100%;height:180px;background:#E0D9CF center/cover no-repeat;flex-shrink:0;position:relative;';
@@ -1030,23 +1028,20 @@
         topBar.appendChild(topTitle); topBar.appendChild(topX);
         bx.appendChild(topBar);
       }
-
       var info = document.createElement('div');
       info.style.cssText = 'background:#F3EFE8;padding:14px 20px 12px;border-bottom:1px solid rgba(24,37,75,0.10);flex-shrink:0;';
-      var priceEl = document.createElement('div');
-      priceEl.textContent = price || '';
-      priceEl.style.cssText = 'font-size:18px;font-weight:700;color:#18254B;margin-bottom:2px;';
-      var addrEl = document.createElement('div');
-      addrEl.textContent = addr || '';
-      addrEl.style.cssText = 'font-size:12px;color:#7a7269;';
-      info.appendChild(priceEl); info.appendChild(addrEl);
+      var priceEl2 = document.createElement('div');
+      priceEl2.textContent = price || '';
+      priceEl2.style.cssText = 'font-size:18px;font-weight:700;color:#18254B;margin-bottom:2px;';
+      var addrEl2 = document.createElement('div');
+      addrEl2.textContent = addr || '';
+      addrEl2.style.cssText = 'font-size:12px;color:#7a7269;';
+      info.appendChild(priceEl2); info.appendChild(addrEl2);
       bx.appendChild(info);
-
       var form = document.createElement('div');
       form.style.cssText = 'padding:20px 20px 24px;display:flex;flex-direction:column;gap:12px;';
-
       function makeField(labelTxt, type, placeholder) {
-        var wrap = document.createElement('div');
+        var fw = document.createElement('div');
         var lbl = document.createElement('label');
         lbl.textContent = labelTxt;
         lbl.style.cssText = 'display:block;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#18254B;margin-bottom:5px;';
@@ -1056,15 +1051,13 @@
         inp.style.cssText = 'width:100%;box-sizing:border-box;border:1.5px solid #E0D9CF;border-radius:2px;padding:10px 12px;font-family:Lato,sans-serif;font-size:14px;color:#18254B;outline:none;' + (type === 'textarea' ? 'resize:none;height:72px;' : '');
         inp.addEventListener('focus', function() { inp.style.borderColor = '#18254B'; });
         inp.addEventListener('blur', function() { inp.style.borderColor = '#E0D9CF'; });
-        wrap.appendChild(lbl); wrap.appendChild(inp);
-        return { wrap: wrap, inp: inp };
+        fw.appendChild(lbl); fw.appendChild(inp);
+        return { wrap: fw, inp: inp };
       }
-
       var nameField = makeField('Your Name', 'text', 'e.g. Jane Smith');
       var emailField = makeField('Recipient Email', 'email', 'friend@email.com');
       var noteField = makeField('Add a Note (optional)', 'textarea', 'I thought you might love this home...');
       form.appendChild(nameField.wrap); form.appendChild(emailField.wrap); form.appendChild(noteField.wrap);
-
       var sendBtn = document.createElement('button');
       sendBtn.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:#18254B;color:#fff;border:none;border-radius:2px;font-family:Lato,sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;padding:15px;cursor:pointer;margin-top:4px;transition:color 0.2s;';
       sendBtn.innerHTML = '<svg viewBox="0 0 24 24" style="width:16px;height:16px;flex-shrink:0;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send';
@@ -1081,7 +1074,6 @@
       });
       form.appendChild(sendBtn);
       bx.appendChild(form);
-
       ov.addEventListener('click', function(e) { if (e.target === ov) ov.remove(); });
       ov.appendChild(bx);
       document.body.appendChild(ov);
@@ -1099,7 +1091,6 @@
       var panel = document.createElement('div');
       panel.id = 'tjg-share-panel';
       panel.style.cssText = 'position:fixed;z-index:100000;background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.18);width:290px;overflow:hidden;font-family:Lato,sans-serif;';
-
       var ph = document.createElement('div');
       ph.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:14px 16px 12px;border-bottom:1px solid rgba(0,0,0,0.08);';
       var pt = document.createElement('span');
@@ -1110,10 +1101,8 @@
       px.style.cssText = 'background:none;border:none;font-size:22px;color:#18254B;cursor:pointer;line-height:1;padding:0;opacity:0.45;';
       px.addEventListener('click', function() { panel.remove(); });
       ph.appendChild(pt); ph.appendChild(px);
-
       var row = document.createElement('div');
       row.style.cssText = 'display:flex;align-items:flex-start;justify-content:space-around;padding:22px 8px 24px;';
-
       function makeOption(icon, label, onClick) {
         var btn = document.createElement('button');
         btn.style.cssText = 'background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:9px;padding:0 4px;';
@@ -1130,8 +1119,6 @@
         btn.appendChild(ic); btn.appendChild(lb);
         return btn;
       }
-
-      // Order: Copy Link, Messages, Share to, Email
       row.appendChild(makeOption(ICON_LINK, 'Copy Link', function(ic, lb) {
         navigator.clipboard.writeText(url).then(function() {
           ic.innerHTML = ICON_CHECK; ic.style.background = '#18254B'; ic.style.color = '#fff'; lb.textContent = 'Copied!';
@@ -1154,10 +1141,8 @@
         panel.remove();
         _showEmailPopup(url, titleText, imgSrc, price, addr);
       }));
-
       panel.appendChild(ph); panel.appendChild(row);
       document.body.appendChild(panel);
-
       var vw = window.innerWidth; var vh = window.innerHeight;
       var pw = 290; var panH = panel.offsetHeight || 160;
       var left = Math.min(e.clientX - 145, vw - pw - 10);
@@ -1165,33 +1150,34 @@
       if (top + panH > vh - 10) top = e.clientY - panH - 12;
       panel.style.left = Math.max(10, left) + 'px';
       panel.style.top = top + 'px';
-
       setTimeout(function() {
         document.addEventListener('click', function _d() { panel.remove(); document.removeEventListener('click', _d); });
       }, 0);
     }
 
-    // currentColor SVGs — color controlled via CSS/JS on parent button
     var HEART_SVG = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
     var SHARE_SVG = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;display:block;fill:currentColor;"><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
 
     function _addHeart(card) {
-      if (card.querySelector('.tjg-heart')) return;
-      var wrap = card.querySelector('.idx-listing-card__image--wrap');
-      if (!wrap) return;
+      // Inject into .idx-listing-card__wrap (parent of the <a> overlay) at z-index:15
+      // so our buttons sit above the IDX <a> link at z-index:2
+      var wrap = card.querySelector('.idx-listing-card__wrap');
+      if (!wrap || wrap.querySelector('.tjg-heart')) return;
 
       var heart = document.createElement('button');
       heart.className = 'tjg-heart';
       heart.setAttribute('aria-label', 'Save this property');
       heart.innerHTML = HEART_SVG;
-      heart.addEventListener('click', function(e) { e.preventDefault(); e.stopPropagation(); _show(); });
+      heart.addEventListener('click', function(e) {
+        e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); _show();
+      });
 
       var share = document.createElement('button');
       share.className = 'tjg-share';
       share.setAttribute('aria-label', 'Share this property');
       share.innerHTML = SHARE_SVG;
       share.addEventListener('click', function(e) {
-        e.preventDefault(); e.stopPropagation();
+        e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
         var link = card.querySelector('.idx-listing-card__link');
         var url = link ? link.href.replace('?widgetReferer=true', '') : window.location.href;
         var addrEl = card.querySelector('.idx-listing-card__address');
@@ -1204,7 +1190,8 @@
         _showSharePanel(e, url, titleText, imgSrc, price, addr);
       });
 
-      wrap.appendChild(heart); wrap.appendChild(share);
+      wrap.appendChild(heart);
+      wrap.appendChild(share);
     }
 
     function _initWidget(root) {
@@ -1212,8 +1199,7 @@
         var st = document.createElement('style');
         st.id = 'tjg-heart-styles';
         st.textContent = [
-          '.idx-listing-card__image--wrap{position:relative!important}',
-          '.tjg-heart,.tjg-share{position:absolute;top:10px;z-index:10;width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;padding:0;color:#fff;transition:background 0.2s,color 0.2s;pointer-events:auto}',
+          '.tjg-heart,.tjg-share{position:absolute;top:10px;z-index:15;width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;padding:0;color:#fff;transition:background 0.2s,color 0.2s;pointer-events:auto}',
           '.tjg-heart{right:54px}',
           '.tjg-share{right:10px}',
           '.tjg-heart:hover,.tjg-share:hover{background:rgba(0,0,0,0.6);color:#B38987}'
