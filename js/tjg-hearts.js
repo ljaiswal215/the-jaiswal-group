@@ -237,7 +237,7 @@
       var senderEmail = makeInput('Email',            'email', '', true);
       var phoneField  = makeInput('Phone',            'tel',   '', false);
       var recipEmail  = makeInput('Recipient Email',  'email', '', true);
-      var msgField    = makeTextarea('Message', '');
+      var msgField    = makeTextarea('Message', 'I came across this listing that I think you might like. Let me know what you think!');
 
       form.appendChild(makeRow(firstField, lastField));
       form.appendChild(senderEmail.wrap);
