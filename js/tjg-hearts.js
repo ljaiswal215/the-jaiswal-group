@@ -387,12 +387,12 @@
       heart.addEventListener('mouseenter', function() {
         heart.style.background = 'rgba(0,0,0,0.6)';
         var svg = heart.querySelector('svg');
-        if (svg) { svg.style.fill = '#B38987'; svg.style.stroke = '#B38987'; }
+        if (svg) { svg.style.stroke = '#B38987'; }
       });
       heart.addEventListener('mouseleave', function() {
         heart.style.background = 'rgba(0,0,0,0.35)';
         var svg = heart.querySelector('svg');
-        if (svg) { svg.style.fill = 'none'; svg.style.stroke = 'currentColor'; }
+        if (svg) { svg.style.stroke = 'currentColor'; }
       });
       heart.addEventListener('click', function(e) {
         e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); _show();
