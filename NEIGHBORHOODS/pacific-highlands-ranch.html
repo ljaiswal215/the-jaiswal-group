@@ -1160,12 +1160,12 @@
         return row;
       }
 
-      var firstField  = makeInput('First Name',       'text',  'First Name',  true);
-      var lastField   = makeInput('Last Name',        'text',  'Last Name',   true);
-      var senderEmail = makeInput('Email',            'email', 'Email',       true);
-      var phoneField  = makeInput('Phone',            'tel',   'Phone',       false);
-      var recipEmail  = makeInput('Recipient Email',  'email', 'Email',       true);
-      var msgField    = makeTextarea('Message', 'I came across this listing that I think you might like. Let me know what you think!');
+      var firstField  = makeInput('First Name',       'text',  '', true);
+      var lastField   = makeInput('Last Name',        'text',  '', true);
+      var senderEmail = makeInput('Email',            'email', '', true);
+      var phoneField  = makeInput('Phone',            'tel',   '', false);
+      var recipEmail  = makeInput('Recipient Email',  'email', '', true);
+      var msgField    = makeTextarea('Message', '');
 
       form.appendChild(makeRow(firstField, lastField));
       form.appendChild(senderEmail.wrap);
