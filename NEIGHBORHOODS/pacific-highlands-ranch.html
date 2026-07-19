@@ -1013,75 +1013,76 @@
       ov.id = 'tjg-email-modal';
       ov.style.cssText = 'position:fixed;inset:0;z-index:100001;background:rgba(24,37,75,0.72);display:flex;align-items:center;justify-content:center;';
 
+      // Outer box — fixed height so form area scrolls
       var bx = document.createElement('div');
-      bx.style.cssText = 'width:88%;max-width:420px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,0.22);display:flex;flex-direction:column;font-family:Lato,sans-serif;max-height:92vh;';
+      bx.style.cssText = 'width:88%;max-width:420px;max-height:92vh;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,0.22);display:flex;flex-direction:column;font-family:Lato,sans-serif;';
 
-      // ── Header ──
+      // ── Header (always visible, never scrolls) ──
       var hdr = document.createElement('div');
-      hdr.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:14px 16px 12px;border-bottom:1px solid rgba(24,37,75,0.10);flex-shrink:0;background:#fff;';
+      hdr.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:14px 18px 13px;border-bottom:1px solid rgba(24,37,75,0.10);flex-shrink:0;background:#fff;';
       var htitle = document.createElement('span');
       htitle.textContent = 'Share Property';
-      htitle.style.cssText = 'font-weight:700;font-size:14px;color:#18254B;letter-spacing:0.04em;text-transform:uppercase;';
+      htitle.style.cssText = 'font-weight:700;font-size:13px;color:#18254B;letter-spacing:0.08em;text-transform:uppercase;';
       var hx = document.createElement('button');
       hx.innerHTML = '&times;';
-      hx.style.cssText = 'background:none;border:none;font-size:24px;color:#18254B;cursor:pointer;line-height:1;padding:0;opacity:0.45;';
+      hx.style.cssText = 'background:none;border:none;font-size:24px;color:#18254B;cursor:pointer;line-height:1;padding:0;opacity:0.4;';
       hx.addEventListener('click', function() { ov.remove(); });
       hdr.appendChild(htitle); hdr.appendChild(hx);
       bx.appendChild(hdr);
 
-      // ── Photo ──
+      // ── Scrollable body ──
+      var body = document.createElement('div');
+      body.style.cssText = 'flex:1;overflow-y:auto;display:flex;flex-direction:column;min-height:0;';
+
+      // Photo
       if (imgSrc) {
         var photo = document.createElement('div');
         photo.style.cssText = 'width:100%;height:150px;background:#E0D9CF center/cover no-repeat;flex-shrink:0;';
         photo.style.backgroundImage = 'url(' + imgSrc + ')';
-        bx.appendChild(photo);
+        body.appendChild(photo);
       }
 
-      // ── Listing details strip ──
+      // Listing details strip
       var info = document.createElement('div');
-      info.style.cssText = 'background:#F3EFE8;padding:12px 20px 12px;border-bottom:1px solid rgba(24,37,75,0.10);flex-shrink:0;';
-
-      var priceRow = document.createElement('div');
-      priceRow.style.cssText = 'font-size:17px;font-weight:700;color:#18254B;margin-bottom:3px;';
-      priceRow.textContent = price || '';
-      info.appendChild(priceRow);
-
+      info.style.cssText = 'background:#F3EFE8;padding:12px 18px 12px;border-bottom:1px solid rgba(24,37,75,0.10);flex-shrink:0;';
+      if (price) {
+        var pr = document.createElement('div');
+        pr.textContent = price;
+        pr.style.cssText = 'font-size:17px;font-weight:700;color:#18254B;margin-bottom:3px;';
+        info.appendChild(pr);
+      }
       if (beds || baths) {
-        var bedsRow = document.createElement('div');
-        bedsRow.style.cssText = 'font-size:12px;color:#18254B;margin-bottom:2px;';
-        bedsRow.textContent = [beds, baths].filter(Boolean).join(' · ');
-        info.appendChild(bedsRow);
+        var bb = document.createElement('div');
+        bb.textContent = [beds, baths].filter(Boolean).join(' · ');
+        bb.style.cssText = 'font-size:12px;color:#18254B;margin-bottom:2px;';
+        info.appendChild(bb);
       }
-
       if (addr) {
-        var addrRow = document.createElement('div');
-        addrRow.style.cssText = 'font-size:12px;color:#7a7269;margin-bottom:2px;';
-        addrRow.textContent = addr;
-        info.appendChild(addrRow);
+        var ad = document.createElement('div');
+        ad.textContent = addr;
+        ad.style.cssText = 'font-size:12px;color:#7a7269;margin-bottom:2px;';
+        info.appendChild(ad);
       }
-
       if (mls) {
-        var mlsRow = document.createElement('div');
-        mlsRow.style.cssText = 'font-size:11px;color:#aaa;margin-top:1px;';
-        mlsRow.textContent = 'MLS# ' + mls;
-        info.appendChild(mlsRow);
+        var ml = document.createElement('div');
+        ml.textContent = 'MLS# ' + mls;
+        ml.style.cssText = 'font-size:11px;color:#aaa;margin-top:1px;';
+        info.appendChild(ml);
       }
+      body.appendChild(info);
 
-      bx.appendChild(info);
-
-      // ── Form ──
+      // Form fields
       var form = document.createElement('div');
-      form.style.cssText = 'padding:14px 20px 18px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;flex:1;';
+      form.style.cssText = 'padding:16px 18px 20px;display:flex;flex-direction:column;gap:11px;';
 
-      function makeField(labelTxt, type, placeholder, required) {
+      function makeInput(labelTxt, type, placeholder, required) {
         var fw = document.createElement('div');
         var lbl = document.createElement('label');
-        lbl.style.cssText = 'display:block;font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#18254B;margin-bottom:4px;';
         lbl.textContent = labelTxt + (required ? '' : ' (optional)');
+        lbl.style.cssText = 'display:block;font-size:0.62rem;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#18254B;margin-bottom:4px;';
         var inp = document.createElement('input');
         inp.type = type;
         inp.placeholder = placeholder;
-        if (required) inp.required = true;
         inp.style.cssText = 'width:100%;box-sizing:border-box;border:1.5px solid #E0D9CF;border-radius:2px;padding:9px 12px;font-family:Lato,sans-serif;font-size:13px;color:#18254B;outline:none;';
         inp.addEventListener('focus', function() { inp.style.borderColor = '#18254B'; });
         inp.addEventListener('blur', function() { inp.style.borderColor = '#E0D9CF'; });
@@ -1089,18 +1090,34 @@
         return { wrap: fw, inp: inp };
       }
 
-      var nameField   = makeField('Your Name',       'text',  'Jane Smith',      true);
-      var senderEmail = makeField('Your Email',      'email', 'you@email.com',   true);
-      var phoneField  = makeField('Your Phone',      'tel',   '(858) 000-0000',  false);
-      var recipEmail  = makeField('Recipient Email', 'email', 'friend@email.com', true);
+      function makeTextarea(labelTxt, defaultVal) {
+        var fw = document.createElement('div');
+        var lbl = document.createElement('label');
+        lbl.textContent = labelTxt;
+        lbl.style.cssText = 'display:block;font-size:0.62rem;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#18254B;margin-bottom:4px;';
+        var ta = document.createElement('textarea');
+        ta.value = defaultVal;
+        ta.style.cssText = 'width:100%;box-sizing:border-box;border:1.5px solid #E0D9CF;border-radius:2px;padding:9px 12px;font-family:Lato,sans-serif;font-size:13px;color:#18254B;outline:none;resize:none;height:80px;line-height:1.5;';
+        ta.addEventListener('focus', function() { ta.style.borderColor = '#18254B'; });
+        ta.addEventListener('blur', function() { ta.style.borderColor = '#E0D9CF'; });
+        fw.appendChild(lbl); fw.appendChild(ta);
+        return { wrap: fw, ta: ta };
+      }
+
+      var nameField   = makeInput('Your Name',       'text',  'Jane Smith',       true);
+      var senderEmail = makeInput('Your Email',      'email', 'you@email.com',    true);
+      var phoneField  = makeInput('Your Phone',      'tel',   '(858) 000-0000',   false);
+      var recipEmail  = makeInput('Recipient Email', 'email', 'friend@email.com', true);
+      var msgField    = makeTextarea('Message', 'I came across this listing that I think you might like. Let me know what you think!');
 
       form.appendChild(nameField.wrap);
       form.appendChild(senderEmail.wrap);
       form.appendChild(phoneField.wrap);
       form.appendChild(recipEmail.wrap);
+      form.appendChild(msgField.wrap);
 
       var sendBtn = document.createElement('button');
-      sendBtn.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:#18254B;color:#fff;border:none;border-radius:2px;font-family:Lato,sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;padding:14px;cursor:pointer;margin-top:4px;transition:color 0.2s;flex-shrink:0;';
+      sendBtn.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:#18254B;color:#fff;border:none;border-radius:2px;font-family:Lato,sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;padding:14px;cursor:pointer;margin-top:2px;transition:color 0.2s;flex-shrink:0;';
       sendBtn.innerHTML = '<svg viewBox="0 0 24 24" style="width:15px;height:15px;flex-shrink:0;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send';
       sendBtn.addEventListener('mouseenter', function() { sendBtn.style.color = '#B38987'; });
       sendBtn.addEventListener('mouseleave', function() { sendBtn.style.color = '#fff'; });
@@ -1109,6 +1126,7 @@
         var semail = senderEmail.inp.value.trim();
         var phone  = phoneField.inp.value.trim();
         var remail = recipEmail.inp.value.trim();
+        var msg    = msgField.ta.value.trim();
         if (!name || !semail || !remail) {
           if (!name)   nameField.inp.style.borderColor   = '#c0392b';
           if (!semail) senderEmail.inp.style.borderColor = '#c0392b';
@@ -1117,8 +1135,7 @@
         }
         var subject = name + ' thinks you might like this home';
         var details = [price, [beds, baths].filter(Boolean).join(' / '), addr, mls ? 'MLS# ' + mls : ''].filter(Boolean).join('\n');
-        var body = 'I came across this listing that I think you might like. Let me know what you think!\n\n' +
-                   details + '\n' + url +
+        var body = msg + '\n\n' + details + '\n' + url +
                    (phone ? '\n\nReach me at: ' + phone : '') +
                    '\n\nShared via The Jaiswal Group Real Estate';
         window.location.href = 'mailto:' + encodeURIComponent(remail) +
@@ -1127,7 +1144,8 @@
         setTimeout(function() { ov.remove(); }, 500);
       });
       form.appendChild(sendBtn);
-      bx.appendChild(form);
+      body.appendChild(form);
+      bx.appendChild(body);
 
       ov.addEventListener('click', function(e) { if (e.target === ov) ov.remove(); });
       ov.appendChild(bx);
@@ -1164,7 +1182,6 @@
         var btn = document.createElement('button');
         btn.style.cssText = 'background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:9px;padding:0 4px;';
         var ic = document.createElement('div');
-        ic.className = 'tjg-sp-ic';
         ic.style.cssText = 'width:52px;height:52px;border-radius:50%;background:#F3EFE8;display:flex;align-items:center;justify-content:center;color:#18254B;transition:background 0.15s,color 0.15s;';
         ic.innerHTML = icon;
         var lb = document.createElement('span');
@@ -1233,26 +1250,25 @@
       share.innerHTML = SHARE_SVG;
       share.addEventListener('click', function(e) {
         e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
-        var link    = card.querySelector('.idx-listing-card__link');
-        var href    = link ? link.href : window.location.href;
-        var url     = href.replace('?widgetReferer=true', '');
-        var mlsM    = href.match(/\/listing\/[^\/]+\/([^\/]+)\//);
-        var addr    = (card.querySelector('.idx-listing-card__address')       || {}).textContent || '';
-        var price   = (card.querySelector('.idx-listing-card__listing-price') || {}).textContent || '';
-        var beds    = (card.querySelector('.idx-listing-card__bedrooms')       || {}).textContent || '';
-        var baths   = (card.querySelector('.idx-listing-card__total-baths')    || {}).textContent || '';
-        var imgEl   = card.querySelector('img');
-        var listing = {
+        var link  = card.querySelector('.idx-listing-card__link');
+        var href  = link ? link.href : window.location.href;
+        var url   = href.replace('?widgetReferer=true', '');
+        var mlsM  = href.match(/\/listing\/[^\/]+\/([^\/]+)\//);
+        var addr  = (card.querySelector('.idx-listing-card__address')       || {}).textContent || '';
+        var price = (card.querySelector('.idx-listing-card__listing-price') || {}).textContent || '';
+        var beds  = (card.querySelector('.idx-listing-card__bedrooms')      || {}).textContent || '';
+        var baths = (card.querySelector('.idx-listing-card__total-baths')   || {}).textContent || '';
+        var imgEl = card.querySelector('img');
+        _showSharePanel(e, {
           url:       url,
-          titleText: (addr || '') + (price ? ' - ' + price : ''),
+          titleText: addr.trim() + (price ? ' - ' + price.trim() : ''),
           imgSrc:    imgEl ? imgEl.src : '',
           price:     price.trim(),
           addr:      addr.trim(),
           beds:      beds.trim(),
           baths:     baths.trim(),
           mls:       mlsM ? mlsM[1] : ''
-        };
-        _showSharePanel(e, listing);
+        });
       });
 
       wrap.appendChild(heart);
