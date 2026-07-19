@@ -942,11 +942,10 @@
       document.getElementById('tjg-heart-modal').style.display = 'flex';
     }
 
-    function _buildConfirmation(bx, fr, ftr) {
+    function _buildConfirmation(bx, fr) {
       fr.style.display = 'none';
-      ftr.style.display = 'none';
       var conf = document.createElement('div');
-      conf.style.cssText = 'flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#F3EFE8;padding:36px 48px;text-align:center;gap:18px;border-radius:0 0 14px 14px;';
+      conf.style.cssText = 'flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#F3EFE8;padding:36px 48px;text-align:center;gap:18px;border-radius:0 0 12px 12px;';
       var circle = document.createElement('div');
       circle.style.cssText = 'width:72px;height:72px;border-radius:50%;border:2px solid #18254B;display:flex;align-items:center;justify-content:center;flex-shrink:0;';
       circle.innerHTML = '<svg viewBox="0 0 24 24" style="width:34px;height:34px;" fill="none" stroke="#18254B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
@@ -958,7 +957,7 @@
       body1.textContent = 'Welcome to The Jaiswal Group Real Estate. Your account is set up — you can now save listings, create search alerts, and collaborate directly with us.';
       var body2 = document.createElement('p');
       body2.style.cssText = 'font-family:Lato,sans-serif;font-size:13px;line-height:1.6;color:#666;margin:0;max-width:380px;';
-      body2.innerHTML = 'We have sent an email confirmation to verify your address. Please confirm within 7 days to continue receiving emails from <strong style="color:#444;">The Jaiswal Group Real Estate</strong>.';
+      body2.innerHTML = 'Please verify your email address within 7 days to continue receiving emails from <strong style="color:#444;">The Jaiswal Group Real Estate</strong>.';
       conf.appendChild(circle);
       conf.appendChild(heading);
       conf.appendChild(body1);
@@ -992,26 +991,11 @@
       _loadCount = 0;
       fr.addEventListener('load', function() {
         _loadCount++;
-        if (_loadCount > 1) _buildConfirmation(bx, fr, ftr);
+        if (_loadCount > 1) _buildConfirmation(bx, fr);
       });
 
-      var ftr = document.createElement('div');
-      ftr.style.cssText = 'background:#F3EFE8;padding:7px 14px;border-top:1px solid rgba(24,37,75,0.10);flex-shrink:0;border-radius:0 0 12px 12px;';
-      var lbl = document.createElement('label');
-      lbl.style.cssText = 'display:flex;align-items:flex-start;gap:8px;cursor:pointer;';
-      var cb = document.createElement('input');
-      cb.type = 'checkbox';
-      cb.required = true;
-      cb.style.cssText = 'margin-top:2px;flex-shrink:0;width:14px;height:14px;accent-color:#18254B;cursor:pointer;';
-      var txt = document.createElement('span');
-      txt.style.cssText = 'font-family:Lato,sans-serif;font-size:9px;line-height:1.45;color:#777;';
-      txt.innerHTML = 'By providing The Jaiswal Group Real Estate your contact information, you acknowledge and agree to our <a href="/privacy-policy.html" target="_blank" style="color:#18254B;">Privacy Policy</a> and consent to receiving marketing communications, including through automated calls, texts, and emails, some of which may use artificial or prerecorded voices. This consent isn\'t necessary for purchasing any products or services and you may opt out at any time. To opt out from texts, you can reply \'stop\' at any time. To opt out from emails, you can click on the unsubscribe link in the emails. Message and data rates may apply.';
-      lbl.appendChild(cb);
-      lbl.appendChild(txt);
-      ftr.appendChild(lbl);
-
       ov.addEventListener('click', function(e) { if (e.target === ov) _close(); });
-      bx.appendChild(hdr); bx.appendChild(fr); bx.appendChild(ftr); ov.appendChild(bx); document.body.appendChild(ov);
+      bx.appendChild(hdr); bx.appendChild(fr); ov.appendChild(bx); document.body.appendChild(ov);
     }
 
     if (document.readyState === 'loading') {
