@@ -1162,11 +1162,11 @@
         return row;
       }
 
-      var firstField  = makeInput('First Name',       'text',  'Jane',             true);
-      var lastField   = makeInput('Last Name',        'text',  'Smith',            true);
-      var senderEmail = makeInput('Email',            'email', 'you@email.com',    true);
-      var phoneField  = makeInput('Phone',            'tel',   '(858) 000-0000',   false);
-      var recipEmail  = makeInput('Recipient Email',  'email', 'friend@email.com', true);
+      var firstField  = makeInput('First Name',       'text',  'First Name',  true);
+      var lastField   = makeInput('Last Name',        'text',  'Last Name',   true);
+      var senderEmail = makeInput('Email',            'email', 'Email',       true);
+      var phoneField  = makeInput('Phone',            'tel',   'Phone',       false);
+      var recipEmail  = makeInput('Recipient Email',  'email', 'Email',       true);
       var msgField    = makeTextarea('Message', 'I came across this listing that I think you might like. Let me know what you think!');
 
       form.appendChild(makeRow(firstField, lastField));
