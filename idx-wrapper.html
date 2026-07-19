@@ -1936,7 +1936,7 @@
       var hdr = document.createElement('div');
       hdr.style.cssText = 'position:relative;display:flex;align-items:center;justify-content:center;padding:16px 48px;background:#18254B;border-radius:16px 16px 0 0;flex-shrink:0;';
       var ht = document.createElement('span');
-      ht.textContent = 'Save Search';
+      ht.textContent = 'Register';
       ht.style.cssText = 'font-weight:700;font-size:13px;color:#fff;letter-spacing:0.1em;text-transform:uppercase;';
       var hx = document.createElement('button');
       hx.innerHTML = '&times;';
@@ -1949,7 +1949,7 @@
       var sub = document.createElement('div');
       sub.style.cssText = 'background:#F3EFE8;padding:12px 20px;border-bottom:1px solid rgba(24,37,75,0.10);flex-shrink:0;text-align:center;';
       var subp = document.createElement('p');
-      subp.textContent = 'Save your search and receive instant alerts when new homes match your criteria.';
+      subp.textContent = 'Save your favorite homes, receive instant listing alerts, and access additional property information—all at no cost.';
       subp.style.cssText = 'margin:0;font-family:Lato,sans-serif;font-size:12px;color:#18254B;line-height:1.55;';
       sub.appendChild(subp);
 
@@ -2035,8 +2035,32 @@
       document.body.appendChild(ov);
     }
 
-    // Native IDX heart/favorite clicks and save-search links are allowed to pass through
-    // to IDX's own handlers, which open the IDX Register modal.
+    // Intercept all native IDX heart/favorite clicks → open our branded Register popup
+    // Runs in capture phase so it fires before IDX's own listeners
+    document.addEventListener('click', function(e) {
+      var t = e.target.closest(
+        '.IDX-favoriteProperty, .IDX-mapCardFavorite,' +
+        '[class*="favorite-btn"],[class*="fav-btn"],' +
+        '[aria-label*="avorite"],[aria-label*="ave this"]'
+      );
+      if (!t) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      _openSaveSearchModal();
+    }, true);
+
+    // Intercept native IDX save-search / signup links → open our branded Register popup instead
+    // Runs in capture phase so IDX's own listeners never fire
+    document.addEventListener('click', function(e) {
+      var t = e.target.closest(
+        'a[href*="usersignup"], a[href*="saveSearch"], a[href*="save-search"],' +
+        '#IDX-saveSearch, [class*="IDX-saveSearch"], [class*="idx-save-search"]'
+      );
+      if (!t || t.id === 'tjg-save-search') return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      _openSaveSearchModal();
+    }, true);
 
     // Replace/fix IDX text strings we can't edit in admin
     function _fixSignupText() {
@@ -3556,17 +3580,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       link.id   = 'tjg-save-search';
       link.href = '#';
       link.textContent = 'SAVE SEARCH';
-      link.addEventListener('click', function(e) {
-        e.preventDefault(); e.stopImmediatePropagation();
-        // Trigger IDX's native save-search / Register flow
-        var nat = document.querySelector(
-          '#IDX-saveSearch, [class*="IDX-saveSearch"], a[href*="saveSearch"], a[href*="save-search"]'
-        );
-        if (nat) { nat.click(); return; }
-        // Fallback: trigger via any visible IDX favorite button on the page
-        var fav = document.querySelector('.IDX-favoriteProperty, .IDX-mapCardFavorite');
-        if (fav) { fav.click(); }
-      });
+      link.addEventListener('click', function(e) { e.preventDefault(); e.stopImmediatePropagation(); _openSaveSearchModal(); });
       // Base layout styles via cssText, then pin visual props with setProperty !important
       // so IDX's runtime CSS can never strip the border/color
       link.style.cssText = 'display:inline-flex;align-items:center;text-decoration:none;white-space:nowrap;margin-left:8px;cursor:pointer;font-family:Lato,sans-serif;font-size:13px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0 16px;height:38px;border-radius:4px;box-sizing:border-box;';
@@ -3762,11 +3776,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         });
         heart.addEventListener('click', function(e) {
           e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
-          // Click the hidden native IDX favorite button → triggers IDX's Register modal
-          var nativeFav = card.querySelector(
-            '.IDX-favoriteProperty, [aria-label*="avorite"]:not(.tjg-card-heart)'
-          );
-          if (nativeFav) { nativeFav.click(); }
+          _openSaveSearchModal();
         });
 
         var share = document.createElement('button');
