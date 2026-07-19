@@ -2006,7 +2006,10 @@
         if (!ok) return;
         var subj = 'New Save Search Lead: ' + f + ' ' + l;
         var body = 'Name: ' + f + ' ' + l + '\nEmail: ' + e + (p ? '\nPhone: ' + p : '') + '\n\nSubmitted via Save Search on The Jaiswal Group website.';
-        window.open('mailto:office@thejaiswalgroup.com?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body));
+        var _ml = document.createElement('a');
+        _ml.href = 'mailto:office@thejaiswalgroup.com?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body);
+        _ml.style.display = 'none';
+        document.body.appendChild(_ml); _ml.click(); document.body.removeChild(_ml);
         // Show confirmation
         Array.from(bx.children).forEach(function(ch, i) { if (i > 0) ch.style.display = 'none'; });
         var conf = document.createElement('div');
