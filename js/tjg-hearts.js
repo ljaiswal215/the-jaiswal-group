@@ -13,11 +13,10 @@
       document.getElementById('tjg-heart-modal').style.display = 'flex';
     }
 
-    function _buildConfirmation(bx, fr, disc) {
-      fr.style.display = 'none';
-      if (disc) disc.style.display = 'none';
+    function _buildConfirmation(bx) {
+      Array.from(bx.children).forEach(function(ch, i) { if (i > 0) ch.style.display = 'none'; });
       var conf = document.createElement('div');
-      conf.style.cssText = 'flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#F3EFE8;padding:36px 48px;text-align:center;gap:18px;border-radius:0 0 12px 12px;';
+      conf.style.cssText = 'display:flex;flex-direction:column;align-items:center;justify-content:center;background:#F3EFE8;padding:36px 48px;text-align:center;gap:18px;border-radius:0 0 16px 16px;';
       var circle = document.createElement('div');
       circle.style.cssText = 'width:72px;height:72px;border-radius:50%;border:2px solid #18254B;display:flex;align-items:center;justify-content:center;flex-shrink:0;';
       circle.innerHTML = '<svg viewBox="0 0 24 24" style="width:34px;height:34px;" fill="none" stroke="#18254B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
@@ -26,10 +25,10 @@
       heading.style.cssText = 'font-family:Lato,sans-serif;font-size:26px;font-weight:700;color:#18254B;margin:0;';
       var body1 = document.createElement('p');
       body1.style.cssText = 'font-family:Lato,sans-serif;font-size:14px;line-height:1.7;color:#444;margin:0;max-width:400px;';
-      body1.textContent = 'Welcome to The Jaiswal Group Real Estate. Your account is set up — you can now save listings, create search alerts, and collaborate directly with us.';
+      body1.textContent = 'Welcome to The Jaiswal Group Real Estate. We have received your information and will be in touch shortly with your search alerts.';
       var body2 = document.createElement('p');
       body2.style.cssText = 'font-family:Lato,sans-serif;font-size:13px;line-height:1.6;color:#666;margin:0;max-width:380px;';
-      body2.innerHTML = 'Please verify your email address within 7 days to continue receiving emails from <strong style="color:#444;">The Jaiswal Group Real Estate</strong>.';
+      body2.innerHTML = 'Questions? Call or text us anytime at <strong style="color:#444;">(858) 663-4896</strong>.';
       conf.appendChild(circle); conf.appendChild(heading); conf.appendChild(body1); conf.appendChild(body2);
       bx.appendChild(conf);
       setTimeout(_close, 5000);
@@ -40,70 +39,89 @@
       ov.id = 'tjg-heart-modal';
       ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(24,37,75,0.72);display:none;align-items:center;justify-content:center;';
       var bx = document.createElement('div');
-      bx.style.cssText = 'width:88%;max-width:460px;height:90vh;max-height:700px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 8px 36px rgba(0,0,0,0.24);border-radius:12px;';
+      bx.style.cssText = 'width:88%;max-width:460px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 36px rgba(0,0,0,0.24);display:flex;flex-direction:column;font-family:Lato,sans-serif;';
 
       // Header
       var hdr = document.createElement('div');
-      hdr.style.cssText = 'background:#F3EFE8;display:flex;align-items:center;justify-content:flex-end;padding:2px 10px;flex-shrink:0;border-radius:12px 12px 0 0;';
-      var cl = document.createElement('button');
-      cl.innerHTML = '&times;';
-      cl.setAttribute('aria-label', 'Close');
-      cl.style.cssText = 'background:none;border:none;font-size:26px;color:#18254B;cursor:pointer;line-height:1;padding:0 2px;opacity:0.6;';
-      cl.addEventListener('click', _close);
-      hdr.appendChild(cl);
+      hdr.style.cssText = 'position:relative;display:flex;align-items:center;justify-content:center;padding:16px 48px;background:#18254B;border-radius:16px 16px 0 0;flex-shrink:0;';
+      var ht = document.createElement('span');
+      ht.textContent = 'Save Search';
+      ht.style.cssText = 'font-weight:700;font-size:13px;color:#fff;letter-spacing:0.1em;text-transform:uppercase;';
+      var hx = document.createElement('button');
+      hx.innerHTML = '&times;';
+      hx.setAttribute('aria-label', 'Close');
+      hx.style.cssText = 'position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:26px;color:#fff;cursor:pointer;line-height:1;padding:0;opacity:0.8;';
+      hx.addEventListener('click', _close);
+      hdr.appendChild(ht); hdr.appendChild(hx);
 
-      // iframe wrapper
-      var frWrap = document.createElement('div');
-      frWrap.style.cssText = 'position:relative;flex:1;min-height:0;display:flex;flex-direction:column;';
+      // Subtitle
+      var sub = document.createElement('div');
+      sub.style.cssText = 'background:#F3EFE8;padding:12px 20px;border-bottom:1px solid rgba(24,37,75,0.10);flex-shrink:0;text-align:center;';
+      var subp = document.createElement('p');
+      subp.textContent = 'Save your search and receive instant alerts when new homes match your criteria.';
+      subp.style.cssText = 'margin:0;font-family:Lato,sans-serif;font-size:12px;color:#18254B;line-height:1.55;';
+      sub.appendChild(subp);
 
-      var fr = document.createElement('iframe');
-      fr.src = 'https://thejaiswalgroup.idxbroker.com/idx/usersignup?modal=1';
-      fr.style.cssText = 'width:100%;flex:1;border:none;background:#F3EFE8;min-height:0;';
-      fr.setAttribute('frameborder', '0');
+      // Form fields
+      var frm = document.createElement('div');
+      frm.style.cssText = 'padding:16px 18px 0;display:flex;flex-direction:column;gap:11px;';
+      function mkI(lbl, type, req) {
+        var fw = document.createElement('div');
+        var lb = document.createElement('label');
+        lb.textContent = lbl + (req ? '' : ' (optional)');
+        lb.style.cssText = 'display:block;font-size:0.62rem;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#18254B;margin-bottom:4px;';
+        var inp = document.createElement('input');
+        inp.type = type;
+        inp.style.cssText = 'width:100%;box-sizing:border-box;border:1.5px solid #E0D9CF;border-radius:2px;padding:9px 12px;font-family:Lato,sans-serif;font-size:13px;color:#18254B;outline:none;';
+        inp.addEventListener('focus', function() { inp.style.borderColor = '#18254B'; });
+        inp.addEventListener('blur', function() { inp.style.borderColor = '#E0D9CF'; });
+        fw.appendChild(lb); fw.appendChild(inp);
+        return { wrap: fw, inp: inp };
+      }
+      function mkR(a, b) {
+        var r = document.createElement('div');
+        r.style.cssText = 'display:flex;gap:10px;';
+        a.wrap.style.flex = '1'; b.wrap.style.flex = '1';
+        r.appendChild(a.wrap); r.appendChild(b.wrap); return r;
+      }
+      var fi = mkI('First Name', 'text', true), la = mkI('Last Name', 'text', true);
+      var em = mkI('Email', 'email', true), ph = mkI('Phone', 'tel', false);
+      frm.appendChild(mkR(fi, la)); frm.appendChild(em.wrap); frm.appendChild(ph.wrap);
 
-      // Button blocker — covers only the Create Free Account button area
-      // until the TCPA checkbox is checked
-      var btnBlocker = document.createElement('div');
-      btnBlocker.style.cssText = 'position:absolute;bottom:0;left:0;right:0;height:80px;background:rgba(243,239,232,0.94);z-index:10;display:flex;align-items:center;justify-content:center;pointer-events:all;border-top:1px solid rgba(24,37,75,0.08);';
-      btnBlocker.innerHTML = '<p style="font-family:Lato,sans-serif;font-size:11px;font-weight:600;color:#18254B;text-align:center;padding:0 24px;margin:0;opacity:0.7;">Check the box below to continue</p>';
-
-      frWrap.appendChild(fr);
-      frWrap.appendChild(btnBlocker);
-
-      // TCPA checkbox + disclosure footer
+      // TCPA checkbox + submit
       var disc = document.createElement('div');
-      disc.style.cssText = 'background:#F3EFE8;padding:12px 16px 16px;border-top:1px solid rgba(24,37,75,0.12);flex-shrink:0;';
-
+      disc.style.cssText = 'padding:14px 18px 18px;display:flex;flex-direction:column;gap:12px;';
       var chkRow = document.createElement('label');
       chkRow.style.cssText = 'display:flex;align-items:flex-start;gap:10px;cursor:pointer;';
-
       var chk = document.createElement('input');
       chk.type = 'checkbox';
-      chk.id = 'tjg-tcpa-chk';
       chk.style.cssText = 'margin-top:2px;flex-shrink:0;width:16px;height:16px;accent-color:#18254B;cursor:pointer;';
-
-      var chkText = document.createElement('span');
-      chkText.style.cssText = 'font-family:Lato,sans-serif;font-size:9.5px;line-height:1.55;color:#666;';
-      chkText.innerHTML = 'By providing The Jaiswal Group Real Estate your contact information, you acknowledge and agree to our <a href="/privacy-policy.html" style="color:#18254B;text-decoration:underline;" onclick="event.stopPropagation();">Privacy Policy</a> and consent to receiving marketing communications, including through automated calls, texts, and emails, some of which may use artificial or prerecorded voices. This consent isn\'t necessary for purchasing any products or services and you may opt out at any time. To opt out from texts, you can reply \'stop\' at any time. To opt out from emails, you can click on the unsubscribe link in the emails. Message and data rates may apply.';
-
-      chk.addEventListener('change', function() {
-        btnBlocker.style.display = chk.checked ? 'none' : 'flex';
+      var chkTxt = document.createElement('span');
+      chkTxt.style.cssText = 'font-family:Lato,sans-serif;font-size:9.5px;line-height:1.55;color:#666;';
+      chkTxt.innerHTML = 'By providing The Jaiswal Group Real Estate your contact information, you acknowledge and agree to our <a href="/privacy-policy.html" style="color:#18254B;" onclick="event.stopPropagation();">Privacy Policy</a> and consent to receiving marketing communications, including through automated calls, texts, and emails. Message and data rates may apply.';
+      chkRow.appendChild(chk); chkRow.appendChild(chkTxt);
+      var sb = document.createElement('button');
+      sb.textContent = 'GET ALERTS';
+      sb.style.cssText = 'width:100%;background:#18254B;color:#fff;border:none;border-radius:2px;font-family:Lato,sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;padding:14px;cursor:pointer;opacity:0.45;transition:background 0.2s,opacity 0.2s;';
+      sb.disabled = true;
+      chk.addEventListener('change', function() { sb.disabled = !chk.checked; sb.style.opacity = chk.checked ? '1' : '0.45'; });
+      sb.addEventListener('mouseenter', function() { if (!sb.disabled) sb.style.background = '#B38987'; });
+      sb.addEventListener('mouseleave', function() { sb.style.background = '#18254B'; });
+      sb.addEventListener('click', function() {
+        var f = fi.inp.value.trim(), l = la.inp.value.trim(), e = em.inp.value.trim(), p = ph.inp.value.trim(), ok = true;
+        if (!f) { fi.inp.style.borderColor = '#c0392b'; ok = false; }
+        if (!l) { la.inp.style.borderColor = '#c0392b'; ok = false; }
+        if (!e) { em.inp.style.borderColor = '#c0392b'; ok = false; }
+        if (!ok) return;
+        var subj = 'New Save Search Lead: ' + f + ' ' + l;
+        var body = 'Name: ' + f + ' ' + l + '\nEmail: ' + e + (p ? '\nPhone: ' + p : '') + '\n\nSubmitted via Save Search on The Jaiswal Group website.';
+        window.open('mailto:office@thejaiswalgroup.com?subject=' + encodeURIComponent(subj) + '&body=' + encodeURIComponent(body));
+        _buildConfirmation(bx);
       });
+      disc.appendChild(chkRow); disc.appendChild(sb);
 
-      chkRow.appendChild(chk);
-      chkRow.appendChild(chkText);
-      disc.appendChild(chkRow);
-
-      _loadCount = 0;
-      fr.addEventListener('load', function() {
-        _loadCount++;
-        if (_loadCount > 1) _buildConfirmation(bx, fr, disc);
-      });
-
+      bx.appendChild(hdr); bx.appendChild(sub); bx.appendChild(frm); bx.appendChild(disc);
       ov.addEventListener('click', function(e) { if (e.target === ov) _close(); });
-      bx.appendChild(hdr);
-      bx.appendChild(frWrap);
-      bx.appendChild(disc);
       ov.appendChild(bx);
       document.body.appendChild(ov);
     }
@@ -162,7 +180,7 @@
       priceEl.textContent = price || '';
       priceEl.style.cssText = 'font-size:17px;font-weight:700;color:#18254B;margin-bottom:3px;';
       info.appendChild(priceEl);
-      if (beds || baths) {
+      if (beds || baths || sqft) {
         var bb = document.createElement('div');
         bb.textContent = [beds, baths, sqft ? sqft + ' sq. ft.' : ''].filter(Boolean).join(' · ');
         bb.style.cssText = 'font-size:12px;color:#18254B;margin-bottom:2px;';
@@ -366,6 +384,16 @@
       heart.className = 'tjg-heart';
       heart.setAttribute('aria-label', 'Save this property');
       heart.innerHTML = HEART_SVG;
+      heart.addEventListener('mouseenter', function() {
+        heart.style.background = 'rgba(0,0,0,0.6)';
+        var svg = heart.querySelector('svg');
+        if (svg) { svg.style.fill = '#B38987'; svg.style.stroke = '#B38987'; }
+      });
+      heart.addEventListener('mouseleave', function() {
+        heart.style.background = 'rgba(0,0,0,0.35)';
+        var svg = heart.querySelector('svg');
+        if (svg) { svg.style.fill = 'none'; svg.style.stroke = 'currentColor'; }
+      });
       heart.addEventListener('click', function(e) {
         e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); _show();
       });
@@ -374,6 +402,16 @@
       share.className = 'tjg-share';
       share.setAttribute('aria-label', 'Share this property');
       share.innerHTML = SHARE_SVG;
+      share.addEventListener('mouseenter', function() {
+        share.style.background = 'rgba(0,0,0,0.6)';
+        var svg = share.querySelector('svg');
+        if (svg) { svg.style.fill = '#B38987'; }
+      });
+      share.addEventListener('mouseleave', function() {
+        share.style.background = 'rgba(0,0,0,0.35)';
+        var svg = share.querySelector('svg');
+        if (svg) { svg.style.fill = 'currentColor'; }
+      });
       share.addEventListener('click', function(e) {
         e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
         var link   = card.querySelector('.idx-listing-card__link');
@@ -384,7 +422,17 @@
         var price  = (card.querySelector('.idx-listing-card__listing-price') || {}).textContent || '';
         var beds   = (card.querySelector('.idx-listing-card__bedrooms')      || {}).textContent || '';
         var baths  = (card.querySelector('.idx-listing-card__total-baths')   || {}).textContent || '';
-        var sqft   = card.getAttribute('data-sqft') || '';
+        var sqft = card.getAttribute('data-sqft') || '';
+        if (!sqft) {
+          var _els = card.querySelectorAll('*');
+          for (var _si = 0; _si < _els.length; _si++) {
+            var _el = _els[_si];
+            if (_el.childElementCount === 0) {
+              var _sm = _el.textContent.match(/(\d[\d,]+)\s*sq\.?\s*ft/i);
+              if (_sm) { sqft = _sm[1]; break; }
+            }
+          }
+        }
         var imgEl  = card.querySelector('img.idx-listing-card__image');
         var logoEl = card.querySelector('.idx-listing-card__mls img');
         _showSharePanel(e, {
