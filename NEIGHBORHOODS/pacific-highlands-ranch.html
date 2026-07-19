@@ -942,8 +942,9 @@
       document.getElementById('tjg-heart-modal').style.display = 'flex';
     }
 
-    function _buildConfirmation(bx, fr) {
+    function _buildConfirmation(bx, fr, disc) {
       fr.style.display = 'none';
+      if (disc) disc.style.display = 'none';
       var conf = document.createElement('div');
       conf.style.cssText = 'flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#F3EFE8;padding:36px 48px;text-align:center;gap:18px;border-radius:0 0 12px 12px;';
       var circle = document.createElement('div');
@@ -982,13 +983,19 @@
       fr.src = 'https://thejaiswalgroup.idxbroker.com/idx/usersignup?modal=1';
       fr.style.cssText = 'width:100%;flex:1;border:none;background:#F3EFE8;min-height:0;';
       fr.setAttribute('frameborder', '0');
+
+      // TCPA disclosure footer
+      var disc = document.createElement('div');
+      disc.style.cssText = 'background:#F3EFE8;padding:10px 16px 14px;border-top:1px solid rgba(24,37,75,0.10);flex-shrink:0;';
+      disc.innerHTML = '<p style="margin:0;font-family:Lato,sans-serif;font-size:9.5px;line-height:1.55;color:#888;text-align:center;">By providing The Jaiswal Group Real Estate your contact information, you acknowledge and agree to our <a href="/privacy-policy.html" style="color:#18254B;text-decoration:underline;">Privacy Policy</a> and consent to receiving marketing communications, including through automated calls, texts, and emails, some of which may use artificial or prerecorded voices. This consent isn\'t necessary for purchasing any products or services and you may opt out at any time. To opt out from texts, you can reply \'stop\' at any time. To opt out from emails, you can click on the unsubscribe link in the emails. Message and data rates may apply.</p>';
+
       _loadCount = 0;
       fr.addEventListener('load', function() {
         _loadCount++;
-        if (_loadCount > 1) _buildConfirmation(bx, fr);
+        if (_loadCount > 1) _buildConfirmation(bx, fr, disc);
       });
       ov.addEventListener('click', function(e) { if (e.target === ov) _close(); });
-      bx.appendChild(hdr); bx.appendChild(fr); ov.appendChild(bx); document.body.appendChild(ov);
+      bx.appendChild(hdr); bx.appendChild(fr); bx.appendChild(disc); ov.appendChild(bx); document.body.appendChild(ov);
     }
 
     if (document.readyState === 'loading') {
@@ -1111,7 +1118,6 @@
         return { wrap: fw, ta: ta };
       }
 
-      // Two-column row helper for First/Last name
       function makeRow(fieldA, fieldB) {
         var row = document.createElement('div');
         row.style.cssText = 'display:flex;gap:10px;';
