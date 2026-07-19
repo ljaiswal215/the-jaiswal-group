@@ -3134,8 +3134,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           '</svg>' +
           '<span>Favorite</span>';
         heartBtn.addEventListener('click', function() {
-          heartBtn.classList.toggle('tjg-saved');
-          addFav.click();
+          _openSaveSearchModal();
         });
         row.appendChild(heartBtn);
 
