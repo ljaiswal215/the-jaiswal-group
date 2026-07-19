@@ -3501,6 +3501,184 @@ document.getElementById('tjg-tour-success').style.display = 'block';
     _saveSearchObserver.observe(document.body, { childList: true, subtree: true });
     setTimeout(function(){ _saveSearchObserver.disconnect(); }, 30000);
 
+    // ─── Heart + Share buttons on IDX listing cards ───────────────────────────
+    (function() {
+      var HEART_SVG = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+      var SHARE_SVG = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;display:block;fill:currentColor;"><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+      var ICON_LINK  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
+      var ICON_SMS   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+      var ICON_SHARE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>';
+      var ICON_EMAIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>';
+      var ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><polyline points="20 6 9 17 4 12"/></svg>';
+
+      // Inject button styles
+      var st = document.createElement('style');
+      st.textContent = '.tjg-card-heart,.tjg-card-share{position:absolute;top:10px;z-index:15;width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;padding:0;color:#fff;transition:background 0.2s,color 0.2s;pointer-events:auto}.tjg-card-heart{right:54px}.tjg-card-share{right:10px}.tjg-card-heart:hover,.tjg-card-share:hover{background:rgba(0,0,0,0.6);color:#B38987}';
+      document.head.appendChild(st);
+
+      function _showEmailPopupCard(listing) {
+        if (document.getElementById('tjg-email-modal')) return;
+        var url=listing.url,imgSrc=listing.imgSrc,price=listing.price,addr=listing.addr,beds=listing.beds,baths=listing.baths,mls=listing.mls,logoSrc=listing.logoSrc;
+        var ov=document.createElement('div');
+        ov.id='tjg-email-modal';
+        ov.style.cssText='position:fixed;inset:0;z-index:100001;background:rgba(24,37,75,0.72);display:flex;align-items:center;justify-content:center;';
+        var bx=document.createElement('div');
+        bx.style.cssText='width:88%;max-width:420px;max-height:92vh;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,0.22);display:flex;flex-direction:column;font-family:Lato,sans-serif;';
+        var hdr=document.createElement('div');
+        hdr.style.cssText='position:relative;display:flex;align-items:center;justify-content:center;padding:14px 48px;background:#18254B;flex-shrink:0;border-radius:16px 16px 0 0;';
+        var ht=document.createElement('span');
+        ht.textContent='Share Property';
+        ht.style.cssText='font-weight:700;font-size:13px;color:#fff;letter-spacing:0.1em;text-transform:uppercase;text-align:center;';
+        var hx=document.createElement('button');
+        hx.innerHTML='&times;';
+        hx.style.cssText='position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:26px;color:#fff;cursor:pointer;line-height:1;padding:0;opacity:0.8;';
+        hx.addEventListener('click',function(){ov.remove();});
+        hdr.appendChild(ht);hdr.appendChild(hx);bx.appendChild(hdr);
+        var body=document.createElement('div');
+        body.style.cssText='flex:1;overflow-y:auto;display:flex;flex-direction:column;min-height:0;';
+        if(imgSrc){var ph=document.createElement('div');ph.style.cssText='width:100%;height:150px;background:#E0D9CF center/cover no-repeat;flex-shrink:0;';ph.style.backgroundImage='url('+imgSrc+')';body.appendChild(ph);}
+        var info=document.createElement('div');
+        info.style.cssText='background:#F3EFE8;padding:12px 18px 12px;border-bottom:1px solid rgba(24,37,75,0.10);flex-shrink:0;';
+        var pr=document.createElement('div');pr.textContent=price||'';pr.style.cssText='font-size:17px;font-weight:700;color:#18254B;margin-bottom:3px;';
+        info.appendChild(pr);
+        if(beds||baths||listing.sqft){var bb=document.createElement('div');bb.textContent=[beds,baths,listing.sqft?listing.sqft+' sq. ft.':''].filter(Boolean).join(' · ');bb.style.cssText='font-size:12px;color:#18254B;margin-bottom:2px;';info.appendChild(bb);}
+        if(addr){var ad=document.createElement('div');ad.textContent=addr;ad.style.cssText='font-size:12px;color:#7a7269;margin-bottom:2px;';info.appendChild(ad);}
+        var br=document.createElement('div');br.style.cssText='display:flex;align-items:center;justify-content:space-between;margin-top:4px;';
+        var ml=document.createElement('span');ml.textContent=mls?'MLS# '+mls:'';ml.style.cssText='font-size:11px;color:#aaa;';br.appendChild(ml);
+        if(logoSrc){var lg=document.createElement('img');lg.src=logoSrc;lg.alt='CRMLS';lg.style.cssText='height:24px;width:auto;object-fit:contain;flex-shrink:0;mix-blend-mode:multiply;opacity:0.9;';br.appendChild(lg);}
+        info.appendChild(br);body.appendChild(info);
+        var frm=document.createElement('div');frm.style.cssText='padding:16px 18px 20px;display:flex;flex-direction:column;gap:11px;';
+        function mkInp(lbl,type,req){var fw=document.createElement('div');var lb=document.createElement('label');lb.textContent=lbl+(req?'':' (optional)');lb.style.cssText='display:block;font-size:0.62rem;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#18254B;margin-bottom:4px;';var inp=document.createElement('input');inp.type=type;inp.style.cssText='width:100%;box-sizing:border-box;border:1.5px solid #E0D9CF;border-radius:2px;padding:9px 12px;font-family:Lato,sans-serif;font-size:13px;color:#18254B;outline:none;';inp.addEventListener('focus',function(){inp.style.borderColor='#18254B';});inp.addEventListener('blur',function(){inp.style.borderColor='#E0D9CF';});fw.appendChild(lb);fw.appendChild(inp);return{wrap:fw,inp:inp};}
+        function mkRow(a,b){var r=document.createElement('div');r.style.cssText='display:flex;gap:10px;';a.wrap.style.flex='1';b.wrap.style.flex='1';r.appendChild(a.wrap);r.appendChild(b.wrap);return r;}
+        function mkTa(lbl){var fw=document.createElement('div');var lb=document.createElement('label');lb.textContent=lbl;lb.style.cssText='display:block;font-size:0.62rem;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#18254B;margin-bottom:4px;';var ta=document.createElement('textarea');ta.style.cssText='width:100%;box-sizing:border-box;border:1.5px solid #E0D9CF;border-radius:2px;padding:9px 12px;font-family:Lato,sans-serif;font-size:13px;color:#18254B;outline:none;resize:none;height:80px;line-height:1.5;';ta.addEventListener('focus',function(){ta.style.borderColor='#18254B';});ta.addEventListener('blur',function(){ta.style.borderColor='#E0D9CF';});fw.appendChild(lb);fw.appendChild(ta);return{wrap:fw,ta:ta};}
+        var fi=mkInp('First Name','text',true),la=mkInp('Last Name','text',true),se=mkInp('Email','email',true),ph=mkInp('Phone','tel',false),re=mkInp('Recipient Email','email',true),ms=mkTa('Message');
+        frm.appendChild(mkRow(fi,la));frm.appendChild(se.wrap);frm.appendChild(ph.wrap);frm.appendChild(re.wrap);frm.appendChild(ms.wrap);
+        var sb=document.createElement('button');
+        sb.style.cssText='display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:#18254B;color:#fff;border:none;border-radius:2px;font-family:Lato,sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;padding:14px;cursor:pointer;margin-top:2px;transition:color 0.2s;';
+        sb.innerHTML='<svg viewBox="0 0 24 24" style="width:15px;height:15px;flex-shrink:0;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send';
+        sb.addEventListener('mouseenter',function(){sb.style.color='#B38987';});
+        sb.addEventListener('mouseleave',function(){sb.style.color='#fff';});
+        sb.addEventListener('click',function(){
+          var f=fi.inp.value.trim(),l=la.inp.value.trim(),s=se.inp.value.trim(),p=ph.inp.value.trim(),r=re.inp.value.trim(),m=ms.ta.value.trim(),ok=true;
+          if(!f){fi.inp.style.borderColor='#c0392b';ok=false;}
+          if(!l){la.inp.style.borderColor='#c0392b';ok=false;}
+          if(!s){se.inp.style.borderColor='#c0392b';ok=false;}
+          if(!r){re.inp.style.borderColor='#c0392b';ok=false;}
+          if(!ok)return;
+          var subj=(f+' '+l)+' thinks you might like this home';
+          var det=[price,[beds,baths].filter(Boolean).join(' / '),addr,mls?'MLS# '+mls:''].filter(Boolean).join('\n');
+          var eb=m+'\n\n'+det+'\n'+url+(p?'\n\nReach me at: '+p:'')+'\n\nShared via The Jaiswal Group Real Estate';
+          window.location.href='mailto:'+encodeURIComponent(r)+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(eb);
+          setTimeout(function(){ov.remove();},500);
+        });
+        frm.appendChild(sb);body.appendChild(frm);bx.appendChild(body);
+        ov.addEventListener('click',function(e){if(e.target===ov)ov.remove();});
+        ov.appendChild(bx);document.body.appendChild(ov);
+      }
+
+      function _showSharePanelCard(e, listing) {
+        document.querySelectorAll('#tjg-share-panel').forEach(function(p){p.remove();});
+        var url=listing.url,tt=listing.titleText;
+        var panel=document.createElement('div');
+        panel.id='tjg-share-panel';
+        panel.style.cssText='position:fixed;z-index:100000;background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.18);width:290px;overflow:hidden;font-family:Lato,sans-serif;';
+        var ph=document.createElement('div');
+        ph.style.cssText='display:flex;align-items:center;justify-content:space-between;padding:14px 16px 12px;border-bottom:1px solid rgba(0,0,0,0.08);';
+        var pt=document.createElement('span');pt.textContent='Share Property';pt.style.cssText='font-weight:700;font-size:14px;color:#18254B;';
+        var px=document.createElement('button');px.innerHTML='&times;';px.style.cssText='background:none;border:none;font-size:22px;color:#18254B;cursor:pointer;line-height:1;padding:0;opacity:0.45;';
+        px.addEventListener('click',function(){panel.remove();});
+        ph.appendChild(pt);ph.appendChild(px);
+        var row=document.createElement('div');row.style.cssText='display:flex;align-items:flex-start;justify-content:space-around;padding:22px 8px 24px;';
+        function mkOpt(icon,label,onClick){
+          var btn=document.createElement('button');btn.style.cssText='background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:9px;padding:0 4px;';
+          var ic=document.createElement('div');ic.style.cssText='width:52px;height:52px;border-radius:50%;background:#F3EFE8;display:flex;align-items:center;justify-content:center;color:#18254B;transition:background 0.15s,color 0.15s;';ic.innerHTML=icon;
+          var lb=document.createElement('span');lb.textContent=label;lb.style.cssText='font-size:10px;font-weight:700;color:#18254B;letter-spacing:0.04em;white-space:nowrap;text-transform:uppercase;';
+          btn.addEventListener('mouseenter',function(){ic.style.background='#18254B';ic.style.color='#B38987';});
+          btn.addEventListener('mouseleave',function(){ic.style.background='#F3EFE8';ic.style.color='#18254B';});
+          btn.addEventListener('click',function(ev){ev.stopPropagation();onClick(ic,lb);});
+          btn.appendChild(ic);btn.appendChild(lb);return btn;
+        }
+        row.appendChild(mkOpt(ICON_LINK,'Copy Link',function(ic,lb){navigator.clipboard.writeText(url).then(function(){ic.innerHTML=ICON_CHECK;ic.style.background='#18254B';ic.style.color='#fff';lb.textContent='Copied!';setTimeout(function(){panel.remove();},1400);});}));
+        row.appendChild(mkOpt(ICON_SMS,'Messages',function(){window.open('sms:?body='+encodeURIComponent(tt+' '+url));setTimeout(function(){panel.remove();},300);}));
+        row.appendChild(mkOpt(ICON_SHARE,'Share to',function(){if(navigator.share){navigator.share({title:tt,url:url}).catch(function(){});}else{navigator.clipboard.writeText(url);}setTimeout(function(){panel.remove();},300);}));
+        row.appendChild(mkOpt(ICON_EMAIL,'Email',function(){panel.remove();_showEmailPopupCard(listing);}));
+        panel.appendChild(ph);panel.appendChild(row);document.body.appendChild(panel);
+        var vw=window.innerWidth,vh=window.innerHeight,pw=290,panH=panel.offsetHeight||160;
+        var left=Math.min(e.clientX-145,vw-pw-10);
+        var top=e.clientY+12;if(top+panH>vh-10)top=e.clientY-panH-12;
+        panel.style.left=Math.max(10,left)+'px';panel.style.top=top+'px';
+        setTimeout(function(){document.addEventListener('click',function _d(){panel.remove();document.removeEventListener('click',_d);});},0);
+      }
+
+      function _addCardButtons(card) {
+        if (card.querySelector('.tjg-card-heart')) return;
+        var photo = card.querySelector('.idx-listing-card__link');
+        if (!photo) return;
+        photo.style.position = 'relative';
+        photo.style.overflow = 'hidden';
+
+        // Grab listing data at click time (card may not be fully loaded yet)
+        function _data() {
+          var link = card.querySelector('.idx-listing-card__link');
+          var href = link ? link.href : window.location.href;
+          href = href.replace('?widgetReferer=true','');
+          var mlsM = href.match(/\/listing\/[^\/]+\/([^\/]+)\//);
+          return {
+            url: href,
+            titleText: ((card.querySelector('.idx-listing-card__address')||{}).textContent||'').trim(),
+            imgSrc: ((card.querySelector('img.idx-listing-card__image')||{}).src)||'',
+            logoSrc: ((card.querySelector('.idx-listing-card__mls img')||{}).src)||'',
+            price: ((card.querySelector('.idx-listing-card__listing-price')||{}).textContent||'').trim(),
+            addr: ((card.querySelector('.idx-listing-card__address')||{}).textContent||'').trim(),
+            beds: ((card.querySelector('.idx-listing-card__bedrooms')||{}).textContent||'').trim(),
+            baths: ((card.querySelector('.idx-listing-card__total-baths')||{}).textContent||'').trim(),
+            sqft: (card.getAttribute('data-sqft')||'').trim(),
+            mls: mlsM ? mlsM[1] : ''
+          };
+        }
+
+        var heart = document.createElement('button');
+        heart.className = 'tjg-card-heart';
+        heart.setAttribute('aria-label','Save this property');
+        heart.innerHTML = HEART_SVG;
+        heart.addEventListener('click', function(e) {
+          e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+          _openSaveSearchModal();
+        });
+
+        var share = document.createElement('button');
+        share.className = 'tjg-card-share';
+        share.setAttribute('aria-label','Share this property');
+        share.innerHTML = SHARE_SVG;
+        share.addEventListener('click', function(e) {
+          e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+          _showSharePanelCard(e, _data());
+        });
+
+        photo.appendChild(heart);
+        photo.appendChild(share);
+      }
+
+      function _runCardButtons() {
+        document.querySelectorAll('.idx-listing-card').forEach(_addCardButtons);
+      }
+
+      _runCardButtons();
+      [300,800,1800,3500].forEach(function(ms){setTimeout(_runCardButtons,ms);});
+
+      new MutationObserver(function(muts) {
+        var found = false;
+        muts.forEach(function(m) {
+          m.addedNodes.forEach(function(n) {
+            if (n.nodeType !== 1) return;
+            if (n.classList && n.classList.contains('idx-listing-card')) { _addCardButtons(n); found=true; return; }
+            if (n.querySelectorAll) n.querySelectorAll('.idx-listing-card').forEach(function(c){_addCardButtons(c);found=true;});
+          });
+        });
+      }).observe(document.body, { childList: true, subtree: true });
+    })();
+
+
     // Prevent flash of off-area listings on map search page load
     (function() {
       if (window.location.href.indexOf('mapsearch') === -1 &&

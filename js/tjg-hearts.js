@@ -123,6 +123,7 @@
       var addr    = listing.addr;
       var beds    = listing.beds;
       var baths   = listing.baths;
+      var sqft    = listing.sqft;
       var mls     = listing.mls;
       var logoSrc = listing.logoSrc;
 
@@ -163,7 +164,7 @@
       info.appendChild(priceEl);
       if (beds || baths) {
         var bb = document.createElement('div');
-        bb.textContent = [beds, baths].filter(Boolean).join(' · ');
+        bb.textContent = [beds, baths, sqft ? sqft + ' sq. ft.' : ''].filter(Boolean).join(' · ');
         bb.style.cssText = 'font-size:12px;color:#18254B;margin-bottom:2px;';
         info.appendChild(bb);
       }
@@ -264,7 +265,7 @@
         if (!valid) return;
         var fullName = first + ' ' + last;
         var subject  = fullName + ' thinks you might like this home';
-        var details  = [price, [beds, baths].filter(Boolean).join(' / '), addr, mls ? 'MLS# ' + mls : ''].filter(Boolean).join('\n');
+        var details  = [price, [beds, baths, sqft ? sqft + ' sq. ft.' : ''].filter(Boolean).join(' / '), addr, mls ? 'MLS# ' + mls : ''].filter(Boolean).join('\n');
         var emailBody = msg + '\n\n' + details + '\n' + url +
                         (phone ? '\n\nReach me at: ' + phone : '') +
                         '\n\nShared via The Jaiswal Group Real Estate';
@@ -383,6 +384,7 @@
         var price  = (card.querySelector('.idx-listing-card__listing-price') || {}).textContent || '';
         var beds   = (card.querySelector('.idx-listing-card__bedrooms')      || {}).textContent || '';
         var baths  = (card.querySelector('.idx-listing-card__total-baths')   || {}).textContent || '';
+        var sqft   = card.getAttribute('data-sqft') || '';
         var imgEl  = card.querySelector('img.idx-listing-card__image');
         var logoEl = card.querySelector('.idx-listing-card__mls img');
         _showSharePanel(e, {
@@ -394,6 +396,7 @@
           addr:      addr.trim(),
           beds:      beds.trim(),
           baths:     baths.trim(),
+          sqft:      sqft.trim(),
           mls:       mlsM ? mlsM[1] : ''
         });
       });
