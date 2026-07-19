@@ -998,51 +998,80 @@
     }
 
     // ── Email popup ───────────────────────────────────────────────────────────
-    function _showEmailPopup(url, titleText, imgSrc, price, addr) {
+    function _showEmailPopup(listing) {
       if (document.getElementById('tjg-email-modal')) return;
+      var url       = listing.url;
+      var titleText = listing.titleText;
+      var imgSrc    = listing.imgSrc;
+      var price     = listing.price;
+      var addr      = listing.addr;
+      var beds      = listing.beds;
+      var baths     = listing.baths;
+      var mls       = listing.mls;
+
       var ov = document.createElement('div');
       ov.id = 'tjg-email-modal';
       ov.style.cssText = 'position:fixed;inset:0;z-index:100001;background:rgba(24,37,75,0.72);display:flex;align-items:center;justify-content:center;';
-      var bx = document.createElement('div');
-      bx.style.cssText = 'width:88%;max-width:420px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,0.22);display:flex;flex-direction:column;font-family:Lato,sans-serif;';
 
+      var bx = document.createElement('div');
+      bx.style.cssText = 'width:88%;max-width:420px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,0.22);display:flex;flex-direction:column;font-family:Lato,sans-serif;max-height:92vh;';
+
+      // ── Header ──
+      var hdr = document.createElement('div');
+      hdr.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:14px 16px 12px;border-bottom:1px solid rgba(24,37,75,0.10);flex-shrink:0;background:#fff;';
+      var htitle = document.createElement('span');
+      htitle.textContent = 'Share Property';
+      htitle.style.cssText = 'font-weight:700;font-size:14px;color:#18254B;letter-spacing:0.04em;text-transform:uppercase;';
+      var hx = document.createElement('button');
+      hx.innerHTML = '&times;';
+      hx.style.cssText = 'background:none;border:none;font-size:24px;color:#18254B;cursor:pointer;line-height:1;padding:0;opacity:0.45;';
+      hx.addEventListener('click', function() { ov.remove(); });
+      hdr.appendChild(htitle); hdr.appendChild(hx);
+      bx.appendChild(hdr);
+
+      // ── Photo ──
       if (imgSrc) {
         var photo = document.createElement('div');
-        photo.style.cssText = 'width:100%;height:160px;background:#E0D9CF center/cover no-repeat;flex-shrink:0;position:relative;';
+        photo.style.cssText = 'width:100%;height:150px;background:#E0D9CF center/cover no-repeat;flex-shrink:0;';
         photo.style.backgroundImage = 'url(' + imgSrc + ')';
-        var cl2 = document.createElement('button');
-        cl2.innerHTML = '&times;';
-        cl2.style.cssText = 'position:absolute;top:10px;right:12px;background:rgba(0,0,0,0.35);border:none;color:#fff;font-size:22px;line-height:1;width:30px;height:30px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;';
-        cl2.addEventListener('click', function() { ov.remove(); });
-        photo.appendChild(cl2);
         bx.appendChild(photo);
-      } else {
-        var topBar = document.createElement('div');
-        topBar.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:14px 16px 0;';
-        var topTitle = document.createElement('span');
-        topTitle.textContent = 'Share via Email';
-        topTitle.style.cssText = 'font-weight:700;font-size:14px;color:#18254B;';
-        var topX = document.createElement('button');
-        topX.innerHTML = '&times;';
-        topX.style.cssText = 'background:none;border:none;font-size:22px;color:#18254B;cursor:pointer;line-height:1;padding:0;opacity:0.45;';
-        topX.addEventListener('click', function() { ov.remove(); });
-        topBar.appendChild(topTitle); topBar.appendChild(topX);
-        bx.appendChild(topBar);
       }
 
+      // ── Listing details strip ──
       var info = document.createElement('div');
-      info.style.cssText = 'background:#F3EFE8;padding:12px 20px 10px;border-bottom:1px solid rgba(24,37,75,0.10);flex-shrink:0;';
-      var priceEl2 = document.createElement('div');
-      priceEl2.textContent = price || '';
-      priceEl2.style.cssText = 'font-size:17px;font-weight:700;color:#18254B;margin-bottom:1px;';
-      var addrEl2 = document.createElement('div');
-      addrEl2.textContent = addr || '';
-      addrEl2.style.cssText = 'font-size:11px;color:#7a7269;';
-      info.appendChild(priceEl2); info.appendChild(addrEl2);
+      info.style.cssText = 'background:#F3EFE8;padding:12px 20px 12px;border-bottom:1px solid rgba(24,37,75,0.10);flex-shrink:0;';
+
+      var priceRow = document.createElement('div');
+      priceRow.style.cssText = 'font-size:17px;font-weight:700;color:#18254B;margin-bottom:3px;';
+      priceRow.textContent = price || '';
+      info.appendChild(priceRow);
+
+      if (beds || baths) {
+        var bedsRow = document.createElement('div');
+        bedsRow.style.cssText = 'font-size:12px;color:#18254B;margin-bottom:2px;';
+        bedsRow.textContent = [beds, baths].filter(Boolean).join(' · ');
+        info.appendChild(bedsRow);
+      }
+
+      if (addr) {
+        var addrRow = document.createElement('div');
+        addrRow.style.cssText = 'font-size:12px;color:#7a7269;margin-bottom:2px;';
+        addrRow.textContent = addr;
+        info.appendChild(addrRow);
+      }
+
+      if (mls) {
+        var mlsRow = document.createElement('div');
+        mlsRow.style.cssText = 'font-size:11px;color:#aaa;margin-top:1px;';
+        mlsRow.textContent = 'MLS# ' + mls;
+        info.appendChild(mlsRow);
+      }
+
       bx.appendChild(info);
 
+      // ── Form ──
       var form = document.createElement('div');
-      form.style.cssText = 'padding:16px 20px 20px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;';
+      form.style.cssText = 'padding:14px 20px 18px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;flex:1;';
 
       function makeField(labelTxt, type, placeholder, required) {
         var fw = document.createElement('div');
@@ -1060,10 +1089,10 @@
         return { wrap: fw, inp: inp };
       }
 
-      var nameField    = makeField('Your Name',       'text',  'Jane Smith',          true);
-      var senderEmail  = makeField('Your Email',      'email', 'you@email.com',        true);
-      var phoneField   = makeField('Your Phone',      'tel',   '(858) 000-0000',       false);
-      var recipEmail   = makeField('Recipient Email', 'email', 'friend@email.com',     true);
+      var nameField   = makeField('Your Name',       'text',  'Jane Smith',      true);
+      var senderEmail = makeField('Your Email',      'email', 'you@email.com',   true);
+      var phoneField  = makeField('Your Phone',      'tel',   '(858) 000-0000',  false);
+      var recipEmail  = makeField('Recipient Email', 'email', 'friend@email.com', true);
 
       form.appendChild(nameField.wrap);
       form.appendChild(senderEmail.wrap);
@@ -1087,8 +1116,9 @@
           return;
         }
         var subject = name + ' thinks you might like this home';
+        var details = [price, [beds, baths].filter(Boolean).join(' / '), addr, mls ? 'MLS# ' + mls : ''].filter(Boolean).join('\n');
         var body = 'I came across this listing that I think you might like. Let me know what you think!\n\n' +
-                   titleText + '\n' + url +
+                   details + '\n' + url +
                    (phone ? '\n\nReach me at: ' + phone : '') +
                    '\n\nShared via The Jaiswal Group Real Estate';
         window.location.href = 'mailto:' + encodeURIComponent(remail) +
@@ -1111,8 +1141,10 @@
     var ICON_EMAIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>';
     var ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><polyline points="20 6 9 17 4 12"/></svg>';
 
-    function _showSharePanel(e, url, titleText, imgSrc, price, addr) {
+    function _showSharePanel(e, listing) {
       document.querySelectorAll('#tjg-share-panel').forEach(function(p) { p.remove(); });
+      var url = listing.url;
+      var titleText = listing.titleText;
       var panel = document.createElement('div');
       panel.id = 'tjg-share-panel';
       panel.style.cssText = 'position:fixed;z-index:100000;background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.18);width:290px;overflow:hidden;font-family:Lato,sans-serif;';
@@ -1164,7 +1196,7 @@
       }));
       row.appendChild(makeOption(ICON_EMAIL, 'Email', function() {
         panel.remove();
-        _showEmailPopup(url, titleText, imgSrc, price, addr);
+        _showEmailPopup(listing);
       }));
       panel.appendChild(ph); panel.appendChild(row);
       document.body.appendChild(panel);
@@ -1201,16 +1233,26 @@
       share.innerHTML = SHARE_SVG;
       share.addEventListener('click', function(e) {
         e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
-        var link = card.querySelector('.idx-listing-card__link');
-        var url = link ? link.href.replace('?widgetReferer=true', '') : window.location.href;
-        var addrEl = card.querySelector('.idx-listing-card__address');
-        var priceEl = card.querySelector('.idx-listing-card__listing-price');
-        var imgEl = card.querySelector('img');
-        var addr = addrEl ? addrEl.textContent.trim() : '';
-        var price = priceEl ? priceEl.textContent.trim() : '';
-        var imgSrc = imgEl ? imgEl.src : '';
-        var titleText = addr + (price ? ' - ' + price : '');
-        _showSharePanel(e, url, titleText, imgSrc, price, addr);
+        var link    = card.querySelector('.idx-listing-card__link');
+        var href    = link ? link.href : window.location.href;
+        var url     = href.replace('?widgetReferer=true', '');
+        var mlsM    = href.match(/\/listing\/[^\/]+\/([^\/]+)\//);
+        var addr    = (card.querySelector('.idx-listing-card__address')       || {}).textContent || '';
+        var price   = (card.querySelector('.idx-listing-card__listing-price') || {}).textContent || '';
+        var beds    = (card.querySelector('.idx-listing-card__bedrooms')       || {}).textContent || '';
+        var baths   = (card.querySelector('.idx-listing-card__total-baths')    || {}).textContent || '';
+        var imgEl   = card.querySelector('img');
+        var listing = {
+          url:       url,
+          titleText: (addr || '') + (price ? ' - ' + price : ''),
+          imgSrc:    imgEl ? imgEl.src : '',
+          price:     price.trim(),
+          addr:      addr.trim(),
+          beds:      beds.trim(),
+          baths:     baths.trim(),
+          mls:       mlsM ? mlsM[1] : ''
+        };
+        _showSharePanel(e, listing);
       });
 
       wrap.appendChild(heart);
