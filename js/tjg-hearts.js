@@ -418,10 +418,10 @@
         var href   = link ? link.href : window.location.href;
         var url    = href.replace('?widgetReferer=true', '');
         var mlsM   = href.match(/\/listing\/[^\/]+\/([^\/]+)\//);
-        var addr   = (card.querySelector('.idx-listing-card__address')       || {}).textContent || '';
-        var price  = (card.querySelector('.idx-listing-card__listing-price') || {}).textContent || '';
-        var beds   = (card.querySelector('.idx-listing-card__bedrooms')      || {}).textContent || '';
-        var baths  = (card.querySelector('.idx-listing-card__total-baths')   || {}).textContent || '';
+        var addr   = (card.querySelector('.idx-listing-card__address, [class*="address"]')                         || {}).textContent || '';
+        var price  = (card.querySelector('.idx-listing-card__listing-price, [class*="listing-price"], [class*="price"]:not([class*="reduced"])') || {}).textContent || '';
+        var beds   = (card.querySelector('.idx-listing-card__bedrooms, [class*="bedrooms"], [class*="beds"]')     || {}).textContent || '';
+        var baths  = (card.querySelector('.idx-listing-card__total-baths, [class*="baths"], [class*="bath"]')     || {}).textContent || '';
         var sqft = card.getAttribute('data-sqft') || '';
         if (!sqft) {
           var _els = card.querySelectorAll('*');
@@ -433,8 +433,8 @@
             }
           }
         }
-        var imgEl  = card.querySelector('img.idx-listing-card__image');
-        var logoEl = card.querySelector('.idx-listing-card__mls img');
+        var imgEl  = card.querySelector('img.idx-listing-card__image, img[class*="image"]');
+        var logoEl = card.querySelector('.idx-listing-card__mls img, [class*="mls"] img, [class*="crmls"] img, [class*="attribution"] img');
         _showSharePanel(e, {
           url:       url,
           titleText: addr.trim() + (price ? ' - ' + price.trim() : ''),

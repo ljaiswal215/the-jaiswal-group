@@ -653,7 +653,7 @@
     .ui-dialog[aria-describedby="IDX-registrationModal"],
     .ui-widget-overlay.ui-front { display: none !important; }
 
-    /* ─── All listing card hearts: round dark overlay button matching PHR style ─── */
+    /* ─── Map popup hearts: round dark overlay button matching PHR style ─── */
     #prime-map-search--results button[class*="fav"],
     #prime-map-search--results button[class*="favorite"],
     #prime-map-search--results [class*="fav-btn"],
@@ -662,13 +662,7 @@
     #prime-map-search--results [aria-label*="ave"],
     #prime-map-search--results [title*="avorite"],
     #prime-map-search--results .IDX-favoriteProperty,
-    #prime-map-search--results .IDX-mapCardFavorite,
-    #IDX-main .idx-listing-card [class*="fav"],
-    #IDX-main .idx-listing-card [class*="favorite"],
-    #IDX-main .idx-listing-card [class*="heart"],
-    #IDX-main .idx-listing-card [aria-label*="avorite"],
-    #IDX-main .idx-listing-card .IDX-favoriteProperty,
-    #IDX-main .idx-listing-card__actions [class*="fav"] {
+    #prime-map-search--results .IDX-mapCardFavorite {
       background: rgba(0,0,0,0.35) !important;
       background-color: rgba(0,0,0,0.35) !important;
       border-radius: 50% !important;
@@ -685,14 +679,15 @@
       transition: background 0.2s, color 0.2s !important;
       color: #fff !important;
     }
+    /* ─── Hide native IDX favorite on listing result cards (.tjg-card-heart replaces it) ─── */
+    #IDX-main .idx-listing-card .IDX-favoriteProperty,
+    #IDX-main .idx-listing-card [aria-label*="avorite"]:not(.tjg-card-heart),
+    #IDX-main .idx-listing-card__actions { display: none !important; }
     #prime-map-search--results button[class*="fav"] svg,
     #prime-map-search--results button[class*="favorite"] svg,
     #prime-map-search--results [aria-label*="avorite"] svg,
     #prime-map-search--results .IDX-favoriteProperty svg,
-    #prime-map-search--results .IDX-mapCardFavorite svg,
-    #IDX-main .idx-listing-card [class*="fav"] svg,
-    #IDX-main .idx-listing-card [class*="favorite"] svg,
-    #IDX-main .idx-listing-card .IDX-favoriteProperty svg {
+    #prime-map-search--results .IDX-mapCardFavorite svg {
       width: 18px !important;
       height: 18px !important;
       stroke: #fff !important;
@@ -702,19 +697,14 @@
     #prime-map-search--results button[class*="favorite"]:hover,
     #prime-map-search--results [aria-label*="avorite"]:hover,
     #prime-map-search--results .IDX-favoriteProperty:hover,
-    #prime-map-search--results .IDX-mapCardFavorite:hover,
-    #IDX-main .idx-listing-card [class*="fav"]:hover,
-    #IDX-main .idx-listing-card [class*="favorite"]:hover,
-    #IDX-main .idx-listing-card .IDX-favoriteProperty:hover {
+    #prime-map-search--results .IDX-mapCardFavorite:hover {
       background: rgba(0,0,0,0.6) !important;
       background-color: rgba(0,0,0,0.6) !important;
       color: #B38987 !important;
     }
     #prime-map-search--results button[class*="fav"]:hover svg,
     #prime-map-search--results .IDX-favoriteProperty:hover svg,
-    #prime-map-search--results .IDX-mapCardFavorite:hover svg,
-    #IDX-main .idx-listing-card [class*="fav"]:hover svg,
-    #IDX-main .idx-listing-card .IDX-favoriteProperty:hover svg {
+    #prime-map-search--results .IDX-mapCardFavorite:hover svg {
       stroke: #B38987 !important;
     }
 
@@ -3668,7 +3658,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           if(!r){re.inp.style.borderColor='#c0392b';ok=false;}
           if(!ok)return;
           var subj=(f+' '+l)+' thinks you might like this home';
-          var det=[price,[beds,baths].filter(Boolean).join(' / '),addr,mls?'MLS# '+mls:''].filter(Boolean).join('\n');
+          var det=[price,[beds,baths,listing.sqft?listing.sqft+' sq. ft.':''].filter(Boolean).join(' / '),addr,mls?'MLS# '+mls:''].filter(Boolean).join('\n');
           var eb=m+'\n\n'+det+'\n'+url+(p?'\n\nReach me at: '+p:'')+'\n\nShared via The Jaiswal Group Real Estate';
           window.location.href='mailto:'+encodeURIComponent(r)+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(eb);
           setTimeout(function(){ov.remove();},500);
@@ -3725,26 +3715,35 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           var href = link ? link.href : window.location.href;
           href = href.replace('?widgetReferer=true','');
           var mlsM = href.match(/\/listing\/[^\/]+\/([^\/]+)\//);
-          // Try DOM text first; fall back to data attributes on the card element
-          var domPrice = ((card.querySelector('.idx-listing-card__listing-price')||{}).textContent||'').trim();
+          // Price: injected .tjg-cd-price (most reliable), then data-price attr
+          var injPrice = ((card.querySelector('.tjg-cd-price')||{}).textContent||'').trim();
           var rawPrice = card.getAttribute('data-price') || '';
-          var price = domPrice || (rawPrice ? '$' + parseInt(rawPrice,10).toLocaleString('en-US') : '');
-          var domBeds  = ((card.querySelector('.idx-listing-card__bedrooms')||{}).textContent||'').trim();
-          var rawBeds  = card.getAttribute('data-beds') || '';
-          var beds  = domBeds  || (rawBeds  ? rawBeds  + ' bd'  : '');
-          var domBaths = ((card.querySelector('.idx-listing-card__total-baths')||{}).textContent||'').trim();
+          var price = injPrice || (rawPrice && rawPrice !== '0' ? '$' + parseInt(rawPrice,10).toLocaleString('en-US') : '');
+          // Beds/baths: parse injected .tjg-cd-specs ("5 Bed · 5 Bath · …"), fall back to data attrs
+          var specsEl = card.querySelector('.tjg-cd-specs');
+          var specsText = specsEl ? specsEl.textContent.trim() : '';
+          var bedM = specsText.match(/(\d+)\s*Bed/i);
+          var bathM = specsText.match(/(\d+)\s*Bath/i);
+          var rawBeds  = card.getAttribute('data-beds')  || '';
           var rawBaths = card.getAttribute('data-baths') || '';
-          var baths = domBaths || (rawBaths ? rawBaths + ' ba' : '');
+          var beds  = (bedM  ? bedM[1]  + ' bd' : '') || (rawBeds  ? rawBeds  + ' bd' : '');
+          var baths = (bathM ? bathM[1] + ' ba' : '') || (rawBaths ? rawBaths + ' ba' : '');
+          // Sqft: data attribute (IDX sets data-sqft reliably)
+          var sqft = (card.getAttribute('data-sqft')||'').trim();
+          // Address: injected .tjg-cd-addr or native selectors
+          var addr = ((card.querySelector('.tjg-cd-addr, .idx-listing-card__address, [class*="address"]')||{}).textContent||'').trim();
+          // CRMLS logo: injected .tjg-crmls-logo (Pass 2) or native fallback
+          var logoSrc = ((card.querySelector('.tjg-crmls-logo, .idx-listing-card__mls img, [class*="mls"] img, [class*="crmls"] img')||{}).src)||'';
           return {
             url: href,
-            titleText: ((card.querySelector('.idx-listing-card__address')||{}).textContent||'').trim(),
+            titleText: addr,
             imgSrc: ((card.querySelector('img.idx-listing-card__image')||{}).src)||'',
-            logoSrc: ((card.querySelector('.idx-listing-card__mls img')||{}).src)||'',
+            logoSrc: logoSrc,
             price: price,
-            addr: ((card.querySelector('.idx-listing-card__address')||{}).textContent||'').trim(),
+            addr: addr,
             beds: beds,
             baths: baths,
-            sqft: (card.getAttribute('data-sqft')||'').trim(),
+            sqft: sqft,
             mls: mlsM ? mlsM[1] : ''
           };
         }
