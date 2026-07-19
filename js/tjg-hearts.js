@@ -59,7 +59,7 @@
       sub.style.cssText = 'background:#F3EFE8;padding:12px 20px;border-bottom:1px solid rgba(24,37,75,0.10);flex-shrink:0;text-align:center;';
       var subp = document.createElement('p');
       subp.textContent = 'Save your favorite homes, receive instant listing alerts, and access additional property information—all at no cost.';
-      subp.style.cssText = 'margin:0;font-family:Lato,sans-serif;font-size:12px;color:#18254B;line-height:1.55;';
+      subp.style.cssText = 'margin:0;font-family:Lato,sans-serif;font-size:14px;color:#18254B;line-height:1.6;';
       sub.appendChild(subp);
 
       // Form fields
