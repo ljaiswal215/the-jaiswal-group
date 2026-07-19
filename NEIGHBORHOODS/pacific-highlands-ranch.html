@@ -942,9 +942,8 @@
       document.getElementById('tjg-heart-modal').style.display = 'flex';
     }
 
-    function _buildConfirmation(bx, fr, frWrap, disc) {
+    function _buildConfirmation(bx, fr, disc) {
       fr.style.display = 'none';
-      frWrap.style.display = 'none';
       if (disc) disc.style.display = 'none';
       var conf = document.createElement('div');
       conf.style.cssText = 'flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#F3EFE8;padding:36px 48px;text-align:center;gap:18px;border-radius:0 0 12px 12px;';
@@ -983,7 +982,7 @@
       cl.addEventListener('click', _close);
       hdr.appendChild(cl);
 
-      // iframe wrapper (relative so overlay can sit on top)
+      // iframe wrapper
       var frWrap = document.createElement('div');
       frWrap.style.cssText = 'position:relative;flex:1;min-height:0;display:flex;flex-direction:column;';
 
@@ -992,13 +991,14 @@
       fr.style.cssText = 'width:100%;flex:1;border:none;background:#F3EFE8;min-height:0;';
       fr.setAttribute('frameborder', '0');
 
-      // Overlay blocking the iframe until checkbox is checked
-      var ifrOverlay = document.createElement('div');
-      ifrOverlay.style.cssText = 'position:absolute;inset:0;background:rgba(243,239,232,0.88);z-index:10;display:flex;align-items:center;justify-content:center;pointer-events:all;border-radius:0;';
-      ifrOverlay.innerHTML = '<p style="font-family:Lato,sans-serif;font-size:13px;font-weight:600;color:#18254B;text-align:center;padding:24px 32px;line-height:1.6;">Please review and check the box below<br>to access the sign-up form.</p>';
+      // Button blocker — covers only the Create Free Account button area
+      // until the TCPA checkbox is checked
+      var btnBlocker = document.createElement('div');
+      btnBlocker.style.cssText = 'position:absolute;bottom:0;left:0;right:0;height:80px;background:rgba(243,239,232,0.94);z-index:10;display:flex;align-items:center;justify-content:center;pointer-events:all;border-top:1px solid rgba(24,37,75,0.08);';
+      btnBlocker.innerHTML = '<p style="font-family:Lato,sans-serif;font-size:11px;font-weight:600;color:#18254B;text-align:center;padding:0 24px;margin:0;opacity:0.7;">Please check the box below to continue</p>';
 
       frWrap.appendChild(fr);
-      frWrap.appendChild(ifrOverlay);
+      frWrap.appendChild(btnBlocker);
 
       // TCPA checkbox + disclosure footer
       var disc = document.createElement('div');
@@ -1017,7 +1017,7 @@
       chkText.innerHTML = 'By providing The Jaiswal Group Real Estate your contact information, you acknowledge and agree to our <a href="/privacy-policy.html" style="color:#18254B;text-decoration:underline;" onclick="event.stopPropagation();">Privacy Policy</a> and consent to receiving marketing communications, including through automated calls, texts, and emails, some of which may use artificial or prerecorded voices. This consent isn\'t necessary for purchasing any products or services and you may opt out at any time. To opt out from texts, you can reply \'stop\' at any time. To opt out from emails, you can click on the unsubscribe link in the emails. Message and data rates may apply.';
 
       chk.addEventListener('change', function() {
-        ifrOverlay.style.display = chk.checked ? 'none' : 'flex';
+        btnBlocker.style.display = chk.checked ? 'none' : 'flex';
       });
 
       chkRow.appendChild(chk);
@@ -1027,7 +1027,7 @@
       _loadCount = 0;
       fr.addEventListener('load', function() {
         _loadCount++;
-        if (_loadCount > 1) _buildConfirmation(bx, fr, frWrap, disc);
+        if (_loadCount > 1) _buildConfirmation(bx, fr, disc);
       });
 
       ov.addEventListener('click', function(e) { if (e.target === ov) _close(); });
