@@ -958,10 +958,7 @@
       var body2 = document.createElement('p');
       body2.style.cssText = 'font-family:Lato,sans-serif;font-size:13px;line-height:1.6;color:#666;margin:0;max-width:380px;';
       body2.innerHTML = 'Please verify your email address within 7 days to continue receiving emails from <strong style="color:#444;">The Jaiswal Group Real Estate</strong>.';
-      conf.appendChild(circle);
-      conf.appendChild(heading);
-      conf.appendChild(body1);
-      conf.appendChild(body2);
+      conf.appendChild(circle); conf.appendChild(heading); conf.appendChild(body1); conf.appendChild(body2);
       bx.appendChild(conf);
       setTimeout(_close, 5000);
     }
@@ -971,10 +968,8 @@
       var ov = document.createElement('div');
       ov.id = 'tjg-heart-modal';
       ov.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(24,37,75,0.72);display:none;align-items:center;justify-content:center;';
-
       var bx = document.createElement('div');
       bx.style.cssText = 'width:88%;max-width:460px;height:90vh;max-height:700px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 8px 36px rgba(0,0,0,0.24);border-radius:12px;';
-
       var hdr = document.createElement('div');
       hdr.style.cssText = 'background:#F3EFE8;display:flex;align-items:center;justify-content:flex-end;padding:2px 10px;flex-shrink:0;border-radius:12px 12px 0 0;';
       var cl = document.createElement('button');
@@ -983,7 +978,6 @@
       cl.style.cssText = 'background:none;border:none;font-size:26px;color:#18254B;cursor:pointer;line-height:1;padding:0 2px;opacity:0.6;';
       cl.addEventListener('click', _close);
       hdr.appendChild(cl);
-
       var fr = document.createElement('iframe');
       fr.src = 'https://thejaiswalgroup.idxbroker.com/idx/usersignup?modal=1';
       fr.style.cssText = 'width:100%;flex:1;border:none;background:#F3EFE8;min-height:0;';
@@ -993,7 +987,6 @@
         _loadCount++;
         if (_loadCount > 1) _buildConfirmation(bx, fr);
       });
-
       ov.addEventListener('click', function(e) { if (e.target === ov) _close(); });
       bx.appendChild(hdr); bx.appendChild(fr); ov.appendChild(bx); document.body.appendChild(ov);
     }
@@ -1002,6 +995,85 @@
       document.addEventListener('DOMContentLoaded', _build);
     } else {
       setTimeout(_build, 0);
+    }
+
+    // ── Share panel (Colucci-style floating modal) ────────────────────────────
+    var ICON_LINK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
+    var ICON_EMAIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></svg>';
+    var ICON_SMS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+    var ICON_CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px;"><polyline points="20 6 9 17 4 12"/></svg>';
+
+    function _showSharePanel(e, url, titleText) {
+      document.querySelectorAll('#tjg-share-panel').forEach(function(p) { p.remove(); });
+      var panel = document.createElement('div');
+      panel.id = 'tjg-share-panel';
+      panel.style.cssText = 'position:fixed;z-index:100000;background:#fff;border-radius:16px;box-shadow:0 8px 40px rgba(0,0,0,0.18);width:264px;overflow:hidden;font-family:Lato,sans-serif;';
+
+      var ph = document.createElement('div');
+      ph.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:14px 16px 12px;border-bottom:1px solid rgba(0,0,0,0.08);';
+      var pt = document.createElement('span');
+      pt.textContent = 'Share Property';
+      pt.style.cssText = 'font-weight:700;font-size:14px;color:#18254B;letter-spacing:0.02em;';
+      var px = document.createElement('button');
+      px.innerHTML = '&times;';
+      px.style.cssText = 'background:none;border:none;font-size:22px;color:#18254B;cursor:pointer;line-height:1;padding:0;opacity:0.45;';
+      px.addEventListener('click', function() { panel.remove(); });
+      ph.appendChild(pt); ph.appendChild(px);
+
+      var row = document.createElement('div');
+      row.style.cssText = 'display:flex;align-items:flex-start;justify-content:space-around;padding:22px 8px 24px;';
+
+      function makeOption(icon, label, onClick) {
+        var btn = document.createElement('button');
+        btn.style.cssText = 'background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:9px;padding:0 6px;';
+        var ic = document.createElement('div');
+        ic.className = 'tjg-sp-ic';
+        ic.style.cssText = 'width:52px;height:52px;border-radius:50%;background:#F3EFE8;display:flex;align-items:center;justify-content:center;color:#18254B;transition:background 0.15s;';
+        ic.innerHTML = icon;
+        var lb = document.createElement('span');
+        lb.textContent = label;
+        lb.style.cssText = 'font-size:11px;font-weight:700;color:#18254B;letter-spacing:0.04em;white-space:nowrap;text-transform:uppercase;';
+        btn.addEventListener('mouseenter', function() { ic.style.background = '#EAE3D8'; });
+        btn.addEventListener('mouseleave', function() { ic.style.background = '#F3EFE8'; });
+        btn.addEventListener('click', function(ev) { ev.stopPropagation(); onClick(ic, lb); });
+        btn.appendChild(ic); btn.appendChild(lb);
+        return btn;
+      }
+
+      row.appendChild(makeOption(ICON_LINK, 'Copy Link', function(ic, lb) {
+        navigator.clipboard.writeText(url).then(function() {
+          ic.innerHTML = ICON_CHECK;
+          ic.style.background = '#18254B';
+          lb.textContent = 'Copied!';
+          setTimeout(function() { panel.remove(); }, 1400);
+        });
+      }));
+      row.appendChild(makeOption(ICON_EMAIL, 'Email', function() {
+        window.open('mailto:?subject=' + encodeURIComponent(titleText) + '&body=' + encodeURIComponent(url));
+        setTimeout(function() { panel.remove(); }, 300);
+      }));
+      row.appendChild(makeOption(ICON_SMS, 'Text', function() {
+        window.open('sms:?body=' + encodeURIComponent(titleText + ' ' + url));
+        setTimeout(function() { panel.remove(); }, 300);
+      }));
+
+      panel.appendChild(ph); panel.appendChild(row);
+      document.body.appendChild(panel);
+
+      var vw = window.innerWidth; var vh = window.innerHeight;
+      var pw = 264; var ph2 = panel.offsetHeight || 160;
+      var left = Math.min(e.clientX - 132, vw - pw - 10);
+      var top = e.clientY + 12;
+      if (top + ph2 > vh - 10) top = e.clientY - ph2 - 12;
+      panel.style.left = Math.max(10, left) + 'px';
+      panel.style.top = top + 'px';
+
+      setTimeout(function() {
+        document.addEventListener('click', function _d() {
+          panel.remove();
+          document.removeEventListener('click', _d);
+        });
+      }, 0);
     }
 
     var HEART_SVG = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
@@ -1017,9 +1089,7 @@
       heart.setAttribute('aria-label', 'Save this property');
       heart.innerHTML = HEART_SVG;
       heart.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        _show();
+        e.preventDefault(); e.stopPropagation(); _show();
       });
 
       var share = document.createElement('button');
@@ -1027,25 +1097,16 @@
       share.setAttribute('aria-label', 'Share this property');
       share.innerHTML = SHARE_SVG;
       share.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
+        e.preventDefault(); e.stopPropagation();
         var link = card.querySelector('.idx-listing-card__link');
         var url = link ? link.href.replace('?widgetReferer=true', '') : window.location.href;
         var addr = card.querySelector('.idx-listing-card__address');
         var price = card.querySelector('.idx-listing-card__listing-price');
-        var title = (addr ? addr.textContent.trim() : 'Property') + (price ? ' - ' + price.textContent.trim() : '');
-        if (navigator.share) {
-          navigator.share({ title: title, url: url });
-        } else {
-          navigator.clipboard.writeText(url).then(function() {
-            share.innerHTML = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2.5;display:block;"><polyline points="20 6 9 17 4 12"/></svg>';
-            setTimeout(function() { share.innerHTML = SHARE_SVG; }, 2000);
-          });
-        }
+        var titleText = (addr ? addr.textContent.trim() : 'Property') + (price ? ' - ' + price.textContent.trim() : '');
+        _showSharePanel(e, url, titleText);
       });
 
-      wrap.appendChild(heart);
-      wrap.appendChild(share);
+      wrap.appendChild(heart); wrap.appendChild(share);
     }
 
     function _initWidget(root) {
@@ -1066,9 +1127,7 @@
       if (_watching) { clearInterval(_wt); return; }
       var widget = document.querySelector('idx-listings-showcase');
       if (!widget || !widget.shadowRoot) return;
-      _watching = true;
-      clearInterval(_wt);
-      _initWidget(widget.shadowRoot);
+      _watching = true; clearInterval(_wt); _initWidget(widget.shadowRoot);
     }, 300);
     setTimeout(function() { clearInterval(_wt); }, 25000);
   })();
