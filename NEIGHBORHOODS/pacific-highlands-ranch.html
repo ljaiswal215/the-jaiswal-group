@@ -1086,20 +1086,10 @@
 
       var info = document.createElement('div');
       info.style.cssText = 'background:#F3EFE8;padding:12px 18px 12px;border-bottom:1px solid rgba(24,37,75,0.10);flex-shrink:0;';
-      var topRow = document.createElement('div');
-      topRow.style.cssText = 'display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:3px;';
       var priceEl = document.createElement('div');
       priceEl.textContent = price || '';
-      priceEl.style.cssText = 'font-size:17px;font-weight:700;color:#18254B;';
-      topRow.appendChild(priceEl);
-      if (logoSrc) {
-        var logoImg = document.createElement('img');
-        logoImg.src = logoSrc;
-        logoImg.alt = 'CRMLS';
-        logoImg.style.cssText = 'height:28px;width:auto;object-fit:contain;opacity:0.85;flex-shrink:0;';
-        topRow.appendChild(logoImg);
-      }
-      info.appendChild(topRow);
+      priceEl.style.cssText = 'font-size:17px;font-weight:700;color:#18254B;margin-bottom:3px;';
+      info.appendChild(priceEl);
       if (beds || baths) {
         var bb = document.createElement('div');
         bb.textContent = [beds, baths].filter(Boolean).join(' · ');
@@ -1112,12 +1102,20 @@
         ad.style.cssText = 'font-size:12px;color:#7a7269;margin-bottom:2px;';
         info.appendChild(ad);
       }
-      if (mls) {
-        var ml = document.createElement('div');
-        ml.textContent = 'MLS# ' + mls;
-        ml.style.cssText = 'font-size:11px;color:#aaa;margin-top:1px;';
-        info.appendChild(ml);
+      var bottomRow = document.createElement('div');
+      bottomRow.style.cssText = 'display:flex;align-items:center;justify-content:space-between;margin-top:4px;';
+      var mlsEl = document.createElement('span');
+      mlsEl.textContent = mls ? 'MLS# ' + mls : '';
+      mlsEl.style.cssText = 'font-size:11px;color:#aaa;';
+      bottomRow.appendChild(mlsEl);
+      if (logoSrc) {
+        var logoImg = document.createElement('img');
+        logoImg.src = logoSrc;
+        logoImg.alt = 'CRMLS';
+        logoImg.style.cssText = 'height:24px;width:auto;object-fit:contain;flex-shrink:0;mix-blend-mode:multiply;opacity:0.9;';
+        bottomRow.appendChild(logoImg);
       }
+      info.appendChild(bottomRow);
       body.appendChild(info);
 
       var form = document.createElement('div');
