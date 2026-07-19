@@ -373,8 +373,8 @@
       }, 0);
     }
 
-    var HEART_SVG = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
-    var SHARE_SVG = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;display:block;fill:currentColor;"><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+    var HEART_SVG = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+    var SHARE_SVG = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;display:block;fill:#fff;"><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
 
     function _addHeart(card) {
       var wrap = card.querySelector('.idx-listing-card__wrap');
@@ -392,7 +392,7 @@
       heart.addEventListener('mouseleave', function() {
         heart.style.background = 'rgba(0,0,0,0.35)';
         var svg = heart.querySelector('svg');
-        if (svg) { svg.style.stroke = 'currentColor'; }
+        if (svg) { svg.style.stroke = '#fff'; }
       });
       heart.addEventListener('click', function(e) {
         e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation(); _show();
@@ -410,7 +410,7 @@
       share.addEventListener('mouseleave', function() {
         share.style.background = 'rgba(0,0,0,0.35)';
         var svg = share.querySelector('svg');
-        if (svg) { svg.style.fill = 'currentColor'; }
+        if (svg) { svg.style.fill = '#fff'; }
       });
       share.addEventListener('click', function(e) {
         e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
