@@ -45,7 +45,7 @@
       var hdr = document.createElement('div');
       hdr.style.cssText = 'position:relative;display:flex;align-items:center;justify-content:center;padding:16px 48px;background:#18254B;border-radius:16px 16px 0 0;flex-shrink:0;';
       var ht = document.createElement('span');
-      ht.textContent = 'Save Search';
+      ht.textContent = 'Register';
       ht.style.cssText = 'font-weight:700;font-size:13px;color:#fff;letter-spacing:0.1em;text-transform:uppercase;';
       var hx = document.createElement('button');
       hx.innerHTML = '&times;';
@@ -58,7 +58,7 @@
       var sub = document.createElement('div');
       sub.style.cssText = 'background:#F3EFE8;padding:12px 20px;border-bottom:1px solid rgba(24,37,75,0.10);flex-shrink:0;text-align:center;';
       var subp = document.createElement('p');
-      subp.textContent = 'Save your search and receive instant alerts when new homes match your criteria.';
+      subp.textContent = 'Save your favorite homes, receive instant listing alerts, and access additional property information—all at no cost.';
       subp.style.cssText = 'margin:0;font-family:Lato,sans-serif;font-size:12px;color:#18254B;line-height:1.55;';
       sub.appendChild(subp);
 
