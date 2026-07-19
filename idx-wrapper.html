@@ -3127,15 +3127,14 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         heartBtn.id = 'tjg-heart-btn';
         heartBtn.type = 'button';
         heartBtn.className = 'tjg-action-btn';
-        heartBtn.setAttribute('aria-label', 'Save to Favorites');
+        heartBtn.setAttribute('aria-label', 'Add to Favorites');
         heartBtn.innerHTML =
           '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">' +
             '<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>' +
           '</svg>' +
-          '<span>Save</span>';
+          '<span>Favorite</span>';
         heartBtn.addEventListener('click', function() {
-          heartBtn.classList.toggle('tjg-saved');
-          addFav.click();
+          _openSaveSearchModal();
         });
         row.appendChild(heartBtn);
 
