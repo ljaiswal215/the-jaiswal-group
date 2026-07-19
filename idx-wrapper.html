@@ -3658,7 +3658,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           if(!r){re.inp.style.borderColor='#c0392b';ok=false;}
           if(!ok)return;
           var subj=(f+' '+l)+' thinks you might like this home';
-          var det=[price,[beds,baths,listing.sqft?listing.sqft+' sq. ft.':''].filter(Boolean).join(' / '),addr,mls?'MLS# '+mls:''].filter(Boolean).join('\n');
+          var det=[price,[beds,baths].filter(Boolean).join(' / '),addr,mls?'MLS# '+mls:''].filter(Boolean).join('\n');
           var eb=m+'\n\n'+det+'\n'+url+(p?'\n\nReach me at: '+p:'')+'\n\nShared via The Jaiswal Group Real Estate';
           window.location.href='mailto:'+encodeURIComponent(r)+'?subject='+encodeURIComponent(subj)+'&body='+encodeURIComponent(eb);
           setTimeout(function(){ov.remove();},500);

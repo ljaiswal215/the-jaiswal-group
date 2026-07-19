@@ -283,7 +283,7 @@
         if (!valid) return;
         var fullName = first + ' ' + last;
         var subject  = fullName + ' thinks you might like this home';
-        var details  = [price, [beds, baths, sqft ? sqft + ' sq. ft.' : ''].filter(Boolean).join(' / '), addr, mls ? 'MLS# ' + mls : ''].filter(Boolean).join('\n');
+        var details  = [price, [beds, baths].filter(Boolean).join(' / '), addr, mls ? 'MLS# ' + mls : ''].filter(Boolean).join('\n');
         var emailBody = msg + '\n\n' + details + '\n' + url +
                         (phone ? '\n\nReach me at: ' + phone : '') +
                         '\n\nShared via The Jaiswal Group Real Estate';
