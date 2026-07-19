@@ -118,6 +118,35 @@
       color: rgba(24,37,75,0.35) !important;
     }
 
+    /* ─── Listing Detail Header Hierarchy ─── */
+    .IDX-page-details #IDX-detailsAddressStreet {
+      font-size: clamp(1.7rem, 3.5vw, 2.4rem) !important;
+      font-weight: 700 !important;
+      line-height: 1.15 !important;
+      color: #18254B !important;
+      margin-bottom: 4px !important;
+    }
+    .IDX-page-details #IDX-detailsAddressRegion {
+      font-size: 1rem !important;
+      color: #7a7269 !important;
+      line-height: 1.4 !important;
+    }
+    .IDX-page-details .tjg-detail-price {
+      display: block !important;
+      font-size: clamp(1.5rem, 2.8vw, 2rem) !important;
+      font-weight: 700 !important;
+      color: #18254B !important;
+      margin: 10px 0 5px !important;
+      letter-spacing: -0.01em !important;
+    }
+    .IDX-page-details .tjg-detail-meta {
+      display: block !important;
+      font-size: 0.95rem !important;
+      font-weight: 400 !important;
+      color: #555 !important;
+      margin: 0 !important;
+    }
+
     /* ─── TJG Agent Card (listing detail aside) ─── */
     #tjg-agent-card { background:#F3EFE8; border:1px solid #E0D9CF; border-radius:0; padding:20px; margin-bottom:16px; font-family:'Lato',sans-serif; }
     #tjg-agent-card__header { display:flex; flex-direction:column; align-items:center; text-align:center; gap:10px; margin-bottom:18px; }
@@ -3169,6 +3198,45 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       }
 
       [800, 2000, 4000].forEach(function(ms) { setTimeout(_injectAttribution, ms); });
+    })();
+
+    // ─── Listing Detail: restructure address header hierarchy ─────────────────
+    (function() {
+      function _restructureDetailHeader() {
+        if (!document.querySelector('#IDX-main.IDX-page-details')) return;
+        var region = document.getElementById('IDX-detailsAddressRegion');
+        if (!region || region.dataset.tjgDone) return;
+        region.dataset.tjgDone = '1';
+
+        // Hide the | dividers — we control spacing via block display
+        region.querySelectorAll('.IDX-detailsAddress__divider').forEach(function(d) {
+          d.style.display = 'none';
+        });
+
+        // Identify price span ($) and beds/baths span (BD or BTH)
+        var spans = Array.from(region.querySelectorAll('span:not(.IDX-detailsAddress__divider)'));
+        var priceSpan = null, metaSpan = null;
+        spans.forEach(function(s) {
+          var t = s.textContent.trim();
+          if (t.indexOf('$') > -1) priceSpan = s;
+          else if (t.indexOf('BD') > -1 || t.indexOf('BTH') > -1) metaSpan = s;
+        });
+
+        // Price → large focal point
+        if (priceSpan) {
+          priceSpan.className = 'tjg-detail-price';
+          region.appendChild(priceSpan);
+        }
+
+        // Beds/baths → small metadata line
+        if (metaSpan) {
+          // Replace " BD, " and " BTH" separators with bullet dots
+          metaSpan.textContent = metaSpan.textContent.trim().replace(/\s*BD,\s*/i, ' Bedrooms • ').replace(/\s*BTH\s*/i, ' Bathrooms');
+          metaSpan.className = 'tjg-detail-meta';
+          region.appendChild(metaSpan);
+        }
+      }
+      [400, 1000, 2200].forEach(function(ms) { setTimeout(_restructureDetailHeader, ms); });
     })();
 
     // ─── /i/ pages: LIST/MAP toggle → 5-column grid on LIST ─────────────────
