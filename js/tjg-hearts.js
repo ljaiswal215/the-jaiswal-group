@@ -101,12 +101,12 @@
       chkTxt.innerHTML = 'By providing The Jaiswal Group Real Estate your contact information, you acknowledge and agree to our <a href="/privacy-policy.html" style="color:#18254B;" onclick="event.stopPropagation();">Privacy Policy</a> and consent to receiving marketing communications, including through automated calls, texts, and emails. Message and data rates may apply.';
       chkRow.appendChild(chk); chkRow.appendChild(chkTxt);
       var sb = document.createElement('button');
-      sb.textContent = 'GET ALERTS';
-      sb.style.cssText = 'width:100%;background:#18254B;color:#fff;border:none;border-radius:2px;font-family:Lato,sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;padding:14px;cursor:pointer;opacity:0.45;transition:background 0.2s,opacity 0.2s;';
+      sb.textContent = 'CREATE FREE ACCOUNT';
+      sb.style.cssText = 'width:100%;background:#18254B;color:#fff;border:none;border-radius:2px;font-family:Lato,sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;padding:14px;cursor:pointer;opacity:0.45;transition:color 0.2s,opacity 0.2s;';
       sb.disabled = true;
       chk.addEventListener('change', function() { sb.disabled = !chk.checked; sb.style.opacity = chk.checked ? '1' : '0.45'; });
-      sb.addEventListener('mouseenter', function() { if (!sb.disabled) sb.style.background = '#B38987'; });
-      sb.addEventListener('mouseleave', function() { sb.style.background = '#18254B'; });
+      sb.addEventListener('mouseenter', function() { if (!sb.disabled) sb.style.color = '#B38987'; });
+      sb.addEventListener('mouseleave', function() { sb.style.color = '#fff'; });
       sb.addEventListener('click', function() {
         var f = fi.inp.value.trim(), l = la.inp.value.trim(), e = em.inp.value.trim(), p = ph.inp.value.trim(), ok = true;
         if (!f) { fi.inp.style.borderColor = '#c0392b'; ok = false; }
