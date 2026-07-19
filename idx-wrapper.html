@@ -635,50 +635,75 @@
       max-width: 64px !important;
     }
 
-    /* ─── Map listing cards: tone down heart/favorite icon ─── */
+    /* ─── Hide native IDX registration / lead-gate modal ─── */
+    .IDX-registrationModal,
+    #IDX-registrationModal,
+    .ui-dialog[aria-describedby="IDX-registrationModal"],
+    .ui-widget-overlay.ui-front { display: none !important; }
+
+    /* ─── All listing card hearts: round dark overlay button matching PHR style ─── */
     #prime-map-search--results button[class*="fav"],
     #prime-map-search--results button[class*="favorite"],
-    #prime-map-search--results button[class*="save"],
     #prime-map-search--results [class*="fav-btn"],
     #prime-map-search--results [class*="favorite-btn"],
     #prime-map-search--results [aria-label*="avorite"],
     #prime-map-search--results [aria-label*="ave"],
     #prime-map-search--results [title*="avorite"],
     #prime-map-search--results .IDX-favoriteProperty,
-    #prime-map-search--results .IDX-mapCardFavorite {
-      opacity: 0.4 !important;
-      transition: opacity 0.2s !important;
-    }
-    #prime-map-search--results button[class*="fav"] svg,
-    #prime-map-search--results button[class*="favorite"] svg,
-    #prime-map-search--results button[class*="save"] svg,
-    #prime-map-search--results [aria-label*="avorite"] svg,
-    #prime-map-search--results [aria-label*="ave"] svg,
-    #prime-map-search--results .IDX-favoriteProperty svg,
-    #prime-map-search--results .IDX-mapCardFavorite svg {
-      width: 14px !important;
-      height: 14px !important;
-    }
-    #prime-map-search--results button[class*="fav"]:hover,
-    #prime-map-search--results button[class*="favorite"]:hover,
-    #prime-map-search--results button[class*="save"]:hover,
-    #prime-map-search--results [aria-label*="avorite"]:hover,
-    #prime-map-search--results .IDX-favoriteProperty:hover,
-    #prime-map-search--results .IDX-mapCardFavorite:hover {
-      opacity: 1 !important;
-    }
-
-    /* ─── Listing results cards: remove gray background from heart/favorite button ─── */
+    #prime-map-search--results .IDX-mapCardFavorite,
     #IDX-main .idx-listing-card [class*="fav"],
     #IDX-main .idx-listing-card [class*="favorite"],
     #IDX-main .idx-listing-card [class*="heart"],
     #IDX-main .idx-listing-card [aria-label*="avorite"],
     #IDX-main .idx-listing-card .IDX-favoriteProperty,
-    #IDX-main .idx-listing-card__actions [class*="fav"],
-    #IDX-main .idx-listing-card__actions button {
-      background: transparent !important;
-      background-color: transparent !important;
+    #IDX-main .idx-listing-card__actions [class*="fav"] {
+      background: rgba(0,0,0,0.35) !important;
+      background-color: rgba(0,0,0,0.35) !important;
+      border-radius: 50% !important;
+      width: 36px !important;
+      height: 36px !important;
+      min-width: 36px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      opacity: 1 !important;
       box-shadow: none !important;
+      border: none !important;
+      padding: 0 !important;
+      transition: background 0.2s, color 0.2s !important;
+      color: #fff !important;
+    }
+    #prime-map-search--results button[class*="fav"] svg,
+    #prime-map-search--results button[class*="favorite"] svg,
+    #prime-map-search--results [aria-label*="avorite"] svg,
+    #prime-map-search--results .IDX-favoriteProperty svg,
+    #prime-map-search--results .IDX-mapCardFavorite svg,
+    #IDX-main .idx-listing-card [class*="fav"] svg,
+    #IDX-main .idx-listing-card [class*="favorite"] svg,
+    #IDX-main .idx-listing-card .IDX-favoriteProperty svg {
+      width: 18px !important;
+      height: 18px !important;
+      stroke: #fff !important;
+      fill: none !important;
+    }
+    #prime-map-search--results button[class*="fav"]:hover,
+    #prime-map-search--results button[class*="favorite"]:hover,
+    #prime-map-search--results [aria-label*="avorite"]:hover,
+    #prime-map-search--results .IDX-favoriteProperty:hover,
+    #prime-map-search--results .IDX-mapCardFavorite:hover,
+    #IDX-main .idx-listing-card [class*="fav"]:hover,
+    #IDX-main .idx-listing-card [class*="favorite"]:hover,
+    #IDX-main .idx-listing-card .IDX-favoriteProperty:hover {
+      background: rgba(0,0,0,0.6) !important;
+      background-color: rgba(0,0,0,0.6) !important;
+      color: #B38987 !important;
+    }
+    #prime-map-search--results button[class*="fav"]:hover svg,
+    #prime-map-search--results .IDX-favoriteProperty:hover svg,
+    #prime-map-search--results .IDX-mapCardFavorite:hover svg,
+    #IDX-main .idx-listing-card [class*="fav"]:hover svg,
+    #IDX-main .idx-listing-card .IDX-favoriteProperty:hover svg {
+      stroke: #B38987 !important;
     }
 
     /* ─── Saved Links / results page map-view sidebar cards ─────────────────
@@ -1909,7 +1934,7 @@
       closeBtn.style.cssText = 'position:absolute;top:12px;right:16px;z-index:10;background:none;border:none;font-size:30px;color:#18254B;cursor:pointer;line-height:1;padding:0;opacity:0.6;';
       closeBtn.addEventListener('mouseenter', function(){ closeBtn.style.opacity='1'; });
       closeBtn.addEventListener('mouseleave', function(){ closeBtn.style.opacity='0.6'; });
-      closeBtn.addEventListener('click', function(){ document.body.removeChild(overlay); });
+      closeBtn.addEventListener('click', function(e){ e.stopPropagation(); if (overlay.parentNode) overlay.parentNode.removeChild(overlay); });
       var iframe = document.createElement('iframe');
       iframe.src = 'https://thejaiswalgroup.idxbroker.com/idx/usersignup?modal=1';
       iframe.style.cssText = 'width:100%;flex:1;border:none;background:#F3EFE8;';
@@ -1922,12 +1947,26 @@
           setTimeout(function(){ if (document.getElementById('tjg-save-modal')) document.body.removeChild(overlay); }, 1200);
         }
       });
-      overlay.addEventListener('click', function(e){ if (e.target === overlay) document.body.removeChild(overlay); });
+      overlay.addEventListener('click', function(e){ if (e.target === overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay); });
       box.appendChild(closeBtn);
       box.appendChild(iframe);
       overlay.appendChild(box);
       document.body.appendChild(overlay);
     }
+
+    // Intercept all native IDX heart/favorite clicks → open our branded popup
+    // Runs in capture phase so it fires before IDX's own listeners
+    document.addEventListener('click', function(e) {
+      var t = e.target.closest(
+        '.IDX-favoriteProperty, .IDX-mapCardFavorite,' +
+        '[class*="favorite-btn"],[class*="fav-btn"],' +
+        '[aria-label*="avorite"],[aria-label*="ave this"]'
+      );
+      if (!t) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      _openSaveSearchModal();
+    }, true);
 
     // Replace/fix IDX text strings we can't edit in admin
     function _fixSignupText() {
