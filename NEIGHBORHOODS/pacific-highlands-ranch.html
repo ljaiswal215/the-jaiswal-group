@@ -1005,9 +1005,10 @@
       ov.style.cssText = 'position:fixed;inset:0;z-index:100001;background:rgba(24,37,75,0.72);display:flex;align-items:center;justify-content:center;';
       var bx = document.createElement('div');
       bx.style.cssText = 'width:88%;max-width:420px;background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,0.22);display:flex;flex-direction:column;font-family:Lato,sans-serif;';
+
       if (imgSrc) {
         var photo = document.createElement('div');
-        photo.style.cssText = 'width:100%;height:180px;background:#E0D9CF center/cover no-repeat;flex-shrink:0;position:relative;';
+        photo.style.cssText = 'width:100%;height:160px;background:#E0D9CF center/cover no-repeat;flex-shrink:0;position:relative;';
         photo.style.backgroundImage = 'url(' + imgSrc + ')';
         var cl2 = document.createElement('button');
         cl2.innerHTML = '&times;';
@@ -1028,52 +1029,76 @@
         topBar.appendChild(topTitle); topBar.appendChild(topX);
         bx.appendChild(topBar);
       }
+
       var info = document.createElement('div');
-      info.style.cssText = 'background:#F3EFE8;padding:14px 20px 12px;border-bottom:1px solid rgba(24,37,75,0.10);flex-shrink:0;';
+      info.style.cssText = 'background:#F3EFE8;padding:12px 20px 10px;border-bottom:1px solid rgba(24,37,75,0.10);flex-shrink:0;';
       var priceEl2 = document.createElement('div');
       priceEl2.textContent = price || '';
-      priceEl2.style.cssText = 'font-size:18px;font-weight:700;color:#18254B;margin-bottom:2px;';
+      priceEl2.style.cssText = 'font-size:17px;font-weight:700;color:#18254B;margin-bottom:1px;';
       var addrEl2 = document.createElement('div');
       addrEl2.textContent = addr || '';
-      addrEl2.style.cssText = 'font-size:12px;color:#7a7269;';
+      addrEl2.style.cssText = 'font-size:11px;color:#7a7269;';
       info.appendChild(priceEl2); info.appendChild(addrEl2);
       bx.appendChild(info);
+
       var form = document.createElement('div');
-      form.style.cssText = 'padding:20px 20px 24px;display:flex;flex-direction:column;gap:12px;';
-      function makeField(labelTxt, type, placeholder) {
+      form.style.cssText = 'padding:16px 20px 20px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;';
+
+      function makeField(labelTxt, type, placeholder, required) {
         var fw = document.createElement('div');
         var lbl = document.createElement('label');
-        lbl.textContent = labelTxt;
-        lbl.style.cssText = 'display:block;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#18254B;margin-bottom:5px;';
-        var inp = type === 'textarea' ? document.createElement('textarea') : document.createElement('input');
-        if (type !== 'textarea') inp.type = type;
+        lbl.style.cssText = 'display:block;font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#18254B;margin-bottom:4px;';
+        lbl.textContent = labelTxt + (required ? '' : ' (optional)');
+        var inp = document.createElement('input');
+        inp.type = type;
         inp.placeholder = placeholder;
-        inp.style.cssText = 'width:100%;box-sizing:border-box;border:1.5px solid #E0D9CF;border-radius:2px;padding:10px 12px;font-family:Lato,sans-serif;font-size:14px;color:#18254B;outline:none;' + (type === 'textarea' ? 'resize:none;height:72px;' : '');
+        if (required) inp.required = true;
+        inp.style.cssText = 'width:100%;box-sizing:border-box;border:1.5px solid #E0D9CF;border-radius:2px;padding:9px 12px;font-family:Lato,sans-serif;font-size:13px;color:#18254B;outline:none;';
         inp.addEventListener('focus', function() { inp.style.borderColor = '#18254B'; });
         inp.addEventListener('blur', function() { inp.style.borderColor = '#E0D9CF'; });
         fw.appendChild(lbl); fw.appendChild(inp);
         return { wrap: fw, inp: inp };
       }
-      var nameField = makeField('Your Name', 'text', 'e.g. Jane Smith');
-      var emailField = makeField('Recipient Email', 'email', 'friend@email.com');
-      var noteField = makeField('Add a Note (optional)', 'textarea', 'I thought you might love this home...');
-      form.appendChild(nameField.wrap); form.appendChild(emailField.wrap); form.appendChild(noteField.wrap);
+
+      var nameField    = makeField('Your Name',       'text',  'Jane Smith',          true);
+      var senderEmail  = makeField('Your Email',      'email', 'you@email.com',        true);
+      var phoneField   = makeField('Your Phone',      'tel',   '(858) 000-0000',       false);
+      var recipEmail   = makeField('Recipient Email', 'email', 'friend@email.com',     true);
+
+      form.appendChild(nameField.wrap);
+      form.appendChild(senderEmail.wrap);
+      form.appendChild(phoneField.wrap);
+      form.appendChild(recipEmail.wrap);
+
       var sendBtn = document.createElement('button');
-      sendBtn.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:#18254B;color:#fff;border:none;border-radius:2px;font-family:Lato,sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;padding:15px;cursor:pointer;margin-top:4px;transition:color 0.2s;';
-      sendBtn.innerHTML = '<svg viewBox="0 0 24 24" style="width:16px;height:16px;flex-shrink:0;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send';
+      sendBtn.style.cssText = 'display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:#18254B;color:#fff;border:none;border-radius:2px;font-family:Lato,sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.13em;text-transform:uppercase;padding:14px;cursor:pointer;margin-top:4px;transition:color 0.2s;flex-shrink:0;';
+      sendBtn.innerHTML = '<svg viewBox="0 0 24 24" style="width:15px;height:15px;flex-shrink:0;" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send';
       sendBtn.addEventListener('mouseenter', function() { sendBtn.style.color = '#B38987'; });
       sendBtn.addEventListener('mouseleave', function() { sendBtn.style.color = '#fff'; });
       sendBtn.addEventListener('click', function() {
-        var toEmail = emailField.inp.value.trim();
-        var fromName = nameField.inp.value.trim() || 'A friend';
-        var note = noteField.inp.value.trim();
-        var subject = fromName + ' thought you might love this home';
-        var body = (note ? note + '\n\n' : '') + titleText + '\n' + url + '\n\nShared via The Jaiswal Group Real Estate';
-        window.location.href = 'mailto:' + encodeURIComponent(toEmail) + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        var name   = nameField.inp.value.trim();
+        var semail = senderEmail.inp.value.trim();
+        var phone  = phoneField.inp.value.trim();
+        var remail = recipEmail.inp.value.trim();
+        if (!name || !semail || !remail) {
+          if (!name)   nameField.inp.style.borderColor   = '#c0392b';
+          if (!semail) senderEmail.inp.style.borderColor = '#c0392b';
+          if (!remail) recipEmail.inp.style.borderColor  = '#c0392b';
+          return;
+        }
+        var subject = name + ' thinks you might like this home';
+        var body = 'I came across this listing that I think you might like. Let me know what you think!\n\n' +
+                   titleText + '\n' + url +
+                   (phone ? '\n\nReach me at: ' + phone : '') +
+                   '\n\nShared via The Jaiswal Group Real Estate';
+        window.location.href = 'mailto:' + encodeURIComponent(remail) +
+          '?subject=' + encodeURIComponent(subject) +
+          '&body='    + encodeURIComponent(body);
         setTimeout(function() { ov.remove(); }, 500);
       });
       form.appendChild(sendBtn);
       bx.appendChild(form);
+
       ov.addEventListener('click', function(e) { if (e.target === ov) ov.remove(); });
       ov.appendChild(bx);
       document.body.appendChild(ov);
@@ -1159,8 +1184,6 @@
     var SHARE_SVG = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;display:block;fill:currentColor;"><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
 
     function _addHeart(card) {
-      // Inject into .idx-listing-card__wrap (parent of the <a> overlay) at z-index:15
-      // so our buttons sit above the IDX <a> link at z-index:2
       var wrap = card.querySelector('.idx-listing-card__wrap');
       if (!wrap || wrap.querySelector('.tjg-heart')) return;
 
