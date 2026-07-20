@@ -2899,6 +2899,24 @@
         tourBtn.style.setProperty('background-color', '#18254B', 'important');
         tourBtn.style.setProperty('color', '#fff', 'important');
         tourBtn.style.setProperty('border', '2px solid #18254B', 'important');
+        // Hover via JS — inline !important blocks CSS :hover rules
+        tourBtn.addEventListener('mouseenter', function() {
+          tourBtn.style.setProperty('color', '#B38987', 'important');
+        });
+        tourBtn.addEventListener('mouseleave', function() {
+          tourBtn.style.setProperty('color', '#fff', 'important');
+        });
+      }
+      var contactBtn = document.getElementById('tjg-contact-btn');
+      if (contactBtn) {
+        contactBtn.addEventListener('mouseenter', function() {
+          contactBtn.style.setProperty('background', '#18254B', 'important');
+          contactBtn.style.setProperty('color', '#fff', 'important');
+        });
+        contactBtn.addEventListener('mouseleave', function() {
+          contactBtn.style.setProperty('background', 'transparent', 'important');
+          contactBtn.style.setProperty('color', '#18254B', 'important');
+        });
       }
 
       // Grab property photo + price for Step 1 (attempt at inject time; always refreshed on open)
