@@ -4034,8 +4034,8 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         // Inject prev/next arrows into the address/stats row
         function _injectNavArrows() {
           if (document.getElementById('tjg-nav-arrows')) return;
-          var row = document.getElementById('tjg-addr-stats-row');
-          if (!row) { setTimeout(_injectNavArrows, 300); return; }
+          var meta = document.getElementById('tjg-listing-meta');
+          if (!meta) { setTimeout(_injectNavArrows, 300); return; }
           var arrows = document.createElement('div');
           arrows.id = 'tjg-nav-arrows';
           var prev = document.createElement('button');
@@ -4055,7 +4055,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           });
           arrows.appendChild(prev);
           arrows.appendChild(next);
-          row.appendChild(arrows);
+          meta.appendChild(arrows);
         }
         _injectNavArrows();
 
