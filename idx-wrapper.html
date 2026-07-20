@@ -3873,6 +3873,9 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         var wrapper = document.getElementById('IDX-detailsWrapper');
         if (wrapper && wrapper.parentNode) {
           wrapper.parentNode.insertBefore(grid, wrapper);
+          // Move price/address header to sit between grid and two-column content
+          var header = document.getElementById('IDX-detailsHeader');
+          if (header) wrapper.parentNode.insertBefore(header, wrapper);
         } else {
           var main = document.querySelector('#IDX-main.IDX-page-listing');
           if (main) main.insertBefore(grid, main.firstChild);
