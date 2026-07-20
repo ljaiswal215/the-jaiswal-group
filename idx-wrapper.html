@@ -1670,7 +1670,11 @@
       background: #F3EFE8 !important;
       padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 3vw, 2.5rem) !important;
     }
-    /* Page heading */
+    /* Page heading — hidden on photo gallery page */
+    .IDX-page-photogallery h2.IDX-pageHeader,
+    .IDX-page-photogallery h2.IDX-photoGalleryTitle,
+    .IDX-page-photogallery h2.IDX-photoGalleryHeader,
+    .IDX-page-photogallery #IDX-photoGalleryHeader { display: none !important; }
     h2.IDX-pageHeader,
     h2.IDX-photoGalleryTitle,
     h2.IDX-photoGalleryHeader {
