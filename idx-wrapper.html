@@ -101,7 +101,7 @@
     #tjg-heart-btn.tjg-saved svg { stroke:#fff; fill:#fff; }
     #tjg-heart-btn { display: none !important; }
     #IDX-detailsContact { display: none !important; }
-    .IDX-detailsSlidesActions, #IDX-detailsPhotoGalleryLink { display: none !important; }
+    #IDX-main .IDX-detailsSlidesActions, #IDX-main #IDX-detailsPhotoGalleryLink { display: none !important; }
 
     /* ─── Address & Title Fixes ─── */
     /* Normalize street number + name to same size/weight */
@@ -1773,11 +1773,11 @@
     }
     /* ─── Listing Detail: Photo Mosaic Grid ─── */
     #tjg-photo-grid { display:grid; grid-template-columns:60fr 40fr; gap:4px; height:540px; width:100%; }
-    #tjg-photo-grid__hero { overflow:hidden; cursor:pointer; position:relative; }
+    #tjg-photo-grid__hero { overflow:hidden; cursor:pointer; position:relative; border-radius:12px 0 0 12px; }
     #tjg-photo-grid__hero img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s ease; }
     #tjg-photo-grid__hero:hover img { transform:scale(1.02); }
     /* Right column: 2x2 grid */
-    #tjg-photo-grid__thumbs { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:4px; position:relative; }
+    #tjg-photo-grid__thumbs { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:4px; position:relative; border-radius:0 12px 12px 0; overflow:hidden; }
     .tjg-photo-grid__thumb { overflow:hidden; position:relative; cursor:pointer; }
     .tjg-photo-grid__thumb img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s ease; }
     .tjg-photo-grid__thumb:hover img { transform:scale(1.03); }
@@ -3871,18 +3871,15 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         grid.appendChild(thumbsWrap);
 
         // Insert full-width before #IDX-detailsWrapper (above the two-column layout)
-        var wrapper = document.getElementById('IDX-detailsWrapper');
-        if (wrapper && wrapper.parentNode) {
-          wrapper.parentNode.insertBefore(grid, wrapper);
-          // Move price/address header to sit between grid and two-column content
-          var header = document.getElementById('IDX-detailsHeader');
-          if (header) wrapper.parentNode.insertBefore(header, wrapper);
-          // Move language/audio buttons below the grid (out of the header)
-          var headerActions = document.getElementById('IDX-detailsHeaderActions');
-          if (headerActions) wrapper.parentNode.insertBefore(headerActions, wrapper);
+        // Insert grid at #IDX-main level, directly before the price/address header
+        var header = document.getElementById('IDX-detailsHeader');
+        if (header && header.parentNode) {
+          header.parentNode.insertBefore(grid, header);
         } else {
-          var main = document.querySelector('#IDX-main.IDX-page-listing');
-          if (main) main.insertBefore(grid, main.firstChild);
+          var wrapper = document.getElementById('IDX-detailsWrapper');
+          if (wrapper && wrapper.parentNode) {
+            wrapper.parentNode.insertBefore(grid, wrapper);
+          }
         }
 
         // Hide the original IDX gallery slider
