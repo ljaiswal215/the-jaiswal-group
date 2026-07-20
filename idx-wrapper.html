@@ -1789,7 +1789,7 @@
     .tjg-gv-next { right: 20px; }
     #tjg-gv-counter {
       position: absolute;
-      bottom: 22px;
+      top: 18px;
       left: 50%;
       transform: translateX(-50%);
       color: #18254B;
@@ -5056,7 +5056,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       function _showPhoto(idx) {
         if (!_slides.length) return;
         _cur = ((idx % _slides.length) + _slides.length) % _slides.length;
-        if (_counterEl) _counterEl.textContent = (_cur + 1) + ' / ' + _slides.length;
+        if (_counterEl) _counterEl.textContent = (_cur + 1) + ' of ' + _slides.length;
         var slide = _slides[_cur];
         var src = _srcFromSlide(slide);
         if (src) { _heroEl.style.opacity = '1'; _heroEl.src = src; return; }
@@ -5096,7 +5096,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             var all = document.querySelectorAll('.IDX-showcaseSlide');
             if (all.length > _slides.length) {
               _slides = Array.from(all);
-              if (_counterEl) _counterEl.textContent = (_cur + 1) + ' / ' + _slides.length;
+              if (_counterEl) _counterEl.textContent = (_cur + 1) + ' of ' + _slides.length;
             }
           }).observe(slideWrap, { childList: true });
         }
