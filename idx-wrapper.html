@@ -4047,11 +4047,12 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           next.setAttribute('aria-label', 'Next photo');
           next.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>';
           prev.addEventListener('click', function() {
-            if (_tjgPage > 0) _showPage(_tjgPage - 1);
+            var maxPage = Math.ceil(_tjgSrcs.length / 5) - 1;
+            _showPage(_tjgPage > 0 ? _tjgPage - 1 : maxPage);
           });
           next.addEventListener('click', function() {
             var maxPage = Math.ceil(_tjgSrcs.length / 5) - 1;
-            if (_tjgPage < maxPage) _showPage(_tjgPage + 1);
+            _showPage(_tjgPage < maxPage ? _tjgPage + 1 : 0);
           });
           arrows.appendChild(prev);
           arrows.appendChild(next);
