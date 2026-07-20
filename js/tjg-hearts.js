@@ -31,7 +31,7 @@
       body2.innerHTML = 'Questions? Call or text us anytime at <strong style="color:#444;">(858) 663-4896</strong>.';
       conf.appendChild(circle); conf.appendChild(heading); conf.appendChild(body1); conf.appendChild(body2);
       bx.appendChild(conf);
-      setTimeout(_close, 5000);
+      setTimeout(function() { window.location.href = 'https://thejaiswalgroup.idxbroker.com/idx/myaccount'; }, 3000);
     }
 
     function _build() {
