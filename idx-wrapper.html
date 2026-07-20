@@ -4059,16 +4059,12 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         });
 
         // Hide photo counter overlay (e.g. "1 / 58") on listing detail gallery
-        var _galleryWrap = document.querySelector(
-          '#IDX-detailsGallery, #IDX-galleryMain, #IDX-gallery, .IDX-detailsGallery, .IDX-galleryMain, [class*="gallery-wrap"], [class*="galleryWrap"]'
-        );
-        if (_galleryWrap) {
-          _galleryWrap.querySelectorAll('*').forEach(function(el) {
-            if (el.children.length === 0 && /^\s*\d+\s*\/\s*\d+\s*$/.test(el.textContent)) {
-              el.style.setProperty('display', 'none', 'important');
-            }
-          });
-        }
+        var _idxMain = document.getElementById('IDX-main') || document.body;
+        _idxMain.querySelectorAll('*').forEach(function(el) {
+          if (el.children.length === 0 && /^\s*\d+\s*\/\s*\d+\s*$/.test(el.textContent)) {
+            el.style.setProperty('display', 'none', 'important');
+          }
+        });
 
         // Back-to-results link on detail pages
         var topNav = document.querySelector('#IDX-detailsTopNav');
