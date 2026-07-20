@@ -3838,7 +3838,9 @@ document.getElementById('tjg-tour-success').style.display = 'block';
 
         meta.appendChild(leftCol);
         meta.appendChild(row);
-        if (addrParent) { addrParent.appendChild(meta); }
+        var headerEl = document.getElementById('IDX-detailsHeader');
+        var appendTarget = headerEl || addrParent;
+        if (appendTarget) { appendTarget.appendChild(meta); }
       }
       [400, 1000, 2200].forEach(function(ms) { setTimeout(_restructureDetailHeader, ms); });
     })();
