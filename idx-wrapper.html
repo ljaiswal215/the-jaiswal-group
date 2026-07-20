@@ -103,6 +103,10 @@
     /* ─── Address & Title Fixes ─── */
     /* Normalize street number + name to same size/weight */
     #IDX-detailsCourtesy { display: none !important; }
+    /* Hide IDX-injected ShareThis sharing buttons on listing detail pages */
+    .sharethis-inline-share-buttons, [class*="sharethis"], [class*="st-btn"],
+    #IDX-socialShare, .IDX-socialShare, #IDX-shareButtons, .IDX-shareButtons,
+    [aria-label*="sharing button"] { display: none !important; }
 
     /* Hide photo counter (e.g., "1 / 58") on listing detail gallery */
     #IDX-galleryCount, .IDX-galleryCount,
