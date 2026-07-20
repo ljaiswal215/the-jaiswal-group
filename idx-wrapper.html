@@ -186,28 +186,38 @@
       margin-bottom: 0 !important;
     }
     .IDX-page-listing .tjg-detail-meta { display: none !important; }
-    /* Address + stats stacked, centered to align with price */
-    #tjg-addr-stats-row {
+    /* Outer wrapper: price+address left | stats+arrows right */
+    #tjg-listing-meta {
       display: flex !important;
       flex-direction: row !important;
       align-items: center !important;
       justify-content: space-between !important;
-      gap: 24px !important;
-      margin-top: 0 !important;
+      gap: 40px !important;
+    }
+    #tjg-listing-meta__left {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 2px !important;
+    }
+    /* Right column: nav arrows + stats */
+    #tjg-addr-stats-row {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      gap: 16px !important;
+      flex-shrink: 0 !important;
     }
     #tjg-addr-line {
       font-family: 'Lato', sans-serif !important;
       font-size: 0.95rem !important;
       color: #7a7269 !important;
-      line-height: 1.5 !important;
-      text-align: left !important;
-      flex: 1 !important;
+      line-height: 1.4 !important;
     }
     /* Stats icon row */
     .tjg-detail-stats {
       display: flex !important;
       align-items: stretch !important;
-      margin: -8px 0 0 0 !important;
+      margin: 0 !important;
       padding: 0 !important;
       border-top: none !important;
       flex-shrink: 0 !important;
@@ -3766,20 +3776,10 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           metaSpan.className = 'tjg-detail-meta';
         }
 
-        // Move price BEFORE the street address (price is first, biggest)
         var addrParent = addrEl ? addrEl.parentNode : region.parentNode;
-        if (priceSpan) {
-          priceSpan.className = 'tjg-detail-price';
-          if (addrEl && addrParent) {
-            addrParent.insertBefore(priceSpan, addrEl);
-          } else {
-            region.insertBefore(priceSpan, region.firstChild);
-          }
-        }
-
         var sqftVal = _findSqft();
 
-        // Hide original address elements — we'll show them in one combined line
+        // Hide original address elements — replaced by our custom layout
         if (addrEl) addrEl.style.setProperty('display', 'none', 'important');
         region.style.setProperty('display', 'none', 'important');
 
@@ -3807,14 +3807,33 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           statsInner += c;
         });
 
-        // Build the single flex row: address (left) | stats (right)
+        // Outer wrapper: left (price + address) | right (stats + arrows)
+        var meta = document.createElement('div');
+        meta.id = 'tjg-listing-meta';
+
+        // Left column: price stacked above address
+        var leftCol = document.createElement('div');
+        leftCol.id = 'tjg-listing-meta__left';
+        if (priceSpan) {
+          priceSpan.className = 'tjg-detail-price';
+          leftCol.appendChild(priceSpan);
+        }
+        var addrLineEl = document.createElement('div');
+        addrLineEl.id = 'tjg-addr-line';
+        if (cityText) addrLineEl.setAttribute('data-tjg-city', '1');
+        addrLineEl.textContent = addrText;
+        leftCol.appendChild(addrLineEl);
+
+        // Right column: stats (nav arrows prepended by _injectNavArrows later)
         var row = document.createElement('div');
         row.id = 'tjg-addr-stats-row';
-        row.innerHTML = '<div id="tjg-addr-line"' + (cityText ? ' data-tjg-city="1"' : '') + '>' + addrText + '</div>' +
-          (statsInner ? '<div class="tjg-detail-stats">' + statsInner + '</div>' : '');
-        if (addrParent) {
-          addrParent.appendChild(row);
+        if (statsInner) {
+          row.innerHTML = '<div class="tjg-detail-stats">' + statsInner + '</div>';
         }
+
+        meta.appendChild(leftCol);
+        meta.appendChild(row);
+        if (addrParent) { addrParent.appendChild(meta); }
       }
       [400, 1000, 2200].forEach(function(ms) { setTimeout(_restructureDetailHeader, ms); });
     })();
