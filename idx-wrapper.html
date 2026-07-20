@@ -1649,9 +1649,11 @@
     }
     /* ─── Listing Detail: Photo Mosaic Grid ─── */
     #tjg-photo-grid { display:grid; grid-template-columns:63fr 37fr; gap:4px; height:540px; margin-bottom:0; width:100%; }
-    #tjg-photo-grid__hero { overflow:hidden; cursor:pointer; }
+    #tjg-photo-grid__hero { overflow:hidden; cursor:pointer; position:relative; }
     #tjg-photo-grid__hero img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s ease; }
     #tjg-photo-grid__hero:hover img { transform:scale(1.02); }
+    #tjg-photo-grid__vt-btn { position:absolute; bottom:14px; left:14px; background:rgba(24,37,75,0.82); color:#fff; font-family:'Lato',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:9px 16px; text-decoration:none; display:inline-flex; align-items:center; gap:7px; transition:background 0.2s, color 0.2s; cursor:pointer; border:none; z-index:2; }
+    #tjg-photo-grid__vt-btn:hover { background:rgba(179,137,135,0.92); color:#fff; }
     #tjg-photo-grid__thumbs { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:4px; }
     .tjg-photo-grid__thumb { overflow:hidden; position:relative; cursor:pointer; }
     .tjg-photo-grid__thumb img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s ease; }
@@ -3624,6 +3626,15 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         var grid = document.createElement('div');
         grid.id = 'tjg-photo-grid';
 
+        // Find virtual tour link if one exists on this listing
+        var vtEl = document.querySelector(
+          '.IDX-detailsVirtualTourAction[href], a.IDX-detailsVirtualTourAction, ' +
+          'a[href*="matterport"], a[href*="zillow3d"], a[href*="my.matterport"], ' +
+          'a[href*="virtualtour"], a[href*="virtual-tour"], a[href*="tours."], ' +
+          'a[class*="VirtualTour"], a[class*="virtual-tour"]'
+        );
+        var vtHref = vtEl ? vtEl.href : null;
+
         // Hero image
         var hero = document.createElement('div');
         hero.id = 'tjg-photo-grid__hero';
@@ -3633,6 +3644,22 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         heroImg.alt = 'Property photo';
         hero.appendChild(heroImg);
         hero.addEventListener('click', _openGallery);
+
+        // Virtual Tour button (only if a tour URL was found)
+        if (vtHref) {
+          var vtBtn = document.createElement('a');
+          vtBtn.id = 'tjg-photo-grid__vt-btn';
+          vtBtn.href = vtHref;
+          vtBtn.target = '_blank';
+          vtBtn.rel = 'noopener';
+          vtBtn.innerHTML =
+            '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>' +
+            'Virtual Tour';
+          vtBtn.addEventListener('click', function(e) { e.stopPropagation(); });
+          hero.appendChild(vtBtn);
+        }
+
         grid.appendChild(hero);
 
         // 2×2 thumbnails
@@ -3649,7 +3676,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             var ov = document.createElement('div');
             ov.className = 'tjg-photo-grid__overlay';
             ov.innerHTML =
-              '<span class="tjg-photo-grid__overlay-label">View All Photos</span>' +
+              '<span class="tjg-photo-grid__overlay-label">All Photos</span>' +
               '<span class="tjg-photo-grid__overlay-count">' + totalCount + ' Photos</span>';
             ov.addEventListener('click', _openGallery);
             thumb.appendChild(ov);
