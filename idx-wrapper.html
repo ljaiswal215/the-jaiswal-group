@@ -1566,6 +1566,8 @@
     #tjg-tour-back:hover { background:rgba(24,37,75,0.06); }
     #tjg-tour-submit { background:#18254B; color:#fff; border:2px solid #18254B; border-radius:0; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:14px; cursor:pointer; transition:background 0.2s, color 0.2s; }
     #tjg-tour-submit:hover { background:#18254B; border-color:#18254B; color:#B38987; }
+    #tjg-tour-submit:disabled { opacity:0.45; cursor:not-allowed; }
+    #tjg-tour-submit:disabled:hover { color:#fff; }
     /* Opt-in consent block (shared by tour + contact forms) */
     #tjg-optin-wrap, #tjg-contact-optin-wrap { margin-top:18px; }
     .tjg-optin-label { display:flex !important; align-items:flex-start; gap:9px; cursor:pointer; text-transform:none !important; font-weight:400 !important; letter-spacing:0 !important; }
@@ -2984,7 +2986,7 @@
               '</div>' +
               '<div id="tjg-tour-step2-btns">' +
                 '<button type="button" id="tjg-tour-back">Back</button>' +
-                '<button type="submit" id="tjg-tour-submit">Send Request</button>' +
+                '<button type="submit" id="tjg-tour-submit" disabled>Send Request</button>' +
               '</div>' +
             '</form>' +
             '<div id="tjg-tour-success"><h4>Tour Request Sent!</h4><p>We\'ll be in touch shortly to confirm your details.</p></div>' +
@@ -3062,12 +3064,26 @@
         this.textContent = txt.classList.contains('tjg-expanded') ? 'Read Less' : 'Read More';
       });
 
+      // Enable SEND REQUEST only after opt-in checkbox is checked
+      document.getElementById('tjg-optin-check').addEventListener('change', function() {
+        var btn = document.getElementById('tjg-tour-submit');
+        btn.disabled = !this.checked;
+        btn.style.opacity = this.checked ? '1' : '0.45';
+      });
+
       document.getElementById('tjg-tour-btn').addEventListener('click', function() {
-        // Reset to step 1 each open
+        // Full reset each open: step, form fields, checkbox, submit button, read-more state
         document.getElementById('tjg-tour-step1').style.display = 'block';
         document.getElementById('tjg-tour-step2').classList.remove('tjg-s2-active');
         document.getElementById('tjg-tour-success').style.display = 'none';
         document.getElementById('tjg-tour-form').style.display = 'block';
+        document.getElementById('tjg-tour-form').reset();
+        var _sub = document.getElementById('tjg-tour-submit');
+        _sub.disabled = true; _sub.style.opacity = '0.45'; _sub.textContent = 'Send Request';
+        document.getElementById('tjg-optin-check').checked = false;
+        var _ot = document.getElementById('tjg-optin-text');
+        _ot.classList.remove('tjg-expanded');
+        document.getElementById('tjg-optin-toggle').textContent = 'Read More';
 
         // Always refresh image at open time — find largest visible listing photo in viewport
         var imgEl = document.getElementById('tjg-tour-prop-img');
