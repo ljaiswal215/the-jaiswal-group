@@ -1664,6 +1664,13 @@
     .tjg-photo-grid__btn-group { position:absolute; bottom:12px; right:12px; display:flex; gap:8px; z-index:2; }
     .tjg-photo-grid__action-btn { background:rgba(255,255,255,0.93); color:#18254B; font-family:'Lato',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.06em; padding:8px 14px; border:none; border-radius:4px; cursor:pointer; transition:background 0.15s; display:inline-flex; align-items:center; gap:6px; text-decoration:none; white-space:nowrap; }
     .tjg-photo-grid__action-btn:hover { background:#fff; color:#18254B; }
+    /* Icon buttons — top-right of grid */
+    #tjg-photo-grid__right { position:relative; }
+    #tjg-photo-grid__icon-group { position:absolute; top:12px; right:12px; display:flex; gap:8px; z-index:3; }
+    .tjg-photo-grid__icon-btn { width:36px; height:36px; background:rgba(255,255,255,0.9); border:none; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background 0.2s; padding:0; }
+    .tjg-photo-grid__icon-btn:hover { background:#fff; }
+    .tjg-photo-grid__icon-btn svg { width:16px; height:16px; stroke:#18254B; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .tjg-photo-grid__icon-btn.tjg-heart-saved svg { stroke:#B38987; fill:#B38987; }
     @media (max-width:767px) {
       #tjg-photo-grid { grid-template-columns:1fr; height:auto; }
       #tjg-photo-grid__right { display:grid; grid-template-columns:repeat(3,1fr); flex-direction:unset; }
@@ -3653,6 +3660,43 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         // Right column: top photo + bottom row of 2
         var rightCol = document.createElement('div');
         rightCol.id = 'tjg-photo-grid__right';
+
+        // Top-right icon group: heart (save) + share
+        var iconGroup = document.createElement('div');
+        iconGroup.id = 'tjg-photo-grid__icon-group';
+
+        // Heart / save button
+        var heartBtn = document.createElement('button');
+        heartBtn.className = 'tjg-photo-grid__icon-btn';
+        heartBtn.title = 'Save this listing';
+        heartBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+        heartBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (typeof _openSaveSearchModal === 'function') _openSaveSearchModal();
+        });
+        iconGroup.appendChild(heartBtn);
+
+        // Share button
+        var shareBtn = document.createElement('button');
+        shareBtn.className = 'tjg-photo-grid__icon-btn';
+        shareBtn.title = 'Share this listing';
+        shareBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>';
+        shareBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var url = window.location.href;
+          var title = document.title || 'Property Listing';
+          if (navigator.share) {
+            navigator.share({ title: title, url: url });
+          } else {
+            navigator.clipboard.writeText(url).then(function() {
+              shareBtn.title = 'Link copied!';
+              setTimeout(function() { shareBtn.title = 'Share this listing'; }, 2000);
+            });
+          }
+        });
+        iconGroup.appendChild(shareBtn);
+
+        rightCol.appendChild(iconGroup);
 
         // Top-right: one full-width photo
         var rightTop = document.createElement('div');
