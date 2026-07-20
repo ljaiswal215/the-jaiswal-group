@@ -4586,12 +4586,12 @@ document.getElementById('tjg-tour-success').style.display = 'block';
 
         // Listing detail panel cleanup: hide, rename, and strip label colons
         if (document.querySelector('#IDX-main.IDX-page-listing')) {
-          // 1. Hide Primary Features / rename Interior + External
+          // 1. Hide Additional / rename Interior + External
           document.querySelectorAll('#IDX-fieldsWrapper .IDX-fieldContainer, #IDX-fieldsWrapper .IDX-panel').forEach(function(panel) {
             var toggle = panel.querySelector('.IDX-panel-collapse-toggle');
             if (!toggle) return;
             var txt = toggle.textContent.trim();
-            if (/primary\s*features?/i.test(txt) || /^additional$/i.test(txt)) {
+            if (/^additional$/i.test(txt)) {
               panel.style.setProperty('display', 'none', 'important');
             } else if (/^interior$/i.test(txt) && !toggle.dataset.tjgRenamed) {
               toggle.textContent = 'Interior Features';
