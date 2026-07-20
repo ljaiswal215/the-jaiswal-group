@@ -1724,46 +1724,81 @@
     .IDX-page-photogallery [class*="back"]:hover {
       color: #B38987 !important;
     }
-    /* Custom gallery layout — hide IDX default gallery UI but NOT the outer container */
-    .IDX-page-photogallery #IDX-photoGalleryContainer,
-    .IDX-page-photogallery .IDX-photoGalleryContainer { visibility: hidden !important; height: 0 !important; overflow: hidden !important; padding: 0 !important; margin: 0 !important; }
-    .IDX-page-photogallery .IDX-photoGallery,
-    .IDX-page-photogallery #IDX-showcaseSlides,
+    /* ─── Photo Gallery: full-screen hero viewer ─── */
+    /* IDX showcase stays in DOM behind our fixed overlay so lazy-loading works */
     .IDX-page-photogallery .IDX-pagination,
     .IDX-page-photogallery header.IDX-PIH { display: none !important; }
-    /* Gallery layout */
-    #tjg-gallery-wrap {
-      padding: 0 0 40px;
-      background: #F3EFE8;
+    #tjg-gallery-viewer {
+      position: fixed;
+      inset: 0;
+      background: #0a0a0a;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    #tjg-gallery-hero-img {
+    #tjg-gv-hero {
+      max-width: 100%;
+      max-height: 100vh;
+      object-fit: contain;
       display: block;
-      width: 100%;
-      height: 70vh;
-      object-fit: cover;
-      margin-bottom: 4px;
+      transition: opacity 0.15s;
     }
-    #tjg-gallery-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4px;
+    #tjg-gallery-back {
+      position: absolute;
+      top: 18px;
+      left: 20px;
+      background: rgba(255,255,255,0.12);
+      border: none;
+      border-radius: 20px;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.05em;
+      padding: 7px 14px 7px 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: background 0.2s;
+      z-index: 2;
     }
-    .tjg-gallery-cell {
-      overflow: hidden;
-      aspect-ratio: 4/3;
+    #tjg-gallery-back:hover { background: rgba(179,137,135,0.55); }
+    .tjg-gv-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.13);
+      border: none;
+      border-radius: 50%;
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2;
+      transition: background 0.2s;
+      color: #fff;
     }
-    .tjg-gallery-cell.tjg-gallery-full {
-      grid-column: 1 / -1;
-      aspect-ratio: 16/7;
+    .tjg-gv-arrow:hover { background: rgba(179,137,135,0.65); }
+    .tjg-gv-arrow svg { width: 26px; height: 26px; }
+    .tjg-gv-prev { left: 20px; }
+    .tjg-gv-next { right: 20px; }
+    #tjg-gv-counter {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.75);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.88rem;
+      letter-spacing: 0.1em;
+      background: rgba(0,0,0,0.45);
+      padding: 5px 16px;
+      border-radius: 20px;
+      white-space: nowrap;
     }
-    .tjg-gallery-cell img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: opacity 0.2s;
-    }
-    .tjg-gallery-cell img:hover { opacity: 0.9; cursor: zoom-in; }
 
     /* ─── Tour Request Modal (Two-Step) ─── */
     #tjg-tour-modal { display:none; position:fixed; inset:0; z-index:99999; align-items:center; justify-content:center; }
@@ -4989,73 +5024,133 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       _aObs.observe(document.body, { childList: true, subtree: true });
     })();
 
-    // ─── Photo Gallery page: hero + 2-col grid layout ────────────────────────
+    // ─── Photo Gallery page: full-screen single-image viewer with arrows ──────
     (function() {
       if (!document.querySelector('#IDX-main.IDX-page-photogallery')) return;
 
+      // Hide site nav on gallery page
+      var _nav = document.querySelector('#site-header, header.site-header, .site-header');
+      if (_nav) _nav.style.setProperty('display', 'none', 'important');
+
+      var _slides = [], _cur = 0, _heroEl = null, _counterEl = null, _built = false;
+
       function _bad(s) {
-        return !s || s.indexOf('data:') !== -1 || /chevron|spinner|placeholder|\.svg(\?|$)|logo|icon|avatar|noimage/i.test(s);
+        return !s || /data:|ajaxLoad|\.gif(\?|$)|placeholder|spinner|noimage/i.test(s);
       }
 
-      function _buildGallery() {
-        if (document.getElementById('tjg-gallery-wrap')) return;
+      function _srcFromSlide(slide) {
+        var img = slide.querySelector('img');
+        if (!img) return null;
+        var src = img.getAttribute('data-src') || img.getAttribute('data-lazy') ||
+                  img.getAttribute('data-original') || img.getAttribute('data-full') ||
+                  img.getAttribute('data-lazyload') || img.getAttribute('data-url');
+        if (src && !_bad(src)) return src;
+        var a = img.closest ? img.closest('a') : null;
+        if (!a) a = slide.querySelector('a[href]');
+        if (a && a.href && !_bad(a.href) && /\.(jpg|jpeg|png|webp)/i.test(a.href)) return a.href;
+        return (!_bad(img.src) ? img.src : null);
+      }
 
-        var imgs = document.querySelectorAll(
-          '.IDX-showcaseSlide img, .IDX-thumbnail img, ' +
-          '.IDX-photoGallery img, .IDX-simple-gallery img, ' +
-          '#IDX-showcaseSlides img'
-        );
-        if (imgs.length === 0) { setTimeout(_buildGallery, 600); return; }
+      function _showPhoto(idx) {
+        if (!_slides.length) return;
+        _cur = ((idx % _slides.length) + _slides.length) % _slides.length;
+        if (_counterEl) _counterEl.textContent = (_cur + 1) + ' / ' + _slides.length;
+        var slide = _slides[_cur];
+        var src = _srcFromSlide(slide);
+        if (src) { _heroEl.style.opacity = '1'; _heroEl.src = src; return; }
 
-        var srcs = [];
-        imgs.forEach(function(img) {
-          var src = img.src || img.getAttribute('data-src') || img.getAttribute('data-lazy') || '';
-          if (src && !_bad(src) && srcs.indexOf(src) === -1) srcs.push(src);
+        // Scroll the IDX slide into the viewport (behind our fixed overlay) to trigger IDX lazy-loading
+        _heroEl.style.opacity = '0.25';
+        document.body.style.overflow = '';
+        slide.scrollIntoView();
+
+        var img = slide.querySelector('img');
+        if (!img) return;
+        var obs = new MutationObserver(function() {
+          var s2 = _srcFromSlide(slide);
+          if (s2) { obs.disconnect(); document.body.style.overflow = 'hidden'; _heroEl.src = s2; _heroEl.style.opacity = '1'; }
         });
-        if (srcs.length === 0) { setTimeout(_buildGallery, 600); return; }
+        obs.observe(img, { attributes: true, attributeFilter: ['src', 'data-src'] });
+        var polls = 0;
+        (function poll() {
+          polls++;
+          var s2 = _srcFromSlide(slide);
+          if (s2) { obs.disconnect(); document.body.style.overflow = 'hidden'; _heroEl.src = s2; _heroEl.style.opacity = '1'; return; }
+          if (polls < 40) setTimeout(poll, 250);
+          else { obs.disconnect(); document.body.style.overflow = 'hidden'; _heroEl.style.opacity = '1'; }
+        })();
+      }
 
-        var wrap = document.createElement('div');
-        wrap.id = 'tjg-gallery-wrap';
+      function _buildViewer() {
+        if (_built) return;
+        _slides = Array.from(document.querySelectorAll('.IDX-showcaseSlide'));
+        if (!_slides.length) { setTimeout(_buildViewer, 600); return; }
+        _built = true;
 
-        // Hero — first photo full width
-        var hero = document.createElement('img');
-        hero.id = 'tjg-gallery-hero-img';
-        hero.src = srcs[0];
-        hero.alt = 'Property photo 1';
-        wrap.appendChild(hero);
-
-        // Grid — remaining photos
-        if (srcs.length > 1) {
-          var grid = document.createElement('div');
-          grid.id = 'tjg-gallery-grid';
-          var rest = srcs.slice(1);
-          var oddCount = rest.length % 2 === 1;
-
-          rest.forEach(function(src, i) {
-            var cell = document.createElement('div');
-            cell.className = 'tjg-gallery-cell';
-            // Last image spans full width if total remaining is odd
-            if (oddCount && i === rest.length - 1) cell.className += ' tjg-gallery-full';
-            var img = document.createElement('img');
-            img.src = src;
-            img.alt = 'Property photo ' + (i + 2);
-            img.loading = 'lazy';
-            cell.appendChild(img);
-            grid.appendChild(cell);
-          });
-          wrap.appendChild(grid);
+        // Watch for IDX adding more slides dynamically
+        var slideWrap = document.querySelector('#IDX-showcaseSlides, .IDX-photo-gallery__container');
+        if (slideWrap) {
+          new MutationObserver(function() {
+            var all = document.querySelectorAll('.IDX-showcaseSlide');
+            if (all.length > _slides.length) {
+              _slides = Array.from(all);
+              if (_counterEl) _counterEl.textContent = (_cur + 1) + ' / ' + _slides.length;
+            }
+          }).observe(slideWrap, { childList: true });
         }
 
-        // Insert BEFORE the photoGalleryContainer so it sits outside the hidden container
+        var viewer = document.createElement('div');
+        viewer.id = 'tjg-gallery-viewer';
+
+        var back = document.createElement('button');
+        back.id = 'tjg-gallery-back';
+        back.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Back';
+        back.addEventListener('click', function() { window.history.back(); });
+        viewer.appendChild(back);
+
+        var prev = document.createElement('button');
+        prev.className = 'tjg-gv-arrow tjg-gv-prev';
+        prev.setAttribute('aria-label', 'Previous photo');
+        prev.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
+        prev.addEventListener('click', function() { _showPhoto(_cur - 1); });
+        viewer.appendChild(prev);
+
+        _heroEl = document.createElement('img');
+        _heroEl.id = 'tjg-gv-hero';
+        _heroEl.alt = 'Property photo';
+        viewer.appendChild(_heroEl);
+
+        var next = document.createElement('button');
+        next.className = 'tjg-gv-arrow tjg-gv-next';
+        next.setAttribute('aria-label', 'Next photo');
+        next.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
+        next.addEventListener('click', function() { _showPhoto(_cur + 1); });
+        viewer.appendChild(next);
+
+        _counterEl = document.createElement('div');
+        _counterEl.id = 'tjg-gv-counter';
+        viewer.appendChild(_counterEl);
+
         var container = document.querySelector('#IDX-photoGalleryContainer, .IDX-photoGalleryContainer');
         if (container && container.parentNode) {
-          container.parentNode.insertBefore(wrap, container);
+          container.parentNode.insertBefore(viewer, container);
         } else {
-          (document.querySelector('#IDX-main') || document.body).appendChild(wrap);
+          var main = document.querySelector('#IDX-main') || document.body;
+          main.insertBefore(viewer, main.firstChild);
         }
+
+        document.body.style.overflow = 'hidden';
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'ArrowLeft') _showPhoto(_cur - 1);
+          else if (e.key === 'ArrowRight') _showPhoto(_cur + 1);
+          else if (e.key === 'Escape') window.history.back();
+        });
+
+        _showPhoto(0);
       }
 
-      [400, 1000, 2200, 4000].forEach(function(ms) { setTimeout(_buildGallery, ms); });
+      [400, 1000, 2200, 4000].forEach(function(ms) { setTimeout(_buildViewer, ms); });
     })();
   </script>
 
