@@ -4501,7 +4501,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             var toggle = panel.querySelector('.IDX-panel-collapse-toggle');
             if (!toggle) return;
             var txt = toggle.textContent.trim();
-            if (/primary\s*features?/i.test(txt)) {
+            if (/primary\s*features?/i.test(txt) || /^additional$/i.test(txt)) {
               panel.style.setProperty('display', 'none', 'important');
             } else if (/^interior$/i.test(txt) && !toggle.dataset.tjgRenamed) {
               toggle.textContent = 'Interior Features';
