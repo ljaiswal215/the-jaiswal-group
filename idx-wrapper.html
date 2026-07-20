@@ -4618,11 +4618,13 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             });
           });
 
-          // 3. Capitalize bare "yes" field values
+          // 3. Capitalize bare "yes" / "no" field values
           document.querySelectorAll('#IDX-main.IDX-page-listing .IDX-text').forEach(function(el) {
             if (el.dataset.tjgYesCap) return;
             el.dataset.tjgYesCap = '1';
-            if (el.textContent.trim() === 'yes') el.textContent = 'Yes';
+            var t = el.textContent.trim();
+            if (t === 'yes') el.textContent = 'Yes';
+            else if (t === 'no') el.textContent = 'No';
           });
         }
 
