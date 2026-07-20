@@ -103,6 +103,20 @@
     /* ─── Address & Title Fixes ─── */
     /* Normalize street number + name to same size/weight */
     #IDX-detailsCourtesy { display: none !important; }
+
+    /* Hide photo counter (e.g., "1 / 58") on listing detail gallery */
+    #IDX-galleryCount, .IDX-galleryCount,
+    #IDX-photoCount, .IDX-photoCount,
+    #IDX-slideCount, .IDX-slideCount,
+    [class*="gallery-count"], [class*="galleryCount"],
+    [class*="photo-count"], [class*="photoCount"],
+    [class*="slide-count"], [class*="slideCount"],
+    [class*="image-count"], [class*="imageCount"],
+    [class*="gallery-counter"], [class*="galleryCounter"],
+    [class*="photo-counter"], [class*="photoCounter"],
+    .IDX-page-details [class*="counter"]:not([class*="contact"]):not([class*="result"]) {
+      display: none !important;
+    }
     #IDX-detailsAddressStreet * {
       font-size: inherit !important;
       font-weight: inherit !important;
@@ -4003,6 +4017,18 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             });
           })(info);
         });
+
+        // Hide photo counter overlay (e.g. "1 / 58") on listing detail gallery
+        var _galleryWrap = document.querySelector(
+          '#IDX-detailsGallery, #IDX-galleryMain, #IDX-gallery, .IDX-detailsGallery, .IDX-galleryMain, [class*="gallery-wrap"], [class*="galleryWrap"]'
+        );
+        if (_galleryWrap) {
+          _galleryWrap.querySelectorAll('*').forEach(function(el) {
+            if (el.children.length === 0 && /^\s*\d+\s*\/\s*\d+\s*$/.test(el.textContent)) {
+              el.style.setProperty('display', 'none', 'important');
+            }
+          });
+        }
 
         // Back-to-results link on detail pages
         var topNav = document.querySelector('#IDX-detailsTopNav');
