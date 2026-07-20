@@ -1787,6 +1787,29 @@
     .tjg-gv-arrow svg { width: 26px; height: 26px; }
     .tjg-gv-prev { left: 20px; }
     .tjg-gv-next { right: 20px; }
+    #tjg-gv-icons {
+      position: absolute;
+      top: 18px;
+      right: 20px;
+      display: flex;
+      gap: 8px;
+      z-index: 2;
+    }
+    .tjg-gv-icon-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: #18254B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s;
+    }
+    .tjg-gv-icon-btn:hover { background: #B38987; }
+    .tjg-gv-icon-btn svg { width: 18px; height: 18px; display: block; }
     #tjg-gv-counter {
       position: absolute;
       top: 18px;
@@ -5132,6 +5155,57 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         _counterEl = document.createElement('div');
         _counterEl.id = 'tjg-gv-counter';
         viewer.appendChild(_counterEl);
+
+        // Heart + Share icons — top right, matching listing card style
+        var icons = document.createElement('div');
+        icons.id = 'tjg-gv-icons';
+
+        var gvHeart = document.createElement('button');
+        gvHeart.className = 'tjg-gv-icon-btn';
+        gvHeart.setAttribute('aria-label', 'Save this property');
+        gvHeart.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+        gvHeart.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (typeof _openSaveSearchModal === 'function') _openSaveSearchModal();
+        });
+        icons.appendChild(gvHeart);
+
+        var gvShare = document.createElement('button');
+        gvShare.className = 'tjg-gv-icon-btn';
+        gvShare.setAttribute('aria-label', 'Share this property');
+        gvShare.innerHTML = '<svg viewBox="0 0 24 24" fill="#fff"><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+        gvShare.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (window._tjgShowSharePanel) {
+            var priceEl = document.querySelector('.tjg-detail-price');
+            var addrEl  = document.getElementById('tjg-addr-line');
+            var heroImg = document.querySelector('#tjg-photo-grid__hero img');
+            var listing = {
+              url: window.location.href,
+              titleText: priceEl ? priceEl.textContent.trim() : (document.title || 'Property Listing'),
+              price: priceEl ? priceEl.textContent.trim() : '',
+              addr:  addrEl  ? addrEl.textContent.trim()  : '',
+              imgSrc: heroImg ? heroImg.src : (_heroEl ? _heroEl.src : ''),
+              beds: '', baths: '', sqft: '', mls: ''
+            };
+            document.querySelectorAll('.tjg-detail-stats__col').forEach(function(col) {
+              var lbl = col.querySelector('.tjg-detail-stats__label');
+              var val = col.querySelector('.tjg-detail-stats__value');
+              if (!lbl || !val) return;
+              var t = lbl.textContent.replace(/[^a-z]/gi,'').toLowerCase();
+              if (/bed/.test(t)) listing.beds = val.textContent.trim() + ' bd';
+              else if (/bath/.test(t)) listing.baths = val.textContent.trim() + ' ba';
+              else if (/sq/.test(t)) listing.sqft = val.textContent.trim();
+            });
+            var mlsLbl = Array.from(document.querySelectorAll('.IDX-label')).find(function(l) { return /mls/i.test(l.textContent); });
+            if (mlsLbl) { var mf = mlsLbl.closest('.IDX-field'); if (mf) { var mv = mf.querySelector('.IDX-text'); if (mv) listing.mls = mv.textContent.trim(); } }
+            window._tjgShowSharePanel(e, listing);
+          } else {
+            navigator.clipboard.writeText(window.location.href).catch(function(){});
+          }
+        });
+        icons.appendChild(gvShare);
+        viewer.appendChild(icons);
 
         var container = document.querySelector('#IDX-photoGalleryContainer, .IDX-photoGalleryContainer');
         if (container && container.parentNode) {
