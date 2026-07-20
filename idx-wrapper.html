@@ -187,10 +187,10 @@
       margin-bottom: 0 !important;
     }
     .IDX-page-listing .tjg-detail-meta { display: none !important; }
-    /* Outer wrapper: 3-column grid — address | stats | arrows */
+    /* Outer wrapper: address left, stats pushed right, arrows at far right */
     #tjg-listing-meta {
-      display: grid !important;
-      grid-template-columns: auto 1fr auto !important;
+      display: flex !important;
+      flex-direction: row !important;
       align-items: center !important;
       gap: 32px !important;
     }
@@ -198,14 +198,16 @@
       display: flex !important;
       flex-direction: column !important;
       gap: 2px !important;
+      flex-shrink: 0 !important;
     }
-    /* Stats: pushed to right edge of middle column */
+    /* Stats: pushed to the right by consuming the free space on its left */
     #tjg-addr-stats-row {
       display: flex !important;
       flex-direction: row !important;
       align-items: center !important;
       gap: 16px !important;
-      justify-self: end !important;
+      margin-left: auto !important;
+      flex-shrink: 0 !important;
     }
     #tjg-addr-line {
       font-family: 'Lato', sans-serif !important;
