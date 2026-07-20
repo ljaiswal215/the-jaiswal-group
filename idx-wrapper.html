@@ -3860,7 +3860,37 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         window.location.href = galLink;
       }
 
-      var _tjgSrcs = [], _tjgIdx = 0, _tjgHeroImg = null;
+      var _tjgSrcs = [], _tjgPage = 0, _tjgHeroImg = null, _tjgThumbImgs = [];
+
+      function _showPage(page) {
+        var total = _tjgSrcs.length;
+        var start = page * 5;
+        if (start >= total) return;
+        _tjgPage = page;
+        if (_tjgHeroImg) _tjgHeroImg.src = _tjgSrcs[start];
+        var thumbsWrapEl = document.getElementById('tjg-photo-grid__thumbs');
+        var available = Math.min(total - start - 1, 4);
+        _tjgThumbImgs.forEach(function(img, i) {
+          var wrapper = img.parentElement;
+          if (i < available) {
+            img.src = _tjgSrcs[start + 1 + i];
+            wrapper.style.display = '';
+          } else {
+            wrapper.style.display = 'none';
+          }
+        });
+        if (thumbsWrapEl) {
+          if (available === 0) {
+            thumbsWrapEl.style.setProperty('display', 'none', 'important');
+          } else if (available === 1) {
+            thumbsWrapEl.style.cssText = 'display:grid!important;grid-template-columns:1fr!important;grid-template-rows:1fr!important;';
+          } else if (available === 2) {
+            thumbsWrapEl.style.cssText = 'display:grid!important;grid-template-columns:1fr!important;grid-template-rows:1fr 1fr!important;';
+          } else {
+            thumbsWrapEl.style.cssText = '';
+          }
+        }
+      }
 
       function _buildPhotoGrid() {
         if (!document.querySelector('#IDX-main.IDX-page-listing')) return;
@@ -3909,7 +3939,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         var heroImg = document.createElement('img');
         heroImg.src = srcs[0];
         heroImg.alt = 'Property photo';
-        _tjgSrcs = srcs; _tjgIdx = 0; _tjgHeroImg = heroImg;
+        _tjgSrcs = srcs; _tjgPage = 0; _tjgHeroImg = heroImg; _tjgThumbImgs = [];
         hero.appendChild(heroImg);
         hero.addEventListener('click', _openGallery);
         grid.appendChild(hero);
@@ -3958,6 +3988,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           var tImg = document.createElement('img');
           tImg.src = srcs[Math.min(i, srcs.length - 1)];
           tImg.alt = 'Property photo ' + (i + 1);
+          _tjgThumbImgs.push(tImg);
           thumb.appendChild(tImg);
 
           // Bottom-right of last thumb: Virtual Tour + All Photos buttons
@@ -4016,12 +4047,11 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           next.setAttribute('aria-label', 'Next photo');
           next.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>';
           prev.addEventListener('click', function() {
-            _tjgIdx = (_tjgIdx - 1 + _tjgSrcs.length) % _tjgSrcs.length;
-            _tjgHeroImg.src = _tjgSrcs[_tjgIdx];
+            if (_tjgPage > 0) _showPage(_tjgPage - 1);
           });
           next.addEventListener('click', function() {
-            _tjgIdx = (_tjgIdx + 1) % _tjgSrcs.length;
-            _tjgHeroImg.src = _tjgSrcs[_tjgIdx];
+            var maxPage = Math.ceil(_tjgSrcs.length / 5) - 1;
+            if (_tjgPage < maxPage) _showPage(_tjgPage + 1);
           });
           arrows.appendChild(prev);
           arrows.appendChild(next);
