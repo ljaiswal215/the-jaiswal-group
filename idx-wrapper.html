@@ -1825,6 +1825,11 @@
     .tjg-photo-grid__icon-btn:hover { background:#fff; }
     .tjg-photo-grid__icon-btn svg { width:16px; height:16px; stroke:#18254B; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
     .tjg-photo-grid__icon-btn.tjg-heart-saved svg { stroke:#B38987; fill:#B38987; }
+    /* Photo nav arrows — left of address/stats row */
+    #tjg-nav-arrows { display:flex; gap:8px; align-items:center; flex-shrink:0; }
+    .tjg-nav-arrow { width:38px; height:38px; border-radius:50%; background:#18254B; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s; padding:0; flex-shrink:0; }
+    .tjg-nav-arrow:hover { background:#B38987; }
+    .tjg-nav-arrow svg { stroke:#fff; fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
     @media (max-width:767px) {
       #tjg-photo-grid { grid-template-columns:1fr; height:auto; }
       #tjg-photo-grid__hero { height:60vw; }
@@ -3835,6 +3840,8 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         window.location.href = galLink;
       }
 
+      var _tjgSrcs = [], _tjgIdx = 0, _tjgHeroImg = null;
+
       function _buildPhotoGrid() {
         if (!document.querySelector('#IDX-main.IDX-page-listing')) return;
         if (document.getElementById('tjg-photo-grid')) return;
@@ -3882,6 +3889,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         var heroImg = document.createElement('img');
         heroImg.src = srcs[0];
         heroImg.alt = 'Property photo';
+        _tjgSrcs = srcs; _tjgIdx = 0; _tjgHeroImg = heroImg;
         hero.appendChild(heroImg);
         hero.addEventListener('click', _openGallery);
         grid.appendChild(hero);
@@ -3971,6 +3979,35 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             pageContainer.parentNode.insertBefore(grid, pageContainer);
           }
         }
+
+        // Inject prev/next arrows into the address/stats row
+        function _injectNavArrows() {
+          if (document.getElementById('tjg-nav-arrows')) return;
+          var row = document.getElementById('tjg-addr-stats-row');
+          if (!row) { setTimeout(_injectNavArrows, 300); return; }
+          var arrows = document.createElement('div');
+          arrows.id = 'tjg-nav-arrows';
+          var prev = document.createElement('button');
+          prev.className = 'tjg-nav-arrow';
+          prev.setAttribute('aria-label', 'Previous photo');
+          prev.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>';
+          var next = document.createElement('button');
+          next.className = 'tjg-nav-arrow';
+          next.setAttribute('aria-label', 'Next photo');
+          next.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>';
+          prev.addEventListener('click', function() {
+            _tjgIdx = (_tjgIdx - 1 + _tjgSrcs.length) % _tjgSrcs.length;
+            _tjgHeroImg.src = _tjgSrcs[_tjgIdx];
+          });
+          next.addEventListener('click', function() {
+            _tjgIdx = (_tjgIdx + 1) % _tjgSrcs.length;
+            _tjgHeroImg.src = _tjgSrcs[_tjgIdx];
+          });
+          arrows.appendChild(prev);
+          arrows.appendChild(next);
+          row.insertBefore(arrows, row.firstChild);
+        }
+        _injectNavArrows();
 
         // Hide the original IDX gallery slider
         document.querySelectorAll(
