@@ -1647,6 +1647,23 @@
     @media (max-width:480px) {
       .tjg-contact-row { grid-template-columns:1fr; }
     }
+    /* ─── Listing Detail: Photo Mosaic Grid ─── */
+    #tjg-photo-grid { display:grid; grid-template-columns:63fr 37fr; gap:4px; height:540px; margin-bottom:0; width:100%; }
+    #tjg-photo-grid__hero { overflow:hidden; cursor:pointer; }
+    #tjg-photo-grid__hero img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s ease; }
+    #tjg-photo-grid__hero:hover img { transform:scale(1.02); }
+    #tjg-photo-grid__thumbs { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:4px; }
+    .tjg-photo-grid__thumb { overflow:hidden; position:relative; cursor:pointer; }
+    .tjg-photo-grid__thumb img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s ease; }
+    .tjg-photo-grid__thumb:hover img { transform:scale(1.03); }
+    .tjg-photo-grid__overlay { position:absolute; inset:0; background:rgba(24,37,75,0.58); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; transition:background 0.2s; }
+    .tjg-photo-grid__overlay:hover { background:rgba(24,37,75,0.72); }
+    .tjg-photo-grid__overlay-label { font-family:'Lato',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:#fff; }
+    .tjg-photo-grid__overlay-count { font-family:'Lato',sans-serif; font-size:0.65rem; font-weight:400; letter-spacing:0.1em; color:rgba(255,255,255,0.82); }
+    @media (max-width:767px) {
+      #tjg-photo-grid { grid-template-columns:1fr; grid-template-rows:60vw auto; height:auto; }
+      #tjg-photo-grid__thumbs { grid-template-columns:repeat(4,1fr); grid-template-rows:25vw; }
+    }
     /* My Account — saved listings heart icon in brand rose */
     #mlm-heart, svg#mlm-heart, #mlm-heart path, svg#mlm-heart path,
     .mlm-card__title--icon svg, .mlm-card__title--icon svg path { fill: #B38987 !important; color: #B38987 !important; }
@@ -3552,6 +3569,124 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         }
       }
       [400, 1000, 2200].forEach(function(ms) { setTimeout(_restructureDetailHeader, ms); });
+    })();
+
+    // ─── Listing Detail: Photo Mosaic Grid ────────────────────────────────────
+    (function() {
+      function _getSrc(img) {
+        return img.src || img.currentSrc || img.dataset.src || img.dataset.lazy || img.getAttribute('data-original') || '';
+      }
+      function _bad(s) {
+        return !s || s.indexOf('data:') !== -1 || /chevron|spinner|placeholder|\.svg(\?|$)|logo|icon|avatar|noimage/i.test(s);
+      }
+      function _openGallery() {
+        // Try clicking IDX's own "X PHOTOS" button or any gallery trigger
+        var btn = document.querySelector(
+          '#IDX-main a[href*="photogallery"], #IDX-main a[href*="photo-gallery"], ' +
+          '#IDX-main [class*="photo-count"], #IDX-main [class*="photoCount"], ' +
+          '#IDX-main button[class*="gallery"], #IDX-main [class*="view-photos"]'
+        );
+        if (btn) { btn.click(); return; }
+        // Fallback: navigate to the photo gallery page
+        var galLink = (window.location.href.split('?')[0]).replace(/\/$/, '') + '?widgetType=photogallery';
+        window.location.href = galLink;
+      }
+
+      function _buildPhotoGrid() {
+        if (!document.querySelector('#IDX-main.IDX-page-details')) return;
+        if (document.getElementById('tjg-photo-grid')) return;
+
+        // Collect all unique, valid gallery image sources
+        var allImgs = document.querySelectorAll(
+          '#IDX-galleryMain img, #IDX-gallery img, #IDX-gallerySlider img, ' +
+          '#IDX-detailsGallery img, .IDX-galleryMain img, .IDX-gallery img, ' +
+          '.IDX-detailsGallery img, #IDX-detailsImages img, .IDX-gallerySlides img, ' +
+          '#IDX-listingPhotoGallery img, #IDX-detailsPhoto img, ' +
+          '#IDX-detailsWrapper img:not(#tjg-agent-card img):not(footer img)'
+        );
+        var srcs = [];
+        allImgs.forEach(function(img) {
+          var s = _getSrc(img);
+          if (!_bad(s) && srcs.indexOf(s) === -1) srcs.push(s);
+        });
+        if (srcs.length < 2) return; // photos not loaded yet
+
+        // Total photo count from any "X PHOTOS" text on the page
+        var totalCount = srcs.length;
+        document.querySelectorAll('#IDX-main *').forEach(function(el) {
+          if (el.children.length === 0) {
+            var m = el.textContent.match(/(\d+)\s*PHOTO/i);
+            if (m) totalCount = Math.max(totalCount, parseInt(m[1], 10));
+          }
+        });
+
+        // Build the grid element
+        var grid = document.createElement('div');
+        grid.id = 'tjg-photo-grid';
+
+        // Hero image
+        var hero = document.createElement('div');
+        hero.id = 'tjg-photo-grid__hero';
+        hero.title = 'View all photos';
+        var heroImg = document.createElement('img');
+        heroImg.src = srcs[0];
+        heroImg.alt = 'Property photo';
+        hero.appendChild(heroImg);
+        hero.addEventListener('click', _openGallery);
+        grid.appendChild(hero);
+
+        // 2×2 thumbnails
+        var thumbsWrap = document.createElement('div');
+        thumbsWrap.id = 'tjg-photo-grid__thumbs';
+        for (var i = 1; i <= 4; i++) {
+          var thumb = document.createElement('div');
+          thumb.className = 'tjg-photo-grid__thumb' + (i === 4 ? ' tjg-photo-grid__thumb--last' : '');
+          var tImg = document.createElement('img');
+          tImg.src = srcs[Math.min(i, srcs.length - 1)];
+          tImg.alt = 'Property photo ' + (i + 1);
+          thumb.appendChild(tImg);
+          if (i === 4) {
+            var ov = document.createElement('div');
+            ov.className = 'tjg-photo-grid__overlay';
+            ov.innerHTML =
+              '<span class="tjg-photo-grid__overlay-label">View All Photos</span>' +
+              '<span class="tjg-photo-grid__overlay-count">' + totalCount + ' Photos</span>';
+            ov.addEventListener('click', _openGallery);
+            thumb.appendChild(ov);
+          } else {
+            thumb.addEventListener('click', _openGallery);
+          }
+          thumbsWrap.appendChild(thumb);
+        }
+        grid.appendChild(thumbsWrap);
+
+        // Insert full-width before #IDX-detailsWrapper (above the two-column layout)
+        var wrapper = document.getElementById('IDX-detailsWrapper');
+        if (wrapper && wrapper.parentNode) {
+          wrapper.parentNode.insertBefore(grid, wrapper);
+        } else {
+          var main = document.querySelector('#IDX-main.IDX-page-details');
+          if (main) main.insertBefore(grid, main.firstChild);
+        }
+
+        // Hide the original IDX gallery slider
+        var idxGal = document.querySelector(
+          '#IDX-galleryMain, .IDX-galleryMain, #IDX-gallery, ' +
+          '#IDX-detailsGallery, .IDX-detailsGallery, #IDX-detailsImages, ' +
+          '.IDX-gallerySlider, #IDX-gallerySlider'
+        );
+        if (idxGal) idxGal.style.setProperty('display', 'none', 'important');
+
+        // Hide "58 PHOTOS" button — grid handles gallery access
+        document.querySelectorAll('#IDX-main *').forEach(function(el) {
+          if (el.children.length === 0 && /^\s*\d+\s*PHOTO/i.test(el.textContent.trim())) {
+            var btn = el.closest('button, a, [role="button"]') || el;
+            btn.style.setProperty('display', 'none', 'important');
+          }
+        });
+      }
+
+      [800, 1800, 3500, 6000].forEach(function(ms) { setTimeout(_buildPhotoGrid, ms); });
     })();
 
     // ─── /i/ pages: LIST/MAP toggle → 5-column grid on LIST ─────────────────
