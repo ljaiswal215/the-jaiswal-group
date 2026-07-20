@@ -103,6 +103,7 @@
     #IDX-detailsContact { display: none !important; }
     #IDX-main.IDX-page-listing #IDX-detailsHeaderActions { display: none !important; }
     /* Hide selected fields in Basic Information */
+    #IDX-main .IDX-field-listingPrice,
     #IDX-main .IDX-field-bedrooms,
     #IDX-main .IDX-field-totalBaths,
     #IDX-main .IDX-field-fullBaths,
@@ -4024,7 +4025,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           });
           arrows.appendChild(prev);
           arrows.appendChild(next);
-          row.insertBefore(arrows, row.firstChild);
+          row.appendChild(arrows);
         }
         _injectNavArrows();
 
