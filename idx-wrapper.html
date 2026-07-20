@@ -3993,6 +3993,17 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           if (btn.textContent.trim() === 'TOUR') btn.textContent = 'VIRTUAL TOUR';
         });
 
+        // Strip lot size (acres) from Similar Listings cards
+        document.querySelectorAll('.IDX-similar-listings--info').forEach(function(info) {
+          (function walk(node) {
+            node.childNodes.forEach(function(child) {
+              if (child.nodeType === 3) {
+                child.textContent = child.textContent.replace(/,?\s*[\d,]+\.?\d*\s*acres?/gi, '');
+              } else { walk(child); }
+            });
+          })(info);
+        });
+
         // Back-to-results link on detail pages
         var topNav = document.querySelector('#IDX-detailsTopNav');
         if (topNav && !document.querySelector('#IDX-backToResults')) {
