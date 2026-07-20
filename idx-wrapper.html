@@ -138,14 +138,25 @@
     }
 
     /* ─── Listing Detail Header Hierarchy ─── */
-    .IDX-page-details #IDX-detailsAddressStreet {
-      font-size: clamp(2rem, 4.5vw, 3rem) !important;
+    /* ─── Listing Detail: Gillette-style price-first header ─── */
+    .IDX-page-details .tjg-detail-price {
+      display: block !important;
+      font-size: clamp(2.4rem, 4.5vw, 3.2rem) !important;
       font-family: 'Marcellus', serif !important;
       font-weight: 400 !important;
-      line-height: 1.1 !important;
       color: #18254B !important;
-      margin-bottom: 6px !important;
+      margin: 0 0 6px !important;
       letter-spacing: 0.01em !important;
+      line-height: 1.1 !important;
+    }
+    .IDX-page-details #IDX-detailsAddressStreet {
+      font-size: 1rem !important;
+      font-family: 'Lato', sans-serif !important;
+      font-weight: 400 !important;
+      line-height: 1.3 !important;
+      color: #7a7269 !important;
+      margin-bottom: 0 !important;
+      letter-spacing: 0 !important;
     }
     .IDX-page-details #IDX-detailsAddressRegion {
       font-size: 0.95rem !important;
@@ -156,25 +167,48 @@
       display: block !important;
       font-size: 0.95rem !important;
       color: #7a7269 !important;
-      margin-bottom: 8px !important;
+      margin-bottom: 0 !important;
     }
-    .IDX-page-details .tjg-detail-price {
-      display: block !important;
-      font-size: clamp(1.8rem, 3.5vw, 2.6rem) !important;
-      font-family: 'Marcellus', serif !important;
-      font-weight: 400 !important;
-      color: #18254B !important;
-      margin: 2px 0 6px !important;
-      letter-spacing: 0.01em !important;
+    .IDX-page-details .tjg-detail-meta { display: none !important; }
+    /* Stats icon row */
+    .tjg-detail-stats {
+      display: flex !important;
+      align-items: stretch !important;
+      margin: 16px 0 4px !important;
+      padding: 16px 0 0 !important;
+      border-top: 1px solid rgba(24,37,75,0.12) !important;
     }
-    .IDX-page-details .tjg-detail-meta {
-      display: block !important;
-      font-size: 0.88rem !important;
-      font-weight: 400 !important;
-      color: #7a7269 !important;
-      letter-spacing: 0.04em !important;
+    .tjg-detail-stats__col {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 5px !important;
+      padding-right: 28px !important;
+    }
+    .tjg-detail-stats__label {
+      display: flex !important;
+      align-items: center !important;
+      gap: 5px !important;
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.62rem !important;
+      font-weight: 700 !important;
       text-transform: uppercase !important;
-      margin: 0 !important;
+      letter-spacing: 0.1em !important;
+      color: #7a7269 !important;
+    }
+    .tjg-detail-stats__value {
+      font-family: 'Marcellus', serif !important;
+      font-size: 1.5rem !important;
+      color: #18254B !important;
+      line-height: 1 !important;
+    }
+    .tjg-detail-stats__sep {
+      width: 1px !important;
+      background: rgba(24,37,75,0.15) !important;
+      align-self: stretch !important;
+      min-height: 44px !important;
+      margin: 0 28px 0 0 !important;
+      flex-shrink: 0 !important;
     }
 
     /* ─── TJG Agent Card (listing detail aside) ─── */
@@ -3512,16 +3546,13 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         if (!region || region.dataset.tjgDone) return;
         region.dataset.tjgDone = '1';
 
-        // Title-case street address + expand suffixes
         var addrEl = document.getElementById('IDX-detailsAddressStreet');
         if (addrEl) addrEl.textContent = _titleAddr(addrEl.textContent.trim());
 
-        // Hide | dividers
         region.querySelectorAll('.IDX-detailsAddress__divider').forEach(function(d) {
           d.style.display = 'none';
         });
 
-        // Categorise spans: price ($), meta (BD/BTH), city (state zip pattern)
         var spans = Array.from(region.querySelectorAll('span:not(.IDX-detailsAddress__divider)'));
         var priceSpan = null, metaSpan = null, citySpan = null;
         spans.forEach(function(s) {
@@ -3531,27 +3562,41 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           else if (/[A-Z]{2}\s+\d{5}/.test(t)) { citySpan = s; }
         });
 
-        // Format city line: "SAN DIEGO, CA 92130" → "San Diego, California 92130"
         if (citySpan) {
           citySpan.textContent = _titleCity(citySpan.textContent.trim());
           citySpan.className = 'tjg-detail-city';
         }
 
-        // Price → Marcellus focal point
-        if (priceSpan) {
-          priceSpan.className = 'tjg-detail-price';
-          region.appendChild(priceSpan);
+        // Extract beds/baths numbers before class change
+        var beds = '', baths = '';
+        if (metaSpan) {
+          var mt = metaSpan.textContent.trim();
+          var bdM = mt.match(/(\d+)\s*BD/i);
+          var bthM = mt.match(/(\d+)\s*BTH/i);
+          if (bdM) beds = bdM[1];
+          if (bthM) baths = bthM[1];
+          metaSpan.className = 'tjg-detail-meta'; // hidden via CSS
         }
 
-        // Find sqft from listing detail fields
-        var sqftSuffix = '';
+        // Move price BEFORE the street address (price is first, biggest)
+        if (priceSpan) {
+          priceSpan.className = 'tjg-detail-price';
+          var parent = addrEl ? addrEl.parentNode : region.parentNode;
+          if (addrEl && parent) {
+            parent.insertBefore(priceSpan, addrEl);
+          } else {
+            region.insertBefore(priceSpan, region.firstChild);
+          }
+        }
+
+        // Find sqft
+        var sqftVal = '';
         var sqftEl = document.querySelector(
           '#IDX-field-sqFt .IDX-field-value, #IDX-field-livingArea .IDX-field-value, ' +
           '#IDX-field-sqft .IDX-field-value, [id*="LivingArea"] .IDX-field-value, ' +
           '[id*="sqFt"] .IDX-field-value, [id*="sqft"] .IDX-field-value'
         );
         if (!sqftEl) {
-          // Fallback: scan field labels for "SqFt" text
           document.querySelectorAll('.IDX-field-label').forEach(function(lbl) {
             if (/sq\s*ft/i.test(lbl.textContent) && !sqftEl) {
               sqftEl = lbl.nextElementSibling || lbl.parentElement.querySelector('.IDX-field-value');
@@ -3559,21 +3604,39 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           });
         }
         if (sqftEl) {
-          var sqftNum = sqftEl.textContent.trim().replace(/[^\d,]/g, '');
-          if (sqftNum) sqftSuffix = ' • ' + sqftNum + ' Sq Ft';
+          var sqftRaw = sqftEl.textContent.trim().replace(/[^\d]/g, '');
+          if (sqftRaw) sqftVal = parseInt(sqftRaw, 10).toLocaleString();
         }
 
-        // Beds/baths + sqft → small uppercase meta line
-        if (metaSpan) {
-          var mt = metaSpan.textContent.trim()
-            .replace(/\s*BD,?\s*/i, ' BD • ')
-            .replace(/\s*BTH\s*/i, ' BTH');
-          // Expand to full words
-          mt = mt.replace(/(\d+)\s*BD/i, '$1 Bedrooms')
-                 .replace(/(\d+)\s*BTH/i, '$1 Bathrooms');
-          metaSpan.textContent = mt + sqftSuffix;
-          metaSpan.className = 'tjg-detail-meta';
-          region.appendChild(metaSpan);
+        // Build stats icon row below address
+        if (beds || baths || sqftVal) {
+          var bedSVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h18M3 8v13M21 8v13"/><rect x="5" y="9" width="14" height="5" rx="1"/><circle cx="8.5" cy="11.5" r="0.8" fill="currentColor" stroke="none"/></svg>';
+          var bathSVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8V5a2 2 0 012-2h1a2 2 0 012 2v3"/><path d="M2 13h20v2a5 5 0 01-5 5H7a5 5 0 01-5-5v-2z"/></svg>';
+          var sqftSVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 8.5h18M8.5 3v18"/></svg>';
+
+          function _makeStatCol(svg, label, val) {
+            return '<div class="tjg-detail-stats__col">' +
+              '<span class="tjg-detail-stats__label">' + svg + label + '</span>' +
+              '<span class="tjg-detail-stats__value">' + val + '</span>' +
+              '</div>';
+          }
+          var cols = [];
+          if (beds)    cols.push(_makeStatCol(bedSVG,  'Bedrooms',  beds));
+          if (baths)   cols.push(_makeStatCol(bathSVG, 'Bathrooms', baths));
+          if (sqftVal) cols.push(_makeStatCol(sqftSVG, 'Sq. Ft.',   sqftVal));
+
+          var statsInner = '';
+          cols.forEach(function(c, i) {
+            if (i > 0) statsInner += '<div class="tjg-detail-stats__sep"></div>';
+            statsInner += c;
+          });
+
+          var stats = document.createElement('div');
+          stats.className = 'tjg-detail-stats';
+          stats.innerHTML = statsInner;
+          if (region.parentNode) {
+            region.parentNode.insertBefore(stats, region.nextSibling);
+          }
         }
       }
       [400, 1000, 2200].forEach(function(ms) { setTimeout(_restructureDetailHeader, ms); });
