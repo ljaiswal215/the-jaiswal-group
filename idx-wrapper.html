@@ -1724,10 +1724,10 @@
     .IDX-page-photogallery [class*="back"]:hover {
       color: #B38987 !important;
     }
-    /* Custom gallery layout — hide IDX default gallery UI */
-    .IDX-page-photogallery .IDX-photoGallery,
+    /* Custom gallery layout — hide IDX default gallery UI but NOT the outer container */
     .IDX-page-photogallery #IDX-photoGalleryContainer,
-    .IDX-page-photogallery .IDX-photoGalleryContainer,
+    .IDX-page-photogallery .IDX-photoGalleryContainer { visibility: hidden !important; height: 0 !important; overflow: hidden !important; padding: 0 !important; margin: 0 !important; }
+    .IDX-page-photogallery .IDX-photoGallery,
     .IDX-page-photogallery #IDX-showcaseSlides,
     .IDX-page-photogallery .IDX-pagination,
     .IDX-page-photogallery header.IDX-PIH { display: none !important; }
@@ -5041,14 +5041,12 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           wrap.appendChild(grid);
         }
 
-        // Insert after PIH header bar
-        var pih = document.querySelector('header.IDX-PIH');
-        var galleryEl = document.querySelector('.IDX-photoGallery, #IDX-photoGalleryContainer');
-        var ref = pih || galleryEl;
-        if (ref && ref.parentNode) {
-          ref.parentNode.insertBefore(wrap, ref.nextSibling);
+        // Insert BEFORE the photoGalleryContainer so it sits outside the hidden container
+        var container = document.querySelector('#IDX-photoGalleryContainer, .IDX-photoGalleryContainer');
+        if (container && container.parentNode) {
+          container.parentNode.insertBefore(wrap, container);
         } else {
-          document.querySelector('#IDX-main').appendChild(wrap);
+          (document.querySelector('#IDX-main') || document.body).appendChild(wrap);
         }
       }
 
