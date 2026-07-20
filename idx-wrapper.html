@@ -1793,7 +1793,7 @@
       .tjg-contact-row { grid-template-columns:1fr; }
     }
     /* ─── Listing Detail: Photo Mosaic Grid ─── */
-    #tjg-photo-grid { display:grid; grid-template-columns:60fr 40fr; gap:4px; height:540px; width:100%; margin-top:28px; margin-bottom:28px; padding: 0 20px; box-sizing:border-box; }
+    #tjg-photo-grid { display:grid; grid-template-columns:60fr 40fr; gap:4px; height:540px; width:100%; margin-top:28px; margin-bottom:12px; padding: 0 20px; box-sizing:border-box; }
     #tjg-photo-grid__hero { overflow:hidden; cursor:pointer; position:relative; border-radius:12px 0 0 12px; }
     #tjg-photo-grid__hero img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s ease; }
     #tjg-photo-grid__hero:hover img { transform:scale(1.02); }
@@ -3697,15 +3697,19 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         });
 
         var spans = Array.from(region.querySelectorAll('span:not(.IDX-detailsAddress__divider)'));
-        var priceSpan = null, metaSpan = null, citySpan = null;
+        var priceSpan = null, metaSpan = null, cityParts = [];
         spans.forEach(function(s) {
           var t = s.textContent.trim();
           if (t.indexOf('$') > -1) { priceSpan = s; }
           else if (/\bBD\b|\bBTH\b/i.test(t)) { metaSpan = s; }
-          else if (/[A-Z]{2}\s+\d{5}/.test(t)) { citySpan = s; }
+          else if (t) { cityParts.push(t); }
         });
-
-        var cityText = citySpan ? _titleCity(citySpan.textContent.trim()) : '';
+        // IDX may split city, state, zip into separate spans — join and normalize
+        var cityRaw = cityParts.join(' ').replace(/\s*,\s*/g, ', ').replace(/\s{2,}/g, ' ').trim();
+        // Title-case city words; preserve 2-letter state codes as uppercase
+        var cityText = cityRaw.toLowerCase().replace(/\b([a-z]+)\b/g, function(w) {
+          return _states[w] ? w.toUpperCase() : (w.charAt(0).toUpperCase() + w.slice(1));
+        });
 
         // Extract beds/baths numbers before class change
         var beds = '', baths = '';
