@@ -1720,58 +1720,45 @@
     .IDX-page-photogallery [class*="back"]:hover {
       color: #B38987 !important;
     }
-    /* Custom hero viewer — hide IDX default gallery UI */
+    /* Custom gallery layout — hide IDX default gallery UI */
     .IDX-page-photogallery .IDX-photoGallery,
     .IDX-page-photogallery #IDX-photoGalleryContainer,
     .IDX-page-photogallery .IDX-photoGalleryContainer,
     .IDX-page-photogallery #IDX-showcaseSlides,
     .IDX-page-photogallery .IDX-pagination { display: none !important; }
-    /* Hero viewer */
-    #tjg-gallery-viewer {
-      position: relative;
-      width: 100%;
-      background: #000;
-      user-select: none;
-    }
-    #tjg-gallery-hero {
-      display: block;
-      width: 100%;
-      height: 82vh;
-      object-fit: contain;
-      background: #000;
-    }
-    .tjg-gallery-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 52px;
-      height: 52px;
-      background: rgba(0,0,0,0.40);
-      border: none;
-      border-radius: 50%;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      transition: background 0.2s;
-      z-index: 10;
-      padding: 0;
-    }
-    .tjg-gallery-arrow:hover { background: #18254B; }
-    #tjg-gallery-prev { left: 20px; }
-    #tjg-gallery-next { right: 20px; }
-    #tjg-gallery-counter {
-      text-align: center;
-      padding: 10px 0 6px;
-      font-family: 'Lato', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #7a7269;
+    /* Gallery layout */
+    #tjg-gallery-wrap {
+      padding: 0 0 40px;
       background: #F3EFE8;
     }
+    #tjg-gallery-hero-img {
+      display: block;
+      width: 100%;
+      height: 70vh;
+      object-fit: cover;
+      margin-bottom: 4px;
+    }
+    #tjg-gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+    }
+    .tjg-gallery-cell {
+      overflow: hidden;
+      aspect-ratio: 4/3;
+    }
+    .tjg-gallery-cell.tjg-gallery-full {
+      grid-column: 1 / -1;
+      aspect-ratio: 16/7;
+    }
+    .tjg-gallery-cell img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s;
+    }
+    .tjg-gallery-cell img:hover { opacity: 0.9; cursor: zoom-in; }
 
     /* ─── Tour Request Modal (Two-Step) ─── */
     #tjg-tour-modal { display:none; position:fixed; inset:0; z-index:99999; align-items:center; justify-content:center; }
@@ -4992,95 +4979,75 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       _aObs.observe(document.body, { childList: true, subtree: true });
     })();
 
-    // ─── Photo Gallery page: hero viewer with prev/next arrows ───────────────
+    // ─── Photo Gallery page: hero + 2-col grid layout ────────────────────────
     (function() {
       if (!document.querySelector('#IDX-main.IDX-page-photogallery')) return;
-
-      var _srcs = [], _cur = 0, _heroEl = null, _counterEl = null;
 
       function _bad(s) {
         return !s || s.indexOf('data:') !== -1 || /chevron|spinner|placeholder|\.svg(\?|$)|logo|icon|avatar|noimage/i.test(s);
       }
 
-      function _showPhoto(idx) {
-        _cur = (idx + _srcs.length) % _srcs.length;
-        if (_heroEl) _heroEl.src = _srcs[_cur];
-        if (_counterEl) _counterEl.textContent = (_cur + 1) + ' of ' + _srcs.length;
-      }
+      function _buildGallery() {
+        if (document.getElementById('tjg-gallery-wrap')) return;
 
-      function _buildViewer() {
-        if (document.getElementById('tjg-gallery-viewer')) return;
-
-        // Collect full-size image sources from IDX showcase slides
         var imgs = document.querySelectorAll(
           '.IDX-showcaseSlide img, .IDX-thumbnail img, ' +
           '.IDX-photoGallery img, .IDX-simple-gallery img, ' +
           '#IDX-showcaseSlides img'
         );
-        if (imgs.length === 0) { setTimeout(_buildViewer, 600); return; }
+        if (imgs.length === 0) { setTimeout(_buildGallery, 600); return; }
 
-        _srcs = [];
+        var srcs = [];
         imgs.forEach(function(img) {
           var src = img.src || img.getAttribute('data-src') || img.getAttribute('data-lazy') || '';
-          // Prefer larger version: IDX often serves thumbnails via URLs with size params
-          src = src.replace(/[?&]w=\d+/i, '').replace(/[?&]h=\d+/i, '').replace(/\/t_\w+\//i, '/t_fullsize/');
-          if (src && !_bad(src) && _srcs.indexOf(src) === -1) _srcs.push(src);
+          if (src && !_bad(src) && srcs.indexOf(src) === -1) srcs.push(src);
         });
+        if (srcs.length === 0) { setTimeout(_buildGallery, 600); return; }
 
-        if (_srcs.length === 0) { setTimeout(_buildViewer, 600); return; }
+        var wrap = document.createElement('div');
+        wrap.id = 'tjg-gallery-wrap';
 
-        // Build viewer
-        var viewer = document.createElement('div');
-        viewer.id = 'tjg-gallery-viewer';
+        // Hero — first photo full width
+        var hero = document.createElement('img');
+        hero.id = 'tjg-gallery-hero-img';
+        hero.src = srcs[0];
+        hero.alt = 'Property photo 1';
+        wrap.appendChild(hero);
 
-        var prev = document.createElement('button');
-        prev.id = 'tjg-gallery-prev';
-        prev.className = 'tjg-gallery-arrow';
-        prev.setAttribute('aria-label', 'Previous photo');
-        prev.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
+        // Grid — remaining photos
+        if (srcs.length > 1) {
+          var grid = document.createElement('div');
+          grid.id = 'tjg-gallery-grid';
+          var rest = srcs.slice(1);
+          var oddCount = rest.length % 2 === 1;
 
-        _heroEl = document.createElement('img');
-        _heroEl.id = 'tjg-gallery-hero';
-        _heroEl.alt = 'Property photo';
-        _heroEl.src = _srcs[0];
+          rest.forEach(function(src, i) {
+            var cell = document.createElement('div');
+            cell.className = 'tjg-gallery-cell';
+            // Last image spans full width if total remaining is odd
+            if (oddCount && i === rest.length - 1) cell.className += ' tjg-gallery-full';
+            var img = document.createElement('img');
+            img.src = src;
+            img.alt = 'Property photo ' + (i + 2);
+            img.loading = 'lazy';
+            cell.appendChild(img);
+            grid.appendChild(cell);
+          });
+          wrap.appendChild(grid);
+        }
 
-        var next = document.createElement('button');
-        next.id = 'tjg-gallery-next';
-        next.className = 'tjg-gallery-arrow';
-        next.setAttribute('aria-label', 'Next photo');
-        next.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>';
-
-        prev.addEventListener('click', function() { _showPhoto(_cur - 1); });
-        next.addEventListener('click', function() { _showPhoto(_cur + 1); });
-
-        document.addEventListener('keydown', function(e) {
-          if (!document.getElementById('tjg-gallery-viewer')) return;
-          if (e.key === 'ArrowLeft') _showPhoto(_cur - 1);
-          if (e.key === 'ArrowRight') _showPhoto(_cur + 1);
-        });
-
-        viewer.appendChild(prev);
-        viewer.appendChild(_heroEl);
-        viewer.appendChild(next);
-
-        _counterEl = document.createElement('div');
-        _counterEl.id = 'tjg-gallery-counter';
-        _counterEl.textContent = '1 of ' + _srcs.length;
-
-        // Insert after the PIH header bar, before the gallery container
+        // Insert after PIH header bar
         var pih = document.querySelector('header.IDX-PIH');
         var galleryEl = document.querySelector('.IDX-photoGallery, #IDX-photoGalleryContainer');
-        var insertAfter = pih || galleryEl;
-        if (insertAfter && insertAfter.parentNode) {
-          insertAfter.parentNode.insertBefore(viewer, insertAfter.nextSibling);
-          insertAfter.parentNode.insertBefore(_counterEl, viewer.nextSibling);
+        var ref = pih || galleryEl;
+        if (ref && ref.parentNode) {
+          ref.parentNode.insertBefore(wrap, ref.nextSibling);
         } else {
-          document.querySelector('#IDX-main').appendChild(viewer);
-          document.querySelector('#IDX-main').appendChild(_counterEl);
+          document.querySelector('#IDX-main').appendChild(wrap);
         }
       }
 
-      [400, 1000, 2200, 4000].forEach(function(ms) { setTimeout(_buildViewer, ms); });
+      [400, 1000, 2200, 4000].forEach(function(ms) { setTimeout(_buildGallery, ms); });
     })();
   </script>
 
