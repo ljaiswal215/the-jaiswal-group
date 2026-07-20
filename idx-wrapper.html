@@ -3668,8 +3668,31 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         var region = document.getElementById('IDX-detailsAddressRegion');
         if (!region) return;
 
-        // On subsequent runs: just try to patch sqft into existing stats row
+        // On subsequent runs: patch city and/or sqft if missing from first run
         if (region.dataset.tjgDone) {
+          // City patch — runs if city wasn't available at 400ms
+          var addrLine = document.getElementById('tjg-addr-line');
+          if (addrLine && !addrLine.getAttribute('data-tjg-city')) {
+            var cParts = [];
+            Array.from(region.querySelectorAll('span:not(.IDX-detailsAddress__divider)')).forEach(function(s) {
+              var t = s.textContent.trim();
+              if (!t || t.indexOf('$') > -1 || /\bBD\b|\bBTH\b/i.test(t)) return;
+              cParts.push(t);
+            });
+            if (cParts.length) {
+              var cRaw = cParts.join(' ').replace(/\s*,\s*/g, ', ').replace(/\s{2,}/g, ' ').trim();
+              var cText = cRaw.toLowerCase().replace(/\b([a-z]+)\b/g, function(w) {
+                return _states[w] ? w.toUpperCase() : (w.charAt(0).toUpperCase() + w.slice(1));
+              });
+              if (cText) {
+                var sEl = document.getElementById('IDX-detailsAddressStreet');
+                var sText = sEl ? _titleAddr(sEl.textContent.trim()) : '';
+                addrLine.textContent = sText + ', ' + cText;
+                addrLine.setAttribute('data-tjg-city', '1');
+              }
+            }
+          }
+          // Sqft patch
           var statsDiv = document.querySelector('#tjg-addr-stats-row .tjg-detail-stats');
           if (statsDiv && !statsDiv.querySelector('[data-tjg-sqft]')) {
             var sqftVal2 = _findSqft();
@@ -3766,7 +3789,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         // Build the single flex row: address (left) | stats (right)
         var row = document.createElement('div');
         row.id = 'tjg-addr-stats-row';
-        row.innerHTML = '<div id="tjg-addr-line">' + addrText + '</div>' +
+        row.innerHTML = '<div id="tjg-addr-line"' + (cityText ? ' data-tjg-city="1"' : '') + '>' + addrText + '</div>' +
           (statsInner ? '<div class="tjg-detail-stats">' + statsInner + '</div>' : '');
         if (addrParent) {
           addrParent.appendChild(row);
