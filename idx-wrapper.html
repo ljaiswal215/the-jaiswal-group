@@ -4720,6 +4720,19 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             if (t === 'yes') el.textContent = 'Yes';
             else if (t === 'no') el.textContent = 'No';
           });
+
+          // 4. Hide panels that contain no fields
+          document.querySelectorAll('#IDX-fieldsWrapper .IDX-fieldContainer, #IDX-fieldsWrapper .IDX-panel').forEach(function(panel) {
+            if (panel.dataset.tjgEmptyHide) return;
+            var toggle = panel.querySelector('.IDX-panel-collapse-toggle');
+            if (!toggle) return;
+            var body = panel.querySelector('.IDX-panel-collapse, .IDX-panel-body');
+            if (!body) return;
+            if (body.querySelectorAll('.IDX-label').length === 0) {
+              panel.dataset.tjgEmptyHide = '1';
+              panel.style.setProperty('display', 'none', 'important');
+            }
+          });
         }
 
         // Description: 3-line clamp + Read More / Read Less (runs once per page load)
