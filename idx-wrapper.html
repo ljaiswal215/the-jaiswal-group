@@ -187,28 +187,25 @@
       margin-bottom: 0 !important;
     }
     .IDX-page-listing .tjg-detail-meta { display: none !important; }
-    /* Outer wrapper: price+address left | stats+arrows right */
+    /* Outer wrapper: 3-column grid — address | stats | arrows */
     #tjg-listing-meta {
-      display: flex !important;
-      flex-direction: row !important;
+      display: grid !important;
+      grid-template-columns: auto 1fr auto !important;
       align-items: center !important;
-      justify-content: space-between !important;
-      gap: 40px !important;
+      gap: 32px !important;
     }
     #tjg-listing-meta__left {
       display: flex !important;
       flex-direction: column !important;
       gap: 2px !important;
-      flex: 1 !important;
-      min-width: 0 !important;
     }
-    /* Right column: nav arrows + stats */
+    /* Stats: pushed to right edge of middle column */
     #tjg-addr-stats-row {
       display: flex !important;
       flex-direction: row !important;
       align-items: center !important;
       gap: 16px !important;
-      flex-shrink: 0 !important;
+      justify-self: end !important;
     }
     #tjg-addr-line {
       font-family: 'Lato', sans-serif !important;
