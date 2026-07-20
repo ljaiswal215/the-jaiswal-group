@@ -4014,6 +4014,21 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           if (btn.textContent.trim() === 'TOUR') btn.textContent = 'VIRTUAL TOUR';
         });
 
+        // Add commas to lot size numbers on listing detail pages
+        ['IDX-field-lotSizeArea', 'IDX-field-lotSizeSquareFeet'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (!el) return;
+          (function walk(node) {
+            node.childNodes.forEach(function(child) {
+              if (child.nodeType === 3) {
+                child.textContent = child.textContent.replace(/\b(\d{4,})\b/g, function(m) {
+                  return parseInt(m, 10).toLocaleString();
+                });
+              } else { walk(child); }
+            });
+          })(el);
+        });
+
         // Strip lot size (acres) from Similar Listings cards
         document.querySelectorAll('.IDX-similar-listings--info').forEach(function(info) {
           (function walk(node) {
