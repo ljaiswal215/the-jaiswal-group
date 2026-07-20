@@ -102,18 +102,7 @@
     #tjg-heart-btn { display: none !important; }
     #IDX-detailsContact { display: none !important; }
     #IDX-main.IDX-page-listing #IDX-detailsHeaderActions { display: none !important; }
-    /* Hide specific fields in Basic Information section */
-    #IDX-main .IDX-field-bedrooms,
-    #IDX-main .IDX-field-totalBaths,
-    #IDX-main .IDX-field-fullBaths,
-    #IDX-main .IDX-field-partialBaths,
-    #IDX-main .IDX-field-sqFt,
-    #IDX-main .IDX-field-sqft,
-    #IDX-main .IDX-field-acres,
-    #IDX-main .IDX-field-county,
-    #IDX-main .IDX-field-propType,
-    #IDX-main .IDX-field-propertyType { display: none !important; }
-    #IDX-main.IDX-page-listing #IDX-detailsWrapper { margin-top: 24px !important; }
+#IDX-main.IDX-page-listing #IDX-detailsWrapper { margin-top: 24px !important; }
     #IDX-main .IDX-detailsSlidesActions, #IDX-main #IDX-detailsPhotoGalleryLink { display: none !important; }
 
     /* ─── Address & Title Fixes ─── */
@@ -4608,7 +4597,9 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             lbl.dataset.tjgDecolon = '1';
             lbl.childNodes.forEach(function(node) {
               if (node.nodeType === 3) {
-                node.textContent = node.textContent.replace(/:\s*$/, '').trimEnd();
+                node.textContent = node.textContent
+                  .replace(/property\s+sub\s+type/i, 'Property Type')
+                  .replace(/:\s*$/, '').trimEnd();
               }
             });
           });
