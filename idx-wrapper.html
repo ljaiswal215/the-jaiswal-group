@@ -211,17 +211,25 @@
       flex-shrink: 0 !important;
     }
 
-    /* ─── TJG Agent Card (listing detail aside) ─── */
-    #tjg-agent-card { background:#F3EFE8; border:1px solid #E0D9CF; border-radius:0; padding:20px; margin-bottom:16px; font-family:'Lato',sans-serif; }
-    #tjg-agent-card__header { display:flex; flex-direction:column; align-items:center; text-align:center; gap:10px; margin-bottom:18px; }
-    #tjg-agent-card__logo { width:130px; }
-    #tjg-agent-card__logo img { width:100%; height:auto; object-fit:contain; display:block; }
-    #tjg-agent-card__name { font-family:'Marcellus',serif; color:#18254B; font-size:0.95rem; display:block; line-height:1.3; }
-    #tjg-agent-card__dre { color:#7a7269; font-size:0.68rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; display:block; margin-top:2px; }
-    #tjg-tour-btn { display:block; width:100%; background:#18254B; color:#fff; border:2px solid #18254B; border-radius:0; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:14px; cursor:pointer; margin-bottom:10px; box-sizing:border-box; }
-    #tjg-tour-btn:hover { background:#18254B !important; border-color:#18254B !important; color:#B38987 !important; }
-    #tjg-contact-btn { display:block; width:100%; background:transparent; color:#18254B; border:2px solid #18254B; border-radius:0; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:12px; cursor:pointer; text-align:center; text-decoration:none; box-sizing:border-box; transition:background 0.2s, color 0.2s, border-color 0.2s; }
-    #tjg-contact-btn:hover { background:#18254B !important; color:#fff !important; border-color:#18254B !important; opacity:1 !important; }
+    /* ─── TJG Agent Card: Gillette-style dark navy tour CTA ─── */
+    #tjg-agent-card { background:#18254B !important; border:none !important; border-radius:0 !important; padding:28px 24px !important; margin-bottom:16px !important; font-family:'Lato',sans-serif !important; }
+    #tjg-tour-cta { text-align:center; }
+    #tjg-tour-cta__eyebrow { font-size:0.62rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:#B38987; margin:0 0 10px; }
+    #tjg-tour-cta__heading { font-family:'Marcellus',serif; font-size:clamp(1.55rem,3vw,2rem); font-weight:400; color:#fff; line-height:1.15; margin:0 0 12px; }
+    #tjg-tour-cta__desc { font-size:0.8rem; color:rgba(255,255,255,0.68); line-height:1.6; margin:0 0 20px; }
+    #tjg-tour-btn { display:block !important; width:100% !important; background:transparent !important; color:#fff !important; border:1.5px solid rgba(255,255,255,0.5) !important; border-radius:3px !important; font-family:'Lato',sans-serif !important; font-size:0.7rem !important; font-weight:700 !important; letter-spacing:0.14em !important; text-transform:uppercase !important; padding:14px !important; cursor:pointer !important; box-sizing:border-box !important; transition:border-color 0.2s, color 0.2s; }
+    /* Divider */
+    #tjg-tour-divider { display:flex; align-items:center; gap:12px; margin:24px 0; }
+    #tjg-tour-divider__line { flex:1; height:1px; background:rgba(255,255,255,0.18); }
+    #tjg-tour-divider__text { font-size:0.62rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.45); white-space:nowrap; }
+    /* Agent connect section */
+    #tjg-agent-connect { display:flex; align-items:center; gap:14px; }
+    #tjg-agent-headshot { width:64px !important; height:64px !important; border-radius:50% !important; object-fit:cover !important; flex-shrink:0 !important; border:2px solid rgba(179,137,135,0.55) !important; display:block !important; }
+    #tjg-agent-info { flex:1; min-width:0; }
+    #tjg-agent-name { font-family:'Marcellus',serif; font-size:0.95rem; color:#fff; margin:0 0 2px; }
+    #tjg-agent-title { font-size:0.6rem; text-transform:uppercase; letter-spacing:0.07em; color:rgba(255,255,255,0.5); margin:0 0 8px; line-height:1.4; }
+    #tjg-agent-phone, #tjg-agent-email { display:flex; align-items:center; gap:6px; font-size:0.78rem; color:rgba(255,255,255,0.82); text-decoration:none; margin:0 0 4px; line-height:1.4; }
+    #tjg-agent-phone:hover, #tjg-agent-email:hover { color:#B38987 !important; }
     /* Signup optin checkbox label — overrides IDX agentContactForm label rules */
     #tjg-signup-optin label { display:flex !important; align-items:flex-start !important; gap:6px !important; text-transform:none !important; font-weight:400 !important; letter-spacing:0 !important; font-size:0.68rem !important; cursor:pointer; width:100%; }
     #tjg-signup-optin label input[type="checkbox"] { flex-shrink:0 !important; margin-top:2px !important; width:14px !important; height:14px !important; }
@@ -2934,61 +2942,53 @@
       var listingHdr = document.getElementById('IDX-ListingHeader');
       if (listingHdr) listingHdr.style.setProperty('display', 'none', 'important');
 
-      // Build agent card
+      // Build agent card — Gillette-style dark navy tour CTA
       var card = document.createElement('div');
       card.id = 'tjg-agent-card';
       card.innerHTML =
-        '<div id="tjg-agent-card__header">' +
-          '<div id="tjg-agent-card__logo" style="width:130px;background:none!important;border-radius:0!important;padding:0!important;height:auto!important;display:block;">' +
-            '<img src="https://ljaiswal215.github.io/the-jaiswal-group/logo.png" alt="The Jaiswal Group Real Estate" style="width:100%;height:auto;object-fit:contain;display:block;filter:none!important;">' +
-          '</div>' +
-          '<div>' +
-            '<span id="tjg-agent-card__name">The Jaiswal Group Real Estate</span>' +
-            '<span id="tjg-agent-card__dre">CA DRE #02251231</span>' +
-          '</div>' +
+        '<div id="tjg-tour-cta">' +
+          '<p id="tjg-tour-cta__eyebrow">Interested in This Home?</p>' +
+          '<h2 id="tjg-tour-cta__heading">Schedule My<br>Private Tour</h2>' +
+          '<p id="tjg-tour-cta__desc">Experience this property in person with a private showing at a time that works for you.</p>' +
+          '<button id="tjg-tour-btn">Schedule My Tour</button>' +
         '</div>' +
-        '<button id="tjg-tour-btn">Request a Tour</button>' +
-        '<button type="button" id="tjg-contact-btn">Contact Us</button>';
+        '<div id="tjg-tour-divider">' +
+          '<div id="tjg-tour-divider__line"></div>' +
+          '<span id="tjg-tour-divider__text">Prefer to connect first?</span>' +
+          '<div id="tjg-tour-divider__line"></div>' +
+        '</div>' +
+        '<div id="tjg-agent-connect">' +
+          '<img id="tjg-agent-headshot" src="https://ljaiswal215.github.io/the-jaiswal-group/lynnette.png" alt="Lynnette Jaiswal">' +
+          '<div id="tjg-agent-info">' +
+            '<p id="tjg-agent-name">Lynnette Jaiswal</p>' +
+            '<p id="tjg-agent-title">Broker | Luxury Real Estate Advisor</p>' +
+            '<a href="tel:+18582907531" id="tjg-agent-phone">' +
+              '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.07 2.18 2 2 0 012.03 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>' +
+              '(858) 290-7531' +
+            '</a>' +
+            '<a href="mailto:Lynnette@thejaiswalgroup.com" id="tjg-agent-email">' +
+              '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>' +
+              'Lynnette@thejaiswalgroup.com' +
+            '</a>' +
+          '</div>' +
+        '</div>';
 
       // Insert at the very top of the aside — outside IDX's collapsible widget
       aside.insertBefore(card, aside.firstChild);
 
-      // Force-apply styles after insertion to beat any cached IDX wrapper CSS
-      card.style.setProperty('background', '#F3EFE8', 'important');
-      var logoDiv = document.getElementById('tjg-agent-card__logo');
-      if (logoDiv) {
-        logoDiv.style.setProperty('background', 'none', 'important');
-        logoDiv.style.setProperty('border-radius', '0', 'important');
-        logoDiv.style.setProperty('padding', '0', 'important');
-        logoDiv.style.setProperty('height', 'auto', 'important');
-        logoDiv.style.setProperty('width', '130px', 'important');
-        logoDiv.style.setProperty('display', 'block', 'important');
-        var logoImg = logoDiv.querySelector('img');
-        if (logoImg) logoImg.style.setProperty('filter', 'none', 'important');
-      }
+      // Force-apply card background to beat cached IDX wrapper CSS
+      card.style.setProperty('background', '#18254B', 'important');
+
+      // Tour button hover — inline !important on the button blocks CSS :hover
       var tourBtn = document.getElementById('tjg-tour-btn');
       if (tourBtn) {
-        tourBtn.style.setProperty('background', '#18254B', 'important');
-        tourBtn.style.setProperty('background-color', '#18254B', 'important');
-        tourBtn.style.setProperty('color', '#fff', 'important');
-        tourBtn.style.setProperty('border', '2px solid #18254B', 'important');
-        // Hover via JS — inline !important blocks CSS :hover rules
         tourBtn.addEventListener('mouseenter', function() {
+          tourBtn.style.setProperty('border-color', '#B38987', 'important');
           tourBtn.style.setProperty('color', '#B38987', 'important');
         });
         tourBtn.addEventListener('mouseleave', function() {
+          tourBtn.style.setProperty('border-color', 'rgba(255,255,255,0.5)', 'important');
           tourBtn.style.setProperty('color', '#fff', 'important');
-        });
-      }
-      var contactBtn = document.getElementById('tjg-contact-btn');
-      if (contactBtn) {
-        contactBtn.addEventListener('mouseenter', function() {
-          contactBtn.style.setProperty('background', '#18254B', 'important');
-          contactBtn.style.setProperty('color', '#fff', 'important');
-        });
-        contactBtn.addEventListener('mouseleave', function() {
-          contactBtn.style.setProperty('background', 'transparent', 'important');
-          contactBtn.style.setProperty('color', '#18254B', 'important');
         });
       }
 
@@ -3306,7 +3306,8 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       document.getElementById('tjg-contact-close').addEventListener('click', _contactClose);
       document.getElementById('tjg-contact-overlay').addEventListener('click', _contactClose);
 
-      document.getElementById('tjg-contact-btn').addEventListener('click', function() {
+      var _contactBtnEl = document.getElementById('tjg-contact-btn');
+      if (_contactBtnEl) _contactBtnEl.addEventListener('click', function() {
         document.getElementById('tjg-contact-form').style.display = '';
         document.getElementById('tjg-contact-success').style.display = 'none';
         var submitBtn = document.getElementById('tjg-contact-submit');
