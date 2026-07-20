@@ -171,8 +171,11 @@
     #tjg-agent-card__dre { color:#7a7269; font-size:0.68rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; display:block; margin-top:2px; }
     #tjg-tour-btn { display:block; width:100%; background:#18254B; color:#fff; border:2px solid #18254B; border-radius:0; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:14px; cursor:pointer; margin-bottom:10px; box-sizing:border-box; }
     #tjg-tour-btn:hover { background:#18254B !important; border-color:#18254B !important; color:#B38987 !important; }
-    #tjg-contact-btn { display:block; width:100%; background:transparent; color:#18254B; border:2px solid #18254B; border-radius:0; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:12px; cursor:pointer; text-align:center; text-decoration:none; box-sizing:border-box; transition:opacity 0.2s; }
-    #tjg-contact-btn:hover { background:#18254B !important; color:#fff !important; border-color:#18254B !important; opacity:1; }
+    #tjg-contact-btn { display:block; width:100%; background:transparent; color:#18254B; border:2px solid #18254B; border-radius:0; font-family:'Lato',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:12px; cursor:pointer; text-align:center; text-decoration:none; box-sizing:border-box; transition:background 0.2s, color 0.2s, border-color 0.2s; }
+    #tjg-contact-btn:hover { background:#18254B !important; color:#fff !important; border-color:#18254B !important; opacity:1 !important; }
+    /* Signup optin checkbox label — overrides IDX agentContactForm label rules */
+    #tjg-signup-optin label { display:flex !important; align-items:flex-start !important; gap:6px !important; text-transform:none !important; font-weight:400 !important; letter-spacing:0 !important; font-size:0.68rem !important; cursor:pointer; width:100%; }
+    #tjg-signup-optin label input[type="checkbox"] { flex-shrink:0 !important; margin-top:2px !important; width:14px !important; height:14px !important; }
     /* YOUR CONTACT INFORMATION heading on listing details pages */
     #IDX-main .IDX-contact-form__title,
     #IDX-main .IDX-details-contact-title {
