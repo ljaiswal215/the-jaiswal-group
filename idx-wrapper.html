@@ -3726,7 +3726,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
     // ─── Listing Detail: Photo Mosaic Grid ────────────────────────────────────
     (function() {
       function _getSrc(img) {
-        return img.src || img.currentSrc || img.dataset.src || img.dataset.lazy || img.getAttribute('data-original') || '';
+        return img.src || img.currentSrc || img.dataset.src || img.dataset.lazy || img.getAttribute('data-swiper-lazy') || img.getAttribute('data-original') || '';
       }
       function _bad(s) {
         return !s || s.indexOf('data:') !== -1 || /chevron|spinner|placeholder|\.svg(\?|$)|logo|icon|avatar|noimage/i.test(s);
@@ -3750,7 +3750,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
 
         // Collect all unique, valid gallery image sources
         var allImgs = document.querySelectorAll(
-          '#IDX-galleryMain img, #IDX-gallery img, #IDX-gallerySlider img, ' +
+          '#IDX-primaryPhoto img, #IDX-galleryMain img, #IDX-gallery img, #IDX-gallerySlider img, ' +
           '#IDX-detailsGallery img, .IDX-galleryMain img, .IDX-gallery img, ' +
           '.IDX-detailsGallery img, #IDX-detailsImages img, .IDX-gallerySlides img, ' +
           '#IDX-listingPhotoGallery img, #IDX-detailsPhoto img, ' +
@@ -3878,12 +3878,11 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         }
 
         // Hide the original IDX gallery slider
-        var idxGal = document.querySelector(
-          '#IDX-galleryMain, .IDX-galleryMain, #IDX-gallery, ' +
+        document.querySelectorAll(
+          '#IDX-primaryPhoto, #IDX-galleryMain, .IDX-galleryMain, #IDX-gallery, ' +
           '#IDX-detailsGallery, .IDX-detailsGallery, #IDX-detailsImages, ' +
           '.IDX-gallerySlider, #IDX-gallerySlider'
-        );
-        if (idxGal) idxGal.style.setProperty('display', 'none', 'important');
+        ).forEach(function(el) { el.style.setProperty('display', 'none', 'important'); });
 
         // Hide "58 PHOTOS" button — grid handles gallery access
         document.querySelectorAll('#IDX-main *').forEach(function(el) {
