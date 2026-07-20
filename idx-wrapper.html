@@ -192,7 +192,8 @@
       display: flex !important;
       flex-direction: row !important;
       align-items: center !important;
-      gap: 64px !important;
+      gap: 48px !important;
+      padding: 0 20px !important;
     }
     #tjg-listing-meta__left {
       display: flex !important;
@@ -201,13 +202,11 @@
       flex-shrink: 0 !important;
       min-width: 0 !important;
     }
-    /* Stats: pushed to the right by consuming the free space on its left */
     #tjg-addr-stats-row {
       display: flex !important;
       flex-direction: row !important;
       align-items: center !important;
       gap: 16px !important;
-      margin-left: auto !important;
       flex-shrink: 0 !important;
     }
     #tjg-addr-line {
@@ -1840,7 +1839,7 @@
     .tjg-photo-grid__icon-btn svg { width:16px; height:16px; stroke:#18254B; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
     .tjg-photo-grid__icon-btn.tjg-heart-saved svg { stroke:#B38987; fill:#B38987; }
     /* Photo nav arrows — left of address/stats row */
-    #tjg-nav-arrows { display:flex; gap:8px; align-items:center; flex-shrink:0; }
+    #tjg-nav-arrows { display:flex; gap:8px; align-items:center; flex-shrink:0; margin-left:auto; }
     .tjg-nav-arrow { width:38px; height:38px; border-radius:50%; background:#18254B; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background 0.2s; padding:0; flex-shrink:0; }
     .tjg-nav-arrow:hover { background:#B38987; }
     .tjg-nav-arrow svg { stroke:#fff; fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
