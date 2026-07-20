@@ -1648,24 +1648,20 @@
       .tjg-contact-row { grid-template-columns:1fr; }
     }
     /* ─── Listing Detail: Photo Mosaic Grid ─── */
-    #tjg-photo-grid { display:grid; grid-template-columns:55fr 45fr; gap:4px; height:540px; width:100%; }
+    #tjg-photo-grid { display:grid; grid-template-columns:60fr 40fr; gap:4px; height:540px; width:100%; }
     #tjg-photo-grid__hero { overflow:hidden; cursor:pointer; position:relative; }
     #tjg-photo-grid__hero img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s ease; }
     #tjg-photo-grid__hero:hover img { transform:scale(1.02); }
-    #tjg-photo-grid__right { display:flex; flex-direction:column; gap:4px; }
-    #tjg-photo-grid__right-top { flex:1; overflow:hidden; cursor:pointer; }
-    #tjg-photo-grid__right-top img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s ease; }
-    #tjg-photo-grid__right-top:hover img { transform:scale(1.02); }
-    #tjg-photo-grid__bottom-row { display:grid; grid-template-columns:1fr 1fr; gap:4px; flex:1; }
+    /* Right column: 2x2 grid */
+    #tjg-photo-grid__thumbs { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:4px; position:relative; }
     .tjg-photo-grid__thumb { overflow:hidden; position:relative; cursor:pointer; }
     .tjg-photo-grid__thumb img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s ease; }
     .tjg-photo-grid__thumb:hover img { transform:scale(1.03); }
-    /* Action buttons — positioned bottom-right of the last thumbnail */
+    /* Action buttons — overlaid bottom-right of last thumb */
     .tjg-photo-grid__btn-group { position:absolute; bottom:12px; right:12px; display:flex; gap:8px; z-index:2; }
     .tjg-photo-grid__action-btn { background:rgba(255,255,255,0.93); color:#18254B; font-family:'Lato',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.06em; padding:8px 14px; border:none; border-radius:4px; cursor:pointer; transition:background 0.15s; display:inline-flex; align-items:center; gap:6px; text-decoration:none; white-space:nowrap; }
     .tjg-photo-grid__action-btn:hover { background:#fff; color:#18254B; }
-    /* Icon buttons — top-right of grid */
-    #tjg-photo-grid__right { position:relative; }
+    /* Heart + share icons — overlaid top-right, on top of the photos */
     #tjg-photo-grid__icon-group { position:absolute; top:12px; right:12px; display:flex; gap:8px; z-index:3; }
     .tjg-photo-grid__icon-btn { width:36px; height:36px; background:rgba(255,255,255,0.9); border:none; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background 0.2s; padding:0; }
     .tjg-photo-grid__icon-btn:hover { background:#fff; }
@@ -1673,10 +1669,8 @@
     .tjg-photo-grid__icon-btn.tjg-heart-saved svg { stroke:#B38987; fill:#B38987; }
     @media (max-width:767px) {
       #tjg-photo-grid { grid-template-columns:1fr; height:auto; }
-      #tjg-photo-grid__right { display:grid; grid-template-columns:repeat(3,1fr); flex-direction:unset; }
-      #tjg-photo-grid__right-top { height:28vw; }
-      #tjg-photo-grid__bottom-row { display:contents; }
       #tjg-photo-grid__hero { height:60vw; }
+      #tjg-photo-grid__thumbs { grid-template-columns:repeat(4,1fr); grid-template-rows:25vw; }
     }
     /* My Account — saved listings heart icon in brand rose */
     #mlm-heart, svg#mlm-heart, #mlm-heart path, svg#mlm-heart path,
@@ -3657,15 +3651,14 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         hero.addEventListener('click', _openGallery);
         grid.appendChild(hero);
 
-        // Right column: top photo + bottom row of 2
-        var rightCol = document.createElement('div');
-        rightCol.id = 'tjg-photo-grid__right';
+        // Right column: 2x2 grid of thumbnails
+        var thumbsWrap = document.createElement('div');
+        thumbsWrap.id = 'tjg-photo-grid__thumbs';
 
-        // Top-right icon group: heart (save) + share
+        // Icon group overlaid top-right of the 2x2 area
         var iconGroup = document.createElement('div');
         iconGroup.id = 'tjg-photo-grid__icon-group';
 
-        // Heart / save button
         var heartBtn = document.createElement('button');
         heartBtn.className = 'tjg-photo-grid__icon-btn';
         heartBtn.title = 'Save this listing';
@@ -3676,7 +3669,6 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         });
         iconGroup.appendChild(heartBtn);
 
-        // Share button
         var shareBtn = document.createElement('button');
         shareBtn.className = 'tjg-photo-grid__icon-btn';
         shareBtn.title = 'Share this listing';
@@ -3684,9 +3676,8 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         shareBtn.addEventListener('click', function(e) {
           e.stopPropagation();
           var url = window.location.href;
-          var title = document.title || 'Property Listing';
           if (navigator.share) {
-            navigator.share({ title: title, url: url });
+            navigator.share({ title: document.title || 'Property Listing', url: url });
           } else {
             navigator.clipboard.writeText(url).then(function() {
               shareBtn.title = 'Link copied!';
@@ -3695,72 +3686,43 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           }
         });
         iconGroup.appendChild(shareBtn);
+        thumbsWrap.appendChild(iconGroup);
 
-        rightCol.appendChild(iconGroup);
+        // 4 thumbnails in 2x2
+        for (var i = 1; i <= 4; i++) {
+          var thumb = document.createElement('div');
+          thumb.className = 'tjg-photo-grid__thumb';
+          var tImg = document.createElement('img');
+          tImg.src = srcs[Math.min(i, srcs.length - 1)];
+          tImg.alt = 'Property photo ' + (i + 1);
+          thumb.appendChild(tImg);
 
-        // Top-right: one full-width photo
-        var rightTop = document.createElement('div');
-        rightTop.id = 'tjg-photo-grid__right-top';
-        var rt1Img = document.createElement('img');
-        rt1Img.src = srcs[Math.min(1, srcs.length - 1)];
-        rt1Img.alt = 'Property photo 2';
-        rightTop.appendChild(rt1Img);
-        rightTop.addEventListener('click', _openGallery);
-        rightCol.appendChild(rightTop);
+          // Bottom-right of last thumb: Virtual Tour + All Photos buttons
+          if (i === 4) {
+            var btnGroup = document.createElement('div');
+            btnGroup.className = 'tjg-photo-grid__btn-group';
+            if (vtHref) {
+              var vtBtn = document.createElement('a');
+              vtBtn.className = 'tjg-photo-grid__action-btn';
+              vtBtn.href = vtHref;
+              vtBtn.target = '_blank';
+              vtBtn.rel = 'noopener';
+              vtBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>Virtual Tour';
+              vtBtn.addEventListener('click', function(e) { e.stopPropagation(); });
+              btnGroup.appendChild(vtBtn);
+            }
+            var allBtn = document.createElement('button');
+            allBtn.className = 'tjg-photo-grid__action-btn';
+            allBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>All Photos';
+            allBtn.addEventListener('click', function(e) { e.stopPropagation(); _openGallery(); });
+            btnGroup.appendChild(allBtn);
+            thumb.appendChild(btnGroup);
+          }
 
-        // Bottom row: two side-by-side thumbnails
-        var bottomRow = document.createElement('div');
-        bottomRow.id = 'tjg-photo-grid__bottom-row';
-
-        var thumb3 = document.createElement('div');
-        thumb3.className = 'tjg-photo-grid__thumb';
-        var t3Img = document.createElement('img');
-        t3Img.src = srcs[Math.min(2, srcs.length - 1)];
-        t3Img.alt = 'Property photo 3';
-        thumb3.appendChild(t3Img);
-        thumb3.addEventListener('click', _openGallery);
-        bottomRow.appendChild(thumb3);
-
-        // Last thumb — action buttons overlaid bottom-right
-        var thumb4 = document.createElement('div');
-        thumb4.className = 'tjg-photo-grid__thumb';
-        var t4Img = document.createElement('img');
-        t4Img.src = srcs[Math.min(3, srcs.length - 1)];
-        t4Img.alt = 'Property photo 4';
-        thumb4.appendChild(t4Img);
-        thumb4.addEventListener('click', _openGallery);
-
-        // Button group (Virtual Tour + All Photos)
-        var btnGroup = document.createElement('div');
-        btnGroup.className = 'tjg-photo-grid__btn-group';
-
-        if (vtHref) {
-          var vtBtn = document.createElement('a');
-          vtBtn.className = 'tjg-photo-grid__action-btn';
-          vtBtn.href = vtHref;
-          vtBtn.target = '_blank';
-          vtBtn.rel = 'noopener';
-          vtBtn.innerHTML =
-            '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
-            '<polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>' +
-            'Virtual Tour';
-          vtBtn.addEventListener('click', function(e) { e.stopPropagation(); });
-          btnGroup.appendChild(vtBtn);
+          thumb.addEventListener('click', _openGallery);
+          thumbsWrap.appendChild(thumb);
         }
-
-        var allBtn = document.createElement('button');
-        allBtn.className = 'tjg-photo-grid__action-btn';
-        allBtn.innerHTML =
-          '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
-          '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>' +
-          'All Photos';
-        allBtn.addEventListener('click', function(e) { e.stopPropagation(); _openGallery(); });
-        btnGroup.appendChild(allBtn);
-
-        thumb4.appendChild(btnGroup);
-        bottomRow.appendChild(thumb4);
-        rightCol.appendChild(bottomRow);
-        grid.appendChild(rightCol);
+        grid.appendChild(thumbsWrap);
 
         // Insert full-width before #IDX-detailsWrapper (above the two-column layout)
         var wrapper = document.getElementById('IDX-detailsWrapper');
