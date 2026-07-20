@@ -119,7 +119,7 @@
     [class*="image-count"], [class*="imageCount"],
     [class*="gallery-counter"], [class*="galleryCounter"],
     [class*="photo-counter"], [class*="photoCounter"],
-    .IDX-page-details [class*="counter"]:not([class*="contact"]):not([class*="result"]) {
+    .IDX-page-listing [class*="counter"]:not([class*="contact"]):not([class*="result"]) {
       display: none !important;
     }
     #IDX-detailsAddressStreet * {
@@ -140,7 +140,7 @@
 
     /* ─── Listing Detail Header Hierarchy ─── */
     /* ─── Listing Detail: Gillette-style price-first header ─── */
-    .IDX-page-details .tjg-detail-price {
+    .IDX-page-listing .tjg-detail-price {
       display: block !important;
       font-size: clamp(2.4rem, 4.5vw, 3.2rem) !important;
       font-family: 'Marcellus', serif !important;
@@ -150,7 +150,7 @@
       letter-spacing: 0.01em !important;
       line-height: 1.1 !important;
     }
-    .IDX-page-details #IDX-detailsAddressStreet {
+    .IDX-page-listing #IDX-detailsAddressStreet {
       font-size: 1rem !important;
       font-family: 'Lato', sans-serif !important;
       font-weight: 400 !important;
@@ -159,18 +159,18 @@
       margin-bottom: 0 !important;
       letter-spacing: 0 !important;
     }
-    .IDX-page-details #IDX-detailsAddressRegion {
+    .IDX-page-listing #IDX-detailsAddressRegion {
       font-size: 0.95rem !important;
       color: #7a7269 !important;
       line-height: 1.5 !important;
     }
-    .IDX-page-details .tjg-detail-city {
+    .IDX-page-listing .tjg-detail-city {
       display: block !important;
       font-size: 0.95rem !important;
       color: #7a7269 !important;
       margin-bottom: 0 !important;
     }
-    .IDX-page-details .tjg-detail-meta { display: none !important; }
+    .IDX-page-listing .tjg-detail-meta { display: none !important; }
     /* Stats icon row */
     .tjg-detail-stats {
       display: flex !important;
@@ -251,15 +251,15 @@
     #tjg-listing-attribution .tjg-attr-text { font-family:'Lato',sans-serif; font-size:11px; color:#18254B; line-height:1.5; }
 
     /* ─── Description: 3-line clamp + Read More / Read Less ─── */
-    #IDX-main.IDX-page-details #IDX-detailsDescriptionActions { display: none !important; }
-    #IDX-main.IDX-page-details .IDX-clamp__target.tjg-collapsed {
+    #IDX-main.IDX-page-listing #IDX-detailsDescriptionActions { display: none !important; }
+    #IDX-main.IDX-page-listing .IDX-clamp__target.tjg-collapsed {
       display: -webkit-box !important;
       -webkit-line-clamp: 3 !important;
       -webkit-box-orient: vertical !important;
       overflow: hidden !important;
       max-height: none !important;
     }
-    #IDX-main.IDX-page-details .IDX-clamp__target.tjg-expanded {
+    #IDX-main.IDX-page-listing .IDX-clamp__target.tjg-expanded {
       display: block !important;
       overflow: visible !important;
       max-height: none !important;
@@ -283,12 +283,12 @@
 
     /* ─── Listing Detail: Gillette-style two-column field table ─── */
     /* Collapse IDX's "two-column" float grid → single full-width list */
-    .IDX-page-details .IDX-fieldTwoColumn { display: block !important; column-count: 1 !important; }
-    .IDX-page-details .IDX-fieldTwoColumn .IDX-field { float: none !important; width: 100% !important; }
+    .IDX-page-listing .IDX-fieldTwoColumn { display: block !important; column-count: 1 !important; }
+    .IDX-page-listing .IDX-fieldTwoColumn .IDX-field { float: none !important; width: 100% !important; }
     /* Panel body: zero padding so rows bleed edge-to-edge */
-    .IDX-page-details .IDX-panel-body { padding: 0 !important; }
+    .IDX-page-listing .IDX-panel-body { padding: 0 !important; }
     /* Each field row: flex — label left, value right */
-    .IDX-page-details .IDX-field {
+    .IDX-page-listing .IDX-field {
       display: flex !important;
       justify-content: space-between !important;
       align-items: baseline !important;
@@ -303,9 +303,9 @@
       box-sizing: border-box !important;
       background: transparent !important;
     }
-    .IDX-page-details .IDX-field:last-child { border-bottom: none !important; }
+    .IDX-page-listing .IDX-field:last-child { border-bottom: none !important; }
     /* Label: subdued, regular weight, left side */
-    .IDX-page-details .IDX-field .IDX-label {
+    .IDX-page-listing .IDX-field .IDX-label {
       font-size: 0.82rem !important;
       font-weight: 400 !important;
       color: #7a7269 !important;
@@ -314,10 +314,10 @@
       min-width: 0 !important;
     }
     /* Value: navy bold, right side — target all IDX value patterns */
-    .IDX-page-details .IDX-field .IDX-field-value,
-    .IDX-page-details .IDX-field .IDX-text,
-    .IDX-page-details .IDX-field > span:not(.IDX-label),
-    .IDX-page-details .IDX-field > div:not(.IDX-label) {
+    .IDX-page-listing .IDX-field .IDX-field-value,
+    .IDX-page-listing .IDX-field .IDX-text,
+    .IDX-page-listing .IDX-field > span:not(.IDX-label),
+    .IDX-page-listing .IDX-field > div:not(.IDX-label) {
       font-size: 0.82rem !important;
       font-weight: 700 !important;
       color: #18254B !important;
@@ -3554,7 +3554,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
     // ─── Listing Detail: TCPA disclosure on contact form ─────────────────────
     (function() {
       function _injectDetailTCPA() {
-        if (!document.querySelector('#IDX-main.IDX-page-details')) return;
+        if (!document.querySelector('#IDX-main.IDX-page-listing')) return;
         var actions = document.getElementById('IDX-detailscontactFormActions');
         if (!actions || document.getElementById('tjg-detail-tcpa')) return;
 
@@ -3622,7 +3622,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       }
 
       function _restructureDetailHeader() {
-        if (!document.querySelector('#IDX-main.IDX-page-details')) return;
+        if (!document.querySelector('#IDX-main.IDX-page-listing')) return;
         var region = document.getElementById('IDX-detailsAddressRegion');
         if (!region || region.dataset.tjgDone) return;
         region.dataset.tjgDone = '1';
@@ -3745,7 +3745,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       }
 
       function _buildPhotoGrid() {
-        if (!document.querySelector('#IDX-main.IDX-page-details')) return;
+        if (!document.querySelector('#IDX-main.IDX-page-listing')) return;
         if (document.getElementById('tjg-photo-grid')) return;
 
         // Collect all unique, valid gallery image sources
@@ -3873,7 +3873,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         if (wrapper && wrapper.parentNode) {
           wrapper.parentNode.insertBefore(grid, wrapper);
         } else {
-          var main = document.querySelector('#IDX-main.IDX-page-details');
+          var main = document.querySelector('#IDX-main.IDX-page-listing');
           if (main) main.insertBefore(grid, main.firstChild);
         }
 
@@ -4494,7 +4494,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         }
 
         // Listing detail panel cleanup: hide, rename, and strip label colons
-        if (document.querySelector('#IDX-main.IDX-page-details')) {
+        if (document.querySelector('#IDX-main.IDX-page-listing')) {
           // 1. Hide Primary Features / rename Interior + External
           document.querySelectorAll('#IDX-fieldsWrapper .IDX-fieldContainer, #IDX-fieldsWrapper .IDX-panel').forEach(function(panel) {
             var toggle = panel.querySelector('.IDX-panel-collapse-toggle');
@@ -4512,7 +4512,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           });
 
           // 2. Strip trailing colons from all field labels (runs once per label)
-          document.querySelectorAll('#IDX-main.IDX-page-details .IDX-label').forEach(function(lbl) {
+          document.querySelectorAll('#IDX-main.IDX-page-listing .IDX-label').forEach(function(lbl) {
             if (lbl.dataset.tjgDecolon) return;
             lbl.dataset.tjgDecolon = '1';
             lbl.childNodes.forEach(function(node) {
@@ -4525,7 +4525,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
 
         // Description: 3-line clamp + Read More / Read Less (runs once per page load)
         (function() {
-          if (!document.querySelector('#IDX-main.IDX-page-details')) return;
+          if (!document.querySelector('#IDX-main.IDX-page-listing')) return;
           var descP = document.querySelector(
             '#IDX-detailsDescription .IDX-clamp__target, ' +
             '#IDX-detailsDescription p.IDX-clamp__target, ' +
