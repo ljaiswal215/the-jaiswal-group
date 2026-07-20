@@ -246,6 +246,37 @@
     #tjg-listing-attribution .tjg-attr-logo { height:36px; width:auto; mix-blend-mode:multiply; flex-shrink:0; }
     #tjg-listing-attribution .tjg-attr-text { font-family:'Lato',sans-serif; font-size:11px; color:#18254B; line-height:1.5; }
 
+    /* ─── Description: 3-line clamp + Read More / Read Less ─── */
+    #IDX-main.IDX-page-details #IDX-detailsDescriptionActions { display: none !important; }
+    #IDX-main.IDX-page-details .IDX-clamp__target.tjg-collapsed {
+      display: -webkit-box !important;
+      -webkit-line-clamp: 3 !important;
+      -webkit-box-orient: vertical !important;
+      overflow: hidden !important;
+      max-height: none !important;
+    }
+    #IDX-main.IDX-page-details .IDX-clamp__target.tjg-expanded {
+      display: block !important;
+      overflow: visible !important;
+      max-height: none !important;
+    }
+    .tjg-read-more-btn {
+      display: block !important;
+      background: none !important;
+      border: none !important;
+      padding: 0 !important;
+      margin-top: 8px !important;
+      font-family: 'Lato', sans-serif !important;
+      font-size: 0.82rem !important;
+      font-weight: 700 !important;
+      color: #18254B !important;
+      text-decoration: underline !important;
+      text-underline-offset: 3px !important;
+      cursor: pointer !important;
+      letter-spacing: 0.02em !important;
+    }
+    .tjg-read-more-btn:hover { color: #B38987 !important; }
+
     /* ─── Similar Listings: cream card layout (info panel below photo) ─── */
     .IDX-similar-listings--item {
       display: flex !important;
@@ -4413,6 +4444,46 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           backLink.addEventListener('click', function(e) { e.preventDefault(); history.back(); });
           topNav.insertBefore(backLink, topNav.firstChild);
         }
+
+        // Description: 3-line clamp + Read More / Read Less (runs once per page load)
+        (function() {
+          if (!document.querySelector('#IDX-main.IDX-page-details')) return;
+          var descP = document.querySelector(
+            '#IDX-detailsDescription .IDX-clamp__target, ' +
+            '#IDX-detailsDescription p.IDX-clamp__target, ' +
+            '#IDX-detailsDescription > p'
+          );
+          if (!descP || descP.dataset.tjgRm) return;
+          descP.dataset.tjgRm = '1';
+
+          // Suppress IDX native expand/collapse buttons
+          var nativeAct = document.getElementById('IDX-detailsDescriptionActions');
+          if (nativeAct) nativeAct.style.setProperty('display', 'none', 'important');
+
+          // Reset any IDX-expanded state, apply our collapsed class
+          descP.classList.remove('noclamp');
+          descP.classList.add('tjg-collapsed');
+
+          // Insert Read More button immediately after the paragraph
+          var btn = document.createElement('button');
+          btn.className = 'tjg-read-more-btn';
+          btn.type = 'button';
+          btn.textContent = 'Read More';
+          descP.parentNode.insertBefore(btn, descP.nextSibling);
+
+          btn.addEventListener('click', function() {
+            if (descP.classList.contains('tjg-collapsed')) {
+              descP.classList.remove('tjg-collapsed');
+              descP.classList.add('tjg-expanded');
+              btn.textContent = 'Read Less';
+            } else {
+              descP.classList.remove('tjg-expanded');
+              descP.classList.add('tjg-collapsed');
+              btn.textContent = 'Read More';
+              descP.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          });
+        })();
       }
       function _tjgSchedule() {
         clearTimeout(_tjgTimer);
