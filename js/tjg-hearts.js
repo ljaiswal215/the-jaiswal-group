@@ -28,7 +28,7 @@
       body1.textContent = 'Welcome to The Jaiswal Group Real Estate. We have received your information and will be in touch shortly with your search alerts.';
       var body2 = document.createElement('p');
       body2.style.cssText = 'font-family:Lato,sans-serif;font-size:13px;line-height:1.6;color:#666;margin:0;max-width:380px;';
-      body2.innerHTML = 'Questions? Call or text us anytime at <strong style="color:#444;">(858) 663-4896</strong>.';
+      body2.innerHTML = 'Questions? Call or text us anytime at <strong style="color:#444;">(858) 290-7531</strong>.';
       conf.appendChild(circle); conf.appendChild(heading); conf.appendChild(body1); conf.appendChild(body2);
       bx.appendChild(conf);
       setTimeout(function() { window.location.href = 'https://thejaiswalgroup.idxbroker.com/idx/myaccount'; }, 3000);
