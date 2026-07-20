@@ -180,9 +180,10 @@
     /* Address + stats stacked, centered to align with price */
     #tjg-addr-stats-row {
       display: flex !important;
-      flex-direction: column !important;
+      flex-direction: row !important;
       align-items: center !important;
-      gap: 14px !important;
+      justify-content: space-between !important;
+      gap: 24px !important;
       margin-top: 6px !important;
     }
     #tjg-addr-line {
@@ -190,8 +191,8 @@
       font-size: 0.95rem !important;
       color: #7a7269 !important;
       line-height: 1.5 !important;
-      text-align: center !important;
-      width: 100% !important;
+      text-align: left !important;
+      flex: 1 !important;
     }
     /* Stats icon row */
     .tjg-detail-stats {
