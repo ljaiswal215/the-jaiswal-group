@@ -139,30 +139,41 @@
 
     /* ─── Listing Detail Header Hierarchy ─── */
     .IDX-page-details #IDX-detailsAddressStreet {
-      font-size: clamp(1.7rem, 3.5vw, 2.4rem) !important;
-      font-weight: 700 !important;
-      line-height: 1.15 !important;
+      font-size: clamp(2rem, 4.5vw, 3rem) !important;
+      font-family: 'Marcellus', serif !important;
+      font-weight: 400 !important;
+      line-height: 1.1 !important;
       color: #18254B !important;
-      margin-bottom: 4px !important;
+      margin-bottom: 6px !important;
+      letter-spacing: 0.01em !important;
     }
     .IDX-page-details #IDX-detailsAddressRegion {
-      font-size: 1rem !important;
+      font-size: 0.95rem !important;
       color: #7a7269 !important;
-      line-height: 1.4 !important;
+      line-height: 1.5 !important;
+    }
+    .IDX-page-details .tjg-detail-city {
+      display: block !important;
+      font-size: 0.95rem !important;
+      color: #7a7269 !important;
+      margin-bottom: 8px !important;
     }
     .IDX-page-details .tjg-detail-price {
       display: block !important;
-      font-size: clamp(1.5rem, 2.8vw, 2rem) !important;
-      font-weight: 700 !important;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem) !important;
+      font-family: 'Marcellus', serif !important;
+      font-weight: 400 !important;
       color: #18254B !important;
-      margin: 10px 0 5px !important;
-      letter-spacing: -0.01em !important;
+      margin: 2px 0 6px !important;
+      letter-spacing: 0.01em !important;
     }
     .IDX-page-details .tjg-detail-meta {
       display: block !important;
-      font-size: 0.95rem !important;
+      font-size: 0.88rem !important;
       font-weight: 400 !important;
-      color: #555 !important;
+      color: #7a7269 !important;
+      letter-spacing: 0.04em !important;
+      text-transform: uppercase !important;
       margin: 0 !important;
     }
 
@@ -3443,36 +3454,96 @@ document.getElementById('tjg-tour-success').style.display = 'block';
 
     // ─── Listing Detail: restructure address header hierarchy ─────────────────
     (function() {
+      var _streetSuffixes = {
+        trl:'Trail',blvd:'Boulevard',ave:'Avenue',av:'Avenue',dr:'Drive',
+        ct:'Court',rd:'Road',ln:'Lane',pl:'Place',cir:'Circle',
+        hwy:'Highway',pkwy:'Parkway',st:'Street',wy:'Way',loop:'Loop',
+        ter:'Terrace',terr:'Terrace',cv:'Cove',pt:'Point',bnd:'Bend',
+        holw:'Hollow',xing:'Crossing',run:'Run',path:'Path'
+      };
+      var _states = { ca:'California',or:'Oregon',wa:'Washington',nv:'Nevada',az:'Arizona' };
+
+      function _titleAddr(raw) {
+        return raw.toLowerCase().replace(/\b\w+/g, function(w) {
+          return _streetSuffixes[w] || (w.charAt(0).toUpperCase() + w.slice(1));
+        });
+      }
+      function _titleCity(raw) {
+        // Expand state abbreviation first, then title-case
+        var out = raw.replace(/,?\s*([A-Z]{2})\s+(\d{5})/g, function(_, st, zip) {
+          return ', ' + (_states[st.toLowerCase()] || st) + ' ' + zip;
+        });
+        return out.toLowerCase().replace(/\b\w+/g, function(w) {
+          return _states[w] ? (_states[w].charAt(0).toUpperCase() + _states[w].slice(1)) : (w.charAt(0).toUpperCase() + w.slice(1));
+        });
+      }
+
       function _restructureDetailHeader() {
         if (!document.querySelector('#IDX-main.IDX-page-details')) return;
         var region = document.getElementById('IDX-detailsAddressRegion');
         if (!region || region.dataset.tjgDone) return;
         region.dataset.tjgDone = '1';
 
-        // Hide the | dividers — we control spacing via block display
+        // Title-case street address + expand suffixes
+        var addrEl = document.getElementById('IDX-detailsAddressStreet');
+        if (addrEl) addrEl.textContent = _titleAddr(addrEl.textContent.trim());
+
+        // Hide | dividers
         region.querySelectorAll('.IDX-detailsAddress__divider').forEach(function(d) {
           d.style.display = 'none';
         });
 
-        // Identify price span ($) and beds/baths span (BD or BTH)
+        // Categorise spans: price ($), meta (BD/BTH), city (state zip pattern)
         var spans = Array.from(region.querySelectorAll('span:not(.IDX-detailsAddress__divider)'));
-        var priceSpan = null, metaSpan = null;
+        var priceSpan = null, metaSpan = null, citySpan = null;
         spans.forEach(function(s) {
           var t = s.textContent.trim();
-          if (t.indexOf('$') > -1) priceSpan = s;
-          else if (t.indexOf('BD') > -1 || t.indexOf('BTH') > -1) metaSpan = s;
+          if (t.indexOf('$') > -1) { priceSpan = s; }
+          else if (/\bBD\b|\bBTH\b/i.test(t)) { metaSpan = s; }
+          else if (/[A-Z]{2}\s+\d{5}/.test(t)) { citySpan = s; }
         });
 
-        // Price → large focal point
+        // Format city line: "SAN DIEGO, CA 92130" → "San Diego, California 92130"
+        if (citySpan) {
+          citySpan.textContent = _titleCity(citySpan.textContent.trim());
+          citySpan.className = 'tjg-detail-city';
+        }
+
+        // Price → Marcellus focal point
         if (priceSpan) {
           priceSpan.className = 'tjg-detail-price';
           region.appendChild(priceSpan);
         }
 
-        // Beds/baths → small metadata line
+        // Find sqft from listing detail fields
+        var sqftSuffix = '';
+        var sqftEl = document.querySelector(
+          '#IDX-field-sqFt .IDX-field-value, #IDX-field-livingArea .IDX-field-value, ' +
+          '#IDX-field-sqft .IDX-field-value, [id*="LivingArea"] .IDX-field-value, ' +
+          '[id*="sqFt"] .IDX-field-value, [id*="sqft"] .IDX-field-value'
+        );
+        if (!sqftEl) {
+          // Fallback: scan field labels for "SqFt" text
+          document.querySelectorAll('.IDX-field-label').forEach(function(lbl) {
+            if (/sq\s*ft/i.test(lbl.textContent) && !sqftEl) {
+              sqftEl = lbl.nextElementSibling || lbl.parentElement.querySelector('.IDX-field-value');
+            }
+          });
+        }
+        if (sqftEl) {
+          var sqftNum = sqftEl.textContent.trim().replace(/[^\d,]/g, '');
+          if (sqftNum) sqftSuffix = ' • ' + sqftNum + ' Sq Ft';
+        }
+
+        // Beds/baths + sqft → small uppercase meta line
         if (metaSpan) {
-          // Replace " BD, " and " BTH" separators with bullet dots
-          metaSpan.textContent = metaSpan.textContent.trim().replace(/\s*BD,\s*/i, ' Bedrooms • ').replace(/\s*BTH\s*/i, ' Bathrooms');
+          var mt = metaSpan.textContent.trim()
+            .replace(/\s*BD,?\s*/i, ' BD • ')
+            .replace(/\s*BTH\s*/i, ' BTH');
+          // Expand to full words
+          mt = mt.replace(/(\d+)\s*BD/i, '$1 Bedrooms')
+                 .replace(/(\d+)\s*BTH/i, '$1 Bathrooms');
+          metaSpan.textContent = mt + sqftSuffix;
           metaSpan.className = 'tjg-detail-meta';
           region.appendChild(metaSpan);
         }
