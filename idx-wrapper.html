@@ -278,6 +278,44 @@
     }
     .tjg-read-more-btn:hover { color: #B38987 !important; }
 
+    /* ─── Listing Detail: Gillette-style two-column field table ─── */
+    /* Zero out panel body padding so rows bleed edge-to-edge */
+    .IDX-page-details .IDX-panel-body { padding: 0 !important; }
+    /* Each field row: flex with label left, value right */
+    .IDX-page-details .IDX-field {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: baseline !important;
+      gap: 16px !important;
+      padding: 12px 20px !important;
+      border-bottom: 1px solid rgba(24,37,75,0.07) !important;
+      border-top: none !important;
+      border-left: none !important;
+      border-right: none !important;
+      margin: 0 !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      background: transparent !important;
+    }
+    .IDX-page-details .IDX-field:last-child { border-bottom: none !important; }
+    /* Label: subdued, regular weight */
+    .IDX-page-details .IDX-field .IDX-label {
+      font-size: 0.82rem !important;
+      font-weight: 400 !important;
+      color: #7a7269 !important;
+      flex-shrink: 0 !important;
+      white-space: nowrap !important;
+    }
+    /* Value: dark navy, bold, right-aligned */
+    .IDX-page-details .IDX-field .IDX-field-value,
+    .IDX-page-details .IDX-field > span:not(.IDX-label) {
+      font-size: 0.82rem !important;
+      font-weight: 700 !important;
+      color: #18254B !important;
+      text-align: right !important;
+      word-break: break-word !important;
+    }
+
     /* ─── Similar Listings: cream card layout (info panel below photo) ─── */
     .IDX-similar-listings--item {
       display: flex !important;
@@ -4444,6 +4482,16 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           backLink.innerHTML = '&larr; Back to Results';
           backLink.addEventListener('click', function(e) { e.preventDefault(); history.back(); });
           topNav.insertBefore(backLink, topNav.firstChild);
+        }
+
+        // Hide Primary Features panel on listing detail pages
+        if (document.querySelector('#IDX-main.IDX-page-details')) {
+          document.querySelectorAll('#IDX-fieldsWrapper .IDX-fieldContainer, #IDX-fieldsWrapper .IDX-panel').forEach(function(panel) {
+            var heading = panel.querySelector('.IDX-panel-collapse-toggle, .IDX-panel-title, .IDX-panel-heading');
+            if (heading && /primary\s*features?/i.test(heading.textContent)) {
+              panel.style.setProperty('display', 'none', 'important');
+            }
+          });
         }
 
         // Description: 3-line clamp + Read More / Read Less (runs once per page load)
