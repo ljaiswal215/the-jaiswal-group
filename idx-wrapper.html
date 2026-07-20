@@ -4614,6 +4614,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
               if (node.nodeType === 3) {
                 node.textContent = node.textContent
                   .replace(/property\s+sub\s+type/i, 'Property Type')
+                  .replace(/listing\s+id/i, 'MLS ID')
                   .replace(/:\s*$/, '').trimEnd();
               }
             });
