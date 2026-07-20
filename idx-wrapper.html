@@ -3645,10 +3645,50 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         });
       }
 
+      var _sqftSVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 8.5h18M8.5 3v18"/></svg>';
+
+      function _findSqft() {
+        var sqftEl = document.querySelector(
+          '#IDX-field-sqFt .IDX-field-value, #IDX-field-livingArea .IDX-field-value, ' +
+          '#IDX-field-sqft .IDX-field-value, [id*="LivingArea"] .IDX-field-value, ' +
+          '[id*="sqFt"] .IDX-field-value, [id*="sqft"] .IDX-field-value'
+        );
+        if (!sqftEl) {
+          document.querySelectorAll('.IDX-field-label').forEach(function(lbl) {
+            if (/sq\s*ft/i.test(lbl.textContent) && !sqftEl) {
+              sqftEl = lbl.nextElementSibling || lbl.parentElement.querySelector('.IDX-field-value');
+            }
+          });
+        }
+        if (!sqftEl) return '';
+        var raw = sqftEl.textContent.trim().replace(/[^\d]/g, '');
+        return raw ? parseInt(raw, 10).toLocaleString() : '';
+      }
+
       function _restructureDetailHeader() {
         if (!document.querySelector('#IDX-main.IDX-page-listing')) return;
         var region = document.getElementById('IDX-detailsAddressRegion');
-        if (!region || region.dataset.tjgDone) return;
+        if (!region) return;
+
+        // On subsequent runs: just try to patch sqft into existing stats row
+        if (region.dataset.tjgDone) {
+          var statsDiv = document.querySelector('#tjg-addr-stats-row .tjg-detail-stats');
+          if (statsDiv && !statsDiv.querySelector('[data-tjg-sqft]')) {
+            var sqftVal2 = _findSqft();
+            if (sqftVal2) {
+              var sep = document.createElement('div');
+              sep.className = 'tjg-detail-stats__sep';
+              var col = document.createElement('div');
+              col.className = 'tjg-detail-stats__col';
+              col.setAttribute('data-tjg-sqft', '1');
+              col.innerHTML = '<span class="tjg-detail-stats__label">' + _sqftSVG + 'Sq. Ft.</span>' +
+                              '<span class="tjg-detail-stats__value">' + sqftVal2 + '</span>';
+              statsDiv.appendChild(sep);
+              statsDiv.appendChild(col);
+            }
+          }
+          return;
+        }
         region.dataset.tjgDone = '1';
 
         var addrEl = document.getElementById('IDX-detailsAddressStreet');
@@ -3691,24 +3731,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           }
         }
 
-        // Find sqft
-        var sqftVal = '';
-        var sqftEl = document.querySelector(
-          '#IDX-field-sqFt .IDX-field-value, #IDX-field-livingArea .IDX-field-value, ' +
-          '#IDX-field-sqft .IDX-field-value, [id*="LivingArea"] .IDX-field-value, ' +
-          '[id*="sqFt"] .IDX-field-value, [id*="sqft"] .IDX-field-value'
-        );
-        if (!sqftEl) {
-          document.querySelectorAll('.IDX-field-label').forEach(function(lbl) {
-            if (/sq\s*ft/i.test(lbl.textContent) && !sqftEl) {
-              sqftEl = lbl.nextElementSibling || lbl.parentElement.querySelector('.IDX-field-value');
-            }
-          });
-        }
-        if (sqftEl) {
-          var sqftRaw = sqftEl.textContent.trim().replace(/[^\d]/g, '');
-          if (sqftRaw) sqftVal = parseInt(sqftRaw, 10).toLocaleString();
-        }
+        var sqftVal = _findSqft();
 
         // Hide original address elements — we'll show them in one combined line
         if (addrEl) addrEl.style.setProperty('display', 'none', 'important');
@@ -3720,18 +3743,17 @@ document.getElementById('tjg-tour-success').style.display = 'block';
 
         var bedSVG  = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h18M3 8v13M21 8v13"/><rect x="5" y="9" width="14" height="5" rx="1"/><circle cx="8.5" cy="11.5" r="0.8" fill="currentColor" stroke="none"/></svg>';
         var bathSVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8V5a2 2 0 012-2h1a2 2 0 012 2v3"/><path d="M2 13h20v2a5 5 0 01-5 5H7a5 5 0 01-5-5v-2z"/></svg>';
-        var sqftSVG = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 8.5h18M8.5 3v18"/></svg>';
 
-        function _makeStatCol(svg, label, val) {
-          return '<div class="tjg-detail-stats__col">' +
+        function _makeStatCol(svg, label, val, sqft) {
+          return '<div class="tjg-detail-stats__col"' + (sqft ? ' data-tjg-sqft="1"' : '') + '>' +
             '<span class="tjg-detail-stats__label">' + svg + label + '</span>' +
             '<span class="tjg-detail-stats__value">' + val + '</span>' +
             '</div>';
         }
         var cols = [];
-        if (beds)    cols.push(_makeStatCol(bedSVG,  'Bedrooms',  beds));
-        if (baths)   cols.push(_makeStatCol(bathSVG, 'Bathrooms', baths));
-        if (sqftVal) cols.push(_makeStatCol(sqftSVG, 'Sq. Ft.',   sqftVal));
+        if (beds)    cols.push(_makeStatCol(bedSVG,   'Bedrooms',  beds));
+        if (baths)   cols.push(_makeStatCol(bathSVG,  'Bathrooms', baths));
+        if (sqftVal) cols.push(_makeStatCol(_sqftSVG, 'Sq. Ft.',   sqftVal, true));
 
         var statsInner = '';
         cols.forEach(function(c, i) {
@@ -3896,16 +3918,16 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         }
         grid.appendChild(thumbsWrap);
 
-        // Insert grid before #IDX-detailsPageContainer at the #IDX-main level
-        // so the price/address header (inside pageContainer) stays fully below the grid
-        var pageContainer = document.getElementById('IDX-detailsPageContainer') ||
-                            document.querySelector('#IDX-main .IDX-pageContainer');
-        if (pageContainer && pageContainer.parentNode) {
-          pageContainer.parentNode.insertBefore(grid, pageContainer);
+        // Insert grid before #IDX-detailsHeader so the photo grid appears first,
+        // with price/address/stats naturally falling below it
+        var header = document.getElementById('IDX-detailsHeader');
+        if (header && header.parentNode) {
+          header.parentNode.insertBefore(grid, header);
         } else {
-          var header = document.getElementById('IDX-detailsHeader');
-          if (header && header.parentNode) {
-            header.parentNode.insertBefore(grid, header);
+          var pageContainer = document.getElementById('IDX-detailsPageContainer') ||
+                              document.querySelector('#IDX-main .IDX-pageContainer');
+          if (pageContainer && pageContainer.parentNode) {
+            pageContainer.parentNode.insertBefore(grid, pageContainer);
           }
         }
 
