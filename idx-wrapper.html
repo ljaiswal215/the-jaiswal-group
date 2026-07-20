@@ -1648,23 +1648,28 @@
       .tjg-contact-row { grid-template-columns:1fr; }
     }
     /* ─── Listing Detail: Photo Mosaic Grid ─── */
-    #tjg-photo-grid { display:grid; grid-template-columns:63fr 37fr; gap:4px; height:540px; margin-bottom:0; width:100%; }
+    #tjg-photo-grid { display:grid; grid-template-columns:55fr 45fr; gap:4px; height:540px; width:100%; }
     #tjg-photo-grid__hero { overflow:hidden; cursor:pointer; position:relative; }
     #tjg-photo-grid__hero img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s ease; }
     #tjg-photo-grid__hero:hover img { transform:scale(1.02); }
-    #tjg-photo-grid__vt-btn { position:absolute; bottom:14px; left:14px; background:rgba(24,37,75,0.82); color:#fff; font-family:'Lato',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:9px 16px; text-decoration:none; display:inline-flex; align-items:center; gap:7px; transition:background 0.2s, color 0.2s; cursor:pointer; border:none; z-index:2; }
-    #tjg-photo-grid__vt-btn:hover { background:rgba(179,137,135,0.92); color:#fff; }
-    #tjg-photo-grid__thumbs { display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:4px; }
+    #tjg-photo-grid__right { display:flex; flex-direction:column; gap:4px; }
+    #tjg-photo-grid__right-top { flex:1; overflow:hidden; cursor:pointer; }
+    #tjg-photo-grid__right-top img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s ease; }
+    #tjg-photo-grid__right-top:hover img { transform:scale(1.02); }
+    #tjg-photo-grid__bottom-row { display:grid; grid-template-columns:1fr 1fr; gap:4px; flex:1; }
     .tjg-photo-grid__thumb { overflow:hidden; position:relative; cursor:pointer; }
     .tjg-photo-grid__thumb img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s ease; }
     .tjg-photo-grid__thumb:hover img { transform:scale(1.03); }
-    .tjg-photo-grid__overlay { position:absolute; inset:0; background:rgba(24,37,75,0.58); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; transition:background 0.2s; }
-    .tjg-photo-grid__overlay:hover { background:rgba(24,37,75,0.72); }
-    .tjg-photo-grid__overlay-label { font-family:'Lato',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:#fff; }
-    .tjg-photo-grid__overlay-count { font-family:'Lato',sans-serif; font-size:0.65rem; font-weight:400; letter-spacing:0.1em; color:rgba(255,255,255,0.82); }
+    /* Action buttons — positioned bottom-right of the last thumbnail */
+    .tjg-photo-grid__btn-group { position:absolute; bottom:12px; right:12px; display:flex; gap:8px; z-index:2; }
+    .tjg-photo-grid__action-btn { background:rgba(255,255,255,0.93); color:#18254B; font-family:'Lato',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.06em; padding:8px 14px; border:none; border-radius:4px; cursor:pointer; transition:background 0.15s; display:inline-flex; align-items:center; gap:6px; text-decoration:none; white-space:nowrap; }
+    .tjg-photo-grid__action-btn:hover { background:#fff; color:#18254B; }
     @media (max-width:767px) {
-      #tjg-photo-grid { grid-template-columns:1fr; grid-template-rows:60vw auto; height:auto; }
-      #tjg-photo-grid__thumbs { grid-template-columns:repeat(4,1fr); grid-template-rows:25vw; }
+      #tjg-photo-grid { grid-template-columns:1fr; height:auto; }
+      #tjg-photo-grid__right { display:grid; grid-template-columns:repeat(3,1fr); flex-direction:unset; }
+      #tjg-photo-grid__right-top { height:28vw; }
+      #tjg-photo-grid__bottom-row { display:contents; }
+      #tjg-photo-grid__hero { height:60vw; }
     }
     /* My Account — saved listings heart icon in brand rose */
     #mlm-heart, svg#mlm-heart, #mlm-heart path, svg#mlm-heart path,
@@ -3635,57 +3640,83 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         );
         var vtHref = vtEl ? vtEl.href : null;
 
-        // Hero image
+        // Hero image (left, full height)
         var hero = document.createElement('div');
         hero.id = 'tjg-photo-grid__hero';
-        hero.title = 'View all photos';
         var heroImg = document.createElement('img');
         heroImg.src = srcs[0];
         heroImg.alt = 'Property photo';
         hero.appendChild(heroImg);
         hero.addEventListener('click', _openGallery);
+        grid.appendChild(hero);
 
-        // Virtual Tour button (only if a tour URL was found)
+        // Right column: top photo + bottom row of 2
+        var rightCol = document.createElement('div');
+        rightCol.id = 'tjg-photo-grid__right';
+
+        // Top-right: one full-width photo
+        var rightTop = document.createElement('div');
+        rightTop.id = 'tjg-photo-grid__right-top';
+        var rt1Img = document.createElement('img');
+        rt1Img.src = srcs[Math.min(1, srcs.length - 1)];
+        rt1Img.alt = 'Property photo 2';
+        rightTop.appendChild(rt1Img);
+        rightTop.addEventListener('click', _openGallery);
+        rightCol.appendChild(rightTop);
+
+        // Bottom row: two side-by-side thumbnails
+        var bottomRow = document.createElement('div');
+        bottomRow.id = 'tjg-photo-grid__bottom-row';
+
+        var thumb3 = document.createElement('div');
+        thumb3.className = 'tjg-photo-grid__thumb';
+        var t3Img = document.createElement('img');
+        t3Img.src = srcs[Math.min(2, srcs.length - 1)];
+        t3Img.alt = 'Property photo 3';
+        thumb3.appendChild(t3Img);
+        thumb3.addEventListener('click', _openGallery);
+        bottomRow.appendChild(thumb3);
+
+        // Last thumb — action buttons overlaid bottom-right
+        var thumb4 = document.createElement('div');
+        thumb4.className = 'tjg-photo-grid__thumb';
+        var t4Img = document.createElement('img');
+        t4Img.src = srcs[Math.min(3, srcs.length - 1)];
+        t4Img.alt = 'Property photo 4';
+        thumb4.appendChild(t4Img);
+        thumb4.addEventListener('click', _openGallery);
+
+        // Button group (Virtual Tour + All Photos)
+        var btnGroup = document.createElement('div');
+        btnGroup.className = 'tjg-photo-grid__btn-group';
+
         if (vtHref) {
           var vtBtn = document.createElement('a');
-          vtBtn.id = 'tjg-photo-grid__vt-btn';
+          vtBtn.className = 'tjg-photo-grid__action-btn';
           vtBtn.href = vtHref;
           vtBtn.target = '_blank';
           vtBtn.rel = 'noopener';
           vtBtn.innerHTML =
-            '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' +
+            '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
             '<polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>' +
             'Virtual Tour';
           vtBtn.addEventListener('click', function(e) { e.stopPropagation(); });
-          hero.appendChild(vtBtn);
+          btnGroup.appendChild(vtBtn);
         }
 
-        grid.appendChild(hero);
+        var allBtn = document.createElement('button');
+        allBtn.className = 'tjg-photo-grid__action-btn';
+        allBtn.innerHTML =
+          '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
+          '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>' +
+          'All Photos';
+        allBtn.addEventListener('click', function(e) { e.stopPropagation(); _openGallery(); });
+        btnGroup.appendChild(allBtn);
 
-        // 2×2 thumbnails
-        var thumbsWrap = document.createElement('div');
-        thumbsWrap.id = 'tjg-photo-grid__thumbs';
-        for (var i = 1; i <= 4; i++) {
-          var thumb = document.createElement('div');
-          thumb.className = 'tjg-photo-grid__thumb' + (i === 4 ? ' tjg-photo-grid__thumb--last' : '');
-          var tImg = document.createElement('img');
-          tImg.src = srcs[Math.min(i, srcs.length - 1)];
-          tImg.alt = 'Property photo ' + (i + 1);
-          thumb.appendChild(tImg);
-          if (i === 4) {
-            var ov = document.createElement('div');
-            ov.className = 'tjg-photo-grid__overlay';
-            ov.innerHTML =
-              '<span class="tjg-photo-grid__overlay-label">All Photos</span>' +
-              '<span class="tjg-photo-grid__overlay-count">' + totalCount + ' Photos</span>';
-            ov.addEventListener('click', _openGallery);
-            thumb.appendChild(ov);
-          } else {
-            thumb.addEventListener('click', _openGallery);
-          }
-          thumbsWrap.appendChild(thumb);
-        }
-        grid.appendChild(thumbsWrap);
+        thumb4.appendChild(btnGroup);
+        bottomRow.appendChild(thumb4);
+        rightCol.appendChild(bottomRow);
+        grid.appendChild(rightCol);
 
         // Insert full-width before #IDX-detailsWrapper (above the two-column layout)
         var wrapper = document.getElementById('IDX-detailsWrapper');
