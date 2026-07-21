@@ -4826,6 +4826,16 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       }
 
       function _tjgDispatch() {
+        // Keep tjg-details-page in sync with the live URL (IDX uses AJAX navigation)
+        // so our FOUC hide rule doesn't bleed onto the photo gallery or other pages
+        if (/\/details\//.test(location.pathname)) {
+          document.documentElement.classList.add('tjg-details-page');
+        } else {
+          document.documentElement.classList.remove('tjg-details-page');
+          var _mRev = document.getElementById('IDX-main');
+          if (_mRev) _mRev.classList.add('tjg-ready');
+        }
+
         _reorderFilterPills();
         _renameListingsFilterBtns();
         _styleSearchBar();
