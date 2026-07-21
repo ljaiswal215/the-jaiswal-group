@@ -104,6 +104,10 @@
     /* Hide listing detail from first paint — class added synchronously before IDX renders */
     html.tjg-details-page #IDX-main:not(.tjg-ready) { opacity: 0; }
     html.tjg-details-page #IDX-main.tjg-ready { opacity: 1; transition: opacity 0.25s ease; }
+    /* Hide "Data services provided by IDX Broker" attribution on detail pages */
+    html.tjg-details-page #IDX-main > div[style*="visibility:visible"][style*="text-align:center"],
+    html.tjg-details-page #IDX-poweredByIDX,
+    html.tjg-details-page #IDX-dataAttrib { display: none !important; visibility: hidden !important; }
 
     #IDX-main.IDX-page-listing #IDX-detailsHeaderActions { display: none !important; }
     /* Hide selected fields in Basic Information */
@@ -2530,8 +2534,16 @@
         }
       });
 
-      // Attribution footer ("Data services provided by IDX Broker") is hidden via CSS only.
-      // JS text-content search was removed — it caused #IDX-main to be hidden on signup pages.
+      // Hide "Data services provided by IDX Broker" attribution on listing detail pages.
+      // CSS handles it at first paint; JS handles the inline visibility:visible override.
+      if (document.documentElement.classList.contains('tjg-details-page')) {
+        document.querySelectorAll('#IDX-main > div').forEach(function(div) {
+          if (!div.children.length && /data services/i.test(div.textContent)) {
+            div.style.setProperty('display', 'none', 'important');
+            div.style.setProperty('visibility', 'hidden', 'important');
+          }
+        });
+      }
 
       // Rename "Sign Up" submit button to "Create Free Account"
       var submitBtn = document.querySelector(
