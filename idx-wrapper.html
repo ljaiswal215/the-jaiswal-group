@@ -101,6 +101,10 @@
     #tjg-heart-btn.tjg-saved svg { stroke:#fff; fill:#fff; }
     #tjg-heart-btn { display: none !important; }
     #IDX-detailsContact { display: none !important; }
+    /* Hide listing detail until JS transforms are applied — eliminates FOUC */
+    #IDX-main.IDX-page-listing:not(.tjg-ready) { opacity: 0; }
+    #IDX-main.IDX-page-listing.tjg-ready { opacity: 1; transition: opacity 0.15s ease; }
+
     #IDX-main.IDX-page-listing #IDX-detailsHeaderActions { display: none !important; }
     /* Hide selected fields in Basic Information */
     #IDX-main .IDX-field-listingPrice,
@@ -5218,12 +5222,19 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           });
           _calc();
         })();
+
+        // Reveal listing detail content after all transforms (eliminates FOUC)
+        var _idxMain = document.getElementById('IDX-main');
+        if (_idxMain && _idxMain.classList.contains('IDX-page-listing')) {
+          _idxMain.classList.add('tjg-ready');
+        }
       }
       function _tjgSchedule() {
         clearTimeout(_tjgTimer);
         _tjgTimer = setTimeout(_tjgDispatch, 80);
       }
       new MutationObserver(_tjgSchedule).observe(document.body, { childList: true, subtree: true });
+      _tjgSchedule(); // fire once on load even if IDX renders content server-side
 
       // Re-align the listings count on resize (column count changes)
       var _resizeTimer;
