@@ -101,9 +101,9 @@
     #tjg-heart-btn.tjg-saved svg { stroke:#fff; fill:#fff; }
     #tjg-heart-btn { display: none !important; }
     #IDX-detailsContact { display: none !important; }
-    /* Hide listing detail until JS transforms are applied — eliminates FOUC */
-    #IDX-main.IDX-page-listing:not(.tjg-ready) { opacity: 0; }
-    #IDX-main.IDX-page-listing.tjg-ready { opacity: 1; transition: opacity 0.15s ease; }
+    /* Hide listing detail from first paint — class added synchronously before IDX renders */
+    html.tjg-details-page #IDX-main:not(.tjg-ready) { opacity: 0; }
+    html.tjg-details-page #IDX-main.tjg-ready { opacity: 1; transition: opacity 0.25s ease; }
 
     #IDX-main.IDX-page-listing #IDX-detailsHeaderActions { display: none !important; }
     /* Hide selected fields in Basic Information */
@@ -2220,11 +2220,12 @@
 
   <script src="https://ljaiswal215.github.io/the-jaiswal-group/main.js"></script>
   <script>
-    // On listing-detail and gallery pages, disable browser scroll restoration so
-    // the page always paints at the top (no flash of the photo-slider area).
+    // Flag detail pages on <html> synchronously — CSS uses this to keep #IDX-main
+    // invisible from the very first paint, before IDX adds its own classes.
     (function() {
-      if ('scrollRestoration' in history && /\/details\//.test(window.location.pathname)) {
-        history.scrollRestoration = 'manual';
+      if (/\/details\//.test(window.location.pathname)) {
+        document.documentElement.classList.add('tjg-details-page');
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
       }
     })();
 
@@ -5280,10 +5281,10 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           if (anchor && anchor.parentNode) anchor.parentNode.insertBefore(sect, anchor.nextSibling);
         })();
 
-        // Reveal listing detail content after all transforms (eliminates FOUC)
-        var _idxMain = document.getElementById('IDX-main');
-        if (_idxMain && _idxMain.classList.contains('IDX-page-listing')) {
-          _idxMain.classList.add('tjg-ready');
+        // Reveal listing detail — add tjg-ready whenever we're on a /details/ page
+        if (document.documentElement.classList.contains('tjg-details-page')) {
+          var _idxMain = document.getElementById('IDX-main');
+          if (_idxMain) _idxMain.classList.add('tjg-ready');
         }
       }
       function _tjgSchedule() {
