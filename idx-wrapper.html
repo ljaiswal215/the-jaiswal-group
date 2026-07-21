@@ -5223,6 +5223,37 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           _calc();
         })();
 
+        // ── Location Map ────────────────────────────────────────────────────
+        (function() {
+          if (!document.querySelector('#IDX-main.IDX-page-listing')) return;
+          if (document.getElementById('tjg-map-section')) return;
+
+          // Extract address from IDX DOM
+          var sEl = document.querySelector(
+            '#IDX-detailsAddressStreet, [id*="detailsAddress"] .IDX-street, ' +
+            '.IDX-detailsAddress .street, #IDX-main [class*="addressStreet"]'
+          );
+          var rEl = document.querySelector(
+            '#IDX-detailsAddressRegion, [id*="detailsAddress"] .IDX-region, ' +
+            '.IDX-detailsAddress .region, #IDX-main [class*="addressRegion"]'
+          );
+          var addr = [sEl, rEl].map(function(el){ return el ? el.textContent.trim() : ''; }).filter(Boolean).join(', ');
+          if (!addr) return;
+
+          var sect = document.createElement('div');
+          sect.id = 'tjg-map-section';
+          sect.style.cssText = 'background:#18254B;padding:2rem 1.5rem 0;font-family:"Lato",sans-serif;';
+          sect.innerHTML =
+            '<p style="font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B38987;margin:0 0 1.25rem;">Location</p>' +
+            '<div style="border-radius:4px;overflow:hidden;">' +
+            '<iframe title="Property location" width="100%" height="380" frameborder="0" scrolling="no" loading="lazy" ' +
+            'src="https://maps.google.com/maps?q=' + encodeURIComponent(addr) + '&z=15&output=embed" ' +
+            'style="display:block;"></iframe></div>';
+
+          var anchor = document.getElementById('tjg-mc-section') || document.getElementById('IDX-fieldsWrapper');
+          if (anchor && anchor.parentNode) anchor.parentNode.insertBefore(sect, anchor.nextSibling);
+        })();
+
         // Reveal listing detail content after all transforms (eliminates FOUC)
         var _idxMain = document.getElementById('IDX-main');
         if (_idxMain && _idxMain.classList.contains('IDX-page-listing')) {
