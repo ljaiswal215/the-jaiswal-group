@@ -1738,12 +1738,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding-top: 70px;
+      padding-top: 110px;
       box-sizing: border-box;
     }
     #tjg-gv-hero {
       max-width: 100%;
-      max-height: calc(100vh - 70px);
+      max-height: calc(100vh - 110px);
       object-fit: contain;
       display: block;
       transition: opacity 0.15s;
@@ -1826,6 +1826,31 @@
       border-radius: 20px;
       white-space: nowrap;
     }
+    #tjg-gv-tab-bar {
+      position: absolute;
+      top: 60px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 2px solid #18254B;
+      z-index: 2;
+    }
+    .tjg-gv-tab {
+      padding: 7px 24px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      white-space: nowrap;
+    }
+    .tjg-gv-tab.tjg-gv-tab--active { background: #18254B; color: #fff; }
+    .tjg-gv-tab:not(.tjg-gv-tab--active) { background: #F3EFE8; color: #18254B; }
 
     /* ─── Tour Request Modal (Two-Step) ─── */
     #tjg-tour-modal { display:none; position:fixed; inset:0; z-index:99999; align-items:center; justify-content:center; }
@@ -5157,6 +5182,30 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         _counterEl = document.createElement('div');
         _counterEl.id = 'tjg-gv-counter';
         viewer.appendChild(_counterEl);
+
+        // Images / Virtual Tour tab bar
+        var tabBar = document.createElement('div');
+        tabBar.id = 'tjg-gv-tab-bar';
+
+        var imgTab = document.createElement('button');
+        imgTab.className = 'tjg-gv-tab tjg-gv-tab--active';
+        imgTab.textContent = 'Images';
+        tabBar.appendChild(imgTab);
+
+        var tourTab = document.createElement('button');
+        tourTab.className = 'tjg-gv-tab';
+        tourTab.textContent = 'Virtual Tour';
+        tourTab.addEventListener('click', function() {
+          var tourLink = document.querySelector('[class*="virtualTour"] a, .IDX-field-virtualTourURL a, a[href*="matterport"], a[href*="virtual"]');
+          if (tourLink) {
+            window.open(tourLink.href, '_blank');
+          } else {
+            var url = window.location.href.replace('/photogallery/', '/listing/');
+            window.location.href = url;
+          }
+        });
+        tabBar.appendChild(tourTab);
+        viewer.appendChild(tabBar);
 
         // Heart + Share icons — top right, matching listing card style
         var icons = document.createElement('div');
