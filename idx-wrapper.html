@@ -107,8 +107,8 @@
     #tjg-heart-btn { display: none !important; }
     #IDX-detailsContact { display: none !important; }
     /* Hide listing detail from first paint — class added synchronously before IDX renders */
-    html.tjg-details-page #IDX-main:not(.tjg-ready) { opacity: 0; }
-    html.tjg-details-page #IDX-main.tjg-ready { opacity: 1; transition: opacity 0.25s ease; }
+    html.tjg-details-page #IDX-main:not(.tjg-ready) { opacity: 0 !important; visibility: hidden !important; }
+    html.tjg-details-page #IDX-main.tjg-ready { opacity: 1 !important; visibility: visible !important; transition: opacity 0.3s ease; }
     /* Hide "Data services provided by IDX Broker" attribution on detail pages */
     html.tjg-details-page #IDX-main > div[style*="visibility:visible"][style*="text-align:center"],
     html.tjg-details-page #IDX-poweredByIDX,
@@ -2085,6 +2085,11 @@
     if (/\/details\//.test(location.pathname)) {
       document.documentElement.classList.add('tjg-details-page');
       if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      /* Failsafe: if _tjgDispatch never fires, reveal content after 2.5s max */
+      setTimeout(function() {
+        var m = document.getElementById('IDX-main');
+        if (m && !m.classList.contains('tjg-ready')) m.classList.add('tjg-ready');
+      }, 2500);
     }
   </script>
 </head>
