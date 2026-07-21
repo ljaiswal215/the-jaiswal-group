@@ -2119,6 +2119,10 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   display: block !important;
   width: 100% !important;
 }
+/* Cap at 8 listings (4 cols × 2 rows) — hide anything beyond */
+.featured-properties .idx-listings-showcase__property:nth-child(n+9) {
+  display: none !important;
+}
 
 /* Card */
 .featured-properties .idx-listing-card__wrap {
