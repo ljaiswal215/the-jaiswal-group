@@ -2216,11 +2216,25 @@
 
   <script src="https://ljaiswal215.github.io/the-jaiswal-group/main.js"></script>
   <script>
-    // Scroll to top when returning from the photo gallery viewer
+    // On listing-detail and gallery pages, disable browser scroll restoration so
+    // the page always paints at the top (no flash of the photo-slider area).
+    (function() {
+      if ('scrollRestoration' in history && /\/details\//.test(window.location.pathname)) {
+        history.scrollRestoration = 'manual';
+      }
+    })();
+
+    // Scroll to top when returning from the photo gallery viewer, and also when
+    // the page is restored from bfcache (back-button) on any detail page.
     window.addEventListener('pageshow', function(e) {
-      if (sessionStorage.getItem('tjg-from-gallery') !== '1') return;
-      sessionStorage.removeItem('tjg-from-gallery');
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      var fromGallery = sessionStorage.getItem('tjg-from-gallery') === '1';
+      var isDetail = /\/details\//.test(window.location.pathname);
+      if (fromGallery) {
+        sessionStorage.removeItem('tjg-from-gallery');
+        window.scrollTo(0, 0);
+      } else if (e.persisted && isDetail) {
+        window.scrollTo(0, 0);
+      }
     });
 
     // Abbreviate map price labels: $1,250,000 → $1.25M, $850,000 → $850K
