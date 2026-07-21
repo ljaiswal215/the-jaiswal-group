@@ -5185,9 +5185,10 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         _counterEl.id = 'tjg-gv-counter';
         viewer.appendChild(_counterEl);
 
-        // Images / Virtual Tour tab bar
+        // Images / Virtual Tour tab bar — hidden until we confirm a tour URL exists
         var tabBar = document.createElement('div');
         tabBar.id = 'tjg-gv-tab-bar';
+        tabBar.style.display = 'none';
 
         var imgTab = document.createElement('button');
         imgTab.className = 'tjg-gv-tab tjg-gv-tab--active';
@@ -5197,17 +5198,40 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         var tourTab = document.createElement('button');
         tourTab.className = 'tjg-gv-tab';
         tourTab.textContent = 'Virtual Tour';
-        tourTab.addEventListener('click', function() {
-          var tourLink = document.querySelector('[class*="virtualTour"] a, .IDX-field-virtualTourURL a, a[href*="matterport"], a[href*="virtual"]');
-          if (tourLink) {
-            window.open(tourLink.href, '_blank');
-          } else {
-            var url = window.location.href.replace('/photogallery/', '/listing/');
-            window.location.href = url;
-          }
-        });
         tabBar.appendChild(tourTab);
+
         viewer.appendChild(tabBar);
+
+        // Async: look for the listing's virtual tour URL
+        (function() {
+          function _getTourUrl() {
+            // 1. IDX PIH nav bar has "Virtual Tour" link when one exists (hidden by CSS but in DOM)
+            var pihTour = Array.from(document.querySelectorAll('header.IDX-PIH a')).find(function(a) {
+              return /virtual\s*tour/i.test(a.textContent.trim());
+            });
+            if (pihTour && pihTour.href) return pihTour.href;
+            // 2. IDX virtual tour field
+            var el = document.querySelector(
+              '.IDX-field-virtualTourURL a, [class*="virtualTour"] a, ' +
+              'a[href*="matterport.com"], a[href*="my.matterport"], ' +
+              'a[href*="zillow.com/view-3d-home"]'
+            );
+            return el ? el.href : null;
+          }
+          var checks = 0;
+          function check() {
+            var url = _getTourUrl();
+            if (url) {
+              tourTab.addEventListener('click', function() { window.open(url, '_blank'); });
+              tabBar.style.display = '';
+              return;
+            }
+            checks++;
+            if (checks < 8) setTimeout(check, 500);
+            // No tour found after retries — tab bar stays hidden
+          }
+          check();
+        })();
 
         // Heart + Share icons — top right, matching listing card style
         var icons = document.createElement('div');
