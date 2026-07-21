@@ -271,6 +271,15 @@
 
     /* ─── TJG Agent Card: cream body with navy top band ─── */
     #tjg-agent-card { background:#F3EFE8 !important; border:1px solid rgba(24,37,75,0.1) !important; border-radius:0 !important; padding:0 !important; margin-bottom:16px !important; font-family:'Lato',sans-serif !important; overflow:hidden !important; }
+    /* Sticky agent card — sticks within the aside (which stretches to IDX-main height).
+       Naturally releases when IDX-main ends, i.e. right before virtual tour / map. */
+    #IDX-detailsWrapper,
+    #IDX-detailsAside { overflow: visible !important; }
+    html.tjg-details-page #tjg-agent-card {
+      position: sticky;
+      top: 95px; /* clears fixed nav */
+      align-self: start;
+    }
     /* Navy top band */
     #tjg-cta-banner { background:#18254B; padding:12px 24px; text-align:center; }
     #tjg-cta-banner #tjg-cta-banner__text { font-family:'Marcellus',serif !important; font-size:1rem !important; font-weight:400 !important; letter-spacing:0.02em !important; text-transform:none !important; color:#fff !important; margin:0 !important; line-height:1.2 !important; }
