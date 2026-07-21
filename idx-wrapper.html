@@ -5260,6 +5260,72 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           _calc();
         })();
 
+        // ── Virtual Tour ─────────────────────────────────────────────────────
+        (function() {
+          if (!document.querySelector('#IDX-main.IDX-page-listing')) return;
+          if (document.getElementById('tjg-vt-section')) return;
+
+          // Find virtual tour URL from IDX DOM
+          var _vtUrl = null;
+
+          // Check IDX-named fields first
+          var _vtField = document.querySelector(
+            '[id*="virtualTour"] a, [class*="virtualTour"] a, ' +
+            '[id*="VirtualTour"] a, [class*="VirtualTour"] a, ' +
+            '[id*="virtual-tour"] a, [class*="virtual-tour"] a'
+          );
+          if (_vtField && _vtField.href) _vtUrl = _vtField.href;
+
+          // Scan all links for known 3D-tour domains
+          if (!_vtUrl) {
+            var _links = document.querySelectorAll('#IDX-main a[href]');
+            for (var _i = 0; _i < _links.length; _i++) {
+              var _h = (_links[_i].getAttribute('href') || '');
+              if (/matterport\.com|kuula\.co|my\.tour|cloudpano\.com|giraffe360\.com|asteroom\.com|nodalview\.com|immoviewer\.com|lapentor\.com|roundme\.com|threedeerealty\.com|zillow\.com\/view-3d-home/i.test(_h)) {
+                _vtUrl = _h;
+                break;
+              }
+            }
+          }
+
+          if (!_vtUrl) return; // No tour on this listing — skip silently
+
+          // Convert to embeddable URL where possible
+          var _embedUrl = _vtUrl, _canEmbed = false;
+          if (/my\.matterport\.com|matterport\.com\/show/i.test(_vtUrl)) {
+            _embedUrl = _vtUrl + ((/\?/).test(_vtUrl) ? '&' : '?') + 'play=1&qs=1';
+            _canEmbed = true;
+          } else if (/kuula\.co|cloudpano\.com|giraffe360\.com|asteroom\.com|nodalview\.com|lapentor\.com|roundme\.com/i.test(_vtUrl)) {
+            _canEmbed = true;
+          }
+
+          var sect = document.createElement('div');
+          sect.id = 'tjg-vt-section';
+
+          if (_canEmbed) {
+            sect.style.cssText = 'background:#000;line-height:0;';
+            sect.innerHTML =
+              '<iframe src="' + _embedUrl + '" width="100%" height="500" frameborder="0" ' +
+              'allowfullscreen allow="xr-spatial-tracking; gyroscope; accelerometer" ' +
+              'style="display:block;border:none;"></iframe>';
+          } else {
+            sect.style.cssText = 'background:#18254B;padding:3rem clamp(1.5rem,5vw,4rem);box-sizing:border-box;text-align:center;font-family:"Lato",sans-serif;';
+            sect.innerHTML =
+              '<p style="font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B38987;margin:0 0 1.25rem;">Virtual Tour</p>' +
+              '<a href="' + _vtUrl + '" target="_blank" rel="noopener noreferrer" ' +
+              'style="display:inline-block;border:1px solid rgba(255,255,255,0.3);color:#fff;font-family:Lato,sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:0.75rem 2rem;text-decoration:none;">View Virtual Tour →</a>';
+          }
+
+          // Insert directly after IDX content block
+          (function() {
+            var _m = document.getElementById('IDX-main');
+            var _a = _m;
+            while (_a && _a.parentElement !== document.body) _a = _a.parentElement;
+            if (_a) document.body.insertBefore(sect, _a.nextSibling);
+            else document.body.appendChild(sect);
+          })();
+        })();
+
         // ── Location Map ────────────────────────────────────────────────────
         (function() {
           if (!document.querySelector('#IDX-main.IDX-page-listing')) return;
@@ -5286,13 +5352,18 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             'src="https://maps.google.com/maps?q=' + encodeURIComponent(addr) + '&z=15&output=embed" ' +
             'style="display:block;"></iframe></div>';
 
-          // Insert at body level, directly after the IDX content block (map appears first).
+          // Insert after virtual tour (if present), otherwise after IDX content block.
           (function() {
-            var _m = document.getElementById('IDX-main');
-            var _anchor = _m;
-            while (_anchor && _anchor.parentElement !== document.body) _anchor = _anchor.parentElement;
-            if (_anchor) document.body.insertBefore(sect, _anchor.nextSibling);
-            else document.body.appendChild(sect);
+            var _vt = document.getElementById('tjg-vt-section');
+            if (_vt && _vt.parentElement === document.body) {
+              document.body.insertBefore(sect, _vt.nextSibling);
+            } else {
+              var _m = document.getElementById('IDX-main');
+              var _anchor = _m;
+              while (_anchor && _anchor.parentElement !== document.body) _anchor = _anchor.parentElement;
+              if (_anchor) document.body.insertBefore(sect, _anchor.nextSibling);
+              else document.body.appendChild(sect);
+            }
           })();
         })();
 
