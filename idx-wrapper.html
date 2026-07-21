@@ -4973,37 +4973,46 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             var _st = document.createElement('style');
             _st.id = 'tjg-mc-style';
             _st.textContent =
-              '#tjg-mc-section{font-family:"Lato",sans-serif;background:#18254B;padding:2rem 1.5rem 2.5rem;margin-top:24px;}' +
-              '#tjg-mc-section .tjg-mc-ey{font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B38987;margin:0 0 1.5rem;}' +
+              // Full-width breakout from IDX content container
+              '#tjg-mc-section{font-family:"Lato",sans-serif;background:#F3EFE8;' +
+              'width:100vw;position:relative;left:50%;margin-left:-50vw;' +
+              'padding:3rem clamp(1.5rem,5vw,4rem) 3.5rem;box-sizing:border-box;margin-top:0;}' +
+              '#tjg-mc-section .tjg-mc-hd{margin:0 0 0.5rem;}' +
+              '#tjg-mc-section .tjg-mc-hd h2{font-family:"Lato",sans-serif;font-size:0.65rem;font-weight:700;' +
+              'letter-spacing:0.18em;text-transform:uppercase;color:#18254B;margin:0 0 0.6rem;}' +
+              '#tjg-mc-section .tjg-mc-hd p{font-family:"Lato",sans-serif;font-size:0.88rem;color:rgba(24,37,75,0.65);' +
+              'line-height:1.7;margin:0 0 2rem;max-width:680px;}' +
+              '#tjg-mc-section .tjg-mc-ey{display:none;}' +
+              '#tjg-mc-section .tjg-mc-inner{max-width:1060px;}' +
               '#tjg-mc-section .tjg-mc-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:2.5rem;align-items:start;}' +
               '@media(max-width:640px){#tjg-mc-section .tjg-mc-grid{grid-template-columns:1fr;}}' +
               '#tjg-mc-section .tjg-mc-gl{font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B38987;margin:0 0 0.75rem;}' +
               '#tjg-mc-section .tjg-mc-fs{display:grid;grid-template-columns:1fr 1fr;gap:0 1.5rem;margin-bottom:1.25rem;}' +
               '#tjg-mc-section .tjg-mc-f{margin-bottom:1rem;}' +
-              '#tjg-mc-section .tjg-mc-f label{display:block;font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.65);margin-bottom:0.35rem;}' +
-              '#tjg-mc-section .tjg-mc-iw{display:flex;align-items:center;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);border-radius:0;}' +
-              '#tjg-mc-section .tjg-mc-iw input,#tjg-mc-section .tjg-mc-iw select{flex:1;background:transparent;border:none;color:#fff;font-family:"Lato",sans-serif;font-size:0.9rem;font-weight:700;padding:0.55rem 0.5rem;width:100%;outline:none;-webkit-appearance:none;-moz-appearance:none;}' +
-              '#tjg-mc-section .tjg-mc-iw select option{background:#18254B;color:#fff;}' +
-              '#tjg-mc-section .tjg-mc-px,#tjg-mc-section .tjg-mc-sx{font-size:0.8rem;font-weight:700;color:rgba(255,255,255,0.5);padding:0 0.5rem;pointer-events:none;white-space:nowrap;}' +
+              '#tjg-mc-section .tjg-mc-f label{display:block;font-size:0.65rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(24,37,75,0.6);margin-bottom:0.35rem;}' +
+              '#tjg-mc-section .tjg-mc-iw{display:flex;align-items:center;background:#fff;border:1px solid rgba(24,37,75,0.15);border-radius:0;}' +
+              '#tjg-mc-section .tjg-mc-iw input,#tjg-mc-section .tjg-mc-iw select{flex:1;background:transparent;border:none;color:#18254B;font-family:"Lato",sans-serif;font-size:0.9rem;font-weight:700;padding:0.55rem 0.5rem;width:100%;outline:none;-webkit-appearance:none;-moz-appearance:none;}' +
+              '#tjg-mc-section .tjg-mc-iw select option{background:#fff;color:#18254B;}' +
+              '#tjg-mc-section .tjg-mc-px,#tjg-mc-section .tjg-mc-sx{font-size:0.8rem;font-weight:700;color:rgba(24,37,75,0.4);padding:0 0.5rem;pointer-events:none;white-space:nowrap;}' +
               '#tjg-mc-section .tjg-mc-ir{display:grid;grid-template-columns:1fr 80px;gap:0.5rem;}' +
-              '#tjg-mc-section .tjg-mc-tog{display:flex;border-left:1px solid rgba(255,255,255,0.12);}' +
-              '#tjg-mc-section .tjg-mc-tb{background:transparent;border:none;color:rgba(255,255,255,0.45);font-family:"Lato",sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;padding:0 0.55rem;cursor:pointer;transition:color 0.15s;white-space:nowrap;}' +
+              '#tjg-mc-section .tjg-mc-tog{display:flex;border-left:1px solid rgba(24,37,75,0.12);}' +
+              '#tjg-mc-section .tjg-mc-tb{background:transparent;border:none;color:rgba(24,37,75,0.4);font-family:"Lato",sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;padding:0 0.55rem;cursor:pointer;transition:color 0.15s;white-space:nowrap;}' +
               '#tjg-mc-section .tjg-mc-tb.on{color:#B38987;}' +
-              '#tjg-mc-section .tjg-mc-hr{border:none;border-top:1px solid rgba(255,255,255,0.1);margin:0.25rem 0 1.25rem;}' +
-              '#tjg-mc-section .tjg-mc-cat{display:none;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin:-0.5rem 0 1rem;padding:0.4rem 0.75rem;border-left:2px solid #B38987;color:rgba(255,255,255,0.75);}' +
-              '#tjg-mc-section .tjg-mc-pmi{display:none;font-size:0.72rem;color:rgba(255,255,255,0.5);margin:0 0 1rem;line-height:1.6;}' +
-              '#tjg-mc-section .tjg-mc-la{display:flex;justify-content:space-between;align-items:center;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.55);padding:0.75rem 0;border-top:1px solid rgba(255,255,255,0.1);}' +
-              '#tjg-mc-section .tjg-mc-la span:last-child{color:#fff;font-size:0.9rem;}' +
-              '#tjg-mc-section .tjg-mc-rst{background:transparent;border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.6);font-family:"Lato",sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;padding:0.55rem 1.2rem;cursor:pointer;margin-top:1rem;transition:border-color 0.2s,color 0.2s;}' +
+              '#tjg-mc-section .tjg-mc-hr{border:none;border-top:1px solid rgba(24,37,75,0.1);margin:0.25rem 0 1.25rem;}' +
+              '#tjg-mc-section .tjg-mc-cat{display:none;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin:-0.5rem 0 1rem;padding:0.4rem 0.75rem;border-left:2px solid #B38987;color:rgba(24,37,75,0.7);}' +
+              '#tjg-mc-section .tjg-mc-pmi{display:none;font-size:0.72rem;color:rgba(24,37,75,0.5);margin:0 0 1rem;line-height:1.6;}' +
+              '#tjg-mc-section .tjg-mc-la{display:flex;justify-content:space-between;align-items:center;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(24,37,75,0.5);padding:0.75rem 0;border-top:1px solid rgba(24,37,75,0.1);}' +
+              '#tjg-mc-section .tjg-mc-la span:last-child{color:#18254B;font-size:0.9rem;}' +
+              '#tjg-mc-section .tjg-mc-rst{background:transparent;border:1px solid rgba(24,37,75,0.2);color:rgba(24,37,75,0.5);font-family:"Lato",sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;padding:0.55rem 1.2rem;cursor:pointer;margin-top:1rem;transition:border-color 0.2s,color 0.2s;}' +
               '#tjg-mc-section .tjg-mc-rst:hover{border-color:#B38987;color:#B38987;}' +
-              '#tjg-mc-section .tjg-mc-di{font-size:0.65rem;color:rgba(255,255,255,0.35);line-height:1.7;margin-top:1.25rem;}' +
-              '#tjg-mc-section .tjg-mc-card{background:rgba(255,255,255,0.06);border-radius:4px;padding:1.75rem 1.25rem 1.25rem;}' +
+              '#tjg-mc-section .tjg-mc-di{font-size:0.65rem;color:rgba(24,37,75,0.4);line-height:1.7;margin-top:1.25rem;}' +
+              '#tjg-mc-section .tjg-mc-card{background:#18254B;border-radius:4px;padding:1.75rem 1.25rem 1.25rem;}' +
               '#tjg-mc-section .tjg-mc-dn{position:relative;width:180px;height:180px;margin:0 auto 1.25rem;}' +
               '#tjg-mc-section .tjg-mc-dn svg{width:100%;height:100%;}' +
               '#tjg-mc-section .tjg-mc-ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}' +
               '#tjg-mc-section .tjg-mc-amt{font-size:1.4rem;font-weight:700;color:#fff;line-height:1;}' +
               '#tjg-mc-section .tjg-mc-clb{font-size:0.6rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-top:0.35rem;}' +
-              '#tjg-mc-section .tjg-mc-li{display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;color:rgba(255,255,255,0.7);padding:0.35rem 0;border-bottom:1px solid rgba(255,255,255,0.06);}' +
+              '#tjg-mc-section .tjg-mc-li{display:flex;align-items:center;gap:0.5rem;font-size:0.72rem;color:rgba(255,255,255,0.75);padding:0.35rem 0;border-bottom:1px solid rgba(255,255,255,0.08);}' +
               '#tjg-mc-section .tjg-mc-li:last-child{border-bottom:none;}' +
               '#tjg-mc-section .tjg-mc-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}' +
               '#tjg-mc-section .tjg-mc-lv{margin-left:auto;font-weight:700;color:#fff;white-space:nowrap;}' +
@@ -5012,16 +5021,28 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           }
 
           // Auto-detect listing price from IDX DOM
+          // The hidden .IDX-field-listingPrice row in the fields section is most reliable
           function _mcPx() {
             var sels = [
-              '#IDX-listingPrices .IDX-listPrice', '.IDX-detailsListPrice',
-              '.IDX-listPrice', '#IDX-main [class*="listPrice"]'
+              '.IDX-field-listingPrice .IDX-text',
+              '.IDX-field-listingPrice .IDX-value',
+              '#IDX-listingPrices .IDX-listPrice',
+              '.IDX-detailsListPrice',
+              '.IDX-listPrice',
+              '#IDX-main [class*="listPrice"]',
+              '#IDX-main [class*="ListPrice"]'
             ];
             for (var i = 0; i < sels.length; i++) {
               var el = document.querySelector(sels[i]);
               if (!el) continue;
               var n = parseInt((el.getAttribute('data-price') || el.textContent).replace(/[^0-9]/g,''),10);
               if (n > 50000) return n;
+            }
+            // Fallback: scan all price-like elements
+            var els = document.querySelectorAll('#IDX-main [class*="price"],[class*="Price"]');
+            for (var j = 0; j < els.length; j++) {
+              var n2 = parseInt(els[j].textContent.replace(/[^0-9]/g,''),10);
+              if (n2 > 50000) return n2;
             }
             return 800000;
           }
@@ -5046,7 +5067,11 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           var _s = document.createElement('div');
           _s.id = 'tjg-mc-section';
           _s.innerHTML =
-            '<p class="tjg-mc-ey">Estimate Your Monthly Payment</p>' +
+            '<div class="tjg-mc-inner">' +
+            '<div class="tjg-mc-hd">' +
+            '<h2>Mortgage Calculator</h2>' +
+            '<p>Estimate your monthly mortgage payment, including the principal and interest, property taxes, and HOA. Adjust the values to generate a more accurate rate.</p>' +
+            '</div>' +
             '<div class="tjg-mc-grid">' +
               '<div>' +
                 '<p class="tjg-mc-gl">Loan Details</p>' +
@@ -5111,6 +5136,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
                 '<div class="tjg-mc-clb">Est. Monthly</div></div></div>' +
                 '<div id="tjg-mc-lg"></div>' +
               '</div>' +
+            '</div>' +
             '</div>';
 
           // Insert after #IDX-fieldsWrapper (or fallback to #IDX-main)
@@ -5242,7 +5268,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
 
           var sect = document.createElement('div');
           sect.id = 'tjg-map-section';
-          sect.style.cssText = 'background:#18254B;padding:2rem 1.5rem 0;font-family:"Lato",sans-serif;';
+          sect.style.cssText = 'background:#F3EFE8;width:100vw;position:relative;left:50%;margin-left:-50vw;box-sizing:border-box;padding:2.5rem clamp(1.5rem,5vw,4rem) 0;font-family:"Lato",sans-serif;';
           sect.innerHTML =
             '<p style="font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B38987;margin:0 0 1.25rem;">Location</p>' +
             '<div style="border-radius:4px;overflow:hidden;">' +
