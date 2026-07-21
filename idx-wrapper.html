@@ -2061,6 +2061,14 @@
     }
     .filter-buttons-container { padding-left: 20px !important; }
   </style>
+  <script>
+    /* Runs synchronously during HTML parsing — before <body> is rendered.
+       Activates the opacity:0 FOUC-hide rule from the very first paint. */
+    if (/\/details\//.test(location.pathname)) {
+      document.documentElement.classList.add('tjg-details-page');
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    }
+  </script>
 </head>
 <body>
 
@@ -2220,15 +2228,6 @@
 
   <script src="https://ljaiswal215.github.io/the-jaiswal-group/main.js"></script>
   <script>
-    // Flag detail pages on <html> synchronously — CSS uses this to keep #IDX-main
-    // invisible from the very first paint, before IDX adds its own classes.
-    (function() {
-      if (/\/details\//.test(window.location.pathname)) {
-        document.documentElement.classList.add('tjg-details-page');
-        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-      }
-    })();
-
     // Scroll to top when returning from the photo gallery viewer, and also when
     // the page is restored from bfcache (back-button) on any detail page.
     window.addEventListener('pageshow', function(e) {
