@@ -2216,6 +2216,13 @@
 
   <script src="https://ljaiswal215.github.io/the-jaiswal-group/main.js"></script>
   <script>
+    // Scroll to top when returning from the photo gallery viewer
+    window.addEventListener('pageshow', function(e) {
+      if (sessionStorage.getItem('tjg-from-gallery') !== '1') return;
+      sessionStorage.removeItem('tjg-from-gallery');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+
     // Abbreviate map price labels: $1,250,000 → $1.25M, $850,000 → $850K
     function _abbreviatePrice(text) {
       var match = text.match(/\$?([\d,]+)/);
@@ -5164,7 +5171,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         var back = document.createElement('button');
         back.id = 'tjg-gallery-back';
         back.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg> Back';
-        back.addEventListener('click', function() { window.history.back(); });
+        back.addEventListener('click', function() { sessionStorage.setItem('tjg-from-gallery', '1'); window.history.back(); });
         viewer.appendChild(back);
 
         var prev = document.createElement('button');
