@@ -559,7 +559,7 @@
             </div>
             <p>Your guide has been downloaded.<br>Save it somewhere easy to find so you can refer back to it throughout your move.</p>
             <div class="bg-success-actions">
-              <a href="RelocationGuide.pdf" class="btn-primary" target="_blank" rel="noopener">OPEN YOUR RELOCATION GUIDE &rarr;</a>
+              <a href="https://drive.google.com/file/d/1JzXt72svswNynNiK2RQqZijAcDh72G6b/view?usp=sharing" class="btn-primary" target="_blank" rel="noopener">OPEN YOUR RELOCATION GUIDE &rarr;</a>
               <span class="bg-success-divider">then</span>
               <a href="contact.html" class="btn-secondary">SCHEDULE A FREE CONSULTATION &rarr;</a>
             </div>
@@ -679,12 +679,7 @@
             document.getElementById('bg-form-heading').textContent = 'YOUR INSTANT ACCESS IS HERE';
             document.getElementById('bg-form-heading').style.textAlign = 'center';
             document.getElementById('bg-form-subtext').style.display = 'none';
-            const link = document.createElement('a');
-            link.href = 'RelocationGuide.pdf';
-            link.download = 'SanDiego-Relocation-Guide-TheJaiswalGroup.pdf';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            window.open('https://drive.google.com/file/d/1JzXt72svswNynNiK2RQqZijAcDh72G6b/view?usp=sharing', '_blank');
           } else {
             bgSubmit.disabled = false;
             bgSubmit.textContent = 'DOWNLOAD MY FREE GUIDE NOW';
