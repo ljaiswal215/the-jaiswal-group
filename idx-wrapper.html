@@ -3395,7 +3395,7 @@
             '</div>' +
             '<form id="tjg-tour-form" action="https://formspree.io/f/xeebppno" method="POST">' +
               '<input type="hidden" name="_subject" value="Tour Request — ' + propAddr + '">' +
-              '<input type="hidden" name="_cc" value="admin@thejaiswalgroup.com">' +
+              '<input type="hidden" name="_cc" value="office@thejaiswalgroup.com">' +
               '<input type="hidden" name="property" value="' + propAddr + '">' +
               '<input type="hidden" id="tjg-hidden-type" name="tour_type" value="In Person">' +
               '<input type="hidden" id="tjg-hidden-date" name="preferred_date" value="">' +
@@ -3449,7 +3449,7 @@
             '</div>' +
             '<form id="tjg-contact-form" action="https://formspree.io/f/xkolppyb" method="POST">' +
               '<input type="hidden" name="_subject" id="tjg-contact-subject" value="Contact Us — Listing Inquiry">' +
-              '<input type="hidden" name="_cc" value="admin@thejaiswalgroup.com">' +
+              '<input type="hidden" name="_cc" value="office@thejaiswalgroup.com">' +
               '<input type="hidden" name="listing_address" id="tjg-contact-listing" value="">' +
               '<div class="tjg-contact-row">' +
                 '<div><label>First Name<span>*</span><input type="text" name="first_name" required placeholder="First Name*"></label></div>' +
@@ -5279,6 +5279,74 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             _calc();
           });
           _calc();
+        })();
+
+        // ── CTA: Interested in this home? ────────────────────────────────────
+        (function() {
+          if (!document.querySelector('#IDX-main.IDX-page-listing')) return;
+          if (document.getElementById('tjg-cta-section')) return;
+
+          var _s = document.createElement('section');
+          _s.id = 'tjg-cta-section';
+          _s.style.cssText = 'background:#F3EFE8;padding:3rem clamp(1.5rem,5vw,4rem);box-sizing:border-box;font-family:"Lato",sans-serif;';
+
+          var _addr = '';
+          var _li = document.getElementById('tjg-contact-listing');
+          if (_li) _addr = _li.value;
+
+          _s.innerHTML =
+            '<style>' +
+              '#tjg-cta-section .tjg-cta-grid{display:grid;grid-template-columns:1.3fr 0.7fr;gap:3rem;align-items:center;max-width:1100px;margin:0 auto;}' +
+              '@media(max-width:640px){#tjg-cta-section .tjg-cta-grid{grid-template-columns:1fr;gap:2rem;}}' +
+              '#tjg-cta-contact-btn:hover{color:#B38987!important;}' +
+            '</style>' +
+            '<div class="tjg-cta-grid">' +
+              '<div>' +
+                '<p style="font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B38987;margin:0 0 0.75rem;">LISTING INQUIRY</p>' +
+                '<h2 style="font-family:\'Marcellus\',serif;font-size:2rem;color:#18254B;margin:0 0 1rem;line-height:1.2;font-weight:400;">Interested in<br>This Home?</h2>' +
+                (_addr ? '<p style="font-size:0.82rem;color:#7a7269;margin:0 0 1.25rem;">' + _addr + '</p>' : '') +
+                '<p style="font-size:0.9rem;line-height:1.65;color:rgba(24,37,75,0.8);margin:0 0 2rem;">Whether you have questions, want to schedule a private showing, or are ready to make an offer — Lynnette is here to guide you every step of the way.</p>' +
+                '<button id="tjg-cta-contact-btn" style="background:#18254B;color:#fff;border:2px solid #18254B;border-radius:0;font-family:\'Lato\',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:14px 32px;cursor:pointer;transition:color 0.2s;">CONTACT US</button>' +
+              '</div>' +
+              '<div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:0.5rem;">' +
+                '<img src="https://ljaiswal215.github.io/the-jaiswal-group/lynnette.png" alt="Lynnette Jaiswal" style="width:160px;height:auto;display:block;margin-bottom:0.75rem;">' +
+                '<p style="font-weight:700;color:#18254B;margin:0;font-size:0.95rem;">Lynnette Jaiswal</p>' +
+                '<p style="font-size:0.78rem;color:#7a7269;margin:0 0 0.5rem;">Broker | Luxury Real Estate Advisor</p>' +
+                '<a href="tel:+18582907531" style="font-size:0.82rem;color:#18254B;text-decoration:none;display:block;">(858) 290-7531</a>' +
+                '<a href="mailto:office@thejaiswalgroup.com" style="font-size:0.82rem;color:#18254B;text-decoration:none;display:block;">office@thejaiswalgroup.com</a>' +
+              '</div>' +
+            '</div>';
+
+          // Insert after calculator section
+          var _mc = document.getElementById('tjg-mc-section');
+          if (_mc && _mc.parentElement === document.body) {
+            document.body.insertBefore(_s, _mc.nextSibling);
+          }
+
+          // Wire button to open existing contact modal with pre-filled fields
+          var _btn = document.getElementById('tjg-cta-contact-btn');
+          if (_btn) {
+            _btn.addEventListener('click', function() {
+              var _modal = document.getElementById('tjg-contact-modal');
+              if (!_modal) return;
+              var _form = document.getElementById('tjg-contact-form');
+              var _success = document.getElementById('tjg-contact-success');
+              var _submit = document.getElementById('tjg-contact-submit');
+              if (_form) _form.style.display = '';
+              if (_success) _success.style.display = 'none';
+              if (_submit) { _submit.textContent = 'Send Message'; _submit.disabled = false; }
+              var _a = (document.getElementById('tjg-contact-listing') || {}).value || '';
+              var _subj = document.getElementById('tjg-contact-subject');
+              var _msg = document.getElementById('tjg-contact-msg');
+              if (_subj) _subj.value = _a ? 'Contact Us — ' + _a : 'Contact Us — Listing Inquiry';
+              if (_msg && !_msg.value) {
+                _msg.value = _a
+                  ? 'Hello,\n\nI\'m interested in the property located at ' + _a + '. Could you please provide additional information?'
+                  : 'Hello,\n\nI\'m interested in this property. Could you please provide additional information?';
+              }
+              _modal.classList.add('tjg-open');
+            });
+          }
         })();
 
         // ── Virtual Tour ─────────────────────────────────────────────────────
