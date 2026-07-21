@@ -90,6 +90,11 @@
     .IDX-loginModal .IDX-alertInfo,
     .IDX-loginModal .IDX-alert { display: none !important; }
 
+    /* ─── Global TJG button radius ─── */
+    #tjg-tour-btn, #tjg-tour-submit, #tjg-tour-next,
+    #tjg-contact-submit, #tjg-cta-contact-btn,
+    .tjg-action-btn, .tjg-mc-rst { border-radius:0 !important; }
+
     /* ─── Custom listing action row ─── */
     #tjg-action-row { display:flex; gap:10px; align-items:center; }
     .tjg-action-btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; background:#F3EFE8; color:#18254B; border:2px solid #18254B; border-radius:0; font-family:'Lato',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; padding:11px 18px; cursor:pointer; white-space:nowrap; }
@@ -5028,8 +5033,8 @@ document.getElementById('tjg-tour-success').style.display = 'block';
               '#tjg-mc-section .tjg-mc-rst:hover{border-color:#B38987;color:#B38987;}' +
               '#tjg-mc-section .tjg-mc-di{font-size:0.65rem;color:rgba(255,255,255,0.35);line-height:1.7;margin-top:1.25rem;}' +
               // Card uses cream background with navy text (matches standalone calculator page)
-              '#tjg-mc-section .tjg-mc-card{background:#F3EFE8;border-radius:4px;padding:2.5rem 1.75rem;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;gap:1.5rem;}' +
-              '#tjg-mc-section .tjg-mc-dn{position:relative;width:min(100%,300px);height:min(100%,300px);aspect-ratio:1/1;margin:0 auto;flex-shrink:0;}' +
+              '#tjg-mc-section .tjg-mc-card{background:#F3EFE8;border-radius:4px;padding:2.5rem 1.75rem;display:flex;flex-direction:column;justify-content:space-between;align-items:center;gap:1.5rem;}' +
+              '#tjg-mc-section .tjg-mc-dn{position:relative;flex:1;width:100%;min-height:200px;}' +
               '#tjg-mc-section .tjg-mc-dn svg{width:100%;height:100%;}' +
               '#tjg-mc-section .tjg-mc-ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}' +
               '#tjg-mc-section .tjg-mc-amt{font-size:1.4rem;font-weight:700;color:#18254B;line-height:1;}' +
@@ -5151,7 +5156,6 @@ document.getElementById('tjg-tour-success').style.display = 'block';
                 '</div>' +
                 '<div class="tjg-mc-la"><span>Loan Amount</span><span id="tjg-mc-lv">—</span></div>' +
                 '<button class="tjg-mc-rst" id="tjg-mc-rs">RESET ↺</button>' +
-                '<p class="tjg-mc-di">This calculator is for informational purposes only and does not constitute a loan commitment or guarantee of financing. Actual payments will vary based on credit profile, lender requirements, and market conditions. Contact us for a referral to a trusted lending partner.</p>' +
               '</div>' +
               '<div class="tjg-mc-card">' +
                 '<div class="tjg-mc-dn"><svg id="tjg-mc-sv" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"></svg>' +
@@ -5160,6 +5164,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
                 '<div id="tjg-mc-lg"></div>' +
               '</div>' +
             '</div>' +
+            '<p class="tjg-mc-di">This calculator is for informational purposes only and does not constitute a loan commitment or guarantee of financing. Actual payments will vary based on credit profile, lender requirements, and market conditions. Contact us for a referral to a trusted lending partner.</p>' +
             '</div>';
 
           // Insert after the map section (map renders first, calculator below it).
@@ -5302,10 +5307,9 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             '</style>' +
             '<div class="tjg-cta-grid">' +
               '<div>' +
-                '<p style="font-size:0.7rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B38987;margin:0 0 0.75rem;">LISTING INQUIRY</p>' +
                 '<h2 style="font-family:\'Marcellus\',serif;font-size:2rem;color:#18254B;margin:0 0 1rem;line-height:1.2;font-weight:400;">Interested in<br>This Home?</h2>' +
                 (_addr ? '<p style="font-size:0.82rem;color:#7a7269;margin:0 0 1.25rem;">' + _addr + '</p>' : '') +
-                '<p style="font-size:0.9rem;line-height:1.65;color:rgba(24,37,75,0.8);margin:0 0 2rem;">Whether you have questions, want to schedule a private showing, or are ready to make an offer — Lynnette is here to guide you every step of the way.</p>' +
+                '<p style="font-size:0.9rem;line-height:1.65;color:rgba(24,37,75,0.8);margin:0 0 2rem;">Lynnette is here to guide you every step of the way.</p>' +
                 '<button id="tjg-cta-contact-btn" style="background:#18254B;color:#fff;border:2px solid #18254B;border-radius:0;font-family:\'Lato\',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:14px 32px;cursor:pointer;transition:color 0.2s;">CONTACT US</button>' +
               '</div>' +
               '<div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:0.5rem;">' +
@@ -5313,7 +5317,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
                 '<p style="font-weight:700;color:#18254B;margin:0;font-size:0.95rem;">Lynnette Jaiswal</p>' +
                 '<p style="font-size:0.78rem;color:#7a7269;margin:0 0 0.5rem;">Broker | Luxury Real Estate Advisor</p>' +
                 '<a href="tel:+18582907531" style="font-size:0.82rem;color:#18254B;text-decoration:none;display:block;">(858) 290-7531</a>' +
-                '<a href="mailto:office@thejaiswalgroup.com" style="font-size:0.82rem;color:#18254B;text-decoration:none;display:block;">office@thejaiswalgroup.com</a>' +
+                '<a href="mailto:Lynnette@thejaiswalgroup.com" style="font-size:0.82rem;color:#18254B;text-decoration:none;display:block;">Lynnette@thejaiswalgroup.com</a>' +
               '</div>' +
             '</div>';
 
