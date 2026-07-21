@@ -5141,14 +5141,18 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             '</div>' +
             '</div>';
 
-          // Insert as a body-level sibling after the IDX content block so it's
-          // naturally full-width and not clipped by any overflow:hidden ancestor.
+          // Insert after the map section (map renders first, calculator below it).
           (function() {
-            var _m = document.getElementById('IDX-main');
-            var _anchor = _m;
-            while (_anchor && _anchor.parentElement !== document.body) _anchor = _anchor.parentElement;
-            if (_anchor) document.body.insertBefore(_s, _anchor.nextSibling);
-            else if (_m) _m.parentNode.insertBefore(_s, _m.nextSibling);
+            var _map = document.getElementById('tjg-map-section');
+            if (_map && _map.parentElement === document.body) {
+              document.body.insertBefore(_s, _map.nextSibling);
+            } else {
+              var _m = document.getElementById('IDX-main');
+              var _anchor = _m;
+              while (_anchor && _anchor.parentElement !== document.body) _anchor = _anchor.parentElement;
+              if (_anchor) document.body.insertBefore(_s, _anchor.nextSibling);
+              else if (_m) _m.parentNode.insertBefore(_s, _m.nextSibling);
+            }
           })();
 
           // Calculator logic
@@ -5282,18 +5286,13 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             'src="https://maps.google.com/maps?q=' + encodeURIComponent(addr) + '&z=15&output=embed" ' +
             'style="display:block;"></iframe></div>';
 
-          // Insert at body level, after the calculator section (or after IDX content block)
+          // Insert at body level, directly after the IDX content block (map appears first).
           (function() {
-            var _mc = document.getElementById('tjg-mc-section');
-            if (_mc && _mc.parentElement === document.body) {
-              document.body.insertBefore(sect, _mc.nextSibling);
-            } else {
-              var _m = document.getElementById('IDX-main');
-              var _anchor = _m;
-              while (_anchor && _anchor.parentElement !== document.body) _anchor = _anchor.parentElement;
-              if (_anchor) document.body.insertBefore(sect, _anchor.nextSibling);
-              else document.body.appendChild(sect);
-            }
+            var _m = document.getElementById('IDX-main');
+            var _anchor = _m;
+            while (_anchor && _anchor.parentElement !== document.body) _anchor = _anchor.parentElement;
+            if (_anchor) document.body.insertBefore(sect, _anchor.nextSibling);
+            else document.body.appendChild(sect);
           })();
         })();
 
