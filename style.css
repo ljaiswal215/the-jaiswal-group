@@ -2107,8 +2107,9 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 .featured-properties .idx-listing-card__additional-info,
 .featured-properties .idx-listing-card__image--wrap .idx-listing-card__single-item.idx-listing-card__prop-status { display: none !important; }
 
-/* 4-column grid */
-.featured-properties .idx-listings-showcase__columns {
+/* 4-column grid — targets IDX's actual class name (idx-listings-showcase__columns-N)
+   and overrides their own --large rule that forces 3 columns */
+.featured-properties [class*="idx-listings-showcase__columns"] {
   display: grid !important;
   grid-template-columns: repeat(4, 1fr) !important;
   gap: 0.75rem !important;
