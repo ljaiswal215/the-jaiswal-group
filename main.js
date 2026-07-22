@@ -187,7 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (status === 'coming soon') {
           // IDX Broker hides Coming Soon cards — override to show them
           card.style.setProperty('display', 'flex', 'important');
-          if (badge) badge.style.setProperty('background', '#B38987', 'important');
         } else if (status !== 'active' && status !== '') {
           card.style.setProperty('display', 'none', 'important');
         }
