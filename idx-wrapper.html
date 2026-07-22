@@ -2081,16 +2081,49 @@
   </style>
   <script>
     /* Runs synchronously during HTML parsing — before <body> is rendered.
-       Activates the opacity:0 FOUC-hide rule from the very first paint. */
-    if (/\/details\//.test(location.pathname)) {
-      document.documentElement.classList.add('tjg-details-page');
-      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-      /* Failsafe: if _tjgDispatch never fires, reveal content after 2.5s max */
-      setTimeout(function() {
-        var m = document.getElementById('IDX-main');
-        if (m && !m.classList.contains('tjg-ready')) m.classList.add('tjg-ready');
-      }, 2500);
-    }
+       Activates the opacity:0 FOUC-hide rule from the very first paint.
+       Also patches pushState/replaceState so IDX's AJAX navigation to a
+       detail page hides the native layout instantly, before IDX renders. */
+    (function() {
+      var _DETAIL_RE = /\/details\//;
+
+      function _applyDetailClass(isDetail) {
+        if (isDetail) {
+          document.documentElement.classList.add('tjg-details-page');
+          /* Un-ready #IDX-main so the hide rule kicks in for the new page */
+          var m = document.getElementById('IDX-main');
+          if (m) m.classList.remove('tjg-ready');
+          /* Failsafe: reveal after 3s if _tjgDispatch never fires */
+          setTimeout(function() {
+            var m2 = document.getElementById('IDX-main');
+            if (m2 && !m2.classList.contains('tjg-ready')) m2.classList.add('tjg-ready');
+          }, 3000);
+        } else {
+          document.documentElement.classList.remove('tjg-details-page');
+        }
+      }
+
+      /* Initial page load */
+      if (_DETAIL_RE.test(location.pathname)) {
+        _applyDetailClass(true);
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      }
+
+      /* Patch pushState / replaceState — IDX uses these for AJAX navigation */
+      ['pushState','replaceState'].forEach(function(fn) {
+        var orig = history[fn];
+        history[fn] = function(state, title, url) {
+          orig.apply(this, arguments);
+          var path = url ? String(url) : location.pathname;
+          _applyDetailClass(_DETAIL_RE.test(path));
+        };
+      });
+
+      /* Back/forward navigation */
+      window.addEventListener('popstate', function() {
+        _applyDetailClass(_DETAIL_RE.test(location.pathname));
+      });
+    })();
   </script>
 </head>
 <body>
