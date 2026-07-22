@@ -172,6 +172,20 @@ document.addEventListener('DOMContentLoaded', () => {
     .idx-property-card__mls-logo { background: transparent !important; mix-blend-mode: multiply !important; }
     .idx-property-card__mls img,
     .idx-property-card__mls-logo img { mix-blend-mode: multiply !important; background: transparent !important; }
+    /* Force 4-column grid on all widget pages to match homepage featured properties */
+    [class*="idx-listings-showcase__columns"] {
+      grid-template-columns: repeat(4, 1fr) !important;
+    }
+    @media (max-width: 900px) {
+      [class*="idx-listings-showcase__columns"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+    }
+    @media (max-width: 480px) {
+      [class*="idx-listings-showcase__columns"] {
+        grid-template-columns: 1fr !important;
+      }
+    }
   `;
 
   // Hide any showcase card whose status badge is not "Active".
@@ -190,6 +204,21 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (status !== 'active' && status !== '') {
           card.style.setProperty('display', 'none', 'important');
         }
+      });
+    });
+  }
+
+  // Cap each widget at 8 visible cards (4 cols × 2 rows).
+  // Runs after hidePendingCards() so Coming Soon cards are already force-shown.
+  function capWidgetCards() {
+    document.querySelectorAll('idx-listings-showcase').forEach(function(widget) {
+      var root = widget.shadowRoot;
+      if (!root) return;
+      var shown = 0;
+      root.querySelectorAll('.idx-listings-showcase__property').forEach(function(card) {
+        if (window.getComputedStyle(card).display === 'none') return;
+        shown++;
+        if (shown > 8) card.style.setProperty('display', 'none', 'important');
       });
     });
   }
@@ -293,6 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     applyWidgetStyles();
     hidePendingCards();
+    capWidgetCards();
     if (allDone) clearInterval(_widgetInterval);
   }, 500);
   setTimeout(function() { clearInterval(_widgetInterval); }, 30000);
