@@ -4073,9 +4073,12 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         var headerEl = document.getElementById('IDX-detailsHeader');
         var appendTarget = headerEl || addrParent;
         if (appendTarget) { appendTarget.appendChild(meta); }
+        // Reveal content immediately — custom header is now in place
+        var _idxReveal = document.getElementById('IDX-main');
+        if (_idxReveal && !_idxReveal.classList.contains('tjg-ready')) {
+          _idxReveal.classList.add('tjg-ready');
+        }
       }
-      // Expose for _tjgDispatch (different IIFE scope) so header restructure
-      // happens before tjg-ready reveals content, eliminating the native-layout flash
       window._tjgRDH = _restructureDetailHeader;
       [400, 1000, 2200].forEach(function(ms) { setTimeout(_restructureDetailHeader, ms); });
     })();
@@ -5599,16 +5602,21 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           })();
         })();
 
-        // Restructure the detail header (price/address/stats) BEFORE revealing content
-        // so the native IDX layout never flashes. _tjgRDH is exposed from its own IIFE.
+        // Attempt to restructure detail header (price/address/stats).
+        // If IDX hasn't added IDX-page-listing yet, _tjgRDH returns early and
+        // tjg-listing-meta won't exist — we must NOT reveal yet in that case.
         if (document.documentElement.classList.contains('tjg-details-page') && window._tjgRDH) {
           window._tjgRDH();
         }
 
-        // Reveal listing detail — add tjg-ready whenever we're on a /details/ page
+        // Only reveal when our custom header is confirmed in the DOM.
+        // _restructureDetailHeader adds tjg-ready itself on success; this catches
+        // the case where it already ran before this _tjgDispatch call.
         if (document.documentElement.classList.contains('tjg-details-page')) {
           var _idxMain = document.getElementById('IDX-main');
-          if (_idxMain) _idxMain.classList.add('tjg-ready');
+          if (_idxMain && document.getElementById('tjg-listing-meta')) {
+            _idxMain.classList.add('tjg-ready');
+          }
         }
       }
       function _tjgSchedule() {
