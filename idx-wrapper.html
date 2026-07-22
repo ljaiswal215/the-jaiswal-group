@@ -4074,6 +4074,9 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         var appendTarget = headerEl || addrParent;
         if (appendTarget) { appendTarget.appendChild(meta); }
       }
+      // Expose for _tjgDispatch (different IIFE scope) so header restructure
+      // happens before tjg-ready reveals content, eliminating the native-layout flash
+      window._tjgRDH = _restructureDetailHeader;
       [400, 1000, 2200].forEach(function(ms) { setTimeout(_restructureDetailHeader, ms); });
     })();
 
@@ -5595,6 +5598,12 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             }
           })();
         })();
+
+        // Restructure the detail header (price/address/stats) BEFORE revealing content
+        // so the native IDX layout never flashes. _tjgRDH is exposed from its own IIFE.
+        if (document.documentElement.classList.contains('tjg-details-page') && window._tjgRDH) {
+          window._tjgRDH();
+        }
 
         // Reveal listing detail — add tjg-ready whenever we're on a /details/ page
         if (document.documentElement.classList.contains('tjg-details-page')) {
