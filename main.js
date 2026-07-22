@@ -208,6 +208,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Force 4-column grid via JS inline style — IDX Broker's shadow DOM stylesheet
+  // uses !important on grid-template-columns so CSS injection alone can't override it.
+  function forceWidgetColumns() {
+    document.querySelectorAll('idx-listings-showcase').forEach(function(widget) {
+      var root = widget.shadowRoot;
+      if (!root) return;
+      var colEl = root.querySelector('[class*="idx-listings-showcase__columns"]');
+      if (colEl) {
+        colEl.style.setProperty('grid-template-columns', 'repeat(4, 1fr)', 'important');
+        colEl.style.setProperty('display', 'grid', 'important');
+      }
+    });
+  }
+
   // Cap each widget at 8 visible cards (4 cols × 2 rows).
   // Runs after hidePendingCards() so Coming Soon cards are already force-shown.
   function capWidgetCards() {
@@ -312,18 +326,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Poll until widgets are ready, then stop
+  // Poll for 30s — applyWidgetStyles() is idempotent; hidePendingCards/capWidgetCards/
+  // forceWidgetColumns need to keep running as IDX lazy-loads cards after initial render.
   var _widgetInterval = setInterval(function() {
     var widgets = document.querySelectorAll('idx-listings-showcase');
     if (!widgets.length) return;
-    var allDone = true;
-    widgets.forEach(function(w) {
-      if (!w.shadowRoot || !w.shadowRoot.getElementById('tjg-widget-styles')) allDone = false;
-    });
     applyWidgetStyles();
+    forceWidgetColumns();
     hidePendingCards();
     capWidgetCards();
-    if (allDone) clearInterval(_widgetInterval);
   }, 500);
   setTimeout(function() { clearInterval(_widgetInterval); }, 30000);
 })();
