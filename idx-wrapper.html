@@ -126,7 +126,9 @@
     #IDX-main .IDX-field-acres,
     #IDX-main .IDX-field-propType { display: none !important; }
 #IDX-main.IDX-page-listing #IDX-detailsWrapper { margin-top: 24px !important; }
-    #IDX-main .IDX-detailsSlidesActions, #IDX-main #IDX-detailsPhotoGalleryLink { display: none !important; }
+    #IDX-main .IDX-detailsSlidesActions, #IDX-main #IDX-detailsPhotoGalleryLink,
+    #IDX-detailsVirtualTour, #IDX-detailsSlidesActions,
+    #IDX-main .IDX-inline-buttons:has(#IDX-detailsVirtualTour) { display: none !important; }
 
     /* ─── Address & Title Fixes ─── */
     /* Normalize street number + name to same size/weight */
@@ -5451,19 +5453,32 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           // Find virtual tour URL — skip javascript: placeholders
           var _vtUrl = null;
 
-          // 1. IDX PIH nav bar has the real URL when a tour exists (hidden by CSS but live in DOM)
-          var _pihTour = Array.from(document.querySelectorAll('header.IDX-PIH a')).find(function(a) {
-            return /virtual\s*tour/i.test(a.textContent.trim());
-          });
-          if (_pihTour && _pihTour.href && _pihTour.href.indexOf('javascript:') !== 0) _vtUrl = _pihTour.href;
+          // 1. IDX media modal contains the actual iframe IDX uses — most reliable source
+          var _modal = document.getElementById('IDX-detailsMediaVirtualTour');
+          if (_modal) {
+            var _mIframe = _modal.querySelector('iframe[src]');
+            if (_mIframe && _mIframe.src) _vtUrl = _mIframe.src;
+            if (!_vtUrl) {
+              var _mLink = _modal.querySelector('a[href]');
+              if (_mLink && _mLink.href && _mLink.href.indexOf('javascript:') !== 0) _vtUrl = _mLink.href;
+            }
+          }
 
-          // 2. IDX dedicated virtual tour URL field
+          // 2. IDX PIH nav bar has the real URL when a tour exists (hidden by CSS but live in DOM)
+          if (!_vtUrl) {
+            var _pihTour = Array.from(document.querySelectorAll('header.IDX-PIH a')).find(function(a) {
+              return /virtual\s*tour/i.test(a.textContent.trim());
+            });
+            if (_pihTour && _pihTour.href && _pihTour.href.indexOf('javascript:') !== 0) _vtUrl = _pihTour.href;
+          }
+
+          // 3. IDX dedicated virtual tour URL field
           if (!_vtUrl) {
             var _vtField = document.querySelector('.IDX-field-virtualTourURL a');
             if (_vtField && _vtField.href && _vtField.href.indexOf('javascript:') !== 0) _vtUrl = _vtField.href;
           }
 
-          // 3. Scan all links for known 3D-tour domains
+          // 4. Scan all links for known 3D-tour domains
           if (!_vtUrl) {
             var _links = document.querySelectorAll('#IDX-main a[href]');
             for (var _i = 0; _i < _links.length; _i++) {
@@ -5478,10 +5493,22 @@ document.getElementById('tjg-tour-success').style.display = 'block';
 
           if (!_vtUrl) return; // No real tour URL — skip silently
 
+          // Hide the native TOURS button now that we have the tour embedded below
+          ['IDX-detailsVirtualTour','IDX-detailsSlidesActions'].forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) el.style.setProperty('display', 'none', 'important');
+          });
+
           // Convert to embeddable URL where possible
           var _embedUrl = _vtUrl, _canEmbed = false;
-          if (/my\.matterport\.com|matterport\.com\/show/i.test(_vtUrl)) {
-            _embedUrl = _vtUrl + ((/\?/).test(_vtUrl) ? '&' : '?') + 'play=1&qs=1';
+          if (/my\.matterport\.com|matterport\.com\/show|matterport\.com\/models/i.test(_vtUrl)) {
+            // Ensure we use the embeddable /show/ URL format
+            var _modelM = _vtUrl.match(/models\/([A-Za-z0-9]+)/);
+            if (_modelM) {
+              _embedUrl = 'https://my.matterport.com/show/?m=' + _modelM[1] + '&play=1&qs=1';
+            } else {
+              _embedUrl = _vtUrl + ((/\?/).test(_vtUrl) ? '&' : '?') + 'play=1&qs=1';
+            }
             _canEmbed = true;
           } else if (/kuula\.co|cloudpano\.com|giraffe360\.com|asteroom\.com|nodalview\.com|lapentor\.com|roundme\.com/i.test(_vtUrl)) {
             _canEmbed = true;
@@ -5493,8 +5520,11 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           if (_canEmbed) {
             sect.style.cssText = 'background:#000;line-height:0;';
             sect.innerHTML =
-              '<iframe src="' + _embedUrl + '" width="100%" height="500" frameborder="0" ' +
-              'allowfullscreen allow="xr-spatial-tracking; gyroscope; accelerometer" ' +
+              '<div style="padding:1.5rem 2rem 0.75rem;background:#18254B;font-family:\'Lato\',sans-serif;text-align:center;">' +
+              '<p style="font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B38987;margin:0;">Virtual Tour</p>' +
+              '</div>' +
+              '<iframe src="' + _embedUrl + '" width="100%" height="600" frameborder="0" ' +
+              'allowfullscreen allow="xr-spatial-tracking; gyroscope; accelerometer; vr" ' +
               'style="display:block;border:none;"></iframe>';
           } else {
             // Show the listing's hero photo with the button overlaid on it
