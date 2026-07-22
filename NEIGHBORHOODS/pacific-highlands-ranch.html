@@ -887,8 +887,36 @@
   // Limit the listings showcase to 2 rows.
   // Waits for pending cards to be hidden first, then reads the grid column count
   // from computed CSS and hides visible Active cards beyond row 2.
+  // Also fixes card click navigation: IDX Broker's showcase widget routes card
+  // clicks to the saved-search page; we intercept and send to the listing detail page.
   (function() {
     var done = false;
+    var clicksWired = false;
+
+    function _wireCardClicks(root) {
+      if (clicksWired) return;
+      var cards = root.querySelectorAll('.idx-listings-showcase__property');
+      if (!cards.length) return;
+      cards.forEach(function(card) {
+        if (card.dataset.tjgClickWired) return;
+        card.dataset.tjgClickWired = '1';
+        card.addEventListener('click', function(e) {
+          // Ignore heart/share/save buttons inside the card
+          if (e.target.closest('button, [role="button"], a[href*="idxbroker.com/i/"], a[href*="mapsearch"]')) return;
+          // Find the real detail-page link on the card
+          var link = card.querySelector('a[href*="/idx/details/"], a[href*="/details/listing/"]');
+          if (!link) link = card.querySelector('.idx-listing-card__link');
+          var href = link ? link.href : null;
+          if (href && href.indexOf('/idx/details/') !== -1) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            window.location.href = href;
+          }
+        }, true); // capture phase — runs before IDX's own handler
+      });
+      clicksWired = true;
+    }
+
     var t = setInterval(function() {
       if (done) { clearInterval(t); return; }
       var widget = document.querySelector('idx-listings-showcase');
@@ -896,6 +924,8 @@
       var root = widget.shadowRoot;
       var allCards = Array.from(root.querySelectorAll('.idx-listings-showcase__property'));
       if (!allCards.length || allCards[0].offsetHeight === 0) return;
+      // Wire card clicks as soon as cards are in the DOM
+      _wireCardClicks(root);
       // Wait until main.js hidePendingCards has run — no non-Active cards still visible
       var pendingStillVisible = Array.from(root.querySelectorAll('.idx-listing-card__prop-status'))
         .some(function(b) {
