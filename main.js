@@ -181,10 +181,16 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('idx-listings-showcase').forEach(function(widget) {
       var root = widget.shadowRoot;
       if (!root) return;
-      root.querySelectorAll('.idx-listing-card__prop-status').forEach(function(badge) {
-        if (badge.textContent.trim().toLowerCase() === 'active') return;
-        var card = badge.closest('.idx-listings-showcase__property');
-        if (card) card.style.setProperty('display', 'none', 'important');
+      root.querySelectorAll('.idx-listings-showcase__property').forEach(function(card) {
+        var badge = card.querySelector('.idx-listing-card__prop-status');
+        var status = badge ? badge.textContent.trim().toLowerCase() : '';
+        if (status === 'coming soon') {
+          // IDX Broker hides Coming Soon cards — override to show them
+          card.style.setProperty('display', 'flex', 'important');
+          if (badge) badge.style.setProperty('background', '#B38987', 'important');
+        } else if (status !== 'active' && status !== '') {
+          card.style.setProperty('display', 'none', 'important');
+        }
       });
     });
   }
