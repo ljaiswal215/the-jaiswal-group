@@ -5373,22 +5373,27 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           if (!document.querySelector('#IDX-main.IDX-page-listing')) return;
           if (document.getElementById('tjg-vt-section')) return;
 
-          // Find virtual tour URL from IDX DOM
+          // Find virtual tour URL — skip javascript: placeholders
           var _vtUrl = null;
 
-          // Check IDX-named fields first
-          var _vtField = document.querySelector(
-            '[id*="virtualTour"] a, [class*="virtualTour"] a, ' +
-            '[id*="VirtualTour"] a, [class*="VirtualTour"] a, ' +
-            '[id*="virtual-tour"] a, [class*="virtual-tour"] a'
-          );
-          if (_vtField && _vtField.href) _vtUrl = _vtField.href;
+          // 1. IDX PIH nav bar has the real URL when a tour exists (hidden by CSS but live in DOM)
+          var _pihTour = Array.from(document.querySelectorAll('header.IDX-PIH a')).find(function(a) {
+            return /virtual\s*tour/i.test(a.textContent.trim());
+          });
+          if (_pihTour && _pihTour.href && _pihTour.href.indexOf('javascript:') !== 0) _vtUrl = _pihTour.href;
 
-          // Scan all links for known 3D-tour domains
+          // 2. IDX dedicated virtual tour URL field
+          if (!_vtUrl) {
+            var _vtField = document.querySelector('.IDX-field-virtualTourURL a');
+            if (_vtField && _vtField.href && _vtField.href.indexOf('javascript:') !== 0) _vtUrl = _vtField.href;
+          }
+
+          // 3. Scan all links for known 3D-tour domains
           if (!_vtUrl) {
             var _links = document.querySelectorAll('#IDX-main a[href]');
             for (var _i = 0; _i < _links.length; _i++) {
               var _h = (_links[_i].getAttribute('href') || '');
+              if (_h.indexOf('javascript:') === 0) continue;
               if (/matterport\.com|kuula\.co|my\.tour|cloudpano\.com|giraffe360\.com|asteroom\.com|nodalview\.com|immoviewer\.com|lapentor\.com|roundme\.com|threedeerealty\.com|zillow\.com\/view-3d-home/i.test(_h)) {
                 _vtUrl = _h;
                 break;
@@ -5396,7 +5401,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             }
           }
 
-          if (!_vtUrl) return; // No tour on this listing — skip silently
+          if (!_vtUrl) return; // No real tour URL — skip silently
 
           // Convert to embeddable URL where possible
           var _embedUrl = _vtUrl, _canEmbed = false;
@@ -5417,11 +5422,22 @@ document.getElementById('tjg-tour-success').style.display = 'block';
               'allowfullscreen allow="xr-spatial-tracking; gyroscope; accelerometer" ' +
               'style="display:block;border:none;"></iframe>';
           } else {
-            sect.style.cssText = 'background:#18254B;padding:3rem clamp(1.5rem,5vw,4rem);box-sizing:border-box;text-align:center;font-family:"Lato",sans-serif;';
-            sect.innerHTML =
+            // Show the listing's hero photo with the button overlaid on it
+            var _heroSrc = (_tjgSrcs && _tjgSrcs.length) ? _tjgSrcs[0] : null;
+            sect.style.cssText = 'position:relative;overflow:hidden;background:#18254B;';
+            var _inner = '';
+            if (_heroSrc) {
+              _inner += '<img src="' + _heroSrc + '" alt="Property" style="width:100%;height:420px;object-fit:cover;display:block;filter:brightness(0.55);">';
+              _inner += '<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:\'Lato\',sans-serif;padding:2rem;">';
+            } else {
+              _inner += '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:\'Lato\',sans-serif;padding:3rem clamp(1.5rem,5vw,4rem);">';
+            }
+            _inner +=
               '<p style="font-size:0.6rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B38987;margin:0 0 1.25rem;">Virtual Tour</p>' +
               '<a href="' + _vtUrl + '" target="_blank" rel="noopener noreferrer" ' +
-              'style="display:inline-block;border:1px solid rgba(255,255,255,0.3);color:#fff;font-family:Lato,sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:0.75rem 2rem;text-decoration:none;">View Virtual Tour →</a>';
+              'style="display:inline-block;border:1px solid rgba(255,255,255,0.5);color:#fff;font-family:Lato,sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:0.75rem 2rem;text-decoration:none;background:rgba(24,37,75,0.4);">View Virtual Tour →</a>' +
+              '</div>';
+            sect.innerHTML = _inner;
           }
 
           // Insert directly after IDX content block
