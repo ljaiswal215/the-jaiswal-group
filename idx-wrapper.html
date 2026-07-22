@@ -4701,6 +4701,48 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       }).observe(document.body, { childList: true, subtree: true });
     })();
 
+    // ── Universal listing card → detail page navigation ─────────────────────────
+    // IDX Broker's map/results pages intercept card clicks to highlight a map pin
+    // instead of navigating to the listing detail. This capture-phase handler runs
+    // before IDX's own listener and always sends the user to the detail page.
+    (function() {
+      var IGNORE = 'button, [role="button"], input, select, textarea, ' +
+                   '.tjg-card-heart, .tjg-card-share, ' +
+                   '[class*="fav"], [class*="favorite"], [aria-label*="avorite"], ' +
+                   '[class*="share"], [aria-label*="hare"], ' +
+                   '[class*="direction"], [aria-label*="irection"], ' +
+                   '[class*="navigate"], [aria-label*="avigate"]';
+
+      function _detailUrl(root) {
+        // 1. An <a> whose href is an IDX detail page URL
+        var a = root.querySelector('a[href*="/idx/details/"], a[href*="/details/listing/"]');
+        if (a && a.href) return a.href;
+        // 2. Fallback: .idx-listing-card__link (may not have /details/ in its href text yet)
+        var lnk = root.querySelector('.idx-listing-card__link');
+        if (lnk && lnk.href && lnk.href.indexOf('javascript:') !== 0) return lnk.href;
+        return null;
+      }
+
+      document.addEventListener('click', function(e) {
+        // Skip clicks on buttons / icons
+        if (e.target.closest(IGNORE)) return;
+
+        // Find the closest listing card container
+        var card = e.target.closest(
+          '.idx-listing-card, .idx-results__listing, ' +
+          '[class*="idx-listing-card"], [class*="idx-results__listing"]'
+        );
+        if (!card) return;
+
+        var url = _detailUrl(card);
+        if (!url || url.indexOf('/idx/details/') === -1) return;
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        window.location.href = url;
+      }, true); // capture phase
+    })();
+
 
     // Prevent flash of off-area listings on map search page load
     (function() {
