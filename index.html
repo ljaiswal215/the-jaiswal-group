@@ -292,6 +292,14 @@
           if(card) card.style.setProperty('display','none','important');
         }
       });
+
+      // Cap at 8 visible cards (4 cols × 2 rows) — CSS nth-child can't pierce Shadow DOM
+      var shown=0;
+      w.shadowRoot.querySelectorAll('.idx-listings-showcase__property').forEach(function(card){
+        if(window.getComputedStyle(card).display==='none') return;
+        shown++;
+        if(shown>8) card.style.setProperty('display','none','important');
+      });
     }
     setTimeout(initWidget,800);
   })();
