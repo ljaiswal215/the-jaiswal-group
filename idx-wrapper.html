@@ -5458,6 +5458,19 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           var _li = document.getElementById('tjg-contact-listing');
           if (_li) _addr = _li.value;
 
+          // Format: no commas, city/state/zip on its own line
+          var _addrFmt = _addr;
+          if (_addr) {
+            var _ci = _addr.indexOf(',');
+            if (_ci > -1) {
+              var _st = _addr.substring(0, _ci).trim();
+              var _cs = _addr.substring(_ci + 1).replace(/,/g, '').replace(/\s+/g, ' ').trim();
+              _addrFmt = _st + '<br>' + _cs;
+            } else {
+              _addrFmt = _addr.replace(/,/g, '');
+            }
+          }
+
           _s.innerHTML =
             '<style>' +
               '#tjg-cta-section .tjg-cta-grid{display:grid;grid-template-columns:1.3fr 0.7fr;gap:3rem;align-items:center;max-width:1100px;margin:0 auto;}' +
@@ -5467,8 +5480,8 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             '<div class="tjg-cta-grid">' +
               '<div>' +
                 '<p style="font-family:\'Lato\',sans-serif;font-size:0.85rem;letter-spacing:0.18em;text-transform:uppercase;color:#B38987;margin:0 0 0.75rem;font-weight:700;text-align:center;">Interested in This Home?</p>' +
-                (_addr
-                  ? '<h2 style="font-family:\'Marcellus\',serif;font-size:clamp(1.6rem,3.5vw,2.8rem);color:#18254B;margin:0 0 2rem;line-height:1.2;font-weight:400;text-align:center;">' + _addr + '</h2>'
+                (_addrFmt
+                  ? '<h2 style="font-family:\'Marcellus\',serif;font-size:clamp(1.6rem,3.5vw,2.8rem);color:#18254B;margin:0 0 2rem;line-height:1.2;font-weight:400;text-align:center;">' + _addrFmt + '</h2>'
                   : '<h2 style="font-family:\'Marcellus\',serif;font-size:clamp(1.6rem,3.5vw,2.8rem);color:#18254B;margin:0 0 2rem;line-height:1.2;font-weight:400;text-align:center;">This Home</h2>') +
                 '<button id="tjg-cta-contact-btn" style="background:#18254B;color:#fff;border:2px solid #18254B;border-radius:0;font-family:\'Lato\',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:14px 32px;cursor:pointer;transition:color 0.2s;">CONTACT US</button>' +
               '</div>' +
@@ -5680,6 +5693,15 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           if (_idxMain && document.getElementById('tjg-listing-meta')) {
             if (window._tjgReveal) window._tjgReveal();
             _idxMain.classList.add('tjg-ready');
+          }
+        }
+
+        // IDX Broker appends #IDX-main after our static HTML (including footer),
+        // so the footer ends up before the injected sections. Move it to the end.
+        if (document.documentElement.classList.contains('tjg-details-page')) {
+          var _ft = document.querySelector('footer.site-footer');
+          if (_ft && _ft !== document.body.lastElementChild) {
+            document.body.appendChild(_ft);
           }
         }
       }
