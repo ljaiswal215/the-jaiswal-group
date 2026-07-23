@@ -4680,21 +4680,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       }
     }
 
-    function _tjgUpdateResultsCount() {
-      var idxMain = document.getElementById('IDX-main');
-      if (!idxMain || !idxMain.classList.contains('IDX-page-listings')) return;
-      if (idxMain.classList.contains('tjg-list-view')) return;
-      // Count from map price pins; fall back to listing items
-      var count = document.querySelectorAll('#IDX-map .leaflet-marker-icon').length;
-      if (!count) count = document.querySelectorAll('.idx-results__listing').length;
-      if (!count) return;
-      var titleEl = document.getElementById('idx-results-active-title');
-      if (!titleEl) return;
-      var label = count + ' HOME' + (count !== 1 ? 'S' : '') + ' FOUND';
-      if (titleEl.textContent.trim() === label) return;
-      titleEl.textContent = label;
-      titleEl.style.cssText = 'padding:10px 12px 8px;font-family:Lato,sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#18254B;border-bottom:1px solid #E0D9CF;margin:0;';
-    }
+    function _tjgUpdateResultsCount() {}
 
     function _injectListingsControlBar() {
       var idxMain = document.getElementById('IDX-main');
