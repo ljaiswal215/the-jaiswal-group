@@ -3612,6 +3612,22 @@
         btn.style.opacity = this.checked ? '1' : '0.45';
       });
 
+      // JS hover handles color change — IDX AI Redesign widget overrides CSS :hover with inline !important
+      (function() {
+        var _tb = document.getElementById('tjg-tour-btn');
+        if (!_tb) return;
+        _tb.addEventListener('mouseenter', function() {
+          _tb.style.setProperty('color', '#B38987', 'important');
+          _tb.style.setProperty('background', '#18254B', 'important');
+          _tb.style.setProperty('border-color', '#18254B', 'important');
+        });
+        _tb.addEventListener('mouseleave', function() {
+          _tb.style.setProperty('color', '#18254B', 'important');
+          _tb.style.setProperty('background', 'transparent', 'important');
+          _tb.style.setProperty('border-color', '#18254B', 'important');
+        });
+      })();
+
       document.getElementById('tjg-tour-btn').addEventListener('click', function() {
         // Full reset each open: step, form fields, checkbox, submit button, read-more state
         document.getElementById('tjg-tour-step1').style.display = 'block';
