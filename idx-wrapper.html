@@ -2650,21 +2650,40 @@
       _openSaveSearchModal();
     }, true);
 
-    // IDX results pagination: IDX Broker's container-level click handler treats any click
-    // inside the results panel as a card selection, which intercepts page 2/3/4 clicks.
-    // We fire first (capture phase) and stopImmediatePropagation so IDX's bubble-phase
-    // card-open handler never sees it. Default link navigation via href still fires.
-    document.addEventListener('click', function(e) {
-      var pag = e.target.closest(
-        '#idx-results-pagination a, #idx-results-pagination button, ' +
-        'nav.idx-results__pagination a, nav.idx-results__pagination button, ' +
-        '[class*="idx-pagination"] a, [class*="idx-pagination"] button, ' +
-        '#IDX-resultsNavWrapper a, .IDX-paginationLink'
-      );
-      if (!pag) return;
-      e.stopImmediatePropagation();
-      // No preventDefault — browser follows the href to the next results page
-    }, true);
+    // IDX results pagination: IDX Broker registers its card-click handler BEFORE our
+    // code loads, so capture-phase stopImmediatePropagation arrives too late.
+    // Solution: clone each pagination link to strip all IDX listeners, then attach
+    // our own handler that navigates directly. Re-runs after AJAX result updates.
+    (function() {
+      function _fixPaginationLinks() {
+        var nav = document.querySelector(
+          '#idx-results-pagination, nav.idx-results__pagination, #IDX-resultsNavWrapper'
+        );
+        if (!nav || nav.dataset.tjgPagFixed) return;
+        var links = nav.querySelectorAll('a[href]');
+        if (!links.length) return;
+        nav.dataset.tjgPagFixed = '1';
+        links.forEach(function(link) {
+          var href = link.href;
+          var clone = link.cloneNode(true);
+          clone.addEventListener('click', function(e) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+            window.location.href = href;
+          });
+          link.parentNode.replaceChild(clone, link);
+        });
+      }
+      _fixPaginationLinks();
+      [400, 1200, 3000].forEach(function(ms) { setTimeout(_fixPaginationLinks, ms); });
+      new MutationObserver(function() {
+        var nav = document.querySelector(
+          '#idx-results-pagination:not([data-tjg-pag-fixed]), ' +
+          'nav.idx-results__pagination:not([data-tjg-pag-fixed])'
+        );
+        if (nav) _fixPaginationLinks();
+      }).observe(document.body, { childList: true, subtree: true });
+    })();
 
     // Replace/fix IDX text strings we can't edit in admin
     function _fixSignupText() {
@@ -4540,18 +4559,21 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       listings.style.setProperty('max-width', 'none', 'important');
       listings.style.setProperty('box-sizing', 'border-box', 'important');
 
-      // Hide the CRMLS copyright block and any other non-card siblings that live
-      // in the outer wrapper (div.idx-results__listings). Keep the results-count
-      // header (.tjg-results-header), map (#IDX-map), and the card grid itself.
+      // Hide non-card siblings (CRMLS copyright etc.) but keep the map, results header,
+      // and pagination nav so users can navigate to page 2/3/4 in list view.
       var parent = listings.parentElement;
       if (parent) {
         parent.style.setProperty('display', 'block', 'important');
         parent.style.setProperty('width', '100%', 'important');
         Array.from(parent.children).forEach(function(child) {
-          if (child !== listings && child.id !== 'IDX-map' && !child.classList.contains('tjg-results-header')) {
-            child.dataset.tjgHidden = '1';
-            child.style.setProperty('display', 'none', 'important');
-          }
+          if (child === listings) return;
+          if (child.id === 'IDX-map') return;
+          if (child.classList.contains('tjg-results-header')) return;
+          if (child.id === 'idx-results-pagination') return;
+          if (child.classList.contains('idx-results__pagination')) return;
+          if (child.id === 'IDX-resultsNavWrapper') return;
+          child.dataset.tjgHidden = '1';
+          child.style.setProperty('display', 'none', 'important');
         });
       }
     }
