@@ -2650,6 +2650,22 @@
       _openSaveSearchModal();
     }, true);
 
+    // IDX results pagination: IDX Broker's container-level click handler treats any click
+    // inside the results panel as a card selection, which intercepts page 2/3/4 clicks.
+    // We fire first (capture phase) and stopImmediatePropagation so IDX's bubble-phase
+    // card-open handler never sees it. Default link navigation via href still fires.
+    document.addEventListener('click', function(e) {
+      var pag = e.target.closest(
+        '#idx-results-pagination a, #idx-results-pagination button, ' +
+        'nav.idx-results__pagination a, nav.idx-results__pagination button, ' +
+        '[class*="idx-pagination"] a, [class*="idx-pagination"] button, ' +
+        '#IDX-resultsNavWrapper a, .IDX-paginationLink'
+      );
+      if (!pag) return;
+      e.stopImmediatePropagation();
+      // No preventDefault — browser follows the href to the next results page
+    }, true);
+
     // Replace/fix IDX text strings we can't edit in admin
     function _fixSignupText() {
       var isSignup = document.querySelector('#IDX-main.IDX-page-usersignup');
