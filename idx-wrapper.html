@@ -124,7 +124,9 @@
     html.tjg-details-page [class*="IDX-powered"],
     html.tjg-details-page [class*="IDX-data-attrib"] { display: none !important; visibility: hidden !important; }
     /* Prevent white section below footer on detail pages */
-    html.tjg-details-page body { background: #18254B !important; }
+    /* overflow-x:clip doesn't create a scroll container (unlike hidden), so
+       position:sticky works relative to the window instead of body */
+    html.tjg-details-page body { background: #18254B !important; overflow-x: clip !important; overflow-y: visible !important; }
     /* Footer text — inline fallback so text is always visible even if style.css loads slowly */
     html.tjg-details-page .footer-info-label { color: #fff !important; }
     html.tjg-details-page .footer-info-text p,
