@@ -116,9 +116,25 @@
     /* Hide "Data services provided by IDX Broker" attribution on detail pages */
     html.tjg-details-page #IDX-main > div[style*="visibility:visible"][style*="text-align:center"],
     html.tjg-details-page #IDX-poweredByIDX,
-    html.tjg-details-page #IDX-dataAttrib { display: none !important; visibility: hidden !important; }
+    html.tjg-details-page #IDX-dataAttrib,
+    html.tjg-details-page [id*="poweredBy"],
+    html.tjg-details-page [id*="dataAttrib"],
+    html.tjg-details-page [class*="idx-disclaimer"],
+    html.tjg-details-page [class*="idx-powered"],
+    html.tjg-details-page [class*="IDX-powered"],
+    html.tjg-details-page [class*="IDX-data-attrib"] { display: none !important; visibility: hidden !important; }
     /* Prevent white section below footer on detail pages */
     html.tjg-details-page body { background: #18254B !important; }
+    /* Footer text — inline fallback so text is always visible even if style.css loads slowly */
+    html.tjg-details-page .footer-info-label { color: #fff !important; }
+    html.tjg-details-page .footer-info-text p,
+    html.tjg-details-page .footer-info-text a { color: rgba(255,255,255,0.6) !important; }
+    html.tjg-details-page .footer-bottom-left,
+    html.tjg-details-page .footer-bottom-left a { color: rgba(255,255,255,0.4) !important; }
+    html.tjg-details-page .footer-social-text { color: rgba(255,255,255,0.75) !important; }
+    html.tjg-details-page .footer-disclaimer { color: rgba(255,255,255,0.35) !important; }
+    html.tjg-details-page .footer-info-icon { border-color: rgba(255,255,255,0.3) !important; }
+    html.tjg-details-page .footer-info-icon svg { color: #fff !important; stroke: #fff !important; }
 
     #IDX-main.IDX-page-listing #IDX-detailsHeaderActions { display: none !important; }
     /* Hide selected fields in Basic Information */
@@ -1988,7 +2004,7 @@
       .tjg-contact-row { grid-template-columns:1fr; }
     }
     /* ─── Listing Detail: Photo Mosaic Grid ─── */
-    #tjg-photo-grid { display:grid; grid-template-columns:60fr 40fr; gap:4px; height:540px; width:100%; margin-top:28px; margin-bottom:4px; padding: 0 20px; box-sizing:border-box; }
+    #tjg-photo-grid { display:grid; grid-template-columns:60fr 40fr; gap:4px; height:540px; width:100%; margin-top:0; margin-bottom:4px; padding: 0 20px; box-sizing:border-box; }
     #tjg-photo-grid__hero { overflow:hidden; cursor:pointer; position:relative; border-radius:12px 0 0 12px; }
     #tjg-photo-grid__hero img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.4s ease; }
     #tjg-photo-grid__hero:hover img { transform:scale(1.02); }
@@ -3354,6 +3370,7 @@
         '<div id="tjg-cta-banner"><p id="tjg-cta-banner__text">Interested in This Home?</p></div>' +
         '<div id="tjg-tour-cta">' +
           '<h2 id="tjg-tour-cta__heading">Schedule a<br>Private Tour</h2>' +
+          '<p id="tjg-tour-cta__desc">Experience this home in person with a private showing scheduled around your availability. I\'ll personally guide you through the home and answer any questions you have along the way.</p>' +
           '<button id="tjg-tour-btn">Schedule My Private Tour</button>' +
         '</div>' +
         '<div id="tjg-tour-divider">' +
@@ -5599,16 +5616,21 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           if (!document.querySelector('#IDX-main.IDX-page-listing')) return;
           if (document.getElementById('tjg-map-section')) return;
 
-          // Extract address from IDX DOM
-          var sEl = document.querySelector(
-            '#IDX-detailsAddressStreet, [id*="detailsAddress"] .IDX-street, ' +
-            '.IDX-detailsAddress .street, #IDX-main [class*="addressStreet"]'
-          );
-          var rEl = document.querySelector(
-            '#IDX-detailsAddressRegion, [id*="detailsAddress"] .IDX-region, ' +
-            '.IDX-detailsAddress .region, #IDX-main [class*="addressRegion"]'
-          );
-          var addr = [sEl, rEl].map(function(el){ return el ? el.textContent.trim() : ''; }).filter(Boolean).join(', ');
+          // Prefer the address already cleaned by _injectAgentCard (trimmed, zip-normalized)
+          var _li = document.getElementById('tjg-contact-listing');
+          var addr = (_li && _li.value) ? _li.value : '';
+          if (!addr) {
+            // Fallback: extract from IDX DOM with same zip-trim logic as agent card
+            var sEl = document.getElementById('IDX-detailsAddressStreet') ||
+                      document.querySelector('[id*="detailsAddress"] .IDX-street, .IDX-detailsAddress .street, #IDX-main [class*="addressStreet"]');
+            var rEl = document.getElementById('IDX-detailsAddressRegion') ||
+                      document.querySelector('[id*="detailsAddress"] .IDX-region, .IDX-detailsAddress .region, #IDX-main [class*="addressRegion"]');
+            var _st = sEl ? sEl.textContent.replace(/\s+/g, ' ').trim() : '';
+            var _rg = rEl ? rEl.textContent.replace(/\s+/g, ' ').trim() : '';
+            var _zt = _rg.match(/^(.+?\d{5})/);
+            if (_zt) _rg = _zt[1].trim();
+            addr = [_st, _rg].filter(Boolean).join(', ');
+          }
           if (!addr) return;
 
           var sect = document.createElement('div');
