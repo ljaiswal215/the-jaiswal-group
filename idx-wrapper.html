@@ -5955,6 +5955,33 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       });
     })();
 
+    // Fix footer text colors: IDX Broker's p { color } stylesheet rule overrides our CSS
+    // even with !important. Inline styles (set via JS) are immune to this.
+    (function() {
+      function _fixFooterColors() {
+        var ft = document.querySelector('.site-footer');
+        if (!ft) return;
+        ft.querySelectorAll('.footer-info-label').forEach(function(el) {
+          el.style.setProperty('color', '#fff', 'important');
+        });
+        ft.querySelectorAll('.footer-info-text p').forEach(function(el) {
+          el.style.setProperty('color', 'rgba(255,255,255,0.6)', 'important');
+        });
+        ft.querySelectorAll('.footer-bottom-left, .footer-bottom-left p').forEach(function(el) {
+          el.style.setProperty('color', 'rgba(255,255,255,0.4)', 'important');
+        });
+        ft.querySelectorAll('.footer-disclaimer p, .footer-disclaimer').forEach(function(el) {
+          el.style.setProperty('color', 'rgba(255,255,255,0.35)', 'important');
+        });
+        ft.querySelectorAll('.footer-nav p, .footer-links p').forEach(function(el) {
+          el.style.setProperty('color', 'rgba(255,255,255,0.6)', 'important');
+        });
+      }
+      _fixFooterColors();
+      setTimeout(_fixFooterColors, 600);
+      setTimeout(_fixFooterColors, 1800);
+    })();
+
     // My Account page: replace blank placeholder images with TJG logo
     if (document.querySelector('.IDX-page-myaccount')) {
       (function() {
