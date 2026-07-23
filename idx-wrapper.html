@@ -771,16 +771,49 @@
       display: none !important;
     }
 
-    /* ─── MAP view (default): ensure map container is visible ──────────────────
-       IDX Broker admin CSS hides .IDX-topAction on listing pages; in newer IDX
-       Broker builds that element may wrap #IDX-map, making the map blank.
-       Counter-override only when NOT in tjg-list-view so list-view hide is unaffected. */
+    /* ─── MAP view (default): side-by-side map + results column ─────────────────
+       idx-results-content contains: [filter bar], [#IDX-map], [.idx-results__listings]
+       Grid: filter bar spans full width; map left 65%, listing column right 35%.
+       IDX Broker admin CSS hides .IDX-topAction; counter-override so map stays visible. */
+    #IDX-main.IDX-page-listings:not(.tjg-list-view) #idx-results-content,
+    #IDX-main.IDX-page-listings:not(.tjg-list-view) .idx-results__content {
+      display: grid !important;
+      grid-template-columns: 65fr 35fr !important;
+      grid-template-rows: auto 1fr !important;
+      height: calc(100vh - 160px) !important;
+      overflow: hidden !important;
+    }
+    #IDX-main.IDX-page-listings:not(.tjg-list-view) #tjg-results-filter-bar {
+      grid-column: 1 / -1 !important;
+      grid-row: 1 !important;
+    }
     #IDX-main.IDX-page-listings:not(.tjg-list-view) .IDX-topAction {
       display: block !important;
     }
     #IDX-main.IDX-page-listings:not(.tjg-list-view) #IDX-map {
+      grid-column: 1 !important;
+      grid-row: 2 !important;
       display: block !important;
-      min-height: calc(100vh - 160px) !important;
+      width: 100% !important;
+      height: 100% !important;
+      min-height: unset !important;
+    }
+    #IDX-main.IDX-page-listings:not(.tjg-list-view) .idx-results__listings {
+      grid-column: 2 !important;
+      grid-row: 2 !important;
+      overflow-y: auto !important;
+      height: 100% !important;
+      padding: 8px !important;
+      background: #F3EFE8 !important;
+      border-left: 1px solid #E0D9CF !important;
+    }
+    #IDX-main.IDX-page-listings:not(.tjg-list-view) .idx-results__listing {
+      width: 100% !important;
+      margin-bottom: 8px !important;
+    }
+    #IDX-main.IDX-page-listings:not(.tjg-list-view) .idx-listing-card {
+      width: 100% !important;
+      min-width: 0 !important;
     }
 
     /* ─── Price-reduction badge: navy instead of IDX's default green ─── */
@@ -4604,27 +4637,41 @@ document.getElementById('tjg-tour-success').style.display = 'block';
     // On PHR the admin code hides pills anyway, so we skip. Safe to call multiple times.
     function _tjgRescuePills() {
       if (/pacific.?highlands/i.test(window.location.href)) return;
-      if (document.getElementById('tjg-lst-status-btn')) return;
+      // Guard on Block 5 pill (not Block 3) — admin code runs Block 3 on its own,
+      // but Block 5 is corrupted in the script tag and never self-executes.
+      if (document.getElementById('tjg-lst-type-btn')) return;
       var subhdr = document.getElementById('IDX-Subheader-Global');
       if (!subhdr) return;
       var scriptEl = subhdr.querySelector('script');
       if (!scriptEl) return;
       var txt = scriptEl.textContent;
-      // Block 3: STATUS + PRICE pills
-      var b3Marker = '/* ─── LISTINGS PAGE: STATUS';
-      var b3idx = txt.indexOf(b3Marker);
-      if (b3idx >= 0) {
-        var b3IIFEstart = txt.indexOf('(function()', b3idx);
-        var b4idx = txt.indexOf('/* ─── LISTINGS PAGE', b3idx + 10);
-        if (b4idx < 0) b4idx = b3IIFEstart + 6000;
-        try { new Function(txt.substring(b3IIFEstart, b4idx))(); } catch(e) {}
+      // Block 3: STATUS + PRICE pills (only if admin code hasn't run them yet)
+      if (!document.getElementById('tjg-lst-status-btn')) {
+        var b3Marker = '/* ─── LISTINGS PAGE: STATUS';
+        var b3idx = txt.indexOf(b3Marker);
+        if (b3idx >= 0) {
+          var b3IIFEstart = txt.indexOf('(function()', b3idx);
+          var b4idx = txt.indexOf('/* ─── LISTINGS PAGE', b3idx + 10);
+          if (b4idx < 0) b4idx = b3IIFEstart + 6000;
+          try { new Function(txt.substring(b3IIFEstart, b4idx))(); } catch(e) {}
+        }
       }
       // Block 5: TYPE + BEDS + BATHS + SQFT pills
+      // The IIFE is corrupted at 'document</div>' where IDX injected raw HTML mid-code.
+      // Cut before the corruption and append a manual poll invocation for run().
       var b5marker = 'injectLstTypeFilter';
       var b5idx = txt.indexOf(b5marker);
       if (b5idx >= 0) {
         var b5start = txt.lastIndexOf('(function()', b5idx);
-        try { new Function(txt.substring(b5start, b5start + 8000))(); } catch(e) {}
+        var b5corrupt = txt.indexOf('document</div>', b5start);
+        var b5code;
+        if (b5corrupt > b5start) {
+          b5code = txt.substring(b5start, b5corrupt) +
+            '\n  var _pc5=0,_t5=setInterval(function(){run();if(++_pc5>20)clearInterval(_t5);},400);\n})();';
+        } else {
+          b5code = txt.substring(b5start, b5start + 8000);
+        }
+        try { new Function(b5code)(); } catch(e) {}
       }
     }
 
