@@ -690,8 +690,8 @@
       margin-left: 8px !important;
       transition: opacity 0.2s !important;
     }
-    #tjg-save-search:hover { background:#B38987 !important; color:#fff !important; border-color:#B38987 !important; }
-    #tjg-new-search:hover  { background:#B38987 !important; color:#fff !important; border-color:#B38987 !important; }
+    #tjg-save-search:hover { background:#18254B !important; color:#B38987 !important; border-color:#18254B !important; }
+    #tjg-new-search:hover  { background:#18254B !important; color:#B38987 !important; border-color:#18254B !important; }
 
     /* ─── LIST / MAP toggle: box shape + font matching filter pills ─── */
     #tjg-view-toggle {
@@ -2993,8 +2993,8 @@
       link.style.setProperty('color', '#ffffff', 'important');
       link.style.setProperty('border', '1px solid #18254B', 'important');
       link.style.setProperty('transition', 'background 0.2s,color 0.2s,border-color 0.2s', 'important');
-      link.addEventListener('mouseenter', function() { link.style.setProperty('background','#B38987','important'); link.style.setProperty('color','#fff','important'); link.style.setProperty('border-color','#B38987','important'); });
-      link.addEventListener('mouseleave', function() { link.style.setProperty('background','#18254B','important'); link.style.setProperty('color','#fff','important'); link.style.setProperty('border-color','#18254B','important'); });
+      link.addEventListener('mouseenter', function() { link.style.setProperty('color','#B38987','important'); });
+      link.addEventListener('mouseleave', function() { link.style.setProperty('color','#ffffff','important'); });
       saveSearch.parentNode.insertBefore(link, saveSearch.nextSibling);
     }
     _idxAddAdvancedSearchLink();
@@ -4758,8 +4758,8 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       link.style.setProperty('color', '#ffffff', 'important');
       link.style.setProperty('border', '1px solid #18254B', 'important');
       link.style.setProperty('transition', 'background 0.2s,color 0.2s,border-color 0.2s', 'important');
-      link.addEventListener('mouseenter',function(){ link.style.setProperty('background','#B38987','important'); link.style.setProperty('color','#fff','important'); link.style.setProperty('border-color','#B38987','important'); });
-      link.addEventListener('mouseleave',function(){ link.style.setProperty('background','#18254B','important'); link.style.setProperty('color','#fff','important'); link.style.setProperty('border-color','#18254B','important'); });
+      link.addEventListener('mouseenter',function(){ link.style.setProperty('color','#B38987','important'); });
+      link.addEventListener('mouseleave',function(){ link.style.setProperty('color','#ffffff','important'); });
       toggle.parentNode.insertBefore(link, toggle.nextSibling);
       // Shift button group left to add breathing room on the right
       var toolbar = document.getElementById('tjg-right-toolbar');
