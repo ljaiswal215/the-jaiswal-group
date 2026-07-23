@@ -2642,30 +2642,22 @@
       });
 
       // Hide "Data services provided by IDX Broker" attribution on listing detail pages.
-      // Searches both inside #IDX-main and as body-level siblings; matches by ID, class, or text.
       if (document.querySelector('#IDX-main.IDX-page-listing') ||
           document.documentElement.classList.contains('tjg-details-page')) {
-        var _attrSels = [
-          '#IDX-poweredByIDX', '#IDX-dataAttrib',
-          '[id*="poweredBy"]', '[id*="dataAttrib"]',
-          '[class*="idx-powered"]', '[class*="IDX-powered"]',
-          '[class*="idx-attribution"]', '[class*="IDX-attribution"]'
-        ];
-        document.querySelectorAll(_attrSels.join(',')).forEach(function(el) {
-          el.style.setProperty('display', 'none', 'important');
-          el.style.setProperty('visibility', 'hidden', 'important');
+        ['IDX-poweredByIDX', 'IDX-dataAttrib'].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) { el.style.setProperty('display', 'none', 'important'); }
         });
-        // Also catch by text content — handles any element IDX may rename
-        var _parents = [document.getElementById('IDX-main'), document.body];
-        _parents.forEach(function(parent) {
-          if (!parent) return;
-          parent.querySelectorAll('div, p').forEach(function(el) {
-            if (/data services provided by idx broker/i.test(el.textContent)) {
-              el.style.setProperty('display', 'none', 'important');
-              el.style.setProperty('visibility', 'hidden', 'important');
+        // Text match — only on leaf-level elements (no child elements) to avoid hiding parent containers
+        var _idxMain = document.getElementById('IDX-main');
+        if (_idxMain) {
+          _idxMain.querySelectorAll('div, p, span').forEach(function(el) {
+            if (el.children.length === 0 && /data services provided by idx broker/i.test(el.textContent)) {
+              var _p = el.parentElement || el;
+              _p.style.setProperty('display', 'none', 'important');
             }
           });
-        });
+        }
       }
 
       // Rename "Sign Up" submit button to "Create Free Account"
