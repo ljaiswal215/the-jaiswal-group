@@ -4947,7 +4947,8 @@ document.getElementById('tjg-tour-success').style.display = 'block';
                         (_idxM && _idxM.classList.contains('IDX-page-listing'));
         if (_isDetail) {
           document.documentElement.classList.add('tjg-details-page');
-          if (window._tjgCreateCover) window._tjgCreateCover();
+          // Only create cover if custom header not yet built — prevents re-covering after reveal
+          if (!document.getElementById('tjg-listing-meta') && window._tjgCreateCover) window._tjgCreateCover();
         } else {
           document.documentElement.classList.remove('tjg-details-page');
           if (_idxM) _idxM.classList.add('tjg-ready');
@@ -5655,9 +5656,11 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         }
       }
       function _tjgSchedule() {
-        // Immediately cover if detail content just appeared — don't wait 80ms for the debounce
+        // Immediately cover if detail content just appeared AND custom header not yet built
         var _sm = document.getElementById('IDX-main');
-        if (_sm && _sm.classList.contains('IDX-page-listing') && !document.getElementById('tjg-fouc-cover')) {
+        if (_sm && _sm.classList.contains('IDX-page-listing') &&
+            !document.getElementById('tjg-fouc-cover') &&
+            !document.getElementById('tjg-listing-meta')) {
           document.documentElement.classList.add('tjg-details-page');
           if (window._tjgCreateCover) window._tjgCreateCover();
         }
