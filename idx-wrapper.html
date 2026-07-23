@@ -4568,11 +4568,66 @@ document.getElementById('tjg-tour-success').style.display = 'block';
     }
     _initListViewToggle();
 
-    // ─── Listing pages: inject controls bar skeleton above the map ───────────
-    // The IDX Broker Sub-Header Global script (stored in their admin panel) has the
-    // full filter pill + search bar + MAP/LIST toggle injection code. It looks for
-    // .filter-buttons-container inside #tjg-results-filter-bar. We just create that
-    // skeleton here so the admin code can find it and fill in all the pills/controls.
+    // ─── Listing pages: inject controls bar + Map/List toggle ────────────────
+    // Creates #tjg-results-filter-bar + .filter-buttons-container + #tjg-right-toolbar
+    // directly rather than waiting for the admin-panel code (which has a timing race).
+    // The admin code (IDX Broker Sub-Header Global script) is still expected to inject
+    // filter pills and search bar; our code just bootstraps the skeleton and toggle so
+    // the rest of the chain (_idxInjectSaveSearch → _idxAddAdvancedSearchLink) fires.
+
+    function _tjgInjectViewToggle() {
+      var container = document.querySelector('.filter-buttons-container');
+      if (!container || document.getElementById('tjg-right-toolbar')) return;
+      if (!document.getElementById('tjg-vt-style')) {
+        var st = document.createElement('style'); st.id = 'tjg-vt-style';
+        st.textContent =
+          '#tjg-right-toolbar{display:flex;align-items:center;margin-left:auto;}' +
+          '#tjg-view-toggle{display:flex;align-items:stretch;border:1px solid #ccc;border-radius:6px;overflow:hidden;height:36px;flex-shrink:0;}' +
+          '#tjg-view-toggle button{display:flex;align-items:center;justify-content:center;padding:0 16px;font-family:"Lato",sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;border:none;margin:0;transition:background 0.15s,color 0.15s;white-space:nowrap;}' +
+          '#tjg-view-toggle button.tjg-vt-active{background:#18254B!important;color:#fff!important;}' +
+          '#tjg-view-toggle button.tjg-vt-inactive{background:#f5f1ea!important;color:#18254B!important;}' +
+          '#tjg-vt-divider{width:1px;background:#ccc;flex-shrink:0;}';
+        document.head.appendChild(st);
+      }
+      var toolbar = document.createElement('div'); toolbar.id = 'tjg-right-toolbar';
+      container.appendChild(toolbar);
+      var toggle = document.createElement('div'); toggle.id = 'tjg-view-toggle';
+      var listBtn = document.createElement('button'); listBtn.type = 'button'; listBtn.textContent = 'List'; listBtn.className = 'tjg-vt-inactive';
+      var vdiv = document.createElement('div'); vdiv.id = 'tjg-vt-divider';
+      var mapBtn = document.createElement('button'); mapBtn.type = 'button'; mapBtn.textContent = 'Map'; mapBtn.className = 'tjg-vt-active';
+      toggle.appendChild(listBtn); toggle.appendChild(vdiv); toggle.appendChild(mapBtn);
+      toolbar.appendChild(toggle);
+    }
+
+    // Re-executes the admin-panel code's pill-injection IIFEs (Blocks 3 and 5) in case
+    // those polls already exhausted before .filter-buttons-container existed.
+    // On PHR the admin code hides pills anyway, so we skip. Safe to call multiple times.
+    function _tjgRescuePills() {
+      if (/pacific.?highlands/i.test(window.location.href)) return;
+      if (document.getElementById('tjg-lst-status-btn')) return;
+      var subhdr = document.getElementById('IDX-Subheader-Global');
+      if (!subhdr) return;
+      var scriptEl = subhdr.querySelector('script');
+      if (!scriptEl) return;
+      var txt = scriptEl.textContent;
+      // Block 3: STATUS + PRICE pills
+      var b3Marker = '/* ─── LISTINGS PAGE: STATUS';
+      var b3idx = txt.indexOf(b3Marker);
+      if (b3idx >= 0) {
+        var b3IIFEstart = txt.indexOf('(function()', b3idx);
+        var b4idx = txt.indexOf('/* ─── LISTINGS PAGE', b3idx + 10);
+        if (b4idx < 0) b4idx = b3IIFEstart + 6000;
+        try { new Function(txt.substring(b3IIFEstart, b4idx))(); } catch(e) {}
+      }
+      // Block 5: TYPE + BEDS + BATHS + SQFT pills
+      var b5marker = 'injectLstTypeFilter';
+      var b5idx = txt.indexOf(b5marker);
+      if (b5idx >= 0) {
+        var b5start = txt.lastIndexOf('(function()', b5idx);
+        try { new Function(txt.substring(b5start, b5start + 8000))(); } catch(e) {}
+      }
+    }
+
     function _injectListingsControlBar() {
       var idxMain = document.getElementById('IDX-main');
       if (!idxMain || !idxMain.classList.contains('IDX-page-listings')) return;
@@ -4587,10 +4642,11 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       fc.style.cssText = 'display:flex;align-items:center;gap:6px;flex:1;min-width:0;overflow:visible;';
       bar.appendChild(fc);
       content.insertBefore(bar, content.firstChild);
+
+      // Inject toggle immediately — don't wait for admin-panel code's race-prone poll
+      _tjgInjectViewToggle();
     }
 
-    // Poll: create the skeleton, then keep calling _initListViewToggle() until the
-    // admin-panel code has injected #tjg-right-toolbar (MAP/LIST toggle).
     (function() {
       var idxMain = document.getElementById('IDX-main');
       if (!idxMain || !idxMain.classList.contains('IDX-page-listings')) return;
@@ -4598,6 +4654,8 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       var t = setInterval(function() {
         _injectListingsControlBar();
         _initListViewToggle();
+        // At 1.5 s rescue pills for non-PHR pages if admin code hasn't fired
+        if (n === 3) _tjgRescuePills();
         if (++n > 60) clearInterval(t);
       }, 500);
     })();
