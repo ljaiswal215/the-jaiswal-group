@@ -5982,6 +5982,45 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       setTimeout(_fixFooterColors, 1800);
     })();
 
+    // Advanced Search page: IDX-searchPageWrapper is trapped inside IDX-Subheader-Global's
+    // <script> tag due to Block 5 IIFE corruption. The HTML never gets parsed as DOM nodes.
+    // We extract it from the script's text content and inject it into #IDX-main, then
+    // remove IDX-hide so IDX's search.js can initialize the now-visible form.
+    (function() {
+      if (!document.querySelector('#IDX-main.IDX-page-advanced')) return;
+      if (document.getElementById('IDX-searchPageWrapper')) return; // already in DOM
+
+      var scriptEl = document.querySelector('#IDX-Subheader-Global script');
+      if (!scriptEl) return;
+
+      var txt = scriptEl.textContent;
+      var markerIdx = txt.indexOf('<div id="IDX-searchPageWrapper"');
+      if (markerIdx < 0) return;
+
+      // Extract from IDX-searchPageWrapper onward
+      var rawHTML = txt.substring(markerIdx);
+
+      // Parse into real DOM nodes
+      var tmp = document.createElement('div');
+      tmp.innerHTML = rawHTML;
+
+      var idxMain = document.getElementById('IDX-main');
+      if (!idxMain) return;
+
+      // Move all extracted children into IDX-main
+      while (tmp.firstChild) {
+        idxMain.appendChild(tmp.firstChild);
+      }
+
+      // Show the form (IDX renders it with IDX-hide initially)
+      var searchWrapper = document.getElementById('IDX-searchPageWrapper');
+      if (searchWrapper) {
+        searchWrapper.classList.remove('IDX-hide');
+        searchWrapper.classList.remove('hide');
+        searchWrapper.style.removeProperty('display');
+      }
+    })();
+
     // My Account page: replace blank placeholder images with TJG logo
     if (document.querySelector('.IDX-page-myaccount')) {
       (function() {
