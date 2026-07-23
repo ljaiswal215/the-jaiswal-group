@@ -3775,7 +3775,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         if (listingEl) listingEl.value = propAddr;
 
         var msgEl = document.getElementById('tjg-contact-msg');
-        if (msgEl) msgEl.value = '';
+        if (msgEl) msgEl.value = propAddr ? 'I am interested in ' + propAddr + ' and would like more information about this property.' : 'I would like more information about this property.';
 
         contactModal.classList.add('tjg-open');
       });
@@ -5541,7 +5541,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
               var _subj = document.getElementById('tjg-contact-subject');
               var _msg = document.getElementById('tjg-contact-msg');
               if (_subj) _subj.value = _a ? 'Contact Us — ' + _a : 'Contact Us — Listing Inquiry';
-              if (_msg) _msg.value = '';
+              if (_msg) _msg.value = _a ? 'I am interested in ' + _a + ' and would like more information about this property.' : 'I would like more information about this property.';
               _modal.classList.add('tjg-open');
             });
           }
