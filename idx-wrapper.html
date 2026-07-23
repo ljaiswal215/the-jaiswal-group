@@ -127,16 +127,21 @@
     /* overflow-x:clip doesn't create a scroll container (unlike hidden), so
        position:sticky works relative to the window instead of body */
     html.tjg-details-page body { background: #18254B !important; overflow-x: clip !important; overflow-y: visible !important; }
-    /* Footer text — inline fallback so text is always visible even if style.css loads slowly */
-    html.tjg-details-page .footer-info-label { color: #fff !important; }
-    html.tjg-details-page .footer-info-text p,
-    html.tjg-details-page .footer-info-text a { color: rgba(255,255,255,0.6) !important; }
-    html.tjg-details-page .footer-bottom-left,
-    html.tjg-details-page .footer-bottom-left a { color: rgba(255,255,255,0.4) !important; }
-    html.tjg-details-page .footer-social-text { color: rgba(255,255,255,0.75) !important; }
-    html.tjg-details-page .footer-disclaimer { color: rgba(255,255,255,0.35) !important; }
-    html.tjg-details-page .footer-info-icon { border-color: rgba(255,255,255,0.3) !important; }
-    html.tjg-details-page .footer-info-icon svg { color: #fff !important; stroke: #fff !important; }
+    /* Footer text — IDX Broker's global p/a color overrides need to be countered on all
+       wrapper pages. Scoped to .site-footer so we only affect our injected footer. */
+    .site-footer .footer-info-label { color: #fff !important; }
+    .site-footer .footer-info-text p,
+    .site-footer .footer-info-text a { color: rgba(255,255,255,0.6) !important; }
+    .site-footer .footer-bottom-left,
+    .site-footer .footer-bottom-left a { color: rgba(255,255,255,0.4) !important; }
+    .site-footer .footer-social-text { color: rgba(255,255,255,0.75) !important; }
+    .site-footer .footer-disclaimer { color: rgba(255,255,255,0.35) !important; }
+    .site-footer .footer-info-icon { border-color: rgba(255,255,255,0.3) !important; }
+    .site-footer .footer-info-icon svg { color: #fff !important; stroke: #fff !important; }
+    .site-footer .footer-nav a,
+    .site-footer .footer-links a { color: rgba(255,255,255,0.6) !important; }
+    .site-footer .footer-nav a:hover,
+    .site-footer .footer-links a:hover { color: #B38987 !important; }
 
     #IDX-main.IDX-page-listing #IDX-detailsHeaderActions { display: none !important; }
     /* Hide selected fields in Basic Information */
@@ -4675,6 +4680,22 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       }
     }
 
+    function _tjgUpdateResultsCount() {
+      var idxMain = document.getElementById('IDX-main');
+      if (!idxMain || !idxMain.classList.contains('IDX-page-listings')) return;
+      if (idxMain.classList.contains('tjg-list-view')) return;
+      // Count from map price pins; fall back to listing items
+      var count = document.querySelectorAll('#IDX-map .leaflet-marker-icon').length;
+      if (!count) count = document.querySelectorAll('.idx-results__listing').length;
+      if (!count) return;
+      var titleEl = document.getElementById('idx-results-active-title');
+      if (!titleEl) return;
+      var label = count + ' HOME' + (count !== 1 ? 'S' : '') + ' FOUND';
+      if (titleEl.textContent.trim() === label) return;
+      titleEl.textContent = label;
+      titleEl.style.cssText = 'padding:10px 12px 8px;font-family:Lato,sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#18254B;border-bottom:1px solid #E0D9CF;margin:0;';
+    }
+
     function _injectListingsControlBar() {
       var idxMain = document.getElementById('IDX-main');
       if (!idxMain || !idxMain.classList.contains('IDX-page-listings')) return;
@@ -4703,6 +4724,8 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         _initListViewToggle();
         // At 1.5 s rescue pills for non-PHR pages if admin code hasn't fired
         if (n === 3) _tjgRescuePills();
+        // Update results count from map markers (runs every tick so it stays fresh)
+        _tjgUpdateResultsCount();
         if (++n > 60) clearInterval(t);
       }, 500);
     })();
@@ -4777,7 +4800,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
 
       // Inject button styles
       var st = document.createElement('style');
-      st.textContent = '.tjg-card-heart,.tjg-card-share{position:absolute;top:10px;z-index:15;width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;background:#18254B;display:flex;align-items:center;justify-content:center;padding:0;color:#fff;transition:background 0.2s;pointer-events:auto}.tjg-card-heart{right:54px}.tjg-card-share{right:10px}.tjg-card-heart:hover,.tjg-card-share:hover{background:#B38987;color:#fff}';
+      st.textContent = '.tjg-card-heart,.tjg-card-share{position:absolute;top:10px;z-index:15;width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;background:rgba(24,37,75,0.55);display:flex;align-items:center;justify-content:center;padding:0;color:#fff;transition:background 0.2s;pointer-events:auto}.tjg-card-heart{right:54px}.tjg-card-share{right:10px}.tjg-card-heart:hover,.tjg-card-share:hover{background:rgba(179,137,135,0.85);color:#fff}';
       document.head.appendChild(st);
 
       function _showEmailPopupCard(listing) {
