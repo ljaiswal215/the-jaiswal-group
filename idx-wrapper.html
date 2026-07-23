@@ -458,8 +458,15 @@
       color: #18254B !important;
       text-shadow: none !important;
     }
-    /* ─── Search bar button group: shift left to add right margin ─── */
-    #tjg-right-toolbar { margin-right: 0 !important; }
+    /* ─── Search bar / listing-page toolbar: flex row, pushed to right of controls bar ─── */
+    #tjg-right-toolbar {
+      margin-right: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      margin-left: auto !important;
+      flex-shrink: 0 !important;
+    }
 
     /* ─── Listings page: location search bar ─── */
     #tjg-lst-search-wrap {
@@ -488,8 +495,19 @@
       padding: 0 !important;
     }
     #tjg-lst-search-input::placeholder { color: rgba(24,37,75,0.45) !important; }
-    /* Allow dropdown/focus ring to overflow the filter bar */
-    #tjg-results-filter-bar { overflow: visible !important; }
+    /* ─── Listing-page top controls bar (injected above #IDX-map) ─── */
+    #tjg-results-filter-bar {
+      overflow: visible !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      padding: 10px 16px !important;
+      background: #F3EFE8 !important;
+      border-bottom: 1px solid #E0D9CF !important;
+      flex-wrap: nowrap !important;
+      box-sizing: border-box !important;
+      width: 100% !important;
+    }
 
     /* ─── Listing card address + beds/baths/sqft: dark navy text ─── */
     .idx-listing-card [class*="address"],
@@ -709,9 +727,9 @@
       display: none !important;
       width: 0 !important;
     }
-    /* Hide CRMLS copyright / any non-listing siblings that appear in the right grid cell */
-    #IDX-main.IDX-page-listings.tjg-list-view .idx-results__content > *:not(.idx-results__listings):not(#IDX-map):not([data-tjg-list-grid]),
-    #IDX-main.IDX-page-listings.tjg-list-view #idx-results-content > *:not(.idx-results__listings):not(#IDX-map):not([data-tjg-list-grid]) {
+    /* Hide CRMLS copyright / any non-listing siblings; preserve our injected controls bar */
+    #IDX-main.IDX-page-listings.tjg-list-view .idx-results__content > *:not(.idx-results__listings):not(#IDX-map):not([data-tjg-list-grid]):not(#tjg-results-filter-bar),
+    #IDX-main.IDX-page-listings.tjg-list-view #idx-results-content > *:not(.idx-results__listings):not(#IDX-map):not([data-tjg-list-grid]):not(#tjg-results-filter-bar) {
       display: none !important;
     }
     #IDX-main.IDX-page-listings.tjg-list-view .idx-results__listings,
@@ -4549,6 +4567,71 @@ document.getElementById('tjg-tour-success').style.display = 'block';
       }, true); // capture phase
     }
     _initListViewToggle();
+
+    // ─── Listing pages: inject top controls bar (search + Map/List toggle) ─────
+    // IDX Broker removed native filter pills from /i/ saved-search pages; we inject
+    // our own bar with a search field and Map/List toggle above #IDX-map.
+    // _idxInjectSaveSearch() (below) auto-adds SAVE SEARCH once #tjg-view-toggle lands.
+    function _injectListingsControlBar() {
+      var idxMain = document.getElementById('IDX-main');
+      if (!idxMain || !idxMain.classList.contains('IDX-page-listings')) return;
+      if (document.getElementById('tjg-results-filter-bar')) return;
+      var content = document.getElementById('idx-results-content');
+      if (!content) return;
+
+      // Controls bar
+      var bar = document.createElement('div');
+      bar.id = 'tjg-results-filter-bar';
+
+      // Location search
+      var searchWrap = document.createElement('div');
+      searchWrap.id = 'tjg-lst-search-wrap';
+      var ns = 'http://www.w3.org/2000/svg';
+      var svg = document.createElementNS(ns, 'svg');
+      svg.setAttribute('viewBox', '0 0 24 24'); svg.setAttribute('width', '15'); svg.setAttribute('height', '15');
+      svg.setAttribute('fill', 'none'); svg.setAttribute('stroke', '#18254B');
+      svg.setAttribute('stroke-width', '2'); svg.setAttribute('stroke-linecap', 'round'); svg.setAttribute('stroke-linejoin', 'round');
+      var circ = document.createElementNS(ns, 'circle'); circ.setAttribute('cx', '11'); circ.setAttribute('cy', '11'); circ.setAttribute('r', '8');
+      var ln   = document.createElementNS(ns, 'line');   ln.setAttribute('x1', '21'); ln.setAttribute('y1', '21'); ln.setAttribute('x2', '16.65'); ln.setAttribute('y2', '16.65');
+      svg.appendChild(circ); svg.appendChild(ln);
+      var inp = document.createElement('input');
+      inp.type = 'text'; inp.id = 'tjg-lst-search-input';
+      inp.placeholder = 'City, County or Zip...'; inp.autocomplete = 'off';
+      inp.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && inp.value.trim()) {
+          window.location.href = 'https://thejaiswalgroup.idxbroker.com/idx/map/mapsearch';
+        }
+      });
+      searchWrap.appendChild(svg); searchWrap.appendChild(inp);
+
+      // Right toolbar: Map/List toggle (Save Search added later by _idxInjectSaveSearch)
+      var toolbar = document.createElement('div');
+      toolbar.id = 'tjg-right-toolbar';
+      var toggle = document.createElement('div');
+      toggle.id = 'tjg-view-toggle';
+      var mapBtn  = document.createElement('button'); mapBtn.textContent  = 'MAP';  mapBtn.className  = 'tjg-vt-active';
+      var listBtn = document.createElement('button'); listBtn.textContent = 'LIST'; listBtn.className = 'tjg-vt-inactive';
+      toggle.appendChild(mapBtn); toggle.appendChild(listBtn);
+      toolbar.appendChild(toggle);
+
+      bar.appendChild(searchWrap);
+      bar.appendChild(toolbar);
+      content.insertBefore(bar, content.firstChild);
+
+      // Wire toggle click handlers now that the toolbar is in the DOM
+      _initListViewToggle();
+    }
+
+    // Poll until #idx-results-content is available (IDX injects it asynchronously)
+    (function() {
+      var idxMain = document.getElementById('IDX-main');
+      if (!idxMain || !idxMain.classList.contains('IDX-page-listings')) return;
+      var n = 0;
+      var t = setInterval(function() {
+        _injectListingsControlBar();
+        if (document.getElementById('tjg-results-filter-bar') || ++n > 60) clearInterval(t);
+      }, 500);
+    })();
 
     // Trigger Leaflet invalidateSize after our JS modifies the DOM (blank-map fix)
     (function() {
