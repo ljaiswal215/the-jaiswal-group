@@ -6019,6 +6019,13 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         searchWrapper.classList.remove('hide');
         searchWrapper.style.removeProperty('display');
       }
+
+      // The footer is inside IDX-Subheader (above the injected form). Move it to
+      // document.body so it renders below the search form as expected.
+      var ft = document.querySelector('footer.site-footer');
+      if (ft && ft.parentElement && ft.parentElement.id === 'IDX-Subheader') {
+        document.body.appendChild(ft);
+      }
     })();
 
     // My Account page: replace blank placeholder images with TJG logo
