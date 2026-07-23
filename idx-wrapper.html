@@ -5731,6 +5731,24 @@ document.getElementById('tjg-tour-success').style.display = 'block';
           }
         }
 
+        // Keep aside height = main height so position:sticky on agent card
+        // has scroll room even as accordion panels expand/collapse.
+        if (!window._tjgAsideRO) {
+          var _dm = document.getElementById('IDX-detailsMain');
+          var _da = document.getElementById('IDX-detailsAside');
+          if (_dm && _da) {
+            window._tjgAsideRO = true;
+            function _syncAsideH() {
+              var _h = _dm.offsetHeight;
+              if (_h > 0) _da.style.setProperty('height', _h + 'px', 'important');
+            }
+            _syncAsideH();
+            if (window.ResizeObserver) {
+              new ResizeObserver(_syncAsideH).observe(_dm);
+            }
+          }
+        }
+
       }
       function _tjgSchedule() {
         // Immediately cover if detail content just appeared AND custom header not yet built
