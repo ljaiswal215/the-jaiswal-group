@@ -106,9 +106,13 @@
     #tjg-heart-btn.tjg-saved svg { stroke:#fff; fill:#fff; }
     #tjg-heart-btn { display: none !important; }
     #IDX-detailsContact { display: none !important; }
-    /* Hide listing detail from first paint — class added synchronously before IDX renders */
-    html.tjg-details-page #IDX-main:not(.tjg-ready) { opacity: 0 !important; visibility: hidden !important; }
-    html.tjg-details-page #IDX-main.tjg-ready { opacity: 1 !important; visibility: visible !important; transition: opacity 0.3s ease; }
+    /* Hide listing detail from first paint — two independent rules for belt-and-suspenders:
+       1. JS-toggled class on <html> (set by sync script before body parses)
+       2. Pure CSS on IDX-page-listing class itself — fires the instant IDX adds it, no JS needed */
+    html.tjg-details-page #IDX-main:not(.tjg-ready),
+    #IDX-main.IDX-page-listing:not(.tjg-ready) { opacity: 0 !important; visibility: hidden !important; }
+    html.tjg-details-page #IDX-main.tjg-ready,
+    #IDX-main.IDX-page-listing.tjg-ready { opacity: 1 !important; visibility: visible !important; transition: opacity 0.3s ease; }
     /* Hide "Data services provided by IDX Broker" attribution on detail pages */
     html.tjg-details-page #IDX-main > div[style*="visibility:visible"][style*="text-align:center"],
     html.tjg-details-page #IDX-poweredByIDX,
@@ -5142,7 +5146,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
               'line-height:1.7;margin:0 0 2rem;max-width:680px;}' +
               '#tjg-mc-section .tjg-mc-ey{display:none;}' +
               '#tjg-mc-section .tjg-mc-inner{max-width:1300px;}' +
-              '#tjg-mc-section .tjg-mc-grid{display:grid;grid-template-columns:3fr 2fr;gap:3.5rem;align-items:start;}' +
+              '#tjg-mc-section .tjg-mc-grid{display:grid;grid-template-columns:3fr 2fr;gap:6rem;align-items:start;}' +
               '@media(max-width:640px){#tjg-mc-section .tjg-mc-grid{grid-template-columns:1fr;}}' +
               '#tjg-mc-section .tjg-mc-gl{font-size:1.8rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#B38987;margin:0 0 0.75rem;}' +
               '#tjg-mc-section .tjg-mc-fs{display:grid;grid-template-columns:1fr 1fr;gap:0 1.5rem;margin-bottom:1.25rem;}' +
