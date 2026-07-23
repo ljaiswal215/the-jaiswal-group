@@ -2650,24 +2650,30 @@
       _openSaveSearchModal();
     }, true);
 
-    // IDX results pagination: IDX Broker registers its card-click handler BEFORE our
-    // code loads, so capture-phase stopImmediatePropagation arrives too late.
-    // Solution: clone each pagination link to strip all IDX listeners, then attach
-    // our own handler that navigates directly. Re-runs after AJAX result updates.
+    // IDX results pagination: clones each page link to strip IDX's card-click delegation,
+    // then navigates directly via window.location.href.
+    // Guards: only runs on IDX-page-listings (listing results), NOT on mapsearch — where
+    // IDX uses AJAX pagination that we must not intercept.
+    // Tracks individual links (not the nav) so AJAX-refreshed content is re-patched.
     (function() {
       function _fixPaginationLinks() {
-        var nav = document.querySelector(
-          '#idx-results-pagination, nav.idx-results__pagination, #IDX-resultsNavWrapper'
-        );
-        if (!nav || nav.dataset.tjgPagFixed) return;
-        var links = nav.querySelectorAll('a[href]');
-        if (!links.length) return;
-        nav.dataset.tjgPagFixed = '1';
-        links.forEach(function(link) {
+        var idxMain = document.getElementById('IDX-main');
+        if (!idxMain || !idxMain.classList.contains('IDX-page-listings')) return;
+        document.querySelectorAll(
+          '#idx-results-pagination a[href], nav.idx-results__pagination a[href], #IDX-resultsNavWrapper a[href]'
+        ).forEach(function(link) {
+          if (link.dataset.tjgPag) return;
           var href = link.href;
+          if (!href || /^javascript/i.test(href) || href === window.location.href) return;
+          link.dataset.tjgPag = '1';
           var clone = link.cloneNode(true);
+          clone.dataset.tjgPag = '1';
+          clone.removeAttribute('onclick');
+          clone.onclick = null;
+          clone.addEventListener('mousedown', function(e) { e.stopPropagation(); });
           clone.addEventListener('click', function(e) {
             e.stopImmediatePropagation();
+            e.stopPropagation();
             e.preventDefault();
             window.location.href = href;
           });
@@ -2675,13 +2681,11 @@
         });
       }
       _fixPaginationLinks();
-      [400, 1200, 3000].forEach(function(ms) { setTimeout(_fixPaginationLinks, ms); });
+      [400, 1200, 3000, 6000].forEach(function(ms) { setTimeout(_fixPaginationLinks, ms); });
       new MutationObserver(function() {
-        var nav = document.querySelector(
-          '#idx-results-pagination:not([data-tjg-pag-fixed]), ' +
-          'nav.idx-results__pagination:not([data-tjg-pag-fixed])'
-        );
-        if (nav) _fixPaginationLinks();
+        if (document.querySelector(
+          '#IDX-main.IDX-page-listings, #idx-results-pagination, nav.idx-results__pagination'
+        )) _fixPaginationLinks();
       }).observe(document.body, { childList: true, subtree: true });
     })();
 
@@ -4716,6 +4720,85 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         }
         try { new Function(b5code)(); } catch(e) {}
       }
+    }
+
+    // Replaces the text-list panel that injectLstTypeFilter creates with an icon grid.
+    // Clones #tjg-lst-type-btn to strip IDX's click handler, then shows a custom panel.
+    function _patchLstTypePanel() {
+      var lstBtn = document.getElementById('tjg-lst-type-btn');
+      if (!lstBtn || lstBtn.dataset.tjgTypePatched) return;
+      lstBtn.dataset.tjgTypePatched = '1';
+
+      if (!document.getElementById('tjg-type-grid-css')) {
+        var css = document.createElement('style');
+        css.id = 'tjg-type-grid-css';
+        css.textContent =
+          '#tjg-lst-type-panel-custom{position:fixed;z-index:99999;background:#F3EFE8;border:1px solid #E0D9CF;box-shadow:0 4px 20px rgba(24,37,75,0.14);padding:12px;width:256px;}' +
+          '.tjg-type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}' +
+          '.tjg-type-card{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 4px 8px;background:#F3EFE8;border:1.5px solid #E0D9CF;cursor:pointer;font-family:Lato,sans-serif;font-size:9.5px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#18254B;text-align:center;transition:border-color 0.15s,background 0.15s;}' +
+          '.tjg-type-card:hover,.tjg-type-card.tjg-tp-sel{border-color:#18254B !important;background:#18254B !important;color:#B38987 !important;}' +
+          '.tjg-type-card svg{width:26px;height:26px;stroke:#18254B;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;display:block;transition:stroke 0.15s;}' +
+          '.tjg-type-card:hover svg,.tjg-type-card.tjg-tp-sel svg{stroke:#B38987 !important;}';
+        document.head.appendChild(css);
+      }
+
+      var ICONS = {
+        any:   '<svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>',
+        sfr:   '<svg viewBox="0 0 24 24"><path d="M3 10L12 3l9 7v11H3z"/><path d="M9 21V14h6v7"/></svg>',
+        condo: '<svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="21"/><line x1="4" y1="8" x2="20" y2="8"/><line x1="4" y1="14" x2="20" y2="14"/><line x1="12" y1="2" x2="12" y2="23"/><rect x="6" y="10" width="3" height="3"/><rect x="15" y="10" width="3" height="3"/></svg>',
+        town:  '<svg viewBox="0 0 24 24"><path d="M1 12L7 5l6 7v9H1z"/><path d="M13 12l6-7 5 7v9H13z"/><path d="M4 21v-5h3v5M16 21v-5h4v5"/></svg>',
+        multi: '<svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="20"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="2" y1="15" x2="22" y2="15"/><line x1="8" y1="3" x2="8" y2="23"/><line x1="16" y1="3" x2="16" y2="23"/></svg>',
+        land:  '<svg viewBox="0 0 24 24"><line x1="2" y1="20" x2="22" y2="20"/><path d="M12 4L7 13h10z"/><line x1="12" y1="13" x2="12" y2="20"/></svg>',
+        mfh:   '<svg viewBox="0 0 24 24"><rect x="2" y="10" width="20" height="10"/><path d="M2 10L12 5l10 5"/><rect x="9" y="13" width="3" height="4"/><line x1="14" y1="13" x2="18" y2="13"/><line x1="14" y1="16" x2="18" y2="16"/><circle cx="5" cy="21" r="1"/><circle cx="19" cy="21" r="1"/></svg>'
+      };
+
+      var LST_TYPES = [
+        { label: 'Any Type',      val: '',                        icon: ICONS.any   },
+        { label: 'Single Family', val: 'Single Family Residence', icon: ICONS.sfr   },
+        { label: 'Condo',         val: 'Condominium',             icon: ICONS.condo },
+        { label: 'Townhome',      val: 'Townhouse',               icon: ICONS.town  },
+        { label: 'Multi-Family',  val: 'Multi-Family Residence',  icon: ICONS.multi },
+        { label: 'Lots & Land',   val: 'Land',                    icon: ICONS.land  },
+        { label: 'Manufactured',  val: 'Manufactured Home',       icon: ICONS.mfh   }
+      ];
+
+      var curRaw = (window.location.search.match(/proptype\[\]=([^&]+)/) || [])[1] || '';
+      var curType = decodeURIComponent(curRaw.replace(/\+/g, ' '));
+
+      var panel = document.createElement('div');
+      panel.id = 'tjg-lst-type-panel-custom';
+      panel.style.display = 'none';
+      var grid = document.createElement('div');
+      grid.className = 'tjg-type-grid';
+      LST_TYPES.forEach(function(t) {
+        var card = document.createElement('div');
+        card.className = 'tjg-type-card' + (t.val === curType ? ' tjg-tp-sel' : '');
+        card.innerHTML = t.icon + '<span>' + t.label + '</span>';
+        card.addEventListener('click', function() {
+          var href = window.location.href.replace(/[?&]proptype\[\]=[^&]*/g, '');
+          if (t.val) href += (href.indexOf('?') >= 0 ? '&' : '?') + 'proptype[]=' + encodeURIComponent(t.val);
+          window.location.href = href;
+        });
+        grid.appendChild(card);
+      });
+      panel.appendChild(grid);
+      document.body.appendChild(panel);
+
+      var btnClone = lstBtn.cloneNode(true);
+      delete btnClone.dataset.tjgTypePatched;
+      lstBtn.parentNode.replaceChild(btnClone, lstBtn);
+
+      btnClone.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (panel.style.display !== 'none') { panel.style.display = 'none'; return; }
+        var r = btnClone.getBoundingClientRect();
+        panel.style.left = r.left + 'px';
+        panel.style.top = (r.bottom + 4) + 'px';
+        panel.style.display = 'block';
+      });
+      document.addEventListener('click', function(e) {
+        if (e.target !== btnClone && !panel.contains(e.target)) panel.style.display = 'none';
+      });
     }
 
     function _tjgUpdateResultsCount() {}
