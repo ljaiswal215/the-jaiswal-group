@@ -300,13 +300,15 @@
 
     /* ─── TJG Agent Card: cream body with navy top band ─── */
     #tjg-agent-card { background:#F3EFE8 !important; border:1px solid rgba(24,37,75,0.1) !important; border-radius:0 !important; padding:0 !important; margin-bottom:16px !important; font-family:'Lato',sans-serif !important; overflow:hidden !important; }
-    /* Sticky agent card — sticks within the aside (which stretches to IDX-main height).
-       Naturally releases when IDX-main ends, i.e. right before virtual tour / map. */
-    #IDX-detailsWrapper,
-    #IDX-detailsAside { overflow: visible !important; }
+    /* Sticky agent card — sticks within the aside for the full scroll of the details section.
+       1. Wrapper must be flex so aside can stretch to main content height.
+       2. Aside must stretch (not shrink to its content) so sticky has room to travel.
+       3. overflow:visible on both so position:sticky isn't clipped. */
+    #IDX-detailsWrapper { display: flex !important; align-items: stretch !important; overflow: visible !important; }
+    #IDX-detailsAside { overflow: visible !important; align-self: stretch !important; height: auto !important; min-height: 100% !important; }
     html.tjg-details-page #tjg-agent-card {
       position: sticky;
-      top: 95px; /* clears fixed nav */
+      top: 95px;
       align-self: start;
     }
     /* Navy top band */
