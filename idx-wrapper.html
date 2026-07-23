@@ -300,12 +300,12 @@
 
     /* ─── TJG Agent Card: cream body with navy top band ─── */
     #tjg-agent-card { background:#F3EFE8 !important; border:1px solid rgba(24,37,75,0.1) !important; border-radius:0 !important; padding:0 !important; margin-bottom:16px !important; font-family:'Lato',sans-serif !important; overflow:hidden !important; }
-    /* Sticky agent card — sticks within the aside for the full scroll of the details section.
-       1. Wrapper must be flex so aside can stretch to main content height.
-       2. Aside must stretch (not shrink to its content) so sticky has room to travel.
-       3. overflow:visible on both so position:sticky isn't clipped. */
-    #IDX-detailsWrapper { display: flex !important; align-items: stretch !important; overflow: visible !important; }
-    #IDX-detailsAside { overflow: visible !important; align-self: stretch !important; height: auto !important; min-height: 100% !important; }
+    /* Sticky agent card — overflow:visible must cover every ancestor that could clip it */
+    #IDX-detailsWrapper,
+    #IDX-detailsAside,
+    #IDX-detailsPageContainer,
+    #IDX-main.IDX-page-listing { overflow: visible !important; }
+    #IDX-detailsWrapper { display: flex !important; align-items: stretch !important; }
     html.tjg-details-page #tjg-agent-card {
       position: sticky;
       top: 95px;
@@ -5722,6 +5722,17 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             document.body.appendChild(_ft);
           }
         }
+
+        // Sync aside height to main content height so position:sticky on the
+        // agent card has the full scroll range. CSS min-height:100% can't work
+        // without an explicit height on the parent, so JS is required.
+        (function() {
+          var _dm = document.getElementById('IDX-detailsMain');
+          var _da = document.getElementById('IDX-detailsAside');
+          if (!_dm || !_da) return;
+          var _h = _dm.offsetHeight;
+          if (_h > 0) _da.style.setProperty('min-height', _h + 'px', 'important');
+        })();
       }
       function _tjgSchedule() {
         // Immediately cover if detail content just appeared AND custom header not yet built
