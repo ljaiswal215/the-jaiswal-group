@@ -119,7 +119,6 @@
     html.tjg-details-page #IDX-dataAttrib { display: none !important; visibility: hidden !important; }
     /* Prevent white section below footer on detail pages */
     html.tjg-details-page body { background: #18254B !important; }
-    html.tjg-details-page footer.site-footer ~ :not([id^="tjg-"]):not(script):not(style):not(link) { display: none !important; }
 
     #IDX-main.IDX-page-listing #IDX-detailsHeaderActions { display: none !important; }
     /* Hide selected fields in Basic Information */
@@ -5446,10 +5445,10 @@ document.getElementById('tjg-tour-success').style.display = 'block';
             '</style>' +
             '<div class="tjg-cta-grid">' +
               '<div>' +
-                '<p style="font-family:\'Lato\',sans-serif;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:#7a7269;margin:0 0 0.6rem;font-weight:600;">Interested in This Home?</p>' +
+                '<p style="font-family:\'Lato\',sans-serif;font-size:0.85rem;letter-spacing:0.18em;text-transform:uppercase;color:#B38987;margin:0 0 0.75rem;font-weight:700;text-align:center;">Interested in This Home?</p>' +
                 (_addr
-                  ? '<h2 style="font-family:\'Marcellus\',serif;font-size:clamp(1.5rem,3.2vw,2.4rem);color:#18254B;margin:0 0 2rem;line-height:1.2;font-weight:400;">' + _addr + '</h2>'
-                  : '<h2 style="font-family:\'Marcellus\',serif;font-size:clamp(1.5rem,3.2vw,2.4rem);color:#18254B;margin:0 0 2rem;line-height:1.2;font-weight:400;">This Home</h2>') +
+                  ? '<h2 style="font-family:\'Marcellus\',serif;font-size:clamp(1.6rem,3.5vw,2.8rem);color:#18254B;margin:0 0 2rem;line-height:1.2;font-weight:400;text-align:center;">' + _addr + '</h2>'
+                  : '<h2 style="font-family:\'Marcellus\',serif;font-size:clamp(1.6rem,3.5vw,2.8rem);color:#18254B;margin:0 0 2rem;line-height:1.2;font-weight:400;text-align:center;">This Home</h2>') +
                 '<button id="tjg-cta-contact-btn" style="background:#18254B;color:#fff;border:2px solid #18254B;border-radius:0;font-family:\'Lato\',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;padding:14px 32px;cursor:pointer;transition:color 0.2s;">CONTACT US</button>' +
               '</div>' +
               '<div style="display:flex;flex-direction:column;align-items:center;text-align:center;gap:0.5rem;">' +
