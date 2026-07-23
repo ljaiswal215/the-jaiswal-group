@@ -2642,13 +2642,29 @@
       });
 
       // Hide "Data services provided by IDX Broker" attribution on listing detail pages.
-      // CSS handles it at first paint; JS handles the inline visibility:visible override.
-      if (document.documentElement.classList.contains('tjg-details-page')) {
-        document.querySelectorAll('#IDX-main > div').forEach(function(div) {
-          if (!div.children.length && /data services/i.test(div.textContent)) {
-            div.style.setProperty('display', 'none', 'important');
-            div.style.setProperty('visibility', 'hidden', 'important');
-          }
+      // Searches both inside #IDX-main and as body-level siblings; matches by ID, class, or text.
+      if (document.querySelector('#IDX-main.IDX-page-listing') ||
+          document.documentElement.classList.contains('tjg-details-page')) {
+        var _attrSels = [
+          '#IDX-poweredByIDX', '#IDX-dataAttrib',
+          '[id*="poweredBy"]', '[id*="dataAttrib"]',
+          '[class*="idx-powered"]', '[class*="IDX-powered"]',
+          '[class*="idx-attribution"]', '[class*="IDX-attribution"]'
+        ];
+        document.querySelectorAll(_attrSels.join(',')).forEach(function(el) {
+          el.style.setProperty('display', 'none', 'important');
+          el.style.setProperty('visibility', 'hidden', 'important');
+        });
+        // Also catch by text content — handles any element IDX may rename
+        var _parents = [document.getElementById('IDX-main'), document.body];
+        _parents.forEach(function(parent) {
+          if (!parent) return;
+          parent.querySelectorAll('div, p').forEach(function(el) {
+            if (/data services provided by idx broker/i.test(el.textContent)) {
+              el.style.setProperty('display', 'none', 'important');
+              el.style.setProperty('visibility', 'hidden', 'important');
+            }
+          });
         });
       }
 
