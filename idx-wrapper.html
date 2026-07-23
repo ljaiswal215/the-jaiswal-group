@@ -2083,25 +2083,54 @@
   </style>
   <script>
     /* Runs synchronously during HTML parsing — before <body> is rendered.
-       Activates the opacity:0 FOUC-hide rule from the very first paint.
-       Also patches pushState/replaceState so IDX's AJAX navigation to a
-       detail page hides the native layout instantly, before IDX renders. */
+       Strategy: inject a full-viewport cover overlay the instant we know this
+       is a detail page. The overlay sits above IDX content (z-index 999) but
+       below our fixed nav (z-index 1000), so the nav is always visible.
+       When _restructureDetailHeader succeeds the overlay fades out, revealing
+       our custom layout with no flash of native IDX price/address. */
     (function() {
       var _DETAIL_RE = /\/details\//;
+
+      /* ── Cover overlay ──────────────────────────────────────────────── */
+      function _createCover() {
+        var existing = document.getElementById('tjg-fouc-cover');
+        if (existing) return; /* already present */
+        var c = document.createElement('div');
+        c.id = 'tjg-fouc-cover';
+        /* Fixed, full-viewport, z-index 999 — below our nav (1000) */
+        c.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;' +
+          'background:#faf8f5;z-index:999;pointer-events:none;';
+        /* Append to <html> (body doesn't exist yet on initial load) */
+        (document.body || document.documentElement).appendChild(c);
+      }
+
+      function _removeCover() {
+        var c = document.getElementById('tjg-fouc-cover');
+        if (!c) return;
+        c.style.transition = 'opacity 0.25s ease';
+        c.style.opacity = '0';
+        setTimeout(function() { if (c.parentNode) c.parentNode.removeChild(c); }, 260);
+      }
+
+      /* Expose so _restructureDetailHeader and _tjgDispatch can call it */
+      window._tjgReveal = _removeCover;
 
       function _applyDetailClass(isDetail) {
         if (isDetail) {
           document.documentElement.classList.add('tjg-details-page');
-          /* Un-ready #IDX-main so the hide rule kicks in for the new page */
+          _createCover();
+          /* Un-ready #IDX-main so the CSS opacity:0 rule also kicks in */
           var m = document.getElementById('IDX-main');
           if (m) m.classList.remove('tjg-ready');
-          /* Failsafe: reveal after 3s if _tjgDispatch never fires */
+          /* Failsafe: reveal after 3s if _restructureDetailHeader never fires */
           setTimeout(function() {
+            _removeCover();
             var m2 = document.getElementById('IDX-main');
             if (m2 && !m2.classList.contains('tjg-ready')) m2.classList.add('tjg-ready');
           }, 3000);
         } else {
           document.documentElement.classList.remove('tjg-details-page');
+          _removeCover();
         }
       }
 
@@ -4073,7 +4102,8 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         var headerEl = document.getElementById('IDX-detailsHeader');
         var appendTarget = headerEl || addrParent;
         if (appendTarget) { appendTarget.appendChild(meta); }
-        // Reveal content immediately — custom header is now in place
+        // Remove FOUC cover and reveal — custom header is now in place
+        if (window._tjgReveal) window._tjgReveal();
         var _idxReveal = document.getElementById('IDX-main');
         if (_idxReveal && !_idxReveal.classList.contains('tjg-ready')) {
           _idxReveal.classList.add('tjg-ready');
@@ -5615,6 +5645,7 @@ document.getElementById('tjg-tour-success').style.display = 'block';
         if (document.documentElement.classList.contains('tjg-details-page')) {
           var _idxMain = document.getElementById('IDX-main');
           if (_idxMain && document.getElementById('tjg-listing-meta')) {
+            if (window._tjgReveal) window._tjgReveal();
             _idxMain.classList.add('tjg-ready');
           }
         }
