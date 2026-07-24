@@ -380,7 +380,7 @@
     var SHARE_SVG = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;display:block;fill:#fff;"><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
 
     function _addHeart(card) {
-      var wrap = card.querySelector('.idx-listing-card__image-wrap, .idx-listing-card__image-area, .idx-listing-card__image, .idx-listing-card__photo, .idx-listing-card__wrap');
+      var wrap = card.querySelector('.listing-card__image-wrap, .idx-listing-card__image-wrap, .idx-listing-card__image-area, .idx-listing-card__image, .idx-listing-card__photo, .idx-listing-card__wrap');
       if (!wrap) wrap = card.firstElementChild;
       if (!wrap || wrap.querySelector('.tjg-heart')) return;
       if (getComputedStyle(wrap).position === 'static') wrap.style.position = 'relative';
@@ -419,7 +419,7 @@
       });
       share.addEventListener('click', function(e) {
         e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
-        var link   = card.querySelector('.idx-listing-card__link, a[href*="/listing/"], a[href*="idxbroker"]');
+        var link   = card.querySelector('.listing-card__image-link, .idx-listing-card__link, a[href*="/listing/"], a[href*="idxbroker"]');
         var href   = link ? link.href : window.location.href;
         var url    = href.replace('?widgetReferer=true', '');
         var mlsM   = href.match(/\/listing\/[^\/]+\/([^\/]+)\//);
@@ -494,15 +494,15 @@
         var st = document.createElement('style');
         st.id = 'tjg-heart-dom-styles';
         st.textContent = [
-          '.tjg-heart,.tjg-share{position:absolute;top:10px;z-index:15;width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;padding:0;transition:background 0.2s;pointer-events:auto}',
-          '.tjg-heart{right:54px}',
-          '.tjg-share{right:10px}',
-          '.tjg-heart:hover,.tjg-share:hover{background:rgba(0,0,0,0.6)}'
+          '.tjg-heart,.tjg-share{position:absolute!important;top:10px!important;z-index:15!important;width:36px!important;height:36px!important;border-radius:50%!important;border:none!important;cursor:pointer!important;background:rgba(0,0,0,0.35)!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;color:#fff!important;transition:background 0.2s!important;pointer-events:auto!important;box-sizing:border-box!important;margin:0!important;opacity:1!important;visibility:visible!important}',
+          '.tjg-heart{right:54px!important;left:auto!important}',
+          '.tjg-share{right:10px!important;left:auto!important}',
+          '.tjg-heart:hover,.tjg-share:hover{background:rgba(0,0,0,0.6)!important}'
         ].join('');
         document.head.appendChild(st);
       }
       function _scanDom() {
-        var cards = document.querySelectorAll('.idx-listing-card');
+        var cards = document.querySelectorAll('.idx-listing-card, article.listing-card__wrap');
         if (!cards.length) return;
         _ensureDomStyles();
         cards.forEach(function(card) {
