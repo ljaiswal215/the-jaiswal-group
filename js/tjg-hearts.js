@@ -380,8 +380,10 @@
     var SHARE_SVG = '<svg viewBox="0 0 24 24" style="width:18px;height:18px;display:block;fill:#fff;"><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
 
     function _addHeart(card) {
-      var wrap = card.querySelector('.idx-listing-card__wrap');
+      var wrap = card.querySelector('.idx-listing-card__wrap, .idx-listing-card__image-wrap, .idx-listing-card__image-area, .idx-listing-card__image, .idx-listing-card__photo');
+      if (!wrap) wrap = card.firstElementChild;
       if (!wrap || wrap.querySelector('.tjg-heart')) return;
+      if (getComputedStyle(wrap).position === 'static') wrap.style.position = 'relative';
 
       var heart = document.createElement('button');
       heart.className = 'tjg-heart';
@@ -417,7 +419,7 @@
       });
       share.addEventListener('click', function(e) {
         e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
-        var link   = card.querySelector('.idx-listing-card__link');
+        var link   = card.querySelector('.idx-listing-card__link, a[href*="/listing/"], a[href*="idxbroker"]');
         var href   = link ? link.href : window.location.href;
         var url    = href.replace('?widgetReferer=true', '');
         var mlsM   = href.match(/\/listing\/[^\/]+\/([^\/]+)\//);
@@ -482,5 +484,34 @@
       _watching = true; clearInterval(_wt); _initWidget(widget.shadowRoot);
     }, 300);
     setTimeout(function() { clearInterval(_wt); }, 25000);
+
+    // DOM mode: regular listing cards outside shadow DOM (e.g. mapsearch)
+    (function() {
+      var _domStyled = false;
+      function _ensureDomStyles() {
+        if (_domStyled || document.getElementById('tjg-heart-dom-styles')) return;
+        _domStyled = true;
+        var st = document.createElement('style');
+        st.id = 'tjg-heart-dom-styles';
+        st.textContent = [
+          '.tjg-heart,.tjg-share{position:absolute;top:10px;z-index:15;width:36px;height:36px;border-radius:50%;border:none;cursor:pointer;background:rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center;padding:0;transition:background 0.2s;pointer-events:auto}',
+          '.tjg-heart{right:54px}',
+          '.tjg-share{right:10px}',
+          '.tjg-heart:hover,.tjg-share:hover{background:rgba(0,0,0,0.6)}'
+        ].join('');
+        document.head.appendChild(st);
+      }
+      function _scanDom() {
+        var cards = document.querySelectorAll('.idx-listing-card');
+        if (!cards.length) return;
+        _ensureDomStyles();
+        cards.forEach(function(card) {
+          if (card.getRootNode() !== document) return;
+          _addHeart(card);
+        });
+      }
+      new MutationObserver(_scanDom).observe(document.body, { childList: true, subtree: true });
+      [500, 1500, 3000, 5000].forEach(function(ms) { setTimeout(_scanDom, ms); });
+    })();
   })();
   
