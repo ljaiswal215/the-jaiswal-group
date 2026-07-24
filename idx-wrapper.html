@@ -845,6 +845,14 @@
       font-weight: 400 !important;
     }
 
+    /* ─── Hide Virtual Tour + New banners on listing cards (keep Open House) ─── */
+    [class*="listing-card__label--virtual-tour"],
+    [class*="listing-card__label--new"],
+    [class*="listing-card__label-virtual-tour"],
+    [class*="listing-card__label-new"] {
+      display: none !important;
+    }
+
     /* ─── All filter dropdown panels (property type, price, size, beds) ─── */
     .idx-filter-button [class*="dropdown"],
     .idx-filter-button [class*="panel"],
