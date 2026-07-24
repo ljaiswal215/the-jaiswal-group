@@ -156,7 +156,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   gap: 1rem;
   position: relative;
 }
-.nav-logo img { height: 100px; width: auto; transition: opacity 0.35s; transform: translateY(-8px); }
+.nav-logo img { height: 100px; width: auto; transition: opacity 0.35s; transform: translateY(0); }
 /* Logo swap: white logo on transparent/dark nav; colored logo only on light-hero pages before scroll */
 .nav-logo .logo-white { display: block; }
 .nav-logo .logo-color { display: none; }
@@ -196,6 +196,16 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 
 /* Phone */
 .nav-phone a { color: white; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.05em; }
+
+/* Auth links (Login / Register) */
+.nav-login { border-left: 1px solid rgba(255,255,255,0.25); margin-left: 0.25rem; padding-left: 0.1rem; }
+.nav-login a, .nav-register a { color: white; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.1em; }
+.nav-register a { border: 1px solid rgba(255,255,255,0.45); padding: 3px 10px !important; border-radius: 2px; }
+.nav-register a:hover { background: rgba(255,255,255,0.12) !important; color: white !important; }
+.light-hero .site-header:not(.scrolled) .nav-login { border-left-color: rgba(28,48,99,0.3); }
+.light-hero .site-header:not(.scrolled) .nav-login a,
+.light-hero .site-header:not(.scrolled) .nav-register a { color: #1C3063; }
+.light-hero .site-header:not(.scrolled) .nav-register a { border-color: rgba(28,48,99,0.45); }
 
 /* Dropdown */
 .has-dropdown { position: relative; }
@@ -1831,12 +1841,6 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 ============================================================ */
 @media (min-width: 1400px) {
   .nav-links { margin: 0 auto; }
-  .nav-phone {
-    position: absolute;
-    right: 2.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-  }
 }
 @media (max-width: 1250px) {
   .nav-logo img { height: 80px; }
