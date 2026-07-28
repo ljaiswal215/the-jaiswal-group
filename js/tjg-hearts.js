@@ -379,6 +379,15 @@
     var HEART_SVG = '<svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;display:block;"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
     var SHARE_SVG = '<svg viewBox="0 0 24 24" style="width:22px;height:22px;display:block;fill:#fff;"><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
 
+    function _keepSvgSize(svgEl) {
+      svgEl.style.setProperty('width', '22px', 'important');
+      svgEl.style.setProperty('height', '22px', 'important');
+      new MutationObserver(function() {
+        svgEl.style.setProperty('width', '22px', 'important');
+        svgEl.style.setProperty('height', '22px', 'important');
+      }).observe(svgEl, { attributes: true, attributeFilter: ['style'] });
+    }
+
     function _addHeart(card) {
       var wrap = card.querySelector('.listing-card__image-wrap, .idx-listing-card__image-wrap, .idx-listing-card__image-area, .idx-listing-card__image, .idx-listing-card__photo, .idx-listing-card__wrap');
       if (!wrap) wrap = card.firstElementChild;
@@ -389,6 +398,7 @@
       heart.className = 'tjg-heart';
       heart.setAttribute('aria-label', 'Save this property');
       heart.innerHTML = HEART_SVG;
+      var _hSvg = heart.querySelector('svg'); if (_hSvg) _keepSvgSize(_hSvg);
       heart.addEventListener('mouseenter', function() {
         heart.style.background = 'rgba(0,0,0,0.6)';
         var svg = heart.querySelector('svg');
@@ -407,6 +417,7 @@
       share.className = 'tjg-share';
       share.setAttribute('aria-label', 'Share this property');
       share.innerHTML = SHARE_SVG;
+      var _sSvg = share.querySelector('svg'); if (_sSvg) _keepSvgSize(_sSvg);
       share.addEventListener('mouseenter', function() {
         share.style.background = 'rgba(0,0,0,0.6)';
         var svg = share.querySelector('svg');
