@@ -35,6 +35,12 @@
     html, body { height: 100%; overflow: hidden; }
     body.listings-page { display: flex; flex-direction: column; }
 
+    #ls-user-bar { background: #f0f3f8; border-bottom: 1px solid #dde3ef; padding: 7px 20px; display: flex; align-items: center; gap: 10px; font-family: 'Lato', sans-serif; font-size: 13px; color: #555; }
+    #ls-user-bar a { color: #1C3063; font-weight: 600; text-decoration: none; }
+    #ls-user-bar a:hover { text-decoration: underline; }
+    #ls-user-bar-name { font-weight: 700; color: #1C3063; }
+    .ls-user-bar-sep { color: #bbb; }
+
     .ls-wrap {
       display: flex;
       flex-direction: column;
@@ -1275,7 +1281,6 @@
         <li class="nav-phone"><a href="tel:8582907531">(858) 290-7531</a></li>
         <li class="nav-login"><a href="#" onclick="event.preventDefault(); openAuthModal('login')">LOGIN</a></li>
         <li class="nav-register"><a href="#" onclick="event.preventDefault(); openAuthModal('options')">REGISTER</a></li>
-        <li class="nav-account" style="display:none;"><a href="my-account.html">MY ACCOUNT</a></li>
       </ul>
       <button class="hamburger" aria-label="Menu" id="hamburger"><span></span><span></span><span></span></button>
     </nav>
@@ -1297,6 +1302,15 @@
   <!-- =========================================================
        SEARCH WRAPPER
   ========================================================= -->
+  <!-- Logged-in welcome bar -->
+  <div id="ls-user-bar" style="display:none;">
+    <span id="ls-user-bar-name"></span>
+    <span class="ls-user-bar-sep">·</span>
+    <a href="my-account.html">My Account</a>
+    <span class="ls-user-bar-sep">·</span>
+    <a href="#" onclick="event.preventDefault(); _sb.auth.signOut().then(() => location.reload())">Not you? Sign out</a>
+  </div>
+
   <div class="ls-wrap">
 
     <!-- Filter bar -->
@@ -2088,18 +2102,24 @@
     'sb_publishable_2rVwWfxV0m6XEeW3uGaz8w_eVFQpqYT'
   );
 
-  function updateNavAuth(loggedIn) {
-    document.querySelectorAll('.nav-login, .nav-register').forEach(el => el.style.display = loggedIn ? 'none' : '');
-    document.querySelectorAll('.nav-account').forEach(el => el.style.display = loggedIn ? '' : 'none');
+  function updateUserBar(user) {
+    const bar = document.getElementById('ls-user-bar');
+    if (user) {
+      const name = user.firstName || user.email || '';
+      document.getElementById('ls-user-bar-name').textContent = `Hi, ${name}`;
+      bar.style.display = 'flex';
+    } else {
+      bar.style.display = 'none';
+    }
   }
 
   // Sync auth state on load
   _sb.auth.getSession().then(({ data: { session } }) => {
-    if (session?.user) { _ssUser = _userFromSession(session); loadHeartedListings(); updateNavAuth(true); }
+    if (session?.user) { _ssUser = _userFromSession(session); loadHeartedListings(); updateUserBar(_ssUser); }
   });
   _sb.auth.onAuthStateChange((_event, session) => {
     _ssUser = session?.user ? _userFromSession(session) : null;
-    if (session?.user) { loadHeartedListings(); updateNavAuth(true); } else { updateNavAuth(false); }
+    if (session?.user) { loadHeartedListings(); updateUserBar(_ssUser); } else { updateUserBar(null); }
   });
   function _userFromSession(session) {
     const m = session.user.user_metadata || {};
