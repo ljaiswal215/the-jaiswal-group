@@ -2160,13 +2160,13 @@
       if (drop) {
         document.getElementById('nav-acct-initials').textContent = initials.toUpperCase();
         document.getElementById('nav-acct-name').textContent = name || 'Account';
-        drop.style.display = '';
+        drop.style.display = 'list-item';
       }
       loginItems.forEach(el => el.style.display = 'none');
     } else {
       bar.style.display = 'none';
       if (drop) drop.style.display = 'none';
-      loginItems.forEach(el => el.style.display = '');
+      loginItems.forEach(el => el.style.display = 'list-item');
     }
   }
 
