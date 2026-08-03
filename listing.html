@@ -114,9 +114,9 @@
       transition: background 0.2s;
       backdrop-filter: blur(4px);
     }
-    .ld-act-btn:hover { background: rgba(179,137,135,0.85); }
+    .ld-act-btn:hover { background: rgba(28,48,99,0.65); }
     .ld-act-btn svg { width: 17px; height: 17px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .ld-act-btn:hover svg { stroke: #fff; }
+    .ld-act-btn:hover svg { stroke: #B38987; }
     .ld-act-btn.hearted svg { fill: #B38987; stroke: #B38987; }
 
     /* ── Status badge (above gallery or on card) ── */
@@ -212,6 +212,12 @@
     }
     .ld-quick-stats {
       display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .ld-stats-row {
+      display: flex;
       align-items: center;
       gap: 0;
     }
@@ -222,6 +228,7 @@
       gap: 6px;
       padding: 0 20px;
     }
+    .ld-stat:first-child { padding-left: 0; }
     .ld-stat-val {
       font-family: 'Marcellus', serif;
       font-size: 2rem;
@@ -241,6 +248,21 @@
     }
     .ld-stat-lbl svg { flex-shrink: 0; stroke: #999; fill: none; stroke-width: 1.5; }
     .ld-stat-divider { width: 1px; height: 52px; background: #ebebeb; flex-shrink: 0; }
+    /* Secondary stats row */
+    .ld-stats-row-2 {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding-left: 0;
+      border-top: 1px solid #f0f0f0;
+      padding-top: 8px;
+      width: 100%;
+    }
+    .ld-stats-row-2 .ld-stat { padding: 0 16px; gap: 3px; }
+    .ld-stats-row-2 .ld-stat:first-child { padding-left: 0; }
+    .ld-stats-row-2 .ld-stat-val { font-size: 1.15rem; }
+    .ld-stats-row-2 .ld-stat-divider { height: 28px; }
+    .ld-stats-row-2 .ld-stat-lbl { font-size: 9px; }
     .ld-sidebar-nav { display: none; }
     /* Gallery-embedded arrow buttons — bottom-left of hero */
     .ld-gallery-arrows {
@@ -1343,32 +1365,49 @@
           </div>
           <!-- Stats as direct flex child (center) -->
           <div class="ld-quick-stats">
-            <div class="ld-stat">
-              <span class="ld-stat-lbl">
-                <svg width="13" height="13" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                BEDROOMS
-              </span>
-              <span class="ld-stat-val" id="stat-beds">—</span>
+            <!-- Primary stats row -->
+            <div class="ld-stats-row">
+              <div class="ld-stat">
+                <span class="ld-stat-lbl">
+                  <svg width="13" height="13" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                  BEDROOMS
+                </span>
+                <span class="ld-stat-val" id="stat-beds">—</span>
+              </div>
+              <div class="ld-stat-divider"></div>
+              <div class="ld-stat">
+                <span class="ld-stat-lbl">
+                  <svg width="13" height="13" viewBox="0 0 24 24"><path d="M20 10V7a4 4 0 00-4-4H8a4 4 0 00-4 4v3M4 10h16M4 10l1 9h14l1-9"/></svg>
+                  BATHROOMS
+                </span>
+                <span class="ld-stat-val" id="stat-baths">—</span>
+              </div>
+              <div class="ld-stat-divider"></div>
+              <div class="ld-stat">
+                <span class="ld-stat-lbl">
+                  <svg width="13" height="13" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 3v18"/></svg>
+                  SQ. FT.
+                </span>
+                <span class="ld-stat-val" id="stat-sqft">—</span>
+              </div>
             </div>
-            <div class="ld-stat-divider"></div>
-            <div class="ld-stat">
-              <span class="ld-stat-lbl">
-                <svg width="13" height="13" viewBox="0 0 24 24"><path d="M20 10V7a4 4 0 00-4-4H8a4 4 0 00-4 4v3M4 10h16M4 10l1 9h14l1-9"/></svg>
-                BATHROOMS
-              </span>
-              <span class="ld-stat-val" id="stat-baths">—</span>
+            <!-- Secondary stats row (year built, lot, garage) — shown only when data exists -->
+            <div class="ld-stats-row-2" id="stats-row-2" style="display:none">
+              <div class="ld-stat" id="stat-year-wrap" style="display:none">
+                <span class="ld-stat-lbl">YEAR BUILT</span>
+                <span class="ld-stat-val" id="stat-year">—</span>
+              </div>
+              <div class="ld-stat-divider" id="stat-divider-lot" style="display:none"></div>
+              <div class="ld-stat" id="stat-lot-wrap" style="display:none">
+                <span class="ld-stat-lbl">LOT SIZE</span>
+                <span class="ld-stat-val" id="stat-lot">—</span>
+              </div>
+              <div class="ld-stat-divider" id="stat-divider-garage" style="display:none"></div>
+              <div class="ld-stat" id="stat-garage-wrap" style="display:none">
+                <span class="ld-stat-lbl">GARAGE</span>
+                <span class="ld-stat-val" id="stat-garage">—</span>
+              </div>
             </div>
-            <div class="ld-stat-divider"></div>
-            <div class="ld-stat">
-              <span class="ld-stat-lbl">
-                <svg width="13" height="13" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 3v18"/></svg>
-                SQ. FT.
-              </span>
-              <span class="ld-stat-val" id="stat-sqft">—</span>
-            </div>
-            <!-- Hidden elements for JS -->
-            <span id="stat-lot" style="display:none"></span>
-            <span id="stat-year" style="display:none"></span>
           </div>
         </div>
 
@@ -2001,9 +2040,26 @@
     document.getElementById('stat-beds').textContent  = l.BedroomsTotal ?? '—';
     document.getElementById('stat-baths').textContent = l.BathroomsTotalInteger ?? '—';
     document.getElementById('stat-sqft').textContent  = l.LivingArea ? l.LivingArea.toLocaleString() : '—';
-    const acres = l.LotSizeAcres ? l.LotSizeAcres.toFixed(2) + ' ac' : l.LotSizeSquareFeet ? (l.LotSizeSquareFeet/43560).toFixed(2) + ' ac' : '—';
-    document.getElementById('stat-lot').textContent  = acres;
-    document.getElementById('stat-year').textContent = l.YearBuilt ?? '—';
+
+    // Secondary stats — show only when data exists
+    const hasYear   = !!l.YearBuilt;
+    const lotAcres  = l.LotSizeAcres ? l.LotSizeAcres.toFixed(2) + ' ac'
+                    : l.LotSizeSquareFeet ? Math.round(l.LotSizeSquareFeet).toLocaleString() + ' sf'
+                    : null;
+    const hasLot    = !!lotAcres;
+    const hasGarage = l.GarageSpaces != null && l.GarageSpaces > 0;
+
+    if (hasYear)   { document.getElementById('stat-year').textContent   = l.YearBuilt; }
+    if (hasLot)    { document.getElementById('stat-lot').textContent    = lotAcres; }
+    if (hasGarage) { document.getElementById('stat-garage').textContent = l.GarageSpaces + (l.GarageSpaces === 1 ? ' car' : ' cars'); }
+
+    const show = (id, visible) => { const el = document.getElementById(id); if (el) el.style.display = visible ? '' : 'none'; };
+    show('stat-year-wrap',    hasYear);
+    show('stat-lot-wrap',     hasLot);
+    show('stat-garage-wrap',  hasGarage);
+    show('stat-divider-lot',  hasYear && hasLot);
+    show('stat-divider-garage', (hasYear || hasLot) && hasGarage);
+    show('stats-row-2', hasYear || hasLot || hasGarage);
     const ppsf = l.ListPrice && l.LivingArea ? '$' + Math.round(l.ListPrice / l.LivingArea).toLocaleString() : '—';
 
     // Description
