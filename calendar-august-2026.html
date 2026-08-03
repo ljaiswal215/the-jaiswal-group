@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>August 2026 San Diego Calendar of Events | The Jaiswal Group Real Estate</title>
+  <meta name="description" content="Your guide to August 2026 events in San Diego County — festivals, races, outdoor concerts, community gatherings, and more. Curated monthly by The Jaiswal Group Real Estate." />
+  <link rel="canonical" href="https://thejaiswalgroupre.com/calendar-august-2026.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+
+    /* ── Hero ── */
+    .coe-hero {
+      background: linear-gradient(to bottom, rgba(24,37,75,0.52) 0%, rgba(24,37,75,0.85) 100%), url('sandiego.jpg') center 35% / cover no-repeat;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4rem) clamp(2rem, 4vw, 3rem);
+      text-align: center;
+    }
+    .coe-breadcrumb {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 0.6rem;
+    }
+    .coe-breadcrumb a { color: #B38987; text-decoration: none; }
+    .coe-breadcrumb a:hover { text-decoration: underline; }
+    .coe-hero .section-eyebrow { color: #B38987; margin-bottom: 0.6rem; }
+    .coe-hero h1 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      color: #fff;
+      letter-spacing: 0.07em;
+      margin: 0 0 0.75rem;
+      line-height: 1.1;
+    }
+    .coe-hero h1 span { display: block; font-size: 0.5em; letter-spacing: 0.15em; color: rgba(255,255,255,0.7); margin-bottom: 0.3em; font-family: 'Lato', sans-serif; font-weight: 400; }
+    .coe-hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.78);
+      max-width: 560px;
+      line-height: 1.8;
+      margin: 0 auto;
+    }
+
+    /* ── Month Nav ── */
+    .coe-month-nav {
+      background: #18254B;
+      padding: 0.85rem clamp(1.5rem, 5vw, 4rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .coe-month-nav a {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #B38987;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .coe-month-nav a:hover { color: #fff; }
+    .coe-month-nav-title {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── Events Body ── */
+    .coe-body {
+      background: #F3EFE8;
+      padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4rem);
+    }
+    .coe-body-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 0 3rem;
+      align-items: start;
+    }
+
+    /* ── Sticky Sidebar (ongoing) ── */
+    .coe-sidebar {
+      position: sticky;
+      top: 100px;
+    }
+    .coe-sidebar-label {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #B38987;
+      margin: 0 0 0.75rem;
+    }
+    .coe-ongoing-card {
+      background: #18254B;
+      border-radius: 8px;
+      padding: 1.1rem 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    .coe-ongoing-name {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0 0 0.4rem;
+      line-height: 1.4;
+    }
+    .coe-ongoing-dates {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      color: #B38987;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+    .coe-ongoing-detail {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.5;
+    }
+    .coe-ongoing-link {
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #B38987;
+      text-decoration: none;
+    }
+    .coe-ongoing-link:hover { color: #fff; }
+
+    /* ── Event Groups ── */
+    .coe-main { min-width: 0; }
+    .coe-date-group { margin-bottom: 2.25rem; }
+    .coe-date-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .coe-date-badge {
+      background: #18254B;
+      color: #fff;
+      border-radius: 6px;
+      padding: 6px 12px;
+      text-align: center;
+      flex-shrink: 0;
+      min-width: 52px;
+    }
+    .coe-date-badge-day {
+      font-family: 'Lato', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .coe-date-badge-dow {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.55rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #B38987;
+      margin-top: 2px;
+    }
+    .coe-date-rule {
+      flex: 1;
+      height: 1px;
+      background: #C8BFB3;
+    }
+
+    /* ── Event Card ── */
+    .coe-event {
+      background: #fff;
+      border-radius: 8px;
+      padding: 1.1rem 1.4rem;
+      margin-bottom: 0.75rem;
+      border-left: 3px solid #E0D9CF;
+      transition: border-color 0.15s;
+    }
+    .coe-event:hover { border-left-color: #18254B; }
+    .coe-event-name {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #18254B;
+      margin: 0 0 0.4rem;
+      line-height: 1.35;
+    }
+    .coe-event-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: #4a4a4a;
+      line-height: 1.7;
+      margin: 0 0 0.55rem;
+    }
+    .coe-event-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.25rem;
+      align-items: center;
+    }
+    .coe-event-time,
+    .coe-event-loc {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.68rem;
+      color: #777;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .coe-event-time svg,
+    .coe-event-loc svg {
+      width: 12px;
+      height: 12px;
+      stroke: #B38987;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+    .coe-event-link {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #18254B;
+      text-decoration: none;
+      margin-left: auto;
+    }
+    .coe-event-link:hover { color: #B38987; }
+
+    /* ── CTA ── */
+    .coe-cta {
+      background: #18254B;
+      padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 5vw, 4rem);
+      text-align: center;
+    }
+    .coe-cta .section-eyebrow { color: #B38987; margin-bottom: 0.75rem; }
+    .coe-cta h2 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: #fff;
+      letter-spacing: 0.06em;
+      margin: 0 0 1rem;
+    }
+    .coe-cta p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 560px;
+      margin: 0 auto 2rem;
+      line-height: 1.85;
+    }
+    .coe-cta-btn {
+      display: inline-block;
+      padding: 0.85rem 2.5rem;
+      background: #B38987;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 0.18s;
+    }
+    .coe-cta-btn:hover { background: #a07270; }
+
+    @media (max-width: 700px) {
+      .coe-body-inner { grid-template-columns: 1fr; }
+      .coe-sidebar { position: static; }
+      .coe-event-link { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="site-header" id="site-header">
+    <div class="header-top"><div class="social-icons">
+      <a href="https://www.facebook.com/LynnetteJaiswalRealtor" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      <a href="https://www.instagram.com/lynnettejaiswalrealtor/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+      <a href="https://www.youtube.com/@LynnetteJaiswalRealtor" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+    </div></div>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-logo">
+        <img src="LOGOS/JaiswalGroupRE_white.png" class="logo-white" alt="The Jaiswal Group Real Estate" />
+        <img src="logo.png" class="logo-color" alt="The Jaiswal Group Real Estate" />
+      </a>
+      <ul class="nav-links">
+        <li class="has-dropdown">
+          <a href="#">BUY A HOME <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="featured-properties.html">Featured Properties</a></li>
+            <li><a href="http://thejaiswalgroup.idxbroker.com/idx/map/mapsearch">Browse Homes</a></li>
+            <li><a href="#">New Construction</a></li>
+            <li><a href="buyers-guide.html">Buyer's Guide</a></li>
+            <li><a href="buyer-faq.html">Buyer FAQ</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">SELL YOUR HOME <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="seller-consultation.html">Seller Consultation</a></li>
+            <li><a href="home-valuation.html">Home Valuation</a></li>
+            <li><a href="#">Our Marketing</a></li>
+            <li><a href="sellers-guide.html">Seller's Guide</a></li>
+            <li><a href="#">Selling Checklist</a></li>
+          </ul>
+        </li>
+        <li><a href="communities.html">COMMUNITIES</a></li>
+        <li><a href="BLOG/blog.html">BLOG</a></li>
+        <li class="has-dropdown">
+          <a href="#">RESOURCES <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="#">Market Updates</a></li>
+            <li><a href="#">Lender Partners</a></li>
+            <li><a href="mortgage-calculator.html">Mortgage Calculator</a></li>
+            <li><a href="open-houses-carmel-valley.html">Open Houses</a></li>
+            <li><a href="/relocation-guide.html">Relocation Guide</a></li>
+            <li><a href="/plugged-in-method.html">The Plugged In Method</a></li>
+            <li><a href="#">Calendar of Events</a></li>
+            <li class="has-subdropdown">
+              <a href="#">Videos</a>
+              <ul class="subdropdown">
+                <li><a href="https://www.youtube.com/@LynnetteJaiswalRealtor" target="_blank" rel="noopener">YouTube Channel</a></li>
+                <li><a href="buyers-guide-videos.html">Buyer Video Series</a></li>
+                <li><a href="sellers-guide-videos.html">Seller Video Series</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">ABOUT US <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="lynnette-jaiswal.html">Lynnette Jaiswal</a></li>
+            <li><a href="clientreviews.html">Client Reviews</a></li>
+            <li><a href="#">Join Our Team</a></li>
+          </ul>
+        </li>
+        <li><a href="contact.html">CONTACT</a></li>
+        <li class="nav-phone"><a href="tel:8582907531">(858) 290-7531</a></li>
+        <li class="nav-auth nav-login"><a href="#">LOGIN</a></li>
+        <li class="nav-auth nav-register"><a href="#">REGISTER</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Menu" id="hamburger"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <ul>
+        <li><a href="#">Buy a Home</a></li>
+        <li><a href="#">Sell Your Home</a></li>
+        <li><a href="communities.html">Communities</a></li>
+        <li><a href="BLOG/blog.html">Blog</a></li>
+        <li><a href="#">Resources</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="tel:8582907531">(858) 290-7531</a></li>
+        <li><a href="#">Login</a></li>
+        <li><a href="#">Register</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="coe-hero">
+    <p class="coe-breadcrumb"><a href="calendar-of-events.html">Calendar of Events</a> &nbsp;/&nbsp; August 2026</p>
+    <p class="section-eyebrow">San Diego County</p>
+    <h1><span>August 2026</span>Calendar of Events</h1>
+    <p class="coe-hero-sub">25 events across San Diego County this August — from horse racing at Del Mar to festivals, music, food, and community celebrations.</p>
+  </div>
+
+  <!-- MONTH NAV -->
+  <div class="coe-month-nav">
+    <a href="calendar-of-events.html">&#8592; All Months</a>
+    <span class="coe-month-nav-title">August 2026</span>
+    <a href="#">September 2026 &#8594;</a>
+  </div>
+
+  <!-- EVENTS -->
+  <section class="coe-body">
+    <div class="coe-body-inner">
+
+      <!-- SIDEBAR: Ongoing Events -->
+      <aside class="coe-sidebar">
+        <p class="coe-sidebar-label">Ongoing All Month</p>
+
+        <div class="coe-ongoing-card">
+          <div class="coe-ongoing-dates">July 17 – Sept. 7</div>
+          <div class="coe-ongoing-name">Del Mar Summer Racing Season</div>
+          <div class="coe-ongoing-detail">32-day meet with races, special events, and coastal charm. 11:30am daily.<br>Del Mar Racetrack</div>
+          <a href="https://www.dmtc.com" target="_blank" rel="noopener" class="coe-ongoing-link">dmtc.com ↗</a>
+        </div>
+
+        <div class="coe-ongoing-card">
+          <div class="coe-ongoing-dates">Aug. 22 – 29</div>
+          <div class="coe-ongoing-name">Bayside Bands, Brews &amp; BBQ Concerts</div>
+          <div class="coe-ongoing-detail">Full concert performances showcasing charting rock and country performers. 6pm.<br>SeaWorld San Diego Bayside Amphitheater</div>
+          <a href="https://www.seaworld.com/san-diego" target="_blank" rel="noopener" class="coe-ongoing-link">seaworld.com ↗</a>
+        </div>
+      </aside>
+
+      <!-- MAIN: Events by Date -->
+      <div class="coe-main">
+
+        <!-- Aug 1 -->
+        <div class="coe-date-group">
+          <div class="coe-date-header">
+            <div class="coe-date-badge"><div class="coe-date-badge-day">1</div><div class="coe-date-badge-dow">Sat</div></div>
+            <div class="coe-date-rule"></div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Overnight Adventure Aboard Star of India</div>
+            <div class="coe-event-desc">Stay overnight on the historic 1863 tall ship Star of India. Families join the crew in costume and character for a hands-on journey into the past — sailing tasks, storytelling, and old-world accommodations.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2–8pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Maritime Museum of San Diego</span>
+              <a href="https://www.sdmaritime.org" target="_blank" rel="noopener" class="coe-event-link">sdmaritime.org ↗</a>
+            </div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Artwalk at Liberty Station <span style="font-weight:400;color:#999;font-size:0.8em;">(July 31–Aug. 2)</span></div>
+            <div class="coe-event-desc">175+ artists from various states and Mexico showcasing paintings, photography, glass and ceramic art, jewelry, and sculpture.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Fri 5–8pm · Sat 10am–6pm · Sun 10am–5pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Ingram Plaza</span>
+              <a href="https://www.artwalksandiego.org" target="_blank" rel="noopener" class="coe-event-link">artwalksandiego.org ↗</a>
+            </div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Ramona Country Fair <span style="font-weight:400;color:#999;font-size:0.8em;">(July 31–Aug. 2)</span></div>
+            <div class="coe-event-desc">Cornhole competition, live music, amusement rides, carnival games, an off-road show, food & beverage vendors, craft & commercial vendors, western shows, and more.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Fri 4–11pm · Sat–Sun 11am–11pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Ramona Outdoor Community Center</span>
+              <a href="https://www.ramonachamber.com" target="_blank" rel="noopener" class="coe-event-link">ramonachamber.com ↗</a>
+            </div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Uncorked: Del Mar Summer Wine Fest</div>
+            <div class="coe-event-desc">Sunshine, trackside views, live horse races, and 100+ wines, bubbly & cocktails from around the world, plus live music and food trucks.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1–5pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Del Mar Thoroughbred Club</span>
+              <a href="https://www.uncorkedwinefestivals.com" target="_blank" rel="noopener" class="coe-event-link">uncorkedwinefestivals.com ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aug 2 -->
+        <div class="coe-date-group">
+          <div class="coe-date-header">
+            <div class="coe-date-badge"><div class="coe-date-badge-day">2</div><div class="coe-date-badge-dow">Sun</div></div>
+            <div class="coe-date-rule"></div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Cardiff Dog Days of Summer</div>
+            <div class="coe-event-desc">Free event featuring dog-related vendors, rescue groups, and pet adoption agencies. Dog contests, live music, a libation lounge, food trucks, and more.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>10am–3pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Encinitas Community Park</span>
+              <a href="https://www.cardiff101.com" target="_blank" rel="noopener" class="coe-event-link">cardiff101.com ↗</a>
+            </div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Patriotic Mural Mosaic Painting</div>
+            <div class="coe-event-desc">Paint a community mosaic to be permanently installed at Mast Park, commemorating Santee's America 250 celebrations. No experience needed.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>10am–3pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Santee City Hall</span>
+              <a href="https://www.cityofsanteeca.gov" target="_blank" rel="noopener" class="coe-event-link">cityofsanteeca.gov ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aug 5–9 -->
+        <div class="coe-date-group">
+          <div class="coe-date-header">
+            <div class="coe-date-badge"><div class="coe-date-badge-day">5–9</div><div class="coe-date-badge-dow">Multi-Day</div></div>
+            <div class="coe-date-rule"></div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Tiki Oasis</div>
+            <div class="coe-event-desc">Five-night, four-day event with world-class concerts, tropical cocktails, sunset luau dinner, fashion parades, late-night soirées, a 150+ vendor Tiki Marketplace, 40+ seminars on Tiki and Mid-Century style, and more.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Town and Country Resort, Mission Valley</span>
+              <a href="https://www.tikioasis.com" target="_blank" rel="noopener" class="coe-event-link">tikioasis.com ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aug 7 -->
+        <div class="coe-date-group">
+          <div class="coe-date-header">
+            <div class="coe-date-badge"><div class="coe-date-badge-day">7</div><div class="coe-date-badge-dow">Fri</div></div>
+            <div class="coe-date-rule"></div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Best of San Diego Party</div>
+            <div class="coe-event-desc">Top local restaurants, breweries, wineries, distilleries, and businesses from San Diego Magazine's Best of SD issues. Unlimited bites and sips from 90+ vendors, live entertainment, and dancing.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>6:30–9:30pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Liberty Station Legacy Plaza</span>
+              <a href="https://www.sandiegomagazine.com" target="_blank" rel="noopener" class="coe-event-link">sandiegomagazine.com ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aug 8 -->
+        <div class="coe-date-group">
+          <div class="coe-date-header">
+            <div class="coe-date-badge"><div class="coe-date-badge-day">8</div><div class="coe-date-badge-dow">Sat</div></div>
+            <div class="coe-date-rule"></div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">San Diego Brew Festival</div>
+            <div class="coe-event-desc">Over 70 breweries, 200 beers, 10 of San Diego's best food trucks, cover bands, and lawn games.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>12–4pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>NTC Park, Liberty Station</span>
+              <a href="https://www.sandiegobeerfest.com" target="_blank" rel="noopener" class="coe-event-link">sandiegobeerfest.com ↗</a>
+            </div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Margaritaville Run San Diego Gaslamp 10K &amp; 5K</div>
+            <div class="coe-event-desc">Palm-lined streets, historic architecture, and the Pacific breeze — a vibrant Gaslamp route that feels more like a getaway than a race.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>7am</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>San Diego Gaslamp</span>
+              <a href="https://www.margaritavillerun.com" target="_blank" rel="noopener" class="coe-event-link">margaritavillerun.com ↗</a>
+            </div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Nights at the Mission — Mirage: Visions of Fleetwood Mac</div>
+            <div class="coe-event-desc">Happy Hour 5–6pm. Arrive early for preferred seating.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>7–9pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Fallbrook Mission Theater</span>
+              <a href="https://www.fallbrookmissiontheater.com" target="_blank" rel="noopener" class="coe-event-link">fallbrookmissiontheater.com ↗</a>
+            </div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Beach Blanket Movie Night — Minecraft</div>
+            <div class="coe-event-desc">Free, family-friendly outdoor movie with refreshments, giveaways, and live music by the Silver String Submarine Band. Cash only for food & refreshments.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>6–10pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Fletcher Cove Park, Solana Beach</span>
+              <a href="https://www.cityofsolanabeach.ca.gov" target="_blank" rel="noopener" class="coe-event-link">cityofsolanabeach.ca.gov ↗</a>
+            </div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">All-American Car Show 2026</div>
+            <div class="coe-event-desc">Open to all makes, models, and years of cars, trucks, and motorcycles. Signature annual event by The Mopar Club San Diego.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>8am–3pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Seaport Village, Embarcadero North</span>
+              <a href="https://www.moparclubsandiego.net" target="_blank" rel="noopener" class="coe-event-link">moparclubsandiego.net ↗</a>
+            </div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Lake Poway Family Campout <span style="font-weight:400;color:#999;font-size:0.8em;">(Aug. 8–9)</span></div>
+            <div class="coe-event-desc">Guided evening hikes, campfire with s'mores, and a family magic/comedy show. Bring your own camping equipment, dinner supplies, and grill/charcoal.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>1pm–10am next day</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Lake Poway</span>
+              <a href="https://www.poway.org" target="_blank" rel="noopener" class="coe-event-link">poway.org ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aug 9 -->
+        <div class="coe-date-group">
+          <div class="coe-date-header">
+            <div class="coe-date-badge"><div class="coe-date-badge-day">9</div><div class="coe-date-badge-dow">Sun</div></div>
+            <div class="coe-date-rule"></div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Brunch at The Nat</div>
+            <div class="coe-event-desc">Explore the galleries at the San Diego Natural History Museum then head to the rooftop patio for bites and drinks with panoramic views.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>10am–2:30pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>San Diego Natural History Museum</span>
+              <a href="https://www.sdnhm.org" target="_blank" rel="noopener" class="coe-event-link">sdnhm.org ↗</a>
+            </div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Hillcrest CityFest</div>
+            <div class="coe-event-desc">Annual celebration of community spirit featuring live bands, electric dance music DJs, arts, crafts, and food attracting 70,000+ visitors from San Diego and SoCal.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>12–11pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>5th Avenue, Hillcrest</span>
+              <a href="https://www.fabuloushillcrest.com" target="_blank" rel="noopener" class="coe-event-link">fabuloushillcrest.com ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aug 13 -->
+        <div class="coe-date-group">
+          <div class="coe-date-header">
+            <div class="coe-date-badge"><div class="coe-date-badge-day">13</div><div class="coe-date-badge-dow">Thu</div></div>
+            <div class="coe-date-rule"></div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Summer Bash Business Expo</div>
+            <div class="coe-event-desc">La Mesa Chamber event featuring local businesses, delicious food from local restaurants, and networking opportunities open to the public.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>5:30–7:30pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Courtyard by Marriott El Cajon</span>
+              <a href="https://lamesachamber.net" target="_blank" rel="noopener" class="coe-event-link">lamesachamber.net ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aug 14–16 -->
+        <div class="coe-date-group">
+          <div class="coe-date-header">
+            <div class="coe-date-badge"><div class="coe-date-badge-day">14–16</div><div class="coe-date-badge-dow">Multi-Day</div></div>
+            <div class="coe-date-rule"></div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Summergrass San Diego</div>
+            <div class="coe-event-desc">22+ years of the best bluegrass music west of the Rockies — from seasoned touring acts to up-and-coming bands to regional favorites.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>3–10pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Antique Gas &amp; Steam Engine Museum, Vista</span>
+              <a href="https://www.summergrass.net" target="_blank" rel="noopener" class="coe-event-link">summergrass.net ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aug 15 -->
+        <div class="coe-date-group">
+          <div class="coe-date-header">
+            <div class="coe-date-badge"><div class="coe-date-badge-day">15</div><div class="coe-date-badge-dow">Sat</div></div>
+            <div class="coe-date-rule"></div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Chula Vista Lemon Festival</div>
+            <div class="coe-event-desc">Two stages of live music, zesty photo ops, a lemon cook-off competition, a kids zone, food vendors, arts and crafts, and a wine and beer garden.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>11am–6pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Third Avenue, Chula Vista</span>
+              <a href="https://www.downtownchulavista.com" target="_blank" rel="noopener" class="coe-event-link">downtownchulavista.com ↗</a>
+            </div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Haute with Heart Fashion Show</div>
+            <div class="coe-event-desc">"Hidden Diamonds" — celebrating 60 years of St. Madeleine Sophie's Center. Champagne reception, live music, silent auction, luncheon, stunning fashion show, and live auction.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>10am–2pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Hilton San Diego Bayfront</span>
+              <a href="https://www.stmsc.org" target="_blank" rel="noopener" class="coe-event-link">stmsc.org ↗</a>
+            </div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">World Bodysurfing Championships <span style="font-weight:400;color:#999;font-size:0.8em;">(Aug. 15–16)</span></div>
+            <div class="coe-event-desc">Founded in 1977, athletes ride waves using only their bodies. Thrilling heats, a lively beach atmosphere, and world-class talent in a historic surf setting.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Oceanside Municipal Pier</span>
+              <a href="https://www.worldbodysurfing.org" target="_blank" rel="noopener" class="coe-event-link">worldbodysurfing.org ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aug 16 -->
+        <div class="coe-date-group">
+          <div class="coe-date-header">
+            <div class="coe-date-badge"><div class="coe-date-badge-day">16</div><div class="coe-date-badge-dow">Sun</div></div>
+            <div class="coe-date-rule"></div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">CVC San Diego Triathlon</div>
+            <div class="coe-event-desc">Flat, fast courses for achieving personal bests with beautiful coastal views. Post-race celebration with Margarita Bar, Chips &amp; Salsa, and beer from Seek Beer Co.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>10am</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Chula Vista Bayfront Park</span>
+              <a href="https://www.chulavistachallenge.com" target="_blank" rel="noopener" class="coe-event-link">chulavistachallenge.com ↗</a>
+            </div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">America's Finest City Half Marathon &amp; 5K</div>
+            <div class="coe-event-desc">Run from Cabrillo National Monument along San Diego Bay, past the Star of India, through downtown to a finish in historic Balboa Park.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>6:15am</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Cabrillo National Monument</span>
+              <a href="https://www.inmotionevents.com" target="_blank" rel="noopener" class="coe-event-link">inmotionevents.com ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aug 20–23 -->
+        <div class="coe-date-group">
+          <div class="coe-date-header">
+            <div class="coe-date-badge"><div class="coe-date-badge-day">20–23</div><div class="coe-date-badge-dow">Multi-Day</div></div>
+            <div class="coe-date-rule"></div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">San Diego LGBTQ Film Festival</div>
+            <div class="coe-event-desc">FilmOut empowers LGBTQ+ individuals and amplifies LGBTQ+ voices by providing an inclusive space for diverse and impactful storytelling in San Diego.</div>
+            <div class="coe-event-meta">
+              <a href="https://www.filmoutsandiego.com" target="_blank" rel="noopener" class="coe-event-link">filmoutsandiego.com ↗</a>
+            </div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Super Girl Surf Festival <span style="font-weight:400;color:#999;font-size:0.8em;">(Aug. 21–23)</span></div>
+            <div class="coe-event-desc">Free event with elite World Surf League competitors in surfing, skateboarding, beach volleyball, soccer, and BMX. Live music, leadership panels, fitness classes, and a women-owned business marketplace.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Oceanside Pier Amphitheater</span>
+              <a href="https://www.supergirlsurfpro.com" target="_blank" rel="noopener" class="coe-event-link">supergirlsurfpro.com ↗</a>
+            </div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">San Diego International Kids' Film Festival <span style="font-weight:400;color:#999;font-size:0.8em;">(Aug. 21–23)</span></div>
+            <div class="coe-event-desc">Culturally diverse films created for children and youth, encouraging young filmmakers and highlighting positive media and inspiring role models.</div>
+            <div class="coe-event-meta">
+              <a href="https://www.sdkidsfilms.org" target="_blank" rel="noopener" class="coe-event-link">sdkidsfilms.org ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aug 22 -->
+        <div class="coe-date-group">
+          <div class="coe-date-header">
+            <div class="coe-date-badge"><div class="coe-date-badge-day">22</div><div class="coe-date-badge-dow">Sat</div></div>
+            <div class="coe-date-rule"></div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Pacific Classic at Del Mar</div>
+            <div class="coe-event-desc">Del Mar's richest and most prestigious race — the $1,000,000 Grade I Pacific Classic, a Win And You're In qualifier for the Breeders' Cup Classic.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>10:30am</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Del Mar Racetrack</span>
+              <a href="https://www.dmtc.com" target="_blank" rel="noopener" class="coe-event-link">dmtc.com ↗</a>
+            </div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Julian Mountain Brewfest</div>
+            <div class="coe-event-desc">$25 includes a commemorative cup, eight tastings plus one non-alcoholic tasting, and music by the Sun Valley String Band.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>12–4pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Nickel Beer Company, Julian</span>
+              <a href="https://www.visitjulian.com" target="_blank" rel="noopener" class="coe-event-link">visitjulian.com ↗</a>
+            </div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Chula Vista HarborFest</div>
+            <div class="coe-event-desc">Live music, entertainment, environmental activities, and harbor-inspired interactive fun for all ages at the Chula Vista waterfront.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>10am–6pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Chula Vista Bayside Park</span>
+              <a href="https://www.cvharborfest.com" target="_blank" rel="noopener" class="coe-event-link">cvharborfest.com ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aug 23 -->
+        <div class="coe-date-group">
+          <div class="coe-date-header">
+            <div class="coe-date-badge"><div class="coe-date-badge-day">23</div><div class="coe-date-badge-dow">Sun</div></div>
+            <div class="coe-date-rule"></div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">National City Cars and Culture Festival</div>
+            <div class="coe-event-desc">Director's Choice and Best of Show awards. Open to all cars, trucks, race cars, and motorcycles, with special emphasis on electric vehicles and fleets.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>10am–2pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Kimball Park, National City</span>
+              <a href="https://www.nationalcitychamber.org" target="_blank" rel="noopener" class="coe-event-link">nationalcitychamber.org ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aug 25 -->
+        <div class="coe-date-group">
+          <div class="coe-date-header">
+            <div class="coe-date-badge"><div class="coe-date-badge-day">25</div><div class="coe-date-badge-dow">Tue</div></div>
+            <div class="coe-date-rule"></div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Taste of Encinitas</div>
+            <div class="coe-event-desc">Stroll through downtown Encinitas and sample signature bites from a variety of local restaurants, cafes, and eateries along the 101.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>5:30–8:30pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>818 South Coast Highway 101, Encinitas</span>
+              <a href="https://www.encinitas101.com" target="_blank" rel="noopener" class="coe-event-link">encinitas101.com ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aug 27–29 -->
+        <div class="coe-date-group">
+          <div class="coe-date-header">
+            <div class="coe-date-badge"><div class="coe-date-badge-day">27–29</div><div class="coe-date-badge-dow">Multi-Day</div></div>
+            <div class="coe-date-rule"></div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Ramona Rodeo</div>
+            <div class="coe-event-desc">Classic rodeo events with music, food, and activities for all ages. A true showcase of community spirit and the enduring legacy of the region's ranching heritage.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Fred Grand Arena, Ramona Outdoor Community Center</span>
+              <a href="https://www.ramonarodeo.com" target="_blank" rel="noopener" class="coe-event-link">ramonarodeo.com ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aug 28 -->
+        <div class="coe-date-group">
+          <div class="coe-date-header">
+            <div class="coe-date-badge"><div class="coe-date-badge-day">28</div><div class="coe-date-badge-dow">Fri</div></div>
+            <div class="coe-date-rule"></div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Escondido Chamber Cup Challenge Golf Tournament</div>
+            <div class="coe-event-desc">Fundraiser for PAL and ECCCF Rising Stars programs. Breakfast, lunch, raffles, auction prizes, Beat the LPGA Pro challenge, and business networking. Full shotgun start at 9am.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>7:30am–2pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Native Oaks Golf Club</span>
+              <a href="https://birdease.com/35614" target="_blank" rel="noopener" class="coe-event-link">Register ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Aug 29 -->
+        <div class="coe-date-group">
+          <div class="coe-date-header">
+            <div class="coe-date-badge"><div class="coe-date-badge-day">29</div><div class="coe-date-badge-dow">Sat</div></div>
+            <div class="coe-date-rule"></div>
+          </div>
+
+          <div class="coe-event">
+            <div class="coe-event-name">Brazilian Festival</div>
+            <div class="coe-event-desc">A journey into Brazil's Art, Culture, and Tradition featuring international acts, Samba dancers, kids rides, exhibitors, and the flavors of Brazilian cuisine.</div>
+            <div class="coe-event-meta">
+              <span class="coe-event-time"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>2–11pm</span>
+              <span class="coe-event-loc"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>San Diego Waterfront Park</span>
+              <a href="https://www.brazilianfestival.org/sandiego" target="_blank" rel="noopener" class="coe-event-link">brazilianfestival.org ↗</a>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /.coe-main -->
+    </div><!-- /.coe-body-inner -->
+  </section>
+
+  <!-- CTA -->
+  <section class="coe-cta">
+    <p class="section-eyebrow">Live Like a Local</p>
+    <h2>Thinking About Calling San Diego Home?</h2>
+    <p>We'd love to show you what life here really looks like — the neighborhoods, the community, and yes, the events. Call or text Lynnette anytime at (858) 663-4896.</p>
+    <a href="contact.html" class="coe-cta-btn">Let's Connect</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-info">
+      <div class="footer-info-col footer-info-col--logo"><img src="LOGOS/JaiswalGroupRE_white.png" alt="The Jaiswal Group Real Estate" class="footer-logo" /></div>
+      <div class="footer-info-col"><div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div class="footer-info-text"><p class="footer-info-label">OFFICE ADDRESS</p><p>5450 INDIGO SAGE DRIVE<br>SAN DIEGO, CA 92130</p><p class="footer-info-label" style="margin-top:1.25rem;">MAILING ADDRESS</p><p>PO BOX 3102<br>RANCHO SANTA FE, CA 92067</p><p style="margin-top:1rem;white-space:nowrap;">LYNNETTE JAISWAL &nbsp;|&nbsp; CA DRE #02100367</p><p style="margin-top:0.4rem;white-space:nowrap;">THE JAISWAL GROUP, INC &nbsp;|&nbsp; CA DRE #02251231</p></div></div>
+      <div class="footer-info-col"><div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg></div><div class="footer-info-text"><p class="footer-info-label">EMAIL</p><p><a href="mailto:Lynnette@thejaiswalgroup.com">LYNNETTE@THEJAISWALGROUP.COM</a></p></div></div>
+      <div class="footer-info-col"><div class="footer-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg></div><div class="footer-info-text"><p class="footer-info-label">PHONE</p><p><a href="tel:8582907531">(858) 290-7531</a></p></div></div>
+    </div>
+    <div class="footer-disclaimer-block"><p>The Jaiswal Group Real Estate is a real estate broker licensed by the State of California and abides by Equal Housing Opportunity laws. License Number #02251231. All material presented herein is intended for informational purposes only and is compiled from sources deemed reliable but has not been verified. Changes in price, condition, sale or withdrawal may be made without notice. No statement is made as to accuracy of any description. All measurements and square footage are approximate.</p><div class="footer-compliance-logos"><img src="logorealtor.png" alt="Realtor" class="footer-compliance-logo" /><img src="logoEHO.png" alt="Equal Housing Opportunity" class="footer-compliance-logo" /><img src="logo-NSDCAR.png" alt="North San Diego County Realtors" class="footer-compliance-logo" /></div></div>
+    <div class="footer-bottom"><div class="footer-bottom-left"><span>&copy; 2026 The Jaiswal Group Real Estate</span><a href="privacy-policy.html">Privacy Policy</a><a href="#">Site Map</a></div><div class="footer-social"><a href="https://www.facebook.com/LynnetteJaiswalRealtor" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a><a href="https://www.instagram.com/lynnettejaiswalrealtor/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a><a href="https://www.youtube.com/@LynnetteJaiswalRealtor" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a><a href="https://www.tiktok.com/@lynnettejaiswalrealtor" aria-label="TikTok" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg></a><a href="https://www.linkedin.com/in/lynnettejaiswalrealtor/" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a><a href="https://x.com/RealtorJaiswal" aria-label="X" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.622 5.905-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg></a><a href="https://www.pinterest.com/lynnettejaiswalrealtor/" aria-label="Pinterest" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg></a><a href="https://zillow.com/reviews/write/?s=X1-ZU11c4x39i7ul1l_52lx3" aria-label="Zillow" class="footer-social-text" target="_blank" rel="noopener">Z</a></div></div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

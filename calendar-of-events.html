@@ -3,54 +3,192 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Open Houses in Carmel Valley, San Diego | The Jaiswal Group Real Estate</title>
-  <meta name="description" content="Browse upcoming open houses in Carmel Valley, San Diego (92130). Find your next home at an open house — updated daily from the MLS by The Jaiswal Group Real Estate." />
+  <title>San Diego Calendar of Events | The Jaiswal Group Real Estate</title>
+  <meta name="description" content="Browse monthly San Diego community events curated by The Jaiswal Group Real Estate — festivals, markets, open houses, and local happenings across North County San Diego." />
+  <link rel="canonical" href="https://thejaiswalgroupre.com/calendar-of-events.html" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
-    .oh-hero {
-      background: #18254B;
-      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+
+    /* ── Hero ── */
+    .coe-hero {
+      background: linear-gradient(to bottom, rgba(24,37,75,0.55) 0%, rgba(24,37,75,0.82) 100%), url('sandiego.jpg') center 40% / cover no-repeat;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 5vw, 4rem) clamp(2rem, 4vw, 3rem);
       text-align: center;
     }
-    .oh-hero .section-eyebrow { color: #B38987; margin-bottom: 0.75rem; }
-    .oh-hero h1 {
+    .coe-hero .section-eyebrow { color: #B38987; margin-bottom: 0.75rem; }
+    .coe-hero h1 {
       font-family: 'Marcellus', serif;
-      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
       color: #fff;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       margin: 0 0 1rem;
     }
-    .oh-hero p {
+    .coe-hero p {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 0.95rem;
-      color: rgba(255,255,255,0.7);
-      max-width: 540px;
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.82);
+      max-width: 620px;
       margin: 0 auto;
       line-height: 1.85;
     }
-    .oh-widget-section {
-      background: #F6F6F4;
-      padding: clamp(2rem, 4vw, 3.5rem) 10px;
+
+    /* ── Intro ── */
+    .coe-intro {
+      background: #F3EFE8;
+      padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 5vw, 4rem);
+      text-align: center;
     }
-    .oh-widget-wrap {
-      max-width: 1400px;
-      margin: 0 auto;
-      width: 100%;
+    .coe-intro-inner { max-width: 780px; margin: 0 auto; }
+    .coe-intro h2 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.4rem, 2.5vw, 2rem);
+      color: #18254B;
+      letter-spacing: 0.06em;
+      margin: 0 0 1rem;
     }
-    .oh-widget-wrap idx-listings-showcase {
-      display: block;
-      width: 100%;
+    .coe-intro p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: #4a4a4a;
+      line-height: 1.9;
+      margin: 0;
+    }
+
+    /* ── Archive Grid ── */
+    .coe-archive {
+      background: #fff;
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+    }
+    .coe-archive-inner { max-width: 1100px; margin: 0 auto; }
+    .coe-archive-label {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #B38987;
+      margin: 0 0 2rem;
+    }
+    .coe-year-heading {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.3rem, 2vw, 1.65rem);
+      color: #18254B;
+      letter-spacing: 0.05em;
+      margin: 0 0 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid #E0D9CF;
+    }
+    .coe-month-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .coe-month-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 1.25rem;
+      border: 1px solid #E0D9CF;
+      border-radius: 8px;
+      text-decoration: none;
+      background: #fff;
+      transition: background 0.18s, border-color 0.18s;
+    }
+    .coe-month-card:hover {
+      background: #F3EFE8;
+      border-color: #18254B;
+    }
+    .coe-month-card:hover .coe-month-name { color: #18254B; }
+    .coe-month-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 6px;
+      background: #18254B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .coe-month-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: #B38987;
+      fill: none;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .coe-month-name {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #18254B;
+      letter-spacing: 0.03em;
+    }
+    .coe-month-tag {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 400;
+      color: #999;
+      margin-top: 2px;
+    }
+
+    /* ── CTA ── */
+    .coe-cta {
+      background: #18254B;
+      padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 5vw, 4rem);
+      text-align: center;
+    }
+    .coe-cta .section-eyebrow { color: #B38987; margin-bottom: 0.75rem; }
+    .coe-cta h2 {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: #fff;
+      letter-spacing: 0.06em;
+      margin: 0 0 1rem;
+    }
+    .coe-cta p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 580px;
+      margin: 0 auto 2rem;
+      line-height: 1.85;
+    }
+    .coe-cta-btn {
+      display: inline-block;
+      padding: 0.85rem 2.5rem;
+      background: #B38987;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 4px;
+      transition: background 0.18s;
+    }
+    .coe-cta-btn:hover { background: #a07270; }
+
+    @media (max-width: 600px) {
+      .coe-month-grid { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- =========================================================
-       HEADER / NAV
-  ========================================================= -->
+  <!-- NAV -->
   <header class="site-header" id="site-header">
     <div class="header-top"><div class="social-icons">
       <a href="https://www.facebook.com/LynnetteJaiswalRealtor" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
@@ -136,82 +274,51 @@
     </div>
   </header>
 
-  <!-- =========================================================
-       PAGE HERO
-  ========================================================= -->
-  <div class="oh-hero">
-    <h1>OPEN HOUSES IN CARMEL VALLEY</h1>
-    <p>Browse upcoming open houses in Carmel Valley (92130) — one of San Diego's most sought-after communities. Updated daily from the MLS.</p>
+  <!-- HERO -->
+  <div class="coe-hero">
+    <p class="section-eyebrow">Your Guide to San Diego</p>
+    <h1>CALENDAR OF EVENTS</h1>
+    <p>Every month, we curate the best community events, festivals, markets, and local happenings across San Diego — so you can live like a local, wherever you call home.</p>
   </div>
 
-  <!-- =========================================================
-       WIDGET
-  ========================================================= -->
-  <section class="oh-widget-section">
-    <div class="oh-widget-wrap">
-      <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-134205" src="//thejaiswalgroup.idxbroker.com/idx/widgets/134205"></script>
+  <!-- INTRO -->
+  <section class="coe-intro">
+    <div class="coe-intro-inner">
+      <h2>San Diego Has Something Happening Every Month</h2>
+      <p>From farmer's markets in Carmel Valley to art walks in Del Mar, twilight concerts in Rancho Bernardo to holiday events in Pacific Highlands Ranch — San Diego is a community worth being part of. Each month we put together a curated list of events so you never miss what's happening in your neighborhood.</p>
     </div>
   </section>
 
-  <script>
-  (function() {
-    function injectWidgetStyles() {
-      const widget = document.querySelector('idx-listings-showcase');
-      if (!widget || !widget.shadowRoot) {
-        setTimeout(injectWidgetStyles, 400);
-        return;
-      }
-      if (widget.shadowRoot.getElementById('tjg-oh-styles')) return;
-      const style = document.createElement('style');
-      style.id = 'tjg-oh-styles';
-      style.textContent = `
-        .idx-listing-card__courtesy { display: none !important; }
-        .idx-listing-card__wrap { position: relative !important; }
-        .idx-listing-card__details { padding-bottom: 2rem !important; }
-        .idx-listing-card__additional-info {
-          position: absolute !important;
-          bottom: 2rem !important;
-          right: 1rem !important;
-          background: transparent !important;
-          padding: 0 !important;
-          margin: 0 !important;
-        }
-        .idx-listing-card__mls {
-          background: transparent !important;
-          mix-blend-mode: multiply !important;
-        }
-        .idx-listing-card__mls img {
-          height: 38px !important;
-          width: auto !important;
-          mix-blend-mode: multiply !important;
-          background: transparent !important;
-        }
-      `;
-      widget.shadowRoot.appendChild(style);
-    }
-    setTimeout(injectWidgetStyles, 800);
-  })();
-  </script>
+  <!-- ARCHIVE -->
+  <section class="coe-archive">
+    <div class="coe-archive-inner">
+      <p class="coe-archive-label">Browse by Month</p>
 
-  <!-- =========================================================
-       WORK WITH US
-  ========================================================= -->
-  <section class="work-with-us">
-    <div class="wwu-content">
-      <h2>WORK WITH US</h2>
-      <p>Choosing the right representation matters.</p>
-      <p>At The Jaiswal Group Real Estate, every client receives a tailored, concierge-level approach — from exclusive opportunities and strategic negotiation to responsive communication and thoughtful guidance throughout every step of the process.</p>
-      <p>Our goal is simple: to help you feel confident, informed, and well-supported from beginning to end.</p>
-      <p>Every client relationship is personal, intentional, and backed by a team that genuinely cares about your goals and outcome.</p>
-      <p>Let's explore what's possible.</p>
-      <a href="contact.html" class="btn btn-primary">CONTACT US</a>
+      <h3 class="coe-year-heading">2026</h3>
+      <div class="coe-month-grid">
+        <a href="calendar-august-2026.html" class="coe-month-card">
+          <div class="coe-month-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          </div>
+          <div>
+            <div class="coe-month-name">August 2026</div>
+            <div class="coe-month-tag">25 events</div>
+          </div>
+        </a>
+      </div>
+
     </div>
-    <div class="wwu-photo"><img src="Lynnette-torreypinesbackground.jpg" alt="Lynnette Jaiswal, The Jaiswal Group Real Estate" /></div>
   </section>
 
-  <!-- =========================================================
-       FOOTER
-  ========================================================= -->
+  <!-- CTA -->
+  <section class="coe-cta">
+    <p class="section-eyebrow">Stay Connected</p>
+    <h2>Never Miss a San Diego Event</h2>
+    <p>Thinking about making San Diego home? We'd love to show you what life here really looks like — beyond the listings.</p>
+    <a href="contact.html" class="coe-cta-btn">Get in Touch</a>
+  </section>
+
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-info">
       <div class="footer-info-col footer-info-col--logo"><img src="LOGOS/JaiswalGroupRE_white.png" alt="The Jaiswal Group Real Estate" class="footer-logo" /></div>
@@ -224,20 +331,5 @@
   </footer>
 
   <script src="main.js"></script>
-  <script>
-  (function() {
-    function hideFavorites() {
-      var widget = document.querySelector('idx-listings-showcase');
-      if (!widget || !widget.shadowRoot) { setTimeout(hideFavorites, 400); return; }
-      if (widget.shadowRoot.getElementById('tjg-no-favorites')) return;
-      var s = document.createElement('style');
-      s.id = 'tjg-no-favorites';
-      s.textContent = '[class*="favorite"],[class*="__heart"],[class*="save-listing"]{display:none!important;} .idx-listings-showcase__login-form,[class*="login-form"]{display:none!important;}';
-      widget.shadowRoot.appendChild(s);
-    }
-    setTimeout(hideFavorites, 1000);
-  })();
-  </script>
-<script src="/js/tjg-hearts.js"></script>
 </body>
 </html>

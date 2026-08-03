@@ -1,0 +1,2328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="page-title">Property Detail | The Jaiswal Group Real Estate</title>
+  <meta name="description" id="page-desc" content="View listing details with The Jaiswal Group Real Estate." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    body { background: #f8f8f6; }
+
+    /* ── Breadcrumb ── */
+    .ld-breadcrumb {
+      background: #fff;
+      border-bottom: 1px solid #ebebeb;
+      padding: 10px 32px;
+      font-size: 12px;
+      color: #888;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ld-breadcrumb a { color: #1C3063; text-decoration: none; }
+    .ld-breadcrumb a:hover { text-decoration: underline; }
+    .ld-breadcrumb .sep { opacity: 0.4; }
+
+    /* ── Photo Gallery ── */
+    .ld-gallery-wrap {
+      padding: 16px 24px 0;
+      background: #fff;
+    }
+    .ld-gallery {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 4px;
+      height: 460px;
+      background: #111;
+      overflow: hidden;
+      position: relative;
+      border-radius: 12px;
+    }
+    .ld-gallery-main {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 12px 0 0 12px;
+    }
+    .ld-gallery-thumbs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 4px;
+    }
+    .ld-gallery-main img,
+    .ld-gallery-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s;
+    }
+    .ld-gallery-main:hover img,
+    .ld-gallery-thumb:hover img { opacity: 0.9; }
+    .ld-gallery-thumb { position: relative; cursor: pointer; overflow: hidden; }
+    .ld-gallery-thumb:nth-child(2) { border-radius: 0 12px 0 0; }
+    .ld-gallery-thumb:last-child { border-radius: 0 0 12px 0; }
+    .ld-gallery-thumb:last-child .ld-gallery-overlay { display: flex; }
+
+    .ld-gallery-overlay {
+      display: none;
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.55);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .ld-gallery-overlay:hover { background: rgba(0,0,0,0.65); }
+    .ld-gallery-overlay svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2; }
+
+    .ld-gallery-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #1C3063 0%, #2a4a8c 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ld-gallery-placeholder svg { opacity: 0.2; }
+
+    /* Gallery actions — absolute at top-right of full gallery */
+    .ld-gallery-actions {
+      position: absolute;
+      top: 14px; right: 14px;
+      display: flex; gap: 8px;
+      z-index: 10;
+    }
+    .ld-act-btn {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      background: rgba(28,48,99,0.65);
+      border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+      backdrop-filter: blur(4px);
+    }
+    .ld-act-btn:hover { background: rgba(179,137,135,0.85); }
+    .ld-act-btn svg { width: 17px; height: 17px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .ld-act-btn:hover svg { stroke: #fff; }
+    .ld-act-btn.hearted svg { fill: #B38987; stroke: #B38987; }
+
+    /* ── Status badge (above gallery or on card) ── */
+    .ld-status-bar {
+      background: #1C3063;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 6px 32px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ld-status-bar.coming { background: #2a5a9c; }
+    .ld-status-bar.pending { background: #B38987; }
+    .ld-status-bar.sold { background: #322E2D; }
+    .ld-status-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ade80; }
+    .ld-status-bar.coming .ld-status-dot { background: #facc15; }
+    .ld-status-bar.sold .ld-status-dot { background: #f87171; }
+
+    /* ── Page layout ── */
+    .ld-layout {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 28px 24px 64px;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 32px;
+    }
+
+    /* ── Main column ── */
+    .ld-main {}
+
+    /* Header: price + address (left) | stats + nav (right) */
+    .ld-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 24px 0 20px;
+      border-bottom: 1px solid #ebebeb;
+      margin-bottom: 20px;
+    }
+    .ld-header-left { flex: 1; min-width: 0; }
+    .ld-header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+    .ld-price {
+      font-family: 'Marcellus', serif;
+      font-size: 2.4rem;
+      color: #1C3063;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .ld-address {
+      font-size: 12px;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .ld-quick-stats {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+    .ld-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 0 20px;
+    }
+    .ld-stat-val {
+      font-family: 'Marcellus', serif;
+      font-size: 2rem;
+      color: #1C3063;
+      line-height: 1;
+    }
+    .ld-stat-lbl {
+      font-family: 'Lato', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #888;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .ld-stat-lbl svg { flex-shrink: 0; stroke: #aaa; fill: none; stroke-width: 1.5; }
+    .ld-stat-divider { width: 1px; height: 52px; background: #ebebeb; flex-shrink: 0; }
+    .ld-sidebar-nav {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    /* Description */
+    .ld-section {
+      background: #fff;
+      border: 1px solid #ebebeb;
+      border-radius: 10px;
+      padding: 24px 28px;
+      margin-bottom: 20px;
+    }
+    .ld-section-title {
+      font-family: 'Marcellus', serif;
+      font-size: 1.1rem;
+      color: #1C3063;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .ld-description {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #444;
+    }
+    .ld-description.collapsed { max-height: 100px; overflow: hidden; position: relative; }
+    .ld-description.collapsed::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 48px;
+      background: linear-gradient(transparent, #fff);
+    }
+    .ld-read-more {
+      margin-top: 10px;
+      background: none;
+      border: none;
+      color: #1C3063;
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0;
+      text-decoration: underline;
+    }
+
+    /* Details section quick-jump nav */
+    .ld-section-nav {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #ebebeb;
+    }
+    .ld-section-nav a {
+      display: inline-flex;
+      align-items: center;
+      padding: 7px 13px;
+      border: 1px solid #d0d0d0;
+      border-radius: 6px;
+      background: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #322E2D;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+    }
+    .ld-section-nav a:hover { border-color: #1C3063; color: #1C3063; }
+
+    /* Accordion sections */
+    .ld-accordion { margin-bottom: 10px; border-radius: 4px; overflow: hidden; }
+    .ld-accordion-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 14px 20px;
+      background: #1C3063;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      border: none;
+      text-align: left;
+    }
+    .ld-accordion-header:hover { background: #18254B; }
+    .ld-chevron {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      stroke: #fff;
+      fill: none;
+      transition: transform 0.25s ease;
+    }
+    .ld-accordion.collapsed .ld-chevron { transform: rotate(180deg); }
+    .ld-accordion-body { padding: 20px 0; }
+    .ld-accordion.collapsed .ld-accordion-body { display: none; }
+
+    /* Detail grid (label : value pairs) */
+    .ld-detail-grid {
+      display: grid;
+      grid-template-columns: minmax(160px, 45%) 1fr;
+      gap: 0;
+    }
+    .ld-detail-row {
+      display: contents;
+    }
+    .ld-detail-row > * {
+      padding: 11px 0;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 13px;
+    }
+    .ld-detail-lbl {
+      color: #555;
+      font-weight: 400;
+      padding-right: 16px;
+    }
+    .ld-detail-val {
+      color: #1C3063;
+      font-weight: 600;
+      text-align: right;
+    }
+
+    /* Gallery nav arrows bar */
+    .ld-gallery-nav {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: #fff;
+      border-bottom: 1px solid #ebebeb;
+    }
+    .ld-gallery-nav-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: #1C3063;
+      border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .ld-gallery-nav-btn:hover { background: #B38987; }
+    .ld-gallery-nav-btn svg { width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* Inline map (community tab) — hidden; standalone map section below handles location */
+    #ld-map { display: none; }
+
+    /* Mortgage calc */
+    .ld-mort-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .ld-mort-field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 5px;
+    }
+    .ld-mort-field input, .ld-mort-field select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      color: #322E2D;
+    }
+    .ld-mort-result {
+      background: #f0f3f9;
+      border-radius: 8px;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 4px;
+    }
+    .ld-mort-result-lbl { font-size: 12px; color: #666; }
+    .ld-mort-result-val { font-size: 1.25rem; font-weight: 700; color: #1C3063; font-family: 'Marcellus', serif; }
+    .ld-mort-disclaimer { font-size: 10px; color: #aaa; margin-top: 8px; line-height: 1.5; }
+
+    /* Similar properties */
+    .ld-similar-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .ld-sim-card {
+      border: 1px solid #ebebeb;
+      border-radius: 8px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      background: #fff;
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: block;
+    }
+    .ld-sim-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-2px); }
+    .ld-sim-img {
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #1C3063, #2a4a8c);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ld-sim-img svg { opacity: 0.2; }
+    .ld-sim-body { padding: 10px 12px 12px; }
+    .ld-sim-price { font-weight: 700; color: #1C3063; font-size: 0.95rem; margin-bottom: 2px; }
+    .ld-sim-facts { font-size: 11px; color: #777; margin-bottom: 2px; }
+    .ld-sim-addr { font-size: 11px; color: #999; }
+
+    /* MLS Disclaimer */
+    .ld-disclaimer {
+      font-size: 10px;
+      color: #888;
+      line-height: 1.6;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #ebebeb;
+    }
+    .ld-crmls-logo {
+      display: block;
+      height: 32px;
+      margin-bottom: 8px;
+      object-fit: contain;
+      object-position: left center;
+    }
+    .ld-attribution {
+      font-size: 11px;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    /* ── Sidebar ── */
+    .ld-sidebar {
+      position: sticky;
+      top: 16px;
+      align-self: start;
+    }
+
+    /* IDX-style tour card */
+    .ld-tour-card {
+      background: #F3EFE8;
+      border: 1px solid #e8e2d8;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    .ld-tour-header {
+      background: #1C3063;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 12px 20px;
+    }
+    .ld-tour-body {
+      padding: 24px 24px 20px;
+      text-align: center;
+      background: #F3EFE8;
+    }
+    .ld-tour-title {
+      font-family: 'Marcellus', serif;
+      font-size: 1.65rem;
+      color: #1C3063;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .ld-tour-desc {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .ld-tour-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: #fff;
+      color: #1C3063;
+      border: 1.5px solid #1C3063;
+      border-radius: 4px;
+      font-family: 'Lato', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      margin-bottom: 20px;
+    }
+    .ld-tour-btn:hover { background: #1C3063; color: #fff; }
+
+    .ld-tour-divider {
+      font-family: 'Lato', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #aaa;
+      position: relative;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .ld-tour-divider::before, .ld-tour-divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 28%;
+      height: 1px;
+      background: #ebebeb;
+    }
+    .ld-tour-divider::before { left: 0; }
+    .ld-tour-divider::after { right: 0; }
+
+    .ld-tour-agent {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .ld-tour-agent-photo {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 3px solid #f0f0f0;
+    }
+    .ld-tour-agent-name {
+      font-family: 'Marcellus', serif;
+      font-size: 1rem;
+      color: #1C3063;
+    }
+    .ld-tour-agent-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+    }
+    .ld-tour-agent-contacts {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      margin-top: 4px;
+    }
+    .ld-tour-agent-contacts a {
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      color: #1C3063;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ld-tour-agent-contacts a:hover { text-decoration: underline; }
+    .ld-tour-agent-contacts svg { width: 14px; height: 14px; stroke: #B38987; fill: none; stroke-width: 2; }
+
+    /* ── Mortgage Calculator Section (full-width) ── */
+    .ld-mort-section {
+      background: #18254B;
+      padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4rem);
+    }
+    .ld-mort-section-inner { max-width: 1060px; margin: 0 auto; }
+    .ld-mort-section-head {
+      margin-bottom: 2rem;
+    }
+    .ld-mort-section-eyebrow {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #B38987;
+      margin-bottom: 0.4rem;
+    }
+    .ld-mort-section-title {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      color: #fff;
+      letter-spacing: 0.08em;
+    }
+    .ld-mort-section-sub {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.55);
+      margin-top: 0.4rem;
+      line-height: 1.6;
+    }
+    .ld-mort-grid2 {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .lm-group-lbl {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #B38987;
+      margin: 0 0 0.75rem;
+    }
+    .lm-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .lm-field { margin-bottom: 1rem; }
+    .lm-field label {
+      display: block;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 0.4rem;
+    }
+    .lm-input-wrap {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+      padding-bottom: 0.2rem;
+    }
+    .lm-input-wrap input,
+    .lm-field select {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 1rem;
+      padding: 0.3rem 0.2rem;
+      width: 100%;
+      outline: none;
+    }
+    .lm-field select {
+      border-bottom: 1px solid rgba(255,255,255,0.4);
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+    }
+    .lm-input-row {
+      display: grid;
+      grid-template-columns: 1fr 72px;
+      gap: 0.75rem;
+    }
+    .lm-prefix, .lm-suffix {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.65);
+      flex-shrink: 0;
+    }
+    .lm-period-toggle {
+      display: inline-flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .lm-period-btn {
+      background: transparent; border: none;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.06em; cursor: pointer;
+      padding: 0 0.35rem; color: rgba(255,255,255,0.28);
+      transition: color 0.15s; line-height: 1;
+    }
+    .lm-period-btn.active { color: rgba(255,255,255,0.85); }
+    .lm-period-btn + .lm-period-btn { border-left: 1px solid rgba(255,255,255,0.18); }
+    .lm-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      margin: 0.25rem 0 1.25rem;
+    }
+    .lm-loan-display {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      text-align: center; padding: 1rem 0;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      margin-bottom: 1rem;
+    }
+    .lm-loan-display span {
+      font-family: 'Marcellus', serif;
+      font-size: 2.2rem; color: #fff;
+      display: block; margin-top: 0.3rem;
+    }
+    .lm-pmi-note {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.5);
+      margin: 0 0 1rem;
+      line-height: 1.6;
+    }
+    .lm-disclaimer {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.38);
+      line-height: 1.75;
+      margin-top: 1rem;
+    }
+    .lm-card {
+      background: #F3EFE8;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.28);
+      border-top: 3px solid #B38987;
+      padding: 2rem 1.75rem 1.75rem;
+      position: sticky;
+      top: 2rem;
+    }
+    .lm-donut-wrap {
+      position: relative;
+      width: 210px;
+      margin: 0 auto 1.5rem;
+    }
+    #lm-chart-svg { width: 100%; height: auto; display: block; }
+    .lm-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      pointer-events: none;
+      width: 120px;
+    }
+    .lm-center-amount {
+      font-family: 'Marcellus', serif;
+      font-size: 1.35rem;
+      color: #18254B;
+      line-height: 1.1;
+    }
+    .lm-center-label {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.6rem;
+      color: #9a8e88;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 0.2rem;
+    }
+    .lm-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.45rem 0;
+      border-bottom: 1px solid rgba(24,37,75,0.08);
+      font-family: 'Lato', sans-serif;
+      font-size: 0.76rem;
+      color: #3a3530;
+    }
+    .lm-legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .lm-legend-val { margin-left: auto; color: #18254B; font-weight: 600; white-space: nowrap; }
+    .lm-legend-pct { color: #9a8e88; font-weight: 400; margin-left: 0.3rem; }
+
+    /* ── Tour Modal ── */
+    .ld-modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 9998;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .ld-modal-overlay.open { display: flex; }
+    .ld-modal {
+      background: #fff;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    .ld-modal-head {
+      background: #1C3063;
+      color: #fff;
+      padding: 20px 24px 18px;
+      border-radius: 12px 12px 0 0;
+    }
+    .ld-modal-head h2 {
+      font-family: 'Marcellus', serif;
+      font-size: 1.4rem;
+      margin-bottom: 3px;
+    }
+    .ld-modal-head p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+    }
+    .ld-modal-close {
+      position: absolute;
+      top: 14px; right: 18px;
+      background: none; border: none;
+      color: rgba(255,255,255,0.8);
+      font-size: 22px; cursor: pointer; line-height: 1;
+    }
+    .ld-modal-close:hover { color: #fff; }
+    .ld-modal-body { padding: 24px; }
+    .ld-modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .ld-modal-field { margin-bottom: 12px; }
+    .ld-modal-field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 5px;
+    }
+    .ld-modal-field input,
+    .ld-modal-field textarea,
+    .ld-modal-field select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      color: #322E2D;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .ld-modal-field input:focus,
+    .ld-modal-field textarea:focus { border-color: #1C3063; }
+    .ld-modal-field textarea { resize: vertical; min-height: 72px; }
+    .ld-modal-submit {
+      width: 100%;
+      padding: 14px;
+      background: #1C3063;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .ld-modal-submit:hover { background: #18254B; }
+
+    /* ── Interested in This Property CTA ── */
+    .ld-cta-section {
+      background: #F3EFE8;
+      border-top: 3px solid #B38987;
+      padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 5vw, 4rem);
+    }
+    .ld-cta-inner {
+      max-width: 1060px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .ld-cta-text { flex: 1; min-width: 260px; }
+    .ld-cta-eyebrow {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #B38987;
+      margin-bottom: 0.5rem;
+    }
+    .ld-cta-address {
+      font-family: 'Marcellus', serif;
+      font-size: clamp(1.5rem, 3vw, 2.4rem);
+      color: #1C3063;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .ld-cta-btn {
+      display: inline-block;
+      padding: 14px 36px;
+      background: #1C3063;
+      color: #fff;
+      border: none;
+      font-family: 'Lato', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .ld-cta-btn:hover { background: #18254B; }
+    .ld-cta-agent {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      text-align: center;
+    }
+    .ld-cta-photo {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 3px solid #fff;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      margin-bottom: 4px;
+    }
+    .ld-cta-agent-name {
+      font-family: 'Marcellus', serif;
+      font-size: 1.05rem;
+      color: #1C3063;
+    }
+    .ld-cta-agent-title {
+      font-family: 'Lato', sans-serif;
+      font-size: 11px;
+      color: #888;
+      letter-spacing: 0.04em;
+    }
+    .ld-cta-contact-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      color: #1C3063;
+      text-decoration: none;
+    }
+    .ld-cta-contact-link svg { width: 14px; height: 14px; flex-shrink: 0; color: #B38987; }
+    .ld-cta-contact-link:hover { text-decoration: underline; }
+
+    @media (max-width: 600px) {
+      .ld-mort-grid2 { grid-template-columns: 1fr; }
+      .lm-card { position: static; margin-top: 1.5rem; }
+      .lm-fields { grid-template-columns: 1fr; }
+      .ld-modal-row { grid-template-columns: 1fr; }
+      .ld-cta-inner { flex-direction: column; text-align: center; }
+      .ld-cta-text { text-align: center; }
+    }
+
+    /* Loading/error states */
+    .ld-loading {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 60vh; flex-direction: column; gap: 16px; color: #888;
+    }
+    .ld-spinner {
+      width: 32px; height: 32px;
+      border: 3px solid #e0e0e0;
+      border-top-color: #1C3063;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Lightbox */
+    .ld-lightbox {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    .ld-lightbox.open { display: flex; }
+    .ld-lightbox-img { max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 4px; }
+    .ld-lightbox-close {
+      position: absolute; top: 20px; right: 24px;
+      color: #fff; font-size: 32px; cursor: pointer; line-height: 1;
+      background: none; border: none; opacity: 0.8;
+    }
+    .ld-lightbox-close:hover { opacity: 1; }
+    .ld-lightbox-prev, .ld-lightbox-next {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      color: #fff; font-size: 24px; cursor: pointer;
+      background: rgba(255,255,255,0.12); border: none;
+      padding: 16px 14px; border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .ld-lightbox-prev { left: 20px; }
+    .ld-lightbox-next { right: 20px; }
+    .ld-lightbox-prev:hover, .ld-lightbox-next:hover { background: rgba(255,255,255,0.22); }
+
+    /* Mobile */
+    @media (max-width: 900px) {
+      .ld-layout { grid-template-columns: 1fr; padding: 16px; }
+      .ld-sidebar { position: static; }
+      .ld-gallery-wrap { padding: 8px 12px 0; }
+      .ld-gallery { grid-template-columns: 1fr; height: 240px; border-radius: 8px; }
+      .ld-gallery-thumbs { display: none; }
+      .ld-header { flex-direction: column; gap: 16px; }
+      .ld-header-right { flex-wrap: wrap; }
+      .ld-stat { padding: 0 12px; }
+      .ld-stat-val { font-size: 1.5rem; }
+      .ld-similar-grid { grid-template-columns: 1fr 1fr; }
+      .ld-mort-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .ld-similar-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="light-hero">
+
+  <!-- =========================================================
+       HEADER / NAV
+  ========================================================= -->
+  <header class="site-header" id="site-header">
+    <div class="header-top"><div class="social-icons"></div></div>
+    <nav class="main-nav">
+      <a href="index.html" class="nav-logo">
+        <img src="LOGOS/JaiswalGroupRE_white.png" class="logo-white" alt="The Jaiswal Group Real Estate" />
+        <img src="logo.png" class="logo-color" alt="The Jaiswal Group Real Estate" />
+      </a>
+      <ul class="nav-links">
+        <li class="has-dropdown">
+          <a href="#">BUY A HOME <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="featured-properties.html">Featured Properties</a></li>
+            <li><a href="listings.html">Browse Homes</a></li>
+            <li><a href="#">New Construction</a></li>
+            <li><a href="buyers-guide.html">Buyer's Guide</a></li>
+            <li><a href="buyer-faq.html">Buyer FAQ</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">SELL YOUR HOME <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="seller-consultation.html">Seller Consultation</a></li>
+            <li><a href="home-valuation.html">Home Valuation</a></li>
+            <li><a href="sellers-guide.html">Seller's Guide</a></li>
+          </ul>
+        </li>
+        <li><a href="communities.html">COMMUNITIES</a></li>
+        <li><a href="BLOG/blog.html">BLOG</a></li>
+        <li class="has-dropdown">
+          <a href="#">RESOURCES <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="mortgage-calculator.html">Mortgage Calculator</a></li>
+            <li><a href="open-houses-carmel-valley.html">Open Houses</a></li>
+            <li><a href="relocation-guide.html">Relocation Guide</a></li>
+            <li><a href="plugged-in-method.html">The Plugged In Method</a></li>
+            <li><a href="calendar-of-events.html">Calendar of Events</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">ABOUT US <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="lynnette-jaiswal.html">Lynnette Jaiswal</a></li>
+            <li><a href="clientreviews.html">Client Reviews</a></li>
+          </ul>
+        </li>
+        <li><a href="contact.html">CONTACT</a></li>
+        <li class="nav-phone"><a href="tel:8582907531">(858) 290-7531</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Menu" id="hamburger"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <ul>
+        <li><a href="listings.html">Browse Homes</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="tel:8582907531">(858) 290-7531</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- Breadcrumb -->
+  <div class="ld-breadcrumb" id="ld-breadcrumb">
+    <a href="listings.html">Browse Homes</a>
+    <span class="sep">›</span>
+    <span id="bc-city">Loading…</span>
+    <span class="sep">›</span>
+    <span id="bc-address">—</span>
+  </div>
+
+  <!-- Loading state -->
+  <div id="ld-loading-state" class="ld-loading">
+    <div class="ld-spinner"></div>
+    <span>Loading listing…</span>
+  </div>
+
+  <!-- Main content (hidden until loaded) -->
+  <div id="ld-content" style="display:none">
+
+    <!-- Status bar (hidden — status shown in breadcrumb only) -->
+    <div class="ld-status-bar" id="ld-status-bar" style="display:none">
+      <div class="ld-status-dot"></div>
+      <span id="ld-status-text">Active</span>
+      <span style="opacity:0.4;margin:0 6px">|</span>
+      <span id="ld-listed-date" style="font-weight:400;letter-spacing:0"></span>
+    </div>
+
+    <!-- Photo gallery -->
+    <div class="ld-gallery-wrap">
+    <div class="ld-gallery" id="ld-gallery">
+
+      <!-- Left: main photo -->
+      <div class="ld-gallery-main" onclick="openLightbox(0)">
+        <div class="ld-gallery-placeholder" id="gal-main">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+      </div>
+
+      <!-- Right: 2×2 thumb grid -->
+      <div class="ld-gallery-thumbs">
+        <div class="ld-gallery-thumb" id="gal-t1" onclick="openLightbox(1)">
+          <div class="ld-gallery-placeholder"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        </div>
+        <div class="ld-gallery-thumb" id="gal-t2" onclick="openLightbox(2)">
+          <div class="ld-gallery-placeholder"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        </div>
+        <div class="ld-gallery-thumb" id="gal-t3" onclick="openLightbox(3)">
+          <div class="ld-gallery-placeholder"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        </div>
+        <div class="ld-gallery-thumb" id="gal-t4" onclick="openLightbox(4)">
+          <div class="ld-gallery-placeholder"></div>
+          <div class="ld-gallery-overlay" id="gal-more-overlay" onclick="openLightbox(0)">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span id="gal-more-label">ALL PHOTOS</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions: heart + share at top-right of full gallery -->
+      <div class="ld-gallery-actions">
+        <button class="ld-act-btn" id="heart-btn" onclick="toggleHeart()" title="Save">
+          <svg viewBox="0 0 24 24"><path d="m13.155 20.634.016-.008.014-.01c2.61-1.604 4.793-3.37 6.333-5.253S22 11.422 22 9.263C22 5.652 19.374 3 15.952 3c-1.765 0-3.01 1.101-3.744 2.018a8 8 0 0 0-.203.265 8 8 0 0 0-.201-.263C11.069 4.099 9.824 3 8.048 3 4.626 3 2 5.651 2 9.264c0 2.158.941 4.215 2.483 6.1 1.541 1.882 3.726 3.648 6.341 5.253h0l.012.007c.135.08.3.165.477.234.158.06.41.142.687.142s.528-.081.685-.141c.175-.067.34-.15.47-.225Z"/></svg>
+        </button>
+        <button class="ld-act-btn" onclick="shareProperty()" title="Share">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+
+    </div>
+    </div><!-- end .ld-gallery-wrap -->
+
+    <!-- Page layout -->
+    <div class="ld-layout">
+
+      <!-- ── MAIN COLUMN ── -->
+      <div class="ld-main">
+
+        <!-- Price + address + quick stats -->
+        <div class="ld-header">
+          <div class="ld-header-left">
+            <div class="ld-price" id="ld-price">—</div>
+            <div class="ld-address" id="ld-address">—</div>
+          </div>
+          <div class="ld-header-right">
+            <div class="ld-quick-stats">
+              <div class="ld-stat">
+                <span class="ld-stat-lbl">
+                  <svg width="13" height="13" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                  BEDROOMS
+                </span>
+                <span class="ld-stat-val" id="stat-beds">—</span>
+              </div>
+              <div class="ld-stat-divider"></div>
+              <div class="ld-stat">
+                <span class="ld-stat-lbl">
+                  <svg width="13" height="13" viewBox="0 0 24 24"><path d="M20 10V7a4 4 0 00-4-4H8a4 4 0 00-4 4v3M4 10h16M4 10l1 9h14l1-9"/></svg>
+                  BATHROOMS
+                </span>
+                <span class="ld-stat-val" id="stat-baths">—</span>
+              </div>
+              <div class="ld-stat-divider"></div>
+              <div class="ld-stat">
+                <span class="ld-stat-lbl">
+                  <svg width="13" height="13" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 3v18"/></svg>
+                  SQ. FT.
+                </span>
+                <span class="ld-stat-val" id="stat-sqft">—</span>
+              </div>
+            </div>
+            <!-- Hidden elements for JS -->
+            <span id="stat-lot" style="display:none"></span>
+            <span id="stat-year" style="display:none"></span>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="ld-section">
+          <div class="ld-section-title">About This Home</div>
+          <div class="ld-description collapsed" id="ld-description">—</div>
+          <button class="ld-read-more" id="btn-read-more" onclick="toggleDesc()">Read more</button>
+        </div>
+
+        <!-- Detail sections -->
+        <div class="ld-section">
+
+          <!-- Quick-jump nav -->
+          <div class="ld-section-nav">
+            <a href="#section-basic">Basic Info</a>
+            <a href="#section-interior">Interior &amp; Exterior</a>
+            <a href="#section-community">Community</a>
+            <a href="#section-financial">Financial</a>
+          </div>
+
+          <!-- Basic Information -->
+          <div class="ld-accordion" id="section-basic">
+            <button class="ld-accordion-header" onclick="toggleAccordion(this)">
+              <span>BASIC INFORMATION</span>
+              <svg class="ld-chevron" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+            </button>
+            <div class="ld-accordion-body">
+              <div class="ld-detail-grid">
+                <div class="ld-detail-row"><span class="ld-detail-lbl">MLS #</span><span class="ld-detail-val" id="d-mls">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Status</span><span class="ld-detail-val" id="d-status">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Price</span><span class="ld-detail-val" id="d-price">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Property Type</span><span class="ld-detail-val" id="d-type">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Bedrooms</span><span class="ld-detail-val" id="d-beds">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Bathrooms</span><span class="ld-detail-val" id="d-baths">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Square Feet</span><span class="ld-detail-val" id="d-sqft">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Acres</span><span class="ld-detail-val" id="d-acres">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Year Built</span><span class="ld-detail-val" id="d-year">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">County</span><span class="ld-detail-val" id="d-county">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Listed</span><span class="ld-detail-val" id="d-listed">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Days on Market</span><span class="ld-detail-val" id="d-dom">—</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Interior & Exterior -->
+          <div class="ld-accordion" id="section-interior">
+            <button class="ld-accordion-header" onclick="toggleAccordion(this)">
+              <span>INTERIOR &amp; EXTERIOR</span>
+              <svg class="ld-chevron" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+            </button>
+            <div class="ld-accordion-body">
+              <div class="ld-detail-grid">
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Style</span><span class="ld-detail-val" id="d-style">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Stories</span><span class="ld-detail-val" id="d-stories">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Garage Spaces</span><span class="ld-detail-val" id="d-garage">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Pool</span><span class="ld-detail-val" id="d-pool">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Fireplaces</span><span class="ld-detail-val" id="d-fire">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Heating</span><span class="ld-detail-val" id="d-heat">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Cooling</span><span class="ld-detail-val" id="d-cool">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Flooring</span><span class="ld-detail-val" id="d-floor">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Lot Size (sqft)</span><span class="ld-detail-val" id="d-lot">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Common Walls</span><span class="ld-detail-val" id="d-walls">—</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Community -->
+          <div class="ld-accordion" id="section-community">
+            <button class="ld-accordion-header" onclick="toggleAccordion(this)">
+              <span>COMMUNITY INFORMATION</span>
+              <svg class="ld-chevron" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+            </button>
+            <div class="ld-accordion-body">
+              <div class="ld-detail-grid">
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Subdivision</span><span class="ld-detail-val" id="d-subdiv">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">MLS Area</span><span class="ld-detail-val" id="d-mlsarea">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Elementary School</span><span class="ld-detail-val" id="d-elem">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Middle School</span><span class="ld-detail-val" id="d-middle">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">High School</span><span class="ld-detail-val" id="d-high">—</span></div>
+              </div>
+              <div id="ld-map"></div>
+            </div>
+          </div>
+
+          <!-- Financial -->
+          <div class="ld-accordion" id="section-financial">
+            <button class="ld-accordion-header" onclick="toggleAccordion(this)">
+              <span>FINANCIAL INFORMATION</span>
+              <svg class="ld-chevron" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+            </button>
+            <div class="ld-accordion-body">
+              <div class="ld-detail-grid">
+                <div class="ld-detail-row"><span class="ld-detail-lbl">List Price</span><span class="ld-detail-val" id="d-fprice">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Price / Sq. Ft.</span><span class="ld-detail-val" id="d-ppsf">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">HOA Fee</span><span class="ld-detail-val" id="d-hoa">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">HOA Frequency</span><span class="ld-detail-val" id="d-hoafreq">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Annual Tax</span><span class="ld-detail-val" id="d-tax">—</span></div>
+              </div>
+              <p style="margin-top:16px;font-size:13px;color:#888">See the Mortgage Calculator below for a full payment estimate.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Similar properties -->
+        <div class="ld-section" style="margin-top:20px">
+          <div class="ld-section-title">Similar Properties</div>
+          <div class="ld-similar-grid" id="similar-grid">
+            <!-- Populated by JS with mock similar listings -->
+          </div>
+        </div>
+
+        <!-- MLS Disclaimer -->
+        <div class="ld-disclaimer" id="ld-disclaimer">
+          <img src="LOGOS/logo-crmls.png" alt="CRMLS" class="ld-crmls-logo" />
+          <p class="ld-attribution">Listed by <span id="d-agent">—</span> &bull; <span id="d-office">—</span></p>
+          <p>Based on information from California Regional Multiple Listing Service, Inc. as of <span id="d-updated">—</span> and/or other sources. All data, including all measurements and calculations of area, is obtained from various sources and has not been, and will not be, verified by broker or MLS. All information should be independently reviewed and verified for accuracy. Properties may or may not be listed by the office/agent presenting the information. Any amount of compensation or commission stated is made only to participants of CRMLS or an MLS that has entered into a datashare agreement with CRMLS.</p>
+        </div>
+
+      </div><!-- end .ld-main -->
+
+      <!-- ── SIDEBAR ── -->
+      <div class="ld-sidebar">
+        <!-- Gallery nav arrows sit above the card -->
+        <div class="ld-sidebar-nav">
+          <button class="ld-gallery-nav-btn" onclick="galleryNav(-1)" title="Previous photo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button class="ld-gallery-nav-btn" onclick="galleryNav(1)" title="Next photo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+          </button>
+        </div>
+        <div class="ld-tour-card">
+          <div class="ld-tour-header">Interested in This Home?</div>
+          <div class="ld-tour-body">
+            <h2 class="ld-tour-title">Schedule a<br>Private Tour</h2>
+            <p class="ld-tour-desc">Experience this home in person with a private showing scheduled around your availability. I'll personally guide you through the home and answer any questions you have along the way.</p>
+            <button class="ld-tour-btn" onclick="openTourModal()">SCHEDULE MY PRIVATE TOUR</button>
+            <div class="ld-tour-divider">QUESTIONS BEFORE SCHEDULING?</div>
+            <div class="ld-tour-agent">
+              <img src="Lynnette-beige-suit.jpg" class="ld-tour-agent-photo" alt="Lynnette Jaiswal" />
+              <div class="ld-tour-agent-name">Lynnette Jaiswal</div>
+              <div class="ld-tour-agent-title">BROKER | LUXURY REAL ESTATE ADVISOR</div>
+              <div class="ld-tour-agent-contacts">
+                <a href="tel:8582907531">
+                  <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.72a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
+                  (858) 290-7531
+                </a>
+                <a href="mailto:Lynnette@thejaiswalgroup.com">
+                  <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  Lynnette@thejaiswalgroup.com
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- end .ld-sidebar -->
+    </div><!-- end .ld-layout -->
+
+    <!-- ── MAP SECTION ── -->
+    <section id="ld-map-section" style="display:none">
+      <div style="max-width:1240px;margin:0 auto;padding:0 24px 32px">
+        <div class="ld-section">
+          <div class="ld-section-title" style="display:flex;align-items:center;gap:10px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1C3063" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Location
+          </div>
+          <div id="ld-map-standalone" style="width:100%;height:360px;border-radius:8px;overflow:hidden"></div>
+          <div style="margin-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px" id="school-info">
+            <!-- Schools filled by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── MORTGAGE CALCULATOR SECTION ── -->
+    <section class="ld-mort-section">
+      <div class="ld-mort-section-inner">
+        <div class="ld-mort-section-head">
+          <p class="ld-mort-section-eyebrow">Plan Your Purchase</p>
+          <h2 class="ld-mort-section-title">MORTGAGE CALCULATOR</h2>
+          <p class="ld-mort-section-sub">Estimate your monthly mortgage payment, including principal &amp; interest, property taxes, HOA, Mello-Roos, and homeowners insurance. Adjust every field for a personalized estimate.</p>
+        </div>
+        <div class="ld-mort-grid2">
+
+          <!-- LEFT: inputs -->
+          <div>
+            <p class="lm-group-lbl">Loan Details</p>
+            <div class="lm-fields">
+              <div class="lm-field">
+                <label for="lm-price">Home Price</label>
+                <div class="lm-input-wrap">
+                  <span class="lm-prefix">$</span>
+                  <input type="text" inputmode="numeric" id="lm-price" value="0" />
+                </div>
+              </div>
+              <div class="lm-field">
+                <label for="lm-term">Loan Term</label>
+                <select id="lm-term">
+                  <option value="30" selected>30 years</option>
+                  <option value="20">20 years</option>
+                  <option value="15">15 years</option>
+                  <option value="10">10 years</option>
+                </select>
+              </div>
+              <div class="lm-field">
+                <label>Down Payment</label>
+                <div class="lm-input-row">
+                  <div class="lm-input-wrap">
+                    <span class="lm-prefix">$</span>
+                    <input type="text" inputmode="numeric" id="lm-down-amt" value="0" />
+                  </div>
+                  <div class="lm-input-wrap">
+                    <input type="number" id="lm-down-pct" value="20" min="0" max="100" step="0.5" />
+                    <span class="lm-suffix">%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="lm-field">
+                <label for="lm-rate">Interest Rate</label>
+                <div class="lm-input-wrap">
+                  <input type="number" id="lm-rate" value="6.75" min="0" max="30" step="0.125" />
+                  <span class="lm-suffix">%</span>
+                </div>
+              </div>
+              <div class="lm-field" style="grid-column:1/-1">
+                <label for="lm-loan-type">Loan Type</label>
+                <select id="lm-loan-type">
+                  <option value="conventional" selected>Conventional</option>
+                  <option value="fha">FHA</option>
+                  <option value="va">VA</option>
+                  <option value="jumbo">Jumbo</option>
+                </select>
+              </div>
+            </div>
+            <div id="lm-loan-category" style="display:none;font-family:'Lato',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin:-0.5rem 0 1rem;padding:0.4rem 0.75rem;border-left:2px solid #B38987;color:rgba(255,255,255,0.75)"></div>
+            <div id="lm-pmi-note" class="lm-pmi-note" style="display:none">PMI applies — less than 20% down on a Conventional loan. Rate: 0.8%/yr of loan balance.</div>
+
+            <hr class="lm-divider" />
+            <p class="lm-group-lbl">Monthly Costs <span style="font-size:0.6rem;font-weight:400;color:rgba(255,255,255,0.35);letter-spacing:0">— leave blank if unknown</span></p>
+            <div class="lm-fields">
+              <div class="lm-field">
+                <label for="lm-tax-rate">Property Tax Rate</label>
+                <div class="lm-input-wrap">
+                  <input type="number" id="lm-tax-rate" value="1.14" min="0" max="5" step="0.01" />
+                  <span class="lm-suffix">%</span>
+                </div>
+              </div>
+              <div class="lm-field">
+                <label for="lm-insurance">Homeowners Insurance</label>
+                <div class="lm-input-wrap">
+                  <span class="lm-prefix">$</span>
+                  <input type="number" id="lm-insurance" value="150" min="0" step="1" placeholder="0" />
+                  <span class="lm-period-toggle" id="lm-insur-toggle">
+                    <button type="button" class="lm-period-btn active" data-period="mo">/mo</button>
+                    <button type="button" class="lm-period-btn" data-period="yr">/yr</button>
+                  </span>
+                </div>
+              </div>
+              <div class="lm-field">
+                <label for="lm-hoa">HOA Dues</label>
+                <div class="lm-input-wrap">
+                  <span class="lm-prefix">$</span>
+                  <input type="number" id="lm-hoa" min="0" step="1" placeholder="0" />
+                  <span class="lm-suffix">/mo</span>
+                </div>
+              </div>
+              <div class="lm-field">
+                <label for="lm-mello">Mello-Roos</label>
+                <div class="lm-input-wrap">
+                  <span class="lm-prefix">$</span>
+                  <input type="number" id="lm-mello" min="0" step="1" placeholder="0" />
+                  <span class="lm-period-toggle" id="lm-mello-toggle">
+                    <button type="button" class="lm-period-btn active" data-period="mo">/mo</button>
+                    <button type="button" class="lm-period-btn" data-period="yr">/yr</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <p class="lm-loan-display">Loan Amount<span id="lm-loan-amt">—</span></p>
+            <p class="lm-disclaimer">This calculator is for informational purposes only and does not constitute a loan commitment or guarantee of financing. Actual payments will vary based on credit profile, lender requirements, and market conditions.</p>
+          </div>
+
+          <!-- RIGHT: donut chart card -->
+          <div class="lm-card">
+            <div class="lm-donut-wrap">
+              <svg id="lm-chart-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"></svg>
+              <div class="lm-center">
+                <div class="lm-center-amount" id="lm-result">—</div>
+                <div class="lm-center-label">Est. Monthly</div>
+              </div>
+            </div>
+            <div id="lm-legend"></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── INTERESTED IN THIS PROPERTY ── -->
+    <section class="ld-cta-section">
+      <div class="ld-cta-inner">
+        <div class="ld-cta-text">
+          <p class="ld-cta-eyebrow">Interested in This Home?</p>
+          <h2 class="ld-cta-address" id="cta-address">—</h2>
+          <button class="ld-cta-btn" onclick="openTourModal()">CONTACT US</button>
+        </div>
+        <div class="ld-cta-agent">
+          <img src="Lynnette-beige-suit.jpg" class="ld-cta-photo" alt="Lynnette Jaiswal" />
+          <div class="ld-cta-agent-name">Lynnette Jaiswal</div>
+          <div class="ld-cta-agent-title">Broker | Luxury Real Estate Advisor</div>
+          <a href="tel:8582907531" class="ld-cta-contact-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.72a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
+            (858) 290-7531
+          </a>
+          <a href="mailto:Lynnette@thejaiswalgroup.com" class="ld-cta-contact-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Lynnette@thejaiswalgroup.com
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- end #ld-content -->
+
+  <!-- ── 2-STEP TOUR MODAL ── -->
+  <div class="ld-modal-overlay" id="tour-modal">
+    <div class="ld-modal">
+
+      <!-- Step 1 -->
+      <div id="modal-step1">
+        <div class="ld-modal-head" style="padding:14px 24px">
+          <div style="font-family:'Lato',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;text-align:center">Request a Tour</div>
+          <button class="ld-modal-close" onclick="closeTourModal()">✕</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;background:#F3EFE8">
+          <!-- Property photo -->
+          <div style="padding:24px;display:flex;flex-direction:column;gap:10px">
+            <div id="modal-photo" style="aspect-ratio:4/3;background:linear-gradient(135deg,#1C3063,#2a4a8c);border-radius:6px;overflow:hidden">
+              <!-- filled by JS if photos available -->
+            </div>
+            <div style="font-family:'Marcellus',serif;font-size:1rem;color:#1C3063" id="modal-addr-display">—</div>
+            <div style="font-family:'Lato',sans-serif;font-size:12px;color:#888" id="modal-status-display">Active</div>
+          </div>
+          <!-- Tour options -->
+          <div style="padding:24px;display:flex;flex-direction:column;justify-content:center;gap:16px">
+            <div>
+              <div style="font-family:'Marcellus',serif;font-size:1.1rem;color:#1C3063;margin-bottom:4px">Interested in this listing?</div>
+              <div style="font-family:'Lato',sans-serif;font-size:13px;color:#666;line-height:1.6">Pick a tour type and suggest a date and time that works for you.</div>
+            </div>
+            <div style="display:flex;gap:20px;align-items:center">
+              <label style="display:flex;align-items:center;gap:6px;font-family:'Lato',sans-serif;font-size:14px;cursor:pointer">
+                <input type="radio" name="tourType" value="In Person" id="tour-inperson" checked style="accent-color:#1C3063" />
+                In Person
+              </label>
+              <label style="display:flex;align-items:center;gap:6px;font-family:'Lato',sans-serif;font-size:14px;cursor:pointer">
+                <input type="radio" name="tourType" value="Virtual" id="tour-virtual" style="accent-color:#1C3063" />
+                Virtual
+              </label>
+            </div>
+            <div style="display:flex;gap:10px">
+              <input type="date" id="tour-date" style="flex:1;padding:10px;border:1px solid #ddd;border-radius:4px;font-family:'Lato',sans-serif;font-size:13px;color:#322E2D;outline:none" />
+              <select id="tour-time" style="padding:10px;border:1px solid #ddd;border-radius:4px;font-family:'Lato',sans-serif;font-size:13px;color:#322E2D;outline:none">
+                <option>8am to 10am</option>
+                <option>10am to 12pm</option>
+                <option>12pm to 2pm</option>
+                <option>2pm to 4pm</option>
+                <option>4pm to 6pm</option>
+                <option>Evening (after 6pm)</option>
+              </select>
+            </div>
+            <button onclick="goToStep2()" style="padding:14px;background:#1C3063;color:#fff;border:none;font-family:'Lato',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background 0.2s" onmouseover="this.style.background='#18254B'" onmouseout="this.style.background='#1C3063'">NEXT →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div id="modal-step2" style="display:none">
+        <div class="ld-modal-head">
+          <h2 style="font-family:'Lato',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;margin:0">Request a Tour</h2>
+          <button class="ld-modal-close" onclick="closeTourModal()">✕</button>
+        </div>
+        <div class="ld-modal-body">
+          <!-- Brand bar -->
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #ebebeb">
+            <img src="logo.png" alt="TJG" style="height:40px;width:auto" />
+            <div>
+              <div style="font-family:'Lato',sans-serif;font-size:13px;font-weight:700;color:#1C3063">The Jaiswal Group Real Estate</div>
+              <div style="font-family:'Lato',sans-serif;font-size:11px;color:#888">CA DRE #02251231</div>
+            </div>
+          </div>
+          <form id="tour-form" onsubmit="submitTourForm(event)">
+            <div class="ld-modal-field">
+              <label>Email</label>
+              <input type="email" name="email" placeholder="Email*" required />
+            </div>
+            <div class="ld-modal-row">
+              <div class="ld-modal-field" style="margin-bottom:0">
+                <label>First Name</label>
+                <input type="text" name="firstName" placeholder="First name*" required />
+              </div>
+              <div class="ld-modal-field" style="margin-bottom:0">
+                <label>Last Name</label>
+                <input type="text" name="lastName" placeholder="Last name*" required />
+              </div>
+            </div>
+            <div class="ld-modal-field" style="margin-top:12px">
+              <label>Phone</label>
+              <input type="tel" name="phone" placeholder="Phone*" required />
+            </div>
+            <div class="ld-modal-field">
+              <label>Message</label>
+              <textarea name="message" id="modal-message" rows="4"></textarea>
+            </div>
+            <div class="ld-modal-field">
+              <label style="display:flex;align-items:flex-start;gap:8px;text-transform:none;letter-spacing:0;font-size:11px;color:#888;cursor:pointer;font-weight:400">
+                <input type="checkbox" name="consent" required style="margin-top:2px;accent-color:#1C3063;flex-shrink:0" />
+                I agree to be contacted by The Jaiswal Group Real Estate via call, email, and text for real estate services. To opt out, you can reply 'stop' at any time or reply 'help' for assistance. You can also click the unsubscribe link in the emails. Message and data rates may apply. Message frequency may vary. <a href="privacy-policy.html" style="color:#1C3063">Privacy Policy</a>.
+              </label>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px">
+              <button type="button" onclick="backToStep1()" style="padding:14px;background:#fff;color:#1C3063;border:1.5px solid #1C3063;font-family:'Lato',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer">BACK</button>
+              <button type="submit" class="ld-modal-submit" id="modal-submit-btn">SEND REQUEST</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="ld-lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="ld-lightbox-close" onclick="closeLightbox()">✕</button>
+    <button class="ld-lightbox-prev" onclick="event.stopPropagation(); lightboxNav(-1)">‹</button>
+    <img class="ld-lightbox-img" id="lightbox-img" src="" alt="" onclick="event.stopPropagation()" />
+    <button class="ld-lightbox-next" onclick="event.stopPropagation(); lightboxNav(1)">›</button>
+  </div>
+
+  <!-- =========================================================
+       SCRIPTS
+  ========================================================= -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="main.js"></script>
+  <script>
+  // ─────────────────────────────────────────────────────────────────────────
+  // CONFIG — flip USE_MOCK to false and set WORKER_URL when credentials arrive
+  // ─────────────────────────────────────────────────────────────────────────
+  const USE_MOCK   = true;
+  const WORKER_URL = 'https://tjg-trestles-worker.YOURSUBDOMAIN.workers.dev';
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // MOCK LISTING (Del Mar oceanfront — mirrors the IDX example)
+  // ─────────────────────────────────────────────────────────────────────────
+  const MOCK_LISTING = {
+    ListingKey: 'mock-delmar-1',
+    ListingId: 'NDP2507999',
+    ListPrice: 6950000,
+    StandardStatus: 'Active',
+    ListingContractDate: '2026-06-12',
+    ModificationTimestamp: '2026-07-28T10:00:00Z',
+    DaysOnMarket: 48,
+    BedroomsTotal: 4,
+    BathroomsTotalInteger: 4,
+    BathroomsFull: 3,
+    BathroomsHalf: 1,
+    LivingArea: 3842,
+    LotSizeSquareFeet: 9147,
+    LotSizeAcres: 0.21,
+    YearBuilt: 2019,
+    PropertyType: 'Residential',
+    PropertySubType: 'Single Family Residence',
+    ArchitecturalStyle: 'Contemporary',
+    Stories: 2,
+    GarageSpaces: 2,
+    GarageYN: true,
+    PoolPrivateYN: true,
+    FireplacesTotal: 2,
+    Heating: 'Forced Air',
+    Cooling: 'Central Air',
+    Flooring: 'Hardwood, Tile',
+    CommonWalls: 'No Common Walls',
+    StreetNumber: '3422',
+    StreetName: 'Caminito Cielo',
+    StreetSuffix: '',
+    City: 'Del Mar',
+    StateOrProvince: 'CA',
+    PostalCode: '92014',
+    CountyOrParish: 'San Diego',
+    SubdivisionName: 'Del Mar Highlands',
+    MLSAreaMajor: 'Del Mar (92014)',
+    ElementarySchool: 'Sycamore Ridge',
+    MiddleOrJuniorSchool: 'Carmel Valley Middle',
+    HighSchool: 'Torrey Pines',
+    AssociationFee: 195,
+    AssociationFeeFrequency: 'Monthly',
+    TaxAnnualAmount: 87120,
+    ListAgentFullName: 'Lynnette Jaiswal',
+    ListAgentStateLicense: '02068025',
+    ListOfficeName: 'The Jaiswal Group Real Estate',
+    PublicRemarks: 'Stunning contemporary estate in the heart of Del Mar, offering breathtaking canyon and partial ocean views from nearly every room. Built in 2019, this 4-bedroom, 4-bathroom masterpiece sits on a premium lot and features an open-concept great room with soaring ceilings, a chef\'s kitchen with Thermador appliances, and a seamless indoor-outdoor flow to the resort-style backyard. The primary suite occupies the entire upper level and includes a spa bath, dual walk-in closets, and a private view deck. The pool and outdoor kitchen make entertaining effortless. Three-car garage. Walking distance to Del Mar Village, beaches, restaurants, and top-rated schools. This is coastal San Diego living at its finest.',
+    Latitude: 32.958,
+    Longitude: -117.238,
+    Media: [
+      { photoUrl: null, Order: 1 },
+      { photoUrl: null, Order: 2 },
+      { photoUrl: null, Order: 3 },
+      { photoUrl: null, Order: 4 }
+    ]
+  };
+
+  const MOCK_SIMILAR = [
+    { ListingKey: 's1', ListPrice: 5850000, BedroomsTotal: 4, BathroomsTotalInteger: 3, LivingArea: 3412, StreetNumber: '1847', StreetName: 'Ocean View', City: 'Del Mar', StateOrProvince: 'CA', PostalCode: '92014', StandardStatus: 'Active' },
+    { ListingKey: 's2', ListPrice: 7250000, BedroomsTotal: 5, BathroomsTotalInteger: 5, LivingArea: 4210, StreetNumber: '4501', StreetName: 'Coast Bluff', City: 'Del Mar', StateOrProvince: 'CA', PostalCode: '92014', StandardStatus: 'Active' },
+    { ListingKey: 's3', ListPrice: 6200000, BedroomsTotal: 4, BathroomsTotalInteger: 4, LivingArea: 3688, StreetNumber: '2930', StreetName: 'Camino Del Mar', City: 'Del Mar', StateOrProvince: 'CA', PostalCode: '92014', StandardStatus: 'Coming Soon' }
+  ];
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // STATE
+  // ─────────────────────────────────────────────────────────────────────────
+  let listing = null;
+  let photos  = [];
+  let lbIndex = 0;
+  let detailMap = null;
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // INIT
+  // ─────────────────────────────────────────────────────────────────────────
+  document.addEventListener('DOMContentLoaded', async () => {
+    const key = new URLSearchParams(window.location.search).get('key');
+
+    if (USE_MOCK || !key) {
+      listing = MOCK_LISTING;
+      render(listing);
+      return;
+    }
+
+    try {
+      const resp = await fetch(`${WORKER_URL}/listing/${encodeURIComponent(key)}`);
+      if (!resp.ok) throw new Error(`${resp.status}`);
+      listing = await resp.json();
+      render(listing);
+    } catch (e) {
+      document.getElementById('ld-loading-state').innerHTML =
+        `<div style="text-align:center;padding:60px 24px;color:#888"><h3 style="font-family:Marcellus,serif;color:#1C3063;margin-bottom:8px">Listing not found</h3><p>This listing may no longer be available. <a href="listings.html" style="color:#1C3063">Browse available homes →</a></p></div>`;
+    }
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // RENDER
+  // ─────────────────────────────────────────────────────────────────────────
+  function render(l) {
+    const addr = `${l.StreetNumber} ${l.StreetName} ${l.StreetSuffix || ''}`.trim();
+    const fullAddr = `${addr}, ${l.City} ${l.StateOrProvince} ${l.PostalCode}`;
+    photos = (l.Media || []).map(m => m.photoUrl).filter(Boolean);
+
+    // Page title + meta
+    document.getElementById('page-title').textContent = `${addr}, ${l.City} | The Jaiswal Group`;
+    document.getElementById('page-desc').content = `${l.BedroomsTotal} bed, ${l.BathroomsTotalInteger} bath home in ${l.City}. Listed at ${fmt(l.ListPrice)}.`;
+
+    // Breadcrumb
+    document.getElementById('bc-city').textContent = l.City;
+    document.getElementById('bc-address').textContent = addr;
+
+    // Status bar
+    const statusBar = document.getElementById('ld-status-bar');
+    const statusMap = { 'Coming Soon': 'coming', 'Pending': 'pending', 'Sold': 'sold' };
+    if (statusMap[l.StandardStatus]) statusBar.classList.add(statusMap[l.StandardStatus]);
+    document.getElementById('ld-status-text').textContent = l.StandardStatus || 'Active';
+    if (l.ListingContractDate) {
+      const d = new Date(l.ListingContractDate);
+      document.getElementById('ld-listed-date').textContent = `Listed ${d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
+    }
+
+    // Gallery photos
+    renderGallery(photos);
+
+    // Header stats
+    document.getElementById('ld-price').textContent = fmt(l.ListPrice);
+    document.getElementById('ld-address').textContent = fullAddr;
+    document.getElementById('stat-beds').textContent  = l.BedroomsTotal ?? '—';
+    document.getElementById('stat-baths').textContent = l.BathroomsTotalInteger ?? '—';
+    document.getElementById('stat-sqft').textContent  = l.LivingArea ? l.LivingArea.toLocaleString() : '—';
+    const acres = l.LotSizeAcres ? l.LotSizeAcres.toFixed(2) + ' ac' : l.LotSizeSquareFeet ? (l.LotSizeSquareFeet/43560).toFixed(2) + ' ac' : '—';
+    document.getElementById('stat-lot').textContent  = acres;
+    document.getElementById('stat-year').textContent = l.YearBuilt ?? '—';
+    const ppsf = l.ListPrice && l.LivingArea ? '$' + Math.round(l.ListPrice / l.LivingArea).toLocaleString() : '—';
+
+    // Description
+    const descEl = document.getElementById('ld-description');
+    descEl.textContent = l.PublicRemarks || 'No description available.';
+    const btnMore = document.getElementById('btn-read-more');
+    if (!l.PublicRemarks || l.PublicRemarks.length < 200) { btnMore.style.display = 'none'; descEl.classList.remove('collapsed'); }
+
+    // Basic info tab
+    setText('d-mls', l.ListingId);
+    setText('d-status', l.StandardStatus);
+    setText('d-price', fmt(l.ListPrice));
+    setText('d-type', [l.PropertyType, l.PropertySubType].filter(Boolean).join(' — '));
+    setText('d-beds', l.BedroomsTotal);
+    setText('d-baths', `${l.BathroomsTotalInteger} total (${l.BathroomsFull || '—'} full, ${l.BathroomsHalf || 0} half)`);
+    setText('d-sqft', l.LivingArea ? l.LivingArea.toLocaleString() + ' sqft' : '—');
+    setText('d-acres', l.LotSizeAcres ? l.LotSizeAcres.toFixed(3) + ' acres' : '—');
+    setText('d-year', l.YearBuilt);
+    setText('d-county', l.CountyOrParish);
+    setText('d-dom', l.DaysOnMarket != null ? l.DaysOnMarket + ' days' : '—');
+    if (l.ListingContractDate) {
+      const d = new Date(l.ListingContractDate);
+      setText('d-listed', d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }));
+    }
+
+    // Interior tab
+    setText('d-style', l.ArchitecturalStyle);
+    setText('d-stories', l.Stories);
+    setText('d-garage', l.GarageSpaces ? l.GarageSpaces + ' spaces' : (l.GarageYN ? 'Yes' : 'None'));
+    setText('d-pool', l.PoolPrivateYN ? 'Yes' : 'None');
+    setText('d-fire', l.FireplacesTotal || '—');
+    setText('d-heat', l.Heating);
+    setText('d-cool', l.Cooling);
+    setText('d-floor', l.Flooring);
+    setText('d-lot', l.LotSizeSquareFeet ? l.LotSizeSquareFeet.toLocaleString() + ' sqft' : '—');
+    setText('d-walls', l.CommonWalls);
+
+    // Community tab
+    setText('d-subdiv', l.SubdivisionName);
+    setText('d-mlsarea', l.MLSAreaMajor);
+    setText('d-elem', l.ElementarySchool);
+    setText('d-middle', l.MiddleOrJuniorSchool);
+    setText('d-high', l.HighSchool);
+
+    // Financial tab
+    setText('d-fprice', fmt(l.ListPrice));
+    setText('d-ppsf', ppsf);
+    setText('d-hoa', l.AssociationFee ? fmt(l.AssociationFee, false) : 'None');
+    setText('d-hoafreq', l.AssociationFeeFrequency || '—');
+    setText('d-tax', l.TaxAnnualAmount ? fmt(l.TaxAnnualAmount, false) + '/yr' : '—');
+
+    // Disclaimer
+    if (l.ModificationTimestamp) {
+      const ud = new Date(l.ModificationTimestamp);
+      setText('d-updated', ud.toLocaleDateString());
+    }
+    setText('d-agent', l.ListAgentFullName);
+    setText('d-office', l.ListOfficeName);
+
+    // CTA address
+    document.getElementById('cta-address').innerHTML = `${addr}<br>${l.City} CA ${l.PostalCode}`;
+
+    // Similar properties
+    renderSimilar(MOCK_SIMILAR);
+
+    // Show content
+    document.getElementById('ld-loading-state').style.display = 'none';
+    document.getElementById('ld-content').style.display = 'block';
+
+    // Seed mortgage calc + standalone map (deferred so DOM is visible)
+    setTimeout(() => {
+      if (window._seedMortCalc) window._seedMortCalc(l);
+      initStandaloneMap(l);
+    }, 300);
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // GALLERY
+  // ─────────────────────────────────────────────────────────────────────────
+  function renderGallery(urls) {
+    const ids = ['gal-main', 'gal-t1', 'gal-t2', 'gal-t3', 'gal-t4'];
+    ids.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (!el || !urls[i]) return;
+      el.innerHTML = `<img src="${urls[i]}" alt="Photo ${i+1}" loading="${i === 0 ? 'eager' : 'lazy'}" />`;
+    });
+    const count = urls.length;
+    const label = document.getElementById('gal-more-label');
+    if (label) label.textContent = count > 5 ? `ALL ${count} PHOTOS` : 'ALL PHOTOS';
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // LIGHTBOX
+  // ─────────────────────────────────────────────────────────────────────────
+  function openLightbox(i) {
+    if (!photos.length) return;
+    lbIndex = i;
+    document.getElementById('lightbox-img').src = photos[lbIndex];
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function lightboxNav(dir) {
+    lbIndex = (lbIndex + dir + photos.length) % photos.length;
+    document.getElementById('lightbox-img').src = photos[lbIndex];
+  }
+  function galleryNav(dir) {
+    if (!photos.length) return;
+    lbIndex = (lbIndex + dir + photos.length) % photos.length;
+    // Update main photo
+    const main = document.getElementById('gal-main');
+    if (main) main.innerHTML = `<img src="${photos[lbIndex]}" alt="Photo ${lbIndex+1}" />`;
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft')  lightboxNav(-1);
+    if (e.key === 'ArrowRight') lightboxNav(1);
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // MAP
+  // ─────────────────────────────────────────────────────────────────────────
+  function initMap(l) {
+    if (!l.Latitude || !l.Longitude || detailMap) return;
+    detailMap = L.map('ld-map', { center: [l.Latitude, l.Longitude], zoom: 14, scrollWheelZoom: false });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap &copy; CARTO', subdomains: 'abcd', maxZoom: 19
+    }).addTo(detailMap);
+    const icon = L.divIcon({
+      className: '',
+      html: `<div style="background:#1C3063;color:#fff;font-family:Lato,sans-serif;font-size:12px;font-weight:700;padding:5px 10px;border-radius:4px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.25)">${fmt(l.ListPrice)}</div>`,
+      iconAnchor: [40, 32]
+    });
+    L.marker([l.Latitude, l.Longitude], { icon }).addTo(detailMap);
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // ACCORDION
+  // ─────────────────────────────────────────────────────────────────────────
+  function toggleAccordion(btn) {
+    btn.closest('.ld-accordion').classList.toggle('collapsed');
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // DESCRIPTION TOGGLE
+  // ─────────────────────────────────────────────────────────────────────────
+  function toggleDesc() {
+    const el = document.getElementById('ld-description');
+    const btn = document.getElementById('btn-read-more');
+    if (el.classList.contains('collapsed')) {
+      el.classList.remove('collapsed');
+      btn.textContent = 'Show less';
+    } else {
+      el.classList.add('collapsed');
+      btn.textContent = 'Read more';
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // STANDALONE MAP
+  // ─────────────────────────────────────────────────────────────────────────
+  let standaloneMap = null;
+  function initStandaloneMap(l) {
+    if (!l.Latitude || !l.Longitude || standaloneMap) return;
+    document.getElementById('ld-map-section').style.display = 'block';
+    standaloneMap = L.map('ld-map-standalone', {
+      center: [l.Latitude, l.Longitude], zoom: 14, scrollWheelZoom: false
+    });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; OpenStreetMap &copy; CARTO', subdomains: 'abcd', maxZoom: 19
+    }).addTo(standaloneMap);
+    const icon = L.divIcon({
+      className: '',
+      html: `<div style="background:#1C3063;color:#fff;font-family:Lato,sans-serif;font-size:12px;font-weight:700;padding:5px 10px;border-radius:4px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.25)">${fmt(l.ListPrice)}</div>`,
+      iconAnchor: [40, 32]
+    });
+    L.marker([l.Latitude, l.Longitude], { icon }).addTo(standaloneMap);
+
+    // School info chips
+    const schools = [
+      { label: 'Elementary', val: l.ElementarySchool },
+      { label: 'Middle', val: l.MiddleOrJuniorSchool },
+      { label: 'High', val: l.HighSchool }
+    ].filter(s => s.val);
+    if (schools.length) {
+      document.getElementById('school-info').innerHTML = schools.map(s =>
+        `<div style="background:#f0f3f9;border-radius:6px;padding:10px 14px">
+          <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#B38987;margin-bottom:3px">${s.label} School</div>
+          <div style="font-size:13px;color:#1C3063;font-weight:600">${s.val}</div>
+        </div>`
+      ).join('');
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // FULL MORTGAGE CALCULATOR
+  // ─────────────────────────────────────────────────────────────────────────
+  (function initMortCalc() {
+    const COLORS = ['#2A4F8C','#B38987','#C9A89C','#D4C5B0','#7A5A58','#4A7BA8'];
+    const LABELS = ['Principal & Interest','Property Tax','Insurance','HOA','Mello-Roos','PMI / MIP'];
+    const NS = 'http://www.w3.org/2000/svg';
+    const cx = 100, cy = 100, R = 76, circ = 2 * Math.PI * R;
+    const CONFORMING = 806500, HIGH_BAL = 1077550;
+
+    let insurMode = 'mo', melloMode = 'mo';
+
+    const $  = id => document.getElementById(id);
+    const priceEl    = $('lm-price');
+    const downAmtEl  = $('lm-down-amt');
+    const downPctEl  = $('lm-down-pct');
+    const rateEl     = $('lm-rate');
+    const termEl     = $('lm-term');
+    const typeEl     = $('lm-loan-type');
+    const taxEl      = $('lm-tax-rate');
+    const insurEl    = $('lm-insurance');
+    const hoaEl      = $('lm-hoa');
+    const melloEl    = $('lm-mello');
+
+    function fmtC(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
+    function parseAmt(el) { return parseFloat((el.value||'').replace(/,/g,'')) || 0; }
+    function fmtInput(el) {
+      const n = parseInt(el.value.replace(/,/g,''), 10);
+      el.value = isNaN(n) ? '' : n.toLocaleString('en-US');
+    }
+
+    [priceEl, downAmtEl].forEach(el => {
+      el.addEventListener('focus', function(){ this.value = this.value.replace(/,/g,''); });
+      el.addEventListener('blur',  function(){ fmtInput(this); });
+    });
+
+    $('lm-insur-toggle').addEventListener('click', e => {
+      const btn = e.target.closest('.lm-period-btn'); if (!btn) return;
+      insurMode = btn.dataset.period;
+      $('lm-insur-toggle').querySelectorAll('.lm-period-btn').forEach(b => b.classList.toggle('active', b.dataset.period === insurMode));
+      calc();
+    });
+    $('lm-mello-toggle').addEventListener('click', e => {
+      const btn = e.target.closest('.lm-period-btn'); if (!btn) return;
+      melloMode = btn.dataset.period;
+      $('lm-mello-toggle').querySelectorAll('.lm-period-btn').forEach(b => b.classList.toggle('active', b.dataset.period === melloMode));
+      calc();
+    });
+
+    function drawChart(vals, total) {
+      const svg = $('lm-chart-svg'); svg.innerHTML = '';
+      const bg = document.createElementNS(NS,'circle');
+      bg.setAttribute('cx',cx); bg.setAttribute('cy',cy); bg.setAttribute('r',R);
+      bg.setAttribute('fill','none'); bg.setAttribute('stroke','rgba(24,37,75,0.07)'); bg.setAttribute('stroke-width','28');
+      svg.appendChild(bg);
+      let cum = 0;
+      vals.forEach((v,i) => {
+        if (v <= 0) return;
+        const len = (v/total)*circ;
+        const c = document.createElementNS(NS,'circle');
+        c.setAttribute('cx',cx); c.setAttribute('cy',cy); c.setAttribute('r',R);
+        c.setAttribute('fill','none'); c.setAttribute('stroke',COLORS[i]); c.setAttribute('stroke-width','28');
+        c.setAttribute('stroke-dasharray',len+' '+circ); c.setAttribute('stroke-dashoffset',-cum);
+        c.setAttribute('transform','rotate(-90 100 100)'); svg.appendChild(c); cum += len;
+      });
+    }
+
+    function drawLegend(vals, total) {
+      const legend = $('lm-legend'); if (!legend) return;
+      legend.innerHTML = LABELS.map((lbl,i) => {
+        if (vals[i] <= 0) return '';
+        const pct = total > 0 ? Math.round(vals[i]/total*100) : 0;
+        return `<div class="lm-legend-item">
+          <span class="lm-legend-dot" style="background:${COLORS[i]}"></span>
+          <span>${lbl}</span>
+          <span class="lm-legend-val">${fmtC(vals[i])}/mo<span class="lm-legend-pct">(${pct}%)</span></span>
+        </div>`;
+      }).join('');
+    }
+
+    function calc() {
+      const price    = parseAmt(priceEl);
+      const down     = parseAmt(downAmtEl);
+      const rate     = parseFloat(rateEl.value) || 0;
+      const term     = parseInt(termEl.value) || 30;
+      const taxRate  = parseFloat(taxEl.value) || 0;
+      const insur    = (parseFloat(insurEl.value)||0) / (insurMode==='yr' ? 12 : 1);
+      const hoa      = parseFloat(hoaEl.value) || 0;
+      const mello    = (parseFloat(melloEl.value)||0) / (melloMode==='yr' ? 12 : 1);
+      const loan     = Math.max(0, price - down);
+      const loanType = typeEl.value;
+      const downPct  = price > 0 ? (down/price)*100 : 100;
+
+      let pi = 0;
+      if (rate > 0 && loan > 0) {
+        const r = (rate/100)/12, n = term*12;
+        pi = loan * (r * Math.pow(1+r,n)) / (Math.pow(1+r,n)-1);
+      } else if (loan > 0) { pi = loan/(term*12); }
+
+      const tax = (price * taxRate/100)/12;
+      let pmi = 0;
+      const catEl = $('lm-loan-category');
+      if (loanType==='conventional') {
+        catEl.textContent = loan<=CONFORMING ? 'Standard Conforming Loan' : loan<=HIGH_BAL ? 'High-Balance Conforming — San Diego County' : 'Exceeds Conforming Limit — Consider Jumbo';
+        catEl.style.display='';
+      } else { catEl.style.display='none'; }
+
+      const pmiNote = $('lm-pmi-note');
+      if (loanType==='conventional' && downPct<20 && loan>0) { pmi=(loan*0.008)/12; pmiNote.style.display=''; }
+      else if (loanType==='fha' && loan>0) { pmi=(loan*0.0055)/12; pmiNote.style.display='none'; }
+      else { pmiNote.style.display='none'; }
+
+      const total = pi+tax+insur+hoa+mello+pmi;
+      $('lm-result').textContent   = total>0 ? fmtC(total) : '—';
+      $('lm-loan-amt').textContent = loan>0  ? fmtC(loan)  : '—';
+
+      const vals = [pi,tax,insur,hoa,mello,pmi];
+      drawChart(vals, total); drawLegend(vals, total);
+      if (price>0) downPctEl.value = Math.round((down/price)*1000)/10;
+    }
+
+    downPctEl.addEventListener('input', () => {
+      const price = parseAmt(priceEl);
+      downAmtEl.value = Math.round(price*(parseFloat(downPctEl.value)||0)/100).toLocaleString('en-US');
+      calc();
+    });
+    priceEl.addEventListener('input', () => {
+      const price = parseFloat(priceEl.value.replace(/,/g,''))||0;
+      downAmtEl.value = Math.round(price*(parseFloat(downPctEl.value)||0)/100).toLocaleString('en-US');
+      calc();
+    });
+    [downAmtEl, rateEl, taxEl, insurEl, hoaEl, melloEl].forEach(el => el.addEventListener('input', calc));
+    termEl.addEventListener('change', calc);
+    typeEl.addEventListener('change', calc);
+
+    // Expose seed function so render() can call it after listing loads
+    window._seedMortCalc = function(l) {
+      priceEl.value   = Math.round(l.ListPrice).toLocaleString('en-US');
+      const down20    = Math.round(l.ListPrice * 0.20);
+      downAmtEl.value = down20.toLocaleString('en-US');
+      downPctEl.value = 20;
+      if (l.AssociationFee) hoaEl.value = l.AssociationFee;
+      calc();
+    };
+    calc();
+  })();
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // SIMILAR PROPERTIES
+  // ─────────────────────────────────────────────────────────────────────────
+  function renderSimilar(items) {
+    const grid = document.getElementById('similar-grid');
+    const HOUSE = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
+    grid.innerHTML = items.map(l => {
+      const a = `${l.StreetNumber} ${l.StreetName}`.trim();
+      return `<a href="listing.html?key=${l.ListingKey}" class="ld-sim-card">
+        <div class="ld-sim-img">${HOUSE}</div>
+        <div class="ld-sim-body">
+          <div class="ld-sim-price">${fmt(l.ListPrice)}</div>
+          <div class="ld-sim-facts">${l.BedroomsTotal} bd · ${l.BathroomsTotalInteger} ba · ${(l.LivingArea||0).toLocaleString()} sqft</div>
+          <div class="ld-sim-addr">${a}, ${l.City} ${l.StateOrProvince}</div>
+        </div>
+      </a>`;
+    }).join('');
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // HEART / SHARE
+  // ─────────────────────────────────────────────────────────────────────────
+  function toggleHeart() {
+    document.getElementById('heart-btn')?.classList.toggle('hearted');
+  }
+  function shareProperty() {
+    const url = window.location.href;
+    if (navigator.share) { navigator.share({ title: document.title, url }); }
+    else { navigator.clipboard.writeText(url).then(() => alert('Link copied to clipboard')); }
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // 2-STEP TOUR MODAL
+  // ─────────────────────────────────────────────────────────────────────────
+  function openTourModal() {
+    // Pre-fill photo in step 1
+    if (photos.length) {
+      document.getElementById('modal-photo').innerHTML = `<img src="${photos[0]}" style="width:100%;height:100%;object-fit:cover" />`;
+    }
+    if (listing) {
+      const addr = `${listing.StreetNumber} ${listing.StreetName}`.trim();
+      document.getElementById('modal-addr-display').textContent = `${addr}, ${listing.City}, CA ${listing.PostalCode}`;
+      document.getElementById('modal-status-display').textContent = listing.StandardStatus || 'Active';
+    }
+    // Set today as default date
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm   = String(today.getMonth()+1).padStart(2,'0');
+    const dd   = String(today.getDate()).padStart(2,'0');
+    document.getElementById('tour-date').value = `${yyyy}-${mm}-${dd}`;
+
+    document.getElementById('modal-step1').style.display = '';
+    document.getElementById('modal-step2').style.display = 'none';
+    document.getElementById('tour-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeTourModal() {
+    document.getElementById('tour-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function goToStep2() {
+    if (listing) {
+      const addr    = `${listing.StreetNumber} ${listing.StreetName}`.trim();
+      const type    = document.querySelector('input[name="tourType"]:checked')?.value || 'In Person';
+      const dateVal = document.getElementById('tour-date').value;
+      const timeVal = document.getElementById('tour-time').value;
+      let dateStr   = dateVal;
+      if (dateVal) {
+        const d = new Date(dateVal + 'T12:00:00');
+        dateStr = d.toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' });
+      }
+      document.getElementById('modal-message').value =
+        `Hello, I'm interested in ${type === 'Virtual' ? 'a virtual' : 'an in person'} tour of the property located at ${addr}, ${listing.City}, CA ${listing.PostalCode}${dateStr ? ' on ' + dateStr : ''}${timeVal ? ' between ' + timeVal : ''}.`;
+    }
+    document.getElementById('modal-step1').style.display = 'none';
+    document.getElementById('modal-step2').style.display = '';
+  }
+
+  function backToStep1() {
+    document.getElementById('modal-step1').style.display = '';
+    document.getElementById('modal-step2').style.display = 'none';
+  }
+
+  function submitTourForm(e) {
+    e.preventDefault();
+    const btn = document.getElementById('modal-submit-btn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    // TODO: POST to Worker /lead or FUB lead API
+    setTimeout(() => {
+      btn.textContent = '✓ Request Sent!';
+      btn.style.background = '#4ade80';
+      btn.style.color = '#1C3063';
+      setTimeout(closeTourModal, 1800);
+    }, 900);
+  }
+
+  // Close modal on overlay click
+  document.getElementById('tour-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeTourModal();
+  });
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // UTIL
+  // ─────────────────────────────────────────────────────────────────────────
+  function fmt(n) {
+    if (n == null) return '—';
+    return '$' + Math.round(n).toLocaleString();
+  }
+  function setText(id, val) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val ?? '—';
+  }
+  </script>
+
+  <!-- ── GLOBAL FOOTER ── -->
+  <footer class="site-footer">
+
+    <div class="footer-info">
+      <div class="footer-info-col footer-info-col--logo">
+        <img src="LOGOS/JaiswalGroupRE_white.png" alt="The Jaiswal Group Real Estate" class="footer-logo" />
+      </div>
+
+      <div class="footer-info-col">
+        <div class="footer-info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="footer-info-text">
+          <p class="footer-info-label">OFFICE ADDRESS</p>
+          <p>5450 INDIGO SAGE DRIVE<br>SAN DIEGO, CA 92130</p>
+          <p class="footer-info-label" style="margin-top:1.25rem;">MAILING ADDRESS</p>
+          <p>PO BOX 3102<br>RANCHO SANTA FE, CA 92067</p>
+          <p style="margin-top:1rem; white-space:nowrap;">LYNNETTE JAISWAL &nbsp;|&nbsp; CA DRE #02100367</p>
+          <p style="margin-top:0.4rem; white-space:nowrap;">THE JAISWAL GROUP, INC &nbsp;|&nbsp; CA DRE #02251231</p>
+        </div>
+      </div>
+
+      <div class="footer-info-col">
+        <div class="footer-info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+        </div>
+        <div class="footer-info-text">
+          <p class="footer-info-label">EMAIL</p>
+          <p><a href="mailto:Lynnette@thejaiswalgroup.com">LYNNETTE@THEJAISWALGROUP.COM</a></p>
+        </div>
+      </div>
+
+      <div class="footer-info-col">
+        <div class="footer-info-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.55 5.55l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
+        </div>
+        <div class="footer-info-text">
+          <p class="footer-info-label">PHONE</p>
+          <p><a href="tel:8582907531">(858) 290-7531</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-disclaimer-block">
+      <p>The Jaiswal Group Real Estate is a real estate broker licensed by the State of California and abides by Equal Housing Opportunity laws. License Number #02251231. All material presented herein is intended for informational purposes only and is compiled from sources deemed reliable but has not been verified. Changes in price, condition, sale or withdrawal may be made without notice. No statement is made as to accuracy of any description. All measurements and square footage are approximate.</p>
+      <div class="footer-compliance-logos">
+        <img src="logorealtor.png" alt="Realtor" class="footer-compliance-logo" />
+        <img src="logoEHO.png" alt="Equal Housing Opportunity" class="footer-compliance-logo" />
+        <img src="logo-NSDCAR.png" alt="North San Diego County Realtors" class="footer-compliance-logo" />
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-bottom-left">
+        <span>&copy; 2026 The Jaiswal Group Real Estate</span>
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="#">Site Map</a>
+      </div>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/LynnetteJaiswalRealtor" aria-label="Facebook" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://www.instagram.com/lynnettejaiswalrealtor/" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="https://www.youtube.com/@LynnetteJaiswalRealtor" aria-label="YouTube" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+        <a href="https://www.tiktok.com/@lynnettejaiswalrealtor" aria-label="TikTok" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg></a>
+        <a href="https://www.linkedin.com/in/lynnettejaiswalrealtor/" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="https://x.com/RealtorJaiswal" aria-label="X" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.622 5.905-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg></a>
+        <a href="https://www.pinterest.com/lynnettejaiswalrealtor/" aria-label="Pinterest" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg></a>
+        <a href="https://zillow.com/reviews/write/?s=X1-ZU11c4x39i7ul1l_52lx3" aria-label="Zillow" class="footer-social-text" target="_blank" rel="noopener">Z</a>
+      </div>
+    </div>
+
+  </footer>
+
+</body>
+</html>

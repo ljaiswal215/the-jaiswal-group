@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account | The Jaiswal Group Real Estate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    .ma-wrap { max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
+    .ma-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40px; flex-wrap: wrap; gap: 16px; }
+    .ma-greeting { font-family: 'Marcellus', serif; font-size: 28px; color: #1C3063; }
+    .ma-greeting span { display: block; font-family: 'Lato', sans-serif; font-size: 14px; color: #888; font-weight: 400; margin-top: 4px; }
+    .ma-signout { font-family: 'Lato', sans-serif; font-size: 13px; color: #888; cursor: pointer; border: 1px solid #ddd; border-radius: 6px; padding: 8px 16px; background: #fff; transition: border-color .15s; }
+    .ma-signout:hover { border-color: #1C3063; color: #1C3063; }
+
+    .ma-tabs { display: flex; gap: 0; border-bottom: 2px solid #e8e8e8; margin-bottom: 36px; }
+    .ma-tab { font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 12px 24px; cursor: pointer; color: #aaa; border-bottom: 2px solid transparent; margin-bottom: -2px; transition: color .15s, border-color .15s; }
+    .ma-tab.active { color: #1C3063; border-bottom-color: #1C3063; }
+    .ma-tab:hover:not(.active) { color: #555; }
+
+    .ma-panel { display: none; }
+    .ma-panel.active { display: block; }
+
+    /* Saved Searches */
+    .ma-searches-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+    .ma-search-card { border: 1px solid #e8e8e8; border-radius: 10px; padding: 20px 22px; background: #fff; position: relative; }
+    .ma-search-card-name { font-family: 'Marcellus', serif; font-size: 17px; color: #1C3063; margin-bottom: 6px; }
+    .ma-search-card-freq { font-size: 12px; color: #888; text-transform: capitalize; margin-bottom: 14px; }
+    .ma-search-card-freq span { background: #f0f3f8; color: #1C3063; border-radius: 20px; padding: 3px 10px; font-weight: 700; font-size: 11px; }
+    .ma-search-card-actions { display: flex; gap: 10px; }
+    .ma-btn-view { font-family: 'Lato', sans-serif; font-size: 13px; font-weight: 700; background: #1C3063; color: #fff; border: none; border-radius: 6px; padding: 8px 16px; cursor: pointer; text-decoration: none; display: inline-block; }
+    .ma-btn-view:hover { background: #16264f; }
+    .ma-btn-delete { font-family: 'Lato', sans-serif; font-size: 13px; color: #bbb; background: none; border: 1px solid #e8e8e8; border-radius: 6px; padding: 8px 14px; cursor: pointer; transition: color .15s, border-color .15s; }
+    .ma-btn-delete:hover { color: #c0392b; border-color: #e9a0a0; }
+    .ma-search-date { font-size: 11px; color: #ccc; margin-top: 12px; }
+
+    /* Saved Listings */
+    .ma-listings-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+    .ma-listing-card { border: 1px solid #e8e8e8; border-radius: 10px; overflow: hidden; background: #fff; text-decoration: none; display: block; transition: box-shadow .2s; }
+    .ma-listing-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.1); }
+    .ma-listing-img { width: 100%; height: 180px; object-fit: cover; background: #f0f3f8; display: block; }
+    .ma-listing-img-placeholder { width: 100%; height: 180px; background: #f0f3f8; display: flex; align-items: center; justify-content: center; }
+    .ma-listing-img-placeholder img { width: 100px; opacity: .25; }
+    .ma-listing-body { padding: 14px 16px 16px; }
+    .ma-listing-price { font-family: 'Marcellus', serif; font-size: 19px; color: #1C3063; margin-bottom: 4px; }
+    .ma-listing-facts { font-size: 12px; color: #666; margin-bottom: 6px; display: flex; gap: 10px; }
+    .ma-listing-addr { font-size: 13px; color: #444; margin-bottom: 12px; line-height: 1.4; }
+    .ma-listing-remove { font-size: 12px; color: #bbb; cursor: pointer; background: none; border: none; padding: 0; font-family: 'Lato', sans-serif; }
+    .ma-listing-remove:hover { color: #c0392b; }
+
+    /* Empty states */
+    .ma-empty { text-align: center; padding: 60px 20px; color: #bbb; }
+    .ma-empty-icon { font-size: 40px; margin-bottom: 14px; }
+    .ma-empty h3 { font-family: 'Marcellus', serif; font-size: 20px; color: #ccc; margin-bottom: 8px; }
+    .ma-empty p { font-size: 14px; margin-bottom: 24px; }
+    .ma-empty a { font-family: 'Lato', sans-serif; font-size: 13px; font-weight: 700; background: #1C3063; color: #fff; border-radius: 6px; padding: 10px 22px; text-decoration: none; display: inline-block; }
+    .ma-empty a:hover { background: #16264f; }
+
+    .ma-loading { text-align: center; padding: 60px; color: #bbb; font-family: 'Lato', sans-serif; font-size: 14px; }
+
+    /* Auth wall */
+    #ma-auth-wall { display: none; text-align: center; padding: 100px 24px; }
+    #ma-auth-wall h2 { font-family: 'Marcellus', serif; font-size: 28px; color: #1C3063; margin-bottom: 12px; }
+    #ma-auth-wall p { font-size: 15px; color: #666; margin-bottom: 28px; }
+    #ma-auth-wall a { font-family: 'Lato', sans-serif; font-weight: 700; background: #1C3063; color: #fff; border-radius: 6px; padding: 12px 28px; text-decoration: none; display: inline-block; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header" id="site-header">
+    <nav class="main-nav">
+      <a href="index.html" class="nav-logo">
+        <img src="LOGOS/JaiswalGroupRE_white.png" class="logo-white" alt="The Jaiswal Group Real Estate" />
+        <img src="logo.png" class="logo-color" alt="The Jaiswal Group Real Estate" />
+      </a>
+      <ul class="nav-links">
+        <li class="has-dropdown"><a href="#">BUY A HOME <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="featured-properties.html">Featured Properties</a></li>
+            <li><a href="listings.html">Browse Homes</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown"><a href="#">SELL YOUR HOME <span class="caret">&#9662;</span></a>
+          <ul class="dropdown">
+            <li><a href="home-valuation.html">Home Valuation</a></li>
+            <li><a href="seller-consultation.html">Seller Consultation</a></li>
+          </ul>
+        </li>
+        <li><a href="communities.html">COMMUNITIES</a></li>
+        <li><a href="BLOG/blog.html">BLOG</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+        <li class="nav-phone"><a href="tel:8582907531">(858) 290-7531</a></li>
+        <li><a href="listings.html" style="font-weight:700;">SEARCH HOMES</a></li>
+        <li class="nav-account" style="display:none;"><a href="my-account.html" style="font-weight:700;">MY ACCOUNT</a></li>
+      </ul>
+      <button class="hamburger" aria-label="Menu" id="hamburger"><span></span><span></span><span></span></button>
+    </nav>
+  </header>
+
+  <!-- Auth wall (shown if not logged in) -->
+  <div id="ma-auth-wall">
+    <h2>Sign in to view your account</h2>
+    <p>Save searches, favorite homes, and get instant listing alerts.</p>
+    <a href="listings.html">Sign In / Create Account</a>
+  </div>
+
+  <!-- Main content -->
+  <div class="ma-wrap" id="ma-main" style="display:none;">
+
+    <div class="ma-header">
+      <div class="ma-greeting" id="ma-greeting">
+        My Account
+        <span id="ma-email"></span>
+      </div>
+      <button class="ma-signout" onclick="signOut()">Sign Out</button>
+    </div>
+
+    <div class="ma-tabs">
+      <div class="ma-tab active" onclick="showTab('searches')">Saved Searches</div>
+      <div class="ma-tab" onclick="showTab('listings')">Saved Homes</div>
+    </div>
+
+    <!-- Saved Searches Panel -->
+    <div class="ma-panel active" id="tab-searches">
+      <div class="ma-loading" id="searches-loading">Loading your saved searches…</div>
+      <div class="ma-searches-grid" id="searches-grid" style="display:none;"></div>
+      <div class="ma-empty" id="searches-empty" style="display:none;">
+        <div class="ma-empty-icon">🔍</div>
+        <h3>No saved searches yet</h3>
+        <p>Save a search and get instant alerts when matching homes hit the market.</p>
+        <a href="listings.html">Start Searching</a>
+      </div>
+    </div>
+
+    <!-- Saved Listings Panel -->
+    <div class="ma-panel" id="tab-listings">
+      <div class="ma-loading" id="listings-loading">Loading your saved homes…</div>
+      <div class="ma-listings-grid" id="listings-grid" style="display:none;"></div>
+      <div class="ma-empty" id="listings-empty" style="display:none;">
+        <div class="ma-empty-icon">🏡</div>
+        <h3>No saved homes yet</h3>
+        <p>Heart a listing on the search page to save it here.</p>
+        <a href="listings.html">Browse Homes</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="nav.js" defer></script>
+  <script>
+    const _sb = supabase.createClient(
+      'https://ochdufbbntinllenqpwp.supabase.co',
+      'sb_publishable_2rVwWfxV0m6XEeW3uGaz8w_eVFQpqYT'
+    );
+
+    let _session = null;
+
+    async function init() {
+      const { data: { session } } = await _sb.auth.getSession();
+      if (!session?.user) {
+        document.getElementById('ma-auth-wall').style.display = 'block';
+        return;
+      }
+      _session = session;
+      document.getElementById('ma-main').style.display = 'block';
+      document.querySelectorAll('.nav-account').forEach(el => el.style.display = '');
+      const meta = session.user.user_metadata || {};
+      const name = meta.firstName ? `${meta.firstName} ${meta.lastName || ''}`.trim() : session.user.email;
+      document.getElementById('ma-greeting').innerHTML = `Welcome back, ${name}<span>${session.user.email}</span>`;
+      loadSearches();
+      loadListings();
+    }
+
+    function showTab(tab) {
+      document.querySelectorAll('.ma-tab').forEach((t, i) => t.classList.toggle('active', ['searches','listings'][i] === tab));
+      document.querySelectorAll('.ma-panel').forEach((p, i) => p.classList.toggle('active', ['searches','listings'][i] === tab));
+    }
+
+    async function loadSearches() {
+      const { data, error } = await _sb.from('saved_searches')
+        .select('*')
+        .eq('user_id', _session.user.id)
+        .order('created_at', { ascending: false });
+
+      document.getElementById('searches-loading').style.display = 'none';
+      if (!data || data.length === 0) {
+        document.getElementById('searches-empty').style.display = 'block';
+        return;
+      }
+      const grid = document.getElementById('searches-grid');
+      grid.style.display = 'grid';
+      grid.innerHTML = data.map(s => {
+        const params = new URLSearchParams(s.criteria || {});
+        const href = `listings.html?${params.toString()}`;
+        const date = new Date(s.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+        return `
+          <div class="ma-search-card" id="search-${s.id}">
+            <div class="ma-search-card-name">${s.name}</div>
+            <div class="ma-search-card-freq">Alerts: <span>${s.freq || 'daily'}</span></div>
+            <div class="ma-search-card-actions">
+              <a class="ma-btn-view" href="${href}">View Results</a>
+              <button class="ma-btn-delete" onclick="deleteSearch('${s.id}')">Remove</button>
+            </div>
+            <div class="ma-search-date">Saved ${date}</div>
+          </div>`;
+      }).join('');
+    }
+
+    async function deleteSearch(id) {
+      await _sb.from('saved_searches').delete().eq('id', id);
+      const el = document.getElementById(`search-${id}`);
+      if (el) el.remove();
+      if (document.getElementById('searches-grid').children.length === 0) {
+        document.getElementById('searches-grid').style.display = 'none';
+        document.getElementById('searches-empty').style.display = 'block';
+      }
+    }
+
+    async function loadListings() {
+      const { data, error } = await _sb.from('saved_listings')
+        .select('*')
+        .eq('user_id', _session.user.id)
+        .order('created_at', { ascending: false });
+
+      document.getElementById('listings-loading').style.display = 'none';
+      if (!data || data.length === 0) {
+        document.getElementById('listings-empty').style.display = 'block';
+        return;
+      }
+      const grid = document.getElementById('listings-grid');
+      grid.style.display = 'grid';
+      grid.innerHTML = data.map(l => {
+        const price = l.price ? '$' + Number(l.price).toLocaleString() : '—';
+        const facts = [l.beds ? `${l.beds} bd` : '', l.baths ? `${l.baths} ba` : '', l.sqft ? `${Number(l.sqft).toLocaleString()} sqft` : ''].filter(Boolean);
+        const imgHtml = l.photo_url
+          ? `<img class="ma-listing-img" src="${l.photo_url}" alt="${l.address || ''}" loading="lazy" />`
+          : `<div class="ma-listing-img-placeholder"><img src="logo.png" alt="" /></div>`;
+        return `
+          <div class="ma-listing-card-wrap" id="fav-${l.listing_key}">
+            <a class="ma-listing-card" href="listing.html?key=${encodeURIComponent(l.listing_key)}">
+              ${imgHtml}
+              <div class="ma-listing-body">
+                <div class="ma-listing-price">${price}</div>
+                <div class="ma-listing-facts">${facts.map(f => `<span>${f}</span>`).join('')}</div>
+                <div class="ma-listing-addr">${l.address || 'View listing'}</div>
+              </div>
+            </a>
+            <div style="padding:0 16px 14px;">
+              <button class="ma-listing-remove" onclick="removeListing('${l.listing_key}')">✕ Remove from saved homes</button>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    async function removeListing(key) {
+      await _sb.from('saved_listings').delete().eq('listing_key', key);
+      const el = document.getElementById(`fav-${key}`);
+      if (el) el.remove();
+      if (document.getElementById('listings-grid').children.length === 0) {
+        document.getElementById('listings-grid').style.display = 'none';
+        document.getElementById('listings-empty').style.display = 'block';
+      }
+    }
+
+    async function signOut() {
+      await _sb.auth.signOut();
+      window.location.href = 'listings.html';
+    }
+
+    init();
+  </script>
+</body>
+</html>

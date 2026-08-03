@@ -160,6 +160,17 @@
     #IDX-detailsVirtualTour, #IDX-detailsSlidesActions,
     #IDX-main .IDX-inline-buttons:has(#IDX-detailsVirtualTour) { display: none !important; }
 
+    /* ─── Remove whitespace from empty detail sections ─── */
+    /* Open Homes section — empty when no open houses scheduled */
+    #IDX-main.IDX-page-listing #IDX-detailsOpenHomes,
+    #IDX-main.IDX-page-listing [id*="OpenHomes"],
+    #IDX-main.IDX-page-listing [id*="openHomes"],
+    #IDX-main.IDX-page-listing .IDX-open-homes { display: none !important; }
+    /* Trim any trailing padding IDX adds below the last accordion panel */
+    #IDX-main.IDX-page-listing #IDX-detailsMain { padding-bottom: 0 !important; }
+    /* Hide accordion panels that contain no field rows */
+    #IDX-main.IDX-page-listing .IDX-accordion:not(:has(.IDX-field)) { display: none !important; }
+
     /* ─── Address & Title Fixes ─── */
     /* Normalize street number + name to same size/weight */
     #IDX-detailsCourtesy { display: none !important; }
