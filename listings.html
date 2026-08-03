@@ -2807,7 +2807,7 @@
           ${imgHtml}
           <span class="ls-badge ${badge.cls}">${badge.label}</span>
           <div class="ls-card-actions">
-            <button class="ls-action-btn ls-heart-btn" data-key="${l.ListingKey}" data-addr="${fullAddr.replace(/'/g,"&#39;")}" data-price="${l.ListPrice||''}" data-beds="${l.BedroomsTotal||''}" data-baths="${l.BathroomsTotalInteger||''}" data-sqft="${l.LivingArea||''}" onclick="event.preventDefault(); toggleHeart(this)" title="Save">
+            <button class="ls-action-btn ls-heart-btn" data-key="${l.ListingKey}" data-addr="${fullAddr.replace(/'/g,"&#39;")}" data-price="${l.ListPrice||''}" data-beds="${l.BedroomsTotal||''}" data-baths="${l.BathroomsTotalInteger||''}" data-sqft="${l.LivingArea||''}" data-photo="${l.photo||''}" onclick="event.preventDefault(); toggleHeart(this)" title="Save">
               <svg viewBox="0 0 24 24"><path d="m13.155 20.634.016-.008.014-.01c2.61-1.604 4.793-3.37 6.333-5.253S22 11.422 22 9.263C22 5.652 19.374 3 15.952 3c-1.765 0-3.01 1.101-3.744 2.018a8 8 0 0 0-.203.265 8 8 0 0 0-.201-.263C11.069 4.099 9.824 3 8.048 3 4.626 3 2 5.651 2 9.264c0 2.158.941 4.215 2.483 6.1 1.541 1.882 3.726 3.648 6.341 5.253h0l.012.007c.135.08.3.165.477.234.158.06.41.142.687.142s.528-.081.685-.141c.175-.067.34-.15.47-.225Z"/></svg>
             </button>
             <button class="ls-action-btn" onclick="event.preventDefault(); shareListing('${l.ListingKey}', '${encodeURIComponent(fullAddr)}')" title="Share">
@@ -2865,18 +2865,19 @@
     if (isHearted) {
       _heartedKeys.add(key);
       _sb.from('saved_listings').upsert({
-        user_id:  session.user.id,
+        user_id:     session.user.id,
         listing_key: key,
-        address:  btn.dataset.addr || null,
-        price:    parseInt(btn.dataset.price) || null,
-        beds:     parseInt(btn.dataset.beds)  || null,
-        baths:    parseFloat(btn.dataset.baths) || null,
-        sqft:     parseInt(btn.dataset.sqft)  || null,
+        address:     btn.dataset.addr  || null,
+        price:       parseInt(btn.dataset.price)    || null,
+        beds:        parseInt(btn.dataset.beds)     || null,
+        baths:       parseFloat(btn.dataset.baths)  || null,
+        sqft:        parseInt(btn.dataset.sqft)     || null,
+        photo_url:   btn.dataset.photo || null,
       }).then(() => {});
     } else {
       _heartedKeys.delete(key);
       _sb.from('saved_listings').delete()
-        .eq('listing_key', key).then(() => {});
+        .eq('user_id', session.user.id).eq('listing_key', key).then(() => {});
     }
     // Sync any other cards showing same listing
     document.querySelectorAll(`.ls-heart-btn[data-key="${key}"]`).forEach(b => {
