@@ -170,7 +170,8 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      margin-bottom: 14px;
+      margin-top: 6px;
+      margin-bottom: 18px;
     }
     .ld-hstatus-dot {
       width: 7px; height: 7px;
@@ -195,13 +196,12 @@
       font-size: 2.4rem;
       color: #1C3063;
       line-height: 1.1;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
     }
     .ld-address {
       font-size: 12px;
       color: #666;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.04em;
     }
     .ld-mls-num {
       font-family: 'Lato', sans-serif;
@@ -501,7 +501,7 @@
 
     /* IDX-style tour card */
     .ld-tour-card {
-      margin-top: 155px;
+      margin-top: 178px;
       background: #F3EFE8;
       border: 1px solid #e8e2d8;
       border-radius: 10px;
@@ -1947,10 +1947,19 @@
   // ─────────────────────────────────────────────────────────────────────────
   // RENDER
   // ─────────────────────────────────────────────────────────────────────────
+  function toTitleCase(str) {
+    if (!str) return str;
+    return str.toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+  }
+
   function render(l) {
     const unit = l.UnitNumber ? ` #${l.UnitNumber}` : '';
-    const addr = `${l.StreetNumber} ${l.StreetName} ${l.StreetSuffix || ''}${unit}`.trim();
-    const fullAddr = `${addr}, ${l.City}, ${l.StateOrProvince} ${l.PostalCode}`;
+    const streetNum = l.StreetNumber || '';
+    const streetName = toTitleCase(l.StreetName || '');
+    const streetSuffix = toTitleCase(l.StreetSuffix || '');
+    const city = toTitleCase(l.City || '');
+    const addr = `${streetNum} ${streetName} ${streetSuffix}${unit}`.trim();
+    const fullAddr = `${addr}, ${city}, ${l.StateOrProvince} ${l.PostalCode}`;
     photos = (l.Media || [])
       .sort((a, b) => (a.Order || 999) - (b.Order || 999))
       .map(m => m.MediaURL || m.photoUrl)
@@ -1958,8 +1967,8 @@
     galPage = 0;
 
     // Page title + meta
-    document.getElementById('page-title').textContent = `${addr}, ${l.City} | The Jaiswal Group`;
-    document.getElementById('page-desc').content = `${l.BedroomsTotal} bed, ${l.BathroomsTotalInteger} bath home in ${l.City}. Listed at ${fmt(l.ListPrice)}.`;
+    document.getElementById('page-title').textContent = `${addr}, ${city} | The Jaiswal Group`;
+    document.getElementById('page-desc').content = `${l.BedroomsTotal} bed, ${l.BathroomsTotalInteger} bath home in ${city}. Listed at ${fmt(l.ListPrice)}.`;
 
     // Breadcrumb
     document.getElementById('bc-address').textContent = fullAddr;
@@ -2076,7 +2085,7 @@
     }
 
     // CTA address
-    document.getElementById('cta-address').innerHTML = `${addr}<br>${l.City} CA ${l.PostalCode}`;
+    document.getElementById('cta-address').innerHTML = `${addr}<br>${city} CA ${l.PostalCode}`;
 
     // Similar properties
     renderSimilar(MOCK_SIMILAR);
@@ -2098,10 +2107,13 @@
   function saveToRecentlyViewed(l) {
     try {
       const unit = l.UnitNumber ? ` #${l.UnitNumber}` : '';
-      const addr = `${l.StreetNumber || ''} ${l.StreetName || ''} ${l.StreetSuffix || ''}${unit}`.trim();
+      const sName = toTitleCase(l.StreetName || '');
+      const sSuffix = toTitleCase(l.StreetSuffix || '');
+      const sCity = toTitleCase(l.City || '');
+      const addr = `${l.StreetNumber || ''} ${sName} ${sSuffix}${unit}`.trim();
       const item = {
         key:      l.ListingKey,
-        address:  `${addr}, ${l.City} ${l.StateOrProvince}, ${l.PostalCode}`,
+        address:  `${addr}, ${sCity} ${l.StateOrProvince}, ${l.PostalCode}`,
         price:    l.ListPrice    || null,
         beds:     l.BedroomsTotal || null,
         baths:    l.BathroomsTotalInteger || null,
@@ -2448,13 +2460,14 @@
     const grid = document.getElementById('similar-grid');
     const HOUSE = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
     grid.innerHTML = items.map(l => {
-      const a = `${l.StreetNumber} ${l.StreetName}`.trim();
+      const a = `${l.StreetNumber} ${toTitleCase(l.StreetName||'')}`.trim();
+      const simCity = toTitleCase(l.City || '');
       return `<a href="listing.html?key=${l.ListingKey}" class="ld-sim-card">
         <div class="ld-sim-img">${HOUSE}</div>
         <div class="ld-sim-body">
           <div class="ld-sim-price">${fmt(l.ListPrice)}</div>
           <div class="ld-sim-facts">${l.BedroomsTotal} bd · ${l.BathroomsTotalInteger} ba · ${(l.LivingArea||0).toLocaleString()} sqft</div>
-          <div class="ld-sim-addr">${a}, ${l.City} ${l.StateOrProvince}</div>
+          <div class="ld-sim-addr">${a}, ${simCity} ${l.StateOrProvince}</div>
         </div>
       </a>`;
     }).join('');
