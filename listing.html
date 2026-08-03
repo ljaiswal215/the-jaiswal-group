@@ -500,7 +500,7 @@
 
     /* IDX-style tour card */
     .ld-tour-card {
-      margin-top: 210px;
+      margin-top: 192px;
       background: #F3EFE8;
       border: 1px solid #e8e2d8;
       border-radius: 10px;
@@ -1179,6 +1179,206 @@
     @media (max-width: 600px) {
       .ld-similar-grid { grid-template-columns: 1fr; }
     }
+  /* ── Nav divider between phone and auth ── */
+  .nav-divider-line {
+    width: 1px; height: 18px; background: rgba(255,255,255,0.3);
+    align-self: center; flex-shrink: 0; margin: 0 4px;
+    list-style: none;
+  }
+  /* ── Nav auth items ── */
+  .nav-login a, .nav-register a {
+    font-family: 'Lato', sans-serif; font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.08em; white-space: nowrap;
+  }
+  .nav-login a { color: #fff; opacity: 0.9; }
+  .nav-login a:hover { opacity: 1; }
+  .nav-register a {
+    color: #fff; border: 1.5px solid rgba(255,255,255,0.7);
+    border-radius: 4px; padding: 5px 14px !important;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .nav-register a:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
+  .nav-account-drop { position: relative; display: none; }
+  .nav-account-drop .nav-acct-trigger {
+    display: flex; align-items: center; gap: 7px; cursor: pointer;
+    font-family: 'Lato', sans-serif; font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 0.08em; color: #fff; white-space: nowrap; text-decoration: none;
+  }
+  .nav-acct-avatar {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: rgba(255,255,255,0.25); border: 1.5px solid rgba(255,255,255,0.7);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700; color: #fff; flex-shrink: 0;
+  }
+  .nav-acct-menu {
+    display: none; position: absolute; right: 0; top: 100%;
+    padding-top: 12px; min-width: 180px; z-index: 9999;
+  }
+  .nav-acct-menu-inner {
+    background: #fff; border-radius: 8px; overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+  }
+  .nav-acct-menu a {
+    display: block; padding: 12px 18px;
+    font-family: 'Lato', sans-serif; font-size: 0.85rem; font-weight: 600;
+    color: #1C3063 !important; text-decoration: none; transition: background 0.15s;
+  }
+  .nav-acct-menu a:hover { background: #f0f3f8; }
+  .nav-acct-menu .acct-menu-divider { border: none; border-top: 1px solid #e8eaf0; margin: 4px 0; }
+  .nav-acct-menu a.acct-signout { color: #888 !important; font-weight: 400; }
+  .nav-acct-menu a.acct-signout:hover { background: #fdf0f3; color: #c0687a !important; }
+  .nav-account-drop:hover .nav-acct-menu,
+  .nav-account-drop.open .nav-acct-menu { display: block; }
+
+  /* ── Auth modal ── */
+  .ls-ss-overlay {
+    position: fixed; inset: 0; z-index: 9200;
+    background: rgba(0,0,0,0.4);
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px;
+  }
+  .ls-ss-overlay.hidden { display: none; }
+  .ls-ss-modal {
+    background: #fff; border-radius: 16px;
+    width: 100%; max-width: 400px;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.22);
+    font-family: 'Lato', sans-serif;
+    overflow: hidden;
+  }
+  .ls-ss-panel { display: none; }
+  .ls-ss-panel.active { display: block; }
+  .ls-ss-head {
+    display: flex; align-items: center;
+    padding: 20px 20px 0;
+    position: relative; min-height: 28px;
+  }
+  .ls-ss-back {
+    background: none; border: none; cursor: pointer;
+    color: #555; font-size: 20px; line-height: 1;
+    padding: 0; margin-right: 8px; flex-shrink: 0;
+  }
+  .ls-ss-back:hover { color: #1C3063; }
+  .ls-ss-close {
+    position: absolute; right: 20px; top: 20px;
+    background: none; border: none; font-size: 20px;
+    color: #888; cursor: pointer; line-height: 1; padding: 0;
+  }
+  .ls-ss-close:hover { color: #1C3063; }
+  .ls-ss-body { padding: 12px 28px 28px; }
+  .ls-ss-title {
+    font-family: 'Marcellus', serif;
+    font-size: 1.25rem; color: #1C3063;
+    margin: 0 0 6px; text-align: center;
+  }
+  .ls-ss-sub {
+    font-size: 13px; color: #666;
+    text-align: center; margin: 0 0 24px; line-height: 1.5;
+  }
+  .ls-ss-auth-stack {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-top: 24px; margin-bottom: 16px;
+  }
+  .ls-ss-auth-btn {
+    width: 100%; padding: 13px 16px;
+    border: 1.5px solid #d5d5d5; border-radius: 8px;
+    background: #fff; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 600; color: #333;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .ls-ss-auth-btn:hover { border-color: #1C3063; background: #f8f9fc; }
+  .ls-ss-auth-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+  .ls-ss-field { margin-bottom: 12px; }
+  .ls-ss-field label {
+    display: block; font-size: 11px; font-weight: 700;
+    color: #555; letter-spacing: 0.05em; text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .ls-ss-field input {
+    width: 100%; box-sizing: border-box;
+    border: 1.5px solid #d5d5d5; border-radius: 8px;
+    padding: 11px 13px; font-family: 'Lato', sans-serif;
+    font-size: 14px; color: #333; outline: none;
+    transition: border-color 0.15s;
+  }
+  .ls-ss-field input:focus { border-color: #1C3063; }
+  .ls-ss-row { display: flex; gap: 10px; }
+  .ls-ss-row .ls-ss-field { flex: 1; }
+  .ls-ss-submit {
+    width: 100%; padding: 13px;
+    background: #1C3063; color: #fff; border: none;
+    border-radius: 8px; font-family: 'Lato', sans-serif;
+    font-size: 14px; font-weight: 700; cursor: pointer;
+    transition: background 0.2s; margin-top: 4px; margin-bottom: 16px;
+  }
+  .ls-ss-submit:hover { background: #18254B; }
+  .ls-ss-submit--signup:hover { background: #C0687A; }
+  .ls-ss-submit:disabled { background: #8899bb; cursor: not-allowed; }
+  .ls-ss-footer {
+    text-align: center; font-size: 15px; color: #555; margin-top: 18px;
+  }
+  .ls-ss-footer a { color: #1C3063; font-weight: 700; cursor: pointer; text-decoration: none; }
+  .ls-ss-footer a:hover { text-decoration: underline; }
+  .ls-ss-forgot { text-align: left; font-size: 13px; margin: 12px 0 16px; font-weight: 600; }
+  .ls-ss-divider { display: flex; align-items: center; gap: 10px; color: #aaa; font-size: 13px; margin: 4px 0 14px; }
+  .ls-ss-divider::before, .ls-ss-divider::after { content: ''; flex: 1; height: 1px; background: #e0e0e0; }
+  .ls-ss-pw-wrap { position: relative; }
+  .ls-ss-pw-wrap input { padding-right: 42px; }
+  .ls-ss-pw-toggle { position: absolute; right: 10px; bottom: 10px; background: none; border: none; padding: 2px; cursor: pointer; color: #aaa; display: flex; align-items: center; }
+  .ls-ss-pw-toggle:hover { color: #1C3063; }
+  .ls-ss-remember { display: flex; align-items: center; margin: 10px 0 16px; font-size: 13px; color: #555; }
+  .ls-ss-remember label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  .ls-ss-remember input[type="checkbox"] { width: 15px; height: 15px; accent-color: #1C3063; cursor: pointer; }
+  .ls-ss-disclaimer { display: flex; align-items: flex-start; gap: 9px; margin: 14px 0 0; }
+  .ls-ss-disclaimer input[type="checkbox"] { margin-top: 3px; flex-shrink: 0; width: 15px; height: 15px; accent-color: #1C3063; cursor: pointer; }
+  .ls-ss-disclaimer-text { font-size: 11px; color: #999; line-height: 1.5; }
+  .ls-ss-disclaimer-text a { color: #1C3063; text-decoration: underline; cursor: pointer; }
+  .ls-ss-error {
+    background: #fee; border: 1px solid #fbb; border-radius: 8px;
+    color: #c0392b; font-size: 13px; padding: 10px 12px;
+    margin-bottom: 14px; display: none;
+  }
+  .ls-ss-error.visible { display: block; }
+  .ls-ss-freq-label {
+    font-size: 11px; font-weight: 700; color: #555;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    margin-bottom: 10px; display: block;
+  }
+  .ls-ss-freq-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .ls-ss-freq-pill {
+    padding: 7px 14px; border-radius: 20px;
+    border: 1.5px solid #d5d5d5; background: #fff;
+    font-family: 'Lato', sans-serif; font-size: 13px; font-weight: 600;
+    color: #555; cursor: pointer; transition: all 0.15s;
+  }
+  .ls-ss-freq-pill:hover { border-color: #1C3063; color: #1C3063; }
+  .ls-ss-freq-pill.selected { background: #1C3063; border-color: #1C3063; color: #fff; }
+  .ls-ss-name-input {
+    width: 100%; box-sizing: border-box;
+    border: none; border-bottom: 2px solid #e8e8e8;
+    padding: 8px 0; font-family: 'Marcellus', serif;
+    font-size: 1.1rem; color: #333; outline: none;
+    background: transparent; margin-bottom: 24px;
+    transition: border-color 0.15s;
+  }
+  .ls-ss-name-input:focus { border-color: #1C3063; }
+  .ls-ss-name-input::placeholder { color: #bbb; }
+  .ls-ss-save-btns { display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px; }
+  .ls-ss-cancel-btn { padding: 10px 20px; background: none; border: none; font-family: 'Lato', sans-serif; font-size: 14px; color: #666; cursor: pointer; }
+  .ls-ss-cancel-btn:hover { color: #1C3063; }
+  .ls-ss-save-btn { padding: 10px 28px; background: #1C3063; color: #fff; border: none; border-radius: 8px; font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+  .ls-ss-save-btn:hover { background: #18254B; }
+  .ls-ss-qualify-group { margin-bottom: 16px; }
+  .ls-ss-qualify-label { font-size: 13px; font-weight: 700; color: #333; margin-bottom: 8px; }
+  .ls-ss-qualify-opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ls-ss-q-opt {
+    padding: 7px 14px; border-radius: 20px;
+    border: 1.5px solid #d5d5d5; background: #fff;
+    font-family: 'Lato', sans-serif; font-size: 13px; color: #555;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .ls-ss-q-opt:hover { border-color: #1C3063; color: #1C3063; }
+  .ls-ss-q-opt.selected { background: #1C3063; border-color: #1C3063; color: #fff; }
   </style>
 </head>
 <body>
@@ -1209,7 +1409,9 @@
           <ul class="dropdown">
             <li><a href="seller-consultation.html">Seller Consultation</a></li>
             <li><a href="home-valuation.html">Home Valuation</a></li>
+            <li><a href="#">Our Marketing</a></li>
             <li><a href="sellers-guide.html">Seller's Guide</a></li>
+            <li><a href="#">Selling Checklist</a></li>
           </ul>
         </li>
         <li><a href="communities.html">COMMUNITIES</a></li>
@@ -1217,10 +1419,12 @@
         <li class="has-dropdown">
           <a href="#">RESOURCES <span class="caret">&#9662;</span></a>
           <ul class="dropdown">
+            <li><a href="#">Market Updates</a></li>
+            <li><a href="#">Lender Partners</a></li>
             <li><a href="mortgage-calculator.html">Mortgage Calculator</a></li>
             <li><a href="open-houses-carmel-valley.html">Open Houses</a></li>
-            <li><a href="relocation-guide.html">Relocation Guide</a></li>
-            <li><a href="plugged-in-method.html">The Plugged In Method</a></li>
+            <li><a href="/relocation-guide.html">Relocation Guide</a></li>
+            <li><a href="/plugged-in-method.html">The Plugged In Method</a></li>
             <li><a href="calendar-of-events.html">Calendar of Events</a></li>
           </ul>
         </li>
@@ -1229,10 +1433,29 @@
           <ul class="dropdown">
             <li><a href="lynnette-jaiswal.html">Lynnette Jaiswal</a></li>
             <li><a href="clientreviews.html">Client Reviews</a></li>
+            <li><a href="#">Join Our Team</a></li>
           </ul>
         </li>
         <li><a href="contact.html">CONTACT</a></li>
         <li class="nav-phone"><a href="tel:8582907531">(858) 290-7531</a></li>
+        <li class="nav-divider-line" aria-hidden="true"></li>
+        <li class="nav-login"><a href="#" onclick="event.preventDefault(); openAuthModal('login')">LOGIN</a></li>
+        <li class="nav-register"><a href="#" onclick="event.preventDefault(); openAuthModal('options')">REGISTER</a></li>
+        <li class="nav-account-drop" id="nav-account-drop">
+          <a class="nav-acct-trigger" href="#" onclick="event.preventDefault(); this.closest('.nav-account-drop').classList.toggle('open')">
+            <span class="nav-acct-avatar" id="nav-acct-initials">?</span>
+            <span id="nav-acct-name">Account</span>
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="opacity:.8"><path d="M1 1l4 4 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </a>
+          <div class="nav-acct-menu">
+            <div class="nav-acct-menu-inner">
+              <a href="profile.html">Profile</a>
+              <a href="my-account.html">My Account</a>
+              <hr class="acct-menu-divider">
+              <a href="#" class="acct-signout" onclick="event.preventDefault(); _sb.auth.signOut().then(()=>location.reload())">Sign Out</a>
+            </div>
+          </div>
+        </li>
       </ul>
       <button class="hamburger" aria-label="Menu" id="hamburger"><span></span><span></span><span></span></button>
     </nav>
@@ -1845,7 +2068,161 @@
        SCRIPTS
   ========================================================= -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="main.js"></script>
+  <script>
+  // ── Auth: session check + nav state ──
+  const _sb = supabase.createClient(
+    'https://ochdufbbntinllenqpwp.supabase.co',
+    'sb_publishable_2rVwWfxV0m6XEeW3uGaz8w_eVFQpqYT'
+  );
+  function _userFromSess(s) {
+    const m = s.user.user_metadata || {};
+    return {
+      firstName: m.firstName || m.full_name?.split(' ')[0] || '',
+      lastName:  m.lastName  || m.full_name?.split(' ').slice(1).join(' ') || '',
+      email: s.user.email || ''
+    };
+  }
+  function updateNavAuth(user) {
+    const drop = document.getElementById('nav-account-drop');
+    const loginItems = document.querySelectorAll('.nav-login, .nav-register');
+    if (user) {
+      const initials = ((user.firstName?.[0] || '') + (user.lastName?.[0] || '') || user.email?.[0] || '?').toUpperCase();
+      const name = user.firstName || user.email || 'Account';
+      document.getElementById('nav-acct-initials').textContent = initials;
+      document.getElementById('nav-acct-name').textContent = name;
+      if (drop) drop.style.display = 'list-item';
+      loginItems.forEach(el => el.style.display = 'none');
+    } else {
+      if (drop) drop.style.display = 'none';
+      loginItems.forEach(el => el.style.display = 'list-item');
+    }
+  }
+  _sb.auth.getSession().then(({ data: { session } }) => {
+    updateNavAuth(session?.user ? _userFromSess(session) : null);
+  });
+  _sb.auth.onAuthStateChange((_event, session) => {
+    updateNavAuth(session?.user ? _userFromSess(session) : null);
+  });
+
+  // ── Auth modal functions ──
+  let _ssUser = null;
+  let _ssFromRegister = false;
+
+  function openAuthModal(panel) {
+    _ssFromRegister = true;
+    document.getElementById('ss-options-title').textContent = 'Create Your Free Account';
+    document.getElementById('ss-options-sub').textContent = 'Save your favorite homes, create custom searches, and be the first to know when new listings match your criteria.';
+    document.getElementById('ls-ss-login-title').textContent = 'Log In';
+    document.getElementById('ls-ss-login-sub').textContent = 'Access your saved homes, searches, and instant listing alerts.';
+    document.getElementById('ls-ss-overlay').classList.remove('hidden');
+    ssShowPanel(panel || 'options');
+  }
+
+  function closeSaveSearch() {
+    document.getElementById('ls-ss-overlay').classList.add('hidden');
+  }
+
+  function ssShowPanel(name) {
+    document.querySelectorAll('.ls-ss-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('ls-ss-p-' + name).classList.add('active');
+    if (name === 'login') {
+      setTimeout(() => document.getElementById('ss-login-email')?.focus(), 50);
+    }
+  }
+
+  async function ssTriggerGoogle() {
+    const { error } = await _sb.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: window.location.href }
+    });
+    if (error) console.error('Google OAuth error:', error.message);
+  }
+
+  async function ssSubmitSignup() {
+    const first    = document.getElementById('ss-first').value.trim();
+    const last     = document.getElementById('ss-last').value.trim();
+    const email    = document.getElementById('ss-email').value.trim();
+    const password = document.getElementById('ss-password').value;
+    const phone    = document.getElementById('ss-phone').value.trim();
+    const errEl    = document.getElementById('ls-ss-signup-error');
+    errEl.classList.remove('visible');
+    const consent  = document.getElementById('ss-consent');
+    if (!first || !email || !password) {
+      errEl.textContent = 'Please fill in your name, email, and password.';
+      errEl.classList.add('visible'); return;
+    }
+    if (password.length < 6) {
+      errEl.textContent = 'Password must be at least 6 characters.';
+      errEl.classList.add('visible'); return;
+    }
+    if (!consent?.checked) {
+      errEl.textContent = 'Please agree to the terms to continue.';
+      errEl.classList.add('visible'); return;
+    }
+    const { data, error } = await _sb.auth.signUp({
+      email, password,
+      options: { data: { firstName: first, lastName: last, phone } }
+    });
+    if (error) { errEl.textContent = error.message; errEl.classList.add('visible'); return; }
+    _ssUser = { firstName: first, lastName: last, email, phone };
+    fetch(`${WORKER_URL}/fub-lead`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        firstName: first, lastName: last, email,
+        ...(phone ? { phone } : {}),
+        source: 'Website - New Registration',
+        note: 'Created account via Register button on listing detail page.'
+      })
+    }).catch(() => {});
+    closeSaveSearch();
+  }
+
+  function togglePwVisibility(inputId, btn) {
+    const inp = document.getElementById(inputId);
+    const isHidden = inp.type === 'password';
+    inp.type = isHidden ? 'text' : 'password';
+    btn.querySelector('#eye-icon-show').style.display = isHidden ? 'none' : '';
+    btn.querySelector('#eye-icon-hide').style.display = isHidden ? '' : 'none';
+    btn.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+  }
+
+  async function ssForgotPassword() {
+    const email = document.getElementById('ss-login-email').value.trim();
+    const errEl = document.getElementById('ls-ss-login-error');
+    if (!email) {
+      errEl.textContent = 'Enter your email above, then click Forgot password.';
+      errEl.classList.add('visible');
+      document.getElementById('ss-login-email').focus();
+      return;
+    }
+    const { error } = await _sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin + '/my-account.html' });
+    errEl.textContent = error ? error.message : `Reset link sent to ${email}. Check your inbox.`;
+    errEl.style.color = error ? '' : '#2e7d32';
+    errEl.classList.add('visible');
+  }
+
+  async function ssSubmitLogin() {
+    const email    = document.getElementById('ss-login-email').value.trim();
+    const password = document.getElementById('ss-login-pw').value;
+    const errEl    = document.getElementById('ls-ss-login-error');
+    errEl.classList.remove('visible');
+    if (!email || !password) {
+      errEl.textContent = 'Please enter your email and password.';
+      errEl.classList.add('visible'); return;
+    }
+    const { data, error } = await _sb.auth.signInWithPassword({ email, password });
+    if (error) {
+      errEl.textContent = error.message === 'Invalid login credentials'
+        ? 'Incorrect email or password.' : error.message;
+      errEl.classList.add('visible'); return;
+    }
+    _ssUser = _userFromSess(data.session);
+    closeSaveSearch();
+  }
+  </script>
   <script>
   // ─────────────────────────────────────────────────────────────────────────
   // CONFIG — flip USE_MOCK to false and set WORKER_URL when credentials arrive
@@ -2655,6 +3032,94 @@
     </div>
 
   </footer>
+
+  <!-- ── Auth modal (login / register) ── -->
+  <div class="ls-ss-overlay hidden" id="ls-ss-overlay" onclick="if(event.target===this)closeSaveSearch()">
+    <div class="ls-ss-modal">
+
+      <!-- Panel 1: Options -->
+      <div class="ls-ss-panel active" id="ls-ss-p-options">
+        <div class="ls-ss-head"><button class="ls-ss-close" onclick="closeSaveSearch()">&#x2715;</button></div>
+        <div class="ls-ss-body">
+          <h2 class="ls-ss-title" id="ss-options-title">Create Your Free Account</h2>
+          <p class="ls-ss-sub" id="ss-options-sub">Save your favorite homes, create custom searches, and be the first to know when new listings match your criteria.</p>
+          <div class="ls-ss-auth-stack">
+            <button class="ls-ss-auth-btn" onclick="ssTriggerGoogle()">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+              Create Account with Google
+            </button>
+            <button class="ls-ss-auth-btn" onclick="ssShowPanel('signup')">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#1C3063"/></svg>
+              Create Account with Email
+            </button>
+          </div>
+          <p style="font-size:12px;color:#aaa;text-align:center;margin:0 0 14px;">🔒 We'll never share your information or send spam.</p>
+          <p class="ls-ss-footer" style="font-size:13px;color:#bbb;">Already have an account? <a onclick="ssShowPanel('login')" style="color:#999;font-weight:600;">Log In</a></p>
+        </div>
+      </div>
+
+      <!-- Panel 2: Sign Up -->
+      <div class="ls-ss-panel" id="ls-ss-p-signup">
+        <div class="ls-ss-head">
+          <button class="ls-ss-back" onclick="ssShowPanel('options')">&#8592;</button>
+          <button class="ls-ss-close" onclick="closeSaveSearch()">&#x2715;</button>
+        </div>
+        <div class="ls-ss-body">
+          <h2 class="ls-ss-title">Create Your Account</h2>
+          <p class="ls-ss-sub" style="margin-bottom:18px;">Create an account to save your favorite homes, receive instant listing alerts, and access your searches from any device.</p>
+          <div id="ls-ss-signup-error" class="ls-ss-error"></div>
+          <div class="ls-ss-row">
+            <div class="ls-ss-field"><label>First Name</label><input type="text" id="ss-first" placeholder="" autocomplete="given-name"></div>
+            <div class="ls-ss-field"><label>Last Name</label><input type="text" id="ss-last" placeholder="" autocomplete="family-name"></div>
+          </div>
+          <div class="ls-ss-field"><label>Email</label><input type="email" id="ss-email" placeholder="" autocomplete="email"></div>
+          <div class="ls-ss-field"><label>Password</label><input type="password" id="ss-password" placeholder="Create a password (minimum 6 characters)" autocomplete="new-password"></div>
+          <div class="ls-ss-field"><label>Phone <span style="font-weight:400;color:#aaa;">(optional)</span></label><input type="tel" id="ss-phone" placeholder="" autocomplete="tel"></div>
+          <button class="ls-ss-submit ls-ss-submit--signup" onclick="ssSubmitSignup()">Create My Account</button>
+          <p style="font-size:11.5px;color:#aaa;text-align:center;margin:10px 0 0;">🔒 We respect your privacy and never sell your information.</p>
+          <div class="ls-ss-disclaimer">
+            <input type="checkbox" id="ss-consent">
+            <label for="ss-consent" class="ls-ss-disclaimer-text">By providing The Jaiswal Group Real Estate your contact information, you acknowledge and agree to our <a href="/privacy-policy.html" target="_blank">Privacy Policy</a> and consent to receiving marketing communications, including through automated calls, texts, and emails, some of which may use artificial or prerecorded voices. This consent isn't necessary for purchasing any products or services and you may opt out at any time. To opt out from texts, you can reply, 'stop' at any time. To opt out from emails, you can click on the unsubscribe link in the emails. Message and data rates may apply.</label>
+          </div>
+          <p class="ls-ss-footer">Already have an account? <a onclick="ssShowPanel('login')">Log In</a></p>
+        </div>
+      </div>
+
+      <!-- Panel 3: Log In -->
+      <div class="ls-ss-panel" id="ls-ss-p-login">
+        <div class="ls-ss-head">
+          <button class="ls-ss-back" onclick="ssShowPanel('options')">&#8592;</button>
+          <button class="ls-ss-close" onclick="closeSaveSearch()">&#x2715;</button>
+        </div>
+        <div class="ls-ss-body">
+          <h2 class="ls-ss-title" id="ls-ss-login-title">Log In</h2>
+          <p class="ls-ss-sub" id="ls-ss-login-sub">Access your saved homes, searches, and instant listing alerts.</p>
+          <div id="ls-ss-login-error" class="ls-ss-error"></div>
+          <div class="ls-ss-field"><label>Email</label><input type="email" id="ss-login-email" placeholder="Email" autocomplete="email" autofocus></div>
+          <div class="ls-ss-field ls-ss-pw-wrap">
+            <label>Password</label>
+            <input type="password" id="ss-login-pw" placeholder="Password" autocomplete="current-password">
+            <button type="button" class="ls-ss-pw-toggle" onclick="togglePwVisibility('ss-login-pw', this)" aria-label="Show password">
+              <svg id="eye-icon-show" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              <svg id="eye-icon-hide" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </button>
+          </div>
+          <div class="ls-ss-remember">
+            <label><input type="checkbox" id="ss-remember" checked> Remember me</label>
+          </div>
+          <button class="ls-ss-submit" onclick="ssSubmitLogin()">Log In</button>
+          <p class="ls-ss-forgot" style="margin-top:10px;margin-bottom:16px;"><a onclick="ssForgotPassword()" style="cursor:pointer;color:#1C3063;">Forgot password?</a></p>
+          <div class="ls-ss-divider" style="margin-bottom:12px;">or</div>
+          <button class="ls-ss-auth-btn" onclick="ssTriggerGoogle()">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+            Continue with Google
+          </button>
+          <p class="ls-ss-footer">Don't have an account? <a onclick="ssShowPanel('options')">Create one</a></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
 </body>
 </html>
