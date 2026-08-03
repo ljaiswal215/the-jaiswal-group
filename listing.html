@@ -212,14 +212,7 @@
     }
     .ld-quick-stats {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 20px;
-    }
-    .ld-stats-row {
-      display: flex;
       align-items: center;
-      gap: 0;
     }
     .ld-stat {
       display: flex;
@@ -248,18 +241,7 @@
     }
     .ld-stat-lbl svg { flex-shrink: 0; stroke: #999; fill: none; stroke-width: 1.5; }
     .ld-stat-divider { width: 1px; height: 52px; background: #ebebeb; flex-shrink: 0; }
-    /* Secondary stats row */
-    .ld-stats-row-2 {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      padding-left: 0;
-      border-top: 1px solid #f0f0f0;
-      padding-top: 14px;
-      width: 100%;
-    }
-    .ld-stats-row-2 .ld-stat:first-child { padding-left: 0; }
-    .ld-sidebar-nav { display: none; }
+.ld-sidebar-nav { display: none; }
     /* Gallery-embedded arrow buttons — bottom-left of hero */
     .ld-gallery-arrows {
       position: absolute;
@@ -1359,9 +1341,8 @@
             <div class="ld-address" id="ld-address">—</div>
             <div class="ld-mls-num" id="ld-mls-num">MLS# —</div>
           </div>
-          <!-- Stats as direct flex child (center) -->
+          <!-- Stats as direct flex child -->
           <div class="ld-quick-stats">
-            <!-- Primary stats row -->
             <div class="ld-stats-row">
               <div class="ld-stat">
                 <span class="ld-stat-lbl">
@@ -1386,9 +1367,7 @@
                 </span>
                 <span class="ld-stat-val" id="stat-sqft">—</span>
               </div>
-            </div>
-            <!-- Secondary stats row (year built, lot, garage) — shown only when data exists -->
-            <div class="ld-stats-row-2" id="stats-row-2" style="display:none">
+              <div class="ld-stat-divider" id="stat-divider-year" style="display:none"></div>
               <div class="ld-stat" id="stat-year-wrap" style="display:none">
                 <span class="ld-stat-lbl">
                   <svg width="13" height="13" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
@@ -1396,23 +1375,10 @@
                 </span>
                 <span class="ld-stat-val" id="stat-year">—</span>
               </div>
-              <div class="ld-stat-divider" id="stat-divider-lot" style="display:none"></div>
-              <div class="ld-stat" id="stat-lot-wrap" style="display:none">
-                <span class="ld-stat-lbl">
-                  <svg width="13" height="13" viewBox="0 0 24 24"><path d="M3 21l18-18M3 21h6m-6 0v-6M21 3l-6 6M21 3v6m0-6h-6"/></svg>
-                  LOT SIZE
-                </span>
-                <span class="ld-stat-val" id="stat-lot">—</span>
-              </div>
-              <div class="ld-stat-divider" id="stat-divider-garage" style="display:none"></div>
-              <div class="ld-stat" id="stat-garage-wrap" style="display:none">
-                <span class="ld-stat-lbl">
-                  <svg width="13" height="13" viewBox="0 0 24 24"><path d="M5 17H3v-5l2-5h14l2 5v5h-2m-1 0H7m10 0a1 1 0 11-2 0 1 1 0 012 0zm-8 0a1 1 0 11-2 0 1 1 0 012 0z"/></svg>
-                  GARAGE
-                </span>
-                <span class="ld-stat-val" id="stat-garage">—</span>
-              </div>
             </div>
+            <!-- Hidden placeholders for JS (lot/garage no longer displayed) -->
+            <span id="stat-lot" style="display:none"></span>
+            <span id="stat-garage" style="display:none"></span>
           </div>
         </div>
 
@@ -2046,25 +2012,12 @@
     document.getElementById('stat-baths').textContent = l.BathroomsTotalInteger ?? '—';
     document.getElementById('stat-sqft').textContent  = l.LivingArea ? l.LivingArea.toLocaleString() : '—';
 
-    // Secondary stats — show only when data exists
-    const hasYear   = !!l.YearBuilt;
-    const lotAcres  = l.LotSizeAcres ? l.LotSizeAcres.toFixed(2) + ' ac'
-                    : l.LotSizeSquareFeet ? Math.round(l.LotSizeSquareFeet).toLocaleString() + ' sf'
-                    : null;
-    const hasLot    = !!lotAcres;
-    const hasGarage = l.GarageSpaces != null && l.GarageSpaces > 0;
-
-    if (hasYear)   { document.getElementById('stat-year').textContent   = l.YearBuilt; }
-    if (hasLot)    { document.getElementById('stat-lot').textContent    = lotAcres; }
-    if (hasGarage) { document.getElementById('stat-garage').textContent = l.GarageSpaces + (l.GarageSpaces === 1 ? ' car' : ' cars'); }
-
+    // Year Built — show in primary row only when data exists
+    const hasYear = !!l.YearBuilt;
+    if (hasYear) { document.getElementById('stat-year').textContent = l.YearBuilt; }
     const show = (id, visible) => { const el = document.getElementById(id); if (el) el.style.display = visible ? '' : 'none'; };
     show('stat-year-wrap',    hasYear);
-    show('stat-lot-wrap',     hasLot);
-    show('stat-garage-wrap',  hasGarage);
-    show('stat-divider-lot',  hasYear && hasLot);
-    show('stat-divider-garage', (hasYear || hasLot) && hasGarage);
-    show('stats-row-2', hasYear || hasLot || hasGarage);
+    show('stat-divider-year', hasYear);
     const ppsf = l.ListPrice && l.LivingArea ? '$' + Math.round(l.ListPrice / l.LivingArea).toLocaleString() : '—';
 
     // Description
