@@ -45,7 +45,7 @@ const DETAIL_FIELDS = CARD_FIELDS + ',' + [
   'DaysOnMarket', 'CumulativeDaysOnMarket',
   'VirtualTourURLUnbranded', 'VirtualTourURLBranded',
   'OpenHouseRemarks',
-  'ListAgentDirectPhone', 'ListAgentMobilePhone', 'ListOfficePhone'
+  'ListAgentDirectPhone', 'ListAgentMobilePhone', 'ListOfficePhone', 'ListAgentEmail'
 ].join(',');
 
 // In-memory token cache (persists within a warm Worker isolate)

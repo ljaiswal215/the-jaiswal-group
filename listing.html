@@ -1319,7 +1319,7 @@
         <!-- MLS Disclaimer -->
         <div class="ld-disclaimer" id="ld-disclaimer">
           <img src="LOGOS/logo-crmls.png" alt="CRMLS" class="ld-crmls-logo" />
-          <p class="ld-attribution">Listed by <span id="d-agent">—</span><span id="d-agent-phone-wrap"> &bull; <a id="d-agent-phone" style="color:#555;text-decoration:none;"></a></span> &bull; <span id="d-office">—</span></p>
+          <p class="ld-attribution">Listed by <span id="d-agent">—</span><span id="d-agent-dre-wrap"> &bull; DRE# <span id="d-agent-dre"></span></span><span id="d-agent-phone-wrap"> &bull; <a id="d-agent-phone" style="color:#555;text-decoration:none;"></a></span> &bull; <span id="d-office">—</span></p>
           <p>Based on information from California Regional Multiple Listing Service, Inc. as of <span id="d-updated">—</span> and/or other sources. All data, including all measurements and calculations of area, is obtained from various sources and has not been, and will not be, verified by broker or MLS. All information should be independently reviewed and verified for accuracy. Properties may or may not be listed by the office/agent presenting the information. Any amount of compensation or commission stated is made only to participants of CRMLS or an MLS that has entered into a datashare agreement with CRMLS.</p>
         </div>
 
@@ -1850,13 +1850,23 @@
     }
     setText('d-agent', l.ListAgentFullName);
     setText('d-office', l.ListOfficeName);
+    const dreWrap = document.getElementById('d-agent-dre-wrap');
+    if (l.ListAgentStateLicense) {
+      setText('d-agent-dre', l.ListAgentStateLicense);
+      dreWrap.style.display = '';
+    } else {
+      dreWrap.style.display = 'none';
+    }
     const phone = l.ListAgentDirectPhone || l.ListAgentMobilePhone || l.ListOfficePhone;
     const phoneWrap = document.getElementById('d-agent-phone-wrap');
+    const phoneEl = document.getElementById('d-agent-phone');
     if (phone) {
-      const digits = phone.replace(/\D/g, '');
-      const el = document.getElementById('d-agent-phone');
-      el.href = `tel:${digits}`;
-      el.textContent = phone;
+      phoneEl.href = `tel:${phone.replace(/\D/g, '')}`;
+      phoneEl.textContent = phone;
+      phoneWrap.style.display = '';
+    } else if (l.ListAgentEmail) {
+      phoneEl.href = `mailto:${l.ListAgentEmail}`;
+      phoneEl.textContent = l.ListAgentEmail;
       phoneWrap.style.display = '';
     } else {
       phoneWrap.style.display = 'none';
