@@ -1759,7 +1759,7 @@
     const unit = l.UnitNumber ? ` #${l.UnitNumber}` : '';
     const addr = `${l.StreetNumber} ${l.StreetName} ${l.StreetSuffix || ''}${unit}`.trim();
     const fullAddr = `${addr}, ${l.City}, ${l.StateOrProvince} ${l.PostalCode}`;
-    photos = (l.Media || []).map(m => m.photoUrl).filter(Boolean);
+    photos = (l.Media || []).map(m => m.MediaURL || m.photoUrl).filter(Boolean);
 
     // Page title + meta
     document.getElementById('page-title').textContent = `${addr}, ${l.City} | The Jaiswal Group`;
@@ -1901,7 +1901,7 @@
         beds:     l.BedroomsTotal || null,
         baths:    l.BathroomsTotalInteger || null,
         sqft:     l.LivingArea   || null,
-        photo:    (l.Media || [])[0]?.photoUrl || null,
+        photo:    (l.Media || [])[0]?.MediaURL || (l.Media || [])[0]?.photoUrl || null,
         viewedAt: Date.now(),
       };
       let recent = JSON.parse(localStorage.getItem('tjg_recently_viewed') || '[]');
