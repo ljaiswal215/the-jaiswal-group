@@ -32,20 +32,17 @@ const CARD_FIELDS = [
 
 // Fields needed for the full detail page (superset of CARD_FIELDS)
 const DETAIL_FIELDS = CARD_FIELDS + ',' + [
-  'PublicRemarks', 'PrivateRemarks',
+  'PublicRemarks',
   'BathroomsFull', 'BathroomsHalf',
-  'Stories', 'Levels', 'FireplacesTotal',
-  'PoolPrivateYN', 'SpaYN', 'WaterfrontYN',
+  'Stories', 'FireplacesTotal',
+  'PoolPrivateYN', 'SpaYN',
   'Heating', 'Cooling', 'Flooring',
   'ParkingFeatures', 'GarageYN',
   'MLSAreaMajor', 'SubdivisionName',
-  'ElementarySchool', 'MiddleOrJuniorSchool', 'HighSchool',
   'TaxAnnualAmount', 'AssociationName', 'AssociationFeeFrequency',
   'CloseDate', 'ClosePrice',
-  'DaysOnMarket', 'CumulativeDaysOnMarket',
-  'VirtualTourURLUnbranded', 'VirtualTourURLBranded',
-  'OpenHouseRemarks',
-  'ListAgentDirectPhone', 'ListAgentMobilePhone', 'ListOfficePhone', 'ListAgentEmail'
+  'DaysOnMarket',
+  'ListAgentDirectPhone', 'ListAgentMobilePhone', 'ListAgentEmail'
 ].join(',');
 
 // In-memory token cache (persists within a warm Worker isolate)
@@ -367,13 +364,20 @@ export default {
       const detailMatch = url.pathname.match(/^\/listing\/([^/]+)$/);
       if (detailMatch) {
         const key  = decodeURIComponent(detailMatch[1]);
-        const tUrl = `${PROPERTY_URL}('${key}')?$select=${DETAIL_FIELDS}&$expand=Media`;
+        // Use $filter instead of OData key navigation to avoid quoting issues
+        const tUrl = new URL(PROPERTY_URL);
+        tUrl.searchParams.set('$filter',  `ListingKey eq '${key}'`);
+        tUrl.searchParams.set('$select',  DETAIL_FIELDS);
+        tUrl.searchParams.set('$expand',  'Media');
+        tUrl.searchParams.set('$top',     '1');
 
-        const resp = await fetch(tUrl, { headers: auth });
-        if (resp.status === 404) return json({ error: 'Listing not found' }, 404);
+        const resp = await fetch(tUrl.toString(), { headers: auth });
         if (!resp.ok) return json({ error: `Trestles detail error: ${resp.status}` }, resp.status);
 
-        return json(await resp.json());
+        const body = await resp.json();
+        const listing = body?.value?.[0];
+        if (!listing) return json({ error: 'Listing not found' }, 404);
+        return json(listing);
       }
 
       // ── POST /share-listing ──────────────────────────────────────────────────
