@@ -170,7 +170,7 @@
       document.querySelectorAll('.nav-account').forEach(el => el.style.display = '');
       const meta = session.user.user_metadata || {};
       const name = meta.firstName ? `${meta.firstName} ${meta.lastName || ''}`.trim() : session.user.email;
-      document.getElementById('ma-greeting').innerHTML = `Welcome back, ${name}<span>${session.user.email}</span>`;
+      document.getElementById('ma-greeting').innerHTML = `Welcome Back, ${name}<span>${session.user.email}</span>`;
       loadSearches();
       loadListings();
     }
