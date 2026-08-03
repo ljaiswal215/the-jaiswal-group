@@ -1882,11 +1882,35 @@
     document.getElementById('ld-loading-state').style.display = 'none';
     document.getElementById('ld-content').style.display = 'block';
 
+    // Track recently viewed
+    saveToRecentlyViewed(l);
+
     // Seed mortgage calc + standalone map (deferred so DOM is visible)
     setTimeout(() => {
       if (window._seedMortCalc) window._seedMortCalc(l);
       initStandaloneMap(l);
     }, 300);
+  }
+
+  function saveToRecentlyViewed(l) {
+    try {
+      const addr = `${l.StreetNumber || ''} ${l.StreetName || ''} ${l.StreetSuffix || ''}`.trim();
+      const item = {
+        key:      l.ListingKey,
+        address:  `${addr}, ${l.City} ${l.StateOrProvince}, ${l.PostalCode}`,
+        price:    l.ListPrice    || null,
+        beds:     l.BedroomsTotal || null,
+        baths:    l.BathroomsTotalInteger || null,
+        sqft:     l.LivingArea   || null,
+        photo:    (l.Media || [])[0]?.photoUrl || null,
+        viewedAt: Date.now(),
+      };
+      let recent = JSON.parse(localStorage.getItem('tjg_recently_viewed') || '[]');
+      recent = recent.filter(r => r.key !== item.key); // deduplicate
+      recent.unshift(item);
+      if (recent.length > 20) recent = recent.slice(0, 20);
+      localStorage.setItem('tjg_recently_viewed', JSON.stringify(recent));
+    } catch (e) {}
   }
 
   // ─────────────────────────────────────────────────────────────────────────

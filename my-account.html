@@ -242,10 +242,12 @@
 
     <!-- Recently Viewed Panel -->
     <div class="ma-panel" id="tab-recent">
-      <div class="ma-coming-soon">
-        <div class="ma-coming-soon-badge">Coming Soon</div>
-        <h3>Recently Viewed</h3>
-        <p>Your recently viewed listings will appear here so you can easily pick up where you left off.</p>
+      <div class="ma-listings-grid" id="recent-grid" style="display:none;"></div>
+      <div class="ma-empty" id="recent-empty" style="display:none;">
+        <div class="ma-empty-icon">👁️</div>
+        <h3>No recently viewed properties</h3>
+        <p>Properties you view will appear here so you can easily pick up where you left off.</p>
+        <a href="listings.html">BROWSE HOMES</a>
       </div>
     </div>
 
@@ -289,6 +291,7 @@
 
       loadSearches();
       loadListings();
+      loadRecentlyViewed();
     }
 
     function showTab(tab) {
@@ -370,6 +373,31 @@
         document.getElementById('listings-grid').style.display = 'none';
         document.getElementById('listings-empty').style.display = 'block';
       }
+    }
+
+    function loadRecentlyViewed() {
+      const recent = JSON.parse(localStorage.getItem('tjg_recently_viewed') || '[]');
+      if (!recent.length) { document.getElementById('recent-empty').style.display = 'block'; return; }
+      const grid = document.getElementById('recent-grid');
+      grid.style.display = 'grid';
+      grid.innerHTML = recent.map(l => {
+        const price = l.price ? '$' + Number(l.price).toLocaleString() : '—';
+        const facts = [l.beds ? `${l.beds} bd` : '', l.baths ? `${l.baths} ba` : '', l.sqft ? `${Number(l.sqft).toLocaleString()} sqft` : ''].filter(Boolean);
+        const imgHtml = l.photo
+          ? `<img class="ma-listing-img" src="${l.photo}" alt="${l.address || ''}" loading="lazy" />`
+          : `<div class="ma-listing-img-placeholder"><img src="logo.png" alt="" /></div>`;
+        return `
+          <div class="ma-listing-card-wrap">
+            <a class="ma-listing-card" href="listing.html?key=${encodeURIComponent(l.key)}">
+              ${imgHtml}
+              <div class="ma-listing-body">
+                <div class="ma-listing-price">${price}</div>
+                <div class="ma-listing-facts">${facts.map(f => `<span>${f}</span>`).join('')}</div>
+                <div class="ma-listing-addr">${l.address || 'View listing'}</div>
+              </div>
+            </a>
+          </div>`;
+      }).join('');
     }
 
     async function signOut() {
