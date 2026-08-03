@@ -2191,6 +2191,9 @@
       phone:     m.phone || ''
     };
   }
+  // Track last listings URL so profile page can link back to it
+  sessionStorage.setItem('lastListingsUrl', location.href);
+
   const DEFAULT_ZIPS = '92130,92014,92075,92007,92024,92010,92009,92008,92011,92078,92127,92067,92091,92054,92056,92129,92029,92025,92026,92027,92064,92128,92083,92081';
 
   // ─────────────────────────────────────────────────────────────────────────

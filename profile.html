@@ -10,16 +10,55 @@
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
+    /* ── Nav account dropdown ── */
+    .nav-account-drop { position: relative; display: none; margin-left: auto; }
+    .nav-account-drop .nav-acct-trigger {
+      display: flex; align-items: center; gap: 7px; cursor: pointer;
+      font-family: 'Lato', sans-serif; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.08em; color: #fff; white-space: nowrap; text-decoration: none;
+      padding-right: 0 !important;
+    }
+    .nav-acct-avatar {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(255,255,255,0.25); border: 1.5px solid rgba(255,255,255,0.7);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700; color: #fff; letter-spacing: 0; flex-shrink: 0;
+    }
+    .nav-acct-menu {
+      display: none; position: absolute; right: 0; top: calc(100% + 12px);
+      background: #fff; border-radius: 8px; min-width: 180px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.14); overflow: hidden; z-index: 9999;
+    }
+    .nav-acct-menu a {
+      display: block; padding: 12px 18px;
+      font-family: 'Lato', sans-serif; font-size: 0.85rem; font-weight: 600;
+      color: #1C3063 !important; text-decoration: none; letter-spacing: 0.02em;
+      transition: background 0.15s;
+    }
+    .nav-acct-menu a:hover { background: #f0f3f8; }
+    .nav-acct-menu .acct-menu-divider { border: none; border-top: 1px solid #e8eaf0; margin: 4px 0; }
+    .nav-acct-menu a.acct-signout { color: #888 !important; font-weight: 400; }
+    .nav-acct-menu a.acct-signout:hover { background: #fdf0f3; color: #c0687a !important; }
+    .nav-account-drop:hover .nav-acct-menu,
+    .nav-account-drop.open .nav-acct-menu { display: block; }
+    .profile-page .main-nav { padding-right: 16px; }
+
+    /* ── Breadcrumb bar (full-width, like listings welcome bar) ── */
+    #pf-breadcrumb-bar {
+      display: none; background: #f0f3f8; border-bottom: 1px solid #dde3ef;
+      padding: 7px 20px; align-items: center; gap: 8px;
+      font-family: 'Lato', sans-serif; font-size: 13px; color: #999;
+    }
+    #pf-breadcrumb-bar a { color: #1C3063; font-weight: 600; text-decoration: none; }
+    #pf-breadcrumb-bar a:hover { text-decoration: underline; }
+    #pf-breadcrumb-bar .pf-bc-sep { color: #ccc; }
+    #pf-breadcrumb-bar .pf-bc-current { color: #555; }
+
+    /* ── Page layout ── */
     .pf-page { min-height: calc(100vh - 80px); background: #f7f8fb; }
-    .pf-wrap { max-width: 560px; margin: 0 auto; padding: 56px 24px 80px; }
+    .pf-wrap { max-width: 560px; margin: 0 auto; padding: 48px 24px 80px; }
 
-    /* Breadcrumb */
-    .pf-breadcrumb { font-family: 'Lato', sans-serif; font-size: 13px; color: #999; margin-bottom: 40px; display: flex; align-items: center; gap: 8px; }
-    .pf-breadcrumb a { color: #1C3063; text-decoration: none; }
-    .pf-breadcrumb a:hover { text-decoration: underline; }
-    .pf-breadcrumb-sep { color: #ccc; }
-
-    /* Avatar */
+    /* ── Avatar ── */
     .pf-avatar-wrap { display: flex; flex-direction: column; align-items: center; margin-bottom: 32px; }
     .pf-avatar {
       width: 96px; height: 96px; border-radius: 50%;
@@ -31,19 +70,15 @@
     .pf-email-display { font-family: 'Lato', sans-serif; font-size: 14px; color: #888; text-align: center; margin-bottom: 4px; }
     .pf-phone-display { font-family: 'Lato', sans-serif; font-size: 14px; color: #888; text-align: center; margin-bottom: 24px; }
 
-    /* Edit profile button */
+    /* ── Edit profile button ── */
     .pf-edit-btn {
       font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 700;
       background: #1C3063; color: #fff; border: none; border-radius: 8px;
       padding: 11px 32px; cursor: pointer; transition: background .2s; letter-spacing: .04em;
     }
     .pf-edit-btn:hover { background: #16264f; }
-    .pf-edit-btn.secondary {
-      background: #fff; color: #888; border: 1px solid #ddd; margin-left: 10px;
-    }
-    .pf-edit-btn.secondary:hover { border-color: #999; color: #555; }
 
-    /* Edit form */
+    /* ── Edit form ── */
     #pf-edit-form { display: none; width: 100%; background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; padding: 28px 28px 24px; margin-top: 8px; box-shadow: 0 2px 12px rgba(0,0,0,.05); }
     .pf-form-row { margin-bottom: 18px; }
     .pf-form-row label { display: block; font-family: 'Lato', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .06em; color: #888; text-transform: uppercase; margin-bottom: 6px; }
@@ -70,14 +105,13 @@
     .pf-success { font-family: 'Lato', sans-serif; font-size: 13px; color: #2e7d52; background: #eaf7ef; border-radius: 6px; padding: 10px 14px; margin-top: 14px; display: none; }
     .pf-error { font-family: 'Lato', sans-serif; font-size: 13px; color: #c0392b; background: #fdf0f0; border-radius: 6px; padding: 10px 14px; margin-top: 14px; display: none; }
 
-    /* Settings section */
+    /* ── Settings ── */
     .pf-settings { margin-top: 40px; }
     .pf-settings-title { font-family: 'Lato', sans-serif; font-size: 18px; font-weight: 700; color: #1C3063; margin-bottom: 12px; letter-spacing: .02em; }
     .pf-settings-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; overflow: hidden; }
     .pf-settings-row {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 18px 22px; cursor: pointer; transition: background .15s;
-      text-decoration: none;
+      padding: 18px 22px; cursor: pointer; transition: background .15s; text-decoration: none;
     }
     .pf-settings-row:hover { background: #f7f8fb; }
     .pf-settings-row + .pf-settings-row { border-top: 1px solid #f0f0f0; }
@@ -86,19 +120,19 @@
     .pf-settings-label { font-family: 'Lato', sans-serif; font-size: 15px; color: #222; font-weight: 600; }
     .pf-settings-chevron { color: #ccc; }
 
-    /* Auth wall */
+    /* ── Auth wall ── */
     #pf-auth-wall { display: none; text-align: center; padding: 100px 24px; }
     #pf-auth-wall h2 { font-family: 'Marcellus', serif; font-size: 28px; color: #1C3063; margin-bottom: 12px; }
     #pf-auth-wall p { font-size: 15px; color: #666; margin-bottom: 28px; }
     #pf-auth-wall a { font-family: 'Lato', sans-serif; font-weight: 700; background: #1C3063; color: #fff; border-radius: 6px; padding: 12px 28px; text-decoration: none; display: inline-block; font-size: 14px; }
 
-    /* Change password panel */
+    /* ── Change password panel ── */
     #pf-pw-form { display: none; background: #fff; border: 1px solid #e8e8e8; border-radius: 12px; padding: 28px; margin-top: 14px; box-shadow: 0 2px 12px rgba(0,0,0,.05); }
     .pf-pw-note { font-family: 'Lato', sans-serif; font-size: 14px; color: #666; margin-bottom: 20px; line-height: 1.6; }
     #pf-pw-sent { font-family: 'Lato', sans-serif; font-size: 13px; color: #2e7d52; background: #eaf7ef; border-radius: 6px; padding: 10px 14px; display: none; }
   </style>
 </head>
-<body>
+<body class="profile-page">
 
   <header class="site-header" id="site-header">
     <nav class="main-nav">
@@ -124,6 +158,19 @@
         <li><a href="contact.html">CONTACT</a></li>
         <li class="nav-phone"><a href="tel:8582907531">(858) 290-7531</a></li>
         <li><a href="listings.html" style="font-weight:700;">SEARCH HOMES</a></li>
+        <li class="nav-account-drop" id="nav-account-drop">
+          <a class="nav-acct-trigger" href="#" onclick="event.preventDefault(); this.closest('.nav-account-drop').classList.toggle('open')">
+            <span class="nav-acct-avatar" id="nav-acct-initials">?</span>
+            <span id="nav-acct-name">Account</span>
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="opacity:.8"><path d="M1 1l4 4 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </a>
+          <div class="nav-acct-menu">
+            <a href="profile.html">Profile</a>
+            <a href="my-account.html">My Account</a>
+            <hr class="acct-menu-divider">
+            <a href="#" class="acct-signout" onclick="event.preventDefault(); signOut()">Sign Out</a>
+          </div>
+        </li>
       </ul>
       <button class="hamburger" aria-label="Menu" id="hamburger"><span></span><span></span><span></span></button>
     </nav>
@@ -136,15 +183,16 @@
     <a href="listings.html">Sign In / Create Account</a>
   </div>
 
+  <!-- Breadcrumb bar (full-width, matches listings welcome bar) -->
+  <div id="pf-breadcrumb-bar">
+    <a id="pf-home-search-link" href="listings.html">Home Search</a>
+    <span class="pf-bc-sep">›</span>
+    <span class="pf-bc-current">Profile</span>
+  </div>
+
   <!-- Profile content -->
   <div class="pf-page" id="pf-main" style="display:none;">
     <div class="pf-wrap">
-
-      <div class="pf-breadcrumb">
-        <a href="listings.html">Home search</a>
-        <span class="pf-breadcrumb-sep">›</span>
-        <span>Profile</span>
-      </div>
 
       <!-- Avatar + info -->
       <div class="pf-avatar-wrap">
@@ -188,21 +236,23 @@
       <div class="pf-settings">
         <div class="pf-settings-title">Settings</div>
         <div class="pf-settings-card">
+          <!-- Notifications -->
+          <div class="pf-settings-row">
+            <div class="pf-settings-row-left">
+              <div class="pf-settings-icon">
+                <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0" stroke="#1C3063" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <span class="pf-settings-label">Notifications</span>
+            </div>
+            <svg class="pf-settings-chevron" width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#ccc" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <!-- Change password -->
           <div class="pf-settings-row" onclick="togglePwForm()">
             <div class="pf-settings-row-left">
               <div class="pf-settings-icon">
                 <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" stroke="#1C3063" stroke-width="1.8"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#1C3063" stroke-width="1.8" stroke-linecap="round"/></svg>
               </div>
               <span class="pf-settings-label">Change password</span>
-            </div>
-            <svg class="pf-settings-chevron" width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#ccc" stroke-width="1.8" stroke-linecap="round"/></svg>
-          </div>
-          <div class="pf-settings-row" onclick="signOut()">
-            <div class="pf-settings-row-left">
-              <div class="pf-settings-icon">
-                <svg width="18" height="18" fill="none" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="#c0687a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-              <span class="pf-settings-label" style="color:#c0687a;">Sign Out</span>
             </div>
             <svg class="pf-settings-chevron" width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M1 1l6 6-6 6" stroke="#ccc" stroke-width="1.8" stroke-linecap="round"/></svg>
           </div>
@@ -231,6 +281,13 @@
 
     let _session = null;
 
+    function formatPhone(raw) {
+      const d = raw.replace(/\D/g, '');
+      if (d.length === 10) return `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
+      if (d.length === 11 && d[0] === '1') return `(${d.slice(1,4)}) ${d.slice(4,7)}-${d.slice(7)}`;
+      return raw;
+    }
+
     async function init() {
       const { data: { session } } = await _sb.auth.getSession();
       if (!session?.user) {
@@ -238,8 +295,18 @@
         return;
       }
       _session = session;
+
+      // Show breadcrumb bar + main content
+      const bar = document.getElementById('pf-breadcrumb-bar');
+      bar.style.display = 'flex';
+
+      // Wire Home Search link to last listings URL the user was on
+      const lastUrl = sessionStorage.getItem('lastListingsUrl');
+      if (lastUrl) document.getElementById('pf-home-search-link').href = lastUrl;
+
       document.getElementById('pf-main').style.display = 'block';
       renderProfile(session.user);
+      updateNavDrop(session.user);
     }
 
     function renderProfile(user) {
@@ -248,13 +315,13 @@
       const lastName  = meta.lastName  || meta.full_name?.split(' ').slice(1).join(' ') || '';
       const fullName  = [firstName, lastName].filter(Boolean).join(' ') || user.email;
       const initials  = ((firstName[0] || '') + (lastName[0] || '')).toUpperCase() || (user.email[0] || '?').toUpperCase();
-      const phone     = meta.phone || '';
+      const rawPhone  = meta.phone || '';
 
       document.getElementById('pf-initials').textContent = initials;
       document.getElementById('pf-name').textContent = fullName;
       document.getElementById('pf-email-display').textContent = user.email;
-      if (phone) {
-        document.getElementById('pf-phone-display').textContent = phone;
+      if (rawPhone) {
+        document.getElementById('pf-phone-display').textContent = formatPhone(rawPhone);
         document.getElementById('pf-phone-display').style.display = '';
       }
       document.getElementById('pf-pw-email').textContent = user.email;
@@ -262,13 +329,24 @@
       // Pre-fill edit form
       document.getElementById('pf-first').value = firstName;
       document.getElementById('pf-last').value = lastName;
-      document.getElementById('pf-phone').value = phone;
+      document.getElementById('pf-phone').value = rawPhone;
       document.getElementById('pf-email-field').value = user.email;
     }
 
+    function updateNavDrop(user) {
+      const drop = document.getElementById('nav-account-drop');
+      if (!drop) return;
+      const meta = user.user_metadata || {};
+      const firstName = meta.firstName || meta.full_name?.split(' ')[0] || '';
+      const lastName  = meta.lastName  || meta.full_name?.split(' ').slice(1).join(' ') || '';
+      const initials  = ((firstName[0] || '') + (lastName[0] || '')).toUpperCase() || (user.email[0] || '?').toUpperCase();
+      document.getElementById('nav-acct-initials').textContent = initials;
+      document.getElementById('nav-acct-name').textContent = firstName || 'Account';
+      drop.style.display = 'list-item';
+    }
+
     function toggleEdit(open) {
-      const form = document.getElementById('pf-edit-form');
-      form.style.display = open ? 'block' : 'none';
+      document.getElementById('pf-edit-form').style.display = open ? 'block' : 'none';
       document.getElementById('pf-save-success').style.display = 'none';
       document.getElementById('pf-save-error').style.display = 'none';
     }
@@ -282,41 +360,37 @@
       successEl.style.display = 'none';
       errorEl.style.display = 'none';
 
-      const { error } = await _sb.auth.updateUser({
-        data: { firstName, lastName, phone }
-      });
+      const { error } = await _sb.auth.updateUser({ data: { firstName, lastName, phone } });
+      if (error) { errorEl.textContent = error.message; errorEl.style.display = 'block'; return; }
 
-      if (error) {
-        errorEl.textContent = error.message;
-        errorEl.style.display = 'block';
-        return;
-      }
       successEl.style.display = 'block';
       const { data: { session } } = await _sb.auth.getSession();
-      if (session?.user) renderProfile(session.user);
+      if (session?.user) { renderProfile(session.user); updateNavDrop(session.user); }
     }
 
     function togglePwForm() {
       const form = document.getElementById('pf-pw-form');
-      const isOpen = form.style.display === 'block';
-      form.style.display = isOpen ? 'none' : 'block';
+      form.style.display = form.style.display === 'block' ? 'none' : 'block';
       document.getElementById('pf-pw-sent').style.display = 'none';
     }
 
     async function sendPasswordReset() {
-      const email = _session.user.email;
-      const { error } = await _sb.auth.resetPasswordForEmail(email, {
+      const { error } = await _sb.auth.resetPasswordForEmail(_session.user.email, {
         redirectTo: window.location.origin + '/profile.html'
       });
-      if (!error) {
-        document.getElementById('pf-pw-sent').style.display = 'block';
-      }
+      if (!error) document.getElementById('pf-pw-sent').style.display = 'block';
     }
 
     async function signOut() {
       await _sb.auth.signOut();
       window.location.href = 'listings.html';
     }
+
+    // Close nav dropdown on outside click
+    document.addEventListener('click', e => {
+      const drop = document.getElementById('nav-account-drop');
+      if (drop && !drop.contains(e.target)) drop.classList.remove('open');
+    });
 
     init();
   </script>
