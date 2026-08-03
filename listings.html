@@ -2362,8 +2362,9 @@
 
         // Prefer full listing data from the cards array (has address, beds, photo)
         const l = allListings.find(x => x.ListingKey === this.listing.ListingKey) || this.listing;
+        const unitSfx = l.UnitNumber ? ` #${l.UnitNumber}` : '';
         const addr = (l.StreetNumber && l.StreetName)
-          ? `${l.StreetNumber} ${l.StreetName} ${l.StreetSuffix || ''}`.trim()
+          ? `${l.StreetNumber} ${l.StreetName} ${l.StreetSuffix || ''}${unitSfx}`.trim()
           : (l.City ? '' : 'Private Address');
         const fullAddr = `${addr}${l.City ? (addr ? ', ' : '') + l.City : ''}${l.StateOrProvince ? ', ' + l.StateOrProvince : ''}${l.PostalCode ? ' ' + l.PostalCode : ''}` || 'Private Address';
 
@@ -2788,8 +2789,9 @@
     }
 
     listings.forEach(l => {
+      const unit = l.UnitNumber ? ` #${l.UnitNumber}` : '';
       const streetLine = (l.StreetNumber && l.StreetName)
-        ? `${l.StreetNumber} ${l.StreetName} ${l.StreetSuffix || ''}`.trim()
+        ? `${l.StreetNumber} ${l.StreetName} ${l.StreetSuffix || ''}${unit}`.trim()
         : 'Private Address';
       const addr = streetLine;
       const fullAddr = `${addr}, ${l.City} ${l.StateOrProvince}, ${l.PostalCode}`;
