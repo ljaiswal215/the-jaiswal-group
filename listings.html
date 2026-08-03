@@ -2861,10 +2861,15 @@
       openAuthModal('options');
       return;
     }
-    const isHearted = btn.classList.toggle('hearted');
+    const wasHearted = btn.classList.contains('hearted');
+    const isHearted = !wasHearted;
+    // Optimistic UI update
+    document.querySelectorAll(`.ls-heart-btn[data-key="${key}"]`).forEach(b => {
+      if (isHearted) b.classList.add('hearted'); else b.classList.remove('hearted');
+    });
     if (isHearted) {
       _heartedKeys.add(key);
-      _sb.from('saved_listings').upsert({
+      const { error } = await _sb.from('saved_listings').upsert({
         user_id:     session.user.id,
         listing_key: key,
         address:     btn.dataset.addr  || null,
@@ -2873,17 +2878,25 @@
         baths:       parseFloat(btn.dataset.baths)  || null,
         sqft:        parseInt(btn.dataset.sqft)     || null,
         photo_url:   btn.dataset.photo || null,
-      }).then(() => {});
+      });
+      if (error) {
+        console.error('[heart save error]', error);
+        // Revert on failure
+        _heartedKeys.delete(key);
+        document.querySelectorAll(`.ls-heart-btn[data-key="${key}"]`).forEach(b => b.classList.remove('hearted'));
+        alert('Could not save property: ' + error.message);
+      }
     } else {
       _heartedKeys.delete(key);
-      _sb.from('saved_listings').delete()
-        .eq('user_id', session.user.id).eq('listing_key', key).then(() => {});
+      const { error } = await _sb.from('saved_listings').delete()
+        .eq('user_id', session.user.id).eq('listing_key', key);
+      if (error) {
+        console.error('[heart remove error]', error);
+        _heartedKeys.add(key);
+        document.querySelectorAll(`.ls-heart-btn[data-key="${key}"]`).forEach(b => b.classList.add('hearted'));
+        alert('Could not remove property: ' + error.message);
+      }
     }
-    // Sync any other cards showing same listing
-    document.querySelectorAll(`.ls-heart-btn[data-key="${key}"]`).forEach(b => {
-      if (isHearted) b.classList.add('hearted');
-      else b.classList.remove('hearted');
-    });
   }
 
   async function loadHeartedListings() {
