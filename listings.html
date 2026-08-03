@@ -31,6 +31,38 @@
     }
     .nav-register a:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
 
+    /* ── Account dropdown (logged-in nav) ── */
+    .nav-account-drop { position: relative; display: none; }
+    .nav-account-drop .nav-acct-trigger {
+      display: flex; align-items: center; gap: 7px; cursor: pointer;
+      font-family: 'Lato', sans-serif; font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.08em; color: #fff; white-space: nowrap; text-decoration: none;
+    }
+    .nav-acct-avatar {
+      width: 30px; height: 30px; border-radius: 50%;
+      background: rgba(255,255,255,0.25); border: 1.5px solid rgba(255,255,255,0.7);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700; color: #fff; letter-spacing: 0;
+      flex-shrink: 0;
+    }
+    .nav-acct-menu {
+      display: none; position: absolute; right: 0; top: calc(100% + 12px);
+      background: #fff; border-radius: 8px; min-width: 180px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.14); overflow: hidden; z-index: 9999;
+    }
+    .nav-acct-menu a {
+      display: block; padding: 12px 18px;
+      font-family: 'Lato', sans-serif; font-size: 0.85rem; font-weight: 600;
+      color: #1C3063 !important; text-decoration: none; letter-spacing: 0.02em;
+      transition: background 0.15s;
+    }
+    .nav-acct-menu a:hover { background: #f0f3f8; }
+    .nav-acct-menu .acct-menu-divider { border: none; border-top: 1px solid #e8eaf0; margin: 4px 0; }
+    .nav-acct-menu a.acct-signout { color: #888 !important; font-weight: 400; }
+    .nav-acct-menu a.acct-signout:hover { background: #fdf0f3; color: #c0687a !important; }
+    .nav-account-drop:hover .nav-acct-menu,
+    .nav-account-drop.open .nav-acct-menu { display: block; }
+
     /* ── Layout shell ── */
     html, body { height: 100%; overflow: hidden; }
     body.listings-page { display: flex; flex-direction: column; }
@@ -1282,6 +1314,18 @@
         <li class="nav-phone"><a href="tel:8582907531">(858) 290-7531</a></li>
         <li class="nav-login"><a href="#" onclick="event.preventDefault(); openAuthModal('login')">LOGIN</a></li>
         <li class="nav-register"><a href="#" onclick="event.preventDefault(); openAuthModal('options')">REGISTER</a></li>
+        <li class="nav-account-drop" id="nav-account-drop">
+          <a class="nav-acct-trigger" href="#" onclick="event.preventDefault(); this.closest('.nav-account-drop').classList.toggle('open')">
+            <span class="nav-acct-avatar" id="nav-acct-initials">?</span>
+            <span id="nav-acct-name">Account</span>
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="opacity:.8"><path d="M1 1l4 4 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </a>
+          <div class="nav-acct-menu">
+            <a href="my-account.html">My Account</a>
+            <hr class="acct-menu-divider">
+            <a href="#" class="acct-signout" onclick="event.preventDefault(); _sb.auth.signOut().then(()=>location.reload())">Sign Out</a>
+          </div>
+        </li>
       </ul>
       <button class="hamburger" aria-label="Menu" id="hamburger"><span></span><span></span><span></span></button>
     </nav>
@@ -2105,12 +2149,23 @@
 
   function updateUserBar(user) {
     const bar = document.getElementById('ls-user-bar');
+    const drop = document.getElementById('nav-account-drop');
+    const loginItems = document.querySelectorAll('.nav-login, .nav-register');
     if (user) {
       const name = user.firstName || user.email || '';
+      const initials = (user.firstName?.[0] || '') + (user.lastName?.[0] || '') || (user.email?.[0] || '?');
       document.getElementById('ls-user-bar-name').textContent = `Hi, ${name}`;
       bar.style.display = 'flex';
+      if (drop) {
+        document.getElementById('nav-acct-initials').textContent = initials.toUpperCase();
+        document.getElementById('nav-acct-name').textContent = name || 'Account';
+        drop.style.display = '';
+      }
+      loginItems.forEach(el => el.style.display = 'none');
     } else {
       bar.style.display = 'none';
+      if (drop) drop.style.display = 'none';
+      loginItems.forEach(el => el.style.display = '');
     }
   }
 
@@ -3621,6 +3676,8 @@
       document.getElementById('sort-drop').style.display = 'none';
       wrap.classList.remove('open');
     }
+    const acctDrop = document.getElementById('nav-account-drop');
+    if (acctDrop && !acctDrop.contains(e.target)) acctDrop.classList.remove('open');
   });
 
   // ─────────────────────────────────────────────────────────────────────────
