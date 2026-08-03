@@ -241,13 +241,15 @@
     }
     .ld-stat-lbl svg { flex-shrink: 0; stroke: #aaa; fill: none; stroke-width: 1.5; }
     .ld-stat-divider { width: 1px; height: 52px; background: #ebebeb; flex-shrink: 0; }
-    /* Nav arrows live in .ld-header-right — keep class for potential future use */
     .ld-sidebar-nav { display: none; }
-    .ld-header-nav {
+    /* Gallery-embedded arrow buttons — bottom-left of hero */
+    .ld-gallery-arrows {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
       display: flex;
       gap: 8px;
-      flex-shrink: 0;
-      align-self: center;
+      z-index: 10;
     }
 
     /* Description */
@@ -1179,6 +1181,16 @@
         </div>
       </div>
 
+      <!-- Gallery nav arrows embedded at bottom-left of hero -->
+      <div class="ld-gallery-arrows">
+        <button class="ld-gallery-nav-btn" onclick="galleryNav(-1)" title="Previous photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="ld-gallery-nav-btn" onclick="galleryNav(1)" title="Next photo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+        </button>
+      </div>
+
       <!-- Actions: heart + share at top-right of full gallery -->
       <div class="ld-gallery-actions">
         <button class="ld-act-btn" id="heart-btn" onclick="toggleHeart()" title="Save">
@@ -1237,15 +1249,6 @@
             <!-- Hidden elements for JS -->
             <span id="stat-lot" style="display:none"></span>
             <span id="stat-year" style="display:none"></span>
-          </div>
-          <!-- Nav arrows as direct flex child (far right) -->
-          <div class="ld-header-nav">
-            <button class="ld-gallery-nav-btn" onclick="galleryNav(-1)" title="Previous photo">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-            </button>
-            <button class="ld-gallery-nav-btn" onclick="galleryNav(1)" title="Next photo">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
-            </button>
           </div>
         </div>
 
