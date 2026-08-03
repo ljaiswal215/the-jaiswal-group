@@ -1027,15 +1027,21 @@
 
     /* Header bar */
     .ld-lb-header {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
       padding: 0 20px;
       height: 56px;
-      background: #fff;
-      border-bottom: 1px solid #ebebeb;
+      background: #F3EFE8;
+      border-bottom: 1px solid #ddd8d0;
       flex-shrink: 0;
       gap: 12px;
+    }
+    .ld-lb-header-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
     }
     .ld-lb-back {
       display: flex;
@@ -1085,17 +1091,16 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.12);
     }
 
-    /* Counter pill */
+    /* Counter — below image, centered */
     .ld-lb-counter {
       font-family: 'Lato', sans-serif;
       font-size: 12px;
       font-weight: 700;
       letter-spacing: 0.06em;
       color: #1C3063;
-      background: #f0ede8;
-      border-radius: 20px;
-      padding: 5px 14px;
-      white-space: nowrap;
+      text-align: center;
+      padding: 8px 0 4px;
+      flex-shrink: 0;
     }
 
     /* Action buttons */
@@ -1113,19 +1118,30 @@
       cursor: pointer;
       transition: background 0.15s;
     }
-    .ld-lb-action-btn:hover { background: #B38987; }
-    .ld-lb-action-btn svg { width: 16px; height: 16px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .ld-lb-action-btn:hover { background: #1C3063; }
+    .ld-lb-action-btn:hover svg { stroke: #B38987; }
+    .ld-lb-action-btn svg { width: 16px; height: 16px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.15s, fill 0.15s; }
     .ld-lb-action-btn.hearted svg { fill: #B38987; stroke: #B38987; }
+    .ld-lb-action-btn.hearted:hover svg { fill: #B38987; stroke: #B38987; }
 
     /* Photo view */
     .ld-lb-photo-view {
       flex: 1;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       position: relative;
-      padding: 24px 80px;
+      padding: 24px 80px 16px;
       min-height: 0;
+    }
+    .ld-lb-img-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 0;
+      width: 100%;
     }
     .ld-lightbox-img {
       max-width: 100%;
@@ -1144,12 +1160,13 @@
       transition: background 0.2s;
       flex-shrink: 0;
     }
-    .ld-lightbox-prev { left: 16px; }
-    .ld-lightbox-next { right: 16px; }
-    .ld-lightbox-prev:hover, .ld-lightbox-next:hover { background: #B38987; }
+    .ld-lightbox-prev { left: 0; }
+    .ld-lightbox-next { right: 0; }
+    .ld-lightbox-prev:hover, .ld-lightbox-next:hover { background: #1C3063; }
+    .ld-lightbox-prev:hover svg, .ld-lightbox-next:hover svg { stroke: #B38987; }
     .ld-lightbox-prev svg, .ld-lightbox-next svg {
       width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2.5;
-      stroke-linecap: round; stroke-linejoin: round;
+      stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.15s;
     }
 
     /* Virtual tour iframe */
@@ -2033,30 +2050,35 @@
         <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         Back to Listing
       </button>
-      <!-- Photos / Virtual Tour tabs (shown only when tour URL exists) -->
+      <!-- Photos / Virtual Tour tabs — centered -->
       <div class="ld-lb-tabs" id="lb-tabs" style="display:none">
         <button class="ld-lb-tab active" id="lb-tab-photos" onclick="lbShowPhotos()">Photos</button>
         <button class="ld-lb-tab" id="lb-tab-tour" onclick="lbShowTour()">Virtual Tour</button>
       </div>
-      <div class="ld-lb-counter" id="lb-counter">1 of —</div>
-      <div class="ld-lb-actions">
-        <button class="ld-lb-action-btn" id="lb-heart-btn" onclick="toggleHeart()" title="Save">
-          <svg viewBox="0 0 24 24"><path d="m13.155 20.634.016-.008.014-.01c2.61-1.604 4.793-3.37 6.333-5.253S22 11.422 22 9.263C22 5.652 19.374 3 15.952 3c-1.765 0-3.01 1.101-3.744 2.018a8 8 0 0 0-.203.265 8 8 0 0 0-.201-.263C11.069 4.099 9.824 3 8.048 3 4.626 3 2 5.651 2 9.264c0 2.158.941 4.215 2.483 6.1 1.541 1.882 3.726 3.648 6.341 5.253l.012.007c.135.08.3.165.477.234.158.06.41.142.687.142s.528-.081.685-.141c.175-.067.34-.15.47-.225Z"/></svg>
-        </button>
-        <button class="ld-lb-action-btn" onclick="shareProperty()" title="Share">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        </button>
+      <!-- Right: heart + share -->
+      <div class="ld-lb-header-right">
+        <div class="ld-lb-actions">
+          <button class="ld-lb-action-btn" id="lb-heart-btn" onclick="toggleHeart()" title="Save">
+            <svg viewBox="0 0 24 24"><path d="m13.155 20.634.016-.008.014-.01c2.61-1.604 4.793-3.37 6.333-5.253S22 11.422 22 9.263C22 5.652 19.374 3 15.952 3c-1.765 0-3.01 1.101-3.744 2.018a8 8 0 0 0-.203.265 8 8 0 0 0-.201-.263C11.069 4.099 9.824 3 8.048 3 4.626 3 2 5.651 2 9.264c0 2.158.941 4.215 2.483 6.1 1.541 1.882 3.726 3.648 6.341 5.253l.012.007c.135.08.3.165.477.234.158.06.41.142.687.142s.528-.081.685-.141c.175-.067.34-.15.47-.225Z"/></svg>
+          </button>
+          <button class="ld-lb-action-btn" onclick="shareProperty()" title="Share">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
       </div>
     </div>
     <!-- Photo carousel -->
     <div class="ld-lb-photo-view" id="lb-photo-view">
-      <button class="ld-lightbox-prev" onclick="lightboxNav(-1)">
-        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
-      <img class="ld-lightbox-img" id="lightbox-img" src="" alt="" />
-      <button class="ld-lightbox-next" onclick="lightboxNav(1)">
-        <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
-      </button>
+      <div class="ld-lb-img-wrap">
+        <button class="ld-lightbox-prev" onclick="lightboxNav(-1)">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <img class="ld-lightbox-img" id="lightbox-img" src="" alt="" />
+        <button class="ld-lightbox-next" onclick="lightboxNav(1)">
+          <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+        </button>
+      </div>
+      <div class="ld-lb-counter" id="lb-counter">1 of —</div>
     </div>
     <!-- Virtual tour iframe (hidden until tab clicked) -->
     <div class="ld-lb-tour-view" id="lb-tour-view">
