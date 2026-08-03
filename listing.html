@@ -1099,7 +1099,7 @@
       letter-spacing: 0.06em;
       color: #1C3063;
       text-align: center;
-      padding: 8px 0 4px;
+      padding: 4px 0 0;
       flex-shrink: 0;
     }
 
@@ -1160,8 +1160,8 @@
       transition: background 0.2s;
       flex-shrink: 0;
     }
-    .ld-lightbox-prev { left: 0; }
-    .ld-lightbox-next { right: 0; }
+    .ld-lightbox-prev { left: 20px; }
+    .ld-lightbox-next { right: 20px; }
     .ld-lightbox-prev:hover, .ld-lightbox-next:hover { background: #1C3063; }
     .ld-lightbox-prev:hover svg, .ld-lightbox-next:hover svg { stroke: #B38987; }
     .ld-lightbox-prev svg, .ld-lightbox-next svg {
@@ -2337,7 +2337,9 @@
 
     if (USE_MOCK || !key) {
       listing = MOCK_LISTING;
+      window._currentListing = listing;
       render(listing);
+      _initHeart(listing.ListingKey);
       return;
     }
 
@@ -2345,7 +2347,9 @@
       const resp = await fetch(`${WORKER_URL}/listing/${encodeURIComponent(key)}`);
       if (!resp.ok) throw new Error(`${resp.status}`);
       listing = await resp.json();
+      window._currentListing = listing;
       render(listing);
+      _initHeart(listing.ListingKey);
     } catch (e) {
       document.getElementById('ld-loading-state').innerHTML =
         `<div style="text-align:center;padding:60px 24px;color:#888"><h3 style="font-family:Marcellus,serif;color:#1C3063;margin-bottom:8px">Listing not found</h3><p>This listing may no longer be available. <a href="listings.html" style="color:#1C3063">Browse available homes →</a></p></div>`;
@@ -2368,6 +2372,7 @@
     const city = toTitleCase(l.City || '');
     const addr = `${streetNum} ${streetName} ${streetSuffix}${unit}`.trim();
     const fullAddr = `${addr}, ${city}, ${l.StateOrProvince} ${l.PostalCode}`;
+    l._fullAddr = fullAddr;
     photos = (l.Media || [])
       .sort((a, b) => (a.Order || 999) - (b.Order || 999))
       .map(m => m.MediaURL || m.photoUrl)
@@ -2886,10 +2891,58 @@
   }
 
   // ─────────────────────────────────────────────────────────────────────────
-  // HEART / SHARE
+  // HEART / SAVE
   // ─────────────────────────────────────────────────────────────────────────
-  function toggleHeart() {
-    document.getElementById('heart-btn')?.classList.toggle('hearted');
+  let _listingKey = null; // set after render()
+
+  function _setHeartState(hearted) {
+    ['heart-btn', 'lb-heart-btn'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (hearted) el.classList.add('hearted');
+      else el.classList.remove('hearted');
+    });
+  }
+
+  async function _initHeart(listingKey) {
+    _listingKey = listingKey;
+    const { data: { session } } = await _sb.auth.getSession();
+    if (!session?.user) return;
+    const { data } = await _sb.from('saved_listings')
+      .select('listing_key')
+      .eq('user_id', session.user.id)
+      .eq('listing_key', listingKey)
+      .maybeSingle();
+    if (data) _setHeartState(true);
+  }
+
+  async function toggleHeart() {
+    const { data: { session } } = await _sb.auth.getSession();
+    if (!session?.user) { openAuthModal('options'); return; }
+
+    const btn = document.getElementById('heart-btn');
+    const wasHearted = btn?.classList.contains('hearted');
+    const isHearted = !wasHearted;
+    _setHeartState(isHearted); // optimistic
+
+    if (isHearted) {
+      const l = window._currentListing || {};
+      const { error } = await _sb.from('saved_listings').upsert({
+        user_id:     session.user.id,
+        listing_key: _listingKey,
+        address:     l._fullAddr || null,
+        price:       l.ListPrice || null,
+        beds:        l.BedroomsTotal || null,
+        baths:       l.BathroomsTotalInteger || null,
+        sqft:        l.LivingArea || null,
+        photo_url:   (l.Media?.[0]?.MediaURL) || null,
+      });
+      if (error) { _setHeartState(false); console.error('[heart save]', error); }
+    } else {
+      const { error } = await _sb.from('saved_listings').delete()
+        .eq('user_id', session.user.id).eq('listing_key', _listingKey);
+      if (error) { _setHeartState(true); console.error('[heart remove]', error); }
+    }
   }
   function shareProperty() {
     const url = window.location.href;
