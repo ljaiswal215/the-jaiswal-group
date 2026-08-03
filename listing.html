@@ -1319,7 +1319,7 @@
         <!-- MLS Disclaimer -->
         <div class="ld-disclaimer" id="ld-disclaimer">
           <img src="LOGOS/logo-crmls.png" alt="CRMLS" class="ld-crmls-logo" />
-          <p class="ld-attribution">Listed by <span id="d-agent">—</span> &bull; <span id="d-office">—</span></p>
+          <p class="ld-attribution">Listed by <span id="d-agent">—</span><span id="d-agent-phone-wrap"> &bull; <a id="d-agent-phone" style="color:#555;text-decoration:none;"></a></span> &bull; <span id="d-office">—</span></p>
           <p>Based on information from California Regional Multiple Listing Service, Inc. as of <span id="d-updated">—</span> and/or other sources. All data, including all measurements and calculations of area, is obtained from various sources and has not been, and will not be, verified by broker or MLS. All information should be independently reviewed and verified for accuracy. Properties may or may not be listed by the office/agent presenting the information. Any amount of compensation or commission stated is made only to participants of CRMLS or an MLS that has entered into a datashare agreement with CRMLS.</p>
         </div>
 
@@ -1703,6 +1703,7 @@
     AssociationFeeFrequency: 'Monthly',
     TaxAnnualAmount: 87120,
     ListAgentFullName: 'Lynnette Jaiswal',
+    ListAgentDirectPhone: '(858) 290-7531',
     ListAgentStateLicense: '02068025',
     ListOfficeName: 'The Jaiswal Group Real Estate',
     PublicRemarks: 'Stunning contemporary estate in the heart of Del Mar, offering breathtaking canyon and partial ocean views from nearly every room. Built in 2019, this 4-bedroom, 4-bathroom masterpiece sits on a premium lot and features an open-concept great room with soaring ceilings, a chef\'s kitchen with Thermador appliances, and a seamless indoor-outdoor flow to the resort-style backyard. The primary suite occupies the entire upper level and includes a spa bath, dual walk-in closets, and a private view deck. The pool and outdoor kitchen make entertaining effortless. Three-car garage. Walking distance to Del Mar Village, beaches, restaurants, and top-rated schools. This is coastal San Diego living at its finest.',
@@ -1849,6 +1850,17 @@
     }
     setText('d-agent', l.ListAgentFullName);
     setText('d-office', l.ListOfficeName);
+    const phone = l.ListAgentDirectPhone || l.ListAgentMobilePhone || l.ListOfficePhone;
+    const phoneWrap = document.getElementById('d-agent-phone-wrap');
+    if (phone) {
+      const digits = phone.replace(/\D/g, '');
+      const el = document.getElementById('d-agent-phone');
+      el.href = `tel:${digits}`;
+      el.textContent = phone;
+      phoneWrap.style.display = '';
+    } else {
+      phoneWrap.style.display = 'none';
+    }
 
     // CTA address
     document.getElementById('cta-address').innerHTML = `${addr}<br>${l.City} CA ${l.PostalCode}`;
