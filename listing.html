@@ -501,7 +501,7 @@
 
     /* IDX-style tour card */
     .ld-tour-card {
-      margin-top: 130px;
+      margin-top: 155px;
       background: #F3EFE8;
       border: 1px solid #e8e2d8;
       border-radius: 10px;
@@ -1016,32 +1016,152 @@
     @keyframes spin { to { transform: rotate(360deg); } }
 
     /* Lightbox */
+    /* ── Lightbox (full-page photo viewer) ── */
     .ld-lightbox {
       display: none;
       position: fixed; inset: 0;
-      background: rgba(0,0,0,0.92);
+      background: #F3EFE8;
       z-index: 9999;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
     }
     .ld-lightbox.open { display: flex; }
-    .ld-lightbox-img { max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 4px; }
-    .ld-lightbox-close {
-      position: absolute; top: 20px; right: 24px;
-      color: #fff; font-size: 32px; cursor: pointer; line-height: 1;
-      background: none; border: none; opacity: 0.8;
+
+    /* Header bar */
+    .ld-lb-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      height: 56px;
+      background: #fff;
+      border-bottom: 1px solid #ebebeb;
+      flex-shrink: 0;
+      gap: 12px;
     }
-    .ld-lightbox-close:hover { opacity: 1; }
+    .ld-lb-back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Lato', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #1C3063;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .ld-lb-back:hover { color: #B38987; }
+    .ld-lb-back svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+
+    /* Photos / Virtual Tour tabs */
+    .ld-lb-tabs {
+      display: flex;
+      background: #f0ede8;
+      border-radius: 6px;
+      padding: 3px;
+      gap: 2px;
+    }
+    .ld-lb-tab {
+      background: none;
+      border: none;
+      border-radius: 4px;
+      padding: 6px 16px;
+      font-family: 'Lato', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #888;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+    .ld-lb-tab.active {
+      background: #fff;
+      color: #1C3063;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+
+    /* Counter pill */
+    .ld-lb-counter {
+      font-family: 'Lato', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #1C3063;
+      background: #f0ede8;
+      border-radius: 20px;
+      padding: 5px 14px;
+      white-space: nowrap;
+    }
+
+    /* Action buttons */
+    .ld-lb-actions {
+      display: flex;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .ld-lb-action-btn {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: #1C3063;
+      border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .ld-lb-action-btn:hover { background: #B38987; }
+    .ld-lb-action-btn svg { width: 16px; height: 16px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .ld-lb-action-btn.hearted svg { fill: #B38987; stroke: #B38987; }
+
+    /* Photo view */
+    .ld-lb-photo-view {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 24px 80px;
+      min-height: 0;
+    }
+    .ld-lightbox-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.14);
+    }
     .ld-lightbox-prev, .ld-lightbox-next {
       position: absolute; top: 50%; transform: translateY(-50%);
-      color: #fff; font-size: 24px; cursor: pointer;
-      background: rgba(255,255,255,0.12); border: none;
-      padding: 16px 14px; border-radius: 4px;
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      background: #1C3063;
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
       transition: background 0.2s;
+      flex-shrink: 0;
     }
-    .ld-lightbox-prev { left: 20px; }
-    .ld-lightbox-next { right: 20px; }
-    .ld-lightbox-prev:hover, .ld-lightbox-next:hover { background: rgba(255,255,255,0.22); }
+    .ld-lightbox-prev { left: 16px; }
+    .ld-lightbox-next { right: 16px; }
+    .ld-lightbox-prev:hover, .ld-lightbox-next:hover { background: #B38987; }
+    .ld-lightbox-prev svg, .ld-lightbox-next svg {
+      width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2.5;
+      stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* Virtual tour iframe */
+    .ld-lb-tour-view {
+      flex: 1;
+      display: none;
+      min-height: 0;
+    }
+    .ld-lb-tour-view iframe {
+      width: 100%; height: 100%; border: none;
+    }
 
     /* Mobile */
     @media (max-width: 900px) {
@@ -1674,11 +1794,42 @@
   </div>
 
   <!-- Lightbox -->
-  <div class="ld-lightbox" id="lightbox" onclick="closeLightbox()">
-    <button class="ld-lightbox-close" onclick="closeLightbox()">✕</button>
-    <button class="ld-lightbox-prev" onclick="event.stopPropagation(); lightboxNav(-1)">‹</button>
-    <img class="ld-lightbox-img" id="lightbox-img" src="" alt="" onclick="event.stopPropagation()" />
-    <button class="ld-lightbox-next" onclick="event.stopPropagation(); lightboxNav(1)">›</button>
+  <div class="ld-lightbox" id="lightbox">
+    <!-- Header bar -->
+    <div class="ld-lb-header">
+      <button class="ld-lb-back" onclick="closeLightbox()">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to Listing
+      </button>
+      <!-- Photos / Virtual Tour tabs (shown only when tour URL exists) -->
+      <div class="ld-lb-tabs" id="lb-tabs" style="display:none">
+        <button class="ld-lb-tab active" id="lb-tab-photos" onclick="lbShowPhotos()">Photos</button>
+        <button class="ld-lb-tab" id="lb-tab-tour" onclick="lbShowTour()">Virtual Tour</button>
+      </div>
+      <div class="ld-lb-counter" id="lb-counter">1 of —</div>
+      <div class="ld-lb-actions">
+        <button class="ld-lb-action-btn" id="lb-heart-btn" onclick="toggleHeart()" title="Save">
+          <svg viewBox="0 0 24 24"><path d="m13.155 20.634.016-.008.014-.01c2.61-1.604 4.793-3.37 6.333-5.253S22 11.422 22 9.263C22 5.652 19.374 3 15.952 3c-1.765 0-3.01 1.101-3.744 2.018a8 8 0 0 0-.203.265 8 8 0 0 0-.201-.263C11.069 4.099 9.824 3 8.048 3 4.626 3 2 5.651 2 9.264c0 2.158.941 4.215 2.483 6.1 1.541 1.882 3.726 3.648 6.341 5.253l.012.007c.135.08.3.165.477.234.158.06.41.142.687.142s.528-.081.685-.141c.175-.067.34-.15.47-.225Z"/></svg>
+        </button>
+        <button class="ld-lb-action-btn" onclick="shareProperty()" title="Share">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+    <!-- Photo carousel -->
+    <div class="ld-lb-photo-view" id="lb-photo-view">
+      <button class="ld-lightbox-prev" onclick="lightboxNav(-1)">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <img class="ld-lightbox-img" id="lightbox-img" src="" alt="" />
+      <button class="ld-lightbox-next" onclick="lightboxNav(1)">
+        <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+      </button>
+    </div>
+    <!-- Virtual tour iframe (hidden until tab clicked) -->
+    <div class="ld-lb-tour-view" id="lb-tour-view">
+      <iframe id="lb-tour-iframe" src="" allowfullscreen></iframe>
+    </div>
   </div>
 
   <!-- =========================================================
@@ -1768,6 +1919,7 @@
   let lbIndex = 0;
   let galPage  = 0;
   let detailMap = null;
+  let virtualTourURL = null;
 
   // ─────────────────────────────────────────────────────────────────────────
   // INIT
@@ -1823,6 +1975,7 @@
     }
 
     // Gallery photos
+    virtualTourURL = l.VirtualTourURLUnbranded || l.VirtualTourURLBranded || null;
     renderGallery(photos, 0);
 
     // Header status badge
@@ -2002,20 +2155,57 @@
   // ─────────────────────────────────────────────────────────────────────────
   // LIGHTBOX
   // ─────────────────────────────────────────────────────────────────────────
+  function lbUpdateCounter() {
+    const el = document.getElementById('lb-counter');
+    if (el) el.textContent = `${lbIndex + 1} of ${photos.length}`;
+  }
+  function lbSyncHeart() {
+    const saved = JSON.parse(localStorage.getItem('tjg_saved_listings') || '[]');
+    const key = listing?.ListingKey;
+    const btn = document.getElementById('lb-heart-btn');
+    if (btn) btn.classList.toggle('hearted', key && saved.includes(key));
+  }
   function openLightbox(i) {
     if (!photos.length) return;
     lbIndex = i;
     document.getElementById('lightbox-img').src = photos[lbIndex];
+    lbUpdateCounter();
+    lbSyncHeart();
+    // Show tour tabs only when virtual tour URL available
+    const tabs = document.getElementById('lb-tabs');
+    if (tabs) tabs.style.display = virtualTourURL ? 'flex' : 'none';
+    // Ensure we start on photos view
+    lbShowPhotos();
     document.getElementById('lightbox').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
   function closeLightbox() {
     document.getElementById('lightbox').classList.remove('open');
     document.body.style.overflow = '';
+    // Reset tour iframe src to stop playback
+    const iframe = document.getElementById('lb-tour-iframe');
+    if (iframe) iframe.src = '';
   }
   function lightboxNav(dir) {
     lbIndex = (lbIndex + dir + photos.length) % photos.length;
     document.getElementById('lightbox-img').src = photos[lbIndex];
+    lbUpdateCounter();
+  }
+  function lbShowPhotos() {
+    document.getElementById('lb-photo-view').style.display = 'flex';
+    document.getElementById('lb-tour-view').style.display = 'none';
+    document.getElementById('lb-tab-photos')?.classList.add('active');
+    document.getElementById('lb-tab-tour')?.classList.remove('active');
+    document.getElementById('lb-counter').style.display = '';
+  }
+  function lbShowTour() {
+    if (!virtualTourURL) return;
+    document.getElementById('lb-photo-view').style.display = 'none';
+    document.getElementById('lb-tour-view').style.display = 'flex';
+    document.getElementById('lb-tour-iframe').src = virtualTourURL;
+    document.getElementById('lb-tab-photos')?.classList.remove('active');
+    document.getElementById('lb-tab-tour')?.classList.add('active');
+    document.getElementById('lb-counter').style.display = 'none';
   }
   function galleryNav(dir) {
     if (!photos.length) return;
