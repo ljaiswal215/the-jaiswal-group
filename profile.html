@@ -25,9 +25,12 @@
       font-size: 0.75rem; font-weight: 700; color: #fff; letter-spacing: 0; flex-shrink: 0;
     }
     .nav-acct-menu {
-      display: none; position: absolute; right: 0; top: calc(100% + 12px);
-      background: #fff; border-radius: 8px; min-width: 180px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.14); overflow: hidden; z-index: 9999;
+      display: none; position: absolute; right: 0; top: 100%;
+      padding-top: 12px; background: transparent; min-width: 180px; z-index: 9999;
+    }
+    .nav-acct-menu-inner {
+      background: #fff; border-radius: 8px; overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.14);
     }
     .nav-acct-menu a {
       display: block; padding: 12px 18px;
@@ -165,10 +168,12 @@
             <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style="opacity:.8"><path d="M1 1l4 4 4-4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
           </a>
           <div class="nav-acct-menu">
-            <a href="profile.html">Profile</a>
-            <a href="my-account.html">My Account</a>
-            <hr class="acct-menu-divider">
-            <a href="#" class="acct-signout" onclick="event.preventDefault(); signOut()">Sign Out</a>
+            <div class="nav-acct-menu-inner">
+              <a href="profile.html">Profile</a>
+              <a href="my-account.html">My Account</a>
+              <hr class="acct-menu-divider">
+              <a href="#" class="acct-signout" onclick="event.preventDefault(); signOut()">Sign Out</a>
+            </div>
           </div>
         </li>
       </ul>
