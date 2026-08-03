@@ -32,7 +32,7 @@
     .nav-register a:hover { background: rgba(255,255,255,0.12); border-color: #fff; }
 
     /* ── Account dropdown (logged-in nav) ── */
-    .nav-account-drop { position: relative; display: none; }
+    .nav-account-drop { position: relative; display: none; margin-left: auto; }
     .nav-account-drop .nav-acct-trigger {
       display: flex; align-items: center; gap: 7px; cursor: pointer;
       font-family: 'Lato', sans-serif; font-size: 0.8rem; font-weight: 700;
@@ -1354,7 +1354,7 @@
     <span class="ls-user-bar-sep">·</span>
     <a href="my-account.html">My Account</a>
     <span class="ls-user-bar-sep">·</span>
-    <a href="#" onclick="event.preventDefault(); _sb.auth.signOut().then(() => location.reload())">Not you? Sign out</a>
+    <a href="#" onclick="event.preventDefault(); _sb.auth.signOut().then(() => location.reload())">Not you? Sign Out</a>
   </div>
 
   <div class="ls-wrap">
