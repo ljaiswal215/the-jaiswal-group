@@ -1096,9 +1096,7 @@
   <div class="ld-breadcrumb" id="ld-breadcrumb">
     <a href="listings.html">Browse Homes</a>
     <span class="sep">›</span>
-    <span id="bc-city">Loading…</span>
-    <span class="sep">›</span>
-    <span id="bc-address">—</span>
+    <span id="bc-address">Loading…</span>
   </div>
 
   <!-- Loading state -->
@@ -1758,8 +1756,9 @@
   // RENDER
   // ─────────────────────────────────────────────────────────────────────────
   function render(l) {
-    const addr = `${l.StreetNumber} ${l.StreetName} ${l.StreetSuffix || ''}`.trim();
-    const fullAddr = `${addr}, ${l.City} ${l.StateOrProvince} ${l.PostalCode}`;
+    const unit = l.UnitNumber ? ` #${l.UnitNumber}` : '';
+    const addr = `${l.StreetNumber} ${l.StreetName} ${l.StreetSuffix || ''}${unit}`.trim();
+    const fullAddr = `${addr}, ${l.City}, ${l.StateOrProvince} ${l.PostalCode}`;
     photos = (l.Media || []).map(m => m.photoUrl).filter(Boolean);
 
     // Page title + meta
@@ -1767,8 +1766,7 @@
     document.getElementById('page-desc').content = `${l.BedroomsTotal} bed, ${l.BathroomsTotalInteger} bath home in ${l.City}. Listed at ${fmt(l.ListPrice)}.`;
 
     // Breadcrumb
-    document.getElementById('bc-city').textContent = l.City;
-    document.getElementById('bc-address').textContent = addr;
+    document.getElementById('bc-address').textContent = fullAddr;
 
     // Status bar
     const statusBar = document.getElementById('ld-status-bar');
@@ -1894,7 +1892,8 @@
 
   function saveToRecentlyViewed(l) {
     try {
-      const addr = `${l.StreetNumber || ''} ${l.StreetName || ''} ${l.StreetSuffix || ''}`.trim();
+      const unit = l.UnitNumber ? ` #${l.UnitNumber}` : '';
+      const addr = `${l.StreetNumber || ''} ${l.StreetName || ''} ${l.StreetSuffix || ''}${unit}`.trim();
       const item = {
         key:      l.ListingKey,
         address:  `${addr}, ${l.City} ${l.StateOrProvince}, ${l.PostalCode}`,
