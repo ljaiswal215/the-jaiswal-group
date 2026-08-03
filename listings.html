@@ -1928,8 +1928,8 @@
                 <button class="ls-ss-close" onclick="closeSaveSearch()">&#x2715;</button>
               </div>
               <div class="ls-ss-body">
-                <h2 class="ls-ss-title">Log In</h2>
-                <p class="ls-ss-sub">Access your saved homes, searches, and instant listing alerts.</p>
+                <h2 class="ls-ss-title" id="ls-ss-login-title">Log In</h2>
+                <p class="ls-ss-sub" id="ls-ss-login-sub">Access your saved homes, searches, and instant listing alerts.</p>
                 <div id="ls-ss-login-error" class="ls-ss-error"></div>
                 <div class="ls-ss-field"><label>Email</label><input type="email" id="ss-login-email" placeholder="Email" autocomplete="email" autofocus></div>
                 <div class="ls-ss-field ls-ss-pw-wrap">
@@ -2933,9 +2933,14 @@
     if (beds) nameParts.push(beds + '+ beds');
     document.getElementById('ss-search-name').value = nameParts.join(', ') || 'My Search';
 
-    document.getElementById('ss-options-title').textContent = 'Save this search';
-    document.getElementById('ss-options-sub').textContent = 'Get instant alerts for new listings and price drops matching your search.';
-    ssShowPanel(_ssUser ? 'save' : 'options');
+    if (_ssUser) {
+      ssShowPanel('save');
+    } else {
+      // Show login panel with save-search context
+      document.getElementById('ls-ss-login-title').textContent = 'Log In to Save This Search';
+      document.getElementById('ls-ss-login-sub').textContent = 'Get email alerts for new listings and price drops matching your search.';
+      ssShowPanel('login');
+    }
     document.getElementById('ls-ss-overlay').classList.remove('hidden');
   }
 
@@ -2959,6 +2964,8 @@
     _ssFromRegister = true;
     document.getElementById('ss-options-title').textContent = 'Create Your Free Account';
     document.getElementById('ss-options-sub').textContent = 'Save your favorite homes, create custom searches, and be the first to know when new listings match your criteria.';
+    document.getElementById('ls-ss-login-title').textContent = 'Log In';
+    document.getElementById('ls-ss-login-sub').textContent = 'Access your saved homes, searches, and instant listing alerts.';
     document.getElementById('ls-ss-overlay').classList.remove('hidden');
     ssShowPanel(panel || 'options');
   }
