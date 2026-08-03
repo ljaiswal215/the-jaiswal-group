@@ -31,7 +31,7 @@
 
     /* ── Photo Gallery ── */
     .ld-gallery-wrap {
-      padding: 0;
+      padding: 16px 16px 0;
       background: #fff;
     }
     .ld-gallery {
@@ -42,13 +42,13 @@
       background: #111;
       overflow: hidden;
       position: relative;
-      border-radius: 0;
+      border-radius: 12px;
     }
     .ld-gallery-main {
       position: relative;
       overflow: hidden;
       cursor: pointer;
-      border-radius: 0;
+      border-radius: 12px 0 0 12px;
     }
     .ld-gallery-thumbs {
       display: grid;
@@ -67,38 +67,28 @@
     .ld-gallery-main:hover img,
     .ld-gallery-thumb:hover img { opacity: 0.9; }
     .ld-gallery-thumb { position: relative; cursor: pointer; overflow: hidden; }
-    .ld-gallery-thumb:nth-child(2) { border-radius: 0; }
-    .ld-gallery-thumb:last-child { border-radius: 0; }
+    .ld-gallery-thumb:nth-child(2) { border-radius: 0 12px 0 0; }
+    .ld-gallery-thumb:last-child { border-radius: 0 0 12px 0; }
+    .ld-gallery-thumb:last-child .ld-gallery-overlay { display: flex; }
 
-    /* "All Photos" pill button at bottom-right of gallery */
-    .ld-gallery-photo-btns {
-      position: absolute;
-      bottom: 14px;
-      right: 14px;
-      display: flex;
-      gap: 8px;
-      z-index: 10;
-    }
-    .ld-photos-btn {
-      background: rgba(255,255,255,0.92);
-      border: none;
-      border-radius: 4px;
-      padding: 7px 14px;
-      font-family: 'Lato', sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      color: #1C3063;
-      cursor: pointer;
-      display: flex;
+    .ld-gallery-overlay {
+      display: none;
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.52);
       align-items: center;
-      gap: 6px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-      backdrop-filter: blur(4px);
-      transition: background 0.15s;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background 0.2s;
     }
-    .ld-photos-btn:hover { background: #fff; }
-    .ld-photos-btn svg { width: 14px; height: 14px; stroke: #1C3063; fill: none; stroke-width: 2; flex-shrink: 0; }
+    .ld-gallery-overlay:hover { background: rgba(0,0,0,0.65); }
+    .ld-gallery-overlay svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2; }
 
     .ld-gallery-placeholder {
       width: 100%; height: 100%;
@@ -154,7 +144,7 @@
     .ld-layout {
       max-width: 1240px;
       margin: 0 auto;
-      padding: 28px 24px 64px;
+      padding: 28px 16px 64px;
       display: grid;
       grid-template-columns: 1fr 380px;
       gap: 32px;
@@ -163,23 +153,43 @@
     /* ── Main column ── */
     .ld-main {}
 
-    /* Header: price + address (left) | stats + nav (right) */
+    /* Header: price+address (left) | stats (center) | nav arrows (far right) */
     .ld-header {
       display: flex;
-      align-items: flex-start;
-      justify-content: flex-start;
-      gap: 48px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
       padding: 24px 0 20px;
       border-bottom: 1px solid #ebebeb;
       margin-bottom: 20px;
     }
-    .ld-header-left { flex: 1; min-width: 0; }
-    .ld-header-right {
+    .ld-header-left { flex: 0 1 auto; min-width: 0; }
+
+    /* Status badge above price */
+    .ld-header-status {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 6px;
+      margin-bottom: 7px;
+    }
+    .ld-hstatus-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
       flex-shrink: 0;
     }
+    .ld-header-status span:last-child {
+      font-family: 'Lato', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #666;
+    }
+    .ld-header-status.coming .ld-hstatus-dot { background: #facc15; }
+    .ld-header-status.pending .ld-hstatus-dot { background: #f59e0b; }
+    .ld-header-status.sold .ld-hstatus-dot { background: #f87171; }
+
     .ld-price {
       font-family: 'Marcellus', serif;
       font-size: 2.4rem;
@@ -192,6 +202,13 @@
       color: #666;
       text-transform: uppercase;
       letter-spacing: 0.06em;
+    }
+    .ld-mls-num {
+      font-family: 'Lato', sans-serif;
+      font-size: 11px;
+      color: #aaa;
+      margin-top: 3px;
+      letter-spacing: 0.02em;
     }
     .ld-quick-stats {
       display: flex;
@@ -255,7 +272,7 @@
       line-height: 1.75;
       color: #444;
     }
-    .ld-description.collapsed { max-height: 100px; overflow: hidden; position: relative; }
+    .ld-description.collapsed { max-height: 125px; overflow: hidden; position: relative; }
     .ld-description.collapsed::after {
       content: '';
       position: absolute;
@@ -377,7 +394,8 @@
       cursor: pointer;
       transition: background 0.2s;
     }
-    .ld-gallery-nav-btn:hover { background: #B38987; }
+    .ld-gallery-nav-btn:hover { background: #1C3063; }
+    .ld-gallery-nav-btn:hover svg { stroke: #B38987; }
     .ld-gallery-nav-btn svg { width: 18px; height: 18px; stroke: #fff; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 
     /* Inline map (community tab) — hidden; standalone map section below handles location */
@@ -521,7 +539,7 @@
       display: block;
       width: 100%;
       padding: 14px;
-      background: #fff;
+      background: #F3EFE8;
       color: #1C3063;
       border: 1.5px solid #1C3063;
       border-radius: 4px;
@@ -542,7 +560,7 @@
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: #aaa;
+      color: #666;
       position: relative;
       text-align: center;
       margin-bottom: 20px;
@@ -565,7 +583,7 @@
       gap: 8px;
     }
     .ld-tour-agent-photo {
-      width: 80px; height: 80px;
+      width: 98px; height: 98px;
       border-radius: 50%;
       object-fit: cover;
       object-position: top center;
@@ -1153,16 +1171,12 @@
           <div class="ld-gallery-placeholder"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
         </div>
         <div class="ld-gallery-thumb" id="gal-t4" onclick="openLightbox(4)">
-          <div class="ld-gallery-placeholder"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+          <div class="ld-gallery-placeholder"></div>
+          <div class="ld-gallery-overlay" id="gal-more-overlay" onclick="openLightbox(0)">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span id="gal-more-label">ALL PHOTOS</span>
+          </div>
         </div>
-      </div>
-
-      <!-- All Photos pill button at bottom-right of gallery -->
-      <div class="ld-gallery-photo-btns">
-        <button class="ld-photos-btn" id="all-photos-btn" onclick="openLightbox(0)">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-          <span id="gal-more-label">ALL PHOTOS</span>
-        </button>
       </div>
 
       <!-- Actions: heart + share at top-right of full gallery -->
@@ -1187,47 +1201,51 @@
         <!-- Price + address + quick stats -->
         <div class="ld-header">
           <div class="ld-header-left">
+            <div class="ld-header-status" id="ld-header-status">
+              <span class="ld-hstatus-dot" id="ld-hstatus-dot"></span>
+              <span id="ld-hstatus-text">Active</span>
+            </div>
             <div class="ld-price" id="ld-price">—</div>
             <div class="ld-address" id="ld-address">—</div>
+            <div class="ld-mls-num" id="ld-mls-num">MLS# —</div>
           </div>
-          <div class="ld-header-right">
-            <div class="ld-quick-stats">
-              <div class="ld-stat">
-                <span class="ld-stat-lbl">
-                  <svg width="13" height="13" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                  BEDROOMS
-                </span>
-                <span class="ld-stat-val" id="stat-beds">—</span>
-              </div>
-              <div class="ld-stat-divider"></div>
-              <div class="ld-stat">
-                <span class="ld-stat-lbl">
-                  <svg width="13" height="13" viewBox="0 0 24 24"><path d="M20 10V7a4 4 0 00-4-4H8a4 4 0 00-4 4v3M4 10h16M4 10l1 9h14l1-9"/></svg>
-                  BATHROOMS
-                </span>
-                <span class="ld-stat-val" id="stat-baths">—</span>
-              </div>
-              <div class="ld-stat-divider"></div>
-              <div class="ld-stat">
-                <span class="ld-stat-lbl">
-                  <svg width="13" height="13" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 3v18"/></svg>
-                  SQ. FT.
-                </span>
-                <span class="ld-stat-val" id="stat-sqft">—</span>
-              </div>
+          <!-- Stats as direct flex child (center) -->
+          <div class="ld-quick-stats">
+            <div class="ld-stat">
+              <span class="ld-stat-lbl">
+                <svg width="13" height="13" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                BEDROOMS
+              </span>
+              <span class="ld-stat-val" id="stat-beds">—</span>
             </div>
-            <!-- Gallery nav arrows — right of stats, matching IDX layout -->
-            <div class="ld-header-nav">
-              <button class="ld-gallery-nav-btn" onclick="galleryNav(-1)" title="Previous photo">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-              </button>
-              <button class="ld-gallery-nav-btn" onclick="galleryNav(1)" title="Next photo">
-                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
-              </button>
+            <div class="ld-stat-divider"></div>
+            <div class="ld-stat">
+              <span class="ld-stat-lbl">
+                <svg width="13" height="13" viewBox="0 0 24 24"><path d="M20 10V7a4 4 0 00-4-4H8a4 4 0 00-4 4v3M4 10h16M4 10l1 9h14l1-9"/></svg>
+                BATHROOMS
+              </span>
+              <span class="ld-stat-val" id="stat-baths">—</span>
+            </div>
+            <div class="ld-stat-divider"></div>
+            <div class="ld-stat">
+              <span class="ld-stat-lbl">
+                <svg width="13" height="13" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M9 3v18"/></svg>
+                SQ. FT.
+              </span>
+              <span class="ld-stat-val" id="stat-sqft">—</span>
             </div>
             <!-- Hidden elements for JS -->
             <span id="stat-lot" style="display:none"></span>
             <span id="stat-year" style="display:none"></span>
+          </div>
+          <!-- Nav arrows as direct flex child (far right) -->
+          <div class="ld-header-nav">
+            <button class="ld-gallery-nav-btn" onclick="galleryNav(-1)" title="Previous photo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="ld-gallery-nav-btn" onclick="galleryNav(1)" title="Next photo">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+            </button>
           </div>
         </div>
 
@@ -1352,15 +1370,6 @@
 
       <!-- ── SIDEBAR ── -->
       <div class="ld-sidebar">
-        <!-- Gallery nav arrows sit above the card -->
-        <div class="ld-sidebar-nav">
-          <button class="ld-gallery-nav-btn" onclick="galleryNav(-1)" title="Previous photo">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-          </button>
-          <button class="ld-gallery-nav-btn" onclick="galleryNav(1)" title="Next photo">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
-          </button>
-        </div>
         <div class="ld-tour-card">
           <div class="ld-tour-header">Interested in This Home?</div>
           <div class="ld-tour-body">
@@ -1813,9 +1822,17 @@
     // Gallery photos
     renderGallery(photos, 0);
 
+    // Header status badge
+    const hStatus = document.getElementById('ld-header-status');
+    document.getElementById('ld-hstatus-text').textContent = l.StandardStatus || 'Active';
+    if (l.StandardStatus === 'Pending') hStatus.classList.add('pending');
+    else if (l.StandardStatus === 'Coming Soon') hStatus.classList.add('coming');
+    else if (['Sold','Closed'].includes(l.StandardStatus)) hStatus.classList.add('sold');
+
     // Header stats
     document.getElementById('ld-price').textContent = fmt(l.ListPrice);
     document.getElementById('ld-address').textContent = fullAddr;
+    document.getElementById('ld-mls-num').textContent = `MLS# ${l.ListingId || l.ListingKey || '—'}`;
     document.getElementById('stat-beds').textContent  = l.BedroomsTotal ?? '—';
     document.getElementById('stat-baths').textContent = l.BathroomsTotalInteger ?? '—';
     document.getElementById('stat-sqft').textContent  = l.LivingArea ? l.LivingArea.toLocaleString() : '—';
@@ -1956,12 +1973,20 @@
       if (!el) return;
       const globalIdx = offset + i;
       const url = urls[globalIdx];
-      // Update "All Photos" pill button count when rendering first page
-      if (id === 'gal-t4' && page === 0) {
-        const lbl = document.getElementById('gal-more-label');
-        if (lbl) lbl.textContent = urls.length > 1 ? `ALL ${urls.length} PHOTOS` : 'ALL PHOTOS';
-      }
-      if (url) {
+      if (id === 'gal-t4') {
+        const overlayLabel = urls.length > 1 ? `ALL ${urls.length} PHOTOS` : 'ALL PHOTOS';
+        el.innerHTML = url
+          ? `<img src="${url}" alt="Photo ${globalIdx+1}" loading="lazy" />
+             <div class="ld-gallery-overlay" id="gal-more-overlay" onclick="openLightbox(${globalIdx})">
+               <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+               <span id="gal-more-label">${overlayLabel}</span>
+             </div>`
+          : `<div class="ld-gallery-overlay" id="gal-more-overlay" onclick="openLightbox(0)">
+               <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+               <span id="gal-more-label">${overlayLabel}</span>
+             </div>`;
+        el.onclick = url ? () => openLightbox(globalIdx) : () => openLightbox(0);
+      } else if (url) {
         el.innerHTML = `<img src="${url}" alt="Photo ${globalIdx+1}" loading="${i === 0 ? 'eager' : 'lazy'}" />`;
         el.onclick = () => openLightbox(globalIdx);
       } else {
