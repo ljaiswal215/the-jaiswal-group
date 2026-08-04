@@ -323,7 +323,7 @@
         var WORKER = 'https://tjg-trestles-worker.lynnette-2ee.workers.dev';
         var grid = document.getElementById('subdiv-tg-grid');
         grid.innerHTML = '<div class="fp-card fp-skeleton" style="min-height:260px"></div><div class="fp-card fp-skeleton" style="min-height:260px"></div><div class="fp-card fp-skeleton" style="min-height:260px"></div><div class="fp-card fp-skeleton" style="min-height:260px"></div>';
-        fetch(WORKER + '/search?subdivisionSearch=Sterling&status=Active,ComingSoon&sort=newest&limit=4')
+        fetch(WORKER + '/search?subdivisionSearch=Sterling&zip=92130&status=Active,ComingSoon&sort=newest&limit=4')
           .then(function(r){ return r.json(); })
           .then(function(data){
             var listings = (data.listings||[]).slice(0,4);
