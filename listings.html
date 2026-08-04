@@ -96,6 +96,11 @@
       min-height: 0;
     }
 
+    /* Listings-page logo override (slightly smaller than global) */
+    .nav-logo img { height: 79px; }
+    @media (max-width: 1250px) { .nav-logo img { height: 63px; } }
+    @media (max-width: 900px)  { .nav-logo img { height: 79px; } }
+
     /* ── Filter bar ── */
     .ls-filter-bar {
       display: flex;
@@ -520,7 +525,7 @@
       display: flex; gap: 6px;
     }
     .ls-action-btn {
-      width: 32px; height: 32px;
+      width: 34px; height: 34px;
       border-radius: 50%;
       background: rgba(0,0,0,0.35);
       border: none;
@@ -529,9 +534,10 @@
       transition: background 0.15s, transform 0.15s;
       backdrop-filter: blur(4px);
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      flex-shrink: 0;
     }
     .ls-action-btn:hover { background: rgba(0,0,0,0.55); transform: scale(1.08); }
-    .ls-action-btn svg { width: 15px; height: 15px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.15s, fill 0.15s; }
+    .ls-action-btn svg { width: 16px; height: 16px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.15s, fill 0.15s; }
     .ls-action-btn:hover svg { stroke: #B38987; }
     .ls-send-icon polygon { fill: #fff; transition: fill 0.15s; }
     .ls-action-btn:hover .ls-send-icon polygon { fill: #B38987; }
@@ -2896,8 +2902,8 @@
         <div class="ls-card-body">
           <div class="ls-card-price">${formatPrice(l.ListPrice)}</div>
           <div class="ls-card-facts">
-            <span>${l.BedroomsTotal} bd</span>
-            <span>${l.BathroomsTotalInteger} ba</span>
+            ${l.BedroomsTotal ? `<span>${l.BedroomsTotal} bd</span>` : ''}
+            ${l.BathroomsTotalInteger ? `<span>${l.BathroomsTotalInteger} ba</span>` : ''}
             ${l.LivingArea ? `<span>${l.LivingArea.toLocaleString()} sqft</span>` : ''}
           </div>
           <div class="ls-card-address">${fullAddr}</div>

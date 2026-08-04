@@ -2163,6 +2163,27 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 .ls-badge-coming  { background: #1C3063; color: #fff; }
 .ls-badge-pending { background: #B38987; color: #fff; }
 .ls-badge-sold    { background: #322E2D; color: #fff; }
+
+/* ── Listing card action buttons (heart + share) ── */
+.ls-card-actions { position: absolute; top: 8px; right: 8px; display: flex; gap: 6px; }
+.ls-action-btn {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.35);
+  border: none;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  flex-shrink: 0;
+}
+.ls-action-btn:hover { background: rgba(0,0,0,0.55); transform: scale(1.08); }
+.ls-action-btn svg { width: 16px; height: 16px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.15s, fill 0.15s; }
+.ls-action-btn:hover svg { stroke: #B38987; }
+.ls-send-icon polygon { fill: #fff; transition: fill 0.15s; }
+.ls-action-btn:hover .ls-send-icon polygon { fill: #B38987; }
+.ls-action-btn.hearted svg { fill: #B38987; stroke: #B38987; }
 .ls-card-body { padding: 13px 16px 15px; }
 .ls-card-price {
   font-family: 'Marcellus', serif;

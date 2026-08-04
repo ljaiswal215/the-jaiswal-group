@@ -342,8 +342,8 @@
               var badge=l.StandardStatus==='ComingSoon'?'Coming Soon':(l.StandardStatus||'Active');
               var badgeCls=l.StandardStatus==='Pending'?'ls-badge-pending':l.StandardStatus==='Closed'?'ls-badge-sold':'ls-badge-active';
               var facts='';
-              if(l.BedroomsTotal!=null) facts+='<span>'+l.BedroomsTotal+' bd</span>';
-              if(l.BathroomsTotalInteger!=null) facts+='<span>'+l.BathroomsTotalInteger+' ba</span>';
+              if(l.BedroomsTotal) facts+='<span>'+l.BedroomsTotal+' bd</span>';
+              if(l.BathroomsTotalInteger) facts+='<span>'+l.BathroomsTotalInteger+' ba</span>';
               if(l.LivingArea) facts+='<span>'+l.LivingArea.toLocaleString('en-US')+' sqft</span>';
               var img=photo?'<img src="'+photo+'" alt="'+street.replace(/"/g,'')+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"/>':'';
               var price=l.ListPrice?'$'+Math.round(l.ListPrice).toLocaleString('en-US'):'—';

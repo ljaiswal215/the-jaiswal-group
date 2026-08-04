@@ -296,8 +296,8 @@
         ? '<img src="' + photo + '" alt="' + street.replace(/"/g,'') + '" loading="lazy" />'
         : '<div class="ls-card-img-placeholder">' + HOUSE_PLACEHOLDER + '</div>';
       var facts = '';
-      if(l.BedroomsTotal != null) facts += '<span>' + l.BedroomsTotal + ' bd</span>';
-      if(l.BathroomsTotalInteger != null) facts += '<span>' + l.BathroomsTotalInteger + ' ba</span>';
+      if(l.BedroomsTotal) facts += '<span>' + l.BedroomsTotal + ' bd</span>';
+      if(l.BathroomsTotalInteger) facts += '<span>' + l.BathroomsTotalInteger + ' ba</span>';
       if(l.LivingArea) facts += '<span>' + l.LivingArea.toLocaleString('en-US') + ' sqft</span>';
       var mlsRow = l.ListingId ? '<div class="ls-card-mls"><span>MLS\u00ae: ' + l.ListingId + '</span><img src="LOGOS/logo-crmls.png" alt="CRMLS" class="ls-crmls-logo" /></div>' : '';
       return '<a class="ls-card" href="listing.html?key=' + l.ListingKey + '">'
