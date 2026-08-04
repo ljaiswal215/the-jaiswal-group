@@ -317,7 +317,50 @@
            widget code filtered to: Community = Casavia,
            City = San Diego, Zip = 92130
       ═══════════════════════════════════════════════════════════ -->
-      <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-161779" src="//thejaiswalgroup.idxbroker.com/idx/widgets/161779"></script>
+      <div class="fp-grid" id="subdiv-tg-grid" style="margin:1.5rem 0; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));"></div>
+      <script>
+      (function(){
+        var WORKER = 'https://tjg-trestles-worker.lynnette-2ee.workers.dev';
+        var grid = document.getElementById('subdiv-tg-grid');
+        grid.innerHTML = '<div class="fp-card fp-skeleton" style="min-height:260px"></div><div class="fp-card fp-skeleton" style="min-height:260px"></div><div class="fp-card fp-skeleton" style="min-height:260px"></div><div class="fp-card fp-skeleton" style="min-height:260px"></div>';
+        fetch(WORKER + '/search?subdivisionSearch=Casavia&status=Active,ComingSoon&sort=newest&limit=4')
+          .then(function(r){ return r.json(); })
+          .then(function(data){
+            var listings = (data.listings||[]).slice(0,4);
+            if(!listings.length){
+              grid.style.display='none';
+              var fb=document.querySelector('.subdiv-no-listings');
+              if(fb) fb.style.display='';
+              return;
+            }
+            grid.innerHTML = listings.map(function(l){
+              var photo=(l.Media&&l.Media[0]&&l.Media[0].MediaURL)?l.Media[0].MediaURL:'';
+              var unit=l.UnitNumber?' #'+l.UnitNumber:'';
+              var street=([l.StreetNumber,l.StreetName,l.StreetSuffix].filter(Boolean).join(' ')||'Private Address')+unit;
+              var fullAddr=street+', '+[l.City,(l.StateOrProvince||'CA'),l.PostalCode].filter(Boolean).join(' ');
+              var badge=l.StandardStatus==='ComingSoon'?'Coming Soon':(l.StandardStatus||'Active');
+              var badgeCls=l.StandardStatus==='Pending'?'ls-badge-pending':l.StandardStatus==='Closed'?'ls-badge-sold':'ls-badge-active';
+              var facts='';
+              if(l.BedroomsTotal!=null) facts+='<span>'+l.BedroomsTotal+' bd</span>';
+              if(l.BathroomsTotalInteger!=null) facts+='<span>'+l.BathroomsTotalInteger+' ba</span>';
+              if(l.LivingArea) facts+='<span>'+l.LivingArea.toLocaleString('en-US')+' sqft</span>';
+              var img=photo?'<img src="'+photo+'" alt="'+street.replace(/"/g,'')+'" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;"/>':'';
+              var price=l.ListPrice?'$'+Math.round(l.ListPrice).toLocaleString('en-US'):'—';
+              return '<a class="ls-card" href="../../listing.html?key='+l.ListingKey+'" style="display:block;text-decoration:none;color:inherit;">'
+                +'<div class="ls-card-img" style="position:relative;width:100%;aspect-ratio:16/9;background:#e8ecf2;overflow:hidden;">'+img
+                +'<span class="ls-badge '+badgeCls+'" style="position:absolute;top:10px;left:10px;padding:3px 9px;border-radius:4px;font-family:Lato,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;background:#1C3063;color:#fff;">'+badge+'</span>'
+                +'</div>'
+                +'<div class="ls-card-body" style="padding:13px 16px 15px;">'
+                +'<div class="ls-card-price" style="font-family:Marcellus,serif;font-size:1.2rem;color:#1C3063;margin-bottom:4px;">'+price+'</div>'
+                +'<div class="ls-card-facts" style="font-size:12px;color:#555;display:flex;margin-bottom:5px;">'+facts+'</div>'
+                +'<div class="ls-card-address" style="font-size:12px;color:#555;margin-bottom:6px;line-height:1.4;">'+fullAddr+'</div>'
+                +(l.ListingId?'<div style="font-size:11px;color:#999;display:flex;align-items:center;justify-content:space-between;"><span>MLS\u00ae: '+l.ListingId+'</span><img src="../../LOGOS/logo-crmls.png" alt="CRMLS" style="height:16px;width:auto;" /></div>':'')
+                +'</div></a>';
+            }).join('');
+          })
+          .catch(function(){ grid.style.display='none'; var fb=document.querySelector('.subdiv-no-listings'); if(fb) fb.style.display=''; });
+      })();
+      </script>
 
       <!-- No-listings fallback — always visible until IDX is live; becomes a secondary CTA once listings appear -->
       <div class="subdiv-no-listings" style="display:none">

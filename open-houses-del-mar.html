@@ -148,11 +148,55 @@
   <!-- =========================================================
        WIDGET
   ========================================================= -->
-  <section class="oh-widget-section">
-    <div class="oh-widget-wrap">
-      <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-163941" src="//thejaiswalgroup.idxbroker.com/idx/widgets/163941"></script>
+  <!-- Trestles listings grid — Del Mar (92014) -->
+  <section style="padding: 3rem 2rem 4rem; max-width: 1400px; margin: 0 auto;">
+    <div class="fp-grid" id="oh-dm-grid">
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+    </div>
+    <div class="center" style="margin-top:2rem;">
+      <a href="listings.html?zip=92014" class="btn btn-primary">VIEW ALL DEL MAR LISTINGS</a>
     </div>
   </section>
+  <script>
+  (function(){
+    var WORKER = 'https://tjg-trestles-worker.lynnette-2ee.workers.dev';
+    function fmtPrice(n){ return n ? '$'+Math.round(n).toLocaleString('en-US') : '—'; }
+    function fmtStatus(s){ return s==='ComingSoon'?'Coming Soon':(s||'Active'); }
+    function badgeCls(s){ if(s==='Pending') return 'ls-badge-pending'; if(s==='Closed'||s==='Sold') return 'ls-badge-sold'; return 'ls-badge-active'; }
+    function buildCard(l){
+      var photo=(l.Media&&l.Media[0]&&l.Media[0].MediaURL)?l.Media[0].MediaURL:'';
+      var unit=l.UnitNumber?' #'+l.UnitNumber:'';
+      var street=([l.StreetNumber,l.StreetName,l.StreetSuffix].filter(Boolean).join(' ')||'Private Address')+unit;
+      var fullAddr=street+', '+[l.City,(l.StateOrProvince||'CA'),l.PostalCode].filter(Boolean).join(' ');
+      var img=photo?'<img src="'+photo+'" alt="'+street.replace(/"/g,'')+'" loading="lazy" />':'';
+      var facts='';
+      if(l.BedroomsTotal!=null) facts+='<span>'+l.BedroomsTotal+' bd</span>';
+      if(l.BathroomsTotalInteger!=null) facts+='<span>'+l.BathroomsTotalInteger+' ba</span>';
+      if(l.LivingArea) facts+='<span>'+l.LivingArea.toLocaleString('en-US')+' sqft</span>';
+      var mls=l.ListingId?'<div class="ls-card-mls"><span>MLS\u00ae: '+l.ListingId+'</span><img src="LOGOS/logo-crmls.png" alt="CRMLS" class="ls-crmls-logo" /></div>':'';
+      return '<a class="ls-card" href="listing.html?key='+l.ListingKey+'">'
+        +'<div class="ls-card-img">'+img+'<span class="ls-badge '+badgeCls(l.StandardStatus)+'">'+fmtStatus(l.StandardStatus)+'</span></div>'
+        +'<div class="ls-card-body"><div class="ls-card-price">'+fmtPrice(l.ListPrice)+'</div>'
+        +'<div class="ls-card-facts">'+facts+'</div>'
+        +'<div class="ls-card-address">'+fullAddr+'</div>'+mls+'</div></a>';
+    }
+    fetch(WORKER+'/search?zip=92014&status=Active,ComingSoon&sort=newest&limit=8')
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        var grid=document.getElementById('oh-dm-grid');
+        var listings=(data.listings||[]).slice(0,8);
+        grid.innerHTML=listings.length ? listings.map(buildCard).join('') : '<p style="grid-column:1/-1;text-align:center;color:#888;padding:2rem">No listings found.</p>';
+      })
+      .catch(function(){ document.getElementById('oh-dm-grid').innerHTML=''; });
+  })();
+  </script>
 
   <!-- =========================================================
        WORK WITH US

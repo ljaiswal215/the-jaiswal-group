@@ -147,49 +147,53 @@
   <!-- =========================================================
        WIDGET
   ========================================================= -->
-  <section class="oh-widget-section">
-    <div class="oh-widget-wrap">
-      <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-134205" src="//thejaiswalgroup.idxbroker.com/idx/widgets/134205"></script>
+  <!-- Trestles listings grid — Carmel Valley (92130) -->
+  <section style="padding: 3rem 2rem 4rem; max-width: 1400px; margin: 0 auto;">
+    <div class="fp-grid" id="oh-cv-grid">
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+    </div>
+    <div class="center" style="margin-top:2rem;">
+      <a href="listings.html?zip=92130" class="btn btn-primary">VIEW ALL CARMEL VALLEY LISTINGS</a>
     </div>
   </section>
-
   <script>
-  (function() {
-    function injectWidgetStyles() {
-      const widget = document.querySelector('idx-listings-showcase');
-      if (!widget || !widget.shadowRoot) {
-        setTimeout(injectWidgetStyles, 400);
-        return;
-      }
-      if (widget.shadowRoot.getElementById('tjg-oh-styles')) return;
-      const style = document.createElement('style');
-      style.id = 'tjg-oh-styles';
-      style.textContent = `
-        .idx-listing-card__courtesy { display: none !important; }
-        .idx-listing-card__wrap { position: relative !important; }
-        .idx-listing-card__details { padding-bottom: 2rem !important; }
-        .idx-listing-card__additional-info {
-          position: absolute !important;
-          bottom: 2rem !important;
-          right: 1rem !important;
-          background: transparent !important;
-          padding: 0 !important;
-          margin: 0 !important;
-        }
-        .idx-listing-card__mls {
-          background: transparent !important;
-          mix-blend-mode: multiply !important;
-        }
-        .idx-listing-card__mls img {
-          height: 38px !important;
-          width: auto !important;
-          mix-blend-mode: multiply !important;
-          background: transparent !important;
-        }
-      `;
-      widget.shadowRoot.appendChild(style);
+  (function(){
+    var WORKER = 'https://tjg-trestles-worker.lynnette-2ee.workers.dev';
+    function fmtPrice(n){ return n ? '$'+Math.round(n).toLocaleString('en-US') : '—'; }
+    function fmtStatus(s){ return s==='ComingSoon'?'Coming Soon':(s||'Active'); }
+    function badgeCls(s){ if(s==='Pending') return 'ls-badge-pending'; if(s==='Closed'||s==='Sold') return 'ls-badge-sold'; return 'ls-badge-active'; }
+    function buildCard(l){
+      var photo=(l.Media&&l.Media[0]&&l.Media[0].MediaURL)?l.Media[0].MediaURL:'';
+      var unit=l.UnitNumber?' #'+l.UnitNumber:'';
+      var street=([l.StreetNumber,l.StreetName,l.StreetSuffix].filter(Boolean).join(' ')||'Private Address')+unit;
+      var fullAddr=street+', '+[l.City,(l.StateOrProvince||'CA'),l.PostalCode].filter(Boolean).join(' ');
+      var img=photo?'<img src="'+photo+'" alt="'+street.replace(/"/g,'')+'" loading="lazy" />':'';
+      var facts='';
+      if(l.BedroomsTotal!=null) facts+='<span>'+l.BedroomsTotal+' bd</span>';
+      if(l.BathroomsTotalInteger!=null) facts+='<span>'+l.BathroomsTotalInteger+' ba</span>';
+      if(l.LivingArea) facts+='<span>'+l.LivingArea.toLocaleString('en-US')+' sqft</span>';
+      var mls=l.ListingId?'<div class="ls-card-mls"><span>MLS\u00ae: '+l.ListingId+'</span><img src="LOGOS/logo-crmls.png" alt="CRMLS" class="ls-crmls-logo" /></div>':'';
+      return '<a class="ls-card" href="listing.html?key='+l.ListingKey+'">'
+        +'<div class="ls-card-img">'+img+'<span class="ls-badge '+badgeCls(l.StandardStatus)+'">'+fmtStatus(l.StandardStatus)+'</span></div>'
+        +'<div class="ls-card-body"><div class="ls-card-price">'+fmtPrice(l.ListPrice)+'</div>'
+        +'<div class="ls-card-facts">'+facts+'</div>'
+        +'<div class="ls-card-address">'+fullAddr+'</div>'+mls+'</div></a>';
     }
-    setTimeout(injectWidgetStyles, 800);
+    fetch(WORKER+'/search?zip=92130&status=Active,ComingSoon&sort=newest&limit=8')
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        var grid=document.getElementById('oh-cv-grid');
+        var listings=(data.listings||[]).slice(0,8);
+        grid.innerHTML=listings.length ? listings.map(buildCard).join('') : '<p style="grid-column:1/-1;text-align:center;color:#888;padding:2rem">No listings found.</p>';
+      })
+      .catch(function(){ document.getElementById('oh-cv-grid').innerHTML=''; });
   })();
   </script>
 
