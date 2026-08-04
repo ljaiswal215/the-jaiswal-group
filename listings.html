@@ -3221,7 +3221,11 @@
   async function ssSubmitSave() {
     const name = document.getElementById('ss-search-name').value.trim() || 'My Search';
     const freq = document.querySelector('.ls-ss-freq-pill.selected')?.dataset?.freq || 'daily';
-    const criteria = Object.fromEntries(new URLSearchParams(window.location.search));
+    // Strip map-viewport params — they're not search criteria and produce wrong results when reloaded
+    const _MAP_PARAMS = new Set(['north','south','east','west','page','zoom']);
+    const _raw = new URLSearchParams(window.location.search);
+    _MAP_PARAMS.forEach(k => _raw.delete(k));
+    const criteria = Object.fromEntries(_raw);
 
     const { data: { session } } = await _sb.auth.getSession();
     if (session?.user) {
