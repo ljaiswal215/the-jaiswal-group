@@ -11,6 +11,15 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="preload" as="video" href="homepage hero background video.mp4" type="video/mp4" fetchpriority="high" />
 </head>
+<script>
+  // Redirect Supabase recovery/magic-link tokens to the right page
+  (function() {
+    var h = window.location.hash;
+    if (h && h.includes('type=recovery')) {
+      window.location.replace('my-account.html' + h);
+    }
+  })();
+</script>
 <body>
 
   <!-- =========================================================
