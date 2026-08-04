@@ -2210,7 +2210,8 @@
   // Track last listings URL so profile page can link back to it
   sessionStorage.setItem('lastListingsUrl', location.href);
 
-  const DEFAULT_ZIPS = '92130,92014,92075,92007,92024,92010,92009,92008,92011,92078,92127,92067,92091,92054,92056,92129,92029,92025,92026,92027,92064,92128,92083,92081';
+  const DEFAULT_ZIPS  = '92130,92127,92067,92014,92075,92007,92024,92010,92011,92009,92008,92054,92056,92128';
+  const DEFAULT_PTYPES = 'Residential,Land,Manufactured In Park,Residential Income';
 
   // ─────────────────────────────────────────────────────────────────────────
   // MOCK LISTINGS  (realistic San Diego data for design/testing)
@@ -2748,10 +2749,15 @@
     state.afFeatures.forEach(f => {
       if (featureParamMap[f]) params.set(featureParamMap[f], 'true');
     });
-    // Multi-type from modal (pass as comma list — Worker uses first match for now)
+    // Property type filter: user modal selection > single-type pill > site defaults
     if (state.afTypes.length === 1) {
       if (state.afTypes[0].type)    params.set('type', state.afTypes[0].type);
       if (state.afTypes[0].subtype) params.set('subtype', state.afTypes[0].subtype);
+    } else if (state.afTypes.length > 1) {
+      const distinct = [...new Set(state.afTypes.map(t => t.type))];
+      params.set('ptypes', distinct.join(','));
+    } else if (!state.type && !state.subtype) {
+      params.set('ptypes', DEFAULT_PTYPES);
     }
     params.set('sort', state.sort);
     params.set('page', currentPage);

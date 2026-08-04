@@ -134,6 +134,17 @@ function buildFilter(params) {
   const subtype = params.get('subtype');
   if (subtype) filters.push(`PropertySubType eq '${subtype.replace(/'/g, "''")}'`);
 
+  // Multi property type OR filter (comma-separated PropertyType values)
+  const ptypes = params.get('ptypes');
+  if (ptypes && !type) {
+    const typeList = ptypes.split(',').map(t => t.trim()).filter(Boolean);
+    if (typeList.length === 1) {
+      filters.push(`PropertyType eq '${typeList[0]}'`);
+    } else if (typeList.length > 1) {
+      filters.push(`(${typeList.map(t => `PropertyType eq '${t}'`).join(' or ')})`);
+    }
+  }
+
   // Map bounding box
   const north = params.get('north');
   const south = params.get('south');
