@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clone.addEventListener('click', function(e) {
           e.preventDefault();
           e.stopImmediatePropagation();
-          window.open('https://thejaiswalgroup.idxbroker.com/idx/account-registration', '_blank');
+          window.location.href = '/my-account.html';
         });
         btn.parentNode.replaceChild(clone, btn);
       });
@@ -312,8 +312,8 @@ document.addEventListener('DOMContentLoaded', () => {
       '  <button id="tjg-favorite-modal-close" aria-label="Close">&times;</button>',
       '  <h2>Save This Listing</h2>',
       '  <p>Create a free account to save your favorite homes, track price changes, and get notified of new listings.</p>',
-      '  <a href="https://thejaiswalgroup.idxbroker.com/idx/account-registration" class="tjg-fav-btn">Create Free Account</a>',
-      '  <a href="https://thejaiswalgroup.idxbroker.com/idx/account-login" class="tjg-fav-signin">Already have an account? Sign In</a>',
+      '  <a href="/my-account.html" class="tjg-fav-btn">Create Free Account</a>',
+      '  <a href="/my-account.html" class="tjg-fav-signin">Already have an account? Sign In</a>',
       '</div>'
     ].join('');
     document.body.appendChild(modal);
