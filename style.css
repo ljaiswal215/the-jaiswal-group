@@ -156,7 +156,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   gap: 1rem;
   position: relative;
 }
-.nav-logo img { height: 100px; width: auto; transition: opacity 0.35s; transform: translateY(0); }
+.nav-logo img { height: 88px; width: auto; transition: opacity 0.35s; transform: translateY(0); }
 /* Logo swap: white logo on transparent/dark nav; colored logo only on light-hero pages before scroll */
 .nav-logo .logo-white { display: block; }
 .nav-logo .logo-color { display: none; }
@@ -1844,14 +1844,14 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   .nav-links { margin: 0 auto; }
 }
 @media (max-width: 1250px) {
-  .nav-logo img { height: 80px; }
+  .nav-logo img { height: 70px; }
 }
 @media (max-width: 1100px) {
   .nav-links { gap: 0; }
   .nav-links > li > a { padding: 0.5rem 0.5rem; font-size: 0.78rem; }
 }
 @media (max-width: 900px) {
-  .nav-logo img { height: 100px; }
+  .nav-logo img { height: 88px; }
   .nav-links { display: none; }
   .hamburger { display: flex; }
   .main-nav { padding: 0.75rem 1.5rem; }

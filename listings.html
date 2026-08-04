@@ -156,7 +156,7 @@
       white-space: nowrap;
       transition: border-color 0.2s, background 0.2s;
     }
-    .ls-pill:hover { border-color: #1C3063; }
+    .ls-pill:hover { border-color: #1C3063; background: #1C3063; color: #fff; }
     .ls-pill.active { border-color: #1C3063; background: #1C3063; color: #fff; }
     .ls-pill .ls-caret { font-size: 9px; opacity: 0.6; }
 
@@ -310,14 +310,14 @@
     .ls-chip {
       padding: 7px 16px;
       border: 1px solid #d0d0d0;
-      border-radius: 20px;
+      border-radius: 6px;
       font-size: 13px;
       cursor: pointer;
       background: #fff;
       font-family: 'Lato', sans-serif;
       transition: all 0.15s;
     }
-    .ls-chip:hover { border-color: #1C3063; }
+    .ls-chip:hover { border-color: #1C3063; background: #1C3063; color: #fff; }
     .ls-chip.sel { background: #1C3063; color: #fff; border-color: #1C3063; }
 
     /* Status chips */
@@ -325,14 +325,14 @@
     .ls-status-chip {
       padding: 7px 14px;
       border: 1px solid #d0d0d0;
-      border-radius: 20px;
+      border-radius: 6px;
       font-size: 13px;
       cursor: pointer;
       background: #fff;
       font-family: 'Lato', sans-serif;
       transition: all 0.15s;
     }
-    .ls-status-chip:hover { border-color: #1C3063; }
+    .ls-status-chip:hover { border-color: #1C3063; background: #1C3063; color: #fff; }
     .ls-status-chip.sel { background: #1C3063; color: #fff; border-color: #1C3063; }
 
     /* Property type icon grid */
@@ -1197,8 +1197,8 @@
     .af-toggle-btn { flex:1; padding:10px; border:none; background:#fff; cursor:pointer; font-family:'Lato',sans-serif; font-size:13px; font-weight:500; color:#444; transition:background 0.15s,color 0.15s; }
     .af-toggle-btn.active { background:#18254B; color:#fff; }
     .af-chip-row { display:flex; flex-wrap:wrap; gap:8px; }
-    .af-chip { padding:8px 16px; border:1px solid #d0d0d0; border-radius:20px; background:#fff; cursor:pointer; font-family:'Lato',sans-serif; font-size:13px; color:#444; transition:border-color 0.15s,background 0.15s,color 0.15s; }
-    .af-chip:hover { border-color:#18254B; color:#18254B; }
+    .af-chip { padding:8px 16px; border:1px solid #d0d0d0; border-radius:6px; background:#fff; cursor:pointer; font-family:'Lato',sans-serif; font-size:13px; color:#444; transition:border-color 0.15s,background 0.15s,color 0.15s; }
+    .af-chip:hover { border-color:#18254B; background:#18254B; color:#fff; }
     .af-chip.active { border-color:#18254B; background:#18254B; color:#fff; }
     .af-price-row { display:flex; align-items:center; gap:8px; }
     .af-price-row input { flex:1; padding:9px 12px; border:1px solid #d0d0d0; border-radius:6px; font-family:'Lato',sans-serif; font-size:13px; outline:none; }
@@ -2773,7 +2773,7 @@
       drawZipBoundary(null);
     } else {
       params.set('zips', DEFAULT_ZIPS);
-      document.getElementById('ls-page-title').textContent = 'San Diego Homes & Real Estate For Sale';
+      document.getElementById('ls-page-title').textContent = 'San Diego Real Estate For Sale';
       drawZipBoundary(null);
     }
 
