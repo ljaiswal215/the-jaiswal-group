@@ -252,66 +252,77 @@
       <span class="section-eyebrow">DISCOVER</span>
       <h2 class="section-title">FEATURED PROPERTIES</h2>
     </div>
-    <div class="fp-widget-wrap">
-      <script charset="UTF-8" type="text/javascript" id="idxwidgetsrc-161662" src="//thejaiswalgroup.idxbroker.com/idx/widgets/161662"></script>
+    <div class="fp-grid" id="fp-grid">
+      <!-- skeleton placeholders -->
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
+      <div class="fp-card fp-skeleton"></div>
     </div>
     <div class="center" style="margin-top:1.5rem;">
-      <a href="featured-properties.html" class="btn btn-primary">VIEW MORE</a>
+      <a href="listings.html" class="btn btn-primary">VIEW MORE</a>
     </div>
   </section>
   <script>
   (function(){
-    function initWidget(){
-      var w=document.querySelector('idx-listings-showcase');
-      if(!w||!w.shadowRoot){ setTimeout(initWidget,400); return; }
+    var WORKER = 'https://tjg-trestles-worker.lynnette-2ee.workers.dev';
+    var ZIPS   = '92130,92014,92075,92127,92067,92007,92024';
 
-      // Inject CRMLS logo styles
-      if(!w.shadowRoot.getElementById('tjg-hp-styles')){
-        var style=document.createElement('style');
-        style.id='tjg-hp-styles';
-        style.textContent=`
-          .idx-listing-card__courtesy { display: none !important; }
-          .idx-listing-card__wrap { position: relative !important; }
-          .idx-listing-card__details { padding-bottom: 2rem !important; }
-          .idx-listing-card__additional-info {
-            position: absolute !important;
-            bottom: 2rem !important;
-            right: 1rem !important;
-            background: transparent !important;
-            padding: 0 !important;
-            margin: 0 !important;
-          }
-          .idx-listing-card__mls {
-            background: transparent !important;
-            mix-blend-mode: multiply !important;
-          }
-          .idx-listing-card__mls img {
-            height: 38px !important;
-            width: auto !important;
-            mix-blend-mode: multiply !important;
-            background: transparent !important;
-          }
-        `;
-        w.shadowRoot.appendChild(style);
-      }
-
-      // Hide pending cards
-      w.shadowRoot.querySelectorAll('.idx-listing-card__prop-status').forEach(function(badge){
-        if(badge.textContent.trim().toLowerCase()==='pending'){
-          var card=badge.closest('.idx-listings-showcase__property');
-          if(card) card.style.setProperty('display','none','important');
-        }
-      });
-
-      // Cap at 8 visible cards (4 cols × 2 rows) — CSS nth-child can't pierce Shadow DOM
-      var shown=0;
-      w.shadowRoot.querySelectorAll('.idx-listings-showcase__property').forEach(function(card){
-        if(window.getComputedStyle(card).display==='none') return;
-        shown++;
-        if(shown>8) card.style.setProperty('display','none','important');
-      });
+    function fmtPrice(n){
+      if(!n) return '—';
+      return '$' + Math.round(n).toLocaleString('en-US');
     }
-    setTimeout(initWidget,800);
+    function fmtStatus(s){
+      if(s === 'ComingSoon') return 'Coming Soon';
+      return s || 'Active';
+    }
+    function badgeCls(s){
+      if(s==='Pending') return 'ls-badge-pending';
+      if(s==='ComingSoon'||s==='Coming Soon') return 'ls-badge-coming';
+      if(s==='Closed'||s==='Sold') return 'ls-badge-sold';
+      return 'ls-badge-active';
+    }
+    var HOUSE_PLACEHOLDER = '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>';
+    function buildCard(l){
+      var photo = (l.Media&&l.Media[0]&&l.Media[0].MediaURL) ? l.Media[0].MediaURL : '';
+      var unit  = l.UnitNumber ? ' #' + l.UnitNumber : '';
+      var street = ([l.StreetNumber, l.StreetName, l.StreetSuffix].filter(Boolean).join(' ') || 'Private Address') + unit;
+      var fullAddr = street + ', ' + [l.City, (l.StateOrProvince||'CA'), l.PostalCode].filter(Boolean).join(' ');
+      var imgHtml = photo
+        ? '<img src="' + photo + '" alt="' + street.replace(/"/g,'') + '" loading="lazy" />'
+        : '<div class="ls-card-img-placeholder">' + HOUSE_PLACEHOLDER + '</div>';
+      var facts = '';
+      if(l.BedroomsTotal != null) facts += '<span>' + l.BedroomsTotal + ' bd</span>';
+      if(l.BathroomsTotalInteger != null) facts += '<span>' + l.BathroomsTotalInteger + ' ba</span>';
+      if(l.LivingArea) facts += '<span>' + l.LivingArea.toLocaleString('en-US') + ' sqft</span>';
+      var mlsRow = l.ListingId ? '<div class="ls-card-mls"><span>MLS\u00ae: ' + l.ListingId + '</span><img src="LOGOS/logo-crmls.png" alt="CRMLS" class="ls-crmls-logo" /></div>' : '';
+      return '<a class="ls-card" href="listing.html?key=' + l.ListingKey + '">'
+        + '<div class="ls-card-img">'
+        +   imgHtml
+        +   '<span class="ls-badge ' + badgeCls(l.StandardStatus) + '">' + fmtStatus(l.StandardStatus) + '</span>'
+        + '</div>'
+        + '<div class="ls-card-body">'
+        +   '<div class="ls-card-price">' + fmtPrice(l.ListPrice) + '</div>'
+        +   '<div class="ls-card-facts">' + facts + '</div>'
+        +   '<div class="ls-card-address">' + fullAddr + '</div>'
+        +   mlsRow
+        + '</div>'
+        + '</a>';
+    }
+
+    fetch(WORKER + '/search?zips=' + ZIPS + '&status=Active,ComingSoon&minPrice=750000&maxPrice=25000000&sort=newest&limit=8')
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        var grid = document.getElementById('fp-grid');
+        var listings = (data.listings || []).slice(0, 8);
+        if(!listings.length){ grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#888;padding:2rem">No listings found.</p>'; return; }
+        grid.innerHTML = listings.map(buildCard).join('');
+      })
+      .catch(function(){ document.getElementById('fp-grid').innerHTML = ''; });
   })();
   </script>
 

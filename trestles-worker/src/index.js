@@ -21,7 +21,7 @@ const PROPERTY_URL  = `${TRESTLES_BASE}/trestle/odata/Property`;
 const CARD_FIELDS = [
   'ListingKey', 'ListingId', 'ListPrice',
   'BedroomsTotal', 'BathroomsTotalInteger', 'LivingArea',
-  'StreetNumber', 'StreetName', 'StreetSuffix',
+  'StreetNumber', 'StreetName', 'StreetSuffix', 'UnitNumber',
   'City', 'StateOrProvince', 'PostalCode',
   'StandardStatus', 'PropertyType', 'PropertySubType',
   'Latitude', 'Longitude',
@@ -33,16 +33,33 @@ const CARD_FIELDS = [
 // Fields needed for the full detail page (superset of CARD_FIELDS)
 const DETAIL_FIELDS = CARD_FIELDS + ',' + [
   'PublicRemarks',
+  // Bedrooms / Bathrooms
   'BathroomsFull', 'BathroomsHalf',
-  'Stories', 'FireplacesTotal',
-  'PoolPrivateYN', 'SpaYN',
-  'Heating', 'Cooling', 'Flooring',
-  'ParkingFeatures', 'GarageYN',
-  'MLSAreaMajor', 'SubdivisionName',
+  // Interior
+  'Stories', 'InteriorFeatures', 'Appliances', 'LaundryFeatures',
+  'FireplacesTotal', 'FireplaceYN', 'FireplaceFeatures',
+  'HeatingYN', 'Heating', 'CoolingYN', 'Cooling',
+  'Flooring', 'CommonWalls',
+  // Exterior
+  'ArchitecturalStyle', 'GarageYN', 'ParkingTotal', 'ParkingFeatures',
+  'PoolPrivateYN', 'PoolFeatures', 'SpaYN',
+  'Sewer', 'WaterSource', 'Utilities',
+  // Site / lot
+  'LotSizeAcres', 'View',
+  // Community / location
+  'MLSAreaMajor', 'SubdivisionName', 'CountyOrParish',
+  'CommunityFeatures', 'AssociationAmenities',
+  'ElementarySchool', 'MiddleOrJuniorSchool', 'HighSchool',
+  'SeniorCommunityYN', 'Zoning',
+  // Financial
   'TaxAnnualAmount', 'AssociationName', 'AssociationFeeFrequency',
+  'TaxOtherAnnualAssessmentAmount',
+  // Transaction
   'CloseDate', 'ClosePrice',
   'DaysOnMarket',
-  'ListAgentDirectPhone', 'ListAgentMobilePhone', 'ListAgentEmail'
+  // Agent / office
+  'ListAgentDirectPhone', 'ListAgentMobilePhone', 'ListAgentEmail',
+  'VirtualTourURLUnbranded', 'VirtualTourURLBranded'
 ].join(',');
 
 // In-memory token cache (persists within a warm Worker isolate)
@@ -210,6 +227,10 @@ function buildFilter(params) {
   const keyword = params.get('keyword');
   if (keyword) filters.push(`contains(PublicRemarks,'${keyword.replace(/'/g, "''")}')`);
 
+  // Listed since date (YYYY-MM-DD) — for new listings feature
+  const listedSince = params.get('listedSince');
+  if (listedSince) filters.push(`OnMarketDate ge '${listedSince}'`);
+
   // Open house
   if (params.get('openHouse') === 'true') filters.push("OpenHouseRemarks ne null");
 
@@ -281,11 +302,456 @@ function json(data, status = 200) {
   });
 }
 
+// ── Admin ─────────────────────────────────────────────────────────────────────
+
+const ADMIN_HTML = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TJG &middot; Leads Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Lato',sans-serif;background:#f0f2f5;min-height:100vh;color:#333}
+#login-screen{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#1C3063}
+.login-box{background:#fff;padding:48px 40px;width:380px;text-align:center}
+.login-box h1{font-family:'Marcellus',serif;font-size:26px;color:#1C3063;margin-bottom:6px}
+.login-box p{color:#aaa;font-size:13px;margin-bottom:32px}
+.login-box input{width:100%;border:1px solid #ddd;padding:12px 14px;font-size:14px;font-family:'Lato',sans-serif;margin-bottom:14px;outline:none}
+.login-box input:focus{border-color:#1C3063}
+.login-btn{width:100%;background:#1C3063;color:#fff;border:none;padding:14px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;font-family:'Lato',sans-serif}
+.login-btn:hover{background:#243d82}
+#login-error{color:#e74c3c;font-size:12px;margin-top:10px;min-height:18px}
+#app{display:none}
+header{background:#1C3063;color:#fff;padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100}
+header h1{font-family:'Marcellus',serif;font-size:18px;font-weight:400;letter-spacing:.5px}
+.hdr-right{display:flex;align-items:center;gap:16px}
+#lead-count-hdr{font-size:12px;color:rgba(255,255,255,.45)}
+.btn{padding:9px 18px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;font-family:'Lato',sans-serif;transition:.15s}
+.btn-primary{background:#1C3063;color:#fff}.btn-primary:hover{background:#243d82}
+.btn-gold{background:#c9a96e;color:#fff}.btn-gold:hover{background:#b8935a}
+.btn-danger{background:#e74c3c;color:#fff}.btn-danger:hover{background:#c0392b}
+.btn-ghost{background:transparent;border:1px solid #ccc;color:#666}.btn-ghost:hover{border-color:#999;color:#333}
+.toolbar{padding:20px 32px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;min-height:64px}
+#bulk-bar{display:none;align-items:center;gap:10px}
+#bulk-bar.visible{display:flex}
+#bulk-count{font-size:13px;color:#555;font-weight:700}
+#status-msg{font-size:12px;color:#888;margin-left:auto}
+.table-wrap{margin:0 32px 48px;background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.07);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{padding:11px 14px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#999;border-bottom:1px solid #eee;background:#fafafa;white-space:nowrap}
+tbody tr{border-bottom:1px solid #f3f3f3;transition:background .1s}
+tbody tr:hover{background:#f9f9ff}
+td{padding:12px 14px;vertical-align:middle}
+.td-name{font-weight:700;color:#1C3063}.td-email{color:#555}.td-phone{color:#888}
+.td-source{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#bbb}
+.td-date{color:#aaa;font-size:12px;white-space:nowrap}
+.badge{display:inline-block;padding:3px 11px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;user-select:none;transition:.15s}
+.badge-active{background:#e8f5e9;color:#2e7d32}.badge-active:hover{background:#c8e6c9}
+.badge-inactive{background:#f5f5f5;color:#aaa}.badge-inactive:hover{background:#e0e0e0}
+.td-count{text-align:center;font-weight:700;color:#1C3063}
+.td-count-zero{text-align:center;color:#ddd}
+td.td-actions{white-space:nowrap;text-align:right}
+.btn-del{background:none;border:none;cursor:pointer;color:#ddd;font-size:15px;padding:4px 6px;transition:color .15s;line-height:1}
+.btn-del:hover{color:#e74c3c}
+.empty-row td{text-align:center;padding:60px;color:#bbb;font-family:'Marcellus',serif;font-size:16px}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;align-items:center;justify-content:center}
+.overlay.open{display:flex}
+.modal{background:#fff;width:460px;max-width:95vw;padding:36px 40px;position:relative}
+.modal h2{font-family:'Marcellus',serif;font-size:22px;color:#1C3063;margin-bottom:26px}
+.modal-close{position:absolute;top:16px;right:18px;background:none;border:none;font-size:22px;cursor:pointer;color:#bbb;line-height:1}
+.modal-close:hover{color:#333}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-field label{display:block;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#aaa;margin-bottom:6px}
+.form-field input{width:100%;border:1px solid #e0e0e0;padding:10px 12px;font-size:14px;font-family:'Lato',sans-serif;outline:none;transition:.15s}
+.form-field input:focus{border-color:#1C3063}
+.form-full{grid-column:span 2}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:24px}
+</style>
+</head>
+<body>
+
+<div id="login-screen">
+  <div class="login-box">
+    <h1>TJG Admin</h1>
+    <p>Leads Management</p>
+    <input type="password" id="pw" placeholder="Password" />
+    <button class="login-btn" onclick="doLogin()">Sign In</button>
+    <div id="login-error"></div>
+  </div>
+</div>
+
+<div id="app">
+  <header>
+    <h1>The Jaiswal Group &mdash; Leads</h1>
+    <div class="hdr-right">
+      <span id="lead-count-hdr"></span>
+      <button class="btn btn-gold" onclick="openModal()">+ New Lead</button>
+    </div>
+  </header>
+  <div class="toolbar">
+    <div id="bulk-bar">
+      <span id="bulk-count"></span>
+      <button class="btn btn-ghost" onclick="bulkAction('activate')">Activate</button>
+      <button class="btn btn-ghost" onclick="bulkAction('deactivate')">Deactivate</button>
+      <button class="btn btn-danger" onclick="bulkAction('delete')">Delete</button>
+    </div>
+    <span id="status-msg"></span>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:36px"><input type="checkbox" id="sel-all" onchange="toggleAll(this)"></th>
+          <th>Name</th><th>Email</th><th>Phone</th><th>Source</th><th>Status</th><th>Created</th>
+          <th style="text-align:center">Searches</th>
+          <th style="text-align:center">Properties</th>
+          <th style="text-align:center">Reports</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr class="empty-row"><td colspan="11">Loading&hellip;</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="overlay" id="modal" onclick="overlayClick(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <h2>Create Lead</h2>
+    <div class="form-grid">
+      <div class="form-field"><label>First Name</label><input type="text" id="f-first" placeholder="Jane" /></div>
+      <div class="form-field"><label>Last Name</label><input type="text" id="f-last" placeholder="Doe" /></div>
+      <div class="form-field form-full"><label>Email *</label><input type="email" id="f-email" placeholder="jane@example.com" /></div>
+      <div class="form-field form-full"><label>Phone</label><input type="tel" id="f-phone" placeholder="(858) 555-0100" /></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="createLead()">Create &amp; Push to FUB</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var TOKEN = '';
+var leads = [];
+var BASE  = window.location.origin;
+
+function hdrs() {
+  return { 'Content-Type': 'application/json', 'X-Admin-Token': TOKEN };
+}
+
+async function doLogin() {
+  var pw = document.getElementById('pw').value.trim();
+  if (!pw) return;
+  document.getElementById('login-error').textContent = '';
+  try {
+    var r = await fetch(BASE + '/admin/leads', { headers: { 'X-Admin-Token': pw } });
+    if (r.status === 401) { document.getElementById('login-error').textContent = 'Incorrect password.'; return; }
+    TOKEN = pw;
+    sessionStorage.setItem('tjg_admin', pw);
+    showApp(await r.json());
+  } catch(e) { document.getElementById('login-error').textContent = 'Connection error.'; }
+}
+
+document.getElementById('pw').addEventListener('keydown', function(e) { if (e.key === 'Enter') doLogin(); });
+
+async function tryAutoLogin() {
+  var saved = sessionStorage.getItem('tjg_admin');
+  if (!saved) return;
+  try {
+    var r = await fetch(BASE + '/admin/leads', { headers: { 'X-Admin-Token': saved } });
+    if (r.ok) { TOKEN = saved; showApp(await r.json()); }
+    else sessionStorage.removeItem('tjg_admin');
+  } catch(e) {}
+}
+
+function showApp(data) {
+  leads = Array.isArray(data) ? data : [];
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  render();
+}
+
+function fmtDate(iso) {
+  if (!iso) return '&mdash;';
+  var d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+}
+
+function render() {
+  document.getElementById('lead-count-hdr').textContent = leads.length + (leads.length === 1 ? ' lead' : ' leads');
+  var tbody = document.getElementById('tbody');
+  if (!leads.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="11">No leads yet. Create your first one above.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = leads.map(function(l) {
+    var name  = [l.first_name, l.last_name].filter(Boolean).join(' ') || '&mdash;';
+    var phone = l.phone ? l.phone : '<span style="color:#ddd">&mdash;</span>';
+    var n = l.saved_searches_count        || 0;
+    var p = l.saved_properties_count      || 0;
+    var m = l.saved_market_reports_count  || 0;
+    return '<tr>' +
+      '<td><input type="checkbox" class="rc" value="' + l.id + '" onchange="updateBulk()"></td>' +
+      '<td class="td-name">' + name + '</td>' +
+      '<td class="td-email">' + l.email + '</td>' +
+      '<td class="td-phone">' + phone + '</td>' +
+      '<td class="td-source">' + (l.source || 'manual') + '</td>' +
+      '<td><span class="badge badge-' + l.status + '" onclick="toggleStatus(\\'' + l.id + '\\',\\'' + l.status + '\\')">' + l.status + '</span></td>' +
+      '<td class="td-date">' + fmtDate(l.created_at) + '</td>' +
+      '<td class="' + (n > 0 ? 'td-count' : 'td-count-zero') + '">' + n + '</td>' +
+      '<td class="' + (p > 0 ? 'td-count' : 'td-count-zero') + '">' + p + '</td>' +
+      '<td class="' + (m > 0 ? 'td-count' : 'td-count-zero') + '">' + m + '</td>' +
+      '<td class="td-actions"><button class="btn-del" title="Delete" onclick="delLead(\\'' + l.id + '\\')">&#128465;</button></td>' +
+    '</tr>';
+  }).join('');
+}
+
+function updateBulk() {
+  var checked = document.querySelectorAll('.rc:checked');
+  document.getElementById('bulk-count').textContent = checked.length + ' selected';
+  document.getElementById('bulk-bar').classList.toggle('visible', checked.length > 0);
+}
+
+function toggleAll(cb) {
+  document.querySelectorAll('.rc').forEach(function(c) { c.checked = cb.checked; });
+  updateBulk();
+}
+
+function selIds() {
+  return Array.from(document.querySelectorAll('.rc:checked')).map(function(c) { return c.value; });
+}
+
+function flash(msg) {
+  var el = document.getElementById('status-msg');
+  el.textContent = msg;
+  setTimeout(function() { el.textContent = ''; }, 3500);
+}
+
+async function toggleStatus(id, cur) {
+  var next = cur === 'active' ? 'inactive' : 'active';
+  var r = await fetch(BASE + '/admin/leads/' + id, { method:'PATCH', headers:hdrs(), body:JSON.stringify({ status:next }) });
+  if (r.ok) {
+    leads = leads.map(function(l) { return l.id === id ? Object.assign({}, l, { status:next }) : l; });
+    render();
+  }
+}
+
+async function delLead(id) {
+  if (!confirm('Delete this lead permanently?')) return;
+  var r = await fetch(BASE + '/admin/leads/' + id, { method:'DELETE', headers:hdrs() });
+  if (r.ok) { leads = leads.filter(function(l) { return l.id !== id; }); render(); flash('Lead deleted.'); }
+}
+
+async function bulkAction(action) {
+  var ids = selIds();
+  if (!ids.length) return;
+  if (action === 'delete' && !confirm('Permanently delete ' + ids.length + ' lead(s)?')) return;
+  var r = await fetch(BASE + '/admin/leads/bulk', { method:'POST', headers:hdrs(), body:JSON.stringify({ ids:ids, action:action }) });
+  if (r.ok) {
+    if (action === 'delete') {
+      leads = leads.filter(function(l) { return ids.indexOf(l.id) === -1; });
+    } else {
+      var ns = action === 'activate' ? 'active' : 'inactive';
+      leads = leads.map(function(l) { return ids.indexOf(l.id) > -1 ? Object.assign({}, l, { status:ns }) : l; });
+    }
+    render();
+    document.getElementById('sel-all').checked = false;
+    updateBulk();
+    flash(ids.length + ' lead(s) updated.');
+  }
+}
+
+function openModal() {
+  document.getElementById('modal').classList.add('open');
+  setTimeout(function() { document.getElementById('f-email').focus(); }, 50);
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  ['f-first','f-last','f-email','f-phone'].forEach(function(id) { document.getElementById(id).value = ''; });
+}
+
+function overlayClick(e) { if (e.target === document.getElementById('modal')) closeModal(); }
+
+async function createLead() {
+  var payload = {
+    first_name: document.getElementById('f-first').value.trim(),
+    last_name:  document.getElementById('f-last').value.trim(),
+    email:      document.getElementById('f-email').value.trim(),
+    phone:      document.getElementById('f-phone').value.trim()
+  };
+  if (!payload.email) { alert('Email is required.'); return; }
+  var r = await fetch(BASE + '/admin/leads', { method:'POST', headers:hdrs(), body:JSON.stringify(payload) });
+  if (r.ok) {
+    var lead = await r.json();
+    leads = [lead].concat(leads);
+    render();
+    closeModal();
+    flash('Lead created and pushed to FUB.');
+  } else {
+    var err = await r.json().catch(function() { return { error:'Unknown error' }; });
+    alert('Error: ' + (err.error || 'Unknown error'));
+  }
+}
+
+tryAutoLogin();
+</script>
+</body>
+</html>`;
+
+function sbHeaders(env) {
+  return {
+    'apikey':        env.SUPABASE_KEY,
+    'Authorization': 'Bearer ' + env.SUPABASE_KEY,
+    'Content-Type':  'application/json',
+    'Prefer':        'return=representation'
+  };
+}
+
+async function sbFetch(env, path, opts) {
+  opts = opts || {};
+  return fetch(
+    env.SUPABASE_URL + '/rest/v1' + path,
+    Object.assign({}, opts, { headers: Object.assign({}, sbHeaders(env), opts.headers || {}) })
+  );
+}
+
+async function pushToFUB(env, data) {
+  if (!env.FUB_API_KEY) return;
+  return fetch('https://api.followupboss.com/v1/events', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Basic ' + btoa(env.FUB_API_KEY + ':'),
+      'Content-Type':  'application/json',
+      'X-System':      'The Jaiswal Group Website',
+      'X-System-Key':  env.FUB_API_KEY
+    },
+    body: JSON.stringify({
+      source: data.source || 'Website',
+      system: 'The Jaiswal Group Website',
+      type:   'Registration',
+      people: [{
+        firstName: data.first_name || '',
+        lastName:  data.last_name  || '',
+        emails:    [{ value: data.email }],
+        phones:    data.phone ? [{ value: data.phone }] : []
+      }]
+    })
+  });
+}
+
+async function handleAdmin(request, url, env) {
+  const method = request.method;
+
+  // Serve admin HTML (open — login is handled client-side)
+  if (method === 'GET' && (url.pathname === '/admin' || url.pathname === '/admin/')) {
+    return new Response(ADMIN_HTML, {
+      headers: { 'Content-Type': 'text/html;charset=UTF-8', 'Cache-Control': 'no-store' }
+    });
+  }
+
+  // All API routes require admin token
+  if (!env.ADMIN_TOKEN || request.headers.get('X-Admin-Token') !== env.ADMIN_TOKEN) {
+    return json({ error: 'Unauthorized' }, 401);
+  }
+
+  // GET /admin/leads
+  if (url.pathname === '/admin/leads' && method === 'GET') {
+    const r = await sbFetch(env, '/leads?select=*&order=created_at.desc');
+    const data = await r.json();
+    return json(Array.isArray(data) ? data : []);
+  }
+
+  // POST /admin/leads — create single lead
+  if (url.pathname === '/admin/leads' && method === 'POST') {
+    const body = await request.json();
+    if (!body.email) return json({ error: 'email required' }, 400);
+
+    const record = {
+      first_name: body.first_name || '',
+      last_name:  body.last_name  || '',
+      email:      body.email.toLowerCase().trim(),
+      phone:      body.phone  || '',
+      source:     body.source || 'manual',
+      status:     'active'
+    };
+
+    const r = await sbFetch(env, '/leads', { method: 'POST', body: JSON.stringify(record) });
+    if (!r.ok) {
+      const err = await r.text();
+      if (r.status === 409) return json({ error: 'A lead with this email already exists.' }, 409);
+      return json({ error: err }, r.status);
+    }
+
+    const created = await r.json();
+    const lead = Array.isArray(created) ? created[0] : created;
+
+    pushToFUB(env, record).catch(e => console.error('FUB push:', e.message));
+    return json(lead);
+  }
+
+  // POST /admin/leads/bulk — bulk activate / deactivate / delete
+  if (url.pathname === '/admin/leads/bulk' && method === 'POST') {
+    const { ids, action } = await request.json();
+    if (!ids?.length || !action) return json({ error: 'ids and action required' }, 400);
+
+    const filter = '/leads?id=in.(' + ids.join(',') + ')';
+    const minimal = { 'Prefer': 'return=minimal' };
+
+    if (action === 'delete') {
+      const r = await sbFetch(env, filter, { method: 'DELETE', headers: minimal });
+      if (!r.ok) return json({ error: await r.text() }, r.status);
+      return json({ ok: true });
+    }
+
+    if (action === 'activate' || action === 'deactivate') {
+      const status = action === 'activate' ? 'active' : 'inactive';
+      const r = await sbFetch(env, filter, { method: 'PATCH', headers: minimal, body: JSON.stringify({ status }) });
+      if (!r.ok) return json({ error: await r.text() }, r.status);
+      return json({ ok: true });
+    }
+
+    return json({ error: 'Unknown action' }, 400);
+  }
+
+  // /admin/leads/:id routes
+  const idMatch = url.pathname.match(/^\/admin\/leads\/([a-f0-9-]{36})$/i);
+
+  if (idMatch && method === 'PATCH') {
+    const r = await sbFetch(env, '/leads?id=eq.' + idMatch[1], {
+      method: 'PATCH', headers: { 'Prefer': 'return=minimal' }, body: JSON.stringify(await request.json())
+    });
+    if (!r.ok) return json({ error: await r.text() }, r.status);
+    return json({ ok: true });
+  }
+
+  if (idMatch && method === 'DELETE') {
+    const r = await sbFetch(env, '/leads?id=eq.' + idMatch[1], {
+      method: 'DELETE', headers: { 'Prefer': 'return=minimal' }
+    });
+    if (!r.ok) return json({ error: await r.text() }, r.status);
+    return json({ ok: true });
+  }
+
+  return json({ error: 'Admin route not found' }, 404);
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
 
     if (request.method === 'OPTIONS') return new Response(null, { headers: CORS });
+
+    // Admin routes — no Trestles auth needed, handles own auth
+    if (url.pathname === '/admin' || url.pathname.startsWith('/admin/')) {
+      return handleAdmin(request, url, env);
+    }
+
     if (request.method !== 'GET' && request.method !== 'POST')
       return json({ error: 'Method not allowed' }, 405);
 
@@ -309,11 +775,12 @@ export default {
         const skip     = page * pageSize;
 
         const sortMap = {
-          newest:     'ModificationTimestamp desc',
-          oldest:     'ModificationTimestamp asc',
-          price_asc:  'ListPrice asc',
-          price_desc: 'ListPrice desc',
-          sqft_desc:  'LivingArea desc'
+          newest:        'ModificationTimestamp desc',
+          oldest:        'ModificationTimestamp asc',
+          price_asc:     'ListPrice asc',
+          price_desc:    'ListPrice desc',
+          sqft_desc:     'LivingArea desc',
+          listed_newest: 'OnMarketDate desc'
         };
         const orderby = sortMap[params.get('sort')] || sortMap.newest;
 
@@ -372,7 +839,7 @@ export default {
         tUrl.searchParams.set('$top',     '1');
 
         const resp = await fetch(tUrl.toString(), { headers: auth });
-        if (!resp.ok) return json({ error: `Trestles detail error: ${resp.status}` }, resp.status);
+        if (!resp.ok) { const errBody = await resp.text(); return json({ error: `Trestles detail error: ${resp.status}`, detail: errBody }, resp.status); }
 
         const body = await resp.json();
         const listing = body?.value?.[0];

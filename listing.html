@@ -8,11 +8,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsv4lOFy-aHRQ3nsd0BmiTmjTR1qxtchA"></script>
   <link rel="stylesheet" href="style.css" />
 
   <style>
-    body { background: #f8f8f6; }
+    /* override style.css overflow-x: hidden which breaks position:sticky */
+    body { background: #f8f8f6; overflow-x: clip; }
 
     /* ── Breadcrumb ── */
     .ld-breadcrumb {
@@ -38,7 +39,7 @@
       display: grid;
       grid-template-columns: 3fr 2fr;
       gap: 4px;
-      height: 520px;
+      height: 620px;
       background: #1C3063;
       overflow: hidden;
       position: relative;
@@ -142,9 +143,9 @@
 
     /* ── Page layout ── */
     .ld-layout {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 28px 16px 64px;
+      max-width: 1400px;
+      margin: 0 auto 0 0;
+      padding: 28px 32px 64px 180px;
       display: grid;
       grid-template-columns: 1fr 420px;
       gap: 32px;
@@ -159,8 +160,8 @@
       align-items: center;
       justify-content: flex-start;
       gap: 40px;
-      padding: 24px 0 20px;
-      border-bottom: 1px solid #ebebeb;
+      padding: 28px 0 24px;
+      border-bottom: 1px solid #d0d0d0;
       margin-bottom: 20px;
     }
     .ld-header-left { flex: 0 1 auto; min-width: 0; }
@@ -193,7 +194,7 @@
 
     .ld-price {
       font-family: 'Marcellus', serif;
-      font-size: 2.4rem;
+      font-size: 2.6rem;
       color: #1C3063;
       line-height: 1.1;
       margin-bottom: 10px;
@@ -218,7 +219,7 @@
       flex-direction: column;
       align-items: center;
       gap: 9px;
-      padding: 0 20px;
+      padding: 0 26px;
     }
     .ld-stat:first-child { padding-left: 0; }
     .ld-stat-val {
@@ -233,13 +234,13 @@
       font-weight: 400;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: #6e6e6e;
+      color: #636363;
       display: flex;
       align-items: center;
       gap: 4px;
     }
     .ld-stat-lbl svg { flex-shrink: 0; stroke: #999; fill: none; stroke-width: 1.5; }
-    .ld-stat-divider { width: 1px; height: 52px; background: #ebebeb; flex-shrink: 0; }
+    .ld-stat-divider { width: 1px; height: 60px; background: #c8c8c0; flex-shrink: 0; }
 .ld-sidebar-nav { display: none; }
     /* Gallery-embedded arrow buttons — bottom-left of hero */
     .ld-gallery-arrows {
@@ -294,31 +295,35 @@
       text-decoration: underline;
     }
 
-    /* Details section quick-jump nav */
-    .ld-section-nav {
+    /* Detail section tab bar */
+    .ld-detail-tabs {
       display: flex;
-      gap: 6px;
+      gap: 8px;
       flex-wrap: wrap;
-      margin-bottom: 20px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid #ebebeb;
+      justify-content: center;
+      margin-top: 4px;
     }
-    .ld-section-nav a {
-      display: inline-flex;
-      align-items: center;
-      padding: 7px 13px;
-      border: 1px solid #d0d0d0;
+    .ld-detail-tab {
+      padding: 9px 20px;
+      border: 1.5px solid #1C3063;
       border-radius: 6px;
       background: #fff;
       font-family: 'Lato', sans-serif;
-      font-size: 13px;
-      font-weight: 400;
-      color: #322E2D;
-      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #1C3063;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
       white-space: nowrap;
-      transition: border-color 0.2s, background 0.2s, color 0.2s;
     }
-    .ld-section-nav a:hover { border-color: #1C3063; color: #1C3063; }
+    .ld-detail-tab.active {
+      background: #1C3063;
+      color: #fff;
+    }
+    .ld-detail-tab:hover { background: #1C3063; color: #fff; }
+    .ld-detail-tab.active:hover { color: #C0687A; }
 
     /* Accordion sections */
     .ld-accordion { margin-bottom: 10px; border-radius: 4px; overflow: hidden; }
@@ -441,10 +446,15 @@
     .ld-mort-disclaimer { font-size: 10px; color: #aaa; margin-top: 8px; line-height: 1.5; }
 
     /* Similar properties */
+    .ld-sim-outer {
+      max-width: 1400px;
+      margin: 0 auto 0 0;
+      padding: 0 0 64px 180px;
+    }
     .ld-similar-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
       margin-top: 16px;
     }
     .ld-sim-card {
@@ -462,12 +472,47 @@
       aspect-ratio: 4/3;
       background: linear-gradient(135deg, #1C3063, #2a4a8c);
       display: flex; align-items: center; justify-content: center;
+      position: relative;
     }
     .ld-sim-img svg { opacity: 0.2; }
-    .ld-sim-body { padding: 10px 12px 12px; }
-    .ld-sim-price { font-weight: 700; color: #1C3063; font-size: 0.95rem; margin-bottom: 2px; }
-    .ld-sim-facts { font-size: 11px; color: #777; margin-bottom: 2px; }
-    .ld-sim-addr { font-size: 11px; color: #999; }
+    .ld-sim-badge {
+      position: absolute; top: 8px; left: 8px;
+      background: #1C3063; color: #fff;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.05em;
+      padding: 3px 7px; border-radius: 4px; text-transform: uppercase;
+    }
+    .ld-sim-badge.coming { background: #b38987; }
+    .ld-sim-badge.pending { background: #f59e0b; }
+    .ld-sim-badge.sold { background: #ef4444; }
+    .ld-sim-actions {
+      position: absolute; top: 8px; right: 8px;
+      display: flex; gap: 4px;
+    }
+    .ld-sim-actions { gap: 6px; }
+    .ld-sim-action-btn {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: none; cursor: pointer;
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(4px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .ld-sim-action-btn:hover { background: rgba(0,0,0,0.55); transform: scale(1.08); }
+    .ld-sim-action-btn svg { width: 15px; height: 15px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.15s, fill 0.15s; opacity: 1; }
+    .ld-sim-action-btn:hover svg { stroke: #B38987; }
+    .ld-sim-action-btn svg polygon { fill: #fff; transition: fill 0.15s; }
+    .ld-sim-action-btn:hover svg polygon { fill: #B38987; }
+    .ld-sim-action-btn.hearted svg { fill: #B38987; stroke: #B38987; }
+    .ld-sim-body { padding: 13px 16px 15px; }
+    .ld-sim-price { font-family: 'Marcellus', serif; font-size: 1.2rem; font-weight: 400; color: #1C3063; margin-bottom: 4px; letter-spacing: 0.01em; }
+    .ld-sim-facts { font-size: 12px; color: #555; display: flex; gap: 0; margin-bottom: 5px; flex-wrap: wrap; }
+    .ld-sim-facts span { display: flex; align-items: center; gap: 3px; padding: 0 8px; border-left: 1px solid #ddd; }
+    .ld-sim-facts span:first-child { padding-left: 0; border-left: none; }
+    .ld-sim-addr { font-size: 12px; color: #555; margin-bottom: 6px; line-height: 1.4; }
+    .ld-sim-mls { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
+    .ld-sim-mls span { font-size: 11px; color: #999; }
+    .ld-sim-crmls { height: 16px; width: auto; flex-shrink: 0; }
 
     /* MLS Disclaimer */
     .ld-disclaimer {
@@ -493,14 +538,15 @@
 
     /* ── Sidebar ── */
     .ld-sidebar {
-      position: sticky;
-      top: 16px;
       align-self: start;
+      visibility: hidden;
+    }
+    .ld-sidebar.positioned {
+      visibility: visible;
     }
 
     /* IDX-style tour card */
     .ld-tour-card {
-      margin-top: 192px;
       background: #F3EFE8;
       border: 1px solid #e8e2d8;
       border-radius: 10px;
@@ -511,12 +557,15 @@
       background: #1C3063;
       color: #fff;
       font-family: 'Lato', sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
       text-align: center;
-      padding: 12px 20px;
+      padding: 14px 20px;
+    }
+    .ld-tour-header-title {
+      font-family: 'Marcellus', serif;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: none;
     }
     .ld-tour-body {
       padding: 24px 24px 20px;
@@ -592,11 +641,11 @@
     }
     .ld-tour-agent-name {
       font-family: 'Marcellus', serif;
-      font-size: 1rem;
+      font-size: 1.15rem;
       color: #1C3063;
     }
     .ld-tour-agent-title {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
@@ -611,7 +660,7 @@
     }
     .ld-tour-agent-contacts a {
       font-family: 'Lato', sans-serif;
-      font-size: 13px;
+      font-size: 14px;
       color: #1C3063;
       text-decoration: none;
       display: flex;
@@ -619,7 +668,7 @@
       gap: 6px;
     }
     .ld-tour-agent-contacts a:hover { text-decoration: underline; }
-    .ld-tour-agent-contacts svg { width: 14px; height: 14px; stroke: #B38987; fill: none; stroke-width: 2; }
+    .ld-tour-agent-contacts svg { width: 15px; height: 15px; stroke: #B38987; fill: none; stroke-width: 2; }
 
     /* ── Mortgage Calculator Section (full-width) ── */
     .ld-mort-section {
@@ -632,7 +681,7 @@
     }
     .ld-mort-section-eyebrow {
       font-family: 'Lato', sans-serif;
-      font-size: 0.6rem;
+      font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -920,19 +969,18 @@
       gap: 3rem;
       flex-wrap: wrap;
     }
-    .ld-cta-text { flex: 1; min-width: 260px; }
+    .ld-cta-text { flex: 1; min-width: 260px; text-align: center; }
     .ld-cta-eyebrow {
-      font-family: 'Lato', sans-serif;
-      font-size: 0.65rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #B38987;
-      margin-bottom: 0.5rem;
+      font-family: 'Marcellus', serif;
+      font-size: 1.4rem;
+      text-align: center;
+      color: #1C3063;
+      margin-bottom: 0.75rem;
     }
     .ld-cta-address {
-      font-family: 'Marcellus', serif;
+      font-family: 'Lato', sans-serif;
       font-size: clamp(1.5rem, 3vw, 2.4rem);
+      font-weight: 400;
       color: #1C3063;
       line-height: 1.2;
       margin-bottom: 1.5rem;
@@ -960,7 +1008,7 @@
       text-align: center;
     }
     .ld-cta-photo {
-      width: 100px; height: 100px;
+      width: 130px; height: 130px;
       border-radius: 50%;
       object-fit: cover;
       object-position: top center;
@@ -970,12 +1018,12 @@
     }
     .ld-cta-agent-name {
       font-family: 'Marcellus', serif;
-      font-size: 1.05rem;
+      font-size: 1.2rem;
       color: #1C3063;
     }
     .ld-cta-agent-title {
       font-family: 'Lato', sans-serif;
-      font-size: 11px;
+      font-size: 13px;
       color: #888;
       letter-spacing: 0.04em;
     }
@@ -983,6 +1031,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
+      font-size: 15px;
       font-family: 'Lato', sans-serif;
       font-size: 13px;
       color: #1C3063;
@@ -1071,7 +1120,7 @@
       gap: 2px;
     }
     .ld-lb-tab {
-      background: none;
+      background: #fff;
       border: none;
       border-radius: 4px;
       padding: 6px 16px;
@@ -1080,16 +1129,18 @@
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #888;
+      color: #1C3063;
       cursor: pointer;
       transition: background 0.15s, color 0.15s;
       white-space: nowrap;
     }
     .ld-lb-tab.active {
-      background: #fff;
-      color: #1C3063;
+      background: #1C3063;
+      color: #fff;
       box-shadow: 0 1px 3px rgba(0,0,0,0.12);
     }
+    .ld-lb-tab.active:hover { color: #C0687A; }
+    .ld-lb-tab:not(.active):hover { background: #1C3063; color: #fff; }
 
     /* Counter — below image, centered */
     .ld-lb-counter {
@@ -1099,7 +1150,7 @@
       letter-spacing: 0.06em;
       color: #1C3063;
       text-align: center;
-      padding: 4px 0 0;
+      padding: 0 0 8px;
       flex-shrink: 0;
     }
 
@@ -1179,9 +1230,70 @@
       width: 100%; height: 100%; border: none;
     }
 
+    /* Photo grid view */
+    .ld-lb-grid-view {
+      flex: 1;
+      overflow-y: auto;
+      background: #F3EFE8;
+      padding: 16px;
+    }
+    .ld-lb-grid-layout {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .ld-lb-grid-hero {
+      width: 100%;
+      aspect-ratio: 16/9;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+    .ld-lb-grid-hero img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.18s;
+    }
+    .ld-lb-grid-hero:hover img { opacity: 0.88; }
+    .ld-lb-grid-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+    }
+    .ld-lb-grid-item {
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+    .ld-lb-grid-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.18s;
+    }
+    .ld-lb-grid-item:hover img { opacity: 0.88; }
+    .ld-lb-grid-solo {
+      width: 100%;
+      aspect-ratio: 16/9;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+    .ld-lb-grid-solo img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.18s;
+    }
+    .ld-lb-grid-solo:hover img { opacity: 0.88; }
+
     /* Mobile */
     @media (max-width: 900px) {
-      .ld-layout { grid-template-columns: 1fr; padding: 16px; }
+      .ld-layout { grid-template-columns: 1fr; padding: 16px; margin: 0; }
       .ld-sidebar { position: static; }
       .ld-gallery-wrap { padding: 8px 12px 0; }
       .ld-gallery { grid-template-columns: 1fr; height: 240px; border-radius: 8px; }
@@ -1190,11 +1302,12 @@
       .ld-header-right { flex-wrap: wrap; }
       .ld-stat { padding: 0 12px; }
       .ld-stat-val { font-size: 1.5rem; }
-      .ld-similar-grid { grid-template-columns: 1fr 1fr; }
+      .ld-similar-grid { grid-template-columns: repeat(3, 1fr); }
       .ld-mort-grid { grid-template-columns: 1fr; }
+      .ld-sim-outer { padding: 16px; margin: 0; }
     }
     @media (max-width: 600px) {
-      .ld-similar-grid { grid-template-columns: 1fr; }
+      .ld-similar-grid { grid-template-columns: 1fr 1fr; }
     }
   /* ── Nav divider between phone and auth ── */
   .nav-divider-line {
@@ -1246,6 +1359,48 @@
   .nav-acct-menu a.acct-signout:hover { background: #fdf0f3; color: #c0687a !important; }
   .nav-account-drop:hover .nav-acct-menu,
   .nav-account-drop.open .nav-acct-menu { display: block; }
+
+  /* ── Share modal ── */
+  .ls-share-overlay {
+    position: fixed; inset: 0; z-index: 10000;
+    background: rgba(0,0,0,0.35);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .ls-share-overlay.hidden { display: none; }
+  .ls-share-modal {
+    background: #fff; border-radius: 16px;
+    padding: 24px 28px 20px; width: 320px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+    position: relative; font-family: 'Lato', sans-serif;
+  }
+  .ls-share-title { font-size: 17px; font-weight: 700; color: #1C3063; margin: 0 0 20px; text-align: center; }
+  .ls-share-close { position: absolute; top: 14px; right: 16px; background: none; border: none; font-size: 20px; color: #888; cursor: pointer; line-height: 1; }
+  .ls-share-options { display: flex; justify-content: space-around; gap: 8px; }
+  .ls-share-option { display: flex; flex-direction: column; align-items: center; gap: 8px; background: none; border: none; cursor: pointer; font-family: 'Lato', sans-serif; font-size: 12px; font-weight: 600; color: #444; }
+  .ls-share-icon { width: 52px; height: 52px; border-radius: 50%; background: #f0f2f7; display: flex; align-items: center; justify-content: center; transition: background 0.15s; }
+  .ls-share-option:hover .ls-share-icon { background: #e2e6f0; }
+  .ls-share-icon svg { width: 22px; height: 22px; stroke: #1C3063; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .ls-share-copied { font-size: 11px; color: #1C3063; text-align: center; margin-top: 12px; min-height: 16px; }
+
+  /* Email share modal */
+  .ls-email-overlay { position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; padding: 16px; }
+  .ls-email-overlay.hidden { display: none; }
+  .ls-email-modal { background: #fff; border-radius: 16px; width: 100%; max-width: 380px; box-shadow: 0 8px 40px rgba(0,0,0,0.2); overflow: hidden; font-family: 'Lato', sans-serif; }
+  .ls-email-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: #18254B; }
+  .ls-email-modal-title { font-size: 16px; font-weight: 700; color: #fff; margin: 0; flex: 1; text-align: center; }
+  .ls-email-close { background: none; border: none; font-size: 20px; color: #fff; cursor: pointer; line-height: 1; padding: 0; }
+  .ls-email-prop-img { width: 100%; height: 160px; object-fit: cover; display: block; }
+  .ls-email-form { padding: 12px 20px 20px; display: flex; flex-direction: column; gap: 10px; }
+  .ls-email-row { display: flex; gap: 10px; }
+  .ls-email-row .ls-email-field { flex: 1; }
+  .ls-email-field { display: flex; flex-direction: column; gap: 4px; }
+  .ls-email-field label { font-size: 11px; font-weight: 700; color: #555; letter-spacing: 0.04em; text-transform: uppercase; }
+  .ls-email-field input, .ls-email-field textarea { border: 1px solid #d5d5d5; border-radius: 6px; padding: 9px 11px; font-family: 'Lato', sans-serif; font-size: 13px; color: #333; outline: none; transition: border-color 0.15s; width: 100%; box-sizing: border-box; }
+  .ls-email-field input:focus, .ls-email-field textarea:focus { border-color: #1C3063; }
+  .ls-email-field textarea { resize: none; height: 72px; }
+  .ls-email-send { background: #1C3063; color: #fff; border: none; border-radius: 8px; padding: 12px; font-family: 'Lato', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.2s; width: 100%; }
+  .ls-email-send:hover { background: #18254B; }
+  .ls-email-send svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2; }
 
   /* ── Auth modal ── */
   .ls-ss-overlay {
@@ -1622,22 +1777,26 @@
         </div>
 
         <!-- Description -->
-        <div class="ld-section">
+        <div class="ld-section" id="about-section">
           <div class="ld-section-title">About This Home</div>
           <div class="ld-description collapsed" id="ld-description">—</div>
           <button class="ld-read-more" id="btn-read-more" onclick="toggleDesc()">Read more</button>
+          <p id="ld-attr-inline" style="font-family:'Lato',sans-serif;font-size:12px;color:#888;margin:20px 0 0;line-height:1.5"></p>
         </div>
 
-        <!-- Detail sections -->
-        <div class="ld-section">
-
-          <!-- Quick-jump nav -->
-          <div class="ld-section-nav">
-            <a href="#section-basic">Basic Info</a>
-            <a href="#section-interior">Interior &amp; Exterior</a>
-            <a href="#section-community">Community</a>
-            <a href="#section-financial">Financial</a>
+        <!-- Detail tab navigation -->
+        <div class="ld-section" style="margin-bottom:4px">
+          <div class="ld-detail-tabs">
+            <button class="ld-detail-tab" onclick="jumpToSection('dtab-details')">Property Details</button>
+            <button class="ld-detail-tab" onclick="jumpToSection('ld-map-section')">Location</button>
+            <button class="ld-detail-tab" onclick="jumpToSection('mort-section')">Mortgage Calculator</button>
+            <button class="ld-detail-tab" onclick="jumpToSection('section-similar')">Similar Listings</button>
           </div>
+        </div>
+
+        <!-- Panel: Property Details (accordions) -->
+        <div id="dtab-details" class="ld-section">
+          <div class="ld-section-title">Property Details</div>
 
           <!-- Basic Information -->
           <div class="ld-accordion" id="section-basic">
@@ -1650,51 +1809,72 @@
                 <div class="ld-detail-row"><span class="ld-detail-lbl">MLS #</span><span class="ld-detail-val" id="d-mls">—</span></div>
                 <div class="ld-detail-row"><span class="ld-detail-lbl">Status</span><span class="ld-detail-val" id="d-status">—</span></div>
                 <div class="ld-detail-row"><span class="ld-detail-lbl">Price</span><span class="ld-detail-val" id="d-price">—</span></div>
+                <div class="ld-detail-row" id="d-hoa-row" style="display:none"><span class="ld-detail-lbl">HOA Fee</span><span class="ld-detail-val" id="d-hoa-basic">—</span></div>
+                <div class="ld-detail-row" id="d-mello-row" style="display:none"><span class="ld-detail-lbl">CFD/Mello-Roos</span><span class="ld-detail-val" id="d-mello-basic">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Price / Sq. Ft.</span><span class="ld-detail-val" id="d-ppsf">—</span></div>
                 <div class="ld-detail-row"><span class="ld-detail-lbl">Property Type</span><span class="ld-detail-val" id="d-type">—</span></div>
-                <div class="ld-detail-row"><span class="ld-detail-lbl">Bedrooms</span><span class="ld-detail-val" id="d-beds">—</span></div>
-                <div class="ld-detail-row"><span class="ld-detail-lbl">Bathrooms</span><span class="ld-detail-val" id="d-baths">—</span></div>
-                <div class="ld-detail-row"><span class="ld-detail-lbl">Square Feet</span><span class="ld-detail-val" id="d-sqft">—</span></div>
-                <div class="ld-detail-row"><span class="ld-detail-lbl">Acres</span><span class="ld-detail-val" id="d-acres">—</span></div>
-                <div class="ld-detail-row"><span class="ld-detail-lbl">Year Built</span><span class="ld-detail-val" id="d-year">—</span></div>
-                <div class="ld-detail-row"><span class="ld-detail-lbl">County</span><span class="ld-detail-val" id="d-county">—</span></div>
-                <div class="ld-detail-row"><span class="ld-detail-lbl">Listed</span><span class="ld-detail-val" id="d-listed">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Date Listed</span><span class="ld-detail-val" id="d-listed">—</span></div>
                 <div class="ld-detail-row"><span class="ld-detail-lbl">Days on Market</span><span class="ld-detail-val" id="d-dom">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Year Built</span><span class="ld-detail-val" id="d-year">—</span></div>
+                <div class="ld-detail-row" id="row-acres"><span class="ld-detail-lbl">Lot Size</span><span class="ld-detail-val" id="d-acres">—</span></div>
               </div>
             </div>
           </div>
 
-          <!-- Interior & Exterior -->
-          <div class="ld-accordion" id="section-interior">
+          <!-- Interior Features -->
+          <!-- Interior Features -->
+          <div class="ld-accordion collapsed" id="section-interior">
             <button class="ld-accordion-header" onclick="toggleAccordion(this)">
-              <span>INTERIOR &amp; EXTERIOR</span>
+              <span>INTERIOR FEATURES</span>
               <svg class="ld-chevron" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
             </button>
             <div class="ld-accordion-body">
               <div class="ld-detail-grid">
-                <div class="ld-detail-row"><span class="ld-detail-lbl">Style</span><span class="ld-detail-val" id="d-style">—</span></div>
                 <div class="ld-detail-row"><span class="ld-detail-lbl">Stories</span><span class="ld-detail-val" id="d-stories">—</span></div>
-                <div class="ld-detail-row"><span class="ld-detail-lbl">Garage Spaces</span><span class="ld-detail-val" id="d-garage">—</span></div>
-                <div class="ld-detail-row"><span class="ld-detail-lbl">Pool</span><span class="ld-detail-val" id="d-pool">—</span></div>
-                <div class="ld-detail-row"><span class="ld-detail-lbl">Fireplaces</span><span class="ld-detail-val" id="d-fire">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Bedrooms</span><span class="ld-detail-val" id="d-int-beds">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Bathrooms</span><span class="ld-detail-val" id="d-int-baths">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Interior Features</span><span class="ld-detail-val" id="d-int-features">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Appliances</span><span class="ld-detail-val" id="d-appliances">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Laundry</span><span class="ld-detail-val" id="d-laundry">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Fireplace</span><span class="ld-detail-val" id="d-fire-desc">—</span></div>
                 <div class="ld-detail-row"><span class="ld-detail-lbl">Heating</span><span class="ld-detail-val" id="d-heat">—</span></div>
                 <div class="ld-detail-row"><span class="ld-detail-lbl">Cooling</span><span class="ld-detail-val" id="d-cool">—</span></div>
                 <div class="ld-detail-row"><span class="ld-detail-lbl">Flooring</span><span class="ld-detail-val" id="d-floor">—</span></div>
-                <div class="ld-detail-row"><span class="ld-detail-lbl">Lot Size (sqft)</span><span class="ld-detail-val" id="d-lot">—</span></div>
                 <div class="ld-detail-row"><span class="ld-detail-lbl">Common Walls</span><span class="ld-detail-val" id="d-walls">—</span></div>
               </div>
             </div>
           </div>
 
-          <!-- Community -->
-          <div class="ld-accordion" id="section-community">
+          <!-- Exterior Features -->
+          <div class="ld-accordion collapsed" id="section-exterior">
             <button class="ld-accordion-header" onclick="toggleAccordion(this)">
-              <span>COMMUNITY INFORMATION</span>
+              <span>EXTERIOR FEATURES</span>
               <svg class="ld-chevron" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
             </button>
             <div class="ld-accordion-body">
               <div class="ld-detail-grid">
-                <div class="ld-detail-row"><span class="ld-detail-lbl">Subdivision</span><span class="ld-detail-val" id="d-subdiv">—</span></div>
-                <div class="ld-detail-row"><span class="ld-detail-lbl">MLS Area</span><span class="ld-detail-val" id="d-mlsarea">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Architectural Style</span><span class="ld-detail-val" id="d-style">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Garage</span><span class="ld-detail-val" id="d-garage">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Parking Total</span><span class="ld-detail-val" id="d-parking-total">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Parking Features</span><span class="ld-detail-val" id="d-parking">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Roof</span><span class="ld-detail-val" id="d-roof">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Pool</span><span class="ld-detail-val" id="d-pool">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Pool Features</span><span class="ld-detail-val" id="d-pool-features">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Sewer</span><span class="ld-detail-val" id="d-sewer">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Water Source</span><span class="ld-detail-val" id="d-water">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Utilities</span><span class="ld-detail-val" id="d-utilities">—</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Community -->
+          <div class="ld-accordion collapsed" id="section-community">
+            <button class="ld-accordion-header" onclick="toggleAccordion(this)">
+              <span>SCHOOL INFORMATION</span>
+              <svg class="ld-chevron" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+            </button>
+            <div class="ld-accordion-body">
+              <div class="ld-detail-grid">
                 <div class="ld-detail-row"><span class="ld-detail-lbl">Elementary School</span><span class="ld-detail-val" id="d-elem">—</span></div>
                 <div class="ld-detail-row"><span class="ld-detail-lbl">Middle School</span><span class="ld-detail-val" id="d-middle">—</span></div>
                 <div class="ld-detail-row"><span class="ld-detail-lbl">High School</span><span class="ld-detail-val" id="d-high">—</span></div>
@@ -1703,54 +1883,197 @@
             </div>
           </div>
 
-          <!-- Financial -->
-          <div class="ld-accordion" id="section-financial">
+          <!-- Other Property Details -->
+          <div class="ld-accordion collapsed" id="section-other">
             <button class="ld-accordion-header" onclick="toggleAccordion(this)">
-              <span>FINANCIAL INFORMATION</span>
+              <span>OTHER PROPERTY DETAILS</span>
               <svg class="ld-chevron" viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
             </button>
             <div class="ld-accordion-body">
               <div class="ld-detail-grid">
-                <div class="ld-detail-row"><span class="ld-detail-lbl">List Price</span><span class="ld-detail-val" id="d-fprice">—</span></div>
-                <div class="ld-detail-row"><span class="ld-detail-lbl">Price / Sq. Ft.</span><span class="ld-detail-val" id="d-ppsf">—</span></div>
-                <div class="ld-detail-row"><span class="ld-detail-lbl">HOA Fee</span><span class="ld-detail-val" id="d-hoa">—</span></div>
-                <div class="ld-detail-row"><span class="ld-detail-lbl">HOA Frequency</span><span class="ld-detail-val" id="d-hoafreq">—</span></div>
-                <div class="ld-detail-row"><span class="ld-detail-lbl">Annual Tax</span><span class="ld-detail-val" id="d-tax">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Area Name</span><span class="ld-detail-val" id="d-area">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">County</span><span class="ld-detail-val" id="d-county">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Subdivision</span><span class="ld-detail-val" id="d-subdiv">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Zoning</span><span class="ld-detail-val" id="d-zoning">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">Community Features</span><span class="ld-detail-val" id="d-community-features">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">HOA Amenities</span><span class="ld-detail-val" id="d-hoa-amenities">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">View</span><span class="ld-detail-val" id="d-view">—</span></div>
+                <div class="ld-detail-row"><span class="ld-detail-lbl">55+ / Senior Community</span><span class="ld-detail-val" id="d-senior">—</span></div>
               </div>
-              <p style="margin-top:16px;font-size:13px;color:#888">See the Mortgage Calculator below for a full payment estimate.</p>
+              <!-- MLS Disclaimer -->
+              <div class="ld-disclaimer" id="ld-disclaimer">
+                <img src="LOGOS/logo-crmls.png" alt="CRMLS" class="ld-crmls-logo" />
+                <p class="ld-attribution">Listed by <span id="d-agent">—</span><span id="d-agent-dre-wrap"> &bull; DRE# <span id="d-agent-dre"></span></span><span id="d-agent-phone-wrap"> &bull; <a id="d-agent-phone" style="color:#555;text-decoration:none;"></a></span> &bull; <span id="d-office">—</span></p>
+                <p>Based on information from California Regional Multiple Listing Service, Inc. as of <span id="d-updated">—</span> and/or other sources. All data, including all measurements and calculations of area, is obtained from various sources and has not been, and will not be, verified by broker or MLS. All information should be independently reviewed and verified for accuracy. Properties may or may not be listed by the office/agent presenting the information. Any amount of compensation or commission stated is made only to participants of CRMLS or an MLS that has entered into a datashare agreement with CRMLS.</p>
+              </div>
             </div>
           </div>
 
         </div>
 
-        <!-- Similar properties -->
-        <div class="ld-section" style="margin-top:20px">
-          <div class="ld-section-title">Similar Properties</div>
-          <div class="ld-similar-grid" id="similar-grid">
-            <!-- Populated by JS with mock similar listings -->
+        <!-- Location / Map -->
+        <div id="ld-map-section" style="display:none">
+          <div class="ld-section">
+            <div class="ld-section-title" style="display:flex;align-items:center;gap:10px">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1C3063" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Location
+            </div>
+            <div id="ld-map-addr" style="font-family:'Lato',sans-serif;font-size:14px;color:#555;margin:4px 0 14px;letter-spacing:0.01em;"></div>
+            <div id="ld-map-standalone" style="width:100%;height:380px;border-radius:8px;overflow:hidden"></div>
+            <div style="margin-top:12px">
+              <button id="ld-copy-addr-btn" onclick="copyListingAddress()" style="font-family:'Lato',sans-serif;font-size:13px;font-weight:600;color:#1C3063;background:none;border:1.5px solid #d0d0d0;border-radius:6px;padding:8px 18px;cursor:pointer;transition:border-color 0.15s,background 0.15s;" onmouseover="this.style.borderColor='#1C3063'" onmouseout="this.style.borderColor='#d0d0d0'">
+                Copy address
+              </button>
+              <span id="ld-copy-addr-confirm" style="font-family:'Lato',sans-serif;font-size:12px;color:#1C3063;margin-left:10px;opacity:0;transition:opacity 0.3s">Copied!</span>
+            </div>
+            <div style="margin-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px" id="school-info">
+              <!-- Schools filled by JS -->
+            </div>
           </div>
         </div>
 
-        <!-- MLS Disclaimer -->
-        <div class="ld-disclaimer" id="ld-disclaimer">
-          <img src="LOGOS/logo-crmls.png" alt="CRMLS" class="ld-crmls-logo" />
-          <p class="ld-attribution">Listed by <span id="d-agent">—</span><span id="d-agent-dre-wrap"> &bull; DRE# <span id="d-agent-dre"></span></span><span id="d-agent-phone-wrap"> &bull; <a id="d-agent-phone" style="color:#555;text-decoration:none;"></a></span> &bull; <span id="d-office">—</span></p>
-          <p>Based on information from California Regional Multiple Listing Service, Inc. as of <span id="d-updated">—</span> and/or other sources. All data, including all measurements and calculations of area, is obtained from various sources and has not been, and will not be, verified by broker or MLS. All information should be independently reviewed and verified for accuracy. Properties may or may not be listed by the office/agent presenting the information. Any amount of compensation or commission stated is made only to participants of CRMLS or an MLS that has entered into a datashare agreement with CRMLS.</p>
+        <!-- Mortgage Calculator -->
+        <div id="dtab-mortgage">
+        <div class="ld-mort-section" id="mort-section" style="border-radius:10px;overflow:hidden;margin-top:20px">
+          <div class="ld-mort-section-inner" style="max-width:none">
+            <div class="ld-mort-section-head">
+              <p class="ld-mort-section-eyebrow">Plan Your Purchase</p>
+              <h2 class="ld-mort-section-title">MORTGAGE CALCULATOR</h2>
+              <p class="ld-mort-section-sub">Estimate your monthly mortgage payment, including principal &amp; interest, property taxes, HOA, Mello-Roos, and homeowners insurance. Adjust every field for a personalized estimate.</p>
+            </div>
+            <div class="ld-mort-grid2">
+
+              <!-- LEFT: inputs -->
+              <div>
+                <p class="lm-group-lbl">Loan Details</p>
+                <div class="lm-fields">
+                  <div class="lm-field">
+                    <label for="lm-price">Home Price</label>
+                    <div class="lm-input-wrap">
+                      <span class="lm-prefix">$</span>
+                      <input type="text" inputmode="numeric" id="lm-price" value="0" />
+                    </div>
+                  </div>
+                  <div class="lm-field">
+                    <label for="lm-term">Loan Term</label>
+                    <select id="lm-term">
+                      <option value="30" selected>30 years</option>
+                      <option value="20">20 years</option>
+                      <option value="15">15 years</option>
+                      <option value="10">10 years</option>
+                    </select>
+                  </div>
+                  <div class="lm-field">
+                    <label>Down Payment</label>
+                    <div class="lm-input-row">
+                      <div class="lm-input-wrap">
+                        <span class="lm-prefix">$</span>
+                        <input type="text" inputmode="numeric" id="lm-down-amt" value="0" />
+                      </div>
+                      <div class="lm-input-wrap">
+                        <input type="number" id="lm-down-pct" value="20" min="0" max="100" step="0.5" />
+                        <span class="lm-suffix">%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="lm-field">
+                    <label for="lm-rate">Interest Rate</label>
+                    <div class="lm-input-wrap">
+                      <input type="number" id="lm-rate" value="6.75" min="0" max="30" step="0.125" />
+                      <span class="lm-suffix">%</span>
+                    </div>
+                  </div>
+                  <div class="lm-field" style="grid-column:1/-1">
+                    <label for="lm-loan-type">Loan Type</label>
+                    <select id="lm-loan-type">
+                      <option value="conventional" selected>Conventional</option>
+                      <option value="fha">FHA</option>
+                      <option value="va">VA</option>
+                      <option value="jumbo">Jumbo</option>
+                    </select>
+                  </div>
+                </div>
+                <div id="lm-loan-category" style="display:none;font-family:'Lato',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin:-0.5rem 0 1rem;padding:0.4rem 0.75rem;border-left:2px solid #B38987;color:rgba(255,255,255,0.75)"></div>
+                <div id="lm-pmi-note" class="lm-pmi-note" style="display:none">PMI applies — less than 20% down on a Conventional loan. Rate: 0.8%/yr of loan balance.</div>
+
+                <hr class="lm-divider" />
+                <p class="lm-group-lbl">Monthly Costs <span style="font-size:0.6rem;font-weight:400;color:rgba(255,255,255,0.35);letter-spacing:0">— leave blank if unknown</span></p>
+                <div class="lm-fields">
+                  <div class="lm-field">
+                    <label for="lm-tax-rate">Property Tax Rate</label>
+                    <div class="lm-input-wrap">
+                      <input type="number" id="lm-tax-rate" value="1.14" min="0" max="5" step="0.01" />
+                      <span class="lm-suffix">%</span>
+                    </div>
+                  </div>
+                  <div class="lm-field">
+                    <label for="lm-insurance">Homeowners Insurance</label>
+                    <div class="lm-input-wrap">
+                      <span class="lm-prefix">$</span>
+                      <input type="number" id="lm-insurance" value="150" min="0" step="1" placeholder="0" />
+                      <span class="lm-period-toggle" id="lm-insur-toggle">
+                        <button type="button" class="lm-period-btn active" data-period="mo">/mo</button>
+                        <button type="button" class="lm-period-btn" data-period="yr">/yr</button>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="lm-field">
+                    <label for="lm-hoa">HOA Dues</label>
+                    <div class="lm-input-wrap">
+                      <span class="lm-prefix">$</span>
+                      <input type="number" id="lm-hoa" min="0" step="1" placeholder="0" />
+                      <span class="lm-suffix">/mo</span>
+                    </div>
+                  </div>
+                  <div class="lm-field">
+                    <label for="lm-mello">Mello-Roos</label>
+                    <div class="lm-input-wrap">
+                      <span class="lm-prefix">$</span>
+                      <input type="number" id="lm-mello" min="0" step="1" placeholder="0" />
+                      <span class="lm-period-toggle" id="lm-mello-toggle">
+                        <button type="button" class="lm-period-btn active" data-period="mo">/mo</button>
+                        <button type="button" class="lm-period-btn" data-period="yr">/yr</button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <p class="lm-loan-display">Loan Amount<span id="lm-loan-amt">—</span></p>
+                <p class="lm-disclaimer">This calculator is for informational purposes only and does not constitute a loan commitment or guarantee of financing. Actual payments will vary based on credit profile, lender requirements, and market conditions.</p>
+              </div>
+
+              <!-- RIGHT: donut chart card -->
+              <div class="lm-card">
+                <div class="lm-donut-wrap">
+                  <svg id="lm-chart-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"></svg>
+                  <div class="lm-center">
+                    <div class="lm-center-amount" id="lm-result">—</div>
+                    <div class="lm-center-label">Est. Monthly</div>
+                  </div>
+                </div>
+                <div id="lm-legend"></div>
+              </div>
+
+            </div>
+          </div>
         </div>
+        </div><!-- end #dtab-mortgage -->
 
       </div><!-- end .ld-main -->
 
       <!-- ── SIDEBAR ── -->
       <div class="ld-sidebar">
         <div class="ld-tour-card">
-          <div class="ld-tour-header">Interested in This Home?</div>
+          <div class="ld-tour-header">
+            <div class="ld-tour-header-title">Interested in This Home?</div>
+          </div>
           <div class="ld-tour-body">
             <h2 class="ld-tour-title">Schedule a<br>Private Tour</h2>
             <p class="ld-tour-desc">Experience this home in person with a private showing scheduled around your availability. I'll personally guide you through the home and answer any questions you have along the way.</p>
             <button class="ld-tour-btn" onclick="openTourModal()">SCHEDULE MY PRIVATE TOUR</button>
             <div class="ld-tour-divider">QUESTIONS BEFORE SCHEDULING?</div>
             <div class="ld-tour-agent">
-              <img src="Lynnette-beige-suit.jpg" class="ld-tour-agent-photo" alt="Lynnette Jaiswal" />
+              <img src="lynnette.png" class="ld-tour-agent-photo" alt="Lynnette Jaiswal" />
               <div class="ld-tour-agent-name">Lynnette Jaiswal</div>
               <div class="ld-tour-agent-title">BROKER | LUXURY REAL ESTATE ADVISOR</div>
               <div class="ld-tour-agent-contacts">
@@ -1767,156 +2090,30 @@
           </div>
         </div>
       </div><!-- end .ld-sidebar -->
+
     </div><!-- end .ld-layout -->
 
-    <!-- ── MAP SECTION ── -->
-    <section id="ld-map-section" style="display:none">
-      <div style="max-width:1240px;margin:0 auto;padding:0 24px 32px">
-        <div class="ld-section">
-          <div class="ld-section-title" style="display:flex;align-items:center;gap:10px">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1C3063" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            Location
-          </div>
-          <div id="ld-map-standalone" style="width:100%;height:360px;border-radius:8px;overflow:hidden"></div>
-          <div style="margin-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px" id="school-info">
-            <!-- Schools filled by JS -->
-          </div>
-        </div>
+    <!-- Nearby Similar Homes — no card wrapper, cards float on page bg like Redfin -->
+    <div class="ld-sim-outer" id="section-similar">
+      <div class="ld-section-title" style="margin-bottom: 16px;">Nearby Similar Homes</div>
+      <div class="ld-similar-grid" id="similar-grid-col" style="grid-template-columns: repeat(4, 1fr)">
       </div>
-    </section>
+    </div>
 
-    <!-- ── MORTGAGE CALCULATOR SECTION ── -->
-    <section class="ld-mort-section">
-      <div class="ld-mort-section-inner">
-        <div class="ld-mort-section-head">
-          <p class="ld-mort-section-eyebrow">Plan Your Purchase</p>
-          <h2 class="ld-mort-section-title">MORTGAGE CALCULATOR</h2>
-          <p class="ld-mort-section-sub">Estimate your monthly mortgage payment, including principal &amp; interest, property taxes, HOA, Mello-Roos, and homeowners insurance. Adjust every field for a personalized estimate.</p>
-        </div>
-        <div class="ld-mort-grid2">
-
-          <!-- LEFT: inputs -->
-          <div>
-            <p class="lm-group-lbl">Loan Details</p>
-            <div class="lm-fields">
-              <div class="lm-field">
-                <label for="lm-price">Home Price</label>
-                <div class="lm-input-wrap">
-                  <span class="lm-prefix">$</span>
-                  <input type="text" inputmode="numeric" id="lm-price" value="0" />
-                </div>
-              </div>
-              <div class="lm-field">
-                <label for="lm-term">Loan Term</label>
-                <select id="lm-term">
-                  <option value="30" selected>30 years</option>
-                  <option value="20">20 years</option>
-                  <option value="15">15 years</option>
-                  <option value="10">10 years</option>
-                </select>
-              </div>
-              <div class="lm-field">
-                <label>Down Payment</label>
-                <div class="lm-input-row">
-                  <div class="lm-input-wrap">
-                    <span class="lm-prefix">$</span>
-                    <input type="text" inputmode="numeric" id="lm-down-amt" value="0" />
-                  </div>
-                  <div class="lm-input-wrap">
-                    <input type="number" id="lm-down-pct" value="20" min="0" max="100" step="0.5" />
-                    <span class="lm-suffix">%</span>
-                  </div>
-                </div>
-              </div>
-              <div class="lm-field">
-                <label for="lm-rate">Interest Rate</label>
-                <div class="lm-input-wrap">
-                  <input type="number" id="lm-rate" value="6.75" min="0" max="30" step="0.125" />
-                  <span class="lm-suffix">%</span>
-                </div>
-              </div>
-              <div class="lm-field" style="grid-column:1/-1">
-                <label for="lm-loan-type">Loan Type</label>
-                <select id="lm-loan-type">
-                  <option value="conventional" selected>Conventional</option>
-                  <option value="fha">FHA</option>
-                  <option value="va">VA</option>
-                  <option value="jumbo">Jumbo</option>
-                </select>
-              </div>
-            </div>
-            <div id="lm-loan-category" style="display:none;font-family:'Lato',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin:-0.5rem 0 1rem;padding:0.4rem 0.75rem;border-left:2px solid #B38987;color:rgba(255,255,255,0.75)"></div>
-            <div id="lm-pmi-note" class="lm-pmi-note" style="display:none">PMI applies — less than 20% down on a Conventional loan. Rate: 0.8%/yr of loan balance.</div>
-
-            <hr class="lm-divider" />
-            <p class="lm-group-lbl">Monthly Costs <span style="font-size:0.6rem;font-weight:400;color:rgba(255,255,255,0.35);letter-spacing:0">— leave blank if unknown</span></p>
-            <div class="lm-fields">
-              <div class="lm-field">
-                <label for="lm-tax-rate">Property Tax Rate</label>
-                <div class="lm-input-wrap">
-                  <input type="number" id="lm-tax-rate" value="1.14" min="0" max="5" step="0.01" />
-                  <span class="lm-suffix">%</span>
-                </div>
-              </div>
-              <div class="lm-field">
-                <label for="lm-insurance">Homeowners Insurance</label>
-                <div class="lm-input-wrap">
-                  <span class="lm-prefix">$</span>
-                  <input type="number" id="lm-insurance" value="150" min="0" step="1" placeholder="0" />
-                  <span class="lm-period-toggle" id="lm-insur-toggle">
-                    <button type="button" class="lm-period-btn active" data-period="mo">/mo</button>
-                    <button type="button" class="lm-period-btn" data-period="yr">/yr</button>
-                  </span>
-                </div>
-              </div>
-              <div class="lm-field">
-                <label for="lm-hoa">HOA Dues</label>
-                <div class="lm-input-wrap">
-                  <span class="lm-prefix">$</span>
-                  <input type="number" id="lm-hoa" min="0" step="1" placeholder="0" />
-                  <span class="lm-suffix">/mo</span>
-                </div>
-              </div>
-              <div class="lm-field">
-                <label for="lm-mello">Mello-Roos</label>
-                <div class="lm-input-wrap">
-                  <span class="lm-prefix">$</span>
-                  <input type="number" id="lm-mello" min="0" step="1" placeholder="0" />
-                  <span class="lm-period-toggle" id="lm-mello-toggle">
-                    <button type="button" class="lm-period-btn active" data-period="mo">/mo</button>
-                    <button type="button" class="lm-period-btn" data-period="yr">/yr</button>
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <p class="lm-loan-display">Loan Amount<span id="lm-loan-amt">—</span></p>
-            <p class="lm-disclaimer">This calculator is for informational purposes only and does not constitute a loan commitment or guarantee of financing. Actual payments will vary based on credit profile, lender requirements, and market conditions.</p>
-          </div>
-
-          <!-- RIGHT: donut chart card -->
-          <div class="lm-card">
-            <div class="lm-donut-wrap">
-              <svg id="lm-chart-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"></svg>
-              <div class="lm-center">
-                <div class="lm-center-amount" id="lm-result">—</div>
-                <div class="lm-center-label">Est. Monthly</div>
-              </div>
-            </div>
-            <div id="lm-legend"></div>
-          </div>
-
-        </div>
+    <!-- New Listings Near ZIP -->
+    <div class="ld-sim-outer" id="new-listings-section" style="display:none">
+      <div class="ld-section-title" style="margin-bottom: 16px;" id="new-listings-title">Recently Listed in —</div>
+      <div class="ld-similar-grid" id="new-listings-grid" style="grid-template-columns: repeat(4, 1fr)">
       </div>
-    </section>
+    </div>
 
     <!-- ── INTERESTED IN THIS PROPERTY ── -->
     <section class="ld-cta-section">
       <div class="ld-cta-inner">
         <div class="ld-cta-text">
-          <p class="ld-cta-eyebrow">Interested in This Home?</p>
+          <p class="ld-cta-eyebrow">Ready to See This Home?</p>
           <h2 class="ld-cta-address" id="cta-address">—</h2>
-          <button class="ld-cta-btn" onclick="openTourModal()">CONTACT US</button>
+          <button class="ld-cta-btn" onclick="openContactModal()">CONTACT US</button>
         </div>
         <div class="ld-cta-agent">
           <img src="Lynnette-beige-suit.jpg" class="ld-cta-photo" alt="Lynnette Jaiswal" />
@@ -1990,7 +2187,7 @@
       <!-- Step 2 -->
       <div id="modal-step2" style="display:none">
         <div class="ld-modal-head">
-          <h2 style="font-family:'Lato',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;margin:0">Request a Tour</h2>
+          <h2 id="modal-step2-title" style="font-family:'Lato',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;margin:0">Request a Tour</h2>
           <button class="ld-modal-close" onclick="closeTourModal()">✕</button>
         </div>
         <div class="ld-modal-body">
@@ -2032,7 +2229,7 @@
               </label>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px">
-              <button type="button" onclick="backToStep1()" style="padding:14px;background:#fff;color:#1C3063;border:1.5px solid #1C3063;font-family:'Lato',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer">BACK</button>
+              <button type="button" id="modal-back-btn" onclick="backToStep1()" style="padding:14px;background:#fff;color:#1C3063;border:1.5px solid #1C3063;font-family:'Lato',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer">BACK</button>
               <button type="submit" class="ld-modal-submit" id="modal-submit-btn">SEND REQUEST</button>
             </div>
           </form>
@@ -2046,14 +2243,14 @@
   <div class="ld-lightbox" id="lightbox">
     <!-- Header bar -->
     <div class="ld-lb-header">
-      <button class="ld-lb-back" onclick="closeLightbox()">
+      <button class="ld-lb-back" id="lb-back-btn" onclick="closeLightbox()">
         <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         Back to Listing
       </button>
       <!-- Photos / Virtual Tour tabs — centered -->
-      <div class="ld-lb-tabs" id="lb-tabs" style="display:none">
+      <div class="ld-lb-tabs" id="lb-tabs">
         <button class="ld-lb-tab active" id="lb-tab-photos" onclick="lbShowPhotos()">Photos</button>
-        <button class="ld-lb-tab" id="lb-tab-tour" onclick="lbShowTour()">Virtual Tour</button>
+        <button class="ld-lb-tab" id="lb-tab-tour" onclick="lbShowTour()" style="display:none">Virtual Tour</button>
       </div>
       <!-- Right: heart + share -->
       <div class="ld-lb-header-right">
@@ -2067,8 +2264,13 @@
         </div>
       </div>
     </div>
-    <!-- Photo carousel -->
-    <div class="ld-lb-photo-view" id="lb-photo-view">
+    <!-- Photo grid (default view) -->
+    <div class="ld-lb-grid-view" id="lb-grid-view">
+      <div class="ld-lb-grid-layout" id="lb-grid-layout"></div>
+    </div>
+    <!-- Photo carousel (shown when a grid photo is clicked) -->
+    <div class="ld-lb-photo-view" id="lb-photo-view" style="display:none">
+      <div class="ld-lb-counter" id="lb-counter">1 of —</div>
       <div class="ld-lb-img-wrap">
         <button class="ld-lightbox-prev" onclick="lightboxNav(-1)">
           <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
@@ -2078,7 +2280,6 @@
           <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
         </button>
       </div>
-      <div class="ld-lb-counter" id="lb-counter">1 of —</div>
     </div>
     <!-- Virtual tour iframe (hidden until tab clicked) -->
     <div class="ld-lb-tour-view" id="lb-tour-view">
@@ -2089,7 +2290,6 @@
   <!-- =========================================================
        SCRIPTS
   ========================================================= -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="main.js"></script>
   <script>
@@ -2316,7 +2516,12 @@
   const MOCK_SIMILAR = [
     { ListingKey: 's1', ListPrice: 5850000, BedroomsTotal: 4, BathroomsTotalInteger: 3, LivingArea: 3412, StreetNumber: '1847', StreetName: 'Ocean View', City: 'Del Mar', StateOrProvince: 'CA', PostalCode: '92014', StandardStatus: 'Active' },
     { ListingKey: 's2', ListPrice: 7250000, BedroomsTotal: 5, BathroomsTotalInteger: 5, LivingArea: 4210, StreetNumber: '4501', StreetName: 'Coast Bluff', City: 'Del Mar', StateOrProvince: 'CA', PostalCode: '92014', StandardStatus: 'Active' },
-    { ListingKey: 's3', ListPrice: 6200000, BedroomsTotal: 4, BathroomsTotalInteger: 4, LivingArea: 3688, StreetNumber: '2930', StreetName: 'Camino Del Mar', City: 'Del Mar', StateOrProvince: 'CA', PostalCode: '92014', StandardStatus: 'Coming Soon' }
+    { ListingKey: 's3', ListPrice: 6200000, BedroomsTotal: 4, BathroomsTotalInteger: 4, LivingArea: 3688, StreetNumber: '2930', StreetName: 'Camino Del Mar', City: 'Del Mar', StateOrProvince: 'CA', PostalCode: '92014', StandardStatus: 'Coming Soon' },
+    { ListingKey: 's4', ListPrice: 5495000, BedroomsTotal: 3, BathroomsTotalInteger: 3, LivingArea: 2950, StreetNumber: '712', StreetName: 'Seaview Ave', City: 'Del Mar', StateOrProvince: 'CA', PostalCode: '92014', StandardStatus: 'Active' },
+    { ListingKey: 's5', ListPrice: 6750000, BedroomsTotal: 5, BathroomsTotalInteger: 4, LivingArea: 4085, StreetNumber: '1320', StreetName: 'Stratford Ct', City: 'Del Mar', StateOrProvince: 'CA', PostalCode: '92014', StandardStatus: 'Active' },
+    { ListingKey: 's6', ListPrice: 5200000, BedroomsTotal: 4, BathroomsTotalInteger: 3, LivingArea: 3100, StreetNumber: '890', StreetName: 'Via De La Valle', City: 'Del Mar', StateOrProvince: 'CA', PostalCode: '92014', StandardStatus: 'Active' },
+    { ListingKey: 's7', ListPrice: 7900000, BedroomsTotal: 6, BathroomsTotalInteger: 5, LivingArea: 4620, StreetNumber: '2245', StreetName: 'Carmel Valley Rd', City: 'Del Mar', StateOrProvince: 'CA', PostalCode: '92014', StandardStatus: 'Active' },
+    { ListingKey: 's8', ListPrice: 5975000, BedroomsTotal: 4, BathroomsTotalInteger: 4, LivingArea: 3540, StreetNumber: '445', StreetName: 'Crest Rd', City: 'Del Mar', StateOrProvince: 'CA', PostalCode: '92014', StandardStatus: 'Pending' }
   ];
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -2350,6 +2555,10 @@
       window._currentListing = listing;
       render(listing);
       _initHeart(listing.ListingKey);
+      // Fetch real similar listings with photos (async, non-blocking)
+      fetchSimilar(listing).then(items => { if (items?.length) { renderSimilar(items); syncSimOuter(); } });
+      // Fetch new listings near ZIP — hidden for now
+      // fetchNewListings(listing).then(items => { if (items?.length) { renderNewListings(items, listing.City); syncSimOuter(); } });
     } catch (e) {
       document.getElementById('ld-loading-state').innerHTML =
         `<div style="text-align:center;padding:60px 24px;color:#888"><h3 style="font-family:Marcellus,serif;color:#1C3063;margin-bottom:8px">Listing not found</h3><p>This listing may no longer be available. <a href="listings.html" style="color:#1C3063">Browse available homes →</a></p></div>`;
@@ -2388,9 +2597,9 @@
 
     // Status bar
     const statusBar = document.getElementById('ld-status-bar');
-    const statusMap = { 'Coming Soon': 'coming', 'Pending': 'pending', 'Sold': 'sold' };
+    const statusMap = { 'Coming Soon': 'coming', 'ComingSoon': 'coming', 'Pending': 'pending', 'Sold': 'sold', 'Closed': 'sold' };
     if (statusMap[l.StandardStatus]) statusBar.classList.add(statusMap[l.StandardStatus]);
-    document.getElementById('ld-status-text').textContent = l.StandardStatus || 'Active';
+    document.getElementById('ld-status-text').textContent = formatStatus(l.StandardStatus);
     if (l.ListingContractDate) {
       const d = new Date(l.ListingContractDate);
       document.getElementById('ld-listed-date').textContent = `Listed ${d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}`;
@@ -2402,9 +2611,9 @@
 
     // Header status badge
     const hStatus = document.getElementById('ld-header-status');
-    document.getElementById('ld-hstatus-text').textContent = l.StandardStatus || 'Active';
+    document.getElementById('ld-hstatus-text').textContent = formatStatus(l.StandardStatus);
     if (l.StandardStatus === 'Pending') hStatus.classList.add('pending');
-    else if (l.StandardStatus === 'Coming Soon') hStatus.classList.add('coming');
+    else if (['Coming Soon','ComingSoon'].includes(l.StandardStatus)) hStatus.classList.add('coming');
     else if (['Sold','Closed'].includes(l.StandardStatus)) hStatus.classList.add('sold');
 
     // Header stats
@@ -2412,7 +2621,11 @@
     document.getElementById('ld-address').textContent = fullAddr;
     document.getElementById('ld-mls-num').textContent = `MLS# ${l.ListingId || l.ListingKey || '—'}`;
     document.getElementById('stat-beds').textContent  = l.BedroomsTotal ?? '—';
-    document.getElementById('stat-baths').textContent = l.BathroomsTotalInteger ?? '—';
+    const calcBaths = (l.BathroomsFull != null || l.BathroomsHalf != null)
+      ? (l.BathroomsFull || 0) + (l.BathroomsHalf || 0) * 0.5
+      : (l.BathroomsTotalInteger ?? null);
+    const bathDisplay = calcBaths !== null ? (calcBaths % 1 === 0 ? String(calcBaths) : calcBaths.toFixed(1)) : '—';
+    document.getElementById('stat-baths').textContent = bathDisplay;
     document.getElementById('stat-sqft').textContent  = l.LivingArea ? l.LivingArea.toLocaleString() : '—';
 
     // Year Built — show in primary row only when data exists
@@ -2421,7 +2634,7 @@
     const show = (id, visible) => { const el = document.getElementById(id); if (el) el.style.display = visible ? '' : 'none'; };
     show('stat-year-wrap',    hasYear);
     show('stat-divider-year', hasYear);
-    const ppsf = l.ListPrice && l.LivingArea ? '$' + Math.round(l.ListPrice / l.LivingArea).toLocaleString() : '—';
+    const ppsf = l.ListPrice && l.LivingArea ? '$' + (l.ListPrice / l.LivingArea).toFixed(2) : '—';
 
     // Description
     const descEl = document.getElementById('ld-description');
@@ -2431,46 +2644,84 @@
 
     // Basic info tab
     setText('d-mls', l.ListingId);
-    setText('d-status', l.StandardStatus);
+    setText('d-status', formatStatus(l.StandardStatus));
     setText('d-price', fmt(l.ListPrice));
-    setText('d-type', [l.PropertyType, l.PropertySubType].filter(Boolean).join(' — '));
+    if (l.AssociationFee > 0) {
+      setText('d-hoa-basic', '$' + Number(l.AssociationFee).toLocaleString() + (l.AssociationFeeFrequency ? ' / ' + l.AssociationFeeFrequency : '/mo'));
+      document.getElementById('d-hoa-row').style.display = '';
+    }
+    if (l.TaxOtherAnnualAssessmentAmount > 0) {
+      setText('d-mello-basic', '$' + Number(l.TaxOtherAnnualAssessmentAmount).toLocaleString() + '/yr');
+      document.getElementById('d-mello-row').style.display = '';
+    }
+    setText('d-ppsf', ppsf);
+    setText('d-type', formatPropertyType(l.PropertyType, l.PropertySubType));
     setText('d-beds', l.BedroomsTotal);
-    setText('d-baths', `${l.BathroomsTotalInteger} total (${l.BathroomsFull || '—'} full, ${l.BathroomsHalf || 0} half)`);
+    setText('d-baths', bathDisplay);
     setText('d-sqft', l.LivingArea ? l.LivingArea.toLocaleString() + ' sqft' : '—');
-    setText('d-acres', l.LotSizeAcres ? l.LotSizeAcres.toFixed(3) + ' acres' : '—');
+    if (l.LotSizeAcres || l.LotSizeSquareFeet) {
+      setText('d-acres', l.LotSizeAcres ? l.LotSizeAcres.toFixed(3) + ' acres' : l.LotSizeSquareFeet.toLocaleString() + ' sqft');
+    } else {
+      const rowAcres = document.getElementById('row-acres');
+      if (rowAcres) rowAcres.style.display = 'none';
+    }
     setText('d-year', l.YearBuilt);
     setText('d-county', l.CountyOrParish);
     setText('d-dom', l.DaysOnMarket != null ? l.DaysOnMarket + ' days' : '—');
     if (l.ListingContractDate) {
       const d = new Date(l.ListingContractDate);
-      setText('d-listed', d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }));
+      setText('d-listed', `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}/${d.getFullYear()}`);
     }
 
     // Interior tab
-    setText('d-style', l.ArchitecturalStyle);
     setText('d-stories', l.Stories);
-    setText('d-garage', l.GarageSpaces ? l.GarageSpaces + ' spaces' : (l.GarageYN ? 'Yes' : 'None'));
-    setText('d-pool', l.PoolPrivateYN ? 'Yes' : 'None');
-    setText('d-fire', l.FireplacesTotal || '—');
-    setText('d-heat', l.Heating);
-    setText('d-cool', l.Cooling);
-    setText('d-floor', l.Flooring);
-    setText('d-lot', l.LotSizeSquareFeet ? l.LotSizeSquareFeet.toLocaleString() + ' sqft' : '—');
-    setText('d-walls', l.CommonWalls);
+    setText('d-int-beds', l.BedroomsTotal);
+    setText('d-int-baths', bathDisplay);
+    setText('d-int-features', parseList(l.InteriorFeatures));
+    setText('d-appliances', parseList(l.Appliances));
+    setText('d-laundry', parseList(l.LaundryFeatures));
+    const hasFireplace = l.FireplacesTotal > 0 || l.FireplaceYN;
+    setTextOrHide('d-fire-desc', hasFireplace ? (parseList(l.FireplaceFeatures) || 'Yes') : null);
+    const heatingOn = l.HeatingYN != null ? l.HeatingYN : !!(l.Heating && l.Heating !== 'No');
+    setTextOrHide('d-heat', heatingOn ? parseList(l.Heating) : null);
+    const coolingOn = l.CoolingYN != null ? l.CoolingYN : !!(l.Cooling && l.Cooling !== 'No');
+    setTextOrHide('d-cool', coolingOn ? parseList(l.Cooling) : null);
+    setText('d-floor', Array.isArray(l.Flooring) ? l.Flooring.join(', ') : l.Flooring);
+    setText('d-walls', parseList(l.CommonWalls));
+
+    // Exterior tab
+    setText('d-style', Array.isArray(l.ArchitecturalStyle) ? l.ArchitecturalStyle.join(', ') : l.ArchitecturalStyle);
+    const hasGarage = l.GarageYN || l.GarageSpaces > 0;
+    setTextOrHide('d-garage', hasGarage ? (l.GarageSpaces ?? 'Yes') : null);
+    setText('d-parking-total', l.ParkingTotal ?? '—');
+    setText('d-parking', Array.isArray(l.ParkingFeatures) ? l.ParkingFeatures.join(', ') : l.ParkingFeatures);
+    setText('d-roof', Array.isArray(l.Roof) ? l.Roof.join(', ') : l.Roof);
+    setText('d-pool', l.PoolPrivateYN ? 'Yes' : 'No');
+    setText('d-pool-features', Array.isArray(l.PoolFeatures) ? l.PoolFeatures.join(', ') : l.PoolFeatures);
+    setText('d-sewer', Array.isArray(l.Sewer) ? l.Sewer.join(', ') : l.Sewer);
+    setText('d-water', Array.isArray(l.WaterSource) ? l.WaterSource.join(', ') : l.WaterSource);
+    setText('d-utilities', Array.isArray(l.Utilities) ? l.Utilities.join(', ') : l.Utilities);
+
+    // Other details tab
+    setTextOrHide('d-area', l.MLSAreaMajor);
+    setTextOrHide('d-county', l.CountyOrParish);
+    setTextOrHide('d-zoning', l.Zoning);
+    setTextOrHide('d-view', parseList(l.View));
+    setTextOrHide('d-senior', l.SeniorCommunityYN != null ? (l.SeniorCommunityYN ? 'Yes' : 'No') : null);
 
     // Community tab
-    setText('d-subdiv', l.SubdivisionName);
-    setText('d-mlsarea', l.MLSAreaMajor);
+    setTextOrHide('d-subdiv', l.SubdivisionName);
+    setTextOrHide('d-community-features', parseList(l.CommunityFeatures));
+    setTextOrHide('d-hoa-amenities', parseList(l.AssociationAmenities));
     setText('d-elem', l.ElementarySchool);
     setText('d-middle', l.MiddleOrJuniorSchool);
     setText('d-high', l.HighSchool);
 
     // Financial tab
-    setText('d-fprice', fmt(l.ListPrice));
-    setText('d-ppsf', ppsf);
-    setText('d-hoa', l.AssociationFee ? fmt(l.AssociationFee, false) : 'None');
+    setText('d-tax', l.TaxAnnualAmount ? '$' + Number(l.TaxAnnualAmount).toLocaleString() + '/yr' : '—');
+    setText('d-hoa', l.AssociationFee ? '$' + Number(l.AssociationFee).toLocaleString() : 'None');
     setText('d-hoafreq', l.AssociationFeeFrequency || '—');
-    setText('d-tax', l.TaxAnnualAmount ? fmt(l.TaxAnnualAmount, false) + '/yr' : '—');
+    setText('d-mello', l.TaxOtherAnnualAssessmentAmount ? '$' + Number(l.TaxOtherAnnualAssessmentAmount).toLocaleString() + '/yr' : 'None');
 
     // Disclaimer
     if (l.ModificationTimestamp) {
@@ -2479,6 +2730,11 @@
     }
     setText('d-agent', l.ListAgentFullName);
     setText('d-office', l.ListOfficeName);
+    const attrParts = ['Listed by ' + (l.ListAgentFullName || '—')];
+    if (l.ListAgentStateLicense) attrParts.push('DRE# ' + l.ListAgentStateLicense);
+    attrParts.push(l.ListOfficeName || '');
+    const attrEl = document.getElementById('ld-attr-inline');
+    if (attrEl) attrEl.textContent = attrParts.filter(Boolean).join(' \u2022 ');
     const dreWrap = document.getElementById('d-agent-dre-wrap');
     if (l.ListAgentStateLicense) {
       setText('d-agent-dre', l.ListAgentStateLicense);
@@ -2502,7 +2758,8 @@
     }
 
     // CTA address
-    document.getElementById('cta-address').innerHTML = `${addr}<br>${city} CA ${l.PostalCode}`;
+    document.getElementById('cta-address').innerHTML = `${addr}<br>${city}, CA ${l.PostalCode}`;
+
 
     // Similar properties
     renderSimilar(MOCK_SIMILAR);
@@ -2518,6 +2775,7 @@
     setTimeout(() => {
       if (window._seedMortCalc) window._seedMortCalc(l);
       initStandaloneMap(l);
+      initSidebarPosition();
     }, 300);
   }
 
@@ -2594,24 +2852,66 @@
     const btn = document.getElementById('lb-heart-btn');
     if (btn) btn.classList.toggle('hearted', key && saved.includes(key));
   }
-  function openLightbox(i) {
-    if (!photos.length) return;
+  let _gridBuilt = false;
+
+  function lbBuildGrid() {
+    if (_gridBuilt) return;
+    _gridBuilt = true;
+    const layout = document.getElementById('lb-grid-layout');
+    if (!layout || !photos.length) return;
+    const svgArrow = `<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>`;
+    let html = `<div class="ld-lb-grid-hero" onclick="lbOpenSlide(0)"><img src="${photos[0]}" alt="Photo 1" loading="lazy" /></div>`;
+    const rest = photos.slice(1);
+    for (let i = 0; i < rest.length; i += 2) {
+      const idxA = i + 1;
+      const idxB = i + 2;
+      if (rest[i + 1] !== undefined) {
+        html += `<div class="ld-lb-grid-row">
+          <div class="ld-lb-grid-item" onclick="lbOpenSlide(${idxA})"><img src="${rest[i]}" alt="Photo ${idxA + 1}" loading="lazy" /></div>
+          <div class="ld-lb-grid-item" onclick="lbOpenSlide(${idxB})"><img src="${rest[i + 1]}" alt="Photo ${idxB + 1}" loading="lazy" /></div>
+        </div>`;
+      } else {
+        html += `<div class="ld-lb-grid-solo" onclick="lbOpenSlide(${idxA})"><img src="${rest[i]}" alt="Photo ${idxA + 1}" loading="lazy" /></div>`;
+      }
+    }
+    layout.innerHTML = html;
+  }
+
+  function lbShowGrid() {
+    lbBuildGrid();
+    document.getElementById('lb-grid-view').style.display = '';
+    document.getElementById('lb-photo-view').style.display = 'none';
+    document.getElementById('lb-tour-view').style.display = 'none';
+    document.getElementById('lb-tab-photos')?.classList.add('active');
+    document.getElementById('lb-tab-tour')?.classList.remove('active');
+    const backBtn = document.getElementById('lb-back-btn');
+    if (backBtn) { backBtn.textContent = ''; backBtn.insertAdjacentHTML('afterbegin', `<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>Back to Listing`); backBtn.onclick = closeLightbox; }
+  }
+
+  function lbOpenSlide(i) {
     lbIndex = i;
     document.getElementById('lightbox-img').src = photos[lbIndex];
     lbUpdateCounter();
+    document.getElementById('lb-grid-view').style.display = 'none';
+    document.getElementById('lb-photo-view').style.display = 'flex';
+    document.getElementById('lb-tour-view').style.display = 'none';
+    document.getElementById('lb-counter').style.display = '';
+    const backBtn = document.getElementById('lb-back-btn');
+    if (backBtn) { backBtn.textContent = ''; backBtn.insertAdjacentHTML('afterbegin', `<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>All Photos`); backBtn.onclick = lbShowGrid; }
+  }
+
+  function openLightbox(i) {
+    if (!photos.length) return;
     lbSyncHeart();
-    // Show tour tabs only when virtual tour URL available
-    const tabs = document.getElementById('lb-tabs');
-    if (tabs) tabs.style.display = virtualTourURL ? 'flex' : 'none';
-    // Ensure we start on photos view
-    lbShowPhotos();
+    const tourTab = document.getElementById('lb-tab-tour');
+    if (tourTab) tourTab.style.display = virtualTourURL ? '' : 'none';
+    lbShowGrid();
     document.getElementById('lightbox').classList.add('open');
     document.body.style.overflow = 'hidden';
   }
   function closeLightbox() {
     document.getElementById('lightbox').classList.remove('open');
     document.body.style.overflow = '';
-    // Reset tour iframe src to stop playback
     const iframe = document.getElementById('lb-tour-iframe');
     if (iframe) iframe.src = '';
   }
@@ -2621,14 +2921,11 @@
     lbUpdateCounter();
   }
   function lbShowPhotos() {
-    document.getElementById('lb-photo-view').style.display = 'flex';
-    document.getElementById('lb-tour-view').style.display = 'none';
-    document.getElementById('lb-tab-photos')?.classList.add('active');
-    document.getElementById('lb-tab-tour')?.classList.remove('active');
-    document.getElementById('lb-counter').style.display = '';
+    lbShowGrid();
   }
   function lbShowTour() {
     if (!virtualTourURL) return;
+    document.getElementById('lb-grid-view').style.display = 'none';
     document.getElementById('lb-photo-view').style.display = 'none';
     document.getElementById('lb-tour-view').style.display = 'flex';
     document.getElementById('lb-tour-iframe').src = virtualTourURL;
@@ -2651,19 +2948,7 @@
   // ─────────────────────────────────────────────────────────────────────────
   // MAP
   // ─────────────────────────────────────────────────────────────────────────
-  function initMap(l) {
-    if (!l.Latitude || !l.Longitude || detailMap) return;
-    detailMap = L.map('ld-map', { center: [l.Latitude, l.Longitude], zoom: 14, scrollWheelZoom: false });
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; OpenStreetMap &copy; CARTO', subdomains: 'abcd', maxZoom: 19
-    }).addTo(detailMap);
-    const icon = L.divIcon({
-      className: '',
-      html: `<div style="background:#1C3063;color:#fff;font-family:Lato,sans-serif;font-size:12px;font-weight:700;padding:5px 10px;border-radius:4px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.25)">${fmt(l.ListPrice)}</div>`,
-      iconAnchor: [40, 32]
-    });
-    L.marker([l.Latitude, l.Longitude], { icon }).addTo(detailMap);
-  }
+  function initMap(l) { /* superseded by initStandaloneMap */ }
 
   // ─────────────────────────────────────────────────────────────────────────
   // ACCORDION
@@ -2691,21 +2976,54 @@
   // STANDALONE MAP
   // ─────────────────────────────────────────────────────────────────────────
   let standaloneMap = null;
+  function copyListingAddress() {
+    const addr = document.getElementById('ld-map-addr').textContent;
+    if (!addr) return;
+    navigator.clipboard.writeText(addr).then(() => {
+      const confirm = document.getElementById('ld-copy-addr-confirm');
+      if (!confirm) return;
+      confirm.style.opacity = '1';
+      setTimeout(() => { confirm.style.opacity = '0'; }, 2000);
+    });
+  }
+
+  function jumpToSection(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   function initStandaloneMap(l) {
     if (!l.Latitude || !l.Longitude || standaloneMap) return;
     document.getElementById('ld-map-section').style.display = 'block';
-    standaloneMap = L.map('ld-map-standalone', {
-      center: [l.Latitude, l.Longitude], zoom: 14, scrollWheelZoom: false
-    });
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; OpenStreetMap &copy; CARTO', subdomains: 'abcd', maxZoom: 19
-    }).addTo(standaloneMap);
-    const icon = L.divIcon({
-      className: '',
-      html: `<div style="background:#1C3063;color:#fff;font-family:Lato,sans-serif;font-size:12px;font-weight:700;padding:5px 10px;border-radius:4px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.25)">${fmt(l.ListPrice)}</div>`,
-      iconAnchor: [40, 32]
-    });
-    L.marker([l.Latitude, l.Longitude], { icon }).addTo(standaloneMap);
+    const addrEl = document.getElementById('ld-map-addr');
+    if (addrEl) addrEl.textContent = l._fullAddr || [l.StreetNumber, l.StreetName, l.City, (l.StateOrProvince || '') + ' ' + (l.PostalCode || '')].filter(Boolean).join(', ');
+
+    function buildMap() {
+      if (typeof google === 'undefined' || !google.maps) {
+        setTimeout(buildMap, 100); return;
+      }
+      const center = { lat: l.Latitude, lng: l.Longitude };
+      standaloneMap = new google.maps.Map(document.getElementById('ld-map-standalone'), {
+        center, zoom: 15,
+        gestureHandling: 'cooperative',
+        clickableIcons: false,
+        mapTypeControl: false,
+        fullscreenControl: false,
+        streetViewControl: true,
+        zoomControl: true
+      });
+      const pinSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="36" height="48" viewBox="0 0 36 48"><path d="M18 0C8.06 0 0 8.06 0 18c0 13.5 18 30 18 30S36 31.5 36 18C36 8.06 27.94 0 18 0z" fill="#1C3063"/><path d="M9 17.5L18 11l9 6.5V26h-5v-4h-8v4H9V17.5z" fill="#fff"/></svg>`;
+      new google.maps.Marker({
+        position: center,
+        map: standaloneMap,
+        icon: {
+          url: 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(pinSvg),
+          scaledSize: new google.maps.Size(36, 48),
+          anchor: new google.maps.Point(18, 48)
+        }
+      });
+    }
+    buildMap();
 
     // School info chips
     const schools = [
@@ -2865,6 +3183,11 @@
       downAmtEl.value = down20.toLocaleString('en-US');
       downPctEl.value = 20;
       if (l.AssociationFee) hoaEl.value = l.AssociationFee;
+      if (l.TaxOtherAnnualAssessmentAmount) {
+        melloEl.value = l.TaxOtherAnnualAssessmentAmount;
+        melloMode = 'yr';
+        $('lm-mello-toggle').querySelectorAll('.lm-period-btn').forEach(b => b.classList.toggle('active', b.dataset.period === 'yr'));
+      }
       calc();
     };
     calc();
@@ -2873,21 +3196,174 @@
   // ─────────────────────────────────────────────────────────────────────────
   // SIMILAR PROPERTIES
   // ─────────────────────────────────────────────────────────────────────────
+  window._simListings = {};
+
+  function openSimSharePanel(key) {
+    const l = window._simListings[key];
+    if (!l) return;
+    _shareUrl  = `${location.origin}${location.pathname}?key=${key}`;
+    _shareAddr = [`${l.StreetNumber} ${l.StreetName || ''}`.trim(), l.City, l.StateOrProvince, l.PostalCode].filter(Boolean).join(', ');
+    _shareListing = l;
+    const img = document.getElementById('ls-email-img');
+    const photoUrl = l.Media?.[0]?.MediaURL || null;
+    if (photoUrl) { img.src = photoUrl; img.style.display = 'block'; } else { img.style.display = 'none'; }
+    document.getElementById('ls-email-price').textContent = l.ListPrice ? '$' + Number(l.ListPrice).toLocaleString() : '';
+    const stats = [l.BedroomsTotal ? l.BedroomsTotal + ' bd' : null, l.BathroomsTotalInteger ? l.BathroomsTotalInteger + ' ba' : null, l.LivingArea ? l.LivingArea.toLocaleString() + ' sqft' : null].filter(Boolean).join('  ·  ');
+    document.getElementById('ls-email-stats').textContent = stats;
+    document.getElementById('ls-email-addr').textContent = _shareAddr;
+    document.getElementById('ls-email-mls').textContent = l.ListingId ? 'MLS#: ' + l.ListingId : '';
+    document.getElementById('ls-email-overlay').classList.remove('hidden');
+  }
+
   function renderSimilar(items) {
-    const grid = document.getElementById('similar-grid');
+    const colGrid = document.getElementById('similar-grid-col');
+    if (!colGrid) return;
     const HOUSE = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
-    grid.innerHTML = items.map(l => {
+    const makeCard = l => {
       const a = `${l.StreetNumber} ${toTitleCase(l.StreetName||'')}`.trim();
       const simCity = toTitleCase(l.City || '');
+      const photoUrl = (l.Media || [])[0]?.MediaURL || (l.Media || [])[0]?.mediaUrl || l.photo || null;
+      const imgHtml = photoUrl
+        ? `<img src="${photoUrl}" alt="${a}" style="width:100%;height:100%;object-fit:cover;display:block;">`
+        : HOUSE;
+      const status = l.StandardStatus || 'Active';
+      const badgeCls = status === 'Coming Soon' ? 'coming' : status === 'Pending' ? 'pending' : status === 'Closed' ? 'sold' : '';
+      const badgeLabel = status === 'Coming Soon' ? 'Coming Soon' : status === 'Pending' ? 'Pending' : status === 'Closed' ? 'Sold' : 'Active';
+      const addrEnc = encodeURIComponent(`${a}, ${simCity} ${l.StateOrProvince} ${l.PostalCode || ''}`);
       return `<a href="listing.html?key=${l.ListingKey}" class="ld-sim-card">
-        <div class="ld-sim-img">${HOUSE}</div>
+        <div class="ld-sim-img">
+          ${imgHtml}
+          <div class="ld-sim-badge ${badgeCls}">${badgeLabel}</div>
+          <div class="ld-sim-actions">
+            <button class="ld-sim-action-btn ld-sim-heart" data-key="${l.ListingKey}" onclick="event.preventDefault(); toggleSimHeart(this)" title="Save">
+              <svg viewBox="0 0 24 24"><path d="m13.155 20.634.016-.008.014-.01c2.61-1.604 4.793-3.37 6.333-5.253S22 11.422 22 9.263C22 5.652 19.374 3 15.952 3c-1.765 0-3.01 1.101-3.744 2.018a8 8 0 0 0-.203.265 8 8 0 0 0-.201-.263C11.069 4.099 9.824 3 8.048 3 4.626 3 2 5.651 2 9.264c0 2.158.941 4.215 2.483 6.1 1.541 1.882 3.726 3.648 6.341 5.253h0l.012.007c.135.08.3.165.477.234.158.06.41.142.687.142s.528-.081.685-.141c.175-.067.34-.15.47-.225Z"/></svg>
+            </button>
+            <button class="ld-sim-action-btn" onclick="event.preventDefault(); openSimSharePanel('${l.ListingKey}')" title="Share">
+              <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+        </div>
         <div class="ld-sim-body">
           <div class="ld-sim-price">${fmt(l.ListPrice)}</div>
-          <div class="ld-sim-facts">${l.BedroomsTotal} bd · ${l.BathroomsTotalInteger} ba · ${(l.LivingArea||0).toLocaleString()} sqft</div>
-          <div class="ld-sim-addr">${a}, ${simCity} ${l.StateOrProvince}</div>
+          <div class="ld-sim-facts">
+            <span>${l.BedroomsTotal} bd</span>
+            <span>${l.BathroomsTotalInteger} ba</span>
+            ${l.LivingArea ? `<span>${l.LivingArea.toLocaleString()} sqft</span>` : ''}
+          </div>
+          <div class="ld-sim-addr">${a}, ${simCity} ${l.StateOrProvince} ${l.PostalCode || ''}</div>
+          <div class="ld-sim-mls">
+            <span>MLS®: ${l.ListingId || l.ListingKey || ''}</span>
+            <img src="LOGOS/logo-crmls.png" alt="CRMLS" class="ld-sim-crmls" />
+          </div>
         </div>
       </a>`;
-    }).join('');
+    };
+    items.slice(0, 4).forEach(l => { window._simListings[l.ListingKey] = l; });
+    colGrid.innerHTML = items.slice(0, 8).map(makeCard).join('');
+  }
+
+  async function fetchSimilar(l) {
+    try {
+      if (!l.Latitude || !l.Longitude || !l.ListPrice) return null;
+      // 5-mile bounding box: 1 deg lat ≈ 69 mi; lng deg varies by cos(lat)
+      const latDelta = 5 / 69;
+      const lngDelta = 5 / (69 * Math.cos(l.Latitude * Math.PI / 180));
+      const params = new URLSearchParams({
+        north: (l.Latitude + latDelta).toFixed(6),
+        south: (l.Latitude - latDelta).toFixed(6),
+        east:  (l.Longitude + lngDelta).toFixed(6),
+        west:  (l.Longitude - lngDelta).toFixed(6),
+        minPrice: Math.max(0, l.ListPrice - 500000),
+        maxPrice: l.ListPrice + 500000,
+        status: 'Active',
+        pageSize: 12
+      });
+      const resp = await fetch(`${WORKER_URL}/search?${params}`);
+      if (!resp.ok) return null;
+      const data = await resp.json();
+      // Exclude current listing, take up to 5
+      return (data.listings || data.value || [])
+        .filter(s => s.ListingKey !== l.ListingKey)
+        .slice(0, 8);
+    } catch { return null; }
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // NEW LISTINGS NEAR ZIP
+  // ─────────────────────────────────────────────────────────────────────────
+
+  function isoDateDaysAgo(days) {
+    const d = new Date();
+    d.setDate(d.getDate() - days);
+    return d.toISOString().slice(0, 10);
+  }
+
+  async function fetchNewListings(l) {
+    if (!l.PostalCode) return null;
+    try {
+      for (const days of [7, 14]) {
+        const params = new URLSearchParams({
+          zip: l.PostalCode,
+          status: 'Active',
+          listedSince: isoDateDaysAgo(days),
+          sort: 'listed_newest',
+          pageSize: 15
+        });
+        const resp = await fetch(`${WORKER_URL}/search?${params}`);
+        if (!resp.ok) continue;
+        const data = await resp.json();
+        const items = (data.listings || data.value || [])
+          .filter(s => s.ListingKey !== l.ListingKey)
+          .slice(0, 12);
+        if (items.length >= 12 || days === 14) return items.length ? items : null;
+      }
+    } catch { return null; }
+    return null;
+  }
+
+  function renderNewListings(items, city) {
+    const section = document.getElementById('new-listings-section');
+    const grid    = document.getElementById('new-listings-grid');
+    const title   = document.getElementById('new-listings-title');
+    if (!section || !grid) return;
+    if (!items || !items.length) return;
+    title.textContent = `Recently Listed in ${city}`;
+    const HOUSE = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
+    const makeCard = l => {
+      const addr  = `${l.StreetNumber || ''} ${l.StreetName || ''}${l.StreetSuffix ? ' ' + l.StreetSuffix : ''}`.trim();
+      const city  = `${l.City || ''}, ${l.StateOrProvince || 'CA'} ${l.PostalCode || ''}`.trim();
+      const price = l.ListPrice ? '$' + l.ListPrice.toLocaleString() : '—';
+      const beds  = l.BedroomsTotal ?? '—';
+      const baths = l.BathroomsTotalInteger ?? '—';
+      const sqft  = l.LivingArea ? l.LivingArea.toLocaleString() + ' sqft' : '';
+      const photo = l.Media?.[0]?.MediaURL || '';
+      const status = l.StandardStatus || 'Active';
+      const statusColor = status === 'Active' ? '#1C3063' : status === 'Pending' ? '#b45309' : '#555';
+      const key = l.ListingKey;
+      window._simListings[key] = l;
+      return `<a href="listing.html?key=${key}" class="ld-sim-card">
+        <div class="ld-sim-img">
+          ${photo ? `<img src="${photo}" alt="${addr}" style="width:100%;height:100%;object-fit:cover" loading="lazy"/>` : HOUSE}
+          <div class="ld-sim-status" style="background:${statusColor}">${status.toUpperCase()}</div>
+          <div class="ld-sim-actions">
+            <button class="ld-sim-action-btn heart-btn" data-key="${key}" onclick="event.preventDefault();toggleHeart('${key}',this)" aria-label="Save">
+              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </button>
+            <button class="ld-sim-action-btn" onclick="event.preventDefault();openEmailShareModal('${key}')" aria-label="Share">
+              <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="ld-sim-body">
+          <div class="ld-sim-price">${price}</div>
+          <div class="ld-sim-meta">${beds} bd &nbsp;|&nbsp; ${baths} ba${sqft ? ' &nbsp;|&nbsp; ' + sqft : ''}</div>
+          <div class="ld-sim-addr">${addr}<br><span style="color:#888;font-size:11px">${city}</span></div>
+          <div class="ld-sim-mls">MLS#: ${l.ListingId || l.ListingKey}</div>
+        </div>
+      </a>`;
+    };
+    grid.innerHTML = items.map(makeCard).join('');
+    section.style.display = '';
   }
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -2944,10 +3420,176 @@
       if (error) { _setHeartState(true); console.error('[heart remove]', error); }
     }
   }
-  function shareProperty() {
-    const url = window.location.href;
-    if (navigator.share) { navigator.share({ title: document.title, url }); }
-    else { navigator.clipboard.writeText(url).then(() => alert('Link copied to clipboard')); }
+  async function toggleSimHeart(btn) {
+    const { data: { session } } = await _sb.auth.getSession();
+    if (!session?.user) { openAuthModal('options'); return; }
+    const key = btn.dataset.key;
+    const wasHearted = btn.classList.contains('hearted');
+    btn.classList.toggle('hearted', !wasHearted);
+    if (!wasHearted) {
+      await _sb.from('saved_listings').upsert({ user_id: session.user.id, listing_key: key });
+    } else {
+      await _sb.from('saved_listings').delete().eq('user_id', session.user.id).eq('listing_key', key);
+    }
+  }
+
+  function shareSimListing(key, addrEnc) {
+    const url = `${location.origin}${location.pathname}?key=${key}`;
+    if (navigator.share) {
+      navigator.share({ title: decodeURIComponent(addrEnc), url });
+    } else {
+      navigator.clipboard.writeText(url).then(() => alert('Link copied!'));
+    }
+  }
+
+  // ── Share Property Panel ──────────────────────────────────────────────────
+  let _shareUrl = '';
+  let _shareAddr = '';
+  let _shareListing = null;
+
+  // ── Sidebar sticky: top aligns with About This Home, stops at Mortgage Calculator bottom ──
+  function initSidebarPosition() {
+    const sidebar = document.querySelector('.ld-sidebar');
+    const aboutEl = document.getElementById('about-section');
+    if (!sidebar || !aboutEl) return;
+
+    sidebar.style.marginTop = '0';
+    sidebar.style.position  = '';
+    sidebar.style.alignSelf = '';
+
+    const sidebarTop = sidebar.getBoundingClientRect().top + window.scrollY;
+    const aboutTop   = aboutEl.getBoundingClientRect().top + window.scrollY;
+    const offset     = Math.max(0, aboutTop - sidebarTop);
+
+    sidebar.style.marginTop = `${offset}px`;
+    sidebar.style.position  = 'sticky';
+    sidebar.style.top       = '90px';
+    sidebar.style.alignSelf = 'start';
+    sidebar.classList.add('positioned');
+  }
+
+  window.addEventListener('resize', initSidebarPosition, { passive: true });
+
+  function syncSimOuter() {
+    const sidebar = document.querySelector('.ld-sidebar');
+    const outers  = document.querySelectorAll('.ld-sim-outer');
+    if (!sidebar || !outers.length) return;
+    if (window.innerWidth <= 900) {
+      outers.forEach(o => { o.style.maxWidth = ''; o.style.paddingRight = ''; });
+      return;
+    }
+    const pr = Math.max(0, window.innerWidth - Math.round(sidebar.getBoundingClientRect().right));
+    outers.forEach(o => {
+      o.style.maxWidth     = 'none';
+      o.style.paddingRight = pr + 'px';
+    });
+  }
+  window.addEventListener('load',   syncSimOuter, { passive: true });
+  window.addEventListener('resize', syncSimOuter, { passive: true });
+
+  function openSharePanel() {
+    const l = window._currentListing || {};
+    _shareUrl     = window.location.href;
+    _shareAddr    = l._fullAddr || document.title;
+    _shareListing = l;
+    // Go directly to the email form
+    const img = document.getElementById('ls-email-img');
+    const photoUrl = (l.Media?.[0]?.MediaURL) || null;
+    if (photoUrl) { img.src = photoUrl; img.style.display = 'block'; } else { img.style.display = 'none'; }
+    document.getElementById('ls-email-price').textContent = l.ListPrice ? '$' + Number(l.ListPrice).toLocaleString() : '';
+    const stats = [
+      l.BedroomsTotal ? l.BedroomsTotal + ' bd' : null,
+      l.BathroomsTotalInteger ? l.BathroomsTotalInteger + ' ba' : null,
+      l.LivingArea ? l.LivingArea.toLocaleString() + ' sqft' : null
+    ].filter(Boolean).join('  ·  ');
+    document.getElementById('ls-email-stats').textContent = stats;
+    document.getElementById('ls-email-addr').textContent = _shareAddr;
+    document.getElementById('ls-email-mls').textContent = l.ListingId ? 'MLS#: ' + l.ListingId : '';
+    document.getElementById('ls-email-overlay').classList.remove('hidden');
+  }
+  function shareProperty() { openSharePanel(); }
+
+  function closeShareModal() {
+    document.getElementById('ls-share-overlay').classList.add('hidden');
+  }
+  function closeEmailModal() {
+    document.getElementById('ls-email-overlay').classList.add('hidden');
+  }
+
+  function shareAction(type) {
+    if (type === 'copy') {
+      navigator.clipboard.writeText(_shareUrl).then(() => {
+        document.getElementById('ls-share-copied').textContent = 'Link copied to clipboard!';
+        setTimeout(closeShareModal, 1400);
+      });
+    } else if (type === 'sms') {
+      window.open(`sms:?body=${encodeURIComponent(_shareAddr + ' ' + _shareUrl)}`);
+      closeShareModal();
+    } else if (type === 'email') {
+      closeShareModal();
+      const l = _shareListing || {};
+      const img = document.getElementById('ls-email-img');
+      const photoUrl = (l.Media?.[0]?.MediaURL) || null;
+      if (photoUrl) { img.src = photoUrl; img.style.display = 'block'; } else { img.style.display = 'none'; }
+      document.getElementById('ls-email-price').textContent = l.ListPrice ? '$' + Number(l.ListPrice).toLocaleString() : '';
+      const stats = [
+        l.BedroomsTotal ? l.BedroomsTotal + ' bd' : null,
+        l.BathroomsTotalInteger ? l.BathroomsTotalInteger + ' ba' : null,
+        l.LivingArea ? l.LivingArea.toLocaleString() + ' sqft' : null
+      ].filter(Boolean).join('  ·  ');
+      document.getElementById('ls-email-stats').textContent = stats;
+      document.getElementById('ls-email-addr').textContent = _shareAddr;
+      document.getElementById('ls-email-mls').textContent = l.ListingId ? 'MLS#: ' + l.ListingId : '';
+      document.getElementById('ls-email-overlay').classList.remove('hidden');
+    } else if (type === 'native') {
+      if (navigator.share) {
+        navigator.share({ title: _shareAddr, url: _shareUrl }).then(closeShareModal).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(_shareUrl).then(() => {
+          document.getElementById('ls-share-copied').textContent = 'Link copied to clipboard!';
+          setTimeout(closeShareModal, 1400);
+        });
+      }
+    }
+  }
+
+  async function submitEmailShare() {
+    const firstName      = document.getElementById('ef-first').value.trim();
+    const lastName       = document.getElementById('ef-last').value.trim();
+    const email          = document.getElementById('ef-email').value.trim();
+    const phone          = document.getElementById('ef-phone').value.trim();
+    const recipientEmail = document.getElementById('ef-recipient').value.trim();
+    const message        = document.getElementById('ef-message').value.trim();
+    if (!firstName || !email || !recipientEmail) { alert('Please fill in your name, email, and the recipient email.'); return; }
+    const btn = document.querySelector('.ls-email-send');
+    const origHTML = btn.innerHTML;
+    btn.disabled = true; btn.innerHTML = 'Sending…';
+    const l = _shareListing || {};
+    const payload = {
+      firstName, lastName, email, phone, recipientEmail, message,
+      listingUrl:   _shareUrl,
+      listingAddr:  _shareAddr,
+      listingId:    l.ListingId    || '',
+      listingPrice: l.ListPrice    ? '$' + Number(l.ListPrice).toLocaleString() : '',
+      listingBeds:  l.BedroomsTotal || '',
+      listingBaths: l.BathroomsTotalInteger || '',
+      listingSqft:  l.LivingArea   || '',
+      listingPhoto: (l.Media?.[0]?.MediaURL) || ''
+    };
+    try {
+      const resp = await fetch(`${WORKER_URL}/share-listing`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+      const data = await resp.json();
+      if (!resp.ok) throw new Error(data.error || 'Server error');
+      closeEmailModal();
+      const notice = document.createElement('div');
+      notice.style.cssText = 'position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#18254B;color:#fff;padding:12px 28px;border-radius:8px;font-size:14px;z-index:9999;';
+      notice.textContent = 'Listing shared!';
+      document.body.appendChild(notice);
+      setTimeout(() => notice.remove(), 3000);
+    } catch(err) {
+      alert('Something went wrong sending the email. Please try again.');
+      btn.disabled = false; btn.innerHTML = origHTML;
+    }
   }
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -2999,9 +3641,24 @@
     document.getElementById('modal-step2').style.display = '';
   }
 
+  function openContactModal() {
+    openTourModal();
+    const addr = listing ? `${listing.StreetNumber} ${listing.StreetName}`.trim() : '';
+    const city = listing ? listing.City : '';
+    const zip  = listing ? listing.PostalCode : '';
+    document.getElementById('modal-message').value =
+      `I am interested in ${addr}${city ? ', ' + city : ''}${zip ? ', CA ' + zip : ''} and would like more information about this property.`;
+    document.getElementById('modal-step1').style.display = 'none';
+    document.getElementById('modal-step2').style.display = '';
+    document.getElementById('modal-step2-title').textContent = 'Contact Us';
+    document.getElementById('modal-back-btn').style.display = 'none';
+  }
+
   function backToStep1() {
     document.getElementById('modal-step1').style.display = '';
     document.getElementById('modal-step2').style.display = 'none';
+    document.getElementById('modal-step2-title').textContent = 'Request a Tour';
+    document.getElementById('modal-back-btn').style.display = '';
   }
 
   function submitTourForm(e) {
@@ -3023,9 +3680,15 @@
     if (e.target === this) closeTourModal();
   });
 
+
   // ─────────────────────────────────────────────────────────────────────────
   // UTIL
   // ─────────────────────────────────────────────────────────────────────────
+  function formatStatus(s) {
+    if (!s) return 'Active';
+    if (s === 'ComingSoon') return 'Coming Soon';
+    return s;
+  }
   function fmt(n) {
     if (n == null) return '—';
     return '$' + Math.round(n).toLocaleString();
@@ -3033,6 +3696,56 @@
   function setText(id, val) {
     const el = document.getElementById(id);
     if (el) el.textContent = val ?? '—';
+  }
+  // Hide the parent .ld-detail-row if value is empty/null
+  function setTextOrHide(id, val) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const row = el.closest('.ld-detail-row');
+    if (val == null || val === '' || val === '—') {
+      if (row) row.style.display = 'none';
+    } else {
+      el.textContent = val;
+      if (row) row.style.display = '';
+    }
+  }
+  // Convert CamelCase MLS tokens to readable words: "GasCooktop" → "Gas Cooktop"
+  const PROP_SUBTYPE_MAP = {
+    'Single Family Residence': 'Single Family Detached',
+    'Townhouse': 'Townhome',
+    'Condominium': 'Condominium',
+    'Stock Cooperative': 'Co-op',
+    'Own Your Own': 'Own Your Own',
+    'Manufactured On Land': 'Manufactured Home',
+    'Manufactured Home': 'Manufactured Home',
+    'Mobile Home': 'Mobile Home',
+    'Duplex': 'Duplex',
+    'Triplex': 'Triplex',
+    'Quadruplex': 'Fourplex',
+    'Apartment': 'Apartment',
+  };
+  const PROP_TYPE_MAP = {
+    'Residential': 'Residential',
+    'ResidentialIncome': 'Multi-Family',
+    'CommercialSale': 'Commercial',
+    'Land': 'Land',
+    'MultiFamily': 'Multi-Family',
+  };
+  function camelToWords(str) {
+    if (!str) return str;
+    return str.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2');
+  }
+  function formatPropertyType(type, subType) {
+    const normSub  = camelToWords(subType);
+    const normType = camelToWords(type);
+    if (normSub && PROP_SUBTYPE_MAP[normSub]) return PROP_SUBTYPE_MAP[normSub];
+    if (normSub) return normSub;
+    if (normType && PROP_TYPE_MAP[normType]) return PROP_TYPE_MAP[normType];
+    return normType || '—';
+  }
+  function parseList(val) {
+    const arr = Array.isArray(val) ? val : (val ? String(val).split(',') : []);
+    return arr.map(s => camelToWords(s.trim())).filter(Boolean).join(', ') || null;
   }
   </script>
 
@@ -3107,6 +3820,67 @@
     </div>
 
   </footer>
+
+  <!-- ── Share Property modal ── -->
+  <div class="ls-share-overlay hidden" id="ls-share-overlay" onclick="if(event.target===this)closeShareModal()">
+    <div class="ls-share-modal">
+      <div class="ls-share-title">Share Property</div>
+      <button class="ls-share-close" onclick="closeShareModal()">&#x2715;</button>
+      <div class="ls-share-options">
+        <button class="ls-share-option" onclick="shareAction('copy')">
+          <div class="ls-share-icon"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+          Copy Link
+        </button>
+        <button class="ls-share-option" onclick="shareAction('sms')">
+          <div class="ls-share-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          Messages
+        </button>
+        <button class="ls-share-option" onclick="shareAction('native')">
+          <div class="ls-share-icon"><svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></div>
+          Share To
+        </button>
+        <button class="ls-share-option" onclick="shareAction('email')">
+          <div class="ls-share-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          Email
+        </button>
+      </div>
+      <div class="ls-share-copied" id="ls-share-copied"></div>
+    </div>
+  </div>
+
+  <!-- ── Email Share modal ── -->
+  <div class="ls-email-overlay hidden" id="ls-email-overlay" onclick="if(event.target===this)closeEmailModal()">
+    <div class="ls-email-modal">
+      <div class="ls-email-modal-header">
+        <p class="ls-email-modal-title">SHARE PROPERTY</p>
+        <button class="ls-email-close" onclick="closeEmailModal()">&#x2715;</button>
+      </div>
+      <img class="ls-email-prop-img" id="ls-email-img" src="" alt="">
+      <div class="ls-email-prop-details" id="ls-email-prop-details" style="padding:10px 20px 4px; border-bottom:1px solid #eee;">
+        <div id="ls-email-price" style="font-family:'Lato',sans-serif;font-size:18px;font-weight:800;color:#1C3063;"></div>
+        <div id="ls-email-stats" style="font-family:'Lato',sans-serif;font-size:12px;color:#555;margin:2px 0;"></div>
+        <div id="ls-email-addr" style="font-family:'Lato',sans-serif;font-size:12px;color:#777;"></div>
+        <div id="ls-email-mls" style="font-family:'Lato',sans-serif;font-size:11px;color:#aaa;margin-top:2px;"></div>
+      </div>
+      <div class="ls-email-form">
+        <div class="ls-email-row">
+          <div class="ls-email-field"><label>First Name</label><input type="text" id="ef-first" placeholder=""></div>
+          <div class="ls-email-field"><label>Last Name</label><input type="text" id="ef-last" placeholder=""></div>
+        </div>
+        <div class="ls-email-field"><label>Email</label><input type="email" id="ef-email" placeholder=""></div>
+        <div class="ls-email-field"><label>Phone (Optional)</label><input type="tel" id="ef-phone" placeholder=""></div>
+        <div class="ls-email-field"><label>Recipient Email</label><input type="email" id="ef-recipient" placeholder=""></div>
+        <div class="ls-email-field">
+          <label>Message</label>
+          <textarea id="ef-message">I came across this listing that I think you might like. Let me know what you think!</textarea>
+        </div>
+        <button class="ls-email-send" onclick="submitEmailShare()">
+          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2" fill="white"/></svg>
+          SEND
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- ── Auth modal (login / register) ── -->
   <div class="ls-ss-overlay hidden" id="ls-ss-overlay" onclick="if(event.target===this)closeSaveSearch()">

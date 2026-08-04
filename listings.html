@@ -2324,9 +2324,62 @@
   };
 
   // ─────────────────────────────────────────────────────────────────────────
+  // URL ↔ STATE SYNC
+  // ─────────────────────────────────────────────────────────────────────────
+  function initStateFromUrl() {
+    const p = new URLSearchParams(window.location.search);
+    if (!p.toString()) return;
+    if (p.get('rentMode') === 'true') { state.rentMode = true; state.status = []; }
+    else if (p.get('status')) { state.status = p.get('status').split(',').map(s => s.trim()).filter(Boolean); }
+    if (p.get('minPrice')) state.minPrice = p.get('minPrice');
+    if (p.get('maxPrice')) state.maxPrice = p.get('maxPrice');
+    if (p.get('type'))     state.type = p.get('type');
+    if (p.get('subtype'))  state.subtype = p.get('subtype');
+    if (p.get('exactBeds'))      state.afBeds = p.get('exactBeds');
+    else if (p.get('minBeds'))   state.minBeds = p.get('minBeds');
+    if (p.get('exactBaths'))     state.afBaths = p.get('exactBaths');
+    else if (p.get('minBaths'))  state.minBaths = p.get('minBaths');
+    if (p.get('minSqft'))  state.afMinSqft = p.get('minSqft');
+    if (p.get('maxSqft'))  state.afMaxSqft = p.get('maxSqft');
+    if (p.get('minLot'))   state.afMinLot = p.get('minLot');
+    if (p.get('maxLot'))   state.afMaxLot = p.get('maxLot');
+    if (p.get('minYear'))  state.afMinYear = p.get('minYear');
+    if (p.get('maxYear'))  state.afMaxYear = p.get('maxYear');
+    if (p.get('minGarage')) state.afMinGarage = p.get('minGarage');
+    if (p.get('stories'))  state.afStories = p.get('stories');
+    if (p.get('dom'))      state.afDom = p.get('dom');
+    if (p.get('openHouse') === 'true') state.afOpenHouse = true;
+    if (p.get('keyword'))  state.afKeyword = p.get('keyword');
+    if (p.get('hasHoa'))   state.afHoa = p.get('hasHoa');
+    if (p.get('maxHoa'))   state.afMaxHoa = p.get('maxHoa');
+    ['pool','waterfront','fireplace','virtualTour','view'].forEach(f => {
+      if (p.get(f) === 'true') state.afFeatures.push(f);
+    });
+    if (p.get('advanced')) {
+      try {
+        const adv = JSON.parse(p.get('advanced'));
+        Object.entries(adv).forEach(([cat, vals]) => {
+          (vals || []).forEach(v => { state.afAdvanced[cat + '::' + v] = true; });
+        });
+      } catch(e) {}
+    }
+    if (p.get('sort')) state.sort = p.get('sort');
+    if (p.get('zip')) {
+      state.zip = p.get('zip'); state.search = ''; mapDrivenMode = false;
+      const inp = document.getElementById('ls-search-input');
+      if (inp) inp.value = p.get('zip');
+    } else if (p.get('city')) {
+      state.search = p.get('city'); state.zip = null; mapDrivenMode = false;
+      const inp = document.getElementById('ls-search-input');
+      if (inp) inp.value = p.get('city');
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
   // INIT
   // ─────────────────────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {
+    initStateFromUrl();
     loadListings();
     bindDropdowns();
     bindSort();
@@ -2391,7 +2444,7 @@
             .then(d => { if (d.Media?.[0]?.MediaURL) showPhoto(d.Media[0].MediaURL); })
             .catch(() => {});
         }
-        document.getElementById('map-pin-card-status').textContent = l.StandardStatus || 'Active';
+        document.getElementById('map-pin-card-status').textContent = l.StandardStatus === 'ComingSoon' ? 'Coming Soon' : (l.StandardStatus || 'Active');
         document.getElementById('map-pin-card-price').textContent = formatPrice(l.ListPrice);
         const facts = [
           l.BedroomsTotal != null ? `${l.BedroomsTotal} bd` : null,
@@ -2724,6 +2777,11 @@
       drawZipBoundary(null);
     }
 
+    // Keep URL in sync with filter state so saved searches capture real criteria
+    const _urlSync = new URLSearchParams(params);
+    ['north','south','east','west','page','limit','zoom','zips'].forEach(k => _urlSync.delete(k));
+    history.replaceState(null, '', _urlSync.toString() ? '?' + _urlSync : location.pathname);
+
     try {
       const resp = await fetch(`${WORKER_URL}/search?${params}`);
       if (!resp.ok) throw new Error(`Worker error ${resp.status}`);
@@ -2858,8 +2916,8 @@
   function statusBadge(status) {
     const map = {
       'Active':      { cls: 'ls-badge-active',  label: 'Active' },
-      'ComingSoon':  { cls: 'ls-badge-coming',  label: 'Coming soon' },
-      'Coming Soon': { cls: 'ls-badge-coming',  label: 'Coming soon' },
+      'ComingSoon':  { cls: 'ls-badge-coming',  label: 'Coming Soon' },
+      'Coming Soon': { cls: 'ls-badge-coming',  label: 'Coming Soon' },
       'Pending':     { cls: 'ls-badge-pending', label: 'Pending' },
       'Sold':        { cls: 'ls-badge-sold',    label: 'Sold' }
     };
@@ -3221,10 +3279,10 @@
   async function ssSubmitSave() {
     const name = document.getElementById('ss-search-name').value.trim() || 'My Search';
     const freq = document.querySelector('.ls-ss-freq-pill.selected')?.dataset?.freq || 'daily';
-    // Strip map-viewport params — they're not search criteria and produce wrong results when reloaded
-    const _MAP_PARAMS = new Set(['north','south','east','west','page','zoom']);
+    // URL is kept in sync by loadListings(); just read it (volatile params already stripped)
+    const _STRIP = new Set(['north','south','east','west','page','limit','zoom','zips']);
     const _raw = new URLSearchParams(window.location.search);
-    _MAP_PARAMS.forEach(k => _raw.delete(k));
+    _STRIP.forEach(k => _raw.delete(k));
     const criteria = Object.fromEntries(_raw);
 
     const { data: { session } } = await _sb.auth.getSession();

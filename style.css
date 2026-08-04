@@ -1683,6 +1683,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 .site-footer {
   background: #18254B;
   color: rgba(255,255,255,0.75);
+  overflow-x: hidden;
 }
 
 /* ── 4-column info row: logo | address | email | phone ── */
@@ -1984,7 +1985,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 }
 .fp-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.6rem;
   max-width: 1400px;
   margin: 0 auto;
@@ -2095,11 +2096,110 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 .fp-link:hover {
   color: #B38987;
 }
-@media (max-width: 900px) {
+.fp-skeleton {
+  min-height: 340px;
+  background: linear-gradient(90deg, #f0ece8 25%, #e8e4e0 50%, #f0ece8 75%);
+  background-size: 200% 100%;
+  animation: fp-shimmer 1.4s infinite;
+}
+@keyframes fp-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@media (max-width: 1100px) {
   .fp-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 580px) {
   .fp-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   LISTING CARD  (shared: listings.html + home page grid)
+============================================================ */
+.ls-card {
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.2s, transform 0.2s;
+  background: #fff;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.ls-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.1); transform: translateY(-1px); }
+.ls-card-img {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #e8ecf2;
+  overflow: hidden;
+}
+.ls-card-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s;
+}
+.ls-card:hover .ls-card-img img { transform: scale(1.03); }
+.ls-card-img-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #1C3063 0%, #2a4a8c 100%);
+}
+.ls-card-img-placeholder svg { opacity: 0.25; }
+.ls-badge {
+  position: absolute;
+  top: 10px; left: 10px;
+  padding: 3px 9px;
+  border-radius: 4px;
+  font-family: 'Lato', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.ls-badge-active  { background: #1C3063; color: #fff; }
+.ls-badge-coming  { background: #1C3063; color: #fff; }
+.ls-badge-pending { background: #B38987; color: #fff; }
+.ls-badge-sold    { background: #322E2D; color: #fff; }
+.ls-card-body { padding: 13px 16px 15px; }
+.ls-card-price {
+  font-family: 'Marcellus', serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #1C3063;
+  margin-bottom: 4px;
+  letter-spacing: 0.01em;
+}
+.ls-card-facts {
+  font-size: 12px;
+  color: #555;
+  display: flex;
+  gap: 0;
+  margin-bottom: 5px;
+  flex-wrap: wrap;
+}
+.ls-card-facts span { display: flex; align-items: center; gap: 3px; padding: 0 8px; border-left: 1px solid #ddd; }
+.ls-card-facts span:first-child { padding-left: 0; border-left: none; }
+.ls-card-address {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.ls-card-mls {
+  font-size: 11px;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ls-crmls-logo {
+  height: 16px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
 }
 
 /* ============================================================
