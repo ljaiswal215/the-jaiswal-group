@@ -410,7 +410,54 @@
       if (drop && !drop.contains(e.target)) drop.classList.remove('open');
     });
 
+    _sb.auth.onAuthStateChange(async (event) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        document.getElementById('pw-reset-overlay').style.display = 'flex';
+        setTimeout(() => document.getElementById('pr-pw1').focus(), 50);
+      }
+    });
+
+    async function submitNewPassword() {
+      var pw1 = document.getElementById('pr-pw1').value;
+      var pw2 = document.getElementById('pr-pw2').value;
+      var errEl = document.getElementById('pr-error');
+      errEl.textContent = '';
+      if (pw1.length < 6) { errEl.textContent = 'Password must be at least 6 characters.'; return; }
+      if (pw1 !== pw2) { errEl.textContent = 'Passwords do not match.'; return; }
+      var btn = document.getElementById('pr-submit');
+      btn.textContent = 'Updating…';
+      btn.disabled = true;
+      var result = await _sb.auth.updateUser({ password: pw1 });
+      if (result.error) {
+        errEl.textContent = result.error.message;
+        btn.textContent = 'Update Password';
+        btn.disabled = false;
+        return;
+      }
+      document.getElementById('pw-reset-overlay').style.display = 'none';
+      init();
+    }
+
     init();
   </script>
+
+<!-- Password Reset Overlay (shown when user arrives via email reset link) -->
+<div id="pw-reset-overlay" style="display:none;position:fixed;inset:0;background:rgba(28,48,99,.6);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:#fff;width:420px;max-width:94vw;padding:44px 40px;font-family:'Lato',sans-serif;box-shadow:0 8px 40px rgba(0,0,0,.18);">
+    <h2 style="font-family:'Marcellus',serif;font-size:22px;color:#1C3063;margin:0 0 8px;">Set New Password</h2>
+    <p style="font-size:13px;color:#aaa;margin:0 0 28px;">Choose a strong password for your account.</p>
+    <div style="margin-bottom:14px;">
+      <label style="display:block;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#aaa;margin-bottom:6px;">New Password</label>
+      <input type="password" id="pr-pw1" placeholder="At least 6 characters" onkeydown="if(event.key==='Enter')submitNewPassword()" style="width:100%;border:1px solid #ddd;padding:12px 13px;font-size:14px;font-family:'Lato',sans-serif;outline:none;box-sizing:border-box;" />
+    </div>
+    <div style="margin-bottom:6px;">
+      <label style="display:block;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#aaa;margin-bottom:6px;">Confirm Password</label>
+      <input type="password" id="pr-pw2" placeholder="Repeat password" onkeydown="if(event.key==='Enter')submitNewPassword()" style="width:100%;border:1px solid #ddd;padding:12px 13px;font-size:14px;font-family:'Lato',sans-serif;outline:none;box-sizing:border-box;" />
+    </div>
+    <div id="pr-error" style="color:#c0392b;font-size:12px;margin:10px 0 16px;min-height:16px;"></div>
+    <button id="pr-submit" onclick="submitNewPassword()" style="width:100%;background:#1C3063;color:#fff;border:none;padding:14px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;font-family:'Lato',sans-serif;">Update Password</button>
+  </div>
+</div>
+
 </body>
 </html>
