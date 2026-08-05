@@ -10,6 +10,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <link rel="preload" as="video" href="homepage hero background video.mp4" type="video/mp4" fetchpriority="high" />
+  <script src="js/tjg-listing-card.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/tjg-listing-actions.js"></script>
 </head>
 <script>
   // Redirect Supabase recovery/magic-link tokens to the right page
@@ -264,7 +267,7 @@
       <div class="fp-card fp-skeleton"></div>
     </div>
     <div class="center" style="margin-top:1.5rem;">
-      <a href="listings.html" class="btn btn-primary">VIEW MORE</a>
+      <a href="featured-properties.html" class="btn btn-primary">VIEW MORE</a>
     </div>
   </section>
   <script>
@@ -288,30 +291,7 @@
     }
     var HOUSE_PLACEHOLDER = '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>';
     function buildCard(l){
-      var photo = (l.Media&&l.Media[0]&&l.Media[0].MediaURL) ? l.Media[0].MediaURL : '';
-      var unit  = l.UnitNumber ? ' #' + l.UnitNumber : '';
-      var street = ([l.StreetNumber, l.StreetName, l.StreetSuffix].filter(Boolean).join(' ') || 'Private Address') + unit;
-      var fullAddr = street + ', ' + [l.City, (l.StateOrProvince||'CA'), l.PostalCode].filter(Boolean).join(' ');
-      var imgHtml = photo
-        ? '<img src="' + photo + '" alt="' + street.replace(/"/g,'') + '" loading="lazy" />'
-        : '<div class="ls-card-img-placeholder">' + HOUSE_PLACEHOLDER + '</div>';
-      var facts = '';
-      if(l.BedroomsTotal) facts += '<span>' + l.BedroomsTotal + ' bd</span>';
-      if(l.BathroomsTotalInteger) facts += '<span>' + l.BathroomsTotalInteger + ' ba</span>';
-      if(l.LivingArea) facts += '<span>' + l.LivingArea.toLocaleString('en-US') + ' sqft</span>';
-      var mlsRow = l.ListingId ? '<div class="ls-card-mls"><span>MLS\u00ae: ' + l.ListingId + '</span><img src="LOGOS/logo-crmls.png" alt="CRMLS" class="ls-crmls-logo" /></div>' : '';
-      return '<a class="ls-card" href="listing.html?key=' + l.ListingKey + '">'
-        + '<div class="ls-card-img">'
-        +   imgHtml
-        +   '<span class="ls-badge ' + badgeCls(l.StandardStatus) + '">' + fmtStatus(l.StandardStatus) + '</span>'
-        + '</div>'
-        + '<div class="ls-card-body">'
-        +   '<div class="ls-card-price">' + fmtPrice(l.ListPrice) + '</div>'
-        +   '<div class="ls-card-facts">' + facts + '</div>'
-        +   '<div class="ls-card-address">' + fullAddr + '</div>'
-        +   mlsRow
-        + '</div>'
-        + '</a>';
+      return TJGCard.render(l, { showActions: true });
     }
 
     fetch(WORKER + '/search?zips=' + ZIPS + '&status=Active,ComingSoon&minPrice=750000&maxPrice=25000000&sort=newest&limit=8')
@@ -321,6 +301,8 @@
         var listings = (data.listings || []).slice(0, 8);
         if(!listings.length){ grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#888;padding:2rem">No listings found.</p>'; return; }
         grid.innerHTML = listings.map(buildCard).join('');
+        if(window.TJGActions) TJGActions.registerListings(listings);
+        if(window.loadHeartedListings) loadHeartedListings();
       })
       .catch(function(){ document.getElementById('fp-grid').innerHTML = ''; });
   })();
@@ -554,22 +536,22 @@
             <div class="consult-row">
               <div class="consult-group">
                 <label for="c-first">First Name *</label>
-                <input type="text" id="c-first" name="first_name" placeholder="Jane" required autocomplete="given-name" />
+                <input type="text" id="c-first" name="first_name" placeholder="" required autocomplete="given-name" />
               </div>
               <div class="consult-group">
                 <label for="c-last">Last Name *</label>
-                <input type="text" id="c-last" name="last_name" placeholder="Smith" required autocomplete="family-name" />
+                <input type="text" id="c-last" name="last_name" placeholder="" required autocomplete="family-name" />
               </div>
             </div>
 
             <div class="consult-row">
               <div class="consult-group">
                 <label for="c-email">Email Address *</label>
-                <input type="email" id="c-email" name="email" placeholder="jane@email.com" required autocomplete="email" />
+                <input type="email" id="c-email" name="email" placeholder="" required autocomplete="email" />
               </div>
               <div class="consult-group">
                 <label for="c-phone">Phone Number</label>
-                <input type="tel" id="c-phone" name="phone" placeholder="(000) 000-0000" autocomplete="tel" />
+                <input type="tel" id="c-phone" name="phone" placeholder="" autocomplete="tel" />
               </div>
             </div>
 
@@ -789,6 +771,16 @@
       const form = document.getElementById('consult-form');
       const successEl = document.getElementById('consult-success');
       const submitBtn = form.querySelector('button[type="submit"]');
+
+      // Format phone as (000) 000-0000 while typing
+      document.getElementById('c-phone').addEventListener('input', function(e) {
+        var digits = e.target.value.replace(/\D/g, '').slice(0, 10);
+        var fmt = '';
+        if (digits.length > 0) fmt = '(' + digits.slice(0, 3);
+        if (digits.length >= 4) fmt += ') ' + digits.slice(3, 6);
+        if (digits.length >= 7) fmt += '-' + digits.slice(6, 10);
+        e.target.value = fmt;
+      });
 
       form.addEventListener('submit', async function(e) {
         e.preventDefault();

@@ -50,6 +50,7 @@
       overflow: hidden;
       cursor: pointer;
       border-radius: 12px 0 0 12px;
+      background: #1C3063;
     }
     .ld-gallery-thumbs {
       display: grid;
@@ -67,7 +68,7 @@
     }
     .ld-gallery-main:hover img,
     .ld-gallery-thumb:hover img { opacity: 0.9; }
-    .ld-gallery-thumb { position: relative; cursor: pointer; overflow: hidden; }
+    .ld-gallery-thumb { position: relative; cursor: pointer; overflow: hidden; background: #1C3063; }
     .ld-gallery-thumb:nth-child(2) { border-radius: 0 12px 0 0; }
     .ld-gallery-thumb:last-child { border-radius: 0 0 12px 0; }
     .ld-gallery-thumb:last-child .ld-gallery-overlay { display: flex; }
@@ -145,7 +146,7 @@
     .ld-layout {
       max-width: 1400px;
       margin: 0 auto 0 0;
-      padding: 28px 32px 64px 180px;
+      padding: 12px 32px 64px 180px;
       display: grid;
       grid-template-columns: 1fr 420px;
       gap: 32px;
@@ -160,7 +161,7 @@
       align-items: center;
       justify-content: flex-start;
       gap: 40px;
-      padding: 28px 0 24px;
+      padding: 14px 0 20px;
       border-bottom: 1px solid #d0d0d0;
       margin-bottom: 20px;
     }
@@ -457,62 +458,22 @@
       gap: 10px;
       margin-top: 16px;
     }
-    .ld-sim-card {
-      border: 1px solid #ebebeb;
-      border-radius: 8px;
-      overflow: hidden;
+    .ld-sim-view-more { margin-top: 20px; text-align: center; }
+    .ld-sim-view-more-btn {
+      display: inline-block;
+      padding: 10px 28px;
+      border: 1.5px solid #1C3063;
+      border-radius: 4px;
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      background: #1C3063;
+      color: #fff;
       text-decoration: none;
-      color: inherit;
-      background: #fff;
-      transition: box-shadow 0.2s, transform 0.2s;
-      display: block;
+      transition: color 0.2s;
     }
-    .ld-sim-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); transform: translateY(-2px); }
-    .ld-sim-img {
-      aspect-ratio: 4/3;
-      background: linear-gradient(135deg, #1C3063, #2a4a8c);
-      display: flex; align-items: center; justify-content: center;
-      position: relative;
-    }
-    .ld-sim-img svg { opacity: 0.2; }
-    .ld-sim-badge {
-      position: absolute; top: 8px; left: 8px;
-      background: #1C3063; color: #fff;
-      font-size: 10px; font-weight: 700; letter-spacing: 0.05em;
-      padding: 3px 7px; border-radius: 4px; text-transform: uppercase;
-    }
-    .ld-sim-badge.coming { background: #b38987; }
-    .ld-sim-badge.pending { background: #f59e0b; }
-    .ld-sim-badge.sold { background: #ef4444; }
-    .ld-sim-actions {
-      position: absolute; top: 8px; right: 8px;
-      display: flex; gap: 4px;
-    }
-    .ld-sim-actions { gap: 6px; }
-    .ld-sim-action-btn {
-      width: 32px; height: 32px; border-radius: 50%;
-      border: none; cursor: pointer;
-      background: rgba(0,0,0,0.35);
-      backdrop-filter: blur(4px);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.15s, transform 0.15s;
-    }
-    .ld-sim-action-btn:hover { background: rgba(0,0,0,0.55); transform: scale(1.08); }
-    .ld-sim-action-btn svg { width: 15px; height: 15px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.15s, fill 0.15s; opacity: 1; }
-    .ld-sim-action-btn:hover svg { stroke: #B38987; }
-    .ld-sim-action-btn svg polygon { fill: #fff; transition: fill 0.15s; }
-    .ld-sim-action-btn:hover svg polygon { fill: #B38987; }
-    .ld-sim-action-btn.hearted svg { fill: #B38987; stroke: #B38987; }
-    .ld-sim-body { padding: 13px 16px 15px; }
-    .ld-sim-price { font-family: 'Marcellus', serif; font-size: 1.2rem; font-weight: 400; color: #1C3063; margin-bottom: 4px; letter-spacing: 0.01em; }
-    .ld-sim-facts { font-size: 12px; color: #555; display: flex; gap: 0; margin-bottom: 5px; flex-wrap: wrap; }
-    .ld-sim-facts span { display: flex; align-items: center; gap: 3px; padding: 0 8px; border-left: 1px solid #ddd; }
-    .ld-sim-facts span:first-child { padding-left: 0; border-left: none; }
-    .ld-sim-addr { font-size: 12px; color: #555; margin-bottom: 6px; line-height: 1.4; }
-    .ld-sim-mls { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
-    .ld-sim-mls span { font-size: 11px; color: #999; }
-    .ld-sim-crmls { height: 16px; width: auto; flex-shrink: 0; }
+    .ld-sim-view-more-btn:hover { color: #B38987; }
 
     /* MLS Disclaimer */
     .ld-disclaimer {
@@ -958,7 +919,7 @@
     .ld-cta-section {
       background: #F3EFE8;
       border-top: 3px solid #B38987;
-      padding: clamp(3rem, 5vw, 4.5rem) clamp(1.5rem, 5vw, 4rem);
+      padding: clamp(1.75rem, 3vw, 2.5rem) clamp(1.5rem, 5vw, 4rem);
     }
     .ld-cta-inner {
       max-width: 1060px;
@@ -978,7 +939,7 @@
       margin-bottom: 0.75rem;
     }
     .ld-cta-address {
-      font-family: 'Lato', sans-serif;
+      font-family: 'Cormorant Garamond', serif;
       font-size: clamp(1.5rem, 3vw, 2.4rem);
       font-weight: 400;
       color: #1C3063;
@@ -999,7 +960,7 @@
       cursor: pointer;
       transition: background 0.2s;
     }
-    .ld-cta-btn:hover { background: #18254B; }
+    .ld-cta-btn:hover { background: #18254B; color: #B38987; }
     .ld-cta-agent {
       display: flex;
       flex-direction: column;
@@ -2291,6 +2252,7 @@
        SCRIPTS
   ========================================================= -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/tjg-listing-card.js"></script>
   <script src="main.js"></script>
   <script>
   // ── Auth: session check + nav state ──
@@ -2556,7 +2518,7 @@
       render(listing);
       _initHeart(listing.ListingKey);
       // Fetch real similar listings with photos (async, non-blocking)
-      fetchSimilar(listing).then(items => { if (items?.length) { renderSimilar(items); syncSimOuter(); } });
+      fetchSimilar(listing).then(items => { renderSimilar(items); syncSimOuter(); });
       // Fetch new listings near ZIP — hidden for now
       // fetchNewListings(listing).then(items => { if (items?.length) { renderNewListings(items, listing.City); syncSimOuter(); } });
     } catch (e) {
@@ -2667,7 +2629,7 @@
     }
     setText('d-year', l.YearBuilt);
     setText('d-county', l.CountyOrParish);
-    setText('d-dom', l.DaysOnMarket != null ? l.DaysOnMarket + ' days' : '—');
+    setText('d-dom', l.DaysOnMarket != null ? String(l.DaysOnMarket) : '—');
     if (l.ListingContractDate) {
       const d = new Date(l.ListingContractDate);
       setText('d-listed', `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')}/${d.getFullYear()}`);
@@ -2761,8 +2723,8 @@
     document.getElementById('cta-address').innerHTML = `${addr}<br>${city}, CA ${l.PostalCode}`;
 
 
-    // Similar properties
-    renderSimilar(MOCK_SIMILAR);
+    // Similar properties — show skeleton until real data loads
+    showSimSkeleton();
 
     // Show content
     document.getElementById('ld-loading-state').style.display = 'none';
@@ -3215,77 +3177,130 @@
     document.getElementById('ls-email-overlay').classList.remove('hidden');
   }
 
+  function showSimSkeleton() {
+    const g = document.getElementById('similar-grid-col');
+    if (g) g.innerHTML = TJGCard.renderSkeleton(4);
+  }
+
   function renderSimilar(items) {
     const colGrid = document.getElementById('similar-grid-col');
-    if (!colGrid) return;
-    const HOUSE = `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
-    const makeCard = l => {
-      const a = `${l.StreetNumber} ${toTitleCase(l.StreetName||'')}`.trim();
-      const simCity = toTitleCase(l.City || '');
-      const photoUrl = (l.Media || [])[0]?.MediaURL || (l.Media || [])[0]?.mediaUrl || l.photo || null;
-      const imgHtml = photoUrl
-        ? `<img src="${photoUrl}" alt="${a}" style="width:100%;height:100%;object-fit:cover;display:block;">`
-        : HOUSE;
-      const status = l.StandardStatus || 'Active';
-      const badgeCls = status === 'Coming Soon' ? 'coming' : status === 'Pending' ? 'pending' : status === 'Closed' ? 'sold' : '';
-      const badgeLabel = status === 'Coming Soon' ? 'Coming Soon' : status === 'Pending' ? 'Pending' : status === 'Closed' ? 'Sold' : 'Active';
-      const addrEnc = encodeURIComponent(`${a}, ${simCity} ${l.StateOrProvince} ${l.PostalCode || ''}`);
-      return `<a href="listing.html?key=${l.ListingKey}" class="ld-sim-card">
-        <div class="ld-sim-img">
-          ${imgHtml}
-          <div class="ld-sim-badge ${badgeCls}">${badgeLabel}</div>
-          <div class="ld-sim-actions">
-            <button class="ld-sim-action-btn ld-sim-heart" data-key="${l.ListingKey}" onclick="event.preventDefault(); toggleSimHeart(this)" title="Save">
-              <svg viewBox="0 0 24 24"><path d="m13.155 20.634.016-.008.014-.01c2.61-1.604 4.793-3.37 6.333-5.253S22 11.422 22 9.263C22 5.652 19.374 3 15.952 3c-1.765 0-3.01 1.101-3.744 2.018a8 8 0 0 0-.203.265 8 8 0 0 0-.201-.263C11.069 4.099 9.824 3 8.048 3 4.626 3 2 5.651 2 9.264c0 2.158.941 4.215 2.483 6.1 1.541 1.882 3.726 3.648 6.341 5.253h0l.012.007c.135.08.3.165.477.234.158.06.41.142.687.142s.528-.081.685-.141c.175-.067.34-.15.47-.225Z"/></svg>
-            </button>
-            <button class="ld-sim-action-btn" onclick="event.preventDefault(); openSimSharePanel('${l.ListingKey}')" title="Share">
-              <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            </button>
-          </div>
-        </div>
-        <div class="ld-sim-body">
-          <div class="ld-sim-price">${fmt(l.ListPrice)}</div>
-          <div class="ld-sim-facts">
-            <span>${l.BedroomsTotal} bd</span>
-            <span>${l.BathroomsTotalInteger} ba</span>
-            ${l.LivingArea ? `<span>${l.LivingArea.toLocaleString()} sqft</span>` : ''}
-          </div>
-          <div class="ld-sim-addr">${a}, ${simCity} ${l.StateOrProvince} ${l.PostalCode || ''}</div>
-          <div class="ld-sim-mls">
-            <span>MLS®: ${l.ListingId || l.ListingKey || ''}</span>
-            <img src="LOGOS/logo-crmls.png" alt="CRMLS" class="ld-sim-crmls" />
-          </div>
-        </div>
-      </a>`;
-    };
-    items.slice(0, 4).forEach(l => { window._simListings[l.ListingKey] = l; });
+    const section = document.getElementById('section-similar');
+    if (!colGrid || !section) return;
+    if (!items?.length) { section.style.display = 'none'; return; }
+    const makeCard = l => TJGCard.render(l, {
+      showActions: true,
+      heartFn: 'toggleSimHeart(this)',
+      shareFn: 'openSimSharePanel',
+    });
+    items.forEach(l => { window._simListings[l.ListingKey] = l; });
     colGrid.innerHTML = items.slice(0, 8).map(makeCard).join('');
+    const zip = window._currentListing?.PostalCode;
+    if (zip) {
+      const viewMore = document.createElement('div');
+      viewMore.className = 'ld-sim-view-more';
+      viewMore.innerHTML = '<a href="listings.html?zip=' + encodeURIComponent(zip) + '" class="ld-sim-view-more-btn">VIEW MORE</a>';
+      section.appendChild(viewMore);
+    }
   }
 
   async function fetchSimilar(l) {
-    try {
-      if (!l.Latitude || !l.Longitude || !l.ListPrice) return null;
-      // 5-mile bounding box: 1 deg lat ≈ 69 mi; lng deg varies by cos(lat)
-      const latDelta = 5 / 69;
-      const lngDelta = 5 / (69 * Math.cos(l.Latitude * Math.PI / 180));
-      const params = new URLSearchParams({
-        north: (l.Latitude + latDelta).toFixed(6),
-        south: (l.Latitude - latDelta).toFixed(6),
-        east:  (l.Longitude + lngDelta).toFixed(6),
-        west:  (l.Longitude - lngDelta).toFixed(6),
-        minPrice: Math.max(0, l.ListPrice - 500000),
-        maxPrice: l.ListPrice + 500000,
-        status: 'Active',
-        pageSize: 12
-      });
-      const resp = await fetch(`${WORKER_URL}/search?${params}`);
-      if (!resp.ok) return null;
-      const data = await resp.json();
-      // Exclude current listing, take up to 5
-      return (data.listings || data.value || [])
+    const price   = l.ListPrice;
+    const beds    = l.BedroomsTotal;
+    const baths   = l.BathroomsTotalInteger;
+    const sqft    = l.LivingArea;
+    const year    = l.YearBuilt;
+    const lot     = l.LotSizeSquareFeet;
+    const garage  = l.GarageSpaces;
+    const hasPool = l.PoolPrivateYN === true;
+    const subtype = l.PropertySubType;
+    const isSFR   = (l.PropertySubType || '').includes('Single Family') || l.PropertyType === 'Residential';
+
+    // 5-mile bounding box (requires coordinates)
+    function radiusGeo() {
+      if (!l.Latitude || !l.Longitude) return null;
+      const latD = 5 / 69;
+      const lngD = 5 / (69 * Math.cos(l.Latitude * Math.PI / 180));
+      return {
+        north: (l.Latitude + latD).toFixed(6), south: (l.Latitude - latD).toFixed(6),
+        east:  (l.Longitude + lngD).toFixed(6), west:  (l.Longitude - lngD).toFixed(6),
+      };
+    }
+
+    // Remove subject listing; enforce maxBaths/maxGarage client-side; limit to 8
+    function postFilter(items) {
+      return items
         .filter(s => s.ListingKey !== l.ListingKey)
+        .filter(s => !baths  || !s.BathroomsTotalInteger || s.BathroomsTotalInteger <= baths + 1)
+        .filter(s => !garage || !s.GarageSpaces           || s.GarageSpaces           <= garage + 1)
         .slice(0, 8);
-    } catch { return null; }
+    }
+
+    async function doFetch(params) {
+      try {
+        const r = await fetch(`${WORKER_URL}/search?${new URLSearchParams(params)}`);
+        if (!r.ok) return [];
+        const d = await r.json();
+        return postFilter(d.listings || d.value || []);
+      } catch { return []; }
+    }
+
+    // Shared base params for every pass
+    function base(pricePct) {
+      return {
+        status:   'Active,ComingSoon',
+        pageSize: 14,
+        ...(price  && { minPrice: Math.max(0, Math.round(price * (1 - pricePct))), maxPrice: Math.round(price * (1 + pricePct)) }),
+        ...(beds   != null && { minBeds: Math.max(0, beds - 1), maxBeds: beds + 1 }),
+        ...(baths  != null && { minBaths: Math.max(0, baths - 1) }),
+      };
+    }
+
+    const radius  = radiusGeo();
+    const geoArea = radius || (l.PostalCode ? { zip: l.PostalCode } : null);
+    let best = [];
+
+    // Pass 1 — same city, all filters, ±20% price
+    if (l.City) {
+      const items = await doFetch({
+        ...base(0.20),
+        city: l.City,
+        ...(subtype && { subtype }),
+        ...(sqft    && { minSqft: Math.round(sqft * 0.70), maxSqft: Math.round(sqft * 1.30) }),
+        ...(year    && { minYear: year - 15, maxYear: year + 15 }),
+        ...(isSFR && lot && { minLot: Math.round(lot * 0.60), maxLot: Math.round(lot * 1.40) }),
+        ...(garage  != null && garage > 0 && { minGarage: Math.max(0, garage - 1) }),
+        ...(hasPool && { pool: 'true' }),
+      });
+      if (items.length >= 4) return items;
+      if (items.length > best.length) best = items;
+    }
+
+    // Pass 2 — 5-mile radius or ZIP, subtype + sqft, ±25% price
+    if (geoArea) {
+      const items = await doFetch({
+        ...base(0.25),
+        ...geoArea,
+        ...(subtype && { subtype }),
+        ...(sqft    && { minSqft: Math.round(sqft * 0.70), maxSqft: Math.round(sqft * 1.30) }),
+      });
+      if (items.length >= 4) return items;
+      if (items.length > best.length) best = items;
+    }
+
+    // Pass 3 — 5-mile radius or ZIP, price/beds/baths only, ±30%
+    if (geoArea) {
+      const items = await doFetch({ ...base(0.30), ...geoArea });
+      if (items.length >= 4) return items;
+      if (items.length > best.length) best = items;
+    }
+
+    // Pass 4 — ZIP-only fallback when radius was used above
+    if (radius && l.PostalCode) {
+      const items = await doFetch({ ...base(0.30), zip: l.PostalCode });
+      if (items.length > best.length) best = items;
+    }
+
+    return best;
   }
 
   // ─────────────────────────────────────────────────────────────────────────

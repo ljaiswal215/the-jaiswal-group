@@ -108,7 +108,7 @@
       gap: 8px;
       padding: 12px 16px;
       min-height: 60px;
-      background: #fff;
+      background: #F6F6F4;
       border-bottom: 1px solid #e2e2e2;
       flex-shrink: 0;
       z-index: 200;
@@ -1270,6 +1270,7 @@
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/tjg-listing-card.js"></script>
 </head>
 <body class="listings-page">
 
@@ -2777,7 +2778,13 @@
       params.set('east', ne.lng());  params.set('west', sw.lng());
     } else if (state.zip) {
       params.set('zip', state.zip);
-      document.getElementById('ls-page-title').textContent = state.zip + ' Homes for Sale';
+      const _inp = document.getElementById('ls-search-input');
+      const _raw = (_inp && _inp.value.trim()) || state.zip;
+      const _label = _raw
+        .replace(/,?\s+[A-Z]{2}(?=\s+\d{5})/g, ',')
+        .replace(/,\s*[A-Z]{2}$/, '')
+        .trim() || state.zip;
+      document.getElementById('ls-page-title').textContent = _label + ' Homes for Sale';
       drawZipBoundary(state.zip);
     } else if (state.search) {
       params.set('city', state.search);
@@ -2869,47 +2876,10 @@
       return;
     }
 
+    const cardOpts = { heartFn: 'toggleHeart(this)', shareFn: 'shareListing' };
     listings.forEach(l => {
-      const unit = l.UnitNumber ? ` #${l.UnitNumber}` : '';
-      const streetLine = (l.StreetNumber && l.StreetName)
-        ? `${l.StreetNumber} ${l.StreetName} ${l.StreetSuffix || ''}${unit}`.trim()
-        : 'Private Address';
-      const addr = streetLine;
-      const fullAddr = `${addr}, ${l.City} ${l.StateOrProvince}, ${l.PostalCode}`;
-      const badge = statusBadge(l.StandardStatus);
-
-      const imgHtml = l.photo
-        ? `<img src="${l.photo}" alt="${addr}" loading="lazy" onerror="imgError(this)" />`
-        : `<div class="ls-card-img-placeholder">${HOUSE_PLACEHOLDER}</div>`;
-
-      const card = document.createElement('a');
-      card.className = 'ls-card';
-      card.dataset.key = l.ListingKey;
-      card.href = `listing.html?key=${encodeURIComponent(l.ListingKey)}`;
-      card.innerHTML = `
-        <div class="ls-card-img">
-          ${imgHtml}
-          <span class="ls-badge ${badge.cls}">${badge.label}</span>
-          <div class="ls-card-actions">
-            <button class="ls-action-btn ls-heart-btn" data-key="${l.ListingKey}" data-addr="${fullAddr.replace(/'/g,"&#39;")}" data-price="${l.ListPrice||''}" data-beds="${l.BedroomsTotal||''}" data-baths="${l.BathroomsTotalInteger||''}" data-sqft="${l.LivingArea||''}" data-photo="${l.photo||''}" onclick="event.preventDefault(); toggleHeart(this)" title="Save">
-              <svg viewBox="0 0 24 24"><path d="m13.155 20.634.016-.008.014-.01c2.61-1.604 4.793-3.37 6.333-5.253S22 11.422 22 9.263C22 5.652 19.374 3 15.952 3c-1.765 0-3.01 1.101-3.744 2.018a8 8 0 0 0-.203.265 8 8 0 0 0-.201-.263C11.069 4.099 9.824 3 8.048 3 4.626 3 2 5.651 2 9.264c0 2.158.941 4.215 2.483 6.1 1.541 1.882 3.726 3.648 6.341 5.253h0l.012.007c.135.08.3.165.477.234.158.06.41.142.687.142s.528-.081.685-.141c.175-.067.34-.15.47-.225Z"/></svg>
-            </button>
-            <button class="ls-action-btn" onclick="event.preventDefault(); shareListing('${l.ListingKey}', '${encodeURIComponent(fullAddr)}')" title="Share">
-              <svg viewBox="0 0 24 24" class="ls-send-icon"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            </button>
-          </div>
-        </div>
-        <div class="ls-card-body">
-          <div class="ls-card-price">${formatPrice(l.ListPrice)}</div>
-          <div class="ls-card-facts">
-            ${l.BedroomsTotal ? `<span>${l.BedroomsTotal} bd</span>` : ''}
-            ${l.BathroomsTotalInteger ? `<span>${l.BathroomsTotalInteger} ba</span>` : ''}
-            ${l.LivingArea ? `<span>${l.LivingArea.toLocaleString()} sqft</span>` : ''}
-          </div>
-          <div class="ls-card-address">${fullAddr}</div>
-          <div class="ls-card-mls"><span>MLS®: ${l.ListingId}</span><img src="LOGOS/logo-crmls.png" alt="CRMLS" class="ls-crmls-logo" /></div>
-        </div>`;
-      grid.appendChild(card);
+      grid.insertAdjacentHTML('beforeend', TJGCard.render(l, cardOpts));
+      grid.lastElementChild.dataset.key = l.ListingKey;
     });
   }
 

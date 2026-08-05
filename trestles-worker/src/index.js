@@ -27,7 +27,8 @@ const CARD_FIELDS = [
   'Latitude', 'Longitude',
   'ModificationTimestamp', 'ListingContractDate', 'OnMarketDate',
   'AssociationFee', 'YearBuilt', 'LotSizeSquareFeet', 'GarageSpaces',
-  'ListOfficeName', 'ListAgentFullName', 'ListAgentStateLicense'
+  'ListOfficeName', 'ListAgentFullName', 'ListAgentStateLicense',
+  'PublicRemarks'
 ].join(',');
 
 // Fields needed for the full detail page (superset of CARD_FIELDS)
@@ -118,9 +119,11 @@ function buildFilter(params) {
 
   // Beds / Baths
   const minBeds = params.get('minBeds');
+  const maxBeds = params.get('maxBeds');
   const minBaths = params.get('minBaths');
   if (minBeds) filters.push(`BedroomsTotal ge ${parseInt(minBeds)}`);
-  if (minBaths) filters.push(`BathroomsTotalDecimal ge ${parseFloat(minBaths)}`);
+  if (maxBeds) filters.push(`BedroomsTotal le ${parseInt(maxBeds)}`);
+  if (minBaths) filters.push(`BathroomsTotalInteger ge ${parseInt(minBaths)}`);
 
   // City
   const city = params.get('city');
@@ -186,8 +189,8 @@ function buildFilter(params) {
   const exactBaths = params.get('exactBaths');
   if (exactBaths !== null && exactBaths !== '') {
     const n = parseFloat(exactBaths);
-    if (n === 5) filters.push('BathroomsTotalDecimal ge 5');
-    else         filters.push(`BathroomsTotalDecimal eq ${n}`);
+    if (n === 5) filters.push('BathroomsTotalInteger ge 5');
+    else         filters.push(`BathroomsTotalInteger eq ${Math.floor(n)}`);
   }
 
   // Square footage
@@ -904,7 +907,7 @@ export default {
           <img src="${listingPhoto}" alt="${listingAddr}" width="210" style="display:block;width:210px;height:185px;object-fit:cover;">
         </td>` : ''}
         <td style="padding:16px 20px;vertical-align:top;">
-          <p style="margin:0 0 8px;font-size:11px;color:#aaa;text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;">&#128205; ${listingAddr}</p>
+          <p style="margin:0 0 8px;font-size:13px;color:#444;text-transform:uppercase;letter-spacing:1px;font-family:Arial,sans-serif;">&#128205; ${listingAddr}</p>
           ${listingPrice ? `<p style="margin:0 0 8px;font-size:24px;font-weight:700;color:#18254B;font-family:Arial,sans-serif;">${listingPrice}</p>` : ''}
           <p style="margin:0 0 10px;font-size:13px;color:#555;font-family:Arial,sans-serif;">
             ${[listingBeds ? `<strong style="color:#18254B;">${listingBeds}</strong> bd` : '', listingBaths ? `<strong style="color:#18254B;">${listingBaths}</strong> ba` : '', listingSqft ? `<strong style="color:#18254B;">${Number(listingSqft).toLocaleString()}</strong> sqft` : ''].filter(Boolean).join('&nbsp;&nbsp;&nbsp;')}
@@ -933,7 +936,7 @@ export default {
           </p>
         </td>
         <td style="vertical-align:middle;text-align:right;padding-left:16px;white-space:nowrap;">
-          <p style="margin:0;font-size:13px;color:#bbb;font-style:italic;font-family:${serif};line-height:1.7;">Local Expertise.<br>Exceptional Results.</p>
+          <p style="margin:0;font-size:13px;color:#18254B;font-style:italic;font-family:${serif};line-height:1.7;">Local Expertise.<br>Exceptional Results.</p>
         </td>
       </tr>
     </table>
