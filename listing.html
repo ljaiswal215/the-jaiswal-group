@@ -3163,7 +3163,7 @@
   function openSimSharePanel(key) {
     const l = window._simListings[key];
     if (!l) return;
-    _shareUrl  = `${location.origin}${location.pathname}?key=${key}`;
+    _shareUrl  = `https://thejaiswalgroup.com/listing.html?key=${encodeURIComponent(key)}`;
     _shareAddr = [`${l.StreetNumber} ${l.StreetName || ''}`.trim(), l.City, l.StateOrProvince, l.PostalCode].filter(Boolean).join(', ');
     _shareListing = l;
     const img = document.getElementById('ls-email-img');
@@ -3504,23 +3504,12 @@
 
   function openSharePanel() {
     const l = window._currentListing || {};
-    _shareUrl     = window.location.href;
+    const key = l.ListingKey || new URLSearchParams(location.search).get('key') || '';
+    _shareUrl     = `https://thejaiswalgroup.com/listing.html?key=${encodeURIComponent(key)}`;
     _shareAddr    = l._fullAddr || document.title;
     _shareListing = l;
-    // Go directly to the email form
-    const img = document.getElementById('ls-email-img');
-    const photoUrl = (l.Media?.[0]?.MediaURL) || null;
-    if (photoUrl) { img.src = photoUrl; img.style.display = 'block'; } else { img.style.display = 'none'; }
-    document.getElementById('ls-email-price').textContent = l.ListPrice ? '$' + Number(l.ListPrice).toLocaleString() : '';
-    const stats = [
-      l.BedroomsTotal ? l.BedroomsTotal + ' bd' : null,
-      l.BathroomsTotalInteger ? l.BathroomsTotalInteger + ' ba' : null,
-      l.LivingArea ? l.LivingArea.toLocaleString() + ' sqft' : null
-    ].filter(Boolean).join('  ·  ');
-    document.getElementById('ls-email-stats').textContent = stats;
-    document.getElementById('ls-email-addr').textContent = _shareAddr;
-    document.getElementById('ls-email-mls').textContent = l.ListingId ? 'MLS#: ' + l.ListingId : '';
-    document.getElementById('ls-email-overlay').classList.remove('hidden');
+    document.getElementById('ls-share-copied').textContent = '';
+    document.getElementById('ls-share-overlay').classList.remove('hidden');
   }
   function shareProperty() { openSharePanel(); }
 
