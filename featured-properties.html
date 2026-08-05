@@ -487,7 +487,7 @@
   <script>
   (function(){
     var WORKER = 'https://tjg-trestles-worker.lynnette-2ee.workers.dev';
-    var ZIPS = '92130,92014,92075,92067,92091';
+    var ZIPS = '92130,92014,92075,92007,92024,92127,92067,92091';
     function fmtPrice(n){ return n ? '$'+Math.round(n).toLocaleString('en-US') : '—'; }
     function fmtStatus(s){ return s==='ComingSoon'?'Coming Soon':(s||'Active'); }
     function badgeCls(s){ if(s==='Pending') return 'ls-badge-pending'; if(s==='Closed'||s==='Sold') return 'ls-badge-sold'; return 'ls-badge-active'; }
@@ -524,10 +524,14 @@
         <div class="fp-filter-select-wrap">
           <select class="fp-filter-select" id="fp-f-neighborhood">
             <option value="">All Areas</option>
-            <option value="92130">Carmel Valley / PHR</option>
+            <option value="92130">Carmel Valley</option>
             <option value="92014">Del Mar</option>
             <option value="92075">Solana Beach</option>
-            <option value="92067,92091">Rancho Santa Fe</option>
+            <option value="92007">Cardiff-by-the-Sea</option>
+            <option value="92024">Encinitas</option>
+            <option value="92127">4S Ranch / Del Sur</option>
+            <option value="92067">Rancho Santa Fe</option>
+            <option value="92091">Fairbanks Ranch</option>
           </select>
         </div>
       </div>
@@ -575,7 +579,7 @@
   <script>
   (function(){
     var WORKER = 'https://tjg-trestles-worker.lynnette-2ee.workers.dev';
-    var ZIPS = '92130,92014,92075,92067,92091';
+    var ZIPS = '92130,92014,92075,92007,92024,92127,92067,92091';
     var PAGE_SIZE = 12;
     var currentPage = 0;
     var totalPages = 1;
