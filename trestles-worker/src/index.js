@@ -822,10 +822,20 @@ export default {
         if (!resp.ok) return json({ error: `Trestles search error: ${resp.status}` }, resp.status);
 
         const data = await resp.json();
-        // Trestles doesn't support $top inside $expand, so we get all photos — trim to first only
-        const listings = (data.value ?? []).map(l => ({
-          ...l,
-          Media: l.Media?.length ? [l.Media[0]] : []
+        // Trestles doesn't support $top inside $expand, so we get all photos — trim to first only.
+        // Cotality MediaURLs redirect to media.crmls.org with ?preset=X-Large which returns 404.
+        // Resolve each photo URL via HEAD to get the clean final URL (strips the broken preset).
+        const listings = await Promise.all((data.value ?? []).map(async l => {
+          let media = [];
+          if (l.Media?.length) {
+            let resolvedUrl = l.Media[0].MediaURL;
+            try {
+              const mr = await fetch(resolvedUrl, { method: 'HEAD', redirect: 'follow' });
+              if (mr.url) resolvedUrl = mr.url.split('?')[0];
+            } catch { /* keep original on error */ }
+            media = [{ ...l.Media[0], MediaURL: resolvedUrl }];
+          }
+          return { ...l, Media: media };
         }));
         return json({ total: data['@odata.count'] ?? null, page, pageSize, listings });
       }
