@@ -494,7 +494,7 @@
     function buildCard(l){
       return TJGCard.render(l, { showActions: false });
     }
-    fetch(WORKER+'/search?zips='+ZIPS+'&status=Active,ComingSoon&minPrice=1400000&maxPrice=25000000&sort=newest&limit=8')
+    fetch(WORKER+'/search?zips='+ZIPS+'&status=Active,ComingSoon&minPrice=1500000&maxPrice=25000000&excludeKeys=1178798481&sort=newest&limit=8')
       .then(function(r){ return r.json(); })
       .then(function(data){
         var grid=document.getElementById('fp-grid');
@@ -539,7 +539,7 @@
         <label class="fp-filter-label">Min Price</label>
         <div class="fp-filter-select-wrap">
           <select class="fp-filter-select" id="fp-f-minprice">
-            <option value="1400000">$1.4M+</option>
+            <option value="1500000">$1.5M+</option>
             <option value="2000000">$2M+</option>
             <option value="3000000">$3M+</option>
             <option value="5000000">$5M+</option>
@@ -659,7 +659,7 @@
       return {
         keyword:  (document.getElementById('fp-f-keyword')  || {}).value || '',
         zips:     (document.getElementById('fp-f-neighborhood') || {}).value || ZIPS,
-        minPrice: (document.getElementById('fp-f-minprice') || {}).value || '1400000',
+        minPrice: (document.getElementById('fp-f-minprice') || {}).value || '1500000',
         maxPrice: (document.getElementById('fp-f-maxprice') || {}).value || '25000000',
         minBeds:  (document.getElementById('fp-f-beds')     || {}).value || ''
       };
@@ -667,7 +667,7 @@
 
     function buildURL() {
       var f = getFilters();
-      var url = WORKER+'/search?zips='+encodeURIComponent(f.zips)+'&status=Active,ComingSoon&minPrice='+f.minPrice+'&maxPrice='+f.maxPrice+'&sort=newest&limit='+PAGE_SIZE+'&page='+currentPage;
+      var url = WORKER+'/search?zips='+encodeURIComponent(f.zips)+'&status=Active,ComingSoon&minPrice='+f.minPrice+'&maxPrice='+f.maxPrice+'&excludeKeys='+EXCLUDE_KEYS.join(',')+'&sort=newest&limit='+PAGE_SIZE+'&page='+currentPage;
       if (f.keyword) url += '&keyword='+encodeURIComponent(f.keyword);
       if (f.minBeds) url += '&minBeds='+f.minBeds;
       return url;
@@ -703,7 +703,7 @@
     if (clearBtn) clearBtn.addEventListener('click', function(){
       document.getElementById('fp-f-keyword').value = '';
       document.getElementById('fp-f-neighborhood').value = '';
-      document.getElementById('fp-f-minprice').value = '1400000';
+      document.getElementById('fp-f-minprice').value = '1500000';
       document.getElementById('fp-f-maxprice').value = '25000000';
       document.getElementById('fp-f-beds').value = '';
       applyFilters();

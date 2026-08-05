@@ -244,6 +244,13 @@ function buildFilter(params) {
     filters.push(`(contains(StreetName,'${k}') or contains(City,'${k}') or contains(ListingId,'${k}') or contains(PostalCode,'${k}') or contains(PublicRemarks,'${k}'))`);
   };
 
+  // Exclude specific listings by ListingKey (comma-separated)
+  const excludeKeys = params.get('excludeKeys');
+  if (excludeKeys) {
+    const keys = excludeKeys.split(',').map(k => k.trim()).filter(Boolean);
+    keys.forEach(k => filters.push(`ListingKey ne '${k}'`));
+  }
+
   // Listed since date (YYYY-MM-DD) — for new listings feature
   const listedSince = params.get('listedSince');
   if (listedSince) filters.push(`OnMarketDate ge '${listedSince}'`);
