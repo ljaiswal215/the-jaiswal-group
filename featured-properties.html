@@ -448,6 +448,8 @@
     var PAGE_SIZE = 12;
     var currentPage = 0;
     var totalPages = 1;
+    // Listings to hide from this section (ListingKey)
+    var EXCLUDE_KEYS = ['1178798481'];
 
     function fmtPrice(n){ return n ? '$'+Math.round(n).toLocaleString('en-US') : '—'; }
     function stripState(s){ return (s||'').replace(/,?\s+[A-Z]{2}(?=\s+\d{5})/g,'').replace(/,\s*[A-Z]{2}$/,'').trim(); }
@@ -524,7 +526,7 @@
       fetch(WORKER+'/search?zips='+ZIPS+'&status=Active,ComingSoon&minPrice=1400000&maxPrice=25000000&sort=newest&limit='+PAGE_SIZE+'&page='+currentPage, {cache:'no-store'})
         .then(function(r){ return r.json(); })
         .then(function(data){
-          var listings = data.listings || [];
+          var listings = (data.listings || []).filter(function(l){ return EXCLUDE_KEYS.indexOf(String(l.ListingKey)) === -1; });
           totalPages = data.total ? Math.ceil(data.total / PAGE_SIZE) : 1;
           el.innerHTML = listings.length ? listings.map(renderHCard).join('') : '<p style="text-align:center;padding:3rem;color:#888;">No listings found.</p>';
           renderPagination();
