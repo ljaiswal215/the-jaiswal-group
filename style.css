@@ -2131,7 +2131,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 .ls-card-img {
   position: relative;
   width: 100%;
-  aspect-ratio: 16/9;
+  aspect-ratio: 2/1;
   background: #e8ecf2;
   overflow: hidden;
 }
