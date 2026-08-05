@@ -253,10 +253,9 @@
   <style>
   .fp-hero-wrap { padding: 3rem 10px 4rem; }
   .fp-hero-container { position: relative; }
-  .fp-title-row { display: flex; align-items: center; padding-bottom: 0.5rem; }
-  .fp-title-row .section-title { flex: 1; text-align: center; margin-bottom: 0; }
-  .fp-hero-nav-row { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
-  .fp-title-spacer { flex: 1; }
+  .fp-title-row { position: relative; padding-bottom: 0.75rem; }
+  .fp-title-row .section-title { text-align: center; margin-bottom: 0; display: block; width: 100%; }
+  .fp-hero-nav-row { position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 0.75rem; }
   .fp-hero-counter { font-family: 'Lato', sans-serif; font-size: 0.8rem; color: #999; letter-spacing: 0.1em; min-width: 44px; text-align: center; }
   .fp-hero-arrow { width: 44px; height: 44px; border-radius: 50%; border: 1px solid #ddd; background: #fff; font-size: 1.7rem; color: #1C3063; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, color 0.2s, border-color 0.2s; line-height: 1; padding: 0; }
   .fp-hero-arrow:hover { background: #1C3063; color: #fff; border-color: #1C3063; }
@@ -290,7 +289,6 @@
       <span class="section-eyebrow">DISCOVER</span>
     </div>
     <div class="fp-title-row">
-      <div class="fp-title-spacer"></div>
       <h2 class="section-title">FEATURED PROPERTIES</h2>
       <div class="fp-hero-nav-row">
         <button class="fp-hero-arrow" id="fp-ha-prev">&#8249;</button>
