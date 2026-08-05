@@ -192,6 +192,13 @@
       color: #999;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      margin: 0 0 0.25rem;
+    }
+    .fp-hcard-mlsid {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      color: #bbb;
+      letter-spacing: 0.05em;
       margin: 0 0 1.25rem;
     }
     .fp-hcard-price {
@@ -613,6 +620,7 @@
         '<div class="fp-hcard-details">' +
           '<p class="fp-hcard-addr">'+addr+'</p>' +
           '<p class="fp-hcard-city">'+city+'</p>' +
+          (l.ListingId ? '<p class="fp-hcard-mlsid">MLS# '+l.ListingId+'</p>' : '') +
           '<p class="fp-hcard-price">'+price+'</p>' +
           '<div class="fp-hcard-stats">'+stats.join('')+'</div>' +
           '<div class="fp-hcard-divider"></div>' +
