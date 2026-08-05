@@ -3,7 +3,7 @@
    Brand Colors:
      Rose/Mauve:   #B38987
      Deep Navy:    #1C3063
-     Off-White:    #F6F6F4
+     Off-White:    #F3EFE8
      Charcoal:     #322E2D
      Steel Blue:   #183A56
    Fonts: Marcellus (headings), Lato (body/UI)
@@ -18,7 +18,7 @@ body {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
   color: #322E2D;
-  background: #F6F6F4;
+  background: #F3EFE8;
   overflow-x: hidden;
   max-width: 100%;
 }
@@ -537,7 +537,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   width: 100%;
 }
 .about-text {
-  background: #F6F6F4;
+  background: #F3EFE8;
   padding: clamp(1.75rem, 3vw, 2.75rem) clamp(1.5rem, 4vw, 4rem);
   display: flex;
   flex-direction: column;
@@ -784,7 +784,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 ============================================================ */
 .neighborhoods {
   padding: clamp(1.5rem, 2.5vw, 2rem) 0 0;
-  background: #F6F6F4;
+  background: #F3EFE8;
 }
 .neighborhoods-header {
   padding: 0 2rem;
@@ -1130,7 +1130,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 ============================================================ */
 .testimonials {
   padding: clamp(1.5rem, 2.5vw, 2.5rem) 10px;
-  background: #F6F6F4;
+  background: #F3EFE8;
   overflow: hidden;
 }
 .t-label {
@@ -1449,7 +1449,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 ============================================================ */
 .blog-section {
   padding: clamp(1.5rem, 2.5vw, 2.5rem) 10px;
-  background: #F6F6F4;
+  background: #F3EFE8;
 }
 .blog-section .section-eyebrow {
   font-size: 22px;
@@ -1464,7 +1464,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 }
 .blog-card {
   display: block;
-  background: #F6F6F4;
+  background: #F3EFE8;
   overflow: hidden;
   transition: box-shadow 0.3s, transform 0.3s;
 }
@@ -1965,7 +1965,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 
 .featured-properties {
   padding: clamp(1.5rem, 2.5vw, 2rem) 10px;
-  background: #F6F6F4;
+  background: #F3EFE8;
 }
 .fp-header {
   margin-bottom: 0.75rem;
