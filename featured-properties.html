@@ -601,7 +601,7 @@
 
     function renderHCard(l, idx) {
       var photo = (l.Media && l.Media[0]) ? l.Media[0].MediaURL : '';
-      var addr = [l.StreetNumber, l.StreetName, l.StreetSuffix].filter(Boolean).join(' ') || l.UnparsedAddress || '';
+      var addr = [l.StreetNumber, l.StreetName, l.StreetSuffix].filter(Boolean).join(' ') || l.UnparsedAddress || (l.StandardStatus === 'ComingSoon' ? 'Private address until active' : '');
       var city = stripState([l.City, l.StateOrProvince, l.PostalCode].filter(Boolean).join(', '));
       var price = fmtPrice(l.ListPrice);
       var desc = l.PublicRemarks || '';
