@@ -412,7 +412,7 @@
   <script>
   (function(){
     var WORKER = 'https://tjg-trestles-worker.lynnette-2ee.workers.dev';
-    var ZIPS = '92130,92014,92075,92127,92067,92007,92024,92091';
+    var ZIPS = '92130,92014,92075,92067,92091';
     function fmtPrice(n){ return n ? '$'+Math.round(n).toLocaleString('en-US') : '—'; }
     function fmtStatus(s){ return s==='ComingSoon'?'Coming Soon':(s||'Active'); }
     function badgeCls(s){ if(s==='Pending') return 'ls-badge-pending'; if(s==='Closed'||s==='Sold') return 'ls-badge-sold'; return 'ls-badge-active'; }
@@ -444,7 +444,7 @@
   <script>
   (function(){
     var WORKER = 'https://tjg-trestles-worker.lynnette-2ee.workers.dev';
-    var ZIPS = '92130,92014,92075,92127,92067,92007,92024,92091';
+    var ZIPS = '92130,92014,92075,92067,92091';
     var PAGE_SIZE = 12;
     var currentPage = 0;
     var totalPages = 1;
