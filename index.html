@@ -257,9 +257,9 @@
   .fp-hero-arrow { width: 44px; height: 44px; border-radius: 50%; border: 1px solid #ddd; background: #fff; font-size: 1.7rem; color: #1C3063; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, color 0.2s, border-color 0.2s; line-height: 1; padding: 0; }
   .fp-hero-arrow:hover { background: #1C3063; color: #fff; border-color: #1C3063; }
   .fp-hero-layout { display: grid; grid-template-columns: 1.55fr 1fr; gap: 6px; height: 540px; overflow: hidden; }
-  .fp-hero-stack { display: grid; grid-template-rows: 1fr 1fr; gap: 10px; }
-  .fp-ha-card { position: relative; overflow: hidden; display: block; text-decoration: none; background: #1C3063; }
-  .fp-ha-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.55s ease; display: block; }
+  .fp-hero-stack { display: grid; grid-template-rows: 1fr 1fr; gap: 6px; height: 100%; min-height: 0; }
+  .fp-ha-card { position: relative; overflow: hidden; display: block; text-decoration: none; background: #1C3063; min-height: 0; }
+  .fp-ha-card img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 0.55s ease; display: block; }
   .fp-ha-card:hover img { transform: scale(1.04); }
   .fp-ha-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 42%, rgba(14,24,50,0.83) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.25rem 1.4rem; }
   .fp-ha-main .fp-ha-overlay { padding: 1.75rem 2rem; }
