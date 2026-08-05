@@ -237,9 +237,12 @@ function buildFilter(params) {
   const maxHoa = params.get('maxHoa');
   if (maxHoa) filters.push(`AssociationFee le ${parseInt(maxHoa)}`);
 
-  // Keyword search in public remarks
+  // Keyword search — address fields, city, MLS#, and public remarks
   const keyword = params.get('keyword');
-  if (keyword) filters.push(`contains(PublicRemarks,'${keyword.replace(/'/g, "''")}')`);
+  if (keyword) {
+    const k = keyword.replace(/'/g, "''");
+    filters.push(`(contains(StreetName,'${k}') or contains(City,'${k}') or contains(ListingId,'${k}') or contains(PostalCode,'${k}') or contains(PublicRemarks,'${k}'))`);
+  };
 
   // Listed since date (YYYY-MM-DD) — for new listings feature
   const listedSince = params.get('listedSince');
