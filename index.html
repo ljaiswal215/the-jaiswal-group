@@ -360,7 +360,7 @@
     fetch(WORKER + '/search?zips=' + ZIPS + '&status=Active,ComingSoon&minPrice=1500000&maxPrice=25000000&excludeKeys=' + EXCLUDE_KEYS.join(',') + '&sort=newest&limit=15', {cache:'no-store'})
       .then(function(r) { return r.json(); })
       .then(function(data) {
-        _listings = (data.listings || []).filter(function(l) { return EXCLUDE_KEYS.indexOf(String(l.ListingKey)) === -1; });
+        _listings = (data.listings || []).filter(function(l) { return EXCLUDE_KEYS.indexOf(String(l.ListingKey)) === -1 && l.Media && l.Media[0] && l.Media[0].MediaURL; });
         if (!_listings.length) { document.getElementById('fp-ha-layout').innerHTML = ''; return; }
         renderSet();
         document.getElementById('fp-ha-prev').addEventListener('click', function() {
