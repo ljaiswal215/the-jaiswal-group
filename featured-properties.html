@@ -473,44 +473,6 @@
     </div>
   </div>
 
-  <!-- =========================================================
-       FEATURED PROPERTIES GRID — Trestles API
-  ========================================================= -->
-  <section style="padding: 3rem 2rem 4rem; max-width: 1400px; margin: 0 auto;">
-    <div class="fp-grid" id="fp-grid">
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-    </div>
-    <div class="center" style="margin-top:2rem;">
-      <a href="listings.html" class="btn btn-primary">VIEW ALL LISTINGS</a>
-    </div>
-  </section>
-  <script>
-  (function(){
-    var WORKER = 'https://tjg-trestles-worker.lynnette-2ee.workers.dev';
-    var ZIPS = '92130,92014,92075,92007,92024,92127,92067,92091';
-    function fmtPrice(n){ return n ? '$'+Math.round(n).toLocaleString('en-US') : '—'; }
-    function fmtStatus(s){ return s==='ComingSoon'?'Coming Soon':(s||'Active'); }
-    function badgeCls(s){ if(s==='Pending') return 'ls-badge-pending'; if(s==='Closed'||s==='Sold') return 'ls-badge-sold'; return 'ls-badge-active'; }
-    function buildCard(l){
-      return TJGCard.render(l, { showActions: false });
-    }
-    fetch(WORKER+'/search?zips='+ZIPS+'&status=Active,ComingSoon&minPrice=1500000&maxPrice=25000000&excludeKeys=1178798481&sort=newest&limit=8')
-      .then(function(r){ return r.json(); })
-      .then(function(data){
-        var grid=document.getElementById('fp-grid');
-        var listings=(data.listings||[]).slice(0,8);
-        grid.innerHTML=listings.length ? listings.map(buildCard).join('') : '<p style="grid-column:1/-1;text-align:center;color:#888;padding:2rem">No listings found.</p>';
-      })
-      .catch(function(){ document.getElementById('fp-grid').innerHTML=''; });
-  })();
-  </script>
 
   <!-- =========================================================
        HORIZONTAL CARD LAYOUT — paginated
