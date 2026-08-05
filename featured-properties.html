@@ -242,6 +242,33 @@
       .fp-hcard-photo { min-height: 260px; }
       .fp-hcard--flip .fp-hcard-details { border-left: 1px solid rgba(28,48,99,0.07); border-right: none; }
     }
+    /* ── Pagination ── */
+    .fp-pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 2.5rem 1rem 0.5rem;
+      flex-wrap: wrap;
+    }
+    .fp-pg-btn {
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(28,48,99,0.18);
+      background: #fff;
+      color: #1C3063;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .fp-pg-btn:hover:not([disabled]) { background: #1C3063; color: #fff; border-color: #1C3063; }
+    .fp-pg-btn.fp-pg-active { background: #B38987; color: #fff; border-color: #B38987; }
+    .fp-pg-btn[disabled] { opacity: 0.35; cursor: default; }
+    .fp-pg-prev, .fp-pg-next { font-size: 1.3rem; font-weight: 400; }
+    .fp-pg-ellipsis { color: #999; padding: 0 0.25rem; font-family: 'Lato', sans-serif; }
     .oh-widget-section {
       background: #fff;
       padding: clamp(2rem, 4vw, 3.5rem) 10px;
@@ -404,26 +431,30 @@
   </script>
 
   <!-- =========================================================
-       HORIZONTAL CARD LAYOUT (ALTERNATE STYLE SAMPLE)
+       HORIZONTAL CARD LAYOUT — paginated
   ========================================================= -->
-  <section class="fp-hlist">
+  <section class="fp-hlist" id="fp-hlist-section">
     <div class="fp-hlist-header">
       <p class="section-eyebrow">HANDPICKED FOR YOU</p>
       <h2>SELECTED PROPERTIES</h2>
     </div>
-    <div id="fp-hlist-cards">
-      <!-- cards injected by JS -->
-    </div>
+    <div id="fp-hlist-cards"></div>
+    <nav class="fp-pagination" id="fp-hlist-pagination" aria-label="Listings pages"></nav>
   </section>
   <script>
   (function(){
     var WORKER = 'https://tjg-trestles-worker.lynnette-2ee.workers.dev';
     var ZIPS = '92130,92014,92075,92127,92067,92007,92024,92091';
+    var PAGE_SIZE = 12;
+    var currentPage = 0;
+    var totalPages = 1;
+
     function fmtPrice(n){ return n ? '$'+Math.round(n).toLocaleString('en-US') : '—'; }
     function stripState(s){ return (s||'').replace(/,?\s+[A-Z]{2}(?=\s+\d{5})/g,'').replace(/,\s*[A-Z]{2}$/,'').trim(); }
     var ICO_BED = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B38987" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20v-8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8"/><path d="M2 20h20"/><path d="M2 12V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v6"/></svg>';
     var ICO_BATH = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B38987" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6 6.5 3.5a1.5 1.5 0 0 0-1-.5C4.683 3 4 3.683 4 4.5V17a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/><line x1="10" x2="8" y1="5" y2="7"/><line x1="2" x2="22" y1="12" y2="12"/><line x1="7" x2="7" y1="19" y2="21"/><line x1="17" x2="17" y1="19" y2="21"/></svg>';
     var ICO_SQFT = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#B38987" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" x2="14" y1="3" y2="10"/><line x1="3" x2="10" y1="21" y2="14"/></svg>';
+
     function renderHCard(l, idx) {
       var photo = (l.Media && l.Media[0]) ? l.Media[0].MediaURL : '';
       var addr = [l.StreetNumber, l.StreetName, l.StreetSuffix].filter(Boolean).join(' ') || l.UnparsedAddress || '';
@@ -453,14 +484,55 @@
         '</div>' +
       '</div>';
     }
-    fetch(WORKER+'/search?zips='+ZIPS+'&status=Active,ComingSoon&minPrice=750000&sort=newest&limit=12', {cache:'no-store'})
-      .then(function(r){ return r.json(); })
-      .then(function(data){
-        var listings = (data.listings || []).slice(0, 12);
-        var el = document.getElementById('fp-hlist-cards');
-        el.innerHTML = listings.length ? listings.map(renderHCard).join('') : '';
-      })
-      .catch(function(){});
+
+    function renderPagination() {
+      var nav = document.getElementById('fp-hlist-pagination');
+      if (totalPages <= 1) { nav.innerHTML = ''; return; }
+      var pages = [];
+      // always show first, last, current ±1, with ellipsis
+      var show = {};
+      [0, totalPages-1, currentPage-1, currentPage, currentPage+1].forEach(function(p){
+        if (p >= 0 && p < totalPages) show[p] = true;
+      });
+      var keys = Object.keys(show).map(Number).sort(function(a,b){return a-b;});
+      var html = '<button class="fp-pg-btn fp-pg-prev" '+(currentPage===0?'disabled':'')+' data-page="'+(currentPage-1)+'">&#8249;</button>';
+      var prev = -1;
+      keys.forEach(function(p){
+        if (prev >= 0 && p - prev > 1) html += '<span class="fp-pg-ellipsis">…</span>';
+        html += '<button class="fp-pg-btn'+(p===currentPage?' fp-pg-active':'')+'" data-page="'+p+'">'+(p+1)+'</button>';
+        prev = p;
+      });
+      html += '<button class="fp-pg-btn fp-pg-next" '+(currentPage===totalPages-1?'disabled':'')+' data-page="'+(currentPage+1)+'">&#8250;</button>';
+      nav.innerHTML = html;
+      nav.querySelectorAll('.fp-pg-btn:not([disabled])').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          goToPage(parseInt(btn.dataset.page));
+        });
+      });
+    }
+
+    function goToPage(p) {
+      if (p < 0 || p >= totalPages) return;
+      currentPage = p;
+      document.getElementById('fp-hlist-section').scrollIntoView({behavior:'smooth', block:'start'});
+      loadPage();
+    }
+
+    function loadPage() {
+      var el = document.getElementById('fp-hlist-cards');
+      el.innerHTML = '<p style="text-align:center;padding:3rem;color:#999;">Loading…</p>';
+      fetch(WORKER+'/search?zips='+ZIPS+'&status=Active,ComingSoon&minPrice=750000&sort=newest&limit='+PAGE_SIZE+'&page='+currentPage, {cache:'no-store'})
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          var listings = data.listings || [];
+          totalPages = data.total ? Math.ceil(data.total / PAGE_SIZE) : 1;
+          el.innerHTML = listings.length ? listings.map(renderHCard).join('') : '<p style="text-align:center;padding:3rem;color:#888;">No listings found.</p>';
+          renderPagination();
+        })
+        .catch(function(){ el.innerHTML = ''; });
+    }
+
+    loadPage();
   })();
   </script>
 
