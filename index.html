@@ -253,7 +253,8 @@
   <style>
   .fp-hero-wrap { padding: 3rem 10px 4rem; }
   .fp-hero-container { position: relative; }
-  .fp-title-row { position: relative; padding-bottom: 6px; }
+  .fp-header-block { padding-bottom: 6px; }
+  .fp-title-row { position: relative; }
   .fp-title-row .section-title { text-align: center; margin-bottom: 0; display: block; width: 100%; }
   .fp-hero-nav-row { position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: flex; align-items: center; gap: 0.75rem; }
   .fp-hero-counter { font-family: 'Lato', sans-serif; font-size: 0.8rem; color: #999; letter-spacing: 0.1em; min-width: 44px; text-align: center; }
@@ -285,15 +286,15 @@
   }
   </style>
   <section class="fp-hero-wrap">
-    <div class="center" style="padding-bottom: 0.25rem;">
-      <span class="section-eyebrow">DISCOVER</span>
-    </div>
-    <div class="fp-title-row">
-      <h2 class="section-title">FEATURED PROPERTIES</h2>
-      <div class="fp-hero-nav-row">
-        <button class="fp-hero-arrow" id="fp-ha-prev">&#8249;</button>
-        <span class="fp-hero-counter" id="fp-ha-counter"></span>
-        <button class="fp-hero-arrow" id="fp-ha-next">&#8250;</button>
+    <div class="fp-header-block center">
+      <span class="nbhd-title-top" style="display:block; margin-bottom:0.4rem;">DISCOVER</span>
+      <div class="fp-title-row">
+        <h2 class="section-title">FEATURED PROPERTIES</h2>
+        <div class="fp-hero-nav-row">
+          <button class="fp-hero-arrow" id="fp-ha-prev">&#8249;</button>
+          <span class="fp-hero-counter" id="fp-ha-counter"></span>
+          <button class="fp-hero-arrow" id="fp-ha-next">&#8250;</button>
+        </div>
       </div>
     </div>
     <div class="fp-hero-container">
