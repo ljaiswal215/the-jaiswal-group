@@ -248,67 +248,6 @@
   </section>
 
   <!-- =========================================================
-       FEATURED PROPERTIES
-  ========================================================= -->
-  <section class="featured-properties" id="properties">
-    <div class="fp-header center">
-      <span class="section-eyebrow">DISCOVER</span>
-      <h2 class="section-title">FEATURED PROPERTIES</h2>
-    </div>
-    <div class="fp-grid" id="fp-grid">
-      <!-- skeleton placeholders -->
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-    </div>
-    <div class="center" style="margin-top:1.5rem;">
-      <a href="featured-properties.html" class="btn btn-primary">VIEW MORE</a>
-    </div>
-  </section>
-  <script>
-  (function(){
-    var WORKER = 'https://tjg-trestles-worker.lynnette-2ee.workers.dev';
-    var ZIPS   = '92130,92014,92075,92127,92067,92007,92024';
-
-    function fmtPrice(n){
-      if(!n) return '—';
-      return '$' + Math.round(n).toLocaleString('en-US');
-    }
-    function fmtStatus(s){
-      if(s === 'ComingSoon') return 'Coming Soon';
-      return s || 'Active';
-    }
-    function badgeCls(s){
-      if(s==='Pending') return 'ls-badge-pending';
-      if(s==='ComingSoon'||s==='Coming Soon') return 'ls-badge-coming';
-      if(s==='Closed'||s==='Sold') return 'ls-badge-sold';
-      return 'ls-badge-active';
-    }
-    var HOUSE_PLACEHOLDER = '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>';
-    function buildCard(l){
-      return TJGCard.render(l, { showActions: true });
-    }
-
-    fetch(WORKER + '/search?zips=' + ZIPS + '&status=Active,ComingSoon&minPrice=750000&maxPrice=25000000&sort=newest&limit=8')
-      .then(function(r){ return r.json(); })
-      .then(function(data){
-        var grid = document.getElementById('fp-grid');
-        var listings = (data.listings || []).slice(0, 8);
-        if(!listings.length){ grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#888;padding:2rem">No listings found.</p>'; return; }
-        grid.innerHTML = listings.map(buildCard).join('');
-        if(window.TJGActions) TJGActions.registerListings(listings);
-        if(window.loadHeartedListings) loadHeartedListings();
-      })
-      .catch(function(){ document.getElementById('fp-grid').innerHTML = ''; });
-  })();
-  </script>
-
-  <!-- =========================================================
        FEATURED PROPERTIES HERO — Asymmetric carousel
   ========================================================= -->
   <style>
