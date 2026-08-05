@@ -375,8 +375,8 @@
       return p.join('  ·  ');
     }
     function addrLine(l) {
-      var s = [l.StreetNumber, l.StreetName, l.StreetSuffix].filter(Boolean).join(' ');
-      return s || (l.StandardStatus === 'ComingSoon' ? 'Private address until active' : '');
+      if (l.StandardStatus === 'ComingSoon' && !l.StreetNumber) return 'Private address until active';
+      return [l.StreetNumber, l.StreetName, l.StreetSuffix].filter(Boolean).join(' ') || '';
     }
     function cityLine(l) { return [l.City, l.StateOrProvince, l.PostalCode].filter(Boolean).join(', '); }
 
