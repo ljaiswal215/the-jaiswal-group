@@ -242,6 +242,81 @@
       .fp-hcard-photo { min-height: 260px; }
       .fp-hcard--flip .fp-hcard-details { border-left: 1px solid rgba(28,48,99,0.07); border-right: none; }
     }
+    /* ── Filter bar ── */
+    .fp-filters {
+      background: #fff;
+      border: 1px solid rgba(28,48,99,0.1);
+      padding: 1.25rem 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto 2.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: flex-end;
+    }
+    .fp-filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      flex: 1;
+      min-width: 140px;
+    }
+    .fp-filter-group--search { flex: 2; min-width: 220px; }
+    .fp-filter-label {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: #B38987;
+      text-transform: uppercase;
+    }
+    .fp-filter-input,
+    .fp-filter-select {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.82rem;
+      color: #1C3063;
+      background: #F6F6F4;
+      border: 1px solid rgba(28,48,99,0.15);
+      padding: 0.55rem 0.75rem;
+      outline: none;
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      transition: border-color 0.2s;
+    }
+    .fp-filter-input:focus,
+    .fp-filter-select:focus { border-color: #1C3063; background: #fff; }
+    .fp-filter-select-wrap { position: relative; }
+    .fp-filter-select-wrap::after {
+      content: '▾';
+      position: absolute;
+      right: 0.65rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #B38987;
+      font-size: 0.75rem;
+      pointer-events: none;
+    }
+    .fp-filter-clear {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: #1C3063;
+      background: none;
+      border: 1px solid rgba(28,48,99,0.2);
+      padding: 0.55rem 1.1rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s;
+      align-self: flex-end;
+    }
+    .fp-filter-clear:hover { background: #1C3063; color: #fff; border-color: #1C3063; }
+    @media (max-width: 640px) {
+      .fp-filters { gap: 0.6rem; }
+      .fp-filter-group, .fp-filter-group--search { min-width: calc(50% - 0.3rem); }
+    }
     /* ── Pagination ── */
     .fp-pagination {
       display: flex;
@@ -438,6 +513,62 @@
       <p class="section-eyebrow">HANDPICKED FOR YOU</p>
       <h2>SELECTED PROPERTIES</h2>
     </div>
+    <!-- Filter bar -->
+    <div class="fp-filters">
+      <div class="fp-filter-group fp-filter-group--search">
+        <label class="fp-filter-label">Search</label>
+        <input class="fp-filter-input" id="fp-f-keyword" type="text" placeholder="Address or keyword…" />
+      </div>
+      <div class="fp-filter-group">
+        <label class="fp-filter-label">Neighborhood</label>
+        <div class="fp-filter-select-wrap">
+          <select class="fp-filter-select" id="fp-f-neighborhood">
+            <option value="">All Areas</option>
+            <option value="92130">Carmel Valley / PHR</option>
+            <option value="92014">Del Mar</option>
+            <option value="92075">Solana Beach</option>
+            <option value="92067,92091">Rancho Santa Fe</option>
+          </select>
+        </div>
+      </div>
+      <div class="fp-filter-group">
+        <label class="fp-filter-label">Min Price</label>
+        <div class="fp-filter-select-wrap">
+          <select class="fp-filter-select" id="fp-f-minprice">
+            <option value="1400000">$1.4M+</option>
+            <option value="2000000">$2M+</option>
+            <option value="3000000">$3M+</option>
+            <option value="5000000">$5M+</option>
+            <option value="8000000">$8M+</option>
+          </select>
+        </div>
+      </div>
+      <div class="fp-filter-group">
+        <label class="fp-filter-label">Max Price</label>
+        <div class="fp-filter-select-wrap">
+          <select class="fp-filter-select" id="fp-f-maxprice">
+            <option value="25000000">Up to $25M</option>
+            <option value="3000000">Up to $3M</option>
+            <option value="5000000">Up to $5M</option>
+            <option value="8000000">Up to $8M</option>
+            <option value="15000000">Up to $15M</option>
+          </select>
+        </div>
+      </div>
+      <div class="fp-filter-group">
+        <label class="fp-filter-label">Beds</label>
+        <div class="fp-filter-select-wrap">
+          <select class="fp-filter-select" id="fp-f-beds">
+            <option value="">Any</option>
+            <option value="2">2+</option>
+            <option value="3">3+</option>
+            <option value="4">4+</option>
+            <option value="5">5+</option>
+          </select>
+        </div>
+      </div>
+      <button class="fp-filter-clear" id="fp-f-clear">CLEAR</button>
+    </div>
     <div id="fp-hlist-cards"></div>
     <nav class="fp-pagination" id="fp-hlist-pagination" aria-label="Listings pages"></nav>
   </section>
@@ -520,10 +651,28 @@
       loadPage();
     }
 
+    function getFilters() {
+      return {
+        keyword:  (document.getElementById('fp-f-keyword')  || {}).value || '',
+        zips:     (document.getElementById('fp-f-neighborhood') || {}).value || ZIPS,
+        minPrice: (document.getElementById('fp-f-minprice') || {}).value || '1400000',
+        maxPrice: (document.getElementById('fp-f-maxprice') || {}).value || '25000000',
+        minBeds:  (document.getElementById('fp-f-beds')     || {}).value || ''
+      };
+    }
+
+    function buildURL() {
+      var f = getFilters();
+      var url = WORKER+'/search?zips='+encodeURIComponent(f.zips)+'&status=Active,ComingSoon&minPrice='+f.minPrice+'&maxPrice='+f.maxPrice+'&sort=newest&limit='+PAGE_SIZE+'&page='+currentPage;
+      if (f.keyword) url += '&keyword='+encodeURIComponent(f.keyword);
+      if (f.minBeds) url += '&minBeds='+f.minBeds;
+      return url;
+    }
+
     function loadPage() {
       var el = document.getElementById('fp-hlist-cards');
       el.innerHTML = '<p style="text-align:center;padding:3rem;color:#999;">Loading…</p>';
-      fetch(WORKER+'/search?zips='+ZIPS+'&status=Active,ComingSoon&minPrice=1400000&maxPrice=25000000&sort=newest&limit='+PAGE_SIZE+'&page='+currentPage, {cache:'no-store'})
+      fetch(buildURL(), {cache:'no-store'})
         .then(function(r){ return r.json(); })
         .then(function(data){
           var listings = (data.listings || []).filter(function(l){ return EXCLUDE_KEYS.indexOf(String(l.ListingKey)) === -1; });
@@ -533,6 +682,28 @@
         })
         .catch(function(){ el.innerHTML = ''; });
     }
+
+    function applyFilters() { currentPage = 0; loadPage(); }
+
+    // Debounce keyword input
+    var kwTimer;
+    var kwEl = document.getElementById('fp-f-keyword');
+    if (kwEl) kwEl.addEventListener('input', function(){ clearTimeout(kwTimer); kwTimer = setTimeout(applyFilters, 500); });
+
+    ['fp-f-neighborhood','fp-f-minprice','fp-f-maxprice','fp-f-beds'].forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('change', applyFilters);
+    });
+
+    var clearBtn = document.getElementById('fp-f-clear');
+    if (clearBtn) clearBtn.addEventListener('click', function(){
+      document.getElementById('fp-f-keyword').value = '';
+      document.getElementById('fp-f-neighborhood').value = '';
+      document.getElementById('fp-f-minprice').value = '1400000';
+      document.getElementById('fp-f-maxprice').value = '25000000';
+      document.getElementById('fp-f-beds').value = '';
+      applyFilters();
+    });
 
     loadPage();
   })();
