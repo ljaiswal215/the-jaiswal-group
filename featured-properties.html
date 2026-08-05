@@ -419,7 +419,7 @@
     function buildCard(l){
       return TJGCard.render(l, { showActions: false });
     }
-    fetch(WORKER+'/search?zips='+ZIPS+'&status=Active,ComingSoon&minPrice=750000&sort=newest&limit=8')
+    fetch(WORKER+'/search?zips='+ZIPS+'&status=Active,ComingSoon&minPrice=1400000&maxPrice=25000000&sort=newest&limit=8')
       .then(function(r){ return r.json(); })
       .then(function(data){
         var grid=document.getElementById('fp-grid');
@@ -521,7 +521,7 @@
     function loadPage() {
       var el = document.getElementById('fp-hlist-cards');
       el.innerHTML = '<p style="text-align:center;padding:3rem;color:#999;">Loading…</p>';
-      fetch(WORKER+'/search?zips='+ZIPS+'&status=Active,ComingSoon&minPrice=750000&sort=newest&limit='+PAGE_SIZE+'&page='+currentPage, {cache:'no-store'})
+      fetch(WORKER+'/search?zips='+ZIPS+'&status=Active,ComingSoon&minPrice=1400000&maxPrice=25000000&sort=newest&limit='+PAGE_SIZE+'&page='+currentPage, {cache:'no-store'})
         .then(function(r){ return r.json(); })
         .then(function(data){
           var listings = data.listings || [];
