@@ -309,6 +309,127 @@
   </script>
 
   <!-- =========================================================
+       FEATURED PROPERTIES HERO — Asymmetric carousel
+  ========================================================= -->
+  <style>
+  .fp-hero-wrap { padding: 0 2rem 4rem; max-width: 1400px; margin: 0 auto; }
+  .fp-hero-nav-row { display: flex; align-items: center; justify-content: flex-end; gap: 0.75rem; margin-bottom: 1rem; }
+  .fp-hero-counter { font-family: 'Lato', sans-serif; font-size: 0.8rem; color: #999; letter-spacing: 0.1em; min-width: 44px; text-align: center; }
+  .fp-hero-arrow { width: 42px; height: 42px; border-radius: 50%; border: 1px solid #ddd; background: #fff; font-size: 1.6rem; color: #1C3063; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, color 0.2s, border-color 0.2s; line-height: 1; padding: 0; }
+  .fp-hero-arrow:hover { background: #1C3063; color: #fff; border-color: #1C3063; }
+  .fp-hero-layout { display: grid; grid-template-columns: 1.55fr 1fr; gap: 10px; height: 580px; }
+  .fp-hero-stack { display: grid; grid-template-rows: 1fr 1fr; gap: 10px; }
+  .fp-ha-card { position: relative; overflow: hidden; display: block; text-decoration: none; background: #1C3063; }
+  .fp-ha-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.55s ease; display: block; }
+  .fp-ha-card:hover img { transform: scale(1.04); }
+  .fp-ha-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 42%, rgba(14,24,50,0.83) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 1.25rem 1.4rem; }
+  .fp-ha-main .fp-ha-overlay { padding: 1.75rem 2rem; }
+  .fp-ha-badge { position: absolute; top: 14px; left: 14px; background: #B38987; color: #fff; font-family: 'Lato', sans-serif; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; padding: 4px 10px; text-transform: uppercase; }
+  .fp-ha-badge.coming { background: #18254B; }
+  .fp-ha-price { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 500; color: #fff; margin: 0 0 0.2rem; line-height: 1; }
+  .fp-ha-main .fp-ha-price { font-size: 2.5rem; }
+  .fp-ha-addr { font-family: 'Lato', sans-serif; font-size: 0.72rem; font-weight: 700; color: rgba(255,255,255,0.92); letter-spacing: 0.07em; text-transform: uppercase; margin: 0 0 0.1rem; }
+  .fp-ha-city { font-family: 'Lato', sans-serif; font-size: 0.68rem; color: rgba(255,255,255,0.62); letter-spacing: 0.04em; margin: 0 0 0.45rem; }
+  .fp-ha-stats { font-family: 'Lato', sans-serif; font-size: 0.68rem; color: rgba(255,255,255,0.72); letter-spacing: 0.04em; }
+  .fp-ha-skeleton { background: linear-gradient(90deg, #e2e2e2 25%, #ebebeb 50%, #e2e2e2 75%); background-size: 200% 100%; animation: ha-shimmer 1.5s infinite; }
+  @keyframes ha-shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+  @media (max-width: 800px) {
+    .fp-hero-layout { grid-template-columns: 1fr; height: auto; }
+    .fp-ha-card { min-height: 260px; }
+    .fp-ha-main { min-height: 360px; }
+    .fp-hero-stack { grid-template-rows: auto auto; }
+    .fp-ha-side { min-height: 220px; }
+  }
+  </style>
+  <section class="fp-hero-wrap">
+    <div class="fp-hero-nav-row">
+      <button class="fp-hero-arrow" id="fp-ha-prev">&#8249;</button>
+      <span class="fp-hero-counter" id="fp-ha-counter"></span>
+      <button class="fp-hero-arrow" id="fp-ha-next">&#8250;</button>
+    </div>
+    <div class="fp-hero-layout" id="fp-ha-layout">
+      <div class="fp-ha-skeleton" style="height:100%"></div>
+      <div class="fp-hero-stack">
+        <div class="fp-ha-skeleton"></div>
+        <div class="fp-ha-skeleton"></div>
+      </div>
+    </div>
+    <div class="center" style="margin-top:1.5rem;">
+      <a href="featured-properties.html" class="btn btn-primary">VIEW ALL FEATURED</a>
+    </div>
+  </section>
+  <script>
+  (function() {
+    var WORKER = 'https://tjg-trestles-worker.lynnette-2ee.workers.dev';
+    var ZIPS = '92130,92014,92075,92127,92067,92007,92024,92091';
+    var EXCLUDE_KEYS = ['1178798481'];
+    var _listings = [];
+    var _offset = 0;
+
+    function fmtPrice(n) { return n ? '$' + Math.round(n).toLocaleString('en-US') : '—'; }
+    function fmtStats(l) {
+      var p = [];
+      if (l.BedroomsTotal) p.push(l.BedroomsTotal + ' BD');
+      if (l.BathroomsTotalInteger) p.push(l.BathroomsTotalInteger + ' BA');
+      if (l.LivingArea) p.push(Math.round(l.LivingArea).toLocaleString() + ' SQ.FT.');
+      return p.join('  ·  ');
+    }
+    function addrLine(l) {
+      var s = [l.StreetNumber, l.StreetName, l.StreetSuffix].filter(Boolean).join(' ');
+      return s || (l.StandardStatus === 'ComingSoon' ? 'Private address until active' : '');
+    }
+    function cityLine(l) { return [l.City, l.StateOrProvince, l.PostalCode].filter(Boolean).join(', '); }
+
+    function renderCard(l, isMain) {
+      var photo = (l.Media && l.Media[0]) ? l.Media[0].MediaURL : '';
+      var isComing = l.StandardStatus === 'ComingSoon';
+      var badge = isComing ? 'COMING SOON' : 'ACTIVE';
+      var badgeCls = isComing ? 'fp-ha-badge coming' : 'fp-ha-badge';
+      var cls = 'fp-ha-card' + (isMain ? ' fp-ha-main' : ' fp-ha-side');
+      return '<a class="' + cls + '" href="listing.html?key=' + encodeURIComponent(l.ListingKey || '') + '">' +
+        (photo ? '<img src="' + photo + '" alt="' + addrLine(l) + '" loading="lazy">' : '') +
+        '<span class="' + badgeCls + '">' + badge + '</span>' +
+        '<div class="fp-ha-overlay">' +
+          '<p class="fp-ha-price">' + fmtPrice(l.ListPrice) + '</p>' +
+          '<p class="fp-ha-addr">' + addrLine(l) + '</p>' +
+          '<p class="fp-ha-city">' + cityLine(l) + '</p>' +
+          '<p class="fp-ha-stats">' + fmtStats(l) + '</p>' +
+        '</div>' +
+      '</a>';
+    }
+
+    function renderSet() {
+      var n = _listings.length;
+      if (!n) return;
+      var a = _listings[_offset % n];
+      var b = _listings[(_offset + 1) % n];
+      var c = _listings[(_offset + 2) % n];
+      document.getElementById('fp-ha-layout').innerHTML =
+        renderCard(a, true) +
+        '<div class="fp-hero-stack">' + renderCard(b, false) + renderCard(c, false) + '</div>';
+      document.getElementById('fp-ha-counter').textContent = (_offset + 1) + ' / ' + n;
+    }
+
+    fetch(WORKER + '/search?zips=' + ZIPS + '&status=Active,ComingSoon&minPrice=1500000&maxPrice=25000000&excludeKeys=' + EXCLUDE_KEYS.join(',') + '&sort=newest&limit=15', {cache:'no-store'})
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        _listings = (data.listings || []).filter(function(l) { return EXCLUDE_KEYS.indexOf(String(l.ListingKey)) === -1; });
+        if (!_listings.length) { document.getElementById('fp-ha-layout').innerHTML = ''; return; }
+        renderSet();
+        document.getElementById('fp-ha-prev').addEventListener('click', function() {
+          _offset = (_offset - 1 + _listings.length) % _listings.length;
+          renderSet();
+        });
+        document.getElementById('fp-ha-next').addEventListener('click', function() {
+          _offset = (_offset + 1) % _listings.length;
+          renderSet();
+        });
+      })
+      .catch(function() { document.getElementById('fp-ha-layout').innerHTML = ''; });
+  })();
+  </script>
+
+  <!-- =========================================================
        DEAL OF THE WEEK
   ========================================================= -->
   <section class="hotw-section">
