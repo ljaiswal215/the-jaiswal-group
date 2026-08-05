@@ -315,7 +315,9 @@
     var ZIPS = '92130,92014,92075,92127,92067,92007,92024,92091';
     var EXCLUDE_KEYS = ['1178798481'];
     var _listings = [];
-    var _offset = 0;
+    var _group = 0;
+
+    function numGroups() { return Math.ceil(_listings.length / 3); }
 
     function fmtPrice(n) { return n ? '$' + Math.round(n).toLocaleString('en-US') : '—'; }
     function fmtStats(l) {
@@ -352,13 +354,15 @@
     function renderSet() {
       var n = _listings.length;
       if (!n) return;
-      var a = _listings[_offset % n];
-      var b = _listings[(_offset + 1) % n];
-      var c = _listings[(_offset + 2) % n];
+      var g = numGroups();
+      var start = (_group % g) * 3;
+      var a = _listings[start % n];
+      var b = _listings[(start + 1) % n];
+      var c = _listings[(start + 2) % n];
       document.getElementById('fp-ha-layout').innerHTML =
         renderCard(a, true) +
         '<div class="fp-hero-stack">' + renderCard(b, false) + renderCard(c, false) + '</div>';
-      document.getElementById('fp-ha-counter').textContent = (_offset + 1) + ' / ' + n;
+      document.getElementById('fp-ha-counter').style.display = 'none';
     }
 
     fetch(WORKER + '/search?zips=' + ZIPS + '&status=Active,ComingSoon&minPrice=1500000&maxPrice=25000000&excludeKeys=' + EXCLUDE_KEYS.join(',') + '&sort=newest&limit=15', {cache:'no-store'})
@@ -368,11 +372,11 @@
         if (!_listings.length) { document.getElementById('fp-ha-layout').innerHTML = ''; return; }
         renderSet();
         document.getElementById('fp-ha-prev').addEventListener('click', function() {
-          _offset = (_offset - 1 + _listings.length) % _listings.length;
+          _group = (_group - 1 + numGroups()) % numGroups();
           renderSet();
         });
         document.getElementById('fp-ha-next').addEventListener('click', function() {
-          _offset = (_offset + 1) % _listings.length;
+          _group = (_group + 1) % numGroups();
           renderSet();
         });
       })
