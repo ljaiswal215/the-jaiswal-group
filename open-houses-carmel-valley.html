@@ -49,7 +49,9 @@
       text-transform: none;
       letter-spacing: 0.02em;
       font-size: 10px;
-      white-space: nowrap;
+      white-space: normal;
+      line-height: 1.55;
+      max-width: 88%;
     }
   </style>
 </head>
@@ -179,15 +181,16 @@
       return h + (m !== '00' ? ':'+m : '') + ' ' + ampm;
     }
 
-    function fmtBadge(dateStr, startTime, endTime) {
-      if (!dateStr) return 'Open House';
+    function fmtDateLine(dateStr, startTime, endTime, isFirst) {
+      if (!dateStr) return isFirst ? 'Open House' : '';
       var d = new Date(dateStr + 'T12:00:00');
-      var day = d.toLocaleDateString('en-US', { weekday:'short' });   // "Sat."
-      var md  = (d.getMonth() + 1) + '/' + d.getDate();              // "8/8"
+      var day = d.toLocaleDateString('en-US', { weekday:'short' });
+      var md  = (d.getMonth() + 1) + '/' + d.getDate();
       var start = fmtT(startTime);
       var end   = fmtT(endTime);
       var timeStr = start + (end ? ' \u2013 ' + end : '');
-      return 'Open: ' + day + ', ' + md + (timeStr ? ', ' + timeStr : '');
+      var datePart = day + ', ' + md + (timeStr ? ', ' + timeStr : '');
+      return isFirst ? 'Open: ' + datePart : '&amp; ' + datePart;
     }
 
     var grid = document.getElementById('oh-cv-grid');
@@ -201,10 +204,30 @@
           grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#888;padding:2rem">No upcoming open houses found in Carmel Valley (92130). Check back soon!</p>';
           return;
         }
-        grid.innerHTML = houses.map(function(l) {
-          return TJGCard.render(l, {
+
+        // Group events by ListingKey — one card per listing, all dates in the badge
+        var seen = {};
+        var grouped = [];
+        houses.forEach(function(l) {
+          var key = l.ListingKey;
+          if (!seen[key]) {
+            seen[key] = { listing: l, events: [] };
+            grouped.push(seen[key]);
+          }
+          seen[key].events.push({
+            date: l.OpenHouseDate,
+            start: l.OpenHouseStartTime,
+            end: l.OpenHouseEndTime
+          });
+        });
+
+        grid.innerHTML = grouped.map(function(g) {
+          var badgeLabel = g.events.map(function(e, i) {
+            return fmtDateLine(e.date, e.start, e.end, i === 0);
+          }).join('<br>');
+          return TJGCard.render(g.listing, {
             showActions: false,
-            badgeLabel: fmtBadge(l.OpenHouseDate, l.OpenHouseStartTime, l.OpenHouseEndTime),
+            badgeLabel: badgeLabel,
             badgeClass: 'ls-badge-active'
           });
         }).join('');
