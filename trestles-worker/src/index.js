@@ -63,6 +63,28 @@ const DETAIL_FIELDS = CARD_FIELDS + ',' + [
   'VirtualTourURLUnbranded', 'VirtualTourURLBranded'
 ].join(',');
 
+// ── KV cache helpers ──────────────────────────────────────────────────────────
+// TTLs (seconds): searches are short-lived; detail pages longer.
+const TTL_SEARCH    = 5 * 60;   // 5 min  — browsing queries
+const TTL_DETAIL    = 20 * 60;  // 20 min — individual listing
+const TTL_OH        = 10 * 60;  // 10 min — open houses
+const TTL_MAP       = 5 * 60;   // 5 min  — map pins
+
+async function cacheGet(env, key) {
+  if (!env.CACHE) return null;
+  try {
+    const val = await env.CACHE.get(key);
+    return val ? JSON.parse(val) : null;
+  } catch { return null; }
+}
+
+async function cachePut(env, key, data, ttl) {
+  if (!env.CACHE) return;
+  try {
+    await env.CACHE.put(key, JSON.stringify(data), { expirationTtl: ttl });
+  } catch { /* non-fatal */ }
+}
+
 // In-memory token cache (persists within a warm Worker isolate)
 let _cachedToken = null;
 let _tokenExpiry = 0;
@@ -793,6 +815,10 @@ export default {
 
       // ── /search ─────────────────────────────────────────────────────────────
       if (url.pathname === '/search') {
+        const cacheKey = 'search:' + url.search;
+        const cached = await cacheGet(env, cacheKey);
+        if (cached) return json(cached);
+
         const params = url.searchParams;
         const pageSize = Math.min(parseInt(params.get('limit') || '48'), 200);
         const page     = Math.max(parseInt(params.get('page')  || '0'), 0);
@@ -815,14 +841,12 @@ export default {
         tUrl.searchParams.set('$skip',    skip);
         tUrl.searchParams.set('$orderby', orderby);
         tUrl.searchParams.set('$count',   'true');
-        // Grab just 1 photo per listing for the card thumbnail
         tUrl.searchParams.set('$expand',  'Media');
 
         const resp = await fetch(tUrl.toString(), { headers: auth });
         if (!resp.ok) return json({ error: `Trestles search error: ${resp.status}` }, resp.status);
 
         const data = await resp.json();
-        // Trestles doesn't support $top inside $expand, so we get all photos — trim to first only.
         // Cotality MediaURLs redirect to media.crmls.org with ?preset=X-Large which returns 404.
         // Resolve each photo URL via HEAD to get the clean final URL (strips the broken preset).
         const listings = await Promise.all((data.value ?? []).map(async l => {
@@ -837,14 +861,17 @@ export default {
           }
           return { ...l, Media: media };
         }));
-        return json({ total: data['@odata.count'] ?? null, page, pageSize, listings });
+        const result = { total: data['@odata.count'] ?? null, page, pageSize, listings };
+        await cachePut(env, cacheKey, result, TTL_SEARCH);
+        return json(result);
       }
 
       // ── /open-houses ─────────────────────────────────────────────────────────
-      // Returns upcoming open houses for a zip code (or comma-separated zips).
-      // Queries the OpenHouse resource for future events, then enriches with
-      // property details (photo, price, address, beds/baths/sqft).
       if (url.pathname === '/open-houses') {
+        const ohCacheKey = 'oh:' + url.search;
+        const ohCached = await cacheGet(env, ohCacheKey);
+        if (ohCached) return json(ohCached);
+
         const zip = url.searchParams.get('zip') || '';
         const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
 
@@ -935,13 +962,17 @@ export default {
           };
         }));
 
-        return json({ openHouses: openHouses.filter(Boolean) });
+        const ohResult = { openHouses: openHouses.filter(Boolean) };
+        await cachePut(env, ohCacheKey, ohResult, TTL_OH);
+        return json(ohResult);
       }
 
       // ── /map ─────────────────────────────────────────────────────────────────
-      // Lightweight endpoint — only fields needed for map pins.
-      // Fetches up to 500 so the map shows a full area without loading full cards.
       if (url.pathname === '/map') {
+        const mapKey = 'map:' + url.search;
+        const mapCached = await cacheGet(env, mapKey);
+        if (mapCached) return json(mapCached);
+
         const tUrl = new URL(PROPERTY_URL);
         tUrl.searchParams.set('$filter',  buildFilter(url.searchParams));
         tUrl.searchParams.set('$select',  'ListingKey,ListingId,ListPrice,StandardStatus,Latitude,Longitude,BedroomsTotal,BathroomsTotalInteger,LivingArea,StreetNumber,StreetName,StreetSuffix,City,StateOrProvince,PostalCode');
@@ -956,14 +987,18 @@ export default {
           ...l,
           Media: l.Media?.length ? [l.Media[0]] : []
         }));
+        await cachePut(env, mapKey, pins, TTL_MAP);
         return json(pins);
       }
 
       // ── /listing/:key ────────────────────────────────────────────────────────
       const detailMatch = url.pathname.match(/^\/listing\/([^/]+)$/);
       if (detailMatch) {
-        const key  = decodeURIComponent(detailMatch[1]);
-        // Use $filter instead of OData key navigation to avoid quoting issues
+        const key = decodeURIComponent(detailMatch[1]);
+        const detailKey = 'listing:' + key;
+        const detailCached = await cacheGet(env, detailKey);
+        if (detailCached) return json(detailCached);
+
         const tUrl = new URL(PROPERTY_URL);
         tUrl.searchParams.set('$filter',  `ListingKey eq '${key}'`);
         tUrl.searchParams.set('$select',  DETAIL_FIELDS);
@@ -976,6 +1011,7 @@ export default {
         const body = await resp.json();
         const listing = body?.value?.[0];
         if (!listing) return json({ error: 'Listing not found' }, 404);
+        await cachePut(env, detailKey, listing, TTL_DETAIL);
         return json(listing);
       }
 

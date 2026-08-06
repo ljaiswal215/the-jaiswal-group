@@ -1,6 +1,10 @@
 name = "tjg-trestles-worker"
 main = "src/index.js"
-compatibility_date = "2024-09-23"
+compatibility_date = "2025-01-01"
+
+[[kv_namespaces]]
+binding = "CACHE"
+id = "da6e621a50564c73af834d3ccf3787af"
 
 # Secrets are stored outside this file for security.
 # Once you have your Trestles credentials, run:
@@ -9,6 +13,10 @@ compatibility_date = "2024-09-23"
 
 [env.production]
 name = "tjg-trestles-worker"
+
+[[env.production.kv_namespaces]]
+binding = "CACHE"
+id = "da6e621a50564c73af834d3ccf3787af"
 
 [env.development]
 name = "tjg-trestles-worker-dev"
