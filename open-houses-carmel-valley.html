@@ -11,38 +11,42 @@
   <link rel="stylesheet" href="style.css" />
   <style>
     .oh-hero {
-      background: #18254B;
-      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+      position: relative;
+      min-height: clamp(320px, 42vw, 520px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
+      overflow: hidden;
+      background: #18254B url('oh-hero-carmel-valley.jpg') center center / cover no-repeat;
     }
-    .oh-hero .section-eyebrow { color: #B38987; margin-bottom: 0.75rem; }
+    .oh-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(24,37,75,0.52) 0%, rgba(24,37,75,0.68) 100%);
+    }
+    .oh-hero-content {
+      position: relative;
+      z-index: 1;
+      padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4rem);
+    }
     .oh-hero h1 {
       font-family: 'Marcellus', serif;
       font-size: clamp(1.8rem, 4vw, 3rem);
       color: #fff;
       letter-spacing: 0.1em;
       margin: 0 0 1rem;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.3);
     }
     .oh-hero p {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 0.95rem;
-      color: rgba(255,255,255,0.7);
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.85);
       max-width: 540px;
       margin: 0 auto;
       line-height: 1.85;
-    }
-    .oh-widget-section {
-      background: #F6F6F4;
-      padding: clamp(2rem, 4vw, 3.5rem) 10px;
-    }
-    .oh-widget-wrap {
-      max-width: 1400px;
-      margin: 0 auto;
-      width: 100%;
-    }
-    .oh-widget-wrap idx-listings-showcase {
-      display: block;
-      width: 100%;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.3);
     }
     #oh-cv-grid .ls-card-img { aspect-ratio: 3/2; }
     #oh-cv-grid .ls-badge {
@@ -149,8 +153,10 @@
        PAGE HERO
   ========================================================= -->
   <div class="oh-hero">
-    <h1>OPEN HOUSES IN CARMEL VALLEY</h1>
-    <p>Browse upcoming open houses in Carmel Valley (92130) — one of San Diego's most sought-after communities. Updated daily from the MLS.</p>
+    <div class="oh-hero-content">
+      <h1>OPEN HOUSES IN CARMEL VALLEY</h1>
+      <p>Browse upcoming open houses in Carmel Valley (92130) — one of San Diego's most sought-after communities. Updated daily from the MLS.</p>
+    </div>
   </div>
 
   <!-- =========================================================
@@ -160,7 +166,7 @@
   <section style="padding: 3rem 2rem 4rem; max-width: 1400px; margin: 0 auto;">
     <div class="ls-grid" id="oh-cv-grid"></div>
     <div class="center" style="margin-top:2rem;">
-      <a href="listings.html?zip=92130" class="btn btn-primary">VIEW ALL CARMEL VALLEY LISTINGS</a>
+      <a href="listings.html?zip=92130" class="btn btn-primary">VIEW ALL LISTINGS</a>
     </div>
   </section>
   <script src="js/tjg-listing-card.js"></script>
