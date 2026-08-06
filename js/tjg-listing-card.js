@@ -69,6 +69,9 @@
    * @param {string} [opts.heartFn='toggleHeart(this)'] - onclick for heart button
    * @param {string} [opts.shareFn='shareListing']      - share function name (called as shareFn(key, addrEnc))
    * @param {boolean} [opts.hearted=false]      - whether heart is initially filled
+   * @param {string} [opts.bodyTop='']          - HTML to inject at the top of the card body (before price)
+   * @param {string} [opts.badgeLabel]          - override badge text (e.g. 'Open House')
+   * @param {string} [opts.badgeClass]          - override badge CSS class
    * @returns {string} HTML string
    */
   function render(l, opts) {
@@ -78,6 +81,7 @@
     var heartFn     = opts.heartFn     !== undefined ? opts.heartFn     : 'toggleHeart(this)';
     var shareFn     = opts.shareFn     !== undefined ? opts.shareFn     : 'shareListing';
     var hearted     = opts.hearted     ? ' hearted' : '';
+    var bodyTop     = opts.bodyTop     || '';
 
     var photoUrl = (l.Media || [])[0]
       ? ((l.Media[0].MediaURL || l.Media[0].mediaUrl) || '')
@@ -93,8 +97,10 @@
       : '<div class="ls-card-img-placeholder">' + HOUSE_SVG + '</div>';
 
     // Badge
-    var status = l.StandardStatus || 'Active';
-    var badge  = '<span class="ls-badge ' + badgeCls(status) + '">' + fmtStatus(status) + '</span>';
+    var status    = l.StandardStatus || 'Active';
+    var badgeText = opts.badgeLabel || fmtStatus(status);
+    var badgeKls  = opts.badgeClass || badgeCls(status);
+    var badge     = '<span class="ls-badge ' + badgeKls + '">' + badgeText + '</span>';
 
     // Action buttons
     var actionsHtml = '';
@@ -138,6 +144,7 @@
       +   actionsHtml
       + '</div>'
       + '<div class="ls-card-body">'
+      +   bodyTop
       +   '<div class="ls-card-price">' + fmtPrice(l.ListPrice) + '</div>'
       +   '<div class="ls-card-facts">' + factsHtml + '</div>'
       +   '<div class="ls-card-address">' + addr + '</div>'

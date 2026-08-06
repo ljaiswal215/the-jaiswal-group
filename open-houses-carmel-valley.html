@@ -44,6 +44,15 @@
       display: block;
       width: 100%;
     }
+    .oh-date-badge {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #B38987;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
   </style>
 </head>
 <body>
@@ -149,51 +158,62 @@
   ========================================================= -->
   <!-- Trestles listings grid — Carmel Valley (92130) -->
   <section style="padding: 3rem 2rem 4rem; max-width: 1400px; margin: 0 auto;">
-    <div class="fp-grid" id="oh-cv-grid">
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-      <div class="fp-card fp-skeleton"></div>
-    </div>
+    <div class="ls-grid" id="oh-cv-grid"></div>
     <div class="center" style="margin-top:2rem;">
       <a href="listings.html?zip=92130" class="btn btn-primary">VIEW ALL CARMEL VALLEY LISTINGS</a>
     </div>
   </section>
+  <script src="js/tjg-listing-card.js"></script>
   <script>
   (function(){
     var WORKER = 'https://tjg-trestles-worker.lynnette-2ee.workers.dev';
-    function fmtPrice(n){ return n ? '$'+Math.round(n).toLocaleString('en-US') : '—'; }
-    function fmtStatus(s){ return s==='ComingSoon'?'Coming Soon':(s||'Active'); }
-    function badgeCls(s){ if(s==='Pending') return 'ls-badge-pending'; if(s==='Closed'||s==='Sold') return 'ls-badge-sold'; return 'ls-badge-active'; }
-    function buildCard(l){
-      var photo=(l.Media&&l.Media[0]&&l.Media[0].MediaURL)?l.Media[0].MediaURL:'';
-      var unit=l.UnitNumber?' #'+l.UnitNumber:'';
-      var street=([l.StreetNumber,l.StreetName,l.StreetSuffix].filter(Boolean).join(' ')||'Private Address')+unit;
-      var fullAddr=street+', '+[l.City,(l.StateOrProvince||'CA'),l.PostalCode].filter(Boolean).join(' ');
-      var img=photo?'<img src="'+photo+'" alt="'+street.replace(/"/g,'')+'" loading="lazy" />':'';
-      var facts='';
-      if(l.BedroomsTotal) facts+='<span>'+l.BedroomsTotal+' bd</span>';
-      if(l.BathroomsTotalInteger) facts+='<span>'+l.BathroomsTotalInteger+' ba</span>';
-      if(l.LivingArea) facts+='<span>'+l.LivingArea.toLocaleString('en-US')+' sqft</span>';
-      var mls=l.ListingId?'<div class="ls-card-mls"><span>MLS\u00ae: '+l.ListingId+'</span><img src="LOGOS/logo-crmls.png" alt="CRMLS" class="ls-crmls-logo" /></div>':'';
-      return '<a class="ls-card" href="listing.html?key='+l.ListingKey+'">'
-        +'<div class="ls-card-img">'+img+'<span class="ls-badge '+badgeCls(l.StandardStatus)+'">'+fmtStatus(l.StandardStatus)+'</span></div>'
-        +'<div class="ls-card-body"><div class="ls-card-price">'+fmtPrice(l.ListPrice)+'</div>'
-        +'<div class="ls-card-facts">'+facts+'</div>'
-        +'<div class="ls-card-address">'+fullAddr+'</div>'+mls+'</div></a>';
+
+    function fmtOHDate(dateStr, startTime, endTime) {
+      if (!dateStr) return '';
+      var d = new Date(dateStr + 'T12:00:00');
+      var dayStr = d.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' });
+      var timeStr = '';
+      if (startTime) {
+        var fmtT = function(t) {
+          var parts = t.split(':');
+          var h = parseInt(parts[0]), m = parts[1];
+          var ampm = h >= 12 ? 'PM' : 'AM';
+          h = h % 12 || 12;
+          return h + (m && m !== '00' ? ':'+m : '') + ' ' + ampm;
+        };
+        timeStr = fmtT(startTime);
+        if (endTime) timeStr += ' \u2013 ' + fmtT(endTime);
+      }
+      return dayStr + (timeStr ? ' \u00a0\u00b7\u00a0 ' + timeStr : '');
     }
-    fetch(WORKER+'/search?zip=92130&status=Active,ComingSoon&sort=newest&limit=8')
+
+    var grid = document.getElementById('oh-cv-grid');
+    grid.innerHTML = TJGCard.renderSkeleton(8);
+
+    fetch(WORKER+'/open-houses?zip=92130')
       .then(function(r){ return r.json(); })
       .then(function(data){
-        var grid=document.getElementById('oh-cv-grid');
-        var listings=(data.listings||[]).slice(0,8);
-        grid.innerHTML=listings.length ? listings.map(buildCard).join('') : '<p style="grid-column:1/-1;text-align:center;color:#888;padding:2rem">No listings found.</p>';
+        var houses = data.openHouses || [];
+        if (!houses.length) {
+          grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#888;padding:2rem">No upcoming open houses found in Carmel Valley (92130). Check back soon!</p>';
+          return;
+        }
+        grid.innerHTML = houses.map(function(l) {
+          var ohDate = fmtOHDate(l.OpenHouseDate, l.OpenHouseStartTime, l.OpenHouseEndTime);
+          var bodyTop = ohDate
+            ? '<div class="oh-date-badge">\uD83D\uDD57 ' + ohDate + '</div>'
+            : '';
+          return TJGCard.render(l, {
+            showActions: false,
+            badgeLabel: 'Open House',
+            badgeClass: 'ls-badge-active',
+            bodyTop: bodyTop
+          });
+        }).join('');
       })
-      .catch(function(){ document.getElementById('oh-cv-grid').innerHTML=''; });
+      .catch(function(){
+        grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:#888;padding:2rem">Unable to load open houses. Please try again shortly.</p>';
+      });
   })();
   </script>
 

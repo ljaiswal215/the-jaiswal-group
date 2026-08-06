@@ -840,6 +840,104 @@ export default {
         return json({ total: data['@odata.count'] ?? null, page, pageSize, listings });
       }
 
+      // ── /open-houses ─────────────────────────────────────────────────────────
+      // Returns upcoming open houses for a zip code (or comma-separated zips).
+      // Queries the OpenHouse resource for future events, then enriches with
+      // property details (photo, price, address, beds/baths/sqft).
+      if (url.pathname === '/open-houses') {
+        const zip = url.searchParams.get('zip') || '';
+        const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+
+        // Strategy: query Properties in the zip first (PostalCode is on Property, not OpenHouse),
+        // then look up OpenHouse events for those listing keys + date filter.
+
+        // Step 1: Get active listing keys in the requested zip(s)
+        const zipParts = zip.split(',').map(z => z.trim()).filter(Boolean);
+        const zipFilterClause = zipParts.length === 1
+          ? `PostalCode eq '${zipParts[0]}'`
+          : zipParts.length > 1
+            ? '(' + zipParts.map(z => `PostalCode eq '${z}'`).join(' or ') + ')'
+            : '';
+
+        const propUrl = new URL(PROPERTY_URL);
+        propUrl.searchParams.set('$filter', ["StandardStatus eq 'Active'", zipFilterClause].filter(Boolean).join(' and '));
+        propUrl.searchParams.set('$select', CARD_FIELDS);
+        propUrl.searchParams.set('$expand', 'Media');
+        propUrl.searchParams.set('$top', '200');
+
+        const propResp = await fetch(propUrl.toString(), { headers: auth });
+        if (!propResp.ok) {
+          const errBody = await propResp.text();
+          return json({ error: `Property error: ${propResp.status}`, detail: errBody }, propResp.status);
+        }
+        const propData = await propResp.json();
+        const props = propData.value ?? [];
+        if (!props.length) return json({ openHouses: [] });
+
+        // Build a map of ListingKey → property for quick lookup
+        const propMap = {};
+        for (const l of props) propMap[l.ListingKey] = l;
+
+        // Step 2: Query OpenHouse for these listing keys + upcoming dates
+        const keySet = Object.keys(propMap);
+        // OData filter: (ListingKey eq 'X' or ...) and OpenHouseDate ge today
+        // Split into batches if keySet is large to avoid URL length limits
+        const BATCH = 50;
+        let allEvents = [];
+        for (let i = 0; i < keySet.length; i += BATCH) {
+          const batch = keySet.slice(i, i + BATCH);
+          const keyFilter = batch.map(k => `ListingKey eq '${k}'`).join(' or ');
+          const ohUrl = new URL(`${TRESTLES_BASE}/trestle/odata/OpenHouse`);
+          ohUrl.searchParams.set('$filter', `(${keyFilter}) and OpenHouseDate ge ${today}`);
+          ohUrl.searchParams.set('$select', 'ListingKey,OpenHouseDate,OpenHouseStartTime,OpenHouseEndTime,OpenHouseType,OpenHouseStatus,OpenHouseRemarks');
+          ohUrl.searchParams.set('$orderby', 'OpenHouseDate asc,OpenHouseStartTime asc');
+          ohUrl.searchParams.set('$top', '100');
+
+          const ohResp = await fetch(ohUrl.toString(), { headers: auth });
+          if (ohResp.ok) {
+            const ohData = await ohResp.json();
+            allEvents = allEvents.concat(ohData.value ?? []);
+          }
+        }
+
+        // Filter out cancelled and sort by date
+        const events = allEvents
+          .filter(e => e.OpenHouseStatus !== 'Cancelled')
+          .sort((a, b) => {
+            const da = (a.OpenHouseDate || '') + (a.OpenHouseStartTime || '');
+            const db = (b.OpenHouseDate || '') + (b.OpenHouseStartTime || '');
+            return da < db ? -1 : da > db ? 1 : 0;
+          });
+
+        if (!events.length) return json({ openHouses: [] });
+
+        // Step 3: Resolve photo URLs (strip broken ?preset param) and merge
+        const resolvePhoto = async (mediaUrl) => {
+          if (!mediaUrl) return '';
+          try {
+            const r = await fetch(mediaUrl, { method: 'HEAD', redirect: 'follow' });
+            return r.url ? r.url.split('?')[0] : mediaUrl;
+          } catch { return mediaUrl; }
+        };
+
+        const openHouses = await Promise.all(events.map(async evt => {
+          const prop = propMap[evt.ListingKey];
+          if (!prop) return null;
+          const photoUrl = prop.Media?.[0]?.MediaURL ? await resolvePhoto(prop.Media[0].MediaURL) : '';
+          return {
+            ...prop,
+            Media: photoUrl ? [{ MediaURL: photoUrl }] : [],
+            OpenHouseDate: evt.OpenHouseDate,
+            OpenHouseStartTime: evt.OpenHouseStartTime,
+            OpenHouseEndTime: evt.OpenHouseEndTime,
+            OpenHouseType: evt.OpenHouseType,
+            OpenHouseRemarks: evt.OpenHouseRemarks,
+          };
+        }));
+
+        return json({ openHouses: openHouses.filter(Boolean) });
+      }
+
       // ── /map ─────────────────────────────────────────────────────────────────
       // Lightweight endpoint — only fields needed for map pins.
       // Fetches up to 500 so the map shows a full area without loading full cards.

@@ -572,6 +572,7 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
   object-fit: cover;
   object-position: top center;
   transition: transform 0.6s ease;
+  filter: saturate(0.75) brightness(1.06) contrast(0.92);
 }
 .about-photo:hover img { transform: scale(1.03); }
 
@@ -2126,6 +2127,19 @@ h1, h2, h3 { font-family: 'Marcellus', serif; font-weight: 400; line-height: 1.1
 @media (max-width: 580px) {
   .fp-grid { grid-template-columns: 1fr; }
 }
+
+/* ============================================================
+   LISTING GRID  (standalone — any page using ls-card outside
+   the full listings search panel)
+============================================================ */
+.ls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+@media (min-width: 900px)  { .ls-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1280px) { .ls-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (max-width: 600px)  { .ls-grid { grid-template-columns: 1fr; } }
 
 /* ============================================================
    LISTING CARD  (shared: listings.html + home page grid)
